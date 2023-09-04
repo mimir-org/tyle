@@ -2,13 +2,13 @@ using System;
 
 namespace TypeLibrary.Data.Models;
 
-public class TerminalAttributeLibDm
+public class BlockAttributeTypeReference
 {
     public Guid Id { get; set; }
     public int MinCount { get; set; }
     public int? MaxCount { get; set; }
-    public Guid TerminalId { get; set; }
-    public TerminalLibDm Terminal { get; set; } = null!;
+    public Guid BlockId { get; set; }
+    public BlockType Block { get; set; } = null!;
     public Guid AttributeId { get; set; }
-    public AttributeLibDm Attribute { get; set; } = null!;
+    public AttributeType Attribute { get; set; } = null!;
 }

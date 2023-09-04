@@ -10,7 +10,7 @@ public class TerminalAttributeProfile : Profile
 {
     public TerminalAttributeProfile()
     {
-        CreateMap<TerminalAttributeLibAm, TerminalAttributeLibDm>()
+        CreateMap<TerminalAttributeLibAm, TerminalAttributeTypeReference>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
             .ForMember(dest => dest.MinCount, opt => opt.MapFrom(src => src.MinCount))
             .ForMember(dest => dest.MaxCount, opt => opt.MapFrom(src => src.MaxCount))
@@ -19,7 +19,7 @@ public class TerminalAttributeProfile : Profile
             .ForMember(dest => dest.AttributeId, opt => opt.MapFrom(src => src.AttributeId))
             .ForMember(dest => dest.Attribute, opt => opt.Ignore());
 
-        CreateMap<TerminalAttributeLibDm, TerminalAttributeLibCm>()
+        CreateMap<TerminalAttributeTypeReference, TerminalAttributeLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.MinCount, opt => opt.MapFrom(src => src.MinCount))
             .ForMember(dest => dest.MaxCount, opt => opt.MapFrom(src => src.MaxCount))

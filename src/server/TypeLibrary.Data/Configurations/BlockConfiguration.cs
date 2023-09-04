@@ -5,9 +5,9 @@ using Mimirorg.Common.Converters;
 
 namespace TypeLibrary.Data.Configurations;
 
-public class BlockConfiguration : IEntityTypeConfiguration<BlockLibDm>
+public class BlockConfiguration : IEntityTypeConfiguration<BlockType>
 {
-    public void Configure(EntityTypeBuilder<BlockLibDm> builder)
+    public void Configure(EntityTypeBuilder<BlockType> builder)
     {
         var stringConverter = new StringCollectionValueConverter();
         var stringComparer = new StringCollectionValueComparer();

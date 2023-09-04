@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace TypeLibrary.Data.Models;
 
-public class AttributeGroupLibDm
+public class AttributeGroup
 {
     public Guid Id { get; set; }
     public required string Name { get; set; }
-    public ICollection<AttributeGroupMappingLibDm> Attributes { get; set; } = null!;
+    public ICollection<AttributeGroupMapping> Attributes { get; set; } = null!;
 }

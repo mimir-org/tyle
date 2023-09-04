@@ -2,11 +2,11 @@ using System;
 
 namespace TypeLibrary.Data.Models;
 
-public class AttributeGroupMappingLibDm
+public class AttributeGroupMapping
 {
     public Guid Id { get; set; }
     public Guid AttributeId { get; set; }
-    public AttributeLibDm Attribute { get; set; } = null!;
+    public AttributeType Attribute { get; set; } = null!;
     public Guid AttributeGroupId { get; set; }
-    public AttributeGroupLibDm AttributeGroup { get; set; } = null!;
+    public AttributeGroup AttributeGroup { get; set; } = null!;
 }

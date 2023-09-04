@@ -90,7 +90,7 @@ public class BlockServiceTests : IntegrationTest
 
         Assert.Equal(blockAm.Symbol, blockCm.Symbol);
 
-        var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == blockCm.Id && x.ObjectType == "BlockLibDm");
+        var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == blockCm.Id && x.ObjectType == "BlockType");
 
         Assert.True(logCm != null);
         Assert.Equal(blockCm.Id, logCm.ObjectId);

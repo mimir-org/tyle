@@ -38,7 +38,7 @@ public class TerminalServiceTests : IntegrationTest
         Assert.Equal(terminalAm.Color, terminalCm.Color);
         Assert.Equal(terminalAm.Description, terminalCm.Description);
 
-        var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == terminalCm.Id && x.ObjectType == "TerminalLibDm");
+        var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == terminalCm.Id && x.ObjectType == "TerminalType");
 
         Assert.True(logCm != null);
         Assert.Equal(terminalCm.Id, logCm.ObjectId);
@@ -73,7 +73,7 @@ public class TerminalServiceTests : IntegrationTest
         Assert.True(terminalCmUpdated?.Description == "Description v1.1");
 
         var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();
-        var logCm = logService.Get().LastOrDefault(x => x.ObjectId == terminalLibCm.Id && x.ObjectType == "TerminalLibDm");
+        var logCm = logService.Get().LastOrDefault(x => x.ObjectId == terminalLibCm.Id && x.ObjectType == "TerminalType");
         Assert.Equal(LogType.Update.ToString(), logCm?.LogType.ToString());
     }
 }*/

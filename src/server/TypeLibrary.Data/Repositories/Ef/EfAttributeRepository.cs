@@ -10,7 +10,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 
-public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, AttributeLibDm>, IEfAttributeRepository
+public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, AttributeType>, IEfAttributeRepository
 {
     public EfAttributeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
     {
@@ -26,7 +26,7 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     }*/
 
     /// <inheritdoc />
-    public IEnumerable<AttributeLibDm> Get()
+    public IEnumerable<AttributeType> Get()
     {
         return GetAll()
             .Include(x => x.ValueConstraint)
@@ -35,7 +35,7 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     }
 
     /// <inheritdoc />
-    public AttributeLibDm Get(Guid id)
+    public AttributeType Get(Guid id)
     {
         return FindBy(x => x.Id == id)
             .Include(x => x.ValueConstraint)
@@ -45,7 +45,7 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     }
 
     /// <inheritdoc />
-    public async Task<AttributeLibDm> Create(AttributeLibDm attribute)
+    public async Task<AttributeType> Create(AttributeType attribute)
     {
         await CreateAsync(attribute);
         await SaveAsync();

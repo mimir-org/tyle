@@ -3,7 +3,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts.Ef;
 
-public interface IEfBlockRepository : IGenericRepository<TypeLibraryDbContext, BlockLibDm>, IBlockRepository
+public interface IEfBlockRepository : IGenericRepository<TypeLibraryDbContext, BlockType>, IBlockRepository
 {
 
 }

@@ -11,12 +11,12 @@ public class AttributeGroupProfile : Profile
 {
     public AttributeGroupProfile()
     {
-        CreateMap<AttributeGroupLibAm, AttributeGroupLibDm>()
+        CreateMap<AttributeGroupLibAm, AttributeGroup>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Attributes, opt => opt.Ignore());
 
-        CreateMap<AttributeGroupLibDm, AttributeGroupLibCm>()
+        CreateMap<AttributeGroup, AttributeGroupLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes.Select(x => x.Attribute)));

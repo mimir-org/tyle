@@ -13,7 +13,7 @@ namespace TypeLibrary.Data.Models;
 /// <summary>
 /// Block domain model
 /// </summary>
-public class BlockLibDm // : IVersionable<BlockLibAm>, IVersionObject, IEquatable<BlockLibDm>, ILogable
+public class BlockType // : IVersionable<BlockLibAm>, IVersionObject, IEquatable<BlockType>, ILogable
 {
     public Guid Id { get; set; }
     public required string Name { get; set; }
@@ -32,7 +32,7 @@ public class BlockLibDm // : IVersionable<BlockLibAm>, IVersionObject, IEquatabl
     public Aspect Aspect { get; set; }
 
     public virtual ICollection<BlockTerminalLibDm> BlockTerminals { get; set; } = null!;
-    public virtual ICollection<BlockAttributeLibDm> BlockAttributes { get; set; } = null!;
+    public virtual ICollection<BlockAttributeTypeReference> BlockAttributes { get; set; } = null!;
     //public virtual List<SelectedAttributePredefinedLibDm> SelectedAttributePredefined { get; set; }
 
     /*#region IVersionable
@@ -52,10 +52,10 @@ public class BlockLibDm // : IVersionable<BlockLibAm>, IVersionObject, IEquatabl
 
         //Attributes
         var attributeAmIds = new List<string>();
-        var blockAttributeDms = new List<BlockAttributeLibDm>();
+        var blockAttributeDms = new List<BlockAttributeTypeReference>();
 
         attributeAmIds.AddRange(other.Attributes ?? new List<string>());
-        blockAttributeDms.AddRange(BlockAttributes ?? new List<BlockAttributeLibDm>());
+        blockAttributeDms.AddRange(BlockAttributes ?? new List<BlockAttributeTypeReference>());
 
         if (blockAttributeDms.Select(y => y.AttributeId).Any(id => attributeAmIds.All(x => x != id)))
             validation.AddNotAllowToChange(nameof(BlockAttributes), "It is not allowed to remove or change attributes");
@@ -118,10 +118,10 @@ public class BlockLibDm // : IVersionable<BlockLibAm>, IVersionObject, IEquatabl
 
         //Attributes
         var attributeAmIds = new List<string>();
-        var blockAttributeDms = new List<BlockAttributeLibDm>();
+        var blockAttributeDms = new List<BlockAttributeTypeReference>();
 
         attributeAmIds.AddRange(other.Attributes ?? new List<string>());
-        blockAttributeDms.AddRange(BlockAttributes ?? new List<BlockAttributeLibDm>());
+        blockAttributeDms.AddRange(BlockAttributes ?? new List<BlockAttributeTypeReference>());
 
         if (!blockAttributeDms.Select(x => x.AttributeId).Order().SequenceEqual(attributeAmIds.Order()))
         {
@@ -154,7 +154,7 @@ public class BlockLibDm // : IVersionable<BlockLibAm>, IVersionObject, IEquatabl
         {
             ObjectId = Id,
             ObjectFirstVersionId = FirstVersionId,
-            ObjectType = nameof(BlockLibDm),
+            ObjectType = nameof(BlockType),
             ObjectName = Name,
             ObjectVersion = Version,
             LogType = logType,
@@ -166,7 +166,7 @@ public class BlockLibDm // : IVersionable<BlockLibAm>, IVersionObject, IEquatabl
 
     #endregion ILogable
 
-    public bool Equals(BlockLibDm other)
+    public bool Equals(BlockType other)
     {
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
@@ -175,8 +175,8 @@ public class BlockLibDm // : IVersionable<BlockLibAm>, IVersionObject, IEquatabl
             return false;
 
         // Block Attributes
-        BlockAttributes ??= new List<BlockAttributeLibDm>();
-        other.BlockAttributes ??= new List<BlockAttributeLibDm>();
+        BlockAttributes ??= new List<BlockAttributeTypeReference>();
+        other.BlockAttributes ??= new List<BlockAttributeTypeReference>();
         if (!BlockAttributes.Select(x => x.AttributeId).Order().SequenceEqual(other.BlockAttributes.Select(x => x.AttributeId).Order()))
         {
             return false;
@@ -208,7 +208,7 @@ public class BlockLibDm // : IVersionable<BlockLibAm>, IVersionObject, IEquatabl
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != this.GetType()) return false;
-        return Equals((BlockLibDm) obj);
+        return Equals((BlockType) obj);
     }
 
     public override int GetHashCode()

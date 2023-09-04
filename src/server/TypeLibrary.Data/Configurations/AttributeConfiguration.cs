@@ -5,9 +5,9 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Configurations;
 
-public class AttributeConfiguration : IEntityTypeConfiguration<AttributeLibDm>
+public class AttributeConfiguration : IEntityTypeConfiguration<AttributeType>
 {
-    public void Configure(EntityTypeBuilder<AttributeLibDm> builder)
+    public void Configure(EntityTypeBuilder<AttributeType> builder)
     {
         var stringConverter = new StringCollectionValueConverter();
         var stringComparer = new StringCollectionValueComparer();
@@ -32,6 +32,6 @@ public class AttributeConfiguration : IEntityTypeConfiguration<AttributeLibDm>
         builder.Property(p => p.ScopeQualifier).HasColumnName("ScopeQualifier").HasConversion<string>().HasMaxLength(50);
 
         builder.HasOne(x => x.ValueConstraint).WithOne(y => y.Attribute)
-            .HasForeignKey<ValueConstraintLibDm>(y => y.AttributeId).IsRequired().OnDelete(DeleteBehavior.Cascade);
+            .HasForeignKey<ValueConstraint>(y => y.AttributeId).IsRequired().OnDelete(DeleteBehavior.Cascade);
     }
 }

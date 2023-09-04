@@ -9,18 +9,18 @@ public class TypeLibraryDbContext : DbContext
     public virtual DbSet<SymbolLibDm> Symbol { get; set; }
     public virtual DbSet<BlockTerminalLibDm> BlockTerminal { get; set; }
     //public virtual DbSet<AttributePredefinedLibDm> AttributePredefined { get; set; }
-    public virtual DbSet<TerminalLibDm> Terminal { get; set; }
-    public virtual DbSet<BlockLibDm> Block { get; set; }
+    public virtual DbSet<TerminalType> Terminal { get; set; }
+    public virtual DbSet<BlockType> Block { get; set; }
     public virtual DbSet<LogLibDm> Log { get; set; }
-    public virtual DbSet<AttributeLibDm> Attribute { get; set; }
+    public virtual DbSet<AttributeType> Attribute { get; set; }
     //public virtual DbSet<UnitLibDm> Unit { get; set; }
     //public virtual DbSet<AttributeUnitLibDm> AttributeUnit { get; set; }
-    public virtual DbSet<BlockAttributeLibDm> BlockAttribute { get; set; }
-    public virtual DbSet<TerminalAttributeLibDm> TerminalAttribute { get; set; }
+    public virtual DbSet<BlockAttributeTypeReference> BlockAttribute { get; set; }
+    public virtual DbSet<TerminalAttributeTypeReference> TerminalAttribute { get; set; }
     //public virtual DbSet<RdsLibDm> Rds { get; set; }
-    public virtual DbSet<AttributeGroupLibDm> AttributeGroup { get; set; }
-    public virtual DbSet<AttributeGroupMappingLibDm> AttributeGroupMapping { get; set; }
-    public virtual DbSet<ValueConstraintLibDm> ValueConstraint { get; set; }
+    public virtual DbSet<AttributeGroup> AttributeGroup { get; set; }
+    public virtual DbSet<AttributeGroupMapping> AttributeGroupMapping { get; set; }
+    public virtual DbSet<ValueConstraint> ValueConstraint { get; set; }
 
 
     public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)

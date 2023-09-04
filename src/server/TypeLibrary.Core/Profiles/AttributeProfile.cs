@@ -15,7 +15,7 @@ public class AttributeProfile : Profile
 {
     public AttributeProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor)
     {
-        CreateMap<AttributeLibAm, AttributeLibDm>()
+        CreateMap<AttributeLibAm, AttributeType>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
@@ -36,7 +36,7 @@ public class AttributeProfile : Profile
             .ForMember(dest => dest.AttributeTerminals, opt => opt.Ignore())
             .ForMember(dest => dest.AttributeGroups, opt => opt.Ignore());
 
-        CreateMap<AttributeLibDm, AttributeLibCm>()
+        CreateMap<AttributeType, AttributeLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))

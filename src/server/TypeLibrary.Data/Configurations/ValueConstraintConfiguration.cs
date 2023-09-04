@@ -5,9 +5,9 @@ using Mimirorg.Common.Converters;
 
 namespace TypeLibrary.Data.Configurations;
 
-public class ValueConstraintConfiguration : IEntityTypeConfiguration<ValueConstraintLibDm>
+public class ValueConstraintConfiguration : IEntityTypeConfiguration<ValueConstraint>
 {
-    public void Configure(EntityTypeBuilder<ValueConstraintLibDm> builder)
+    public void Configure(EntityTypeBuilder<ValueConstraint> builder)
     {
         var stringConverter = new StringCollectionValueConverter();
         var stringComparer = new StringCollectionValueComparer();

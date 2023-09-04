@@ -78,7 +78,7 @@ public class AttributeService : IAttributeService
         if (!validation.IsValid)
             throw new MimirorgBadRequestException("Attribute is not valid.", validation);
 
-        var dm = _mapper.Map<AttributeLibDm>(attributeAm);
+        var dm = _mapper.Map<AttributeType>(attributeAm);
 
         if (!string.IsNullOrEmpty(createdBy))
         {

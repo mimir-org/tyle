@@ -58,8 +58,8 @@ public class BlockService : IBlockService
     /// <inheritdoc />
     public IEnumerable<BlockLibCm> GetLatestVersions()
     {
-        /*var latestAll = _blockRepository.Get()?.LatestVersions()?.ToList() ?? new List<BlockLibDm>();
-        var latestApproved = _blockRepository.Get()?.LatestVersionsApproved()?.ToList() ?? new List<BlockLibDm>();
+        /*var latestAll = _blockRepository.Get()?.LatestVersions()?.ToList() ?? new List<BlockType>();
+        var latestApproved = _blockRepository.Get()?.LatestVersionsApproved()?.ToList() ?? new List<BlockType>();
 
         var result = latestAll.Union(latestApproved).OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase);*/
 
@@ -108,7 +108,7 @@ public class BlockService : IBlockService
             throw new MimirorgBadRequestException("Block is not valid.", validation);
 
         //blockAm.Version = "1.0";
-        var dm = _mapper.Map<BlockLibDm>(blockAm);
+        var dm = _mapper.Map<BlockType>(blockAm);
 
         //dm.FirstVersionId ??= dm.Id;
         //dm.State = State.Draft;
@@ -123,7 +123,7 @@ public class BlockService : IBlockService
             blockAttribute.BlockId = dm.Id;
         }
 
-        /*dm.BlockAttributes = new List<BlockAttributeLibDm>();
+        /*dm.BlockAttributes = new List<BlockAttributeTypeReference>();
 
         if (blockAm.Attributes != null)
         {
@@ -137,7 +137,7 @@ public class BlockService : IBlockService
                 }
                 else
                 {
-                    dm.BlockAttributes.Add(new BlockAttributeLibDm { BlockId = dm.Id, AttributeId = attribute.Id });
+                    dm.BlockAttributes.Add(new BlockAttributeTypeReference { BlockId = dm.Id, AttributeId = attribute.Id });
                 }
             }
         }*/
@@ -191,7 +191,7 @@ public class BlockService : IBlockService
         return blockToReturn;
     }
 
-    private string CalculateVersion(BlockLibAm blockAm, BlockLibDm blockToUpdate)
+    private string CalculateVersion(BlockLibAm blockAm, BlockType blockToUpdate)
     {
         var latestApprovedVersion = _blockRepository.Get().LatestVersionApproved(blockToUpdate.FirstVersionId);
 
@@ -212,9 +212,9 @@ public class BlockService : IBlockService
         };
     }
 
-    private async Task<BlockLibCm> CreateNewDraft(BlockLibAm blockAm, BlockLibDm blockToUpdate)
+    private async Task<BlockLibCm> CreateNewDraft(BlockLibAm blockAm, BlockType blockToUpdate)
     {
-        var dm = _mapper.Map<BlockLibDm>(blockAm);
+        var dm = _mapper.Map<BlockType>(blockAm);
 
         dm.State = State.Draft;
         dm.FirstVersionId = blockToUpdate.FirstVersionId;
@@ -224,7 +224,7 @@ public class BlockService : IBlockService
             blockTerminal.BlockId = dm.Id;
         }
 
-        dm.BlockAttributes = new List<BlockAttributeLibDm>();
+        dm.BlockAttributes = new List<BlockAttributeTypeReference>();
 
         if (blockAm.Attributes != null)
         {
@@ -237,7 +237,7 @@ public class BlockService : IBlockService
                 }
                 else
                 {
-                    dm.BlockAttributes.Add(new BlockAttributeLibDm { BlockId = dm.Id, AttributeId = attribute.Id });
+                    dm.BlockAttributes.Add(new BlockAttributeTypeReference { BlockId = dm.Id, AttributeId = attribute.Id });
                 }
             }
         }
@@ -249,7 +249,7 @@ public class BlockService : IBlockService
         return Get(createdBlock?.Id);
     }
 
-    private async Task<BlockLibCm> UpdateDraft(BlockLibAm blockAm, BlockLibDm blockToUpdate)
+    private async Task<BlockLibCm> UpdateDraft(BlockLibAm blockAm, BlockType blockToUpdate)
     {
         blockToUpdate.Name = blockAm.Name;
         blockToUpdate.TypeReference = blockAm.TypeReference;
@@ -265,11 +265,11 @@ public class BlockService : IBlockService
             blockToUpdate.CompanyId = blockAm.CompanyId;
         }
 
-        var tempDm = _mapper.Map<BlockLibDm>(blockAm);
+        var tempDm = _mapper.Map<BlockType>(blockAm);
 
         blockToUpdate.SelectedAttributePredefined = tempDm.SelectedAttributePredefined;
         blockToUpdate.BlockTerminals ??= new List<BlockTerminalLibDm>();
-        blockToUpdate.BlockAttributes ??= new List<BlockAttributeLibDm>();
+        blockToUpdate.BlockAttributes ??= new List<BlockAttributeTypeReference>();
 
         tempDm.BlockTerminals ??= new List<BlockTerminalLibDm>();
 
@@ -297,7 +297,7 @@ public class BlockService : IBlockService
 
         // Delete removed attributes, and add new attributes
         var currentBlockAttributes = blockToUpdate.BlockAttributes.ToHashSet();
-        var newBlockAttributes = new HashSet<BlockAttributeLibDm>();
+        var newBlockAttributes = new HashSet<BlockAttributeTypeReference>();
 
         if (blockAm.Attributes != null)
         {
@@ -311,7 +311,7 @@ public class BlockService : IBlockService
                 }
                 else
                 {
-                    newBlockAttributes.Add(new BlockAttributeLibDm { BlockId = blockToUpdate.Id, AttributeId = attribute.Id });
+                    newBlockAttributes.Add(new BlockAttributeTypeReference { BlockId = blockToUpdate.Id, AttributeId = attribute.Id });
                 }
             }
         }
@@ -328,7 +328,7 @@ public class BlockService : IBlockService
 
         foreach (var blockAttribute in newBlockAttributes.ExceptBy(currentBlockAttributes.Select(x => x.AttributeId), y => y.AttributeId))
         {
-            blockToUpdate.BlockAttributes.Add(new BlockAttributeLibDm
+            blockToUpdate.BlockAttributes.Add(new BlockAttributeTypeReference
             {
                 BlockId = blockToUpdate.Id,
                 AttributeId = blockAttribute.AttributeId

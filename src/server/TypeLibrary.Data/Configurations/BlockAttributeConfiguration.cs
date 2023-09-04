@@ -4,9 +4,9 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Configurations;
 
-public class BlockAttributeConfiguration : IEntityTypeConfiguration<BlockAttributeLibDm>
+public class BlockAttributeConfiguration : IEntityTypeConfiguration<BlockAttributeTypeReference>
 {
-    public void Configure(EntityTypeBuilder<BlockAttributeLibDm> builder)
+    public void Configure(EntityTypeBuilder<BlockAttributeTypeReference> builder)
     {
         builder.HasKey(x => x.Id);
         builder.ToTable("Block_Attribute");

@@ -50,7 +50,7 @@ public class MimirorgCommonFixture : IDisposable
         MimirorgAuthSettings.RequiredLength = 10;
     }
 
-    public (BlockLibAm am, BlockLibDm dm) CreateBlockTestData()
+    public (BlockLibAm am, BlockType dm) CreateBlockTestData()
     {
         var blockLibAm = new BlockLibAm
         {
@@ -88,7 +88,7 @@ public class MimirorgCommonFixture : IDisposable
             TypeReference = "https://www.tyle.com/"*/
         };
 
-        var blockLibDm = new BlockLibDm
+        var blockLibDm = new BlockType
         {
             Id = Guid.NewGuid(),
             CreatedBy = "Unknown",

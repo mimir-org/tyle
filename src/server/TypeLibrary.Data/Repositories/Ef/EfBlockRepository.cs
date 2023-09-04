@@ -10,7 +10,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 
-public class EfBlockRepository : GenericRepository<TypeLibraryDbContext, BlockLibDm>, IEfBlockRepository
+public class EfBlockRepository : GenericRepository<TypeLibraryDbContext, BlockType>, IEfBlockRepository
 {
     public EfBlockRepository(TypeLibraryDbContext dbContext) : base(dbContext)
     {
@@ -32,7 +32,7 @@ public class EfBlockRepository : GenericRepository<TypeLibraryDbContext, BlockLi
     }*/
 
     /// <inheritdoc />
-    public IEnumerable<BlockLibDm> Get()
+    public IEnumerable<BlockType> Get()
     {
         return GetAll()
             .Include(x => x.BlockTerminals)
@@ -44,7 +44,7 @@ public class EfBlockRepository : GenericRepository<TypeLibraryDbContext, BlockLi
     }
 
     /// <inheritdoc />
-    public BlockLibDm Get(Guid id)
+    public BlockType Get(Guid id)
     {
         return FindBy(x => x.Id == id)
             .Include(x => x.BlockTerminals)
@@ -57,7 +57,7 @@ public class EfBlockRepository : GenericRepository<TypeLibraryDbContext, BlockLi
     }
 
     /*/// <inheritdoc />
-    public IEnumerable<BlockLibDm> GetAllVersions(BlockLibDm block)
+    public IEnumerable<BlockType> GetAllVersions(BlockType block)
     {
         return FindBy(x => x.FirstVersionId == block.FirstVersionId)
             .Include(x => x.BlockTerminals)
@@ -71,7 +71,7 @@ public class EfBlockRepository : GenericRepository<TypeLibraryDbContext, BlockLi
     }*/
 
     /// <inheritdoc />
-    public async Task<BlockLibDm> Create(BlockLibDm block)
+    public async Task<BlockType> Create(BlockType block)
     {
         await CreateAsync(block);
         await SaveAsync();

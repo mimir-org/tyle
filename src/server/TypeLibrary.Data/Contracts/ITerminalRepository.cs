@@ -19,21 +19,21 @@ public interface ITerminalRepository
     /// Get all terminals
     /// </summary>
     /// <returns>A collection of terminals</returns>
-    IEnumerable<TerminalLibDm> Get();
+    IEnumerable<TerminalType> Get();
 
     /// <summary>
     /// Get terminal by id
     /// </summary>
     /// <param name="id">The terminal id</param>
     /// <returns>Terminal if found</returns>
-    TerminalLibDm Get(Guid id);
+    TerminalType Get(Guid id);
 
     /// <summary>
     /// Create a terminal in database
     /// </summary>
     /// <param name="terminal">The terminal to be created</param>
     /// <returns>The created terminal</returns>
-    Task<TerminalLibDm> Create(TerminalLibDm terminal);
+    Task<TerminalType> Create(TerminalType terminal);
 
     /// <summary>
     /// Clear all entity framework change trackers

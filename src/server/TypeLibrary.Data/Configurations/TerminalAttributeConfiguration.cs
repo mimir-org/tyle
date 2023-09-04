@@ -4,9 +4,9 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Configurations;
 
-public class TerminalAttributeConfiguration : IEntityTypeConfiguration<TerminalAttributeLibDm>
+public class TerminalAttributeConfiguration : IEntityTypeConfiguration<TerminalAttributeTypeReference>
 {
-    public void Configure(EntityTypeBuilder<TerminalAttributeLibDm> builder)
+    public void Configure(EntityTypeBuilder<TerminalAttributeTypeReference> builder)
     {
         builder.HasKey(x => x.Id);
         builder.ToTable("Terminal_Attribute");

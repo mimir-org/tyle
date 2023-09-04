@@ -11,9 +11,9 @@ public class BlockTerminalLibDm
     public int? MaxCount { get; set; }
     public Direction Direction { get; set; }
     public Guid BlockId { get; set; }
-    public BlockLibDm Block { get; set; } = null!;
+    public BlockType Block { get; set; } = null!;
     public Guid TerminalId { get; set; }
-    public TerminalLibDm Terminal { get; set; } = null!;
+    public TerminalType Terminal { get; set; } = null!;
 
     public string GetHash()
     {

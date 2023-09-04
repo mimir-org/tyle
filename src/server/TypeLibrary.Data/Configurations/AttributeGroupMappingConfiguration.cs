@@ -4,9 +4,9 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Configurations;
 
-public class AttributeGroupMappingConfiguration : IEntityTypeConfiguration<AttributeGroupMappingLibDm>
+public class AttributeGroupMappingConfiguration : IEntityTypeConfiguration<AttributeGroupMapping>
 {
-    public void Configure(EntityTypeBuilder<AttributeGroupMappingLibDm> builder)
+    public void Configure(EntityTypeBuilder<AttributeGroupMapping> builder)
     {
         builder.HasKey(x => x.Id);
         builder.ToTable("Attribute_Group_Mapping");

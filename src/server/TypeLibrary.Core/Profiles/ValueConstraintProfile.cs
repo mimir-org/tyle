@@ -15,7 +15,7 @@ public class ValueConstraintProfile : Profile
 {
     public ValueConstraintProfile()
     {
-        CreateMap<ValueConstraintLibAm, ValueConstraintLibDm>()
+        CreateMap<ValueConstraintLibAm, ValueConstraint>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
             .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
             .ForMember(dest => dest.Attribute, opt => opt.Ignore())
@@ -31,7 +31,7 @@ public class ValueConstraintProfile : Profile
             .ForMember(dest => dest.MinInclusive, opt => opt.MapFrom(src => src.MinInclusive))
             .ForMember(dest => dest.MaxInclusive, opt => opt.MapFrom(src => src.MaxInclusive));
 
-        CreateMap<ValueConstraintLibDm, ValueConstraintLibCm>()
+        CreateMap<ValueConstraint, ValueConstraintLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => src.ConstraintType))
             .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Value))

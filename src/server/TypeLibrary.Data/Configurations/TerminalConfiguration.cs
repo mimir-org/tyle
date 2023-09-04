@@ -7,9 +7,9 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Configurations;
 
-public class TerminalConfiguration : IEntityTypeConfiguration<TerminalLibDm>
+public class TerminalConfiguration : IEntityTypeConfiguration<TerminalType>
 {
-    public void Configure(EntityTypeBuilder<TerminalLibDm> builder)
+    public void Configure(EntityTypeBuilder<TerminalType> builder)
     {
         var stringConverter = new StringCollectionValueConverter();
         var stringComparer = new StringCollectionValueComparer();

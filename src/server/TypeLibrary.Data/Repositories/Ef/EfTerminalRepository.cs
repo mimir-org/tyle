@@ -11,7 +11,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 
-public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, TerminalLibDm>, IEfTerminalRepository
+public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, TerminalType>, IEfTerminalRepository
 {
     public EfTerminalRepository(TypeLibraryDbContext dbContext) : base(dbContext)
     {
@@ -27,7 +27,7 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     }*/
 
     /// <inheritdoc />
-    public IEnumerable<TerminalLibDm> Get()
+    public IEnumerable<TerminalType> Get()
     {
         return GetAll()
             .Include(x => x.TerminalAttributes)
@@ -37,7 +37,7 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     }
 
     /// <inheritdoc />
-    public TerminalLibDm Get(Guid id)
+    public TerminalType Get(Guid id)
     {
         var terminal = FindBy(x => x.Id == id)
             .Include(x => x.TerminalAttributes)
@@ -49,7 +49,7 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     }
 
     /// <inheritdoc />
-    public async Task<TerminalLibDm> Create(TerminalLibDm terminal)
+    public async Task<TerminalType> Create(TerminalType terminal)
     {
         await CreateAsync(terminal);
         await SaveAsync();

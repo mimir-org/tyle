@@ -26,28 +26,28 @@ public interface IBlockRepository
     /// Get all blocks
     /// </summary>
     /// <returns>A collection of blocks</returns>
-    IEnumerable<BlockLibDm> Get();
+    IEnumerable<BlockType> Get();
 
     /// <summary>
     /// Get block by id
     /// </summary>
     /// <param name="id">The block id</param>
     /// <returns>Block if found</returns>
-    BlockLibDm Get(Guid id);
+    BlockType Get(Guid id);
 
     /// <summary>
     /// Get all versions of the given block
     /// </summary>
     /// <param name="block">The block</param>
     /// <returns>A collection of all versions of the block</returns>
-    //IEnumerable<BlockLibDm> GetAllVersions(BlockLibDm block);
+    //IEnumerable<BlockType> GetAllVersions(BlockType block);
 
     /// <summary>
     /// Create a block
     /// </summary>
     /// <param name="block">The block to be created</param>
     /// <returns>The created block</returns>
-    Task<BlockLibDm> Create(BlockLibDm block);
+    Task<BlockType> Create(BlockType block);
 
     /// <summary>
     /// Clear all entity framework change trackers

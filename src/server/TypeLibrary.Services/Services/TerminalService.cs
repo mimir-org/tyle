@@ -81,7 +81,7 @@ public class TerminalService : ITerminalService
         if (!validation.IsValid)
             throw new MimirorgBadRequestException("Terminal is not valid.", validation);
 
-        var dm = _mapper.Map<TerminalLibDm>(terminal);
+        var dm = _mapper.Map<TerminalType>(terminal);
 
         foreach (var terminalAttribute in dm.TerminalAttributes)
         {
@@ -89,7 +89,7 @@ public class TerminalService : ITerminalService
         }
 
         //dm.State = State.Draft;
-        /*dm.TerminalAttributes = new List<TerminalAttributeLibDm>();
+        /*dm.TerminalAttributes = new List<TerminalAttributeTypeReference>();
 
         if (terminal.Attributes != null)
         {
@@ -103,7 +103,7 @@ public class TerminalService : ITerminalService
                 }
                 else
                 {
-                    dm.TerminalAttributes.Add(new TerminalAttributeLibDm { TerminalId = dm.Id, AttributeId = attribute.Id });
+                    dm.TerminalAttributes.Add(new TerminalAttributeTypeReference { TerminalId = dm.Id, AttributeId = attribute.Id });
                 }
             }
         }*/
@@ -138,10 +138,10 @@ public class TerminalService : ITerminalService
             terminalToUpdate.TypeReference = terminalAm.TypeReference;
             terminalToUpdate.Color = terminalAm.Color;
             terminalToUpdate.Description = terminalAm.Description;
-            terminalToUpdate.TerminalAttributes ??= new List<TerminalAttributeLibDm>();
+            terminalToUpdate.TerminalAttributes ??= new List<TerminalAttributeTypeReference>();
 
             var currentTerminalAttributes = terminalToUpdate.TerminalAttributes.ToHashSet();
-            var newTerminalAttributes = new HashSet<TerminalAttributeLibDm>();
+            var newTerminalAttributes = new HashSet<TerminalAttributeTypeReference>();
 
             if (terminalAm.Attributes != null)
             {
@@ -155,7 +155,7 @@ public class TerminalService : ITerminalService
                     }
                     else
                     {
-                        newTerminalAttributes.Add(new TerminalAttributeLibDm { TerminalId = id, AttributeId = attribute.Id });
+                        newTerminalAttributes.Add(new TerminalAttributeTypeReference { TerminalId = id, AttributeId = attribute.Id });
                     }
                 }
             }
@@ -172,7 +172,7 @@ public class TerminalService : ITerminalService
 
             foreach (var terminalAttribute in newTerminalAttributes.ExceptBy(currentTerminalAttributes.Select(x => x.AttributeId), y => y.AttributeId))
             {
-                terminalToUpdate.TerminalAttributes.Add(new TerminalAttributeLibDm
+                terminalToUpdate.TerminalAttributes.Add(new TerminalAttributeTypeReference
                 {
                     TerminalId = terminalToUpdate.Id,
                     AttributeId = terminalAttribute.AttributeId

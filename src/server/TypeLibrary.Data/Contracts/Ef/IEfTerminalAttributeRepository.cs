@@ -3,7 +3,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts.Ef;
 
-public interface IEfTerminalAttributeRepository : IGenericRepository<TypeLibraryDbContext, TerminalAttributeLibDm>
+public interface IEfTerminalAttributeRepository : IGenericRepository<TypeLibraryDbContext, TerminalAttributeTypeReference>
 {
 
 }

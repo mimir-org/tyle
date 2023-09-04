@@ -4,7 +4,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 
-public class EfBlockAttributeRepository : GenericRepository<TypeLibraryDbContext, BlockAttributeLibDm>, IEfBlockAttributeRepository
+public class EfBlockAttributeRepository : GenericRepository<TypeLibraryDbContext, BlockAttributeTypeReference>, IEfBlockAttributeRepository
 {
     public EfBlockAttributeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
     {

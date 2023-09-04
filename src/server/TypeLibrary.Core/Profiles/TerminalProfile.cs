@@ -15,7 +15,7 @@ public class TerminalProfile : Profile
 {
     public TerminalProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor)
     {
-        CreateMap<TerminalLibAm, TerminalLibDm>()
+        CreateMap<TerminalLibAm, TerminalType>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
@@ -35,7 +35,7 @@ public class TerminalProfile : Profile
             .ForMember(dest => dest.TerminalBlocks, opt => opt.Ignore())
             .ForMember(dest => dest.TerminalAttributes, opt => opt.MapFrom(src => src.TerminalAttributes));
 
-        CreateMap<TerminalLibDm, TerminalLibCm>()
+        CreateMap<TerminalType, TerminalLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))

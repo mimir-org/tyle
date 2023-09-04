@@ -5,9 +5,9 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Configurations;
 
-public class AttributeGroupConfiguration : IEntityTypeConfiguration<AttributeGroupLibDm>
+public class AttributeGroupConfiguration : IEntityTypeConfiguration<AttributeGroup>
 {
-    public void Configure(EntityTypeBuilder<AttributeGroupLibDm> builder)
+    public void Configure(EntityTypeBuilder<AttributeGroup> builder)
     {
         builder.HasKey(x => x.Id);
         builder.ToTable("Attribute_Group");

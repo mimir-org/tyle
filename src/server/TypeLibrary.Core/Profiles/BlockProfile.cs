@@ -17,7 +17,7 @@ public class BlockProfile : Profile
 {
     public BlockProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor, ICompanyFactory companyFactory)
     {
-        CreateMap<BlockLibAm, BlockLibDm>()
+        CreateMap<BlockLibAm, BlockType>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
@@ -41,7 +41,7 @@ public class BlockProfile : Profile
             .ForMember(dest => dest.BlockAttributes, opt => opt.MapFrom(src => src.BlockAttributes));
             //.ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
-        CreateMap<BlockLibDm, BlockLibCm>()
+        CreateMap<BlockType, BlockLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
