@@ -46,7 +46,7 @@ public class BlockLibAm // : ICompanyObject
     public int CompanyId { get; set; }*/
 
     [Required]
-    public ICollection<string> Classifiers { get; set; }
+    public ICollection<string> ClassifierReferenceIds { get; set; }
 
     /// <summary>
     /// The purpose name of the block
@@ -54,7 +54,7 @@ public class BlockLibAm // : ICompanyObject
     /// <remarks>
     /// A purpose name change will trigger a minor version increase
     /// </remarks>
-    public string Purpose { get; set; }
+    public string PurposeReferenceId { get; set; }
 
     /// <summary>
     /// The id of the RDS of the block

@@ -12,7 +12,8 @@ public class ValueConstraintLibAm
     
     public ICollection<string> AllowedValues { get; set; }
 
-    [Required]
+    public string ClassIri { get; set; }
+
     public XsdDataType DataType { get; set; }
 
     public int? MinCount { get; set; }
