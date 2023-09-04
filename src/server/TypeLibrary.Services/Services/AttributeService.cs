@@ -84,11 +84,49 @@ public class AttributeService : IAttributeService
             //dm.State = State.Draft;
         }
 
-        /*foreach (var attributeUnit in dm.AttributeUnits)
-        {
-            attributeUnit.AttributeId = dm.Id;
-        }*/
+        dm.LastUpdateOn = dm.CreatedOn;
+        //TODO: Predicates and units
 
+        var valueConstraint = attributeAm.ValueConstraint;
+        if (valueConstraint != null)
+        {
+            switch (valueConstraint.ConstraintType)
+            {
+                case ConstraintType.HasValue:
+                    dm.ValueConstraint = new ValueConstraint(valueConstraint.DataType, valueConstraint.Value);
+                    break;
+                case ConstraintType.In:
+                    dm.ValueConstraint = new ValueConstraint(valueConstraint.DataType, valueConstraint.AllowedValues);
+                    break;
+                case ConstraintType.Class:
+                    dm.ValueConstraint = new ValueConstraint(new Uri(valueConstraint.ClassIri));
+                    break;
+                case ConstraintType.DataType:
+                    dm.ValueConstraint = new ValueConstraint(valueConstraint.DataType);
+                    break;
+                case ConstraintType.Pattern:
+                    dm.ValueConstraint = new ValueConstraint(valueConstraint.Pattern);
+                    break;
+                case ConstraintType.Range:
+                    if (valueConstraint.DataType == XsdDataType.Integer)
+                    {
+                        dm.ValueConstraint = new ValueConstraint((int?) valueConstraint.MinValue,
+                            (int?) valueConstraint.MaxValue, valueConstraint.MinInclusive,
+                            valueConstraint.MaxInclusive);
+                    }
+                    else
+                    {
+                        dm.ValueConstraint = new ValueConstraint(valueConstraint.MinValue, valueConstraint.MaxValue,
+                            valueConstraint.MinInclusive, valueConstraint.MaxInclusive);
+                    }
+
+                    break;
+                default:
+                    dm.ValueConstraint = null;
+                    break;
+            }
+        }
+        
         var createdAttribute = await _attributeRepository.Create(dm);
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
         _attributeRepository.ClearAllChangeTrackers();
