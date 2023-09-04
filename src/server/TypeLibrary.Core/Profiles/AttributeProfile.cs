@@ -29,13 +29,13 @@ public class AttributeProfile : Profile
             .ForMember(dest => dest.ContributedBy, opt => opt.Ignore())
             .ForMember(dest => dest.LastUpdateOn, opt => opt.Ignore())
             //.ForMember(dest => dest.State, opt => opt.Ignore())
-            .ForMember(dest => dest.Predicate, opt => opt.MapFrom(src => src.Predicate))
-            .ForMember(dest => dest.UoMs, opt => opt.MapFrom(src => src.UoMs))
+            .ForMember(dest => dest.Predicate, opt => opt.Ignore())
+            .ForMember(dest => dest.UoMs, opt => opt.Ignore())
             .ForMember(dest => dest.ProvenanceQualifier, opt => opt.MapFrom(src => src.ProvenanceQualifier))
             .ForMember(dest => dest.RangeQualifier, opt => opt.MapFrom(src => src.RangeQualifier))
             .ForMember(dest => dest.RegularityQualifier, opt => opt.MapFrom(src => src.RegularityQualifier))
             .ForMember(dest => dest.ScopeQualifier, opt => opt.MapFrom(src => src.ScopeQualifier))
-            .ForMember(dest => dest.ValueConstraint, opt => opt.MapFrom(src => src.ValueConstraint))
+            .ForMember(dest => dest.ValueConstraint, opt => opt.Ignore())
             .ForMember(dest => dest.AttributeBlocks, opt => opt.Ignore())
             .ForMember(dest => dest.AttributeTerminals, opt => opt.Ignore());
 

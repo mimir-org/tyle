@@ -34,18 +34,23 @@ public static class TypeLibraryServiceCollectionExtensions
     {
         var provider = serviceCollection.BuildServiceProvider();
         var cfg = new MapperConfigurationExpression();
-        cfg.AddProfile(new SymbolProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<IOptions<ApplicationSettings>>()));
+        cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
         cfg.AddProfile(new BlockProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
         cfg.AddProfile(new TerminalProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
         cfg.AddProfile(new BlockTerminalProfile());
-        cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-        cfg.AddProfile(new LogProfile());
-        cfg.AddProfile(new ValueConstraintProfile());
         cfg.AddProfile(new BlockAttributeProfile());
         cfg.AddProfile(new TerminalAttributeProfile());
-        
+        cfg.AddProfile(new ClassifierProfile());
+        cfg.AddProfile(new MediumProfile());
+        cfg.AddProfile(new PredicateProfile());
+        cfg.AddProfile(new PurposeProfile());
+        cfg.AddProfile(new UnitProfile());
+        cfg.AddProfile(new ValueConstraintProfile());
+        cfg.AddProfile(new LogProfile());
+        cfg.AddProfile(new SymbolProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<IOptions<ApplicationSettings>>()));
+
         var mapperConfig = new MapperConfiguration(cfg);
-        //mapperConfig.AssertConfigurationIsValid();
+        mapperConfig.AssertConfigurationIsValid();
         serviceCollection.AddSingleton(_ => mapperConfig.CreateMapper());
         return serviceCollection;
     }

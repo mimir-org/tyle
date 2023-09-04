@@ -15,26 +15,12 @@ public class ValueConstraintProfile : Profile
 {
     public ValueConstraintProfile()
     {
-        CreateMap<ValueConstraintLibAm, ValueConstraint>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
-            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
-            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => src.ConstraintType))
-            .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Value))
-            .ForMember(dest => dest.AllowedValues, opt => opt.MapFrom(src => src.AllowedValues))
-            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => src.DataType))
-            .ForMember(dest => dest.MinCount, opt => opt.MapFrom(src => src.MinCount))
-            .ForMember(dest => dest.MaxCount, opt => opt.MapFrom(src => src.MaxCount))
-            .ForMember(dest => dest.Pattern, opt => opt.MapFrom(src => src.Pattern))
-            .ForMember(dest => dest.MinValue, opt => opt.MapFrom(src => src.MinValue))
-            .ForMember(dest => dest.MaxValue, opt => opt.MapFrom(src => src.MaxValue))
-            .ForMember(dest => dest.MinInclusive, opt => opt.MapFrom(src => src.MinInclusive))
-            .ForMember(dest => dest.MaxInclusive, opt => opt.MapFrom(src => src.MaxInclusive));
-
         CreateMap<ValueConstraint, ValueConstraintLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => src.ConstraintType))
             .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Value))
             .ForMember(dest => dest.AllowedValues, opt => opt.MapFrom(src => src.AllowedValues))
+            .ForMember(dest => dest.ClassIri, opt => opt.MapFrom(src => src.ClassIri.AbsoluteUri))
             .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => src.DataType))
             .ForMember(dest => dest.MinCount, opt => opt.MapFrom(src => src.MinCount))
             .ForMember(dest => dest.MaxCount, opt => opt.MapFrom(src => src.MaxCount))
