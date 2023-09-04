@@ -73,6 +73,7 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<ILogService, LogService>();
         //services.AddScoped<IApprovalService, ApprovalService>();
         services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<IReferenceService, ReferenceService>();
 
         // Hosted services
         //services.AddHostedService<TimedPcaSyncingService>();
