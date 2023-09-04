@@ -57,7 +57,7 @@ namespace TypeLibrary.Services.Services
 
 
         /// <inheritdoc />
-        public Task<AttributeGroupCm> Update(string id, AttributeLibAm attributeAm)
+        public Task<AttributeGroupCm> Update(string id, AttributeGroupAm attributeGroupAm)
         {
             throw new NotImplementedException();
         }

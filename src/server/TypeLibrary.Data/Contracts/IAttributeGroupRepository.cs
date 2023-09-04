@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Data.Models;
 
-namespace TypeLibrary.Services.Contracts
+namespace TypeLibrary.Data.Contracts
 {
-    public interface IAttributeGroupService
+    public interface IAttributeGroupRepository
     {
         /// <summary>
         /// Get all attribute groups
@@ -66,7 +65,6 @@ namespace TypeLibrary.Services.Contracts
         /// <exception cref="MimirorgInvalidOperationException">Throws if the attribute group is already
         /// approved or contains references to deleted or unapproved units.</exception>
         Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail);
-
 
 
     }

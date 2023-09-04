@@ -73,7 +73,7 @@ public class LibraryAttributeGroupController : ControllerBase
     [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public IActionResult Get([FromRoute] Guid id)
+    public IActionResult GetSingleAttributeGroup([FromRoute] string id)
     {
         try
         {
