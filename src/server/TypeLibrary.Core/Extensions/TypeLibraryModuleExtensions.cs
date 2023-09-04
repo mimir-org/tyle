@@ -50,13 +50,17 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IEfBlockTerminalRepository, EfBlockTerminalRepository>();
         services.AddScoped<IEfBlockAttributeRepository, EfBlockAttributeRepository>();
         services.AddScoped<IEfTerminalAttributeRepository, EfTerminalAttributeRepository>();
+        services.AddScoped<IEfClassifierRepository, EfClassifierRepository>();
+        services.AddScoped<IEfMediumRepository, EfMediumRepository>();
+        services.AddScoped<IEfPredicateRepository, EfPredicateRepository>();
+        services.AddScoped<IEfPurposeRepository, EfPurposeRepository>();
+        services.AddScoped<IEfUnitRepository, EfUnitRepository>();
 
         services.AddScoped<IAttributeRepository, EfAttributeRepository>();
         services.AddScoped<IBlockRepository, EfBlockRepository>();
         services.AddScoped<ITerminalRepository, EfTerminalRepository>();
         services.AddScoped<ISymbolRepository, EfSymbolRepository>();
         //services.AddSingleton<IAttributeReferenceRepository, AttributePcaRepository>();
-        //services.AddSingleton<IUnitReferenceRepository, UnitPcaRepository>();
         services.AddScoped<ILogRepository, EfLogRepository>();
 
         // Dependency Injection - Services
