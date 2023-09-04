@@ -34,7 +34,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasIndex("UoMsId");
 
-                    b.ToTable("AttributeTypeUnitReference");
+                    b.ToTable("AttributeTypeUnitReference", (string)null);
                 });
 
             modelBuilder.Entity("BlockTypeClassifierReference", b =>
@@ -49,7 +49,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasIndex("ClassifiersId");
 
-                    b.ToTable("BlockTypeClassifierReference");
+                    b.ToTable("BlockTypeClassifierReference", (string)null);
                 });
 
             modelBuilder.Entity("ClassifierReferenceTerminalType", b =>
@@ -64,7 +64,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasIndex("TerminalsId");
 
-                    b.ToTable("ClassifierReferenceTerminalType");
+                    b.ToTable("ClassifierReferenceTerminalType", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeType", b =>

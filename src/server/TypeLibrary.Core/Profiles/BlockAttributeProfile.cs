@@ -11,7 +11,7 @@ public class BlockAttributeProfile : Profile
     public BlockAttributeProfile()
     {
         CreateMap<BlockAttributeLibAm, BlockAttributeTypeReference>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
+            .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.MinCount, opt => opt.MapFrom(src => src.MinCount))
             .ForMember(dest => dest.MaxCount, opt => opt.MapFrom(src => src.MaxCount))
             .ForMember(dest => dest.Block, opt => opt.Ignore())

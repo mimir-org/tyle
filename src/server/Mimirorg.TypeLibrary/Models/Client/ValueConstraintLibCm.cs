@@ -4,7 +4,7 @@ namespace Mimirorg.TypeLibrary.Models.Client;
 
 public class ValueConstraintLibCm
 {
-    public Guid Id { get; set; }
+    public int Id { get; set; }
     public ConstraintType ConstraintType { get; set; }
     public string Value { get; set; }
     public ICollection<string> AllowedValues { get; set; }

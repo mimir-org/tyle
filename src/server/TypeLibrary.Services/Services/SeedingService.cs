@@ -36,10 +36,8 @@ public class SeedingService : ISeedingService
 
             if (!fileList.Any())
                 return;
-
-            var attributePredefinedFiles = fileList.Where(x => x.ToLower().Equals(PredefinedAttributeFileName)).ToList();
+            
             var symbolFileNames = fileList.Where(x => x.ToLower().Equals(SymbolFileName)).ToList();
-            var attributesPredefined = _fileRepository.ReadAllFiles<AttributePredefinedLibAm>(attributePredefinedFiles).ToList();
             var symbols = _fileRepository.ReadAllFiles<SymbolLibAm>(symbolFileNames).ToList();
 
             //await _attributeService.CreatePredefined(attributesPredefined);
