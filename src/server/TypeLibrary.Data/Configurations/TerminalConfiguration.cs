@@ -27,11 +27,8 @@ public class TerminalConfiguration : IEntityTypeConfiguration<TerminalType>
             .HasConversion(stringConverter, stringComparer).HasMaxLength(2000);
         builder.Property(p => p.LastUpdateOn).HasColumnName("LastUpdateOn").IsRequired();
         //builder.Property(p => p.State).HasColumnName("State").IsRequired().HasConversion<string>().HasMaxLength(31);
-        builder.Property(p => p.Classifiers).HasColumnName("Classifiers").IsRequired().HasConversion(stringConverter, stringComparer).HasMaxLength(5000);
-        builder.Property(p => p.Purpose).HasColumnName("Purpose").HasMaxLength(500);
         builder.Property(p => p.Notation).HasColumnName("Notation").HasMaxLength(50);
         builder.Property(p => p.Symbol).HasColumnName("Symbol").HasMaxLength(500);
         builder.Property(p => p.Aspect).HasColumnName("Aspect").IsRequired().HasConversion<string>().HasMaxLength(20);
-        builder.Property(p => p.Medium).HasColumnName("Medium").HasMaxLength(500);
     }
 }

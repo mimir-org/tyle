@@ -24,14 +24,9 @@ public class AttributeConfiguration : IEntityTypeConfiguration<AttributeType>
         builder.Property(p => p.ContributedBy).HasColumnName("ContributedBy").IsRequired().HasConversion(stringConverter, stringComparer).HasMaxLength(2000);
         builder.Property(p => p.LastUpdateOn).HasColumnName("LastUpdateOn").IsRequired();
         //builder.Property(p => p.State).HasColumnName("State").IsRequired().HasConversion<string>().HasMaxLength(31);
-        builder.Property(p => p.Predicate).HasColumnName("Predicate").HasMaxLength(500);
-        builder.Property(p => p.UoMs).HasColumnName("UoMs").IsRequired().HasConversion(stringConverter, stringComparer).HasMaxLength(5000);
         builder.Property(p => p.ProvenanceQualifier).HasColumnName("ProvenanceQualifier").HasConversion<string>().HasMaxLength(50);
         builder.Property(p => p.RangeQualifier).HasColumnName("RangeQualifier").HasConversion<string>().HasMaxLength(50);
         builder.Property(p => p.RegularityQualifier).HasColumnName("RegularityQualifier").HasConversion<string>().HasMaxLength(50);
         builder.Property(p => p.ScopeQualifier).HasColumnName("ScopeQualifier").HasConversion<string>().HasMaxLength(50);
-
-        builder.HasOne(x => x.ValueConstraint).WithOne(y => y.Attribute)
-            .HasForeignKey<ValueConstraint>(y => y.AttributeId).IsRequired().OnDelete(DeleteBehavior.Cascade);
     }
 }

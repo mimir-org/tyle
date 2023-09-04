@@ -6,8 +6,7 @@ namespace TypeLibrary.Data.Models;
 
 public class ValueConstraint
 {
-    public Guid Id { get; set; }
-    public Guid AttributeId { get; set; }
+    public int Id { get; set; }
     public AttributeType Attribute { get; set; } = null!;
     public ConstraintType ConstraintType { get; set; }
     public string? Value { get; set; }

@@ -30,7 +30,6 @@ public class AttributeType // : ILogable, IStatefulObject
     //public ICollection<AttributeUnitLibDm> AttributeUnits { get; set; } = new List<AttributeUnitLibDm>();
     public ICollection<BlockAttributeTypeReference> AttributeBlocks { get; set; } = null!;
     public ICollection<TerminalAttributeTypeReference> AttributeTerminals { get; set; } = null!;
-    public ICollection<AttributeGroupMapping> AttributeGroups { get; set; } = null!;
 
     /*public LogLibDm CreateLog(LogType logType, string logTypeValue, string createdBy)
     {

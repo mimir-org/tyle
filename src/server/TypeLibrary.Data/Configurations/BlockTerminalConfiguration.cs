@@ -14,8 +14,5 @@ public class BlockTerminalConfiguration : IEntityTypeConfiguration<BlockTerminal
         builder.Property(p => p.MinCount).HasColumnName("MinCount").IsRequired();
         builder.Property(p => p.MaxCount).HasColumnName("MaxCount");
         builder.Property(p => p.Direction).HasColumnName("Direction").IsRequired().HasConversion<string>().HasMaxLength(20);
-
-        builder.HasOne(x => x.Terminal).WithMany(y => y.TerminalBlocks).HasForeignKey(x => x.TerminalId).OnDelete(DeleteBehavior.Cascade);
-        builder.HasOne(x => x.Block).WithMany(y => y.BlockTerminals).HasForeignKey(x => x.BlockId).OnDelete(DeleteBehavior.Cascade);
     }
 }
