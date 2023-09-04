@@ -12,7 +12,7 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    [Migration("20230829175929_Initial")]
+    [Migration("20230904104118_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -25,49 +25,52 @@ namespace TypeLibrary.Core.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeGroupLibDm", b =>
+            modelBuilder.Entity("AttributeTypeUnitReference", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("Id");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Attribute_Group", (string)null);
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeGroupMappingLibDm", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("Id");
-
-                    b.Property<Guid>("AttributeGroupId")
+                    b.Property<Guid>("AttributesId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AttributeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("UoMsId")
+                        .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("AttributesId", "UoMsId");
 
-                    b.HasIndex("AttributeGroupId");
+                    b.HasIndex("UoMsId");
 
-                    b.HasIndex("AttributeId");
-
-                    b.ToTable("Attribute_Group_Mapping", (string)null);
+                    b.ToTable("AttributeTypeUnitReference");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
+            modelBuilder.Entity("BlockTypeClassifierReference", b =>
+                {
+                    b.Property<Guid>("BlocksId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ClassifiersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BlocksId", "ClassifiersId");
+
+                    b.HasIndex("ClassifiersId");
+
+                    b.ToTable("BlockTypeClassifierReference");
+                });
+
+            modelBuilder.Entity("ClassifierReferenceTerminalType", b =>
+                {
+                    b.Property<int>("ClassifiersId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("TerminalsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ClassifiersId", "TerminalsId");
+
+                    b.HasIndex("TerminalsId");
+
+                    b.ToTable("ClassifierReferenceTerminalType");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -106,10 +109,8 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("Name");
 
-                    b.Property<string>("Predicate")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
-                        .HasColumnName("Predicate");
+                    b.Property<int?>("PredicateId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProvenanceQualifier")
                         .HasMaxLength(50)
@@ -131,12 +132,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("ScopeQualifier");
 
-                    b.Property<string>("UoMs")
-                        .IsRequired()
-                        .HasMaxLength(5000)
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("UoMs");
-
                     b.Property<string>("Version")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -145,16 +140,20 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PredicateId");
+
                     b.ToTable("Attribute", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.BlockAttributeLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.BlockAttributeTypeReference", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("int")
                         .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<Guid>("AttributeId")
                         .HasColumnType("uniqueidentifier");
@@ -179,7 +178,46 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Block_Attribute", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.BlockLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.BlockTerminalTypeReference", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("BlockId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Direction")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("Direction");
+
+                    b.Property<int?>("MaxCount")
+                        .HasColumnType("int")
+                        .HasColumnName("MaxCount");
+
+                    b.Property<int>("MinCount")
+                        .HasColumnType("int")
+                        .HasColumnName("MinCount");
+
+                    b.Property<Guid>("TerminalId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlockId");
+
+                    b.HasIndex("TerminalId");
+
+                    b.ToTable("Block_Terminal", (string)null);
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.BlockType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -192,12 +230,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
                         .HasColumnName("Aspect");
-
-                    b.Property<string>("Classifiers")
-                        .IsRequired()
-                        .HasMaxLength(5000)
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Classifiers");
 
                     b.Property<string>("ContributedBy")
                         .IsRequired()
@@ -235,10 +267,8 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("Notation");
 
-                    b.Property<string>("Purpose")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
-                        .HasColumnName("Purpose");
+                    b.Property<int?>("PurposeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Symbol")
                         .HasMaxLength(500)
@@ -253,44 +283,49 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PurposeId");
+
                     b.ToTable("Block", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.BlockTerminalLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.ClassifierReference", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("int")
                         .HasColumnName("Id");
 
-                    b.Property<Guid>("BlockId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Direction")
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Iri")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("Direction");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("Iri");
 
-                    b.Property<int?>("MaxCount")
-                        .HasColumnType("int")
-                        .HasColumnName("MaxCount");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("Name");
 
-                    b.Property<int>("MinCount")
-                        .HasColumnType("int")
-                        .HasColumnName("MinCount");
-
-                    b.Property<Guid>("TerminalId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("Source");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BlockId");
+                    b.HasIndex("Iri")
+                        .IsUnique();
 
-                    b.HasIndex("TerminalId");
-
-                    b.ToTable("Block_Terminal", (string)null);
+                    b.ToTable("Classifier", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.LogLibDm", b =>
@@ -368,6 +403,126 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Log", (string)null);
                 });
 
+            modelBuilder.Entity("TypeLibrary.Data.Models.MediumReference", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Iri")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("Iri");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("Source");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Iri")
+                        .IsUnique();
+
+                    b.ToTable("Medium", (string)null);
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.PredicateReference", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Iri")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("Iri");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("Source");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Iri")
+                        .IsUnique();
+
+                    b.ToTable("Predicate", (string)null);
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.PurposeReference", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Iri")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("Iri");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("Source");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Iri")
+                        .IsUnique();
+
+                    b.ToTable("Purpose", (string)null);
+                });
+
             modelBuilder.Entity("TypeLibrary.Data.Models.SymbolLibDm", b =>
                 {
                     b.Property<string>("Id")
@@ -419,13 +574,15 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Symbol", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalAttributeLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalAttributeTypeReference", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("int")
                         .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<Guid>("AttributeId")
                         .HasColumnType("uniqueidentifier");
@@ -450,7 +607,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Terminal_Attribute", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -463,12 +620,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
                         .HasColumnName("Aspect");
-
-                    b.Property<string>("Classifiers")
-                        .IsRequired()
-                        .HasMaxLength(5000)
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Classifiers");
 
                     b.Property<string>("ContributedBy")
                         .IsRequired()
@@ -495,10 +646,8 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("datetimeoffset")
                         .HasColumnName("LastUpdateOn");
 
-                    b.Property<string>("Medium")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
-                        .HasColumnName("Medium");
+                    b.Property<int?>("MediumId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -511,10 +660,8 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("Notation");
 
-                    b.Property<string>("Purpose")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
-                        .HasColumnName("Purpose");
+                    b.Property<int?>("PurposeId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Qualifier")
                         .HasColumnType("int");
@@ -532,16 +679,67 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MediumId");
+
+                    b.HasIndex("PurposeId");
+
                     b.ToTable("Terminal", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.ValueConstraintLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.UnitReference", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Iri")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("Iri");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("Source");
+
+                    b.Property<string>("Symbol")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasColumnName("Symbol");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Iri")
+                        .IsUnique();
+
+                    b.ToTable("Unit", (string)null);
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.ValueConstraint", b =>
+                {
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("int")
                         .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AllowedValues")
                         .HasMaxLength(500)
@@ -607,34 +805,69 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Value_Constraint", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeGroupMappingLibDm", b =>
+            modelBuilder.Entity("AttributeTypeUnitReference", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.AttributeGroupLibDm", "AttributeGroup")
-                        .WithMany("Attributes")
-                        .HasForeignKey("AttributeGroupId")
+                    b.HasOne("TypeLibrary.Data.Models.AttributeType", null)
+                        .WithMany()
+                        .HasForeignKey("AttributesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
-                        .WithMany("AttributeGroups")
-                        .HasForeignKey("AttributeId")
+                    b.HasOne("TypeLibrary.Data.Models.UnitReference", null)
+                        .WithMany()
+                        .HasForeignKey("UoMsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Attribute");
-
-                    b.Navigation("AttributeGroup");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.BlockAttributeLibDm", b =>
+            modelBuilder.Entity("BlockTypeClassifierReference", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
+                    b.HasOne("TypeLibrary.Data.Models.BlockType", null)
+                        .WithMany()
+                        .HasForeignKey("BlocksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TypeLibrary.Data.Models.ClassifierReference", null)
+                        .WithMany()
+                        .HasForeignKey("ClassifiersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ClassifierReferenceTerminalType", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.ClassifierReference", null)
+                        .WithMany()
+                        .HasForeignKey("ClassifiersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TypeLibrary.Data.Models.TerminalType", null)
+                        .WithMany()
+                        .HasForeignKey("TerminalsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeType", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.PredicateReference", "Predicate")
+                        .WithMany("Attributes")
+                        .HasForeignKey("PredicateId");
+
+                    b.Navigation("Predicate");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.BlockAttributeTypeReference", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.AttributeType", "Attribute")
                         .WithMany("AttributeBlocks")
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TypeLibrary.Data.Models.BlockLibDm", "Block")
+                    b.HasOne("TypeLibrary.Data.Models.BlockType", "Block")
                         .WithMany("BlockAttributes")
                         .HasForeignKey("BlockId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -645,15 +878,15 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Block");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.BlockTerminalLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.BlockTerminalTypeReference", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.BlockLibDm", "Block")
+                    b.HasOne("TypeLibrary.Data.Models.BlockType", "Block")
                         .WithMany("BlockTerminals")
                         .HasForeignKey("BlockId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Terminal")
+                    b.HasOne("TypeLibrary.Data.Models.TerminalType", "Terminal")
                         .WithMany("TerminalBlocks")
                         .HasForeignKey("TerminalId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -664,15 +897,24 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Terminal");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalAttributeLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.BlockType", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
+                    b.HasOne("TypeLibrary.Data.Models.PurposeReference", "Purpose")
+                        .WithMany("Blocks")
+                        .HasForeignKey("PurposeId");
+
+                    b.Navigation("Purpose");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalAttributeTypeReference", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.AttributeType", "Attribute")
                         .WithMany("AttributeTerminals")
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Terminal")
+                    b.HasOne("TypeLibrary.Data.Models.TerminalType", "Terminal")
                         .WithMany("TerminalAttributes")
                         .HasForeignKey("TerminalId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -683,41 +925,66 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Terminal");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.ValueConstraintLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalType", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
+                    b.HasOne("TypeLibrary.Data.Models.MediumReference", "Medium")
+                        .WithMany("Terminals")
+                        .HasForeignKey("MediumId");
+
+                    b.HasOne("TypeLibrary.Data.Models.PurposeReference", "Purpose")
+                        .WithMany("Terminals")
+                        .HasForeignKey("PurposeId");
+
+                    b.Navigation("Medium");
+
+                    b.Navigation("Purpose");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.ValueConstraint", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.AttributeType", "Attribute")
                         .WithOne("ValueConstraint")
-                        .HasForeignKey("TypeLibrary.Data.Models.ValueConstraintLibDm", "AttributeId")
+                        .HasForeignKey("TypeLibrary.Data.Models.ValueConstraint", "AttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Attribute");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeGroupLibDm", b =>
-                {
-                    b.Navigation("Attributes");
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeType", b =>
                 {
                     b.Navigation("AttributeBlocks");
-
-                    b.Navigation("AttributeGroups");
 
                     b.Navigation("AttributeTerminals");
 
                     b.Navigation("ValueConstraint");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.BlockLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.BlockType", b =>
                 {
                     b.Navigation("BlockAttributes");
 
                     b.Navigation("BlockTerminals");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.MediumReference", b =>
+                {
+                    b.Navigation("Terminals");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.PredicateReference", b =>
+                {
+                    b.Navigation("Attributes");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.PurposeReference", b =>
+                {
+                    b.Navigation("Blocks");
+
+                    b.Navigation("Terminals");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalType", b =>
                 {
                     b.Navigation("TerminalAttributes");
 

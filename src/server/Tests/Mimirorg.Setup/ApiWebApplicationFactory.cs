@@ -44,7 +44,6 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Program>
             var logger = scopedServices.GetRequiredService<ILogger<ApiWebApplicationFactory>>();
 
             var terminalService = scopedServices.GetRequiredService<ITerminalService>();
-            var rdsRepository = scopedServices.GetRequiredService<IRdsRepository>();
             db.Database.EnsureCreated();
 
             try
@@ -54,28 +53,6 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Program>
             catch (Exception e)
             {
                 logger.LogError($"An error occurred seeding the database with test data. Error: {e.Message}");
-            }
-            try
-            {
-                var rds = new RdsLibDm
-                {
-                    Id = "rds-id",
-                    RdsCode = "XXXXX",
-                    Name = "Test RDS",
-                    Iri = "",
-                    TypeReference = "",
-                    Created = DateTime.UtcNow,
-                    CreatedBy = "",
-                    State = State.Draft,
-                    Description = ""
-                };
-
-                var createdRds = rdsRepository.Create(rds).Result;
-                rdsRepository.ChangeState(State.Approved, createdRds.Id);
-            }
-            catch (Exception e)
-            {
-                logger.LogError($"An error occurred seeding the database with test rds data. Error: {e.Message}");
             }
         });
     }

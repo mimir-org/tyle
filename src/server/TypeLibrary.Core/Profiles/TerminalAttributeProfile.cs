@@ -14,9 +14,7 @@ public class TerminalAttributeProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
             .ForMember(dest => dest.MinCount, opt => opt.MapFrom(src => src.MinCount))
             .ForMember(dest => dest.MaxCount, opt => opt.MapFrom(src => src.MaxCount))
-            .ForMember(dest => dest.TerminalId, opt => opt.Ignore())
             .ForMember(dest => dest.Terminal, opt => opt.Ignore())
-            .ForMember(dest => dest.AttributeId, opt => opt.MapFrom(src => src.AttributeId))
             .ForMember(dest => dest.Attribute, opt => opt.Ignore());
 
         CreateMap<TerminalAttributeTypeReference, TerminalAttributeLibCm>()

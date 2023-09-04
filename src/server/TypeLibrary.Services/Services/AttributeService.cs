@@ -23,22 +23,16 @@ namespace TypeLibrary.Services.Services;
 public class AttributeService : IAttributeService
 {
     private readonly IMapper _mapper;
-    private readonly IAttributePredefinedRepository _attributePredefinedRepository;
     private readonly IEfAttributeRepository _attributeRepository;
-    private readonly IEfAttributeUnitRepository _attributeUnitRepository;
-    private readonly IUnitService _unitService;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
     private readonly IHttpContextAccessor _contextAccessor;
     private readonly IEmailService _emailService;
 
-    public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository, IEfAttributeRepository attributeRepository, IEfAttributeUnitRepository attributeUnitRepository, IUnitService unitService, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor, IEmailService emailService)
+    public AttributeService(IMapper mapper, IEfAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor, IEmailService emailService)
     {
         _mapper = mapper;
-        _attributePredefinedRepository = attributePredefinedRepository;
         _attributeRepository = attributeRepository;
-        _attributeUnitRepository = attributeUnitRepository;
-        _unitService = unitService;
         _hookService = hookService;
         _logService = logService;
         _contextAccessor = contextAccessor;

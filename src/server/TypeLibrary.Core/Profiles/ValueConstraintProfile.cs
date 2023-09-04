@@ -17,7 +17,6 @@ public class ValueConstraintProfile : Profile
     {
         CreateMap<ValueConstraintLibAm, ValueConstraint>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
-            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
             .ForMember(dest => dest.Attribute, opt => opt.Ignore())
             .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => src.ConstraintType))
             .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Value))

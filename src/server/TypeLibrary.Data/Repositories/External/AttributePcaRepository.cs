@@ -39,7 +39,6 @@ public class AttributePcaRepository : IAttributeReferenceRepository
         var groups = pcaAttributes.GroupBy(x => x.Quantity).Select(group => group.ToList()).ToList();
 
         using var scope = _serviceProvider.CreateScope();
-        var unitRepository = scope.ServiceProvider.GetService<IUnitRepository>();
 
         foreach (var group in groups)
         {
@@ -55,23 +54,6 @@ public class AttributePcaRepository : IAttributeReferenceRepository
                 Description = $"Attribute received from PCA at {DateTime.UtcNow.ToString(System.Globalization.CultureInfo.InvariantCulture)} (UTC)."
                 //AttributeUnits = new List<AttributeUnitLibAm>()
             };
-
-            foreach (var pcaUnit in group)
-            {
-                var dbUnit = unitRepository.GetByTypeReference(pcaUnit.Uom);
-
-                if (dbUnit == null)
-                {
-                    _logger.LogError($"PCA Unit {pcaUnit.Uom_Label} ({pcaUnit.Uom}) not found in database.");
-                    continue;
-                }
-
-                /*attribute.AttributeUnits.Add(new AttributeUnitLibAm
-                {
-                    UnitId = dbUnit.Id,
-                    IsDefault = !string.IsNullOrWhiteSpace(firstElement?.Default_Uom) && (pcaUnit.Uom == firstElement.Default_Uom)
-                });*/
-            }
 
             attributes.Add(attribute);
         }

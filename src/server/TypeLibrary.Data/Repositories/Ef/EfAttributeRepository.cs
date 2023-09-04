@@ -30,7 +30,6 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     {
         return GetAll()
             .Include(x => x.ValueConstraint)
-            .Include(x => x.AttributeGroups)
             .AsSplitQuery();
     }
 
@@ -39,7 +38,6 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     {
         return FindBy(x => x.Id == id)
             .Include(x => x.ValueConstraint)
-            .Include(x => x.AttributeGroups)
             .AsSplitQuery()
             .FirstOrDefault();
     }

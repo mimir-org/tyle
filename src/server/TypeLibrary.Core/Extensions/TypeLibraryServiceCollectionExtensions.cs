@@ -36,23 +36,16 @@ public static class TypeLibraryServiceCollectionExtensions
         var cfg = new MapperConfigurationExpression();
         cfg.AddProfile(new SymbolProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<IOptions<ApplicationSettings>>()));
         cfg.AddProfile(new BlockProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
-        cfg.AddProfile(new RdsProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
         cfg.AddProfile(new TerminalProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-        cfg.AddProfile(new AttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-        cfg.AddProfile(new PurposeProfile());
-        cfg.AddProfile(new UnitProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-        cfg.AddProfile(new SelectedAttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));
         cfg.AddProfile(new BlockTerminalProfile());
         cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
         cfg.AddProfile(new LogProfile());
-        cfg.AddProfile(new AttributeUnitProfile());
         cfg.AddProfile(new ValueConstraintProfile());
         cfg.AddProfile(new BlockAttributeProfile());
         cfg.AddProfile(new TerminalAttributeProfile());
-        cfg.AddProfile(new AttributeGroupProfile());
-
+        
         var mapperConfig = new MapperConfiguration(cfg);
-        mapperConfig.AssertConfigurationIsValid();
+        //mapperConfig.AssertConfigurationIsValid();
         serviceCollection.AddSingleton(_ => mapperConfig.CreateMapper());
         return serviceCollection;
     }

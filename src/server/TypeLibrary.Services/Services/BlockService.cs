@@ -31,14 +31,13 @@ public class BlockService : IBlockService
     private readonly IEfBlockAttributeRepository _blockAttributeRepository;
     private readonly IAttributeService _attributeService;
     private readonly ITerminalService _terminalService;
-    private readonly IRdsService _rdsService;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
     private readonly ILogger<BlockService> _logger;
     private readonly IHttpContextAccessor _contextAccessor;
     private readonly IEmailService _emailService;
 
-    public BlockService(IMapper mapper, IEfBlockRepository blockRepository, IAttributeRepository attributeRepository, IEfBlockTerminalRepository blockTerminalRepository, IEfBlockAttributeRepository blockAttributeRepository, ITerminalService terminalService, IAttributeService attributeService, IRdsService rdsService, ITimedHookService hookService, ILogService logService, ILogger<BlockService> logger, IHttpContextAccessor contextAccessor, IEmailService emailService)
+    public BlockService(IMapper mapper, IEfBlockRepository blockRepository, IAttributeRepository attributeRepository, IEfBlockTerminalRepository blockTerminalRepository, IEfBlockAttributeRepository blockAttributeRepository, ITerminalService terminalService, IAttributeService attributeService, ITimedHookService hookService, ILogService logService, ILogger<BlockService> logger, IHttpContextAccessor contextAccessor, IEmailService emailService)
     {
         _mapper = mapper;
         _blockRepository = blockRepository;
@@ -47,7 +46,6 @@ public class BlockService : IBlockService
         _blockAttributeRepository = blockAttributeRepository;
         _terminalService = terminalService;
         _attributeService = attributeService;
-        _rdsService = rdsService;
         _hookService = hookService;
         _logService = logService;
         _logger = logger;
@@ -115,12 +113,12 @@ public class BlockService : IBlockService
 
         foreach (var blockTerminal in dm.BlockTerminals)
         {
-            blockTerminal.BlockId = dm.Id;
+            blockTerminal.Block = dm;
         }
 
         foreach (var blockAttribute in dm.BlockAttributes)
         {
-            blockAttribute.BlockId = dm.Id;
+            blockAttribute.Block = dm;
         }
 
         /*dm.BlockAttributes = new List<BlockAttributeTypeReference>();

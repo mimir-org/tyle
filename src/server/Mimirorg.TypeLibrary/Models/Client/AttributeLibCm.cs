@@ -21,8 +21,6 @@ public class AttributeLibCm // : IStatefulObject
     public RegularityQualifier? RegularityQualifier { get; set; }
     public ScopeQualifier? ScopeQualifier { get; set; }
     public ValueConstraintLibCm ValueConstraint { get; set; }
-    //public ICollection<AttributeUnitLibCm> AttributeUnits { get; set; }
-    public ICollection<AttributeGroupLibCm> AttributeGroups { get; set; }
 
     public string Kind => nameof(AttributeLibCm);
 }

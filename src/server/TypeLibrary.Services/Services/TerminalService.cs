@@ -85,7 +85,7 @@ public class TerminalService : ITerminalService
 
         foreach (var terminalAttribute in dm.TerminalAttributes)
         {
-            terminalAttribute.TerminalId = dm.Id;
+            terminalAttribute.Terminal = dm;
         }
 
         //dm.State = State.Draft;

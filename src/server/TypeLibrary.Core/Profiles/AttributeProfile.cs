@@ -21,7 +21,11 @@ public class AttributeProfile : Profile
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.Version, opt => opt.Ignore())
             .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => DateTimeOffset.UtcNow))
-            .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? CreatedBy.Unknown : contextAccessor.GetUserId()))
+            .ForMember(dest => dest.CreatedBy,
+                opt => opt.MapFrom(src =>
+                    string.IsNullOrWhiteSpace(contextAccessor.GetUserId())
+                        ? CreatedBy.Unknown
+                        : contextAccessor.GetUserId()))
             .ForMember(dest => dest.ContributedBy, opt => opt.Ignore())
             .ForMember(dest => dest.LastUpdateOn, opt => opt.Ignore())
             //.ForMember(dest => dest.State, opt => opt.Ignore())
@@ -33,8 +37,7 @@ public class AttributeProfile : Profile
             .ForMember(dest => dest.ScopeQualifier, opt => opt.MapFrom(src => src.ScopeQualifier))
             .ForMember(dest => dest.ValueConstraint, opt => opt.MapFrom(src => src.ValueConstraint))
             .ForMember(dest => dest.AttributeBlocks, opt => opt.Ignore())
-            .ForMember(dest => dest.AttributeTerminals, opt => opt.Ignore())
-            .ForMember(dest => dest.AttributeGroups, opt => opt.Ignore());
+            .ForMember(dest => dest.AttributeTerminals, opt => opt.Ignore());
 
         CreateMap<AttributeType, AttributeLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -51,8 +54,7 @@ public class AttributeProfile : Profile
             .ForMember(dest => dest.RangeQualifier, opt => opt.MapFrom(src => src.RangeQualifier))
             .ForMember(dest => dest.RegularityQualifier, opt => opt.MapFrom(src => src.RegularityQualifier))
             .ForMember(dest => dest.ScopeQualifier, opt => opt.MapFrom(src => src.ScopeQualifier))
-            .ForMember(dest => dest.ValueConstraint, opt => opt.MapFrom(src => src.ValueConstraint))
-            .ForMember(dest => dest.AttributeGroups, opt => opt.MapFrom(src => src.AttributeGroups.Select(x => x.AttributeGroup)));
+            .ForMember(dest => dest.ValueConstraint, opt => opt.MapFrom(src => src.ValueConstraint));
 
         CreateMap<AttributeLibCm, ApprovalCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
