@@ -4,7 +4,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 
-public class EfBlockTerminalRepository : GenericRepository<TypeLibraryDbContext, BlockTerminalLibDm>, IEfBlockTerminalRepository
+public class EfBlockTerminalRepository : GenericRepository<TypeLibraryDbContext, BlockTerminalTypeReference>, IEfBlockTerminalRepository
 {
     public EfBlockTerminalRepository(TypeLibraryDbContext dbContext) : base(dbContext)
     {

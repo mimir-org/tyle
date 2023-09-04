@@ -31,7 +31,7 @@ public class BlockType // : IVersionable<BlockLibAm>, IVersionObject, IEquatable
     public string? Symbol { get; set; }
     public Aspect Aspect { get; set; }
 
-    public virtual ICollection<BlockTerminalLibDm> BlockTerminals { get; set; } = null!;
+    public virtual ICollection<BlockTerminalTypeReference> BlockTerminals { get; set; } = null!;
     public virtual ICollection<BlockAttributeTypeReference> BlockAttributes { get; set; } = null!;
     //public virtual List<SelectedAttributePredefinedLibDm> SelectedAttributePredefined { get; set; }
 
@@ -61,7 +61,7 @@ public class BlockType // : IVersionable<BlockLibAm>, IVersionObject, IEquatable
             validation.AddNotAllowToChange(nameof(BlockAttributes), "It is not allowed to remove or change attributes");
 
         //Terminals
-        BlockTerminals ??= new List<BlockTerminalLibDm>();
+        BlockTerminals ??= new List<BlockTerminalTypeReference>();
         other.BlockTerminals ??= new List<BlockTerminalLibAm>();
         var otherTerminals = other.BlockTerminals.Select(x => (x.TerminalId, x.Direction));
         if (BlockTerminals.Select(y => (y.TerminalId, y.Direction)).Any(identifier => otherTerminals.Select(x => x).All(x => x != identifier)))
@@ -129,7 +129,7 @@ public class BlockType // : IVersionable<BlockLibAm>, IVersionObject, IEquatable
         }
 
         // Block Terminals
-        BlockTerminals ??= new List<BlockTerminalLibDm>();
+        BlockTerminals ??= new List<BlockTerminalTypeReference>();
         other.BlockTerminals ??= new List<BlockTerminalLibAm>();
         var otherTerminals = other.BlockTerminals.Select(x => (x.TerminalId, x.Direction, MaxCount: x.MaxCount == 0 ? int.MaxValue : x.MaxCount)).OrderBy(x => x.TerminalId).ThenBy(x => x.Direction).ThenBy(x => x.MaxCount);
         if (!BlockTerminals.Select(x => (x.TerminalId, x.Direction, x.MaxCount)).OrderBy(x => x.TerminalId).ThenBy(x => x.Direction).ThenBy(x => x.MaxCount).SequenceEqual(otherTerminals))
@@ -183,8 +183,8 @@ public class BlockType // : IVersionable<BlockLibAm>, IVersionObject, IEquatable
         }
 
         // Block Terminals
-        BlockTerminals ??= new List<BlockTerminalLibDm>();
-        other.BlockTerminals ??= new List<BlockTerminalLibDm>();
+        BlockTerminals ??= new List<BlockTerminalTypeReference>();
+        other.BlockTerminals ??= new List<BlockTerminalTypeReference>();
         if (!BlockTerminals.Select(x => (x.TerminalId, x.Direction)).Order()
                 .SequenceEqual(other.BlockTerminals.Select(x => (x.TerminalId, x.Direction)).Order()))
         {

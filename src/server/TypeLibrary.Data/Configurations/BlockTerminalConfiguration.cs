@@ -4,9 +4,9 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Configurations;
 
-public class BlockTerminalConfiguration : IEntityTypeConfiguration<BlockTerminalLibDm>
+public class BlockTerminalConfiguration : IEntityTypeConfiguration<BlockTerminalTypeReference>
 {
-    public void Configure(EntityTypeBuilder<BlockTerminalLibDm> builder)
+    public void Configure(EntityTypeBuilder<BlockTerminalTypeReference> builder)
     {
         builder.HasKey(x => x.Id);
         builder.ToTable("Block_Terminal");

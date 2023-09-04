@@ -95,7 +95,7 @@ public class MimirorgCommonFixture : IDisposable
             Name = "AA",
             //RdsId = "AA",
             Aspect = Aspect.Function,
-            BlockTerminals = new List<BlockTerminalLibDm>()
+            BlockTerminals = new List<BlockTerminalTypeReference>()
             /*{
                 new()
                 {

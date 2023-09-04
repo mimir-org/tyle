@@ -4,7 +4,7 @@ using VDS.RDF;
 
 namespace TypeLibrary.Data.Models;
 
-public class BlockTerminalLibDm
+public class BlockTerminalTypeReference
 {
     public Guid Id { get; set; }
     public int MinCount { get; set; }

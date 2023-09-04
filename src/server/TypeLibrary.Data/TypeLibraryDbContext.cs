@@ -7,7 +7,7 @@ namespace TypeLibrary.Data;
 public class TypeLibraryDbContext : DbContext
 {
     public virtual DbSet<SymbolLibDm> Symbol { get; set; }
-    public virtual DbSet<BlockTerminalLibDm> BlockTerminal { get; set; }
+    public virtual DbSet<BlockTerminalTypeReference> BlockTerminal { get; set; }
     //public virtual DbSet<AttributePredefinedLibDm> AttributePredefined { get; set; }
     public virtual DbSet<TerminalType> Terminal { get; set; }
     public virtual DbSet<BlockType> Block { get; set; }

@@ -3,6 +3,6 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts.Ef;
 
-public interface IEfBlockTerminalRepository : IGenericRepository<TypeLibraryDbContext, BlockTerminalLibDm>
+public interface IEfBlockTerminalRepository : IGenericRepository<TypeLibraryDbContext, BlockTerminalTypeReference>
 {
 }

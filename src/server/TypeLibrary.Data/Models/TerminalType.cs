@@ -26,7 +26,7 @@ public class TerminalType // : ILogable, IStatefulObject
     public Aspect Aspect { get; set; }
     public MediumReference? Medium { get; set; }
     public Direction Qualifier { get; set; }
-    public ICollection<BlockTerminalLibDm> TerminalBlocks { get; set; } = null!;
+    public ICollection<BlockTerminalTypeReference> TerminalBlocks { get; set; } = null!;
     public ICollection<TerminalAttributeTypeReference> TerminalAttributes { get; set; } = null!;
 
     /*#region ILogable

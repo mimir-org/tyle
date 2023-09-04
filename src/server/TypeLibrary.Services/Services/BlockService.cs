@@ -268,10 +268,10 @@ public class BlockService : IBlockService
         var tempDm = _mapper.Map<BlockType>(blockAm);
 
         blockToUpdate.SelectedAttributePredefined = tempDm.SelectedAttributePredefined;
-        blockToUpdate.BlockTerminals ??= new List<BlockTerminalLibDm>();
+        blockToUpdate.BlockTerminals ??= new List<BlockTerminalTypeReference>();
         blockToUpdate.BlockAttributes ??= new List<BlockAttributeTypeReference>();
 
-        tempDm.BlockTerminals ??= new List<BlockTerminalLibDm>();
+        tempDm.BlockTerminals ??= new List<BlockTerminalTypeReference>();
 
         // Delete removed terminal connections, and add new terminal connections
         var currentBlockTerminals = blockToUpdate.BlockTerminals.ToHashSet();

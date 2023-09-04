@@ -10,7 +10,7 @@ public class BlockTerminalProfile : Profile
 {
     public BlockTerminalProfile()
     {
-        CreateMap<BlockTerminalLibAm, BlockTerminalLibDm>()
+        CreateMap<BlockTerminalLibAm, BlockTerminalTypeReference>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
             .ForMember(dest => dest.MinCount, opt => opt.MapFrom(src => src.MinCount))
             .ForMember(dest => dest.MaxCount, opt => opt.MapFrom(src => src.MaxCount))
@@ -20,7 +20,7 @@ public class BlockTerminalProfile : Profile
             .ForMember(dest => dest.TerminalId, opt => opt.MapFrom(src => src.TerminalId))
             .ForMember(dest => dest.Terminal, opt => opt.Ignore());
 
-        CreateMap<BlockTerminalLibDm, BlockTerminalLibCm>()
+        CreateMap<BlockTerminalTypeReference, BlockTerminalLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.MinCount, opt => opt.MapFrom(src => src.MinCount))
             .ForMember(dest => dest.MaxCount, opt => opt.MapFrom(src => src.MaxCount))
