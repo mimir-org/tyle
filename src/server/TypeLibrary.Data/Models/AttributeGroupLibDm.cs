@@ -10,7 +10,7 @@ using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models
 {
-    public class AttributeGroupDm : IStatefulObject, ILogable
+    public class AttributeGroupLibDm : IStatefulObject, ILogable
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -26,7 +26,7 @@ namespace TypeLibrary.Data.Models
             {
                 ObjectId = Id,
                 ObjectFirstVersionId = null,
-                ObjectType = nameof(AttributeGroupDm),
+                ObjectType = nameof(AttributeGroupLibDm),
                 ObjectName = Name,
                 ObjectVersion = null,
                 LogType = logType,

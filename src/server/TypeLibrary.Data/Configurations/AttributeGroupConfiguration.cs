@@ -5,9 +5,9 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Configurations
 {
-    public class AttributeGroupConfiguration : IEntityTypeConfiguration<AttributeGroupDm>
+    public class AttributeGroupConfiguration : IEntityTypeConfiguration<AttributeGroupLibDm>
     {
-        public void Configure(EntityTypeBuilder<AttributeGroupDm> builder)
+        public void Configure(EntityTypeBuilder<AttributeGroupLibDm> builder)
         {
             builder.HasKey(x => x.Id);
             builder.HasIndex(x => x.State).IsUnique(false);

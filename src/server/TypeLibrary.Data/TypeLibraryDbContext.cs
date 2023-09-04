@@ -19,7 +19,7 @@ public class TypeLibraryDbContext : DbContext
     public virtual DbSet<BlockAttributeLibDm> BlockAttribute { get; set; }
     public virtual DbSet<TerminalAttributeLibDm> TerminalAttribute { get; set; }
     public virtual DbSet<RdsLibDm> Rds { get; set; }
-    public virtual DbSet<AttributeGroupDm> AttributeGroup { get; set; }
+    public virtual DbSet<AttributeGroupLibDm> AttributeGroup { get; set; }
 
 
     public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)

@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TypeLibrary.Core.Helper;
+using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1;
@@ -25,17 +26,19 @@ namespace TypeLibrary.Core.Controllers.V1;
 [ApiVersion(VersionConstant.OnePointZero)]
 [Route("V{version:apiVersion}/[controller]")]
 [SwaggerTag("Attribute services")]
-
+[Authorize]
 
 public class LibraryAttributeGroupController : ControllerBase
-{    
+{
     private readonly IAttributeService _attributeService;
     private readonly IMimirorgAuthService _authService;
+    private readonly IAttributeGroupService _attributeGroupService;
 
-    public LibraryAttributeGroupController(IAttributeService attributeService, IMimirorgAuthService authService)
+    public LibraryAttributeGroupController(IAttributeService attributeService, IAttributeGroupService attributeGroupService, IMimirorgAuthService authService)
     {
         _attributeService = attributeService;
         _authService = authService;
+        _attributeGroupService = attributeGroupService;
     }
 
 
@@ -46,32 +49,11 @@ public class LibraryAttributeGroupController : ControllerBase
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [AllowAnonymous]
-    public IActionResult Get()
-    {         
-        try
-        {
-            var data = _attributeService.Get().ToList();
-            return Ok(data);
-        }
-        catch (Exception e)
-        {
-            var logger = new ExeptionLogger();
-            logger.LoggExeption(e);
-            return StatusCode(500, "Internal Server Error.");
-        }
-    }
-
-    [HttpGet]
-    [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [AllowAnonymous]
-    public IActionResult GetSearch([FromBody] string? searchtext)
+    public IActionResult Get([FromBody] string searchText)
     {
-        //TODO add search input variable here?
         try
         {
-            var data = _attributeService.Get().ToList();
+            var data = _attributeGroupService.GetAttributeGroupList(searchText);
             return Ok(data);
         }
         catch (Exception e)
@@ -91,12 +73,11 @@ public class LibraryAttributeGroupController : ControllerBase
     [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [AllowAnonymous]
-    public IActionResult Get([FromRoute] string id)
+    public IActionResult Get([FromRoute] Guid id)
     {
         try
         {
-            var data = _attributeService.Get(id);
+            var data = _attributeGroupService.GetSingleAttributeGroup(id);
             if (data == null)
                 return NotFound(id);
 
@@ -117,27 +98,25 @@ public class LibraryAttributeGroupController : ControllerBase
     /// <summary>
     /// Create an attribute group
     /// </summary>
-    /// <param name="attributeGroup">The attribute that should be created</param>
+    /// <param name="attributeGroup">The attribute group that should be created</param>
     /// <returns>The created attribute group</returns>
     [HttpPost]
     [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
-    public async Task<IActionResult> Create([FromBody] AttributeLibAm attributeGroup)
+    [MimirorgAuthorize(MimirorgPermission.Write, "attributeGroup", "CompanyId")]
+    public async Task<IActionResult> Create([FromBody] AttributeGroupAm attributeGroup)
     {
-        //TODO create Attribute group and add the Id of the given attributes in the DB
-        //TODO add items in group here
-
+              
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            //var cm = await _attributeService.Create(attribute);
-            //return Ok(cm);
-            return Ok();
+            var cm = await _attributeGroupService.Create(attributeGroup);
+
+            return Ok(cm);
         }
         catch (MimirorgBadRequestException e)
         {
@@ -154,7 +133,7 @@ public class LibraryAttributeGroupController : ControllerBase
     /// <summary>
     /// Update an attributeGroup and/or object in group
     /// </summary>
-    /// <param name="id">The id of the attribute object that should be updated</param>
+    /// <param name="id">The id of the attribute group object that should be updated</param>
     /// <param name="attribute">The new values of the attribute</param>
     /// <returns>The updated attribute</returns>
     [HttpPut("{id}")]
@@ -165,7 +144,7 @@ public class LibraryAttributeGroupController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] AttributeLibAm attribute)
+    public async Task<IActionResult> Update(string id, [FromBody] AttributeGroupAm attribute)
     {
         //Todo add the group id and attribute change id
 
@@ -174,7 +153,7 @@ public class LibraryAttributeGroupController : ControllerBase
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var data = await _attributeService.Update(id, attribute);
+            var data = await _attributeGroupService.Update(id, attribute);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)
@@ -207,18 +186,17 @@ public class LibraryAttributeGroupController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [Authorize]
     public async Task<IActionResult> Delete([FromRoute] string id)
     {
         try
         {
-            var attribute = _attributeService.Get(id);
+            var attribute = await _attributeGroupService.GetSingleAttributeGroup(id);
             var hasAccess = await _authService.CanDelete(attribute.State, attribute.CreatedBy, CompanyConstants.AnyCompanyId);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            await _attributeService.Delete(id);
+            await _attributeGroupService.Delete(id);
             return NoContent();
         }
         catch (MimirorgNotFoundException e)
@@ -249,7 +227,6 @@ public class LibraryAttributeGroupController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [Authorize]
     public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
     {
         try
@@ -259,7 +236,7 @@ public class LibraryAttributeGroupController : ControllerBase
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _attributeService.ChangeState(id, state, true);
+            var data = await _attributeGroupService.ChangeState(id, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)
@@ -277,32 +254,5 @@ public class LibraryAttributeGroupController : ControllerBase
             return StatusCode(500, "Internal Server Error");
         }
     }
-
-
-    //TODO is this needed?
-
-    /// <summary>
-    /// Get all predefined attributes
-    /// </summary>
-    /// <returns>A collection of predefined attributes</returns>
-    //[HttpGet("predefined")]
-    //[ProducesResponseType(typeof(ICollection<AttributePredefinedLibCm>), StatusCodes.Status200OK)]
-    //[AllowAnonymous]
-    //public IActionResult GetPredefined()
-    //{
-    //    try
-    //    {
-    //        var data = _attributeService.GetPredefined().ToList();
-    //        return Ok(data);
-    //    }
-    //    catch (Exception e)
-    //    {
-    //        _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-    //        return StatusCode(500, "Internal Server Error");
-    //    }
-    //}
-
-
-
 
 }
