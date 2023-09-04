@@ -19,12 +19,12 @@ public class TerminalLibDm // : ILogable, IStatefulObject
     public DateTimeOffset LastUpdateOn { get; set; }
     //public int CompanyId { get; set; }
     //public State State { get; set; }
-    public ICollection<string> Classifiers { get; set; } = new List<string>();
-    public string? Purpose { get; set; }
+    public ICollection<ClassifierReference> Classifiers { get; set; } = new List<ClassifierReference>();
+    public PurposeReference? Purpose { get; set; }
     public string? Notation { get; set; }
     public string? Symbol { get; set; }
     public Aspect Aspect { get; set; }
-    public string? Medium { get; set; }
+    public MediumReference? Medium { get; set; }
     public Direction Qualifier { get; set; }
     public ICollection<BlockTerminalLibDm> TerminalBlocks { get; set; } = null!;
     public ICollection<TerminalAttributeLibDm> TerminalAttributes { get; set; } = null!;

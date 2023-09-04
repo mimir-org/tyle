@@ -19,8 +19,8 @@ public class AttributeLibDm // : ILogable, IStatefulObject
     public DateTimeOffset LastUpdateOn { get; set; }
     //public int CompanyId { get; set; }
     //public State State { get; set; }
-    public string? Predicate { get; set; }
-    public ICollection<string> UoMs { get; set; } = new List<string>();
+    public PredicateReference? Predicate { get; set; }
+    public ICollection<UnitReference> UoMs { get; set; } = new List<UnitReference>();
     public ProvenanceQualifier? ProvenanceQualifier { get; set; }
     public RangeQualifier? RangeQualifier { get; set; }
     public RegularityQualifier? RegularityQualifier { get; set; }

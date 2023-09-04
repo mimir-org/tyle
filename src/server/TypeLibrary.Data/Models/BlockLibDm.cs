@@ -25,8 +25,8 @@ public class BlockLibDm // : IVersionable<BlockLibAm>, IVersionObject, IEquatabl
     public DateTimeOffset LastUpdateOn { get; set; }
     //public int CompanyId { get; set; }
     //public State State { get; set; }
-    public ICollection<string> Classifiers { get; set; } = new List<string>();
-    public string? Purpose { get; set; }
+    public ICollection<ClassifierReference> Classifiers { get; set; } = new List<ClassifierReference>();
+    public PurposeReference? Purpose { get; set; }
     public string? Notation { get; set; }
     public string? Symbol { get; set; }
     public Aspect Aspect { get; set; }
