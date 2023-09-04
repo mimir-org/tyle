@@ -28,8 +28,9 @@ public class AttributeService : IAttributeService
     private readonly ILogService _logService;
     private readonly IHttpContextAccessor _contextAccessor;
     private readonly IEmailService _emailService;
+    private readonly IEfUnitRepository _unitRepository;
 
-    public AttributeService(IMapper mapper, IEfAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor, IEmailService emailService)
+    public AttributeService(IMapper mapper, IEfAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor, IEmailService emailService, IEfUnitRepository unitRepository)
     {
         _mapper = mapper;
         _attributeRepository = attributeRepository;
@@ -37,6 +38,7 @@ public class AttributeService : IAttributeService
         _logService = logService;
         _contextAccessor = contextAccessor;
         _emailService = emailService;
+        _unitRepository = unitRepository;
     }
 
     /// <inheritdoc />
@@ -85,7 +87,11 @@ public class AttributeService : IAttributeService
         }
 
         dm.LastUpdateOn = dm.CreatedOn;
-        //TODO: Predicates and units
+        //TODO: Predicates
+        foreach (var unitReferenceId in attributeAm.UnitReferenceIds)
+        {
+            dm.UoMs.Add(await _unitRepository.GetAsync(unitReferenceId));
+        }
 
         var valueConstraint = attributeAm.ValueConstraint;
         if (valueConstraint != null)
