@@ -4,7 +4,6 @@ using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System;
-using TypeLibrary.Core.Profiles.Resolvers;
 using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
@@ -19,7 +18,7 @@ public class RdsProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid().ToString()))
             .ForMember(dest => dest.RdsCode, opt => opt.MapFrom(src => src.RdsCode))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.Iri, opt => opt.MapFrom(new RdsIriResolver(settings)))
+            .ForMember(dest => dest.Iri, opt => opt.Ignore())
             .ForMember(dest => dest.TypeReference, opt => opt.MapFrom(src => src.TypeReference))
             .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
             .ForMember(dest => dest.CreatedBy,

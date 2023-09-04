@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TypeLibrary.Core.Factories;
-using TypeLibrary.Core.Profiles.Resolvers;
 using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
