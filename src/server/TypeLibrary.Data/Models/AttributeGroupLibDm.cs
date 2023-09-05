@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Enums;
@@ -14,7 +11,7 @@ namespace TypeLibrary.Data.Models
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public string Attribute { get; set; }
+        public ICollection<string> AttributeIds { get; set; }        
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public string Description { get; set; }

@@ -25,7 +25,7 @@ namespace TypeLibrary.Core.Controllers.V1;
 [ApiController]
 [ApiVersion(VersionConstant.OnePointZero)]
 [Route("V{version:apiVersion}/[controller]")]
-[SwaggerTag("Attribute services")]
+[SwaggerTag("Attribute group services")]
 [Authorize]
 
 public class LibraryAttributeGroupController : ControllerBase
@@ -106,7 +106,7 @@ public class LibraryAttributeGroupController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "attributeGroup", "CompanyId")]
-    public async Task<IActionResult> Create([FromBody] AttributeGroupAm attributeGroup)
+    public async Task<IActionResult> Create([FromBody] AttributeGroupLibAm attributeGroup)
     {
               
         try
@@ -144,7 +144,7 @@ public class LibraryAttributeGroupController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] AttributeGroupAm attribute)
+    public async Task<IActionResult> Update(string id, [FromBody] AttributeGroupLibAm attribute)
     {
         //Todo add the group id and attribute change id
 

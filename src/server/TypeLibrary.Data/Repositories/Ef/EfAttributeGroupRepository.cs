@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Lucene.Net.Util;
+using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 
@@ -19,31 +22,49 @@ namespace TypeLibrary.Data.Repositories.Ef
         {
         }
 
-        public Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
+        public async Task ChangeState(string id, State state, bool sendStateEmail)
         {
-            throw new NotImplementedException();
+            var attribute = await GetAsync(id);
+            attribute.State = state;
+            await SaveAsync();
+            Detach(attribute);
         }
 
 
-        public Task<AttributeGroupCm> Create(AttributeGroupAm attributeAm, string createdBy = null)
+        public async Task<AttributeGroupLibDm> Create(AttributeGroupLibDm attributeGroupLibDm, string createdBy = null)
         {
-            throw new NotImplementedException();
+            //Foreach attribute in list create record with same id
+            await CreateAsync(attributeGroupLibDm);
+            await SaveAsync();
+            Detach(attributeGroupLibDm);
+
+            return attributeGroupLibDm;
         }
 
-        public Task<IEnumerable<AttributeGroupCm>> GetAttributeGroupList(string searchText = null)
+        public IEnumerable<AttributeGroupLibDm> GetAttributeGroupList(string searchText = null)
         {
-            throw new NotImplementedException();
+            return GetAll().AsSplitQuery();
         }
 
-        public async Task<AttributeGroupCm> GetSingleAttributeGroup(string id)
+        public AttributeGroupLibDm GetSingleAttributeGroup(string id)
         {
-            //TODO
-            throw new NotImplementedException();
+            {
+                return FindBy(x => x.Id == id)                                       
+                    .FirstOrDefault();
+            }
         }
 
-        public Task<AttributeGroupCm> Update(string id, AttributeGroupAm attributeAm)
+        public AttributeGroupLibDm Update(string id, AttributeGroupLibDm attributeGroupLibDm)
         {
-            throw new NotImplementedException();
+            var item = GetSingleAttributeGroup(id);
+            //Do the updates
+            Update(item);
+            return item;
+        }
+
+        public void ClearAllChangeTrackers()
+        {
+            Context?.ChangeTracker.Clear();
         }
     }
 }

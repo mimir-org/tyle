@@ -7,7 +7,7 @@ using Mimirorg.Common.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Client
 {
-    public class AttributeGroupCm
+    public class AttributeGroupLibCm
     {
         public string Id { get; set; }
         public string Name { get; set; }

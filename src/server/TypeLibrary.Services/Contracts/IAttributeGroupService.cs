@@ -16,14 +16,14 @@ namespace TypeLibrary.Services.Contracts
         /// Get all attribute groups
         /// </summary>
         /// <returns>List of attribute groups</returns>
-        Task<IEnumerable<AttributeGroupCm>> GetAttributeGroupList(string searchText = null);
+        Task<IEnumerable<AttributeGroupLibCm>> GetAttributeGroupList(string searchText = null);
 
         /// <summary>
         /// Get an attribute group by id
         /// </summary>
         /// <returns>The attribute group with the given id</returns>
         /// <exception cref="MimirorgNotFoundException">Throws if there is no attribute group with the given id.</exception>
-        Task<AttributeGroupCm> GetSingleAttributeGroup(string id);
+        Task<AttributeGroupLibCm> GetSingleAttributeGroup(string id);
 
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace TypeLibrary.Services.Contracts
         /// <param name="createdBy">Used to set created by value for instances where objects are not created by the user</param>
         /// <returns>The created attribute group</returns>
         /// <exception cref="MimirorgBadRequestException">Throws if attribute group is not valid</exception>
-        Task<AttributeGroupCm> Create(AttributeGroupAm attributeAm, string createdBy = null);
+        Task<AttributeGroupLibCm> Create(AttributeGroupLibAm attributeAm, string createdBy = null);
 
         /// <summary>
         /// Update an existing attribute group
@@ -44,7 +44,7 @@ namespace TypeLibrary.Services.Contracts
         /// <exception cref="MimirorgNotFoundException">Throws if there is no attribute group with the given id.</exception>
         /// <exception cref="MimirorgBadRequestException">Throws if the new attribute group values are not valid.</exception>
         /// <exception cref="MimirorgInvalidOperationException">Throws if the attribute group is not a draft or approved.</exception>
-        Task<AttributeGroupCm> Update(string id, AttributeGroupAm attributeAm);
+        Task<AttributeGroupLibCm> Update(string id, AttributeGroupLibAm attributeAm);
 
         /// <summary>
         ///  Delete an attribute group, it can't be approved
@@ -67,7 +67,9 @@ namespace TypeLibrary.Services.Contracts
         /// approved or contains references to deleted or unapproved units.</exception>
         Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail);
 
-
-
+        /// <summary>
+        /// Clear all entity framework change trackers
+        /// </summary>
+        void ClearAllChangeTrackers();
     }
 }

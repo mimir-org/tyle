@@ -14,7 +14,7 @@ namespace TypeLibrary.Data.Configurations
             builder.ToTable("AttributeGroup");
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(63);
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(127);
-            builder.Property(p => p.Attribute).HasColumnName("Attribute").IsRequired().HasMaxLength(127);
+            builder.Property(p => p.AttributeIds).HasColumnName("AttributeIds").IsRequired().HasMaxLength(127);
             builder.Property(p => p.Created).HasColumnName("Created").IsRequired();
             builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasMaxLength(127);
             builder.Property(p => p.State).HasColumnName("State").IsRequired().HasConversion<string>().HasMaxLength(31);

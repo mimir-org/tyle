@@ -44,6 +44,7 @@ public static class TypeLibraryServiceCollectionExtensions
         cfg.AddProfile(new SelectedAttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));
         cfg.AddProfile(new BlockTerminalProfile());
         cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
+        cfg.AddProfile(new AttributeGroupProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));        
         cfg.AddProfile(new LogProfile());
         cfg.AddProfile(new AttributeUnitProfile());
 
