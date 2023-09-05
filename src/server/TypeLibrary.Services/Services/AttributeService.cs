@@ -87,10 +87,13 @@ public class AttributeService : IAttributeService
         }
 
         dm.LastUpdateOn = dm.CreatedOn;
-        //TODO: Predicates
+        if (attributeAm.PredicateReferenceId != null)
+        {
+            dm.Predicate = new PredicateReference() { Id = (int) attributeAm.PredicateReferenceId, Name = "", Iri = "" };
+        }
         foreach (var unitReferenceId in attributeAm.UnitReferenceIds)
         {
-            dm.UoMs.Add(await _unitRepository.GetAsync(unitReferenceId));
+            dm.UoMs.Add(new UnitReference() { Id = unitReferenceId, Name = "", Iri = "" });
         }
 
         var valueConstraint = attributeAm.ValueConstraint;

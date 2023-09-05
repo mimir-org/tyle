@@ -29,6 +29,8 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     public IEnumerable<AttributeType> Get()
     {
         return GetAll()
+            .Include(x => x.Predicate)
+            .Include(x => x.UoMs)
             .Include(x => x.ValueConstraint)
             .AsSplitQuery();
     }
@@ -37,6 +39,8 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     public AttributeType Get(Guid id)
     {
         return FindBy(x => x.Id == id)
+            .Include(x => x.Predicate)
+            .Include(x => x.UoMs)
             .Include(x => x.ValueConstraint)
             .AsSplitQuery()
             .FirstOrDefault();
@@ -46,6 +50,14 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     public async Task<AttributeType> Create(AttributeType attribute)
     {
         await CreateAsync(attribute);
+        if (attribute.Predicate != null)
+        {
+            Context.Entry(attribute.Predicate).State = EntityState.Unchanged;
+        }
+        foreach (var unit in attribute.UoMs)
+        {
+            Context.Entry(unit).State = EntityState.Unchanged;
+        }
         await SaveAsync();
 
         Detach(attribute);
