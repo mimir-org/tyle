@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 
@@ -27,19 +29,20 @@ public class ValueConstraint
     {
         ConstraintType = ConstraintType.HasValue;
         DataType = dataType;
-        Value = value;
+        Value = ParseThenToString(value);
     }
 
     public ValueConstraint(XsdDataType dataType, ICollection<string> value)
     {
         ConstraintType = ConstraintType.In;
         DataType = dataType;
-        AllowedValues = value;
+        AllowedValues = value.Select(ParseThenToString).ToList();
     }
 
     public ValueConstraint(Uri classIri)
     {
         ConstraintType = ConstraintType.Class;
+        DataType = XsdDataType.AnyUri;
         ClassIri = classIri;
     }
 
@@ -114,5 +117,20 @@ public class ValueConstraint
         MaxValue = maxValue;
         MinInclusive = minInclusive;
         MaxInclusive = maxInclusive;
+    }
+
+    private string ParseThenToString(string value)
+    {
+        switch (DataType)
+        {
+            case XsdDataType.Decimal:
+                return decimal.Parse(value, CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
+            case XsdDataType.Integer:
+                return int.Parse(value).ToString(CultureInfo.InvariantCulture);
+            case XsdDataType.Boolean:
+                return bool.Parse(value).ToString(CultureInfo.InvariantCulture);
+            default:
+                return value;
+        }
     }
 }
