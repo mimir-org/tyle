@@ -2,18 +2,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Mimirorg.Authentication.Contracts;
-using Mimirorg.Authentication.Models.Attributes;
-using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Constants;
-using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TypeLibrary.Services.Contracts;
 
@@ -28,13 +23,11 @@ public class UnitController : ControllerBase
 {
     private readonly ILogger<UnitController> _logger;
     private readonly IReferenceService _referenceService;
-    private readonly IMimirorgAuthService _authService;
 
-    public UnitController(ILogger<UnitController> logger, IReferenceService referenceService, IMimirorgAuthService authService)
+    public UnitController(ILogger<UnitController> logger, IReferenceService referenceService)
     {
         _logger = logger;
         _referenceService = referenceService;
-        _authService = authService;
     }
 
     [HttpGet]
@@ -45,7 +38,7 @@ public class UnitController : ControllerBase
     {
         try
         {
-            var data = _referenceService.GetAllUnits().ToList();
+            var data = _referenceService.GetAllUnits();
             return Ok(data);
         }
         catch (Exception e)

@@ -23,34 +23,34 @@ namespace TypeLibrary.Core.Controllers.V1;
 [ApiController]
 [ApiVersion(VersionConstant.OnePointZero)]
 [Route("V{version:apiVersion}/[controller]")]
-[SwaggerTag("Block Services")]
-public class LibraryBlockController : ControllerBase
+[SwaggerTag("Attribute services")]
+public class AttributeController : ControllerBase
 {
-    private readonly ILogger<LibraryBlockController> _logger;
-    private readonly IBlockService _blockService;
+    private readonly ILogger<AttributeController> _logger;
+    private readonly IAttributeService _attributeService;
     private readonly IMimirorgAuthService _authService;
 
-    public LibraryBlockController(ILogger<LibraryBlockController> logger, IBlockService blockService, IMimirorgAuthService authService)
+    public AttributeController(ILogger<AttributeController> logger, IAttributeService attributeService, IMimirorgAuthService authService)
     {
         _logger = logger;
-        _blockService = blockService;
+        _attributeService = attributeService;
         _authService = authService;
     }
 
     /// <summary>
-    /// Get latest approved blocks as well as unfinished and in review drafts
+    /// Get all attributes
     /// </summary>
-    /// <returns>A collection of blocks</returns>
+    /// <returns>A collection of attributes</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<BlockLibCm>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult GetLatestVersions()
+    public IActionResult Get()
     {
         try
         {
-            var cm = _blockService.GetLatestVersions().ToList();
-            return Ok(cm);
+            var data = _attributeService.Get();
+            return Ok(data);
         }
         catch (Exception e)
         {
@@ -60,20 +60,20 @@ public class LibraryBlockController : ControllerBase
     }
 
     /// <summary>
-    /// Get block by id
+    /// Get attribute by id
     /// </summary>
-    /// <param name="id">The id of the block to get</param>
-    /// <returns>The requested block</returns>
+    /// <param name="id">The id of the attribute to get</param>
+    /// <returns>The requested attribute</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get([FromRoute] Guid id)
     {
         try
         {
-            var data = _blockService.Get(id);
+            var data = _attributeService.Get(id);
             if (data == null)
                 return NotFound(id);
 
@@ -90,56 +90,25 @@ public class LibraryBlockController : ControllerBase
         }
     }
 
-    /*/// <summary>
-    /// Get latest approved version of a block by id
-    /// </summary>
-    /// <param name="id">The id of the block we want to get the latest approved version of</param>
-    /// <returns>The requested block</returns>
-    [HttpGet("latest-approved/{id}")]
-    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [AllowAnonymous]
-    public IActionResult GetLatestApproved([FromRoute] string id)
-    {
-        try
-        {
-            var data = _blockService.GetLatestApproved(id);
-            if (data == null)
-                return NotFound(id);
-
-            return Ok(data);
-        }
-        catch (MimirorgNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
-        }
-    }*/
-
     /// <summary>
-    /// Create a block
+    /// Create an attribute
     /// </summary>
-    /// <param name="block">The block that should be created</param>
-    /// <returns>The created block</returns>
+    /// <param name="attribute">The attribute that should be created</param>
+    /// <returns>The created attribute</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "block", "CompanyId")]
-    public async Task<IActionResult> Create([FromBody] BlockLibAm block)
+    [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
+    public async Task<IActionResult> Create([FromBody] AttributeLibAm attribute)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var cm = await _blockService.Create(block);
+            var cm = await _attributeService.Create(attribute);
             return Ok(cm);
         }
         catch (MimirorgBadRequestException e)
@@ -154,27 +123,27 @@ public class LibraryBlockController : ControllerBase
     }
 
     /*/// <summary>
-    /// Update a block
+    /// Update an attribute object
     /// </summary>
-    /// <param name="id">The id of the block that should be updated</param>
-    /// <param name="block">The new values of the block</param>
-    /// <returns>The updated block</returns>
+    /// <param name="id">The id of the attribute object that should be updated</param>
+    /// <param name="attribute">The new values of the attribute</param>
+    /// <returns>The updated attribute</returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "block", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] BlockLibAm block)
+    [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
+    public async Task<IActionResult> Update(Guid id, [FromBody] AttributeLibAm attribute)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var data = await _blockService.Update(id, block);
+            var data = await _attributeService.Update(id, attribute);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)
@@ -197,9 +166,9 @@ public class LibraryBlockController : ControllerBase
     }*/
 
     /// <summary>
-    /// Delete a block that is not approved
+    /// Delete an attribute that is not approved
     /// </summary>
-    /// <param name="id">The id of the block to delete</param>
+    /// <param name="id">The id of the attribute to delete</param>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -211,13 +180,13 @@ public class LibraryBlockController : ControllerBase
     {
         try
         {
-            var block = _blockService.Get(id);
-            /*var hasAccess = await _authService.CanDelete(block.State, block.CreatedBy, block.CompanyId);
+            var attribute = _attributeService.Get(id);
+            /*var hasAccess = await _authService.CanDelete(attribute.State, attribute.CreatedBy, CompanyConstants.AnyCompanyId);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);*/
 
-            await _blockService.Delete(id);
+            await _attributeService.Delete(id);
             return NoContent();
         }
         catch (MimirorgNotFoundException e)
@@ -236,11 +205,11 @@ public class LibraryBlockController : ControllerBase
     }
 
     /*/// <summary>
-    /// Update a block with new state
+    /// Update an attribute with a new state
     /// </summary>
-    /// <param name="id">The id of the block to be updated</param>
+    /// <param name="id">The id of the attribute to be updated</param>
     /// <param name="state">The new state</param>
-    /// <returns>An approval data object containing the id of the block and the new state</returns>
+    /// <returns>An approval data object containing the id of the attribute and the new state</returns>
     [HttpPatch("{id}/state/{state}")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -252,13 +221,12 @@ public class LibraryBlockController : ControllerBase
     {
         try
         {
-            var companyId = _blockService.GetCompanyId(id);
-            var hasAccess = await _authService.HasAccess(companyId, state);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _blockService.ChangeState(id, state, true);
+            var data = await _attributeService.ChangeState(id, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)
@@ -272,6 +240,27 @@ public class LibraryBlockController : ControllerBase
         catch (Exception e)
         {
             _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
+    /// Get all predefined attributes
+    /// </summary>
+    /// <returns>A collection of predefined attributes</returns>
+    [HttpGet("predefined")]
+    [ProducesResponseType(typeof(ICollection<AttributePredefinedLibCm>), StatusCodes.Status200OK)]
+    [AllowAnonymous]
+    public IActionResult GetPredefined()
+    {
+        try
+        {
+            var data = _attributeService.GetPredefined().ToList();
+            return Ok(data);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }*/

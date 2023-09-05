@@ -17,39 +17,41 @@ using System.Linq;
 using System.Threading.Tasks;
 using TypeLibrary.Services.Contracts;
 
+// ReSharper disable StringLiteralTypo
+
 namespace TypeLibrary.Core.Controllers.V1;
 
 [Produces("application/json")]
 [ApiController]
 [ApiVersion(VersionConstant.OnePointZero)]
 [Route("V{version:apiVersion}/[controller]")]
-[SwaggerTag("Attribute services")]
-public class LibraryAttributeController : ControllerBase
+[SwaggerTag("Terminal services")]
+public class TerminalController : ControllerBase
 {
-    private readonly ILogger<LibraryAttributeController> _logger;
-    private readonly IAttributeService _attributeService;
+    private readonly ILogger<TerminalController> _logger;
+    private readonly ITerminalService _terminalService;
     private readonly IMimirorgAuthService _authService;
 
-    public LibraryAttributeController(ILogger<LibraryAttributeController> logger, IAttributeService attributeService, IMimirorgAuthService authService)
+    public TerminalController(ILogger<TerminalController> logger, ITerminalService terminalService, IMimirorgAuthService authService)
     {
         _logger = logger;
-        _attributeService = attributeService;
+        _terminalService = terminalService;
         _authService = authService;
     }
 
     /// <summary>
-    /// Get all attributes
+    /// Get all terminals
     /// </summary>
-    /// <returns>A collection of attributes</returns>
+    /// <returns>A collection of terminals</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<TerminalLibCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get()
     {
         try
         {
-            var data = _attributeService.Get().ToList();
+            var data = _terminalService.Get();
             return Ok(data);
         }
         catch (Exception e)
@@ -60,20 +62,20 @@ public class LibraryAttributeController : ControllerBase
     }
 
     /// <summary>
-    /// Get attribute by id
+    /// Get terminal by id
     /// </summary>
-    /// <param name="id">The id of the attribute to get</param>
-    /// <returns>The requested attribute</returns>
+    /// <param name="id">The id of the terminal to get</param>
+    /// <returns>The requested terminal</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult Get([FromRoute] Guid id)
+    public IActionResult Get(Guid id)
     {
         try
         {
-            var data = _attributeService.Get(id);
+            var data = _terminalService.Get(id);
             if (data == null)
                 return NotFound(id);
 
@@ -91,24 +93,24 @@ public class LibraryAttributeController : ControllerBase
     }
 
     /// <summary>
-    /// Create an attribute
+    /// Create a terminal
     /// </summary>
-    /// <param name="attribute">The attribute that should be created</param>
-    /// <returns>The created attribute</returns>
+    /// <param name="terminal">The terminal that should be created</param>
+    /// <returns>The created terminal</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
-    public async Task<IActionResult> Create([FromBody] AttributeLibAm attribute)
+    [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
+    public async Task<IActionResult> Create([FromBody] TerminalLibAm terminal)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var cm = await _attributeService.Create(attribute);
+            var cm = await _terminalService.Create(terminal);
             return Ok(cm);
         }
         catch (MimirorgBadRequestException e)
@@ -123,27 +125,27 @@ public class LibraryAttributeController : ControllerBase
     }
 
     /*/// <summary>
-    /// Update an attribute object
+    /// Update a terminal object
     /// </summary>
-    /// <param name="id">The id of the attribute object that should be updated</param>
-    /// <param name="attribute">The new values of the attribute</param>
-    /// <returns>The updated attribute</returns>
+    /// <param name="id">The id of the terminal object that should be updated</param>
+    /// <param name="terminal">The new values of the terminal</param>
+    /// <returns>The updated terminal</returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
-    public async Task<IActionResult> Update(Guid id, [FromBody] AttributeLibAm attribute)
+    [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
+    public async Task<IActionResult> Update(string id, [FromBody] TerminalLibAm terminal)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var data = await _attributeService.Update(id, attribute);
+            var data = await _terminalService.Update(id, terminal);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)
@@ -166,9 +168,9 @@ public class LibraryAttributeController : ControllerBase
     }*/
 
     /// <summary>
-    /// Delete an attribute that is not approved
+    /// Delete a terminal that is not approved
     /// </summary>
-    /// <param name="id">The id of the attribute to delete</param>
+    /// <param name="id">The id of the terminal to delete</param>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -180,13 +182,13 @@ public class LibraryAttributeController : ControllerBase
     {
         try
         {
-            var attribute = _attributeService.Get(id);
-            /*var hasAccess = await _authService.CanDelete(attribute.State, attribute.CreatedBy, CompanyConstants.AnyCompanyId);
+            var terminal = _terminalService.Get(id);
+            /*var hasAccess = await _authService.CanDelete(terminal.State, terminal.CreatedBy, CompanyConstants.AnyCompanyId);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);*/
 
-            await _attributeService.Delete(id);
+            await _terminalService.Delete(id);
             return NoContent();
         }
         catch (MimirorgNotFoundException e)
@@ -205,13 +207,13 @@ public class LibraryAttributeController : ControllerBase
     }
 
     /*/// <summary>
-    /// Update an attribute with a new state
+    /// Update a terminal with a new state
     /// </summary>
-    /// <param name="id">The id of the attribute to be updated</param>
+    /// <param name="id">The id of the terminal to be updated</param>
     /// <param name="state">The new state</param>
-    /// <returns>An approval data object containing the id of the attribute and the new state</returns>
+    /// <returns>An approval data object containing the id of the terminal and the new state</returns>
     [HttpPatch("{id}/state/{state}")]
-    [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -226,7 +228,7 @@ public class LibraryAttributeController : ControllerBase
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _attributeService.ChangeState(id, state, true);
+            var data = await _terminalService.ChangeState(id, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)
@@ -240,27 +242,6 @@ public class LibraryAttributeController : ControllerBase
         catch (Exception e)
         {
             _logger.LogError(e, $"Internal Server Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
-
-    /// <summary>
-    /// Get all predefined attributes
-    /// </summary>
-    /// <returns>A collection of predefined attributes</returns>
-    [HttpGet("predefined")]
-    [ProducesResponseType(typeof(ICollection<AttributePredefinedLibCm>), StatusCodes.Status200OK)]
-    [AllowAnonymous]
-    public IActionResult GetPredefined()
-    {
-        try
-        {
-            var data = _attributeService.GetPredefined().ToList();
-            return Ok(data);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }*/

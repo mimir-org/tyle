@@ -17,42 +17,40 @@ using System.Linq;
 using System.Threading.Tasks;
 using TypeLibrary.Services.Contracts;
 
-// ReSharper disable StringLiteralTypo
-
 namespace TypeLibrary.Core.Controllers.V1;
 
 [Produces("application/json")]
 [ApiController]
 [ApiVersion(VersionConstant.OnePointZero)]
 [Route("V{version:apiVersion}/[controller]")]
-[SwaggerTag("Terminal services")]
-public class LibraryTerminalController : ControllerBase
+[SwaggerTag("Block Services")]
+public class BlockController : ControllerBase
 {
-    private readonly ILogger<LibraryTerminalController> _logger;
-    private readonly ITerminalService _terminalService;
+    private readonly ILogger<BlockController> _logger;
+    private readonly IBlockService _blockService;
     private readonly IMimirorgAuthService _authService;
 
-    public LibraryTerminalController(ILogger<LibraryTerminalController> logger, ITerminalService terminalService, IMimirorgAuthService authService)
+    public BlockController(ILogger<BlockController> logger, IBlockService blockService, IMimirorgAuthService authService)
     {
         _logger = logger;
-        _terminalService = terminalService;
+        _blockService = blockService;
         _authService = authService;
     }
 
     /// <summary>
-    /// Get all terminals
+    /// Get latest approved blocks as well as unfinished and in review drafts
     /// </summary>
-    /// <returns>A collection of terminals</returns>
+    /// <returns>A collection of blocks</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<TerminalLibCm>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<BlockLibCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult Get()
+    public IActionResult GetLatestVersions()
     {
         try
         {
-            var data = _terminalService.Get().ToList();
-            return Ok(data);
+            var cm = _blockService.GetLatestVersions();
+            return Ok(cm);
         }
         catch (Exception e)
         {
@@ -62,20 +60,20 @@ public class LibraryTerminalController : ControllerBase
     }
 
     /// <summary>
-    /// Get terminal by id
+    /// Get block by id
     /// </summary>
-    /// <param name="id">The id of the terminal to get</param>
-    /// <returns>The requested terminal</returns>
+    /// <param name="id">The id of the block to get</param>
+    /// <returns>The requested block</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult Get(Guid id)
+    public IActionResult Get([FromRoute] Guid id)
     {
         try
         {
-            var data = _terminalService.Get(id);
+            var data = _blockService.Get(id);
             if (data == null)
                 return NotFound(id);
 
@@ -92,25 +90,56 @@ public class LibraryTerminalController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Create a terminal
+    /*/// <summary>
+    /// Get latest approved version of a block by id
     /// </summary>
-    /// <param name="terminal">The terminal that should be created</param>
-    /// <returns>The created terminal</returns>
+    /// <param name="id">The id of the block we want to get the latest approved version of</param>
+    /// <returns>The requested block</returns>
+    [HttpGet("latest-approved/{id}")]
+    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [AllowAnonymous]
+    public IActionResult GetLatestApproved([FromRoute] string id)
+    {
+        try
+        {
+            var data = _blockService.GetLatestApproved(id);
+            if (data == null)
+                return NotFound(id);
+
+            return Ok(data);
+        }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }*/
+
+    /// <summary>
+    /// Create a block
+    /// </summary>
+    /// <param name="block">The block that should be created</param>
+    /// <returns>The created block</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
-    public async Task<IActionResult> Create([FromBody] TerminalLibAm terminal)
+    [MimirorgAuthorize(MimirorgPermission.Write, "block", "CompanyId")]
+    public async Task<IActionResult> Create([FromBody] BlockLibAm block)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var cm = await _terminalService.Create(terminal);
+            var cm = await _blockService.Create(block);
             return Ok(cm);
         }
         catch (MimirorgBadRequestException e)
@@ -125,27 +154,27 @@ public class LibraryTerminalController : ControllerBase
     }
 
     /*/// <summary>
-    /// Update a terminal object
+    /// Update a block
     /// </summary>
-    /// <param name="id">The id of the terminal object that should be updated</param>
-    /// <param name="terminal">The new values of the terminal</param>
-    /// <returns>The updated terminal</returns>
+    /// <param name="id">The id of the block that should be updated</param>
+    /// <param name="block">The new values of the block</param>
+    /// <returns>The updated block</returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] TerminalLibAm terminal)
+    [MimirorgAuthorize(MimirorgPermission.Write, "block", "CompanyId")]
+    public async Task<IActionResult> Update(string id, [FromBody] BlockLibAm block)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var data = await _terminalService.Update(id, terminal);
+            var data = await _blockService.Update(id, block);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)
@@ -168,9 +197,9 @@ public class LibraryTerminalController : ControllerBase
     }*/
 
     /// <summary>
-    /// Delete a terminal that is not approved
+    /// Delete a block that is not approved
     /// </summary>
-    /// <param name="id">The id of the terminal to delete</param>
+    /// <param name="id">The id of the block to delete</param>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -182,13 +211,13 @@ public class LibraryTerminalController : ControllerBase
     {
         try
         {
-            var terminal = _terminalService.Get(id);
-            /*var hasAccess = await _authService.CanDelete(terminal.State, terminal.CreatedBy, CompanyConstants.AnyCompanyId);
+            var block = _blockService.Get(id);
+            /*var hasAccess = await _authService.CanDelete(block.State, block.CreatedBy, block.CompanyId);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);*/
 
-            await _terminalService.Delete(id);
+            await _blockService.Delete(id);
             return NoContent();
         }
         catch (MimirorgNotFoundException e)
@@ -207,13 +236,13 @@ public class LibraryTerminalController : ControllerBase
     }
 
     /*/// <summary>
-    /// Update a terminal with a new state
+    /// Update a block with new state
     /// </summary>
-    /// <param name="id">The id of the terminal to be updated</param>
+    /// <param name="id">The id of the block to be updated</param>
     /// <param name="state">The new state</param>
-    /// <returns>An approval data object containing the id of the terminal and the new state</returns>
+    /// <returns>An approval data object containing the id of the block and the new state</returns>
     [HttpPatch("{id}/state/{state}")]
-    [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -223,12 +252,13 @@ public class LibraryTerminalController : ControllerBase
     {
         try
         {
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
+            var companyId = _blockService.GetCompanyId(id);
+            var hasAccess = await _authService.HasAccess(companyId, state);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _terminalService.ChangeState(id, state, true);
+            var data = await _blockService.ChangeState(id, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)

@@ -18,27 +18,27 @@ namespace TypeLibrary.Core.Controllers.V1;
 [ApiController]
 [ApiVersion(VersionConstant.OnePointZero)]
 [Route("V{version:apiVersion}/[controller]")]
-[SwaggerTag("Predicate services")]
-public class PredicateController : ControllerBase
+[SwaggerTag("Classifier services")]
+public class ClassifierController : ControllerBase
 {
-    private readonly ILogger<PredicateController> _logger;
+    private readonly ILogger<ClassifierController> _logger;
     private readonly IReferenceService _referenceService;
 
-    public PredicateController(ILogger<PredicateController> logger, IReferenceService referenceService)
+    public ClassifierController(ILogger<ClassifierController> logger, IReferenceService referenceService)
     {
         _logger = logger;
         _referenceService = referenceService;
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<PredicateReferenceCm>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<ClassifierReferenceCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get()
     {
         try
         {
-            var data = _referenceService.GetAllPredicates();
+            var data = _referenceService.GetAllClassifiers();
             return Ok(data);
         }
         catch (Exception e)
@@ -49,7 +49,7 @@ public class PredicateController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(PredicateReferenceCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ClassifierReferenceCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -57,7 +57,7 @@ public class PredicateController : ControllerBase
     {
         try
         {
-            var data = _referenceService.GetPredicate(id);
+            var data = _referenceService.GetClassifier(id);
             if (data == null)
                 return NotFound(id);
 
@@ -75,19 +75,19 @@ public class PredicateController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(PredicateReferenceCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ClassifierReferenceCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public async Task<IActionResult> Create([FromBody] PredicateReferenceAm predicateAm)
+    public async Task<IActionResult> Create([FromBody] ClassifierReferenceAm classifierAm)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var cm = await _referenceService.CreatePredicate(predicateAm);
+            var cm = await _referenceService.CreateClassifier(classifierAm);
             return Ok(cm);
         }
         catch (MimirorgBadRequestException e)
