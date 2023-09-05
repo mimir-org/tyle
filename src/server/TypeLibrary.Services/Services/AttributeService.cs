@@ -89,10 +89,12 @@ public class AttributeService : IAttributeService
         }
 
         dm.LastUpdateOn = dm.CreatedOn;
+
         if (attributeAm.PredicateReferenceId != null)
         {
             dm.Predicate = await _predicateRepository.GetAsync((int)attributeAm.PredicateReferenceId);
         }
+
         foreach (var unitReferenceId in attributeAm.UnitReferenceIds)
         {
             dm.UoMs.Add(await _unitRepository.GetAsync(unitReferenceId));

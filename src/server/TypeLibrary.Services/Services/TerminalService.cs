@@ -1,4 +1,5 @@
 using AutoMapper;
+using Lucene.Net.Util;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,7 @@ using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -33,8 +35,11 @@ public class TerminalService : ITerminalService
     private readonly IEfTerminalAttributeRepository _terminalAttributeRepository;
     private readonly IHttpContextAccessor _contextAccessor;
     private readonly IEmailService _emailService;
+    private readonly IEfClassifierRepository _classifierRepository;
+    private readonly IEfPurposeRepository _purposeRepository;
+    private readonly IEfMediumRepository _mediumRepository;
 
-    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, ILogger<TerminalService> logger, IAttributeService attributeService, IAttributeRepository attributeRepository, IEfTerminalAttributeRepository terminalAttributeRepository, IHttpContextAccessor contextAccessor, IEmailService emailService)
+    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, ILogger<TerminalService> logger, IAttributeService attributeService, IAttributeRepository attributeRepository, IEfTerminalAttributeRepository terminalAttributeRepository, IHttpContextAccessor contextAccessor, IEmailService emailService, IEfClassifierRepository classifierRepository, IEfPurposeRepository purposeRepository, IEfMediumRepository mediumRepository)
     {
         _terminalRepository = terminalRepository;
         _mapper = mapper;
@@ -46,6 +51,9 @@ public class TerminalService : ITerminalService
         _terminalAttributeRepository = terminalAttributeRepository;
         _contextAccessor = contextAccessor;
         _emailService = emailService;
+        _classifierRepository = classifierRepository;
+        _purposeRepository = purposeRepository;
+        _mediumRepository = mediumRepository;
     }
 
     /// <inheritdoc />
@@ -82,6 +90,22 @@ public class TerminalService : ITerminalService
             throw new MimirorgBadRequestException("Terminal is not valid.", validation);
 
         var dm = _mapper.Map<TerminalType>(terminal);
+        dm.LastUpdateOn = dm.CreatedOn;
+
+        foreach (var classifierReferenceId in terminal.ClassifierReferenceIds)
+        {
+            dm.Classifiers.Add(await _classifierRepository.GetAsync(classifierReferenceId));
+        }
+
+        if (terminal.PurposeReferenceId != null)
+        {
+            dm.Purpose = await _purposeRepository.GetAsync((int)terminal.PurposeReferenceId);
+        }
+
+        if (terminal.MediumReferenceId != null)
+        {
+            dm.Medium = await _mediumRepository.GetAsync((int)terminal.MediumReferenceId);
+        }
 
         foreach (var terminalAttribute in dm.TerminalAttributes)
         {
