@@ -19,6 +19,6 @@ public class AttributeLibAm
     public RangeQualifier? RangeQualifier { get; set; }
     public RegularityQualifier? RegularityQualifier { get; set; }
     public ScopeQualifier? ScopeQualifier { get; set; }
-
+    
     public ValueConstraintLibAm ValueConstraint { get; set; }
 }

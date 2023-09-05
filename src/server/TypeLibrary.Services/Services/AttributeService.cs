@@ -28,9 +28,10 @@ public class AttributeService : IAttributeService
     private readonly ILogService _logService;
     private readonly IHttpContextAccessor _contextAccessor;
     private readonly IEmailService _emailService;
+    private readonly IEfPredicateRepository _predicateRepository;
     private readonly IEfUnitRepository _unitRepository;
 
-    public AttributeService(IMapper mapper, IEfAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor, IEmailService emailService, IEfUnitRepository unitRepository)
+    public AttributeService(IMapper mapper, IEfAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor, IEmailService emailService, IEfPredicateRepository predicateRepository, IEfUnitRepository unitRepository)
     {
         _mapper = mapper;
         _attributeRepository = attributeRepository;
@@ -38,6 +39,7 @@ public class AttributeService : IAttributeService
         _logService = logService;
         _contextAccessor = contextAccessor;
         _emailService = emailService;
+        _predicateRepository = predicateRepository;
         _unitRepository = unitRepository;
     }
 
@@ -89,11 +91,11 @@ public class AttributeService : IAttributeService
         dm.LastUpdateOn = dm.CreatedOn;
         if (attributeAm.PredicateReferenceId != null)
         {
-            dm.Predicate = new PredicateReference() { Id = (int) attributeAm.PredicateReferenceId, Name = "", Iri = "" };
+            dm.Predicate = await _predicateRepository.GetAsync((int)attributeAm.PredicateReferenceId);
         }
         foreach (var unitReferenceId in attributeAm.UnitReferenceIds)
         {
-            dm.UoMs.Add(new UnitReference() { Id = unitReferenceId, Name = "", Iri = "" });
+            dm.UoMs.Add(await _unitRepository.GetAsync(unitReferenceId));
         }
 
         var valueConstraint = attributeAm.ValueConstraint;
