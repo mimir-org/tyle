@@ -10,7 +10,7 @@ public class AttributeLibAm
 
     public string Description { get; set; }
 
-    public int PredicateReferenceId { get; set; }
+    public int? PredicateReferenceId { get; set; }
 
     [Required]
     public ICollection<int> UnitReferenceIds { get; set; }

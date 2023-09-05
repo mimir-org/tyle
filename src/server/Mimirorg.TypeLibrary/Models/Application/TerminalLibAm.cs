@@ -27,7 +27,7 @@ public class TerminalLibAm
     [Required]
     public ICollection<int> ClassifierReferenceIds { get; set; }
     
-    public int PurposeReferenceId { get; set; }
+    public int? PurposeReferenceId { get; set; }
     
     public string Notation { get; set; }
     
@@ -36,7 +36,7 @@ public class TerminalLibAm
     [Required]
     public Aspect Aspect { get; set; }
 
-    public int MediumReferenceId { get; set; }
+    public int? MediumReferenceId { get; set; }
 
     [Required]
     public Direction Qualifier { get; set; }

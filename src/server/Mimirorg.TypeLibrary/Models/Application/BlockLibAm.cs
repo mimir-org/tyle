@@ -54,7 +54,7 @@ public class BlockLibAm // : ICompanyObject
     /// <remarks>
     /// A purpose name change will trigger a minor version increase
     /// </remarks>
-    public int PurposeReferenceId { get; set; }
+    public int? PurposeReferenceId { get; set; }
 
     /// <summary>
     /// The id of the RDS of the block
