@@ -16,8 +16,7 @@ namespace TypeLibrary.Data.Configurations
             
             builder.ToTable("Attribute_Group_Attribute");
             builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
-            builder.HasOne(x => x.Attribute).WithMany().HasForeignKey(x => x.Attribute);
-            builder.HasKey(x => x.Id);            
+            builder.HasOne(x => x.Attribute).WithMany().HasForeignKey(x => x.Attribute);                  
             builder.Property(p => p.AttributeGroup).HasColumnName("AttributeGroupId").IsRequired().HasMaxLength(63);
             builder.Property(p => p.AttributeId).HasColumnName("AttributeId").IsRequired().HasMaxLength(63);                       
         }
