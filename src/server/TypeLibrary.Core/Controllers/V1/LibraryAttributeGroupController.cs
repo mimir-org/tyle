@@ -13,10 +13,8 @@ using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TypeLibrary.Core.Helper;
-using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1;
@@ -106,9 +104,8 @@ public class LibraryAttributeGroupController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "attributeGroup", "CompanyId")]
-    public async Task<IActionResult> Create([FromBody] AttributeGroupLibAm attributeGroup)
-    {
-              
+    public async Task<IActionResult> CreateAttributeGroup([FromBody] AttributeGroupLibAm attributeGroup)
+    {              
         try
         {
             if (!ModelState.IsValid)

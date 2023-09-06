@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
@@ -20,28 +21,27 @@ namespace TypeLibrary.Services.Services
     public class AttributeGroupService : IAttributeGroupService
     {
         private readonly IEfAttributeGroupRepository _attributeGroupRepository;
-        private readonly IMapper _mapper;
-        private readonly IUnitService _unitService;
-        private readonly ITimedHookService _hookService;
         private readonly ILogService _logService;
+        private readonly IEfAttributeRepository _attributeRepository;
+        private readonly IMapper _mapper;                
+        private readonly ILogger<AttributeGroupService> _logger;
 
 
-        public AttributeGroupService(IEfAttributeGroupRepository attributeGroupRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor, IEmailService emailService)
+        public AttributeGroupService(IEfAttributeGroupRepository attributeGroupRepository, IEfAttributeRepository attributeRepository, ILogService logService, IMapper mapper, ILogger<AttributeGroupService> logger)
         {
-            attributeGroupRepository = _attributeGroupRepository;
-            _mapper = mapper;
-            _hookService = hookService;
             _logService = logService;
+            _attributeRepository = attributeRepository;
+            _attributeGroupRepository = attributeGroupRepository;
+            _mapper = mapper;            
+            _logger = logger;
         }
 
         /// <inheritdoc />
         public async Task<AttributeGroupLibCm> GetSingleAttributeGroup(string id)
         {
             var dm = _attributeGroupRepository.GetSingleAttributeGroup(id);
-
             if (dm == null)
                 throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
-
             return _mapper.Map<AttributeGroupLibCm>(dm);
 
         }
@@ -64,12 +64,32 @@ namespace TypeLibrary.Services.Services
             if (attributeGroupAm == null)
                 throw new ArgumentNullException(nameof(attributeGroupAm));
 
-            var validation = attributeGroupAm.ValidateObject();
-
+            var validation = attributeGroupAm.ValidateObject();            
+            
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException("Attribute is not valid.", validation);
 
             var dm = _mapper.Map<AttributeGroupLibDm>(attributeGroupAm);
+
+
+            dm.Attributes = new List<AttributeGroupAttributesLibDm>();
+
+            if (attributeGroupAm.Attributes != null)
+            {
+                foreach (var attributeId in attributeGroupAm.Attributes)
+                {
+                    var attribute = _attributeRepository.Get(attributeId);
+
+                    if (attribute == null)
+                    {
+                        _logger.LogError($"Could not add attribute with id {attributeId} to attribute group with id {dm.Id}, attribute not found.");
+                    }
+                    else
+                    {
+                        dm.Attributes.Add(new AttributeGroupAttributesLibDm { AttributeGroupId = dm.Id, AttributeId = attribute.Id });
+                    }
+                }
+            }
 
             if (!string.IsNullOrEmpty(createdBy))
             {
@@ -81,8 +101,8 @@ namespace TypeLibrary.Services.Services
                 dm.State = State.Draft;
             }
 
-            var createdAttributeGroup = await _attributeGroupRepository.Create(dm);
-            _hookService.HookQueue.Enqueue(CacheKey.Attribute);
+            var createdAttributeGroup = await _attributeGroupRepository.Create(dm, attributeGroupAm.Attributes);
+            //_hookService.HookQueue.Enqueue(CacheKey.Attribute);
             _attributeGroupRepository.ClearAllChangeTrackers();
             await _logService.CreateLog(createdAttributeGroup, LogType.Create, createdAttributeGroup?.State.ToString(), createdAttributeGroup?.CreatedBy);
 

@@ -22,18 +22,35 @@ namespace TypeLibrary.Core.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeGroupDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeGroupAttributesLibDm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AttributeGroupId")
+                        .HasColumnType("nvarchar(63)");
+
+                    b.Property<string>("AttributeId")
+                        .HasColumnType("nvarchar(63)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttributeGroupId");
+
+                    b.HasIndex("AttributeId");
+
+                    b.ToTable("AttributeGroupAttributes");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeGroupLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
-
-                    b.Property<string>("Attribute")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("Attribute");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
@@ -76,6 +93,9 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
+                    b.Property<string>("AttributeGroupLibDmId")
+                        .HasColumnType("nvarchar(63)");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
@@ -114,6 +134,8 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("TypeReference");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AttributeGroupLibDmId");
 
                     b.HasIndex("State");
 
@@ -737,6 +759,28 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Unit", (string)null);
                 });
 
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeGroupAttributesLibDm", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.AttributeGroupLibDm", "AttributeGroup")
+                        .WithMany()
+                        .HasForeignKey("AttributeGroupId");
+
+                    b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
+                        .WithMany()
+                        .HasForeignKey("AttributeId");
+
+                    b.Navigation("Attribute");
+
+                    b.Navigation("AttributeGroup");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.AttributeGroupLibDm", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("AttributeGroupLibDmId");
+                });
+
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeUnitLibDm", b =>
                 {
                     b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
@@ -813,6 +857,11 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Attribute");
 
                     b.Navigation("Terminal");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeGroupLibDm", b =>
+                {
+                    b.Navigation("Attributes");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>

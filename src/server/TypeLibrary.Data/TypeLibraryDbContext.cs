@@ -20,7 +20,7 @@ public class TypeLibraryDbContext : DbContext
     public virtual DbSet<TerminalAttributeLibDm> TerminalAttribute { get; set; }
     public virtual DbSet<RdsLibDm> Rds { get; set; }
     public virtual DbSet<AttributeGroupLibDm> AttributeGroup { get; set; }
-
+    public virtual DbSet<AttributeGroupAttributesLibDm> AttributeGroupAttributes { get; set; }
 
     public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)
     {

@@ -17,13 +17,11 @@ namespace TypeLibrary.Core.Profiles
             CreateMap<AttributeGroupLibAm, AttributeGroupLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid().ToString()))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.AttributeIds, opt => opt.MapFrom(src => src.AttributeUnits))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? CreatedBy.Unknown : contextAccessor.GetUserId()))
                 .ForMember(dest => dest.State, opt => opt.Ignore())
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                            
-                ;
+               .ForMember(dest => dest.Attributes, opt => opt.Ignore());
 
             CreateMap<AttributeGroupLibDm, AttributeGroupLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

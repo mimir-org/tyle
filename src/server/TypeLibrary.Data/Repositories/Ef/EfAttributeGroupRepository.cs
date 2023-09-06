@@ -31,12 +31,17 @@ namespace TypeLibrary.Data.Repositories.Ef
         }
 
 
-        public async Task<AttributeGroupLibDm> Create(AttributeGroupLibDm attributeGroupLibDm, string createdBy = null)
-        {
-            //Foreach attribute in list create record with same id
-            await CreateAsync(attributeGroupLibDm);
+        public async Task<AttributeGroupLibDm> Create(AttributeGroupLibDm attributeGroupLibDm, List<string> attributesInGroup, string createdBy = null)
+        {            
+            foreach (var item in attributesInGroup)            
+            {
+                //attributeGroupLibDm.Att = item;
+                await CreateAsync(attributeGroupLibDm);
+            }
             await SaveAsync();
             Detach(attributeGroupLibDm);
+
+
 
             return attributeGroupLibDm;
         }

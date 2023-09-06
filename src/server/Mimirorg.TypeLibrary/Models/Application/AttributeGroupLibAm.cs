@@ -9,6 +9,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
                         public int UserId { get; set; }
                         public string Description { get; set; }
 
-        public ICollection<AttributeUnitLibAm> AttributeUnits { get; set; }
+        public List<string> Attributes { get; set; }
     }
 }
