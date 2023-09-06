@@ -16,7 +16,7 @@ namespace TypeLibrary.Services.Contracts
         /// Get all attribute groups
         /// </summary>
         /// <returns>List of attribute groups</returns>
-        Task<IEnumerable<AttributeGroupLibCm>> GetAttributeGroupList(string searchText = null);
+        Task<IEnumerable<AttributeGroupLibCm>> GetAttributeGroupList();
 
         /// <summary>
         /// Get an attribute group by id

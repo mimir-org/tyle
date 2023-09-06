@@ -46,7 +46,7 @@ namespace TypeLibrary.Data.Repositories.Ef
             return attributeGroupLibDm;
         }
 
-        public IEnumerable<AttributeGroupLibDm> GetAttributeGroupList(string searchText = null)
+        public IEnumerable<AttributeGroupLibDm> GetAttributeGroupList()
         {
             return GetAll().AsSplitQuery();
         }

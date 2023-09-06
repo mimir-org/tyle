@@ -47,9 +47,9 @@ namespace TypeLibrary.Services.Services
         }
 
         /// <inheritdoc />
-        public IEnumerable<AttributeGroupLibCm> GetAttributeGroupList(string searchText = null)
+        public IEnumerable<AttributeGroupLibCm> GetAttributeGroupList()
         {
-            var dm = _attributeGroupRepository.GetAttributeGroupList(searchText).ToList();
+            var dm = _attributeGroupRepository.GetAttributeGroupList().ToList();
             
             if (dm == null || !dm.Any())
                 return new List<AttributeGroupLibCm>();
@@ -120,9 +120,14 @@ namespace TypeLibrary.Services.Services
             await _attributeGroupRepository.SaveAsync();
         }
 
-        Task<IEnumerable<AttributeGroupLibCm>> IAttributeGroupService.GetAttributeGroupList(string searchText)
-        {
-            throw new NotImplementedException();
+        async Task<IEnumerable<AttributeGroupLibCm>> IAttributeGroupService.GetAttributeGroupList()
+        {           
+            var dm = _attributeGroupRepository.GetAll().ToList();
+
+            if (dm == null || !dm.Any())
+                return new List<AttributeGroupLibCm>();
+
+            return _mapper.Map<List<AttributeGroupLibCm>>(dm);
         }
 
    

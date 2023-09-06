@@ -47,11 +47,11 @@ public class LibraryAttributeGroupController : ControllerBase
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public IActionResult Get([FromBody] string searchText)
+    public async Task<IActionResult> Get()
     {
         try
         {
-            var data = _attributeGroupService.GetAttributeGroupList(searchText);
+            var data = await _attributeGroupService.GetAttributeGroupList();
             return Ok(data);
         }
         catch (Exception e)
@@ -71,11 +71,11 @@ public class LibraryAttributeGroupController : ControllerBase
     [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public IActionResult GetSingleAttributeGroup([FromRoute] string id)
+    public async Task<IActionResult> GetSingleAttributeGroup([FromRoute] string id)
     {
         try
         {
-            var data = _attributeGroupService.GetSingleAttributeGroup(id);
+            var data = await _attributeGroupService.GetSingleAttributeGroup(id);
             if (data == null)
                 return NotFound(id);
 

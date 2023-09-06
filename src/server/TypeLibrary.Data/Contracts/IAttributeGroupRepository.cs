@@ -16,7 +16,7 @@ namespace TypeLibrary.Data.Contracts
         /// Get all attribute groups
         /// </summary>
         /// <returns>List of attribute groups</returns>
-        IEnumerable<AttributeGroupLibDm> GetAttributeGroupList(string searchText = null);
+        IEnumerable<AttributeGroupLibDm> GetAttributeGroupList();
 
         /// <summary>
         /// Get an attribute group by id
