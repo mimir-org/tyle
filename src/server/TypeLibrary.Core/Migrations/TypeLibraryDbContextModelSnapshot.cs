@@ -45,7 +45,9 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasIndex("AttributeGroupId");
 
-                    b.ToTable("Attribute_Group_Attribute", (string)null);
+                    b.HasIndex("AttributeId");
+
+                    b.ToTable("AttributeGroupAttributes", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeGroupLibDm", b =>
@@ -54,6 +56,9 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
+
+                    b.Property<string>("AttributeGroupId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
@@ -76,15 +81,7 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("Name");
 
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("State");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("State");
 
                     b.ToTable("AttributeGroup", (string)null);
                 });
@@ -95,9 +92,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
-
-                    b.Property<int?>("AttributeGroupAttributesLibDmId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
@@ -137,8 +131,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("TypeReference");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AttributeGroupAttributesLibDmId");
 
                     b.HasIndex("State");
 
@@ -765,17 +757,19 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeGroupAttributesLibDm", b =>
                 {
                     b.HasOne("TypeLibrary.Data.Models.AttributeGroupLibDm", "AttributeGroup")
-                        .WithMany("Attributes")
-                        .HasForeignKey("AttributeGroupId");
+                        .WithMany("Attribute")
+                        .HasForeignKey("AttributeGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
+                        .WithMany()
+                        .HasForeignKey("AttributeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Attribute");
 
                     b.Navigation("AttributeGroup");
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
-                {
-                    b.HasOne("TypeLibrary.Data.Models.AttributeGroupAttributesLibDm", null)
-                        .WithMany("Attribute")
-                        .HasForeignKey("AttributeGroupAttributesLibDmId");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeUnitLibDm", b =>
@@ -856,14 +850,9 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Terminal");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeGroupAttributesLibDm", b =>
-                {
-                    b.Navigation("Attribute");
-                });
-
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeGroupLibDm", b =>
                 {
-                    b.Navigation("Attributes");
+                    b.Navigation("Attribute");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
