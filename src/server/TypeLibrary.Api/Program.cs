@@ -17,6 +17,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(o =>
 {
     o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
     o.SerializerSettings.ContractResolver = new CamelCaseExceptDictionaryKeysResolver();
+    o.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 });
 
 // Add Cors policy
