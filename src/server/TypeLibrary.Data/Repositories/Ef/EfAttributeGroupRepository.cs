@@ -1,15 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Lucene.Net.Util;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 
@@ -30,13 +25,24 @@ namespace TypeLibrary.Data.Repositories.Ef
         }
 
 
-        public async Task<AttributeGroupLibDm> Create(AttributeGroupLibDm attributeGroupLibDm, List<string> attributesInGroup, string createdBy)
+        public async Task<AttributeGroupLibDm> Create(AttributeGroupLibDm attributeGroupLibDm)
         {
+            //BUG: TODO if list is null it fails
+
+            try
+            {
+
             await CreateAsync(attributeGroupLibDm);
             await SaveAsync();
             Detach(attributeGroupLibDm);
 
             return attributeGroupLibDm;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
 
         }
 

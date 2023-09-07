@@ -10,10 +10,11 @@ namespace TypeLibrary.Data.Configurations
         public void Configure(EntityTypeBuilder<AttributeGroupAttributesLibDm> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.ToTable("Attribute_Group_Attribute");
-            builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();                       
+            builder.ToTable("AttributeGroupAttributes");
+            builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
             builder.Property(x => x.AttributeGroupId).HasColumnName("AttributeGroupId");
-            builder.Property(p => p.AttributeId).HasColumnName("AttributeId").IsRequired().HasMaxLength(63);                        
+            builder.Property(p => p.AttributeId).HasColumnName("AttributeId").IsRequired().HasMaxLength(63);
+            builder.HasOne(x => x.AttributeGroup).WithMany(y => y.Attribute).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

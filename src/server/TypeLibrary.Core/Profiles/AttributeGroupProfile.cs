@@ -20,7 +20,8 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? CreatedBy.Unknown : contextAccessor.GetUserId()))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-               .ForMember(dest => dest.Attributes, opt => opt.Ignore());
+                .ForMember(dest => dest.AttributeGroupId, opt => opt.Ignore())
+               .ForMember(dest => dest.Attribute, opt => opt.Ignore());
 
             CreateMap<AttributeGroupLibDm, AttributeGroupLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

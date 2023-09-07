@@ -13,30 +13,16 @@ using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models;
 
-    public class AttributeGroupLibDm : ILogable
+public class AttributeGroupLibDm
 {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public ICollection<AttributeGroupAttributesLibDm> Attributes { get; set; }
-        public DateTime Created { get; set; }
-        public string CreatedBy { get; set; }
-        public string Description { get; set; }        
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public string AttributeGroupId { get; set; }
+    public ICollection<AttributeGroupAttributesLibDm> Attribute { get; set; }
+    public DateTime Created { get; set; }
+    public string CreatedBy { get; set; }
+    public string Description { get; set; }
 
-        public LogLibDm CreateLog(LogType logType, string logTypeValue, string createdBy)
-        {
-            return new LogLibDm
-            {
-                ObjectId = Id,
-                ObjectFirstVersionId = null,
-                ObjectType = nameof(AttributeGroupLibDm),
-                ObjectName = Name,
-                ObjectVersion = null,
-                LogType = logType,
-                LogTypeValue = logTypeValue,
-                Created = DateTime.UtcNow,
-                CreatedBy = createdBy
-            };
-        }
 
 
 }

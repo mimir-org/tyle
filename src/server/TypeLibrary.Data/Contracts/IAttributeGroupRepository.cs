@@ -33,7 +33,7 @@ namespace TypeLibrary.Data.Contracts
         /// <param name="createdBy">Used to set created by value for instances where objects are not created by the user</param>
         /// <returns>The created attribute group</returns>
         /// <exception cref="MimirorgBadRequestException">Throws if attribute group is not valid</exception>
-        Task<AttributeGroupLibDm> Create(AttributeGroupLibDm attributeAm, List<string> attributesInGroup, string createdBy = null);
+        Task<AttributeGroupLibDm> Create(AttributeGroupLibDm attributeAm);
 
         /// <summary>
         /// Update an existing attribute group

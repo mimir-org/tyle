@@ -73,7 +73,7 @@ namespace TypeLibrary.Services.Services
             var dm = _mapper.Map<AttributeGroupLibDm>(attributeGroupAm);
 
 
-            dm.Attributes = new List<AttributeGroupAttributesLibDm>();
+            dm.Attribute = new List<AttributeGroupAttributesLibDm>();
 
             if (attributeGroupAm.Attributes != null)
             {
@@ -87,15 +87,14 @@ namespace TypeLibrary.Services.Services
                     }
                     else
                     {
-                        dm.Attributes.Add(new AttributeGroupAttributesLibDm { AttributeGroupId = dm.Id, AttributeId = attribute.Id });
+                        dm.Attribute.Add(new AttributeGroupAttributesLibDm { AttributeGroupId = dm.Id, AttributeId = attribute.Id });
                     }
                 }
             }
 
                        
 
-            var createdAttributeGroup = await _attributeGroupRepository.Create(dm, attributeGroupAm.Attributes);
-            //_hookService.HookQueue.Enqueue(CacheKey.Attribute);
+            var createdAttributeGroup = await _attributeGroupRepository.Create(dm);            
             _attributeGroupRepository.ClearAllChangeTrackers();
             _logger.Log(LogLevel.Information,"Created attribute group", (createdAttributeGroup));
 
@@ -131,7 +130,7 @@ namespace TypeLibrary.Services.Services
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException("Block is not valid.", validation);
 
-            var attributeGroupToUpdate = _attributeGroupRepository.FindBy(x => x.Id == id, false).Include(x => x.Attributes).AsSplitQuery().FirstOrDefault();
+            var attributeGroupToUpdate = _attributeGroupRepository.FindBy(x => x.Id == id, false).Include(x => x.Attribute).AsSplitQuery().FirstOrDefault();
 
             if (attributeGroupToUpdate == null)
                 throw new MimirorgNotFoundException("Block not found. Update is not possible.");

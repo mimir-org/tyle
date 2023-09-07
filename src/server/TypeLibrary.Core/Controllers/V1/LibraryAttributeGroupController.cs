@@ -184,7 +184,7 @@ public class LibraryAttributeGroupController : ControllerBase
         try
         {
             var attribute =  _attributeGroupService.GetSingleAttributeGroup(id);
-            var hasAccess =  await _authService.CanDelete(State.Approved, attribute.CreatedBy, CompanyConstants.AnyCompanyId); //State hardcoded
+            var hasAccess =  await _authService.CanDelete(State.Draft, attribute.CreatedBy, CompanyConstants.AnyCompanyId); //State hardcoded
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
