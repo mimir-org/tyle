@@ -35,9 +35,7 @@ public class AttributeProfile : Profile
             .ForMember(dest => dest.RangeQualifier, opt => opt.MapFrom(src => src.RangeQualifier))
             .ForMember(dest => dest.RegularityQualifier, opt => opt.MapFrom(src => src.RegularityQualifier))
             .ForMember(dest => dest.ScopeQualifier, opt => opt.MapFrom(src => src.ScopeQualifier))
-            .ForMember(dest => dest.ValueConstraint, opt => opt.Ignore())
-            .ForMember(dest => dest.AttributeBlocks, opt => opt.Ignore())
-            .ForMember(dest => dest.AttributeTerminals, opt => opt.Ignore());
+            .ForMember(dest => dest.ValueConstraint, opt => opt.Ignore());
 
         CreateMap<AttributeType, AttributeLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

@@ -3,6 +3,7 @@ using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models;
@@ -26,10 +27,6 @@ public class AttributeType // : ILogable, IStatefulObject
     public RegularityQualifier? RegularityQualifier { get; set; }
     public ScopeQualifier? ScopeQualifier { get; set; }
     public ValueConstraint? ValueConstraint { get; set; }
-
-    //public ICollection<AttributeUnitLibDm> AttributeUnits { get; set; } = new List<AttributeUnitLibDm>();
-    public ICollection<BlockAttributeTypeReference> AttributeBlocks { get; set; } = null!;
-    public ICollection<TerminalAttributeTypeReference> AttributeTerminals { get; set; } = null!;
 
     /*public LogLibDm CreateLog(LogType logType, string logTypeValue, string createdBy)
     {
