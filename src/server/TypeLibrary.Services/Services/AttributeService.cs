@@ -66,7 +66,7 @@ public class AttributeService : IAttributeService
     }
 
     /// <inheritdoc />
-    public async Task<AttributeLibCm> Create(AttributeLibAm attributeAm, string createdBy = null)
+    public async Task<AttributeLibCm> Create(AttributeLibAm attributeAm)
     {
         if (attributeAm == null)
             throw new ArgumentNullException(nameof(attributeAm));
@@ -76,29 +76,26 @@ public class AttributeService : IAttributeService
         if (!validation.IsValid)
             throw new MimirorgBadRequestException("Attribute is not valid.", validation);
 
-        var dm = _mapper.Map<AttributeType>(attributeAm);
-
-        if (!string.IsNullOrEmpty(createdBy))
-        {
-            dm.CreatedBy = createdBy;
-            //dm.State = State.Approved;
-        }
-        else
-        {
-            //dm.State = State.Draft;
-        }
-
-        dm.LastUpdateOn = dm.CreatedOn;
+        var dm = new AttributeType(attributeAm.Name, attributeAm.Description, _contextAccessor.GetUserId());
 
         if (attributeAm.PredicateReferenceId != null)
         {
-            dm.Predicate = await _predicateRepository.GetAsync((int)attributeAm.PredicateReferenceId);
+            var predicate = await _predicateRepository.GetAsync((int) attributeAm.PredicateReferenceId) ??
+                            throw new MimirorgBadRequestException($"No predicate reference with id {attributeAm.PredicateReferenceId} found.");
+            dm.Predicate = predicate;
         }
 
         foreach (var unitReferenceId in attributeAm.UnitReferenceIds)
         {
-            dm.UoMs.Add(await _unitRepository.GetAsync(unitReferenceId));
+            var unit = await _unitRepository.GetAsync(unitReferenceId) ??
+                       throw new MimirorgBadRequestException($"No unit reference with id {unitReferenceId} found.");
+            dm.UoMs.Add(unit);
         }
+
+        dm.ProvenanceQualifier = attributeAm.ProvenanceQualifier;
+        dm.RangeQualifier = attributeAm.RangeQualifier;
+        dm.RegularityQualifier = attributeAm.RegularityQualifier;
+        dm.ScopeQualifier = attributeAm.ScopeQualifier;
 
         var valueConstraint = attributeAm.ValueConstraint;
         if (valueConstraint != null)

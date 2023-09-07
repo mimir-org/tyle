@@ -62,7 +62,7 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
 
         Detach(attribute);
 
-        return attribute;
+        return Get(attribute.Id);
     }
 
     /// <inheritdoc />

@@ -105,9 +105,6 @@ public class AttributeController : ControllerBase
     {
         try
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var cm = await _attributeService.Create(attribute);
             return Ok(cm);
         }
