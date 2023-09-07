@@ -18,7 +18,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid().ToString()))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
-                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? CreatedBy.Unknown : contextAccessor.GetUserId()))                
+                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? CreatedBy.Unknown : contextAccessor.GetUserId()))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                .ForMember(dest => dest.Attributes, opt => opt.Ignore());
 
@@ -38,10 +38,10 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.UserName, opt => opt.Ignore())
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => 0))
                 .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => ""))
-                .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
-                .ForMember(dest => dest.StateName, opt => opt.MapFrom(src => src.State.ToString()))
-                .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => "Attribute"))
-                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
+                .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => "AttributeGroup"))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.State, opt => opt.Ignore())
+                .ForMember(dest => dest.StateName, opt => opt.Ignore());
         }
     }
 }

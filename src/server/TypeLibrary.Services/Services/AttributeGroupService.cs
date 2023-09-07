@@ -60,7 +60,7 @@ namespace TypeLibrary.Services.Services
         }
 
         /// <inheritdoc />
-        public async Task<AttributeGroupLibCm> Create(AttributeGroupLibAm attributeGroupAm, string createdBy = null)
+        public async Task<AttributeGroupLibCm> Create(AttributeGroupLibAm attributeGroupAm)
         {
             if (attributeGroupAm == null)
                 throw new ArgumentNullException(nameof(attributeGroupAm));
@@ -92,13 +92,12 @@ namespace TypeLibrary.Services.Services
                 }
             }
 
-
-            dm.CreatedBy = createdBy;
+                       
 
             var createdAttributeGroup = await _attributeGroupRepository.Create(dm, attributeGroupAm.Attributes);
             //_hookService.HookQueue.Enqueue(CacheKey.Attribute);
             _attributeGroupRepository.ClearAllChangeTrackers();
-            await _logService.CreateLog(createdAttributeGroup, LogType.Create,createdAttributeGroup?.CreatedBy, createdBy);
+            _logger.Log(LogLevel.Information,"Created attribute group", (createdAttributeGroup));
 
             return _mapper.Map<AttributeGroupLibCm>(createdAttributeGroup);
         }

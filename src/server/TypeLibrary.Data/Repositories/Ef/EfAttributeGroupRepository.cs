@@ -30,19 +30,14 @@ namespace TypeLibrary.Data.Repositories.Ef
         }
 
 
-        public async Task<AttributeGroupLibDm> Create(AttributeGroupLibDm attributeGroupLibDm, List<string> attributesInGroup, string createdBy = null)
-        {            
-            foreach (var item in attributesInGroup)            
-            {
-                //attributeGroupLibDm.Att = item;
-                await CreateAsync(attributeGroupLibDm);
-            }
+        public async Task<AttributeGroupLibDm> Create(AttributeGroupLibDm attributeGroupLibDm, List<string> attributesInGroup, string createdBy)
+        {
+            await CreateAsync(attributeGroupLibDm);
             await SaveAsync();
             Detach(attributeGroupLibDm);
 
-
-
             return attributeGroupLibDm;
+
         }
 
         public IEnumerable<AttributeGroupLibDm> GetAttributeGroupList()
@@ -53,7 +48,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         public AttributeGroupLibDm GetSingleAttributeGroup(string id)
         {
             {
-                return FindBy(x => x.Id == id)                                       
+                return FindBy(x => x.Id == id)
                     .FirstOrDefault();
             }
         }

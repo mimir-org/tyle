@@ -184,7 +184,7 @@ public class LibraryAttributeGroupController : ControllerBase
         try
         {
             var attribute =  _attributeGroupService.GetSingleAttributeGroup(id);
-            var hasAccess =  await _authService.CanDelete(attribute.State, attribute.CreatedBy, CompanyConstants.AnyCompanyId);
+            var hasAccess =  await _authService.CanDelete(State.Approved, attribute.CreatedBy, CompanyConstants.AnyCompanyId); //State hardcoded
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
@@ -206,46 +206,5 @@ public class LibraryAttributeGroupController : ControllerBase
             return StatusCode(500, "Internal Server Error");
         }
     }
-
-    /// <summary>
-    /// Update an attribute group with a new state
-    /// </summary>
-    /// <param name="id">The id of the attribute group to be updated</param>
-    /// <param name="state">The new state</param>
-    /// <returns>An approval data object containing the id of the attribute group and the new state</returns>
-    [HttpPatch("{id}/state/{state}")]
-    [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
-    {
-        try
-        {
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
-
-            if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);
-
-            var data = await _attributeGroupService.ChangeState(id, state, true);
-            return Ok(data);
-        }
-        catch (MimirorgNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-        catch (MimirorgInvalidOperationException e)
-        {
-            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError("Internal server error", (e.Message, e.StackTrace, e.InnerException, e.Data, e.Source));
-
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
-
 
 }

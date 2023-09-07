@@ -33,7 +33,7 @@ namespace TypeLibrary.Services.Contracts
         /// <param name="createdBy">Used to set created by value for instances where objects are not created by the user</param>
         /// <returns>The created attribute group</returns>
         /// <exception cref="MimirorgBadRequestException">Throws if attribute group is not valid</exception>
-        Task<AttributeGroupLibCm> Create(AttributeGroupLibAm attributeAm, string createdBy = null);
+        Task<AttributeGroupLibCm> Create(AttributeGroupLibAm attributeAm);
 
         /// <summary>
         /// Update an existing attribute group
@@ -53,19 +53,6 @@ namespace TypeLibrary.Services.Contracts
         /// <exception cref="MimirorgNotFoundException">Throws if the attribute group with the given id is not found.</exception>
         /// <exception cref="MimirorgInvalidOperationException">Throws if the attribute group in question can't be deleted.</exception>
         Task Delete(string id);
-
-
-        /// <summary>
-        /// Change attribute group state
-        /// </summary>
-        /// <param name="id">The id of the attribute group that should change state</param>
-        /// <param name="state">The new attribute group state</param>
-        /// <param name="sendStateEmail"></param>
-        /// <returns>An approval data object</returns>
-        /// <exception cref="MimirorgNotFoundException">Throws if the attribute group does not exist</exception>
-        /// <exception cref="MimirorgInvalidOperationException">Throws if the attribute group is already
-        /// approved or contains references to deleted or unapproved units.</exception>
-        Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail);
 
         /// <summary>
         /// Clear all entity framework change trackers
