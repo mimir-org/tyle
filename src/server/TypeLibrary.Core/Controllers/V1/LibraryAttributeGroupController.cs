@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.Common.Enums;
@@ -14,7 +15,6 @@ using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TypeLibrary.Core.Helper;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1;
@@ -31,12 +31,14 @@ public class LibraryAttributeGroupController : ControllerBase
     private readonly IAttributeService _attributeService;
     private readonly IMimirorgAuthService _authService;
     private readonly IAttributeGroupService _attributeGroupService;
+    private readonly ILogger<LibraryAttributeController> _logger;
 
-    public LibraryAttributeGroupController(IAttributeService attributeService, IAttributeGroupService attributeGroupService, IMimirorgAuthService authService)
+    public LibraryAttributeGroupController(IAttributeService attributeService, IAttributeGroupService attributeGroupService, IMimirorgAuthService authService, ILogger<LibraryAttributeController> logger)
     {
         _attributeService = attributeService;
         _authService = authService;
         _attributeGroupService = attributeGroupService;
+        _logger = logger;
     }
 
 
@@ -47,17 +49,16 @@ public class LibraryAttributeGroupController : ControllerBase
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Get()
+    public IActionResult Get()
     {
         try
         {
-            var data = await _attributeGroupService.GetAttributeGroupList();
+            var data = _attributeGroupService.GetAttributeGroupList();
             return Ok(data);
         }
         catch (Exception e)
         {
-            var logger = new ExeptionLogger();
-            logger.LoggExeption(e);
+            _logger.LogError("Internal server error", (e.Message, e.StackTrace, e.InnerException, e.Data, e.Source));
             return StatusCode(500, "Internal Server Error.");
         }
     }
@@ -71,11 +72,11 @@ public class LibraryAttributeGroupController : ControllerBase
     [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetSingleAttributeGroup([FromRoute] string id)
+    public  IActionResult GetSingleAttributeGroup([FromRoute] string id)
     {
         try
         {
-            var data = await _attributeGroupService.GetSingleAttributeGroup(id);
+            var data =  _attributeGroupService.GetSingleAttributeGroup(id);
             if (data == null)
                 return NotFound(id);
 
@@ -87,8 +88,7 @@ public class LibraryAttributeGroupController : ControllerBase
         }
         catch (Exception e)
         {
-            var logger = new ExeptionLogger();
-            logger.LoggExeption(e);
+            _logger.LogError("Internal server error", (e.Message, e.StackTrace, e.InnerException, e.Data, e.Source));
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -121,8 +121,7 @@ public class LibraryAttributeGroupController : ControllerBase
         }
         catch (Exception e)
         {
-            var logger = new ExeptionLogger();
-            logger.LoggExeption(e);
+            _logger.LogError("Internal server error", (e.Message, e.StackTrace, e.InnerException, e.Data, e.Source));
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -142,9 +141,7 @@ public class LibraryAttributeGroupController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
     public async Task<IActionResult> Update(string id, [FromBody] AttributeGroupLibAm attribute)
-    {
-        //Todo add the group id and attribute change id
-
+    {        
         try
         {
             if (!ModelState.IsValid)
@@ -167,8 +164,7 @@ public class LibraryAttributeGroupController : ControllerBase
         }
         catch (Exception e)
         {
-            var logger = new ExeptionLogger();
-            logger.LoggExeption(e);
+            _logger.LogError("Internal server error", (e.Message, e.StackTrace, e.InnerException, e.Data, e.Source));
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -187,13 +183,13 @@ public class LibraryAttributeGroupController : ControllerBase
     {
         try
         {
-            var attribute = await _attributeGroupService.GetSingleAttributeGroup(id);
-            var hasAccess = await _authService.CanDelete(attribute.State, attribute.CreatedBy, CompanyConstants.AnyCompanyId);
+            var attribute =  _attributeGroupService.GetSingleAttributeGroup(id);
+            var hasAccess =  await _authService.CanDelete(attribute.State, attribute.CreatedBy, CompanyConstants.AnyCompanyId);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            await _attributeGroupService.Delete(id);
+             await _attributeGroupService.Delete(id);
             return NoContent();
         }
         catch (MimirorgNotFoundException e)
@@ -206,8 +202,7 @@ public class LibraryAttributeGroupController : ControllerBase
         }
         catch (Exception e)
         {
-            var logger = new ExeptionLogger();
-            logger.LoggExeption(e);
+            _logger.LogError("Internal server error", (e.Message, e.StackTrace, e.InnerException, e.Data, e.Source));
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -246,10 +241,11 @@ public class LibraryAttributeGroupController : ControllerBase
         }
         catch (Exception e)
         {
-            var logger = new ExeptionLogger();
-            logger.LoggExeption(e);
+            _logger.LogError("Internal server error", (e.Message, e.StackTrace, e.InnerException, e.Data, e.Source));
+
             return StatusCode(500, "Internal Server Error");
         }
     }
+
 
 }

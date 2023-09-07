@@ -25,7 +25,6 @@ namespace TypeLibrary.Data.Repositories.Ef
         public async Task ChangeState(string id, State state, bool sendStateEmail)
         {
             var attribute = await GetAsync(id);
-            attribute.State = state;
             await SaveAsync();
             Detach(attribute);
         }

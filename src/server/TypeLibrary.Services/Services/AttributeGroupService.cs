@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
@@ -23,7 +24,7 @@ namespace TypeLibrary.Services.Services
         private readonly IEfAttributeGroupRepository _attributeGroupRepository;
         private readonly ILogService _logService;
         private readonly IEfAttributeRepository _attributeRepository;
-        private readonly IMapper _mapper;                
+        private readonly IMapper _mapper;
         private readonly ILogger<AttributeGroupService> _logger;
 
 
@@ -32,12 +33,12 @@ namespace TypeLibrary.Services.Services
             _logService = logService;
             _attributeRepository = attributeRepository;
             _attributeGroupRepository = attributeGroupRepository;
-            _mapper = mapper;            
+            _mapper = mapper;
             _logger = logger;
         }
 
         /// <inheritdoc />
-        public async Task<AttributeGroupLibCm> GetSingleAttributeGroup(string id)
+        public AttributeGroupLibCm GetSingleAttributeGroup(string id)
         {
             var dm = _attributeGroupRepository.GetSingleAttributeGroup(id);
             if (dm == null)
@@ -50,7 +51,7 @@ namespace TypeLibrary.Services.Services
         public IEnumerable<AttributeGroupLibCm> GetAttributeGroupList()
         {
             var dm = _attributeGroupRepository.GetAttributeGroupList().ToList();
-            
+
             if (dm == null || !dm.Any())
                 return new List<AttributeGroupLibCm>();
 
@@ -64,8 +65,8 @@ namespace TypeLibrary.Services.Services
             if (attributeGroupAm == null)
                 throw new ArgumentNullException(nameof(attributeGroupAm));
 
-            var validation = attributeGroupAm.ValidateObject();            
-            
+            var validation = attributeGroupAm.ValidateObject();
+
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException("Attribute is not valid.", validation);
 
@@ -91,20 +92,13 @@ namespace TypeLibrary.Services.Services
                 }
             }
 
-            if (!string.IsNullOrEmpty(createdBy))
-            {
-                dm.CreatedBy = createdBy;
-                dm.State = State.Approved;
-            }
-            else
-            {
-                dm.State = State.Draft;
-            }
+
+            dm.CreatedBy = createdBy;
 
             var createdAttributeGroup = await _attributeGroupRepository.Create(dm, attributeGroupAm.Attributes);
             //_hookService.HookQueue.Enqueue(CacheKey.Attribute);
             _attributeGroupRepository.ClearAllChangeTrackers();
-            await _logService.CreateLog(createdAttributeGroup, LogType.Create, createdAttributeGroup?.State.ToString(), createdAttributeGroup?.CreatedBy);
+            await _logService.CreateLog(createdAttributeGroup, LogType.Create,createdAttributeGroup?.CreatedBy, createdBy);
 
             return _mapper.Map<AttributeGroupLibCm>(createdAttributeGroup);
         }
@@ -113,15 +107,12 @@ namespace TypeLibrary.Services.Services
         {
             var dm = _attributeGroupRepository.GetSingleAttributeGroup(id) ?? throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
 
-            if (dm.State == State.Approved)
-                throw new MimirorgInvalidOperationException($"Can't delete approved attribute with id {id}.");
-
             await _attributeGroupRepository.Delete(id);
             await _attributeGroupRepository.SaveAsync();
         }
 
-        async Task<IEnumerable<AttributeGroupLibCm>> IAttributeGroupService.GetAttributeGroupList()
-        {           
+        IEnumerable<AttributeGroupLibCm> IAttributeGroupService.GetAttributeGroupList()
+        {
             var dm = _attributeGroupRepository.GetAll().ToList();
 
             if (dm == null || !dm.Any())
@@ -130,11 +121,28 @@ namespace TypeLibrary.Services.Services
             return _mapper.Map<List<AttributeGroupLibCm>>(dm);
         }
 
-   
 
-        public Task<AttributeGroupLibCm> Update(string id, AttributeGroupLibAm attributeAm)
+
+        public async Task<AttributeGroupLibCm> Update(string id, AttributeGroupLibAm attributeAm)
         {
-            throw new NotImplementedException();
+            //Update name of group and or add attributes
+
+            var validation = attributeAm.ValidateObject();
+
+            if (!validation.IsValid)
+                throw new MimirorgBadRequestException("Block is not valid.", validation);
+
+            var attributeGroupToUpdate = _attributeGroupRepository.FindBy(x => x.Id == id, false).Include(x => x.Attributes).AsSplitQuery().FirstOrDefault();
+
+            if (attributeGroupToUpdate == null)
+                throw new MimirorgNotFoundException("Block not found. Update is not possible.");
+
+            var attributeGroupToReturn = await Update(attributeGroupToUpdate.Id, attributeAm);
+
+            _attributeGroupRepository.ClearAllChangeTrackers();
+            //_hookService.HookQueue.Enqueue(CacheKey.Block);
+
+            return attributeGroupToReturn;
         }
 
         public Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)

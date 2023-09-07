@@ -16,14 +16,14 @@ namespace TypeLibrary.Services.Contracts
         /// Get all attribute groups
         /// </summary>
         /// <returns>List of attribute groups</returns>
-        Task<IEnumerable<AttributeGroupLibCm>> GetAttributeGroupList();
+        IEnumerable<AttributeGroupLibCm> GetAttributeGroupList();
 
         /// <summary>
         /// Get an attribute group by id
         /// </summary>
         /// <returns>The attribute group with the given id</returns>
         /// <exception cref="MimirorgNotFoundException">Throws if there is no attribute group with the given id.</exception>
-        Task<AttributeGroupLibCm> GetSingleAttributeGroup(string id);
+        AttributeGroupLibCm GetSingleAttributeGroup(string id);
 
 
         /// <summary>
