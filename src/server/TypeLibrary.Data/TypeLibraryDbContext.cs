@@ -44,5 +44,6 @@ public class TypeLibraryDbContext : DbContext
         modelBuilder.ApplyConfiguration(new TerminalAttributeConfiguration());
         modelBuilder.ApplyConfiguration(new RdsConfiguration());
         modelBuilder.ApplyConfiguration(new AttributeGroupConfiguration());
+        modelBuilder.ApplyConfiguration(new AttributeGroupAttributesConfiguration());
     }
 }

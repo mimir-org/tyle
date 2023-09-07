@@ -26,21 +26,26 @@ namespace TypeLibrary.Core.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AttributeGroupId")
-                        .HasColumnType("nvarchar(63)");
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("AttributeGroupId");
 
                     b.Property<string>("AttributeId")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("AttributeId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AttributeGroupId");
 
-                    b.ToTable("AttributeGroupAttributes");
+                    b.ToTable("Attribute_Group_Attribute", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeGroupLibDm", b =>
