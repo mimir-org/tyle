@@ -31,7 +31,7 @@ public interface IAttributeService
     /// <exception cref="MimirorgBadRequestException">Throws if attribute is not valid</exception>
     Task<AttributeLibCm> Create(AttributeLibAm attributeAm);
 
-    /*/// <summary>
+    /// <summary>
     /// Update an existing attribute
     /// </summary>
     /// <param name="id">The id of the attribute that should be updated</param>
@@ -40,7 +40,7 @@ public interface IAttributeService
     /// <exception cref="MimirorgNotFoundException">Throws if there is no attribute with the given id.</exception>
     /// <exception cref="MimirorgBadRequestException">Throws if the new attribute values are not valid.</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the attribute is not a draft or approved.</exception>
-    Task<AttributeLibCm> Update(Guid id, AttributeLibAm attributeAm);*/
+    Task<AttributeLibCm> Update(Guid id, AttributeLibAm attributeAm);
 
     /// <summary>
     ///  Delete an attribute, it can't be approved

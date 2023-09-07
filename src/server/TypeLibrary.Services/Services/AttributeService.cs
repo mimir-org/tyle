@@ -78,62 +78,14 @@ public class AttributeService : IAttributeService
 
         var dm = new AttributeType(attributeAm.Name, attributeAm.Description, _contextAccessor.GetUserId());
 
-        if (attributeAm.PredicateReferenceId != null)
+        await SetAttributeTypeFields(dm, attributeAm);
+
+        if (attributeAm.ValueConstraint != null)
         {
-            var predicate = await _predicateRepository.GetAsync((int) attributeAm.PredicateReferenceId) ??
-                            throw new MimirorgBadRequestException($"No predicate reference with id {attributeAm.PredicateReferenceId} found.");
-            dm.Predicate = predicate;
+            dm.ValueConstraint = new ValueConstraint();
+            dm.ValueConstraint.SetConstraints(attributeAm.ValueConstraint);
         }
 
-        foreach (var unitReferenceId in attributeAm.UnitReferenceIds)
-        {
-            var unit = await _unitRepository.GetAsync(unitReferenceId) ??
-                       throw new MimirorgBadRequestException($"No unit reference with id {unitReferenceId} found.");
-            dm.UoMs.Add(unit);
-        }
-
-        dm.ProvenanceQualifier = attributeAm.ProvenanceQualifier;
-        dm.RangeQualifier = attributeAm.RangeQualifier;
-        dm.RegularityQualifier = attributeAm.RegularityQualifier;
-        dm.ScopeQualifier = attributeAm.ScopeQualifier;
-
-        var valueConstraint = attributeAm.ValueConstraint;
-        if (valueConstraint != null)
-        {
-            switch (valueConstraint.ConstraintType)
-            {
-                case ConstraintType.HasValue:
-                    dm.ValueConstraint = new ValueConstraint(valueConstraint.DataType, valueConstraint.Value);
-                    break;
-                case ConstraintType.In:
-                    dm.ValueConstraint = new ValueConstraint(valueConstraint.DataType, valueConstraint.AllowedValues);
-                    break;
-                case ConstraintType.DataType:
-                    dm.ValueConstraint = new ValueConstraint(valueConstraint.DataType);
-                    break;
-                case ConstraintType.Pattern:
-                    dm.ValueConstraint = new ValueConstraint(valueConstraint.Pattern);
-                    break;
-                case ConstraintType.Range:
-                    if (valueConstraint.DataType == XsdDataType.Integer)
-                    {
-                        dm.ValueConstraint = new ValueConstraint((int?) valueConstraint.MinValue,
-                            (int?) valueConstraint.MaxValue, valueConstraint.MinInclusive,
-                            valueConstraint.MaxInclusive);
-                    }
-                    else
-                    {
-                        dm.ValueConstraint = new ValueConstraint(valueConstraint.MinValue, valueConstraint.MaxValue,
-                            valueConstraint.MinInclusive, valueConstraint.MaxInclusive);
-                    }
-
-                    break;
-                default:
-                    dm.ValueConstraint = null;
-                    break;
-            }
-        }
-        
         var createdAttribute = await _attributeRepository.Create(dm);
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
         _attributeRepository.ClearAllChangeTrackers();
@@ -142,7 +94,7 @@ public class AttributeService : IAttributeService
         return _mapper.Map<AttributeLibCm>(createdAttribute);
     }
 
-    /*/// <inheritdoc />
+    /// <inheritdoc />
     public async Task<AttributeLibCm> Update(Guid id, AttributeLibAm attributeAm)
     {
         var validation = attributeAm.ValidateObject();
@@ -150,15 +102,17 @@ public class AttributeService : IAttributeService
         if (!validation.IsValid)
             throw new MimirorgBadRequestException("Attribute is not valid.", validation);
 
-        var attributeToUpdate = _attributeRepository.FindBy(x => x.Id == id, false).Include(x => x.AttributeUnits).FirstOrDefault();
+        var attributeToUpdate = _attributeRepository.Get(id);
 
         if (attributeToUpdate == null)
             throw new MimirorgNotFoundException("Attribute not found. Update is not possible.");
 
-        if (attributeToUpdate.State != State.Approved && attributeToUpdate.State != State.Draft)
-            throw new MimirorgInvalidOperationException("Update can only be performed on attribute drafts or approved attributes.");
 
-        if (attributeToUpdate.State != State.Approved)
+
+        //if (attributeToUpdate.State != State.Approved && attributeToUpdate.State != State.Draft)
+        //    throw new MimirorgInvalidOperationException("Update can only be performed on attribute drafts or approved attributes.");
+
+        /*if (attributeToUpdate.State != State.Approved)
         {
             attributeToUpdate.Name = attributeAm.Name;
             attributeToUpdate.TypeReference = attributeAm.TypeReference;
@@ -189,16 +143,35 @@ public class AttributeService : IAttributeService
         else
         {
             attributeToUpdate.Description = attributeAm.Description;
+        }*/
+
+        //await _attributeUnitRepository.SaveAsync();
+
+        attributeToUpdate.Name = attributeAm.Name;
+        attributeToUpdate.Description = attributeAm.Description;
+        attributeToUpdate.ContributedBy.Add(_contextAccessor.GetUserId());
+        attributeToUpdate.LastUpdateOn = DateTimeOffset.Now;
+
+        await SetAttributeTypeFields(attributeToUpdate, attributeAm);
+        if (attributeAm.ValueConstraint == null && attributeToUpdate.ValueConstraint != null)
+        {
+            // TODO: Fix this case
+        }
+        else if (attributeAm.ValueConstraint != null)
+        {
+            attributeToUpdate.ValueConstraint ??= new ValueConstraint();
+            attributeToUpdate.ValueConstraint.SetConstraints(attributeAm.ValueConstraint);
         }
 
-        await _attributeUnitRepository.SaveAsync();
+        _attributeRepository.Update(attributeToUpdate);
         await _attributeRepository.SaveAsync();
+
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
         _attributeRepository.ClearAllChangeTrackers();
-        await _logService.CreateLog(attributeToUpdate, LogType.Update, attributeToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
+        //await _logService.CreateLog(attributeToUpdate, LogType.Update, attributeToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         return Get(attributeToUpdate.Id);
-    }*/
+    }
 
     /// <inheritdoc />
     public async Task Delete(Guid id)
@@ -277,4 +250,32 @@ public class AttributeService : IAttributeService
             await _logService.CreateLog(attribute, LogType.Create, attribute.State.ToString(), attribute.CreatedBy);
         }
     }*/
+
+    private async Task SetAttributeTypeFields(AttributeType dm, AttributeLibAm attributeAm)
+    {
+        if (attributeAm.PredicateReferenceId != null)
+        {
+            var predicate = await _predicateRepository.GetAsync((int) attributeAm.PredicateReferenceId) ??
+                            throw new MimirorgBadRequestException($"No predicate reference with id {attributeAm.PredicateReferenceId} found.");
+            dm.Predicate = predicate;
+        }
+        else
+        {
+            dm.Predicate = null;
+        }
+
+        dm.UoMs.Clear();
+
+        foreach (var unitReferenceId in attributeAm.UnitReferenceIds)
+        {
+            var unit = await _unitRepository.GetAsync(unitReferenceId) ??
+                       throw new MimirorgBadRequestException($"No unit reference with id {unitReferenceId} found.");
+            dm.UoMs.Add(unit);
+        }
+
+        dm.ProvenanceQualifier = attributeAm.ProvenanceQualifier;
+        dm.RangeQualifier = attributeAm.RangeQualifier;
+        dm.RegularityQualifier = attributeAm.RegularityQualifier;
+        dm.ScopeQualifier = attributeAm.ScopeQualifier;
+    }
 }

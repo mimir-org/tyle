@@ -14,7 +14,7 @@ public class GenericType
     public DateTimeOffset CreatedOn { get; }
     public string CreatedBy { get; }
     public ICollection<string> ContributedBy { get; }
-    public DateTimeOffset LastUpdateOn { get; private set; }
+    public DateTimeOffset LastUpdateOn { get; set; }
 
     protected GenericType(string name, string? description, string createdBy)
     {

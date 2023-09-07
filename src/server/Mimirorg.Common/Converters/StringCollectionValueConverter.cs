@@ -7,7 +7,7 @@ public class StringCollectionValueConverter : ValueConverter<ICollection<string>
 {
     public StringCollectionValueConverter() : base(
         v => string.Join(",", v.Select(s => s.Trim())),
-        v => v.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+        v => new HashSet<string>(v.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)))
     {
 
     }

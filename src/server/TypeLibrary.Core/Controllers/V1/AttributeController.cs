@@ -119,7 +119,7 @@ public class AttributeController : ControllerBase
         }
     }
 
-    /*/// <summary>
+    /// <summary>
     /// Update an attribute object
     /// </summary>
     /// <param name="id">The id of the attribute object that should be updated</param>
@@ -137,9 +137,6 @@ public class AttributeController : ControllerBase
     {
         try
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var data = await _attributeService.Update(id, attribute);
             return Ok(data);
         }
@@ -160,7 +157,7 @@ public class AttributeController : ControllerBase
             _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
-    }*/
+    }
 
     /// <summary>
     /// Delete an attribute that is not approved
