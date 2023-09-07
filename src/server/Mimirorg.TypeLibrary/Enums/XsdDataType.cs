@@ -2,9 +2,9 @@ namespace Mimirorg.TypeLibrary.Enums;
 
 public enum XsdDataType
 {
-    AnyUri = 0,
-    String = 1,
-    Decimal = 2,
-    Integer = 3,
-    Boolean = 5
+    String = 0,
+    Decimal = 1,
+    Integer = 2,
+    Boolean = 3,
+    AnyUri = 4
 }
