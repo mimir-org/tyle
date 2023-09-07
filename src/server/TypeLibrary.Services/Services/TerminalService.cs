@@ -94,6 +94,8 @@ public class TerminalService : ITerminalService
 
         foreach (var classifierReferenceId in terminal.ClassifierReferenceIds)
         {
+            // TODO: Add null checking
+
             dm.Classifiers.Add(await _classifierRepository.GetAsync(classifierReferenceId));
         }
 
@@ -107,9 +109,15 @@ public class TerminalService : ITerminalService
             dm.Medium = await _mediumRepository.GetAsync((int)terminal.MediumReferenceId);
         }
 
-        foreach (var terminalAttribute in dm.TerminalAttributes)
+        foreach (var terminalAttribute in terminal.TerminalAttributes)
         {
-            terminalAttribute.Terminal = dm;
+            dm.TerminalAttributes.Add(new TerminalAttributeTypeReference()
+            {
+                MinCount = terminalAttribute.MinCount,
+                MaxCount = terminalAttribute.MaxCount,
+                TerminalId = dm.Id,
+                AttributeId = terminalAttribute.AttributeId
+            });
         }
 
         //dm.State = State.Draft;

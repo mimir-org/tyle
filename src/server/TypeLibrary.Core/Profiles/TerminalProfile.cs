@@ -33,7 +33,7 @@ public class TerminalProfile : Profile
             .ForMember(dest => dest.Medium, opt => opt.Ignore())
             .ForMember(dest => dest.Qualifier, opt => opt.MapFrom(src => src.Qualifier))
             .ForMember(dest => dest.TerminalBlocks, opt => opt.Ignore())
-            .ForMember(dest => dest.TerminalAttributes, opt => opt.MapFrom(src => src.TerminalAttributes));
+            .ForMember(dest => dest.TerminalAttributes, opt => opt.Ignore());
 
         CreateMap<TerminalType, TerminalLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
