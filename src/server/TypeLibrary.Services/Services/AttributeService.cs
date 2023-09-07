@@ -111,9 +111,6 @@ public class AttributeService : IAttributeService
                 case ConstraintType.In:
                     dm.ValueConstraint = new ValueConstraint(valueConstraint.DataType, valueConstraint.AllowedValues);
                     break;
-                case ConstraintType.Class:
-                    dm.ValueConstraint = new ValueConstraint(new Uri(valueConstraint.ClassIri));
-                    break;
                 case ConstraintType.DataType:
                     dm.ValueConstraint = new ValueConstraint(valueConstraint.DataType);
                     break;

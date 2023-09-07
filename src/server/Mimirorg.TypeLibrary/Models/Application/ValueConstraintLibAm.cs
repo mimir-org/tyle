@@ -57,20 +57,6 @@ public class ValueConstraintLibAm : IValidatableObject
                     }
                 }
                 break;
-            case ConstraintType.Class:
-                if (ClassIri == null)
-                {
-                    yield return new ValidationResult("Constraints of type Class must specify an IRI for the class.");
-                }
-                else if (DataType != XsdDataType.AnyUri)
-                {
-                    yield return new ValidationResult("Constraints of type Class must have data type AnyUri.");
-                }
-                else if (!ValidateAgainstDataType(ClassIri, DataType, out var result))
-                {
-                    yield return result;
-                }
-                break;
             case ConstraintType.Pattern:
                 if (Pattern == null)
                 {

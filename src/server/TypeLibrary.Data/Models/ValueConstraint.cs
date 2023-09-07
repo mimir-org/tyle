@@ -15,7 +15,6 @@ public class ValueConstraint
     public ConstraintType ConstraintType { get; }
     public string? Value { get; }
     public ICollection<string>? AllowedValues { get; }
-    public Uri? ClassIri { get; }
     public XsdDataType? DataType { get; }
     public int? MinCount { get; }
     public int? MaxCount { get; }
@@ -37,13 +36,6 @@ public class ValueConstraint
         ConstraintType = ConstraintType.In;
         DataType = dataType;
         AllowedValues = value.Select(ParseThenToString).ToList();
-    }
-
-    public ValueConstraint(Uri classIri)
-    {
-        ConstraintType = ConstraintType.Class;
-        DataType = XsdDataType.AnyUri;
-        ClassIri = classIri;
     }
 
     public ValueConstraint(XsdDataType dataType)

@@ -20,7 +20,6 @@ public class ValueConstraintProfile : Profile
             .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => src.ConstraintType))
             .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Value))
             .ForMember(dest => dest.AllowedValues, opt => opt.MapFrom(src => src.AllowedValues))
-            .ForMember(dest => dest.ClassIri, opt => opt.MapFrom(src => src.ClassIri.AbsoluteUri))
             .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => src.DataType))
             .ForMember(dest => dest.MinCount, opt => opt.MapFrom(src => src.MinCount))
             .ForMember(dest => dest.MaxCount, opt => opt.MapFrom(src => src.MaxCount))
