@@ -1,14 +1,5 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Mimirorg.TypeLibrary.Models.Application;
 
-public class PredicateReferenceAm
+public class PredicateReferenceAm : AbstractReferenceAm
 {
-    [Required]
-    public string Name { get; set; }
-
-    public string Description { get; set; }
-
-    [Required]
-    public string Iri { get; set; }
 }

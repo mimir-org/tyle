@@ -13,8 +13,6 @@ public class ValueConstraintLibAm : IValidatableObject
     
     public ICollection<string> AllowedValues { get; set; }
 
-    public string ClassIri { get; set; }
-
     public XsdDataType DataType { get; set; }
 
     public int? MinCount { get; set; }
