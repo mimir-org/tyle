@@ -22,21 +22,6 @@ namespace TypeLibrary.Core.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AttributeTypeUnitReference", b =>
-                {
-                    b.Property<Guid>("AttributesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("UoMsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AttributesId", "UoMsId");
-
-                    b.HasIndex("UoMsId");
-
-                    b.ToTable("AttributeTypeUnitReference", (string)null);
-                });
-
             modelBuilder.Entity("BlockTypeClassifierReference", b =>
                 {
                     b.Property<Guid>("BlocksId")
@@ -140,6 +125,29 @@ namespace TypeLibrary.Core.Migrations
                     b.HasIndex("PredicateId");
 
                     b.ToTable("Attribute", (string)null);
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeUnitMapping", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("AttributeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("UnitId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttributeId");
+
+                    b.HasIndex("UnitId");
+
+                    b.ToTable("AttributeUnitMapping", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.BlockAttributeTypeReference", b =>
@@ -802,21 +810,6 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Value_Constraint", (string)null);
                 });
 
-            modelBuilder.Entity("AttributeTypeUnitReference", b =>
-                {
-                    b.HasOne("TypeLibrary.Data.Models.AttributeType", null)
-                        .WithMany()
-                        .HasForeignKey("AttributesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TypeLibrary.Data.Models.UnitReference", null)
-                        .WithMany()
-                        .HasForeignKey("UoMsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("BlockTypeClassifierReference", b =>
                 {
                     b.HasOne("TypeLibrary.Data.Models.BlockType", null)
@@ -850,16 +843,35 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeType", b =>
                 {
                     b.HasOne("TypeLibrary.Data.Models.PredicateReference", "Predicate")
-                        .WithMany("Attributes")
+                        .WithMany()
                         .HasForeignKey("PredicateId");
 
                     b.Navigation("Predicate");
                 });
 
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeUnitMapping", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.AttributeType", "Attribute")
+                        .WithMany()
+                        .HasForeignKey("AttributeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TypeLibrary.Data.Models.UnitReference", "Unit")
+                        .WithMany()
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Attribute");
+
+                    b.Navigation("Unit");
+                });
+
             modelBuilder.Entity("TypeLibrary.Data.Models.BlockAttributeTypeReference", b =>
                 {
                     b.HasOne("TypeLibrary.Data.Models.AttributeType", "Attribute")
-                        .WithMany("AttributeBlocks")
+                        .WithMany()
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -906,7 +918,7 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.TerminalAttributeTypeReference", b =>
                 {
                     b.HasOne("TypeLibrary.Data.Models.AttributeType", "Attribute")
-                        .WithMany("AttributeTerminals")
+                        .WithMany()
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -950,10 +962,6 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeType", b =>
                 {
-                    b.Navigation("AttributeBlocks");
-
-                    b.Navigation("AttributeTerminals");
-
                     b.Navigation("ValueConstraint");
                 });
 
@@ -967,11 +975,6 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.MediumReference", b =>
                 {
                     b.Navigation("Terminals");
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.PredicateReference", b =>
-                {
-                    b.Navigation("Attributes");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.PurposeReference", b =>

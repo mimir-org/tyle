@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using System;
-using Microsoft.AspNetCore.Http;
-using Mimirorg.Common.Extensions;
 
 namespace TypeLibrary.Data.Models;
 
-public class GenericType
+public abstract class GenericType
 {
     public Guid Id { get; }
     public string Name { get; set; }

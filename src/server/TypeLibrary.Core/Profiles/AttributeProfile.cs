@@ -25,7 +25,7 @@ public class AttributeProfile : Profile
             .ForMember(dest => dest.LastUpdateOn, opt => opt.MapFrom(src => src.LastUpdateOn))
             //.ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
             .ForMember(dest => dest.Predicate, opt => opt.MapFrom(src => src.Predicate))
-            .ForMember(dest => dest.UoMs, opt => opt.MapFrom(src => src.UoMs))
+            .ForMember(dest => dest.Units, opt => opt.MapFrom(src => src.Units.Select(x => x.Unit)))
             .ForMember(dest => dest.ProvenanceQualifier, opt => opt.MapFrom(src => src.ProvenanceQualifier))
             .ForMember(dest => dest.RangeQualifier, opt => opt.MapFrom(src => src.RangeQualifier))
             .ForMember(dest => dest.RegularityQualifier, opt => opt.MapFrom(src => src.RegularityQualifier))

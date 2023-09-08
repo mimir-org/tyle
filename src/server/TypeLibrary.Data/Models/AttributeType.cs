@@ -13,8 +13,9 @@ public class AttributeType : GenericType // ILogable, IStatefulObject
 {
     //public int CompanyId { get; set; }
     //public State State { get; set; }
+    public int? PredicateId { get; set; }
     public PredicateReference? Predicate { get; set; }
-    public ICollection<UnitReference> UoMs { get; }
+    public ICollection<AttributeUnitMapping> Units { get; }
     public ProvenanceQualifier? ProvenanceQualifier { get; set; }
     public RangeQualifier? RangeQualifier { get; set; }
     public RegularityQualifier? RegularityQualifier { get; set; }
@@ -23,7 +24,7 @@ public class AttributeType : GenericType // ILogable, IStatefulObject
 
     public AttributeType(string name, string? description, string createdBy) : base(name, description, createdBy)
     {
-        UoMs = new List<UnitReference>();
+        Units = new List<AttributeUnitMapping>();
     }
 
     /*public LogLibDm CreateLog(LogType logType, string logTypeValue, string createdBy)

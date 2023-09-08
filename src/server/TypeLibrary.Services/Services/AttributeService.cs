@@ -30,8 +30,10 @@ public class AttributeService : IAttributeService
     private readonly IEmailService _emailService;
     private readonly IEfPredicateRepository _predicateRepository;
     private readonly IEfUnitRepository _unitRepository;
+    private readonly IEfAttributeUnitRepository _attributeUnitRepository;
+    private readonly IValueConstraintRepository _valueConstraintRepository;
 
-    public AttributeService(IMapper mapper, IEfAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor, IEmailService emailService, IEfPredicateRepository predicateRepository, IEfUnitRepository unitRepository)
+    public AttributeService(IMapper mapper, IEfAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor, IEmailService emailService, IEfPredicateRepository predicateRepository, IEfUnitRepository unitRepository, IEfAttributeUnitRepository attributeUnitRepository, IValueConstraintRepository valueConstraintRepository)
     {
         _mapper = mapper;
         _attributeRepository = attributeRepository;
@@ -41,6 +43,8 @@ public class AttributeService : IAttributeService
         _emailService = emailService;
         _predicateRepository = predicateRepository;
         _unitRepository = unitRepository;
+        _attributeUnitRepository = attributeUnitRepository;
+        _valueConstraintRepository = valueConstraintRepository;
     }
 
     /// <inheritdoc />
@@ -149,21 +153,16 @@ public class AttributeService : IAttributeService
 
         attributeToUpdate.Name = attributeAm.Name;
         attributeToUpdate.Description = attributeAm.Description;
-        attributeToUpdate.ContributedBy.Add(_contextAccessor.GetUserId());
+        if (attributeToUpdate.CreatedBy != _contextAccessor.GetUserId())
+            attributeToUpdate.ContributedBy.Add(_contextAccessor.GetUserId());
         attributeToUpdate.LastUpdateOn = DateTimeOffset.Now;
 
         await SetAttributeTypeFields(attributeToUpdate, attributeAm);
-        if (attributeAm.ValueConstraint == null && attributeToUpdate.ValueConstraint != null)
-        {
-            // TODO: Fix this case
-        }
-        else if (attributeAm.ValueConstraint != null)
-        {
-            attributeToUpdate.ValueConstraint ??= new ValueConstraint();
-            attributeToUpdate.ValueConstraint.SetConstraints(attributeAm.ValueConstraint);
-        }
+        await _valueConstraintRepository.Update(attributeToUpdate.ValueConstraint, attributeAm.ValueConstraint,
+            attributeToUpdate.Id);
 
         _attributeRepository.Update(attributeToUpdate);
+        await _attributeUnitRepository.SaveAsync();
         await _attributeRepository.SaveAsync();
 
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
@@ -257,20 +256,36 @@ public class AttributeService : IAttributeService
         {
             var predicate = await _predicateRepository.GetAsync((int) attributeAm.PredicateReferenceId) ??
                             throw new MimirorgBadRequestException($"No predicate reference with id {attributeAm.PredicateReferenceId} found.");
+            dm.PredicateId = predicate.Id;
             dm.Predicate = predicate;
         }
         else
         {
+            dm.PredicateId = null;
             dm.Predicate = null;
         }
 
-        dm.UoMs.Clear();
+        var unitsToRemove = new List<AttributeUnitMapping>();
+
+        foreach (var unit in dm.Units)
+        {
+            if (attributeAm.UnitReferenceIds.Contains(unit.UnitId)) continue;
+
+            unitsToRemove.Add(unit);
+            await _attributeUnitRepository.Delete(unit.Id);
+        }
+
+        foreach (var unitToRemove in unitsToRemove)
+        {
+            dm.Units.Remove(unitToRemove);
+        }
 
         foreach (var unitReferenceId in attributeAm.UnitReferenceIds)
         {
-            var unit = await _unitRepository.GetAsync(unitReferenceId) ??
-                       throw new MimirorgBadRequestException($"No unit reference with id {unitReferenceId} found.");
-            dm.UoMs.Add(unit);
+            if (dm.Units.Select(x => x.UnitId).Contains(unitReferenceId)) continue;
+
+            var unit = await _unitRepository.GetAsync(unitReferenceId) ?? throw new MimirorgBadRequestException($"No unit reference with id {unitReferenceId} found.");
+            dm.Units.Add(new AttributeUnitMapping(dm.Id, unitReferenceId));
         }
 
         dm.ProvenanceQualifier = attributeAm.ProvenanceQualifier;

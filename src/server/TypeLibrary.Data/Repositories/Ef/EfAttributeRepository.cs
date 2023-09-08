@@ -30,7 +30,8 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     {
         return GetAll()
             .Include(x => x.Predicate)
-            .Include(x => x.UoMs)
+            .Include(x => x.Units)
+            .ThenInclude(x => x.Unit)
             .Include(x => x.ValueConstraint)
             .AsSplitQuery();
     }
@@ -40,7 +41,8 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     {
         return FindBy(x => x.Id == id)
             .Include(x => x.Predicate)
-            .Include(x => x.UoMs)
+            .Include(x => x.Units)
+            .ThenInclude(x => x.Unit)
             .Include(x => x.ValueConstraint)
             .AsSplitQuery()
             .FirstOrDefault();
@@ -54,7 +56,7 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
         {
             Context.Entry(attribute.Predicate).State = EntityState.Unchanged;
         }
-        foreach (var unit in attribute.UoMs)
+        foreach (var unit in attribute.Units)
         {
             Context.Entry(unit).State = EntityState.Unchanged;
         }

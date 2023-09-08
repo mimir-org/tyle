@@ -3,13 +3,10 @@ using Mimirorg.TypeLibrary.Enums;
 
 namespace TypeLibrary.Data.Models;
 
-public class PredicateReference
+public class PredicateReference : GenericReference
 {
-    public int Id { get; set; }
-    public required string Name { get; set; }
-    public string? Description { get; set; }
-    public required string Iri { get; set; }
-    public ReferenceSource Source { get; set; } = ReferenceSource.UserSubmission;
-
-    public ICollection<AttributeType> Attributes { get; } = new List<AttributeType>();
+    public PredicateReference(string name, string iri, string? description,
+        ReferenceSource source = ReferenceSource.UserSubmission) : base(name, iri, description, source)
+    {
+    }
 }

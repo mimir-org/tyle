@@ -15,8 +15,7 @@ public class UnitProfile : Profile
             .ForMember(dest => dest.Symbol, opt => opt.MapFrom(src => src.Symbol))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
-            .ForMember(dest => dest.Source, opt => opt.Ignore())
-            .ForMember(dest => dest.Attributes, opt => opt.Ignore());
+            .ForMember(dest => dest.Source, opt => opt.Ignore());
 
         CreateMap<UnitReference, UnitReferenceCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
