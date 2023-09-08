@@ -6,6 +6,7 @@ using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -13,8 +14,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -92,11 +95,11 @@ namespace TypeLibrary.Services.Services
                 }
             }
 
-                       
 
-            var createdAttributeGroup = await _attributeGroupRepository.Create(dm);            
+
+            var createdAttributeGroup = await _attributeGroupRepository.Create(dm);
             _attributeGroupRepository.ClearAllChangeTrackers();
-            _logger.Log(LogLevel.Information,"Created attribute group", (createdAttributeGroup));
+            _logger.Log(LogLevel.Information, "Created attribute group", (createdAttributeGroup));
 
             return _mapper.Map<AttributeGroupLibCm>(createdAttributeGroup);
         }
@@ -123,34 +126,16 @@ namespace TypeLibrary.Services.Services
 
         public async Task<AttributeGroupLibCm> Update(string id, AttributeGroupLibAm attributeAm)
         {
-            //Update name of group and or add attributes
+            var itemFromDb = _attributeGroupRepository.GetSingleAttributeGroup(id);
+            if (itemFromDb == null)
+                throw new Exception($"Could not find the Attribute group with id: {id}");
 
-            var validation = attributeAm.ValidateObject();
+            await Delete(id);
+            var itemCreated = await Create(attributeAm);
 
-            if (!validation.IsValid)
-                throw new MimirorgBadRequestException("Block is not valid.", validation);
-
-            var attributeGroupToUpdate = _attributeGroupRepository.FindBy(x => x.Id == id, false).Include(x => x.Attribute).AsSplitQuery().FirstOrDefault();
-
-            if (attributeGroupToUpdate == null)
-                throw new MimirorgNotFoundException("Block not found. Update is not possible.");
-
-            var attributeGroupToReturn = await Update(attributeGroupToUpdate.Id, attributeAm);
-
-            _attributeGroupRepository.ClearAllChangeTrackers();
-            //_hookService.HookQueue.Enqueue(CacheKey.Block);
-
-            return attributeGroupToReturn;
-        }
-
-        public Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ClearAllChangeTrackers()
-        {
-            throw new NotImplementedException();
+            return itemCreated;
         }
     }
+
 }
+

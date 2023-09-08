@@ -47,16 +47,12 @@ namespace TypeLibrary.Services.Contracts
         Task<AttributeGroupLibCm> Update(string id, AttributeGroupLibAm attributeAm);
 
         /// <summary>
-        ///  Delete an attribute group, it can't be approved
+        ///  Delete an attribute group
         /// </summary>
         /// <param name="id">The id of the attribute group to delete</param>
         /// <exception cref="MimirorgNotFoundException">Throws if the attribute group with the given id is not found.</exception>
         /// <exception cref="MimirorgInvalidOperationException">Throws if the attribute group in question can't be deleted.</exception>
         Task Delete(string id);
 
-        /// <summary>
-        /// Clear all entity framework change trackers
-        /// </summary>
-        void ClearAllChangeTrackers();
     }
 }

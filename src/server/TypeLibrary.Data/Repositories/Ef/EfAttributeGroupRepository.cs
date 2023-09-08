@@ -29,20 +29,13 @@ namespace TypeLibrary.Data.Repositories.Ef
         {
             //BUG: TODO if list is null it fails
 
-            try
-            {
-
             await CreateAsync(attributeGroupLibDm);
             await SaveAsync();
             Detach(attributeGroupLibDm);
 
             return attributeGroupLibDm;
-            }
-            catch (Exception ex)
-            {
 
-                throw;
-            }
+
 
         }
 
