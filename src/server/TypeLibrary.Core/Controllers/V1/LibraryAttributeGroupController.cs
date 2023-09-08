@@ -72,11 +72,11 @@ public class LibraryAttributeGroupController : ControllerBase
     [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public  IActionResult GetSingleAttributeGroup([FromRoute] string id)
+    public IActionResult GetSingleAttributeGroup([FromRoute] string id)
     {
         try
         {
-            var data =  _attributeGroupService.GetSingleAttributeGroup(id);
+            var data = _attributeGroupService.GetSingleAttributeGroup(id);
             if (data == null)
                 return NotFound(id);
 
@@ -105,7 +105,7 @@ public class LibraryAttributeGroupController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "attributeGroup", "CompanyId")]
     public async Task<IActionResult> CreateAttributeGroup([FromBody] AttributeGroupLibAm attributeGroup)
-    {              
+    {
         try
         {
             if (!ModelState.IsValid)
@@ -141,7 +141,7 @@ public class LibraryAttributeGroupController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
     public async Task<IActionResult> Update(string id, [FromBody] AttributeGroupLibAm attribute)
-    {        
+    {
         try
         {
             if (!ModelState.IsValid)
@@ -183,13 +183,13 @@ public class LibraryAttributeGroupController : ControllerBase
     {
         try
         {
-            var attribute =  _attributeGroupService.GetSingleAttributeGroup(id);
-            var hasAccess =  await _authService.CanDelete(State.Draft, attribute.CreatedBy, CompanyConstants.AnyCompanyId); //State hardcoded
+            var attribute = _attributeGroupService.GetSingleAttributeGroup(id);
+            var hasAccess = await _authService.CanDelete(State.Draft, attribute.CreatedBy, CompanyConstants.AnyCompanyId); //State hardcoded
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-             await _attributeGroupService.Delete(id);
+            await _attributeGroupService.Delete(id);
             return NoContent();
         }
         catch (MimirorgNotFoundException e)

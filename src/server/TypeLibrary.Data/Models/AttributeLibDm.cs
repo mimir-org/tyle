@@ -19,7 +19,7 @@ public class AttributeLibDm : ILogable, IStatefulObject
     public string Description { get; set; }
     public ICollection<AttributeUnitLibDm> AttributeUnits { get; set; }
     public ICollection<BlockAttributeLibDm> AttributeBlocks { get; set; }
-    public ICollection<TerminalAttributeLibDm> AttributeTerminals { get; set; }    
+    public ICollection<TerminalAttributeLibDm> AttributeTerminals { get; set; }
 
     public LogLibDm CreateLog(LogType logType, string logTypeValue, string createdBy)
     {

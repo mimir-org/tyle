@@ -55,7 +55,7 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IEfBlockTerminalRepository, EfBlockTerminalRepository>();
         services.AddScoped<IEfBlockAttributeRepository, EfBlockAttributeRepository>();
         services.AddScoped<IEfTerminalAttributeRepository, EfTerminalAttributeRepository>();
-        services.AddScoped<IEfAttributeUnitRepository, EfAttributeUnitRepository>();        
+        services.AddScoped<IEfAttributeUnitRepository, EfAttributeUnitRepository>();
 
         services.AddScoped<IQuantityDatumRepository, EfQuantityDatumRepository>();
         services.AddScoped<IAttributePredefinedRepository, EfAttributePredefinedRepository>();
