@@ -18,8 +18,8 @@ public class ValueConstraint
     public string? Value { get; private set; }
     public ICollection<string>? AllowedValues { get; private set; }
     public XsdDataType? DataType { get; private set; }
-    public int? MinCount { get; }
-    public int? MaxCount { get; }
+    public int? MinCount { get; private set; }
+    public int? MaxCount { get; } = 1;
     public string? Pattern { get; private set; }
     public decimal? MinValue { get; private set; }
     public decimal? MaxValue { get; private set; }
@@ -30,11 +30,11 @@ public class ValueConstraint
     {
         ConstraintType = request.ConstraintType;
         DataType = request.DataType;
+        MinCount = request.MinCount;
         Value = null;
         AllowedValues = null;
         Pattern = null;
         MinValue = null;
-        MaxValue = null;
         MinInclusive = null;
         MaxInclusive = null;
 

@@ -24,6 +24,8 @@ public class AttributeConfiguration : IEntityTypeConfiguration<AttributeType>
         builder.Property(p => p.ContributedBy).HasColumnName("ContributedBy").IsRequired().HasConversion(stringConverter, stringComparer).HasMaxLength(2000);
         builder.Property(p => p.LastUpdateOn).HasColumnName("LastUpdateOn").IsRequired();
         //builder.Property(p => p.State).HasColumnName("State").IsRequired().HasConversion<string>().HasMaxLength(31);
+        builder.Property(p => p.UnitMinCount).HasColumnName("UnitMinCount").IsRequired();
+        builder.Property(p => p.UnitMaxCount).HasColumnName("UnitMaxCount").IsRequired();
         builder.Property(p => p.ProvenanceQualifier).HasColumnName("ProvenanceQualifier").HasConversion<string>().HasMaxLength(50);
         builder.Property(p => p.RangeQualifier).HasColumnName("RangeQualifier").HasConversion<string>().HasMaxLength(50);
         builder.Property(p => p.RegularityQualifier).HasColumnName("RegularityQualifier").HasConversion<string>().HasMaxLength(50);

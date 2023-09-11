@@ -287,6 +287,9 @@ public class AttributeService : IAttributeService
             dm.Units.Add(new AttributeUnitMapping(dm.Id, unitReferenceId));
         }
 
+        dm.UnitMinCount = attributeAm.UnitMinCount;
+        dm.UnitMaxCount = attributeAm.UnitMaxCount;
+
         dm.ProvenanceQualifier = attributeAm.ProvenanceQualifier;
         dm.RangeQualifier = attributeAm.RangeQualifier;
         dm.RegularityQualifier = attributeAm.RegularityQualifier;

@@ -16,7 +16,6 @@ public class ValueConstraintLibAm : IValidatableObject
     public XsdDataType DataType { get; set; }
 
     public int? MinCount { get; set; }
-    public int? MaxCount { get; set; }
 
     public string Pattern { get; set; }
     
@@ -27,6 +26,26 @@ public class ValueConstraintLibAm : IValidatableObject
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
+        if (MinCount != null && MinCount != 0 && MinCount != 1)
+        {
+            yield return new ValidationResult("Min count must be null, 0 or 1.");
+        }
+
+        if (ConstraintType == ConstraintType.HasValue)
+        {
+            if (MinCount != null)
+            {
+                yield return new ValidationResult("When the constraint type is HasValue, min count must be null.");
+            }
+        }
+        else
+        {
+            if (MinCount == null)
+            {
+                yield return new ValidationResult("Min count must be set when the constraint type is not HasValue.");
+            }
+        }
+
         switch (ConstraintType)
         {
             case ConstraintType.HasValue:

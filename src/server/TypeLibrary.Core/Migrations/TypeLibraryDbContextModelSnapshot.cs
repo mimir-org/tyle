@@ -34,7 +34,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasIndex("ClassifiersId");
 
-                    b.ToTable("BlockTypeClassifierReference", (string)null);
+                    b.ToTable("BlockTypeClassifierReference");
                 });
 
             modelBuilder.Entity("ClassifierReferenceTerminalType", b =>
@@ -49,7 +49,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasIndex("TerminalsId");
 
-                    b.ToTable("ClassifierReferenceTerminalType", (string)null);
+                    b.ToTable("ClassifierReferenceTerminalType");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeType", b =>
@@ -114,6 +114,14 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("ScopeQualifier");
 
+                    b.Property<int>("UnitMaxCount")
+                        .HasColumnType("int")
+                        .HasColumnName("UnitMaxCount");
+
+                    b.Property<int>("UnitMinCount")
+                        .HasColumnType("int")
+                        .HasColumnName("UnitMinCount");
+
                     b.Property<string>("Version")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -147,7 +155,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasIndex("UnitId");
 
-                    b.ToTable("AttributeUnitMapping", (string)null);
+                    b.ToTable("AttributeUnitMapping");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.BlockAttributeTypeReference", b =>
@@ -852,7 +860,7 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeUnitMapping", b =>
                 {
                     b.HasOne("TypeLibrary.Data.Models.AttributeType", "Attribute")
-                        .WithMany()
+                        .WithMany("Units")
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -962,6 +970,8 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeType", b =>
                 {
+                    b.Navigation("Units");
+
                     b.Navigation("ValueConstraint");
                 });
 

@@ -16,6 +16,8 @@ public class AttributeType : GenericType // ILogable, IStatefulObject
     public int? PredicateId { get; set; }
     public PredicateReference? Predicate { get; set; }
     public ICollection<AttributeUnitMapping> Units { get; }
+    public int UnitMinCount { get; set; }
+    public int UnitMaxCount { get; set; }
     public ProvenanceQualifier? ProvenanceQualifier { get; set; }
     public RangeQualifier? RangeQualifier { get; set; }
     public RegularityQualifier? RegularityQualifier { get; set; }
