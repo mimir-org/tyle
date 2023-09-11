@@ -15,6 +15,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using Mimirorg.Common.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1;
@@ -29,12 +31,14 @@ public class AttributeController : ControllerBase
     private readonly ILogger<AttributeController> _logger;
     private readonly IAttributeService _attributeService;
     private readonly IMimirorgAuthService _authService;
+    private readonly ApplicationSettings _applicationSettings;
 
-    public AttributeController(ILogger<AttributeController> logger, IAttributeService attributeService, IMimirorgAuthService authService)
+    public AttributeController(ILogger<AttributeController> logger, IAttributeService attributeService, IMimirorgAuthService authService, IOptions<ApplicationSettings> applicationSettings)
     {
         _logger = logger;
         _attributeService = attributeService;
         _authService = authService;
+        _applicationSettings = applicationSettings?.Value;
     }
 
     /// <summary>
@@ -96,7 +100,7 @@ public class AttributeController : ControllerBase
     /// <param name="attribute">The attribute that should be created</param>
     /// <returns>The created attribute</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -106,7 +110,7 @@ public class AttributeController : ControllerBase
         try
         {
             var cm = await _attributeService.Create(attribute);
-            return Ok(cm);
+            return Created(new Uri($"{_applicationSettings.ApplicationSemanticUrl}/attribute/{cm.Id}"), cm);
         }
         catch (MimirorgBadRequestException e)
         {
