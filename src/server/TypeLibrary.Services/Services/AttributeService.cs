@@ -75,10 +75,10 @@ public class AttributeService : IAttributeService
         if (attributeAm == null)
             throw new ArgumentNullException(nameof(attributeAm));
 
-        var validation = attributeAm.ValidateObject();
+        //var validation = attributeAm.ValidateObject();
 
-        if (!validation.IsValid)
-            throw new MimirorgBadRequestException("Attribute is not valid.", validation);
+        //if (!validation.IsValid)
+            //throw new MimirorgBadRequestException("Attribute is not valid.", validation);
 
         var dm = new AttributeType(attributeAm.Name, attributeAm.Description, _contextAccessor.GetUserId());
 
@@ -101,10 +101,10 @@ public class AttributeService : IAttributeService
     /// <inheritdoc />
     public async Task<AttributeLibCm> Update(Guid id, AttributeLibAm attributeAm)
     {
-        var validation = attributeAm.ValidateObject();
+        //var validation = attributeAm.ValidateObject();
 
-        if (!validation.IsValid)
-            throw new MimirorgBadRequestException("Attribute is not valid.", validation);
+        //if (!validation.IsValid)
+            //throw new MimirorgBadRequestException("Attribute is not valid.", validation);
 
         var attributeToUpdate = _attributeRepository.Get(id);
 
@@ -257,7 +257,7 @@ public class AttributeService : IAttributeService
             var predicate = await _predicateRepository.GetAsync((int) attributeAm.PredicateReferenceId) ??
                             throw new MimirorgBadRequestException($"No predicate reference with id {attributeAm.PredicateReferenceId} found.");
             dm.PredicateId = predicate.Id;
-            dm.Predicate = predicate;
+            //dm.Predicate = predicate;
         }
         else
         {
