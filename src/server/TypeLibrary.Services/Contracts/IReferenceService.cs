@@ -21,9 +21,9 @@ public interface IReferenceService
 
     Task<ClassifierReferenceCm> CreateClassifier(ClassifierReferenceAm classifierAm);
     Task<MediumReferenceCm> CreateMedium(MediumReferenceAm mediumAm);
-    Task<PredicateReferenceCm> CreatePredicate(PredicateReferenceRequest predicateAm);
+    Task<PredicateReferenceCm> CreatePredicate(PredicateReferenceRequest request);
     Task<PurposeReferenceCm> CreatePurpose(PurposeReferenceAm purposeAm);
-    Task<UnitReferenceCm> CreateUnit(UnitReferenceRequest unitRequest);
+    Task<UnitReferenceCm> CreateUnit(UnitReferenceRequest request);
 
     Task DeleteClassifier(int id);
     Task DeleteMedium(int id);

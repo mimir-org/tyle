@@ -80,14 +80,14 @@ public class PredicateController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public async Task<IActionResult> Create([FromBody] PredicateReferenceRequest predicateAm)
+    public async Task<IActionResult> Create([FromBody] PredicateReferenceRequest request)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var cm = await _referenceService.CreatePredicate(predicateAm);
+            var cm = await _referenceService.CreatePredicate(request);
             return Ok(cm);
         }
         catch (MimirorgBadRequestException e)

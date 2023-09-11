@@ -70,24 +70,24 @@ public class AttributeService : IAttributeService
     }
 
     /// <inheritdoc />
-    public async Task<AttributeLibCm> Create(AttributeTypeRequest attributeAm)
+    public async Task<AttributeLibCm> Create(AttributeTypeRequest request)
     {
-        if (attributeAm == null)
-            throw new ArgumentNullException(nameof(attributeAm));
+        if (request == null)
+            throw new ArgumentNullException(nameof(request));
 
         //var validation = attributeAm.ValidateObject();
 
         //if (!validation.IsValid)
             //throw new MimirorgBadRequestException("Attribute is not valid.", validation);
 
-        var dm = new AttributeType(attributeAm.Name, attributeAm.Description, _contextAccessor.GetUserId());
+        var dm = new AttributeType(request.Name, request.Description, _contextAccessor.GetUserId());
 
-        await SetAttributeTypeFields(dm, attributeAm);
+        await SetAttributeTypeFields(dm, request);
 
-        if (attributeAm.ValueConstraint != null)
+        if (request.ValueConstraint != null)
         {
             dm.ValueConstraint = new ValueConstraint();
-            dm.ValueConstraint.SetConstraints(attributeAm.ValueConstraint);
+            dm.ValueConstraint.SetConstraints(request.ValueConstraint);
         }
 
         var createdAttribute = await _attributeRepository.Create(dm);
@@ -99,7 +99,7 @@ public class AttributeService : IAttributeService
     }
 
     /// <inheritdoc />
-    public async Task<AttributeLibCm> Update(Guid id, AttributeTypeRequest attributeAm)
+    public async Task<AttributeLibCm> Update(Guid id, AttributeTypeRequest request)
     {
         //var validation = attributeAm.ValidateObject();
 
@@ -151,14 +151,14 @@ public class AttributeService : IAttributeService
 
         //await _attributeUnitRepository.SaveAsync();
 
-        attributeToUpdate.Name = attributeAm.Name;
-        attributeToUpdate.Description = attributeAm.Description;
+        attributeToUpdate.Name = request.Name;
+        attributeToUpdate.Description = request.Description;
         if (attributeToUpdate.CreatedBy != _contextAccessor.GetUserId())
             attributeToUpdate.ContributedBy.Add(_contextAccessor.GetUserId());
         attributeToUpdate.LastUpdateOn = DateTimeOffset.Now;
 
-        await SetAttributeTypeFields(attributeToUpdate, attributeAm);
-        await _valueConstraintRepository.Update(attributeToUpdate.ValueConstraint, attributeAm.ValueConstraint,
+        await SetAttributeTypeFields(attributeToUpdate, request);
+        await _valueConstraintRepository.Update(attributeToUpdate.ValueConstraint, request.ValueConstraint,
             attributeToUpdate.Id);
 
         _attributeRepository.Update(attributeToUpdate);
@@ -250,12 +250,12 @@ public class AttributeService : IAttributeService
         }
     }*/
 
-    private async Task SetAttributeTypeFields(AttributeType dm, AttributeTypeRequest attributeAm)
+    private async Task SetAttributeTypeFields(AttributeType dm, AttributeTypeRequest request)
     {
-        if (attributeAm.PredicateReferenceId != null)
+        if (request.PredicateReferenceId != null)
         {
-            var predicate = await _predicateRepository.GetAsync((int) attributeAm.PredicateReferenceId) ??
-                            throw new MimirorgBadRequestException($"No predicate reference with id {attributeAm.PredicateReferenceId} found.");
+            var predicate = await _predicateRepository.GetAsync((int) request.PredicateReferenceId) ??
+                            throw new MimirorgBadRequestException($"No predicate reference with id {request.PredicateReferenceId} found.");
             dm.PredicateId = predicate.Id;
         }
         else
@@ -268,7 +268,7 @@ public class AttributeService : IAttributeService
 
         foreach (var unit in dm.Units)
         {
-            if (attributeAm.UnitReferenceIds.Contains(unit.UnitId)) continue;
+            if (request.UnitReferenceIds.Contains(unit.UnitId)) continue;
 
             unitsToRemove.Add(unit);
             await _attributeUnitRepository.Delete(unit.Id);
@@ -279,7 +279,7 @@ public class AttributeService : IAttributeService
             dm.Units.Remove(unitToRemove);
         }
 
-        foreach (var unitReferenceId in attributeAm.UnitReferenceIds)
+        foreach (var unitReferenceId in request.UnitReferenceIds)
         {
             if (dm.Units.Select(x => x.UnitId).Contains(unitReferenceId)) continue;
 
@@ -287,12 +287,12 @@ public class AttributeService : IAttributeService
             dm.Units.Add(new AttributeUnitMapping(dm.Id, unitReferenceId));
         }
 
-        dm.UnitMinCount = attributeAm.UnitMinCount;
-        dm.UnitMaxCount = attributeAm.UnitMaxCount;
+        dm.UnitMinCount = request.UnitMinCount;
+        dm.UnitMaxCount = request.UnitMaxCount;
 
-        dm.ProvenanceQualifier = attributeAm.ProvenanceQualifier;
-        dm.RangeQualifier = attributeAm.RangeQualifier;
-        dm.RegularityQualifier = attributeAm.RegularityQualifier;
-        dm.ScopeQualifier = attributeAm.ScopeQualifier;
+        dm.ProvenanceQualifier = request.ProvenanceQualifier;
+        dm.RangeQualifier = request.RangeQualifier;
+        dm.RegularityQualifier = request.RegularityQualifier;
+        dm.ScopeQualifier = request.ScopeQualifier;
     }
 }

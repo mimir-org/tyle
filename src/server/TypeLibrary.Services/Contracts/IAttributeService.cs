@@ -26,21 +26,21 @@ public interface IAttributeService
     /// <summary>
     /// Create a new attribute
     /// </summary>
-    /// <param name="attributeAm">The attribute that should be created</param>
+    /// <param name="request">The attribute that should be created</param>
     /// <returns>The created attribute</returns>
     /// <exception cref="MimirorgBadRequestException">Throws if attribute is not valid</exception>
-    Task<AttributeLibCm> Create(AttributeTypeRequest attributeAm);
+    Task<AttributeLibCm> Create(AttributeTypeRequest request);
 
     /// <summary>
     /// Update an existing attribute
     /// </summary>
     /// <param name="id">The id of the attribute that should be updated</param>
-    /// <param name="attributeAm">The new attribute values</param>
+    /// <param name="request">The new attribute values</param>
     /// <returns>The updated attribute</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no attribute with the given id.</exception>
     /// <exception cref="MimirorgBadRequestException">Throws if the new attribute values are not valid.</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the attribute is not a draft or approved.</exception>
-    Task<AttributeLibCm> Update(Guid id, AttributeTypeRequest attributeAm);
+    Task<AttributeLibCm> Update(Guid id, AttributeTypeRequest request);
 
     /// <summary>
     ///  Delete an attribute, it can't be approved

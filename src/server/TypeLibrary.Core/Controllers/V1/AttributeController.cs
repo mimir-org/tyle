@@ -97,7 +97,7 @@ public class AttributeController : ControllerBase
     /// <summary>
     /// Create an attribute
     /// </summary>
-    /// <param name="attribute">The attribute that should be created</param>
+    /// <param name="request">The attribute that should be created</param>
     /// <returns>The created attribute</returns>
     [HttpPost]
     [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status201Created)]
@@ -105,11 +105,11 @@ public class AttributeController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
-    public async Task<IActionResult> Create([FromBody] AttributeTypeRequest attribute)
+    public async Task<IActionResult> Create([FromBody] AttributeTypeRequest request)
     {
         try
         {
-            var cm = await _attributeService.Create(attribute);
+            var cm = await _attributeService.Create(request);
             return Created(new Uri($"{_applicationSettings.ApplicationSemanticUrl}/attribute/{cm.Id}"), cm);
         }
         catch (MimirorgBadRequestException e)
@@ -127,7 +127,7 @@ public class AttributeController : ControllerBase
     /// Update an attribute object
     /// </summary>
     /// <param name="id">The id of the attribute object that should be updated</param>
-    /// <param name="attribute">The new values of the attribute</param>
+    /// <param name="request">The new values of the attribute</param>
     /// <returns>The updated attribute</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
@@ -137,11 +137,11 @@ public class AttributeController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
-    public async Task<IActionResult> Update(Guid id, [FromBody] AttributeTypeRequest attribute)
+    public async Task<IActionResult> Update(Guid id, [FromBody] AttributeTypeRequest request)
     {
         try
         {
-            var data = await _attributeService.Update(id, attribute);
+            var data = await _attributeService.Update(id, request);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)
