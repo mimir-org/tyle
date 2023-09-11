@@ -257,7 +257,6 @@ public class AttributeService : IAttributeService
             var predicate = await _predicateRepository.GetAsync((int) attributeAm.PredicateReferenceId) ??
                             throw new MimirorgBadRequestException($"No predicate reference with id {attributeAm.PredicateReferenceId} found.");
             dm.PredicateId = predicate.Id;
-            //dm.Predicate = predicate;
         }
         else
         {

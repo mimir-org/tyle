@@ -52,14 +52,6 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     public async Task<AttributeType> Create(AttributeType attribute)
     {
         await CreateAsync(attribute);
-        if (attribute.Predicate != null)
-        {
-            //Context.Entry(attribute.Predicate).State = EntityState.Unchanged;
-        }
-        foreach (var unit in attribute.Units)
-        {
-            Context.Entry(unit).State = EntityState.Unchanged;
-        }
         await SaveAsync();
 
         Detach(attribute);
