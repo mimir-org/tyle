@@ -13,28 +13,28 @@ public class EfValueConstraintRepository : GenericRepository<TypeLibraryDbContex
     {
     }
 
-    public async Task Update(ValueConstraint? valueConstraint, ValueConstraintLibAm? valueConstraintAm, Guid attributeId)
+    public async Task Update(ValueConstraint? valueConstraint, ValueConstraintRequest? request, Guid attributeId)
     {
         if (valueConstraint == null)
         {
-            if (valueConstraintAm == null) return;
+            if (request == null) return;
 
             var newValueConstraint = new ValueConstraint();
-            newValueConstraint.SetConstraints(valueConstraintAm);
+            newValueConstraint.SetConstraints(request);
             newValueConstraint.AttributeId = attributeId;
             await CreateAsync(newValueConstraint);
             await SaveAsync();
         }
         else
         {
-            if (valueConstraintAm == null)
+            if (request == null)
             {
                 await Delete(valueConstraint.Id);
             }
             else
             {
                 var existingValueConstraint = await GetAsync(valueConstraint.Id);
-                existingValueConstraint.SetConstraints(valueConstraintAm);
+                existingValueConstraint.SetConstraints(request);
                 Update(existingValueConstraint);
             }
 

@@ -70,7 +70,7 @@ public class AttributeService : IAttributeService
     }
 
     /// <inheritdoc />
-    public async Task<AttributeLibCm> Create(AttributeLibAm attributeAm)
+    public async Task<AttributeLibCm> Create(AttributeTypeRequest attributeAm)
     {
         if (attributeAm == null)
             throw new ArgumentNullException(nameof(attributeAm));
@@ -99,7 +99,7 @@ public class AttributeService : IAttributeService
     }
 
     /// <inheritdoc />
-    public async Task<AttributeLibCm> Update(Guid id, AttributeLibAm attributeAm)
+    public async Task<AttributeLibCm> Update(Guid id, AttributeTypeRequest attributeAm)
     {
         //var validation = attributeAm.ValidateObject();
 
@@ -250,7 +250,7 @@ public class AttributeService : IAttributeService
         }
     }*/
 
-    private async Task SetAttributeTypeFields(AttributeType dm, AttributeLibAm attributeAm)
+    private async Task SetAttributeTypeFields(AttributeType dm, AttributeTypeRequest attributeAm)
     {
         if (attributeAm.PredicateReferenceId != null)
         {

@@ -80,14 +80,14 @@ public class UnitController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public async Task<IActionResult> Create([FromBody] UnitReferenceAm unitAm)
+    public async Task<IActionResult> Create([FromBody] UnitReferenceRequest unitRequest)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var cm = await _referenceService.CreateUnit(unitAm);
+            var cm = await _referenceService.CreateUnit(unitRequest);
             return Ok(cm);
         }
         catch (MimirorgBadRequestException e)

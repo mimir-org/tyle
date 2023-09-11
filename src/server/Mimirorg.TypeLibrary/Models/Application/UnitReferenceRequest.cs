@@ -1,6 +1,6 @@
 namespace Mimirorg.TypeLibrary.Models.Application;
 
-public class UnitReferenceAm : GenericReferenceAm
+public class UnitReferenceRequest : ReferenceRequest
 {
     public string Symbol { get; set; }
 }

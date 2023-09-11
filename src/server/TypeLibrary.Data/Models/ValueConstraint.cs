@@ -26,7 +26,7 @@ public class ValueConstraint
     public bool? MinInclusive { get; private set; }
     public bool? MaxInclusive { get; private set; }
 
-    public void SetConstraints(ValueConstraintLibAm request)
+    public void SetConstraints(ValueConstraintRequest request)
     {
         ConstraintType = request.ConstraintType;
         DataType = request.DataType;

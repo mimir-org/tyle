@@ -6,5 +6,5 @@ namespace TypeLibrary.Data.Contracts;
 
 public interface IAttributeReferenceRepository
 {
-    Task<List<AttributeLibAm>> FetchAttributesFromReference();
+    Task<List<AttributeTypeRequest>> FetchAttributesFromReference();
 }

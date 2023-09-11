@@ -4,7 +4,7 @@ using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Application;
 
-public class ValueConstraintLibAm : IValidatableObject
+public class ValueConstraintRequest : IValidatableObject
 {
     [Required]
     public ConstraintType ConstraintType { get; set; }

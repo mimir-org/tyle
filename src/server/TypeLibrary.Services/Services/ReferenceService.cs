@@ -120,7 +120,7 @@ public class ReferenceService : IReferenceService
         return _mapper.Map<MediumReferenceCm>(medium);
     }
 
-    public async Task<PredicateReferenceCm> CreatePredicate(PredicateReferenceAm predicateAm)
+    public async Task<PredicateReferenceCm> CreatePredicate(PredicateReferenceRequest predicateAm)
     {
         if (predicateAm == null) throw new ArgumentNullException(nameof(predicateAm));
 
@@ -144,11 +144,11 @@ public class ReferenceService : IReferenceService
         return _mapper.Map<PurposeReferenceCm>(purpose);
     }
 
-    public async Task<UnitReferenceCm> CreateUnit(UnitReferenceAm unitAm)
+    public async Task<UnitReferenceCm> CreateUnit(UnitReferenceRequest unitRequest)
     {
-        if (unitAm == null) throw new ArgumentNullException(nameof(unitAm));
+        if (unitRequest == null) throw new ArgumentNullException(nameof(unitRequest));
 
-        var unit = _mapper.Map<UnitReference>(unitAm);
+        var unit = _mapper.Map<UnitReference>(unitRequest);
         await _unitRepository.CreateAsync(unit);
         await _unitRepository.SaveAsync();
         _unitRepository.Detach(unit);

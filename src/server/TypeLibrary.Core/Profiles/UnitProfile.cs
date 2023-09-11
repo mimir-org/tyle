@@ -9,7 +9,7 @@ public class UnitProfile : Profile
 {
     public UnitProfile()
     {
-        CreateMap<UnitReferenceAm, UnitReference>()
+        CreateMap<UnitReferenceRequest, UnitReference>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Symbol, opt => opt.MapFrom(src => src.Symbol))

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mimirorg.TypeLibrary.Models.Application;
 
-public class GenericReferenceAm : IValidatableObject
+public class ReferenceRequest : IValidatableObject
 {
     [Required]
     public string Name { get; set; }

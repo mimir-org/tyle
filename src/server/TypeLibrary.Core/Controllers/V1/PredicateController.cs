@@ -80,7 +80,7 @@ public class PredicateController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public async Task<IActionResult> Create([FromBody] PredicateReferenceAm predicateAm)
+    public async Task<IActionResult> Create([FromBody] PredicateReferenceRequest predicateAm)
     {
         try
         {

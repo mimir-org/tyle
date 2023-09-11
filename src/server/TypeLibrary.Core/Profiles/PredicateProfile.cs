@@ -9,7 +9,7 @@ public class PredicateProfile : Profile
 {
     public PredicateProfile()
     {
-        CreateMap<PredicateReferenceAm, PredicateReference>()
+        CreateMap<PredicateReferenceRequest, PredicateReference>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))

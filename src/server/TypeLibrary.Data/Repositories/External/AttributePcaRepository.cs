@@ -27,9 +27,9 @@ public class AttributePcaRepository : IAttributeReferenceRepository
         _serviceProvider = serviceProvider;
     }
 
-    public async Task<List<AttributeLibAm>> FetchAttributesFromReference()
+    public async Task<List<AttributeTypeRequest>> FetchAttributesFromReference()
     {
-        var attributes = new List<AttributeLibAm>();
+        var attributes = new List<AttributeTypeRequest>();
         var pcaAttributes = await _client.Get<PcaAttribute>(SparQlWebClient.PcaEndPointProduction, SparQlWebClient.PcaAttributeAllQuery);
 
         if (!pcaAttributes.Any())
@@ -47,7 +47,7 @@ public class AttributePcaRepository : IAttributeReferenceRepository
 
             var firstElement = group.ElementAt(0);
 
-            var attribute = new AttributeLibAm
+            var attribute = new AttributeTypeRequest
             {
                 Name = firstElement?.Quantity_Label,
                 //TypeReference = firstElement?.Quantity,

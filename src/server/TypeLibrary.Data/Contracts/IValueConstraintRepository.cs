@@ -7,5 +7,5 @@ namespace TypeLibrary.Data.Contracts;
 
 public interface IValueConstraintRepository
 {
-    Task Update(ValueConstraint? valueConstraint, ValueConstraintLibAm? valueConstraintAm, Guid attributeId);
+    Task Update(ValueConstraint? valueConstraint, ValueConstraintRequest? request, Guid attributeId);
 }
