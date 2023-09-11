@@ -1,5 +1,5 @@
 namespace Mimirorg.TypeLibrary.Models.Application;
 
-public class MediumReferenceAm : AbstractReferenceAm
+public class MediumReferenceAm : GenericReferenceAm
 {
 }

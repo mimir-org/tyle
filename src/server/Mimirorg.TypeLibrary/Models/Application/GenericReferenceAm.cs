@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mimirorg.TypeLibrary.Models.Application;
 
-public class AbstractReferenceAm : IValidatableObject
+public class GenericReferenceAm : IValidatableObject
 {
     [Required]
     public string Name { get; set; }
@@ -14,7 +14,7 @@ public class AbstractReferenceAm : IValidatableObject
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        if (!Uri.TryCreate(Iri, UriKind.Absolute, out var _))
+        if (!Uri.TryCreate(Iri, UriKind.Absolute, out _))
         {
             yield return new ValidationResult("The provided IRI must be a valid Uri.");
         }
