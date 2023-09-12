@@ -28,14 +28,12 @@ namespace TypeLibrary.Core.Controllers.V1;
 
 public class LibraryAttributeGroupController : ControllerBase
 {
-    private readonly IAttributeService _attributeService;
     private readonly IMimirorgAuthService _authService;
     private readonly IAttributeGroupService _attributeGroupService;
     private readonly ILogger<LibraryAttributeController> _logger;
 
     public LibraryAttributeGroupController(IAttributeService attributeService, IAttributeGroupService attributeGroupService, IMimirorgAuthService authService, ILogger<LibraryAttributeController> logger)
     {
-        _attributeService = attributeService;
         _authService = authService;
         _attributeGroupService = attributeGroupService;
         _logger = logger;
@@ -170,7 +168,7 @@ public class LibraryAttributeGroupController : ControllerBase
     }
 
     /// <summary>
-    /// Delete an attribute goup that is not approved
+    /// Delete an attribute group that is not approved
     /// </summary>
     /// <param name="id">The id of the attribute group to delete</param>
     [HttpDelete("{id}")]

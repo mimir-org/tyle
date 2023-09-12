@@ -41,13 +41,17 @@ namespace TypeLibrary.Data.Repositories.Ef
 
         public IEnumerable<AttributeGroupLibDm> GetAttributeGroupList()
         {
-            return GetAll().AsSplitQuery();
+            return GetAll().Include(x => x.AttributeGroupAttributes)
+                    .ThenInclude(x => x.Attribute).AsSplitQuery();
         }
 
         public AttributeGroupLibDm GetSingleAttributeGroup(string id)
         {
-            {
+            {                
+
                 return FindBy(x => x.Id == id)
+                    .Include(x => x.AttributeGroupAttributes)
+                    .ThenInclude(x => x.Attribute)          
                     .FirstOrDefault();
             }
         }

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Mimirorg.TypeLibrary.Models.Client;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
@@ -6,8 +7,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
     {
         [Required]
         public string Name { get; set; }
-        public int UserId { get; set; }
         public string Description { get; set; }
-        public List<string> Attributes { get; set; }
+        public ICollection<string> AttributeIds { get; set; }
     }
 }

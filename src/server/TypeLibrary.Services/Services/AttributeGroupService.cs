@@ -1,23 +1,15 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Mimirorg.Authentication.Contracts;
-using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
-using Mimirorg.TypeLibrary.Constants;
-using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -46,20 +38,9 @@ namespace TypeLibrary.Services.Services
             var dm = _attributeGroupRepository.GetSingleAttributeGroup(id);
             if (dm == null)
                 throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
-            return _mapper.Map<AttributeGroupLibCm>(dm);
+            var item = _mapper.Map<AttributeGroupLibCm>(dm);
 
-        }
-
-        /// <inheritdoc />
-        public IEnumerable<AttributeGroupLibCm> GetAttributeGroupList()
-        {
-            var dm = _attributeGroupRepository.GetAttributeGroupList().ToList();
-
-            if (dm == null || !dm.Any())
-                return new List<AttributeGroupLibCm>();
-
-            return _mapper.Map<List<AttributeGroupLibCm>>(dm);
-
+            return item;
         }
 
         /// <inheritdoc />
@@ -68,19 +49,18 @@ namespace TypeLibrary.Services.Services
             if (attributeGroupAm == null)
                 throw new ArgumentNullException(nameof(attributeGroupAm));
 
-            var validation = attributeGroupAm.ValidateObject();
+            var attributeGroup = attributeGroupAm.ValidateObject();
 
-            if (!validation.IsValid)
-                throw new MimirorgBadRequestException("Attribute is not valid.", validation);
+            if (!attributeGroup.IsValid)
+                throw new MimirorgBadRequestException("Attribute is not valid.", attributeGroup);
 
             var dm = _mapper.Map<AttributeGroupLibDm>(attributeGroupAm);
 
+            var attributeGroupAttributes = new List<AttributeGroupAttributesLibDm>();
 
-            dm.Attribute = new List<AttributeGroupAttributesLibDm>();
-
-            if (attributeGroupAm.Attributes != null)
+            if (attributeGroupAm.AttributeIds != null)
             {
-                foreach (var attributeId in attributeGroupAm.Attributes)
+                foreach (var attributeId in attributeGroupAm.AttributeIds)
                 {
                     var attribute = _attributeRepository.Get(attributeId);
 
@@ -90,18 +70,19 @@ namespace TypeLibrary.Services.Services
                     }
                     else
                     {
-                        dm.Attribute.Add(new AttributeGroupAttributesLibDm { AttributeGroupId = dm.Id, AttributeId = attribute.Id });
+                        attributeGroupAttributes.Add(new AttributeGroupAttributesLibDm { AttributeGroupId = dm.Id, AttributeId = attribute.Id });
                     }
                 }
             }
 
-
+            dm.AttributeGroupAttributes = attributeGroupAttributes;
 
             var createdAttributeGroup = await _attributeGroupRepository.Create(dm);
+
             _attributeGroupRepository.ClearAllChangeTrackers();
             _logger.Log(LogLevel.Information, "Created attribute group", (createdAttributeGroup));
 
-            return _mapper.Map<AttributeGroupLibCm>(createdAttributeGroup);
+            return GetSingleAttributeGroup(createdAttributeGroup?.Id);
         }
 
         public async Task Delete(string id)
@@ -112,9 +93,9 @@ namespace TypeLibrary.Services.Services
             await _attributeGroupRepository.SaveAsync();
         }
 
-        IEnumerable<AttributeGroupLibCm> IAttributeGroupService.GetAttributeGroupList()
+        public IEnumerable<AttributeGroupLibCm> GetAttributeGroupList()
         {
-            var dm = _attributeGroupRepository.GetAll().ToList();
+            var dm = _attributeGroupRepository.GetAttributeGroupList().ToList();
 
             if (dm == null || !dm.Any())
                 return new List<AttributeGroupLibCm>();
@@ -136,5 +117,4 @@ namespace TypeLibrary.Services.Services
             return itemCreated;
         }
     }
-
 }

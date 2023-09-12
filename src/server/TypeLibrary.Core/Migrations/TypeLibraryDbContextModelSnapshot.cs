@@ -57,9 +57,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
-                    b.Property<string>("AttributeGroupId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
@@ -92,6 +89,9 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
+
+                    b.Property<string>("AttributeGroupLibDmId")
+                        .HasColumnType("nvarchar(63)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
@@ -131,6 +131,8 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("TypeReference");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AttributeGroupLibDmId");
 
                     b.HasIndex("State");
 
@@ -757,7 +759,7 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeGroupAttributesLibDm", b =>
                 {
                     b.HasOne("TypeLibrary.Data.Models.AttributeGroupLibDm", "AttributeGroup")
-                        .WithMany("Attribute")
+                        .WithMany("AttributeGroupAttributes")
                         .HasForeignKey("AttributeGroupId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -770,6 +772,13 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Attribute");
 
                     b.Navigation("AttributeGroup");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.AttributeGroupLibDm", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("AttributeGroupLibDmId");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeUnitLibDm", b =>
@@ -852,7 +861,9 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeGroupLibDm", b =>
                 {
-                    b.Navigation("Attribute");
+                    b.Navigation("AttributeGroupAttributes");
+
+                    b.Navigation("Attributes");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>

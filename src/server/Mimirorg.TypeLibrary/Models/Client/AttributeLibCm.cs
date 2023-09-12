@@ -13,7 +13,6 @@ public class AttributeLibCm : IStatefulObject
     public string CreatedBy { get; set; }
     public State State { get; set; }
     public string Description { get; set; }
-    public ICollection<AttributeUnitLibCm> AttributeUnits { get; set; }
-
+    public ICollection<AttributeUnitLibCm> AttributeUnits { get; set; }    
     public string Kind => nameof(AttributeLibCm);
 }
