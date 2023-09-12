@@ -15,7 +15,9 @@ public class AttributeTypeRequest : IValidatableObject
 
     [Required]
     public ICollection<int> UnitReferenceIds { get; set; }
+    [Range(0, 1, ErrorMessage = "The unit min count must be 0 or 1.")]
     public int UnitMinCount { get; set; }
+    [Range(0, 1, ErrorMessage = "The unit max count must be 0 or 1.")]
     public int UnitMaxCount { get; set; }
 
     public ProvenanceQualifier? ProvenanceQualifier { get; set; }
@@ -27,16 +29,6 @@ public class AttributeTypeRequest : IValidatableObject
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        if (UnitMinCount != 0 && UnitMinCount != 1)
-        {
-            yield return new ValidationResult("The unit min count must be 0 or 1.");
-        }
-
-        if (UnitMaxCount != 0 && UnitMaxCount != 1)
-        {
-            yield return new ValidationResult("The unit max count must be 0 or 1.");
-        }
-
         if (UnitMinCount > UnitMaxCount)
         {
             yield return new ValidationResult("The unit min count cannot be larger than the unit max count.");
@@ -45,6 +37,15 @@ public class AttributeTypeRequest : IValidatableObject
         if (UnitMaxCount == 0 && !UnitReferenceIds.IsNullOrEmpty())
         {
             yield return new ValidationResult("Unit max count is 0, but the unit list is not empty.");
+        }
+
+        var uniqueUnitIds = new HashSet<int>();
+        foreach (var unitId in UnitReferenceIds)
+        {
+            if (!uniqueUnitIds.Add(unitId))
+            {
+                yield return new ValidationResult("There are duplicate unit reference ids.");
+            }
         }
     }
 }
