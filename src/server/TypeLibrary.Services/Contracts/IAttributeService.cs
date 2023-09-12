@@ -14,14 +14,14 @@ public interface IAttributeService
     /// Get all attributes
     /// </summary>
     /// <returns>List of attributes</returns>
-    IEnumerable<AttributeLibCm> Get();
+    IEnumerable<AttributeTypeView> Get();
 
     /// <summary>
     /// Get an attribute by id
     /// </summary>
     /// <returns>The attribute with the given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no attribute with the given id.</exception>
-    AttributeLibCm Get(Guid id);
+    AttributeTypeView Get(Guid id);
 
     /// <summary>
     /// Create a new attribute
@@ -29,7 +29,7 @@ public interface IAttributeService
     /// <param name="request">The attribute that should be created</param>
     /// <returns>The created attribute</returns>
     /// <exception cref="MimirorgBadRequestException">Throws if attribute is not valid</exception>
-    Task<AttributeLibCm> Create(AttributeTypeRequest request);
+    Task<AttributeTypeView> Create(AttributeTypeRequest request);
 
     /// <summary>
     /// Update an existing attribute
@@ -40,7 +40,7 @@ public interface IAttributeService
     /// <exception cref="MimirorgNotFoundException">Throws if there is no attribute with the given id.</exception>
     /// <exception cref="MimirorgBadRequestException">Throws if the new attribute values are not valid.</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the attribute is not a draft or approved.</exception>
-    Task<AttributeLibCm> Update(Guid id, AttributeTypeRequest request);
+    Task<AttributeTypeView> Update(Guid id, AttributeTypeRequest request);
 
     /// <summary>
     ///  Delete an attribute, it can't be approved

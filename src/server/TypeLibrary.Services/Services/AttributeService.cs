@@ -48,29 +48,29 @@ public class AttributeService : IAttributeService
     }
 
     /// <inheritdoc />
-    public IEnumerable<AttributeLibCm> Get()
+    public IEnumerable<AttributeTypeView> Get()
     {
         var dataSet = _attributeRepository.Get()?.ToList();
 
         if (dataSet == null || !dataSet.Any())
-            return new List<AttributeLibCm>();
+            return new List<AttributeTypeView>();
 
-        return _mapper.Map<List<AttributeLibCm>>(dataSet);
+        return _mapper.Map<List<AttributeTypeView>>(dataSet);
     }
 
     /// <inheritdoc />
-    public AttributeLibCm Get(Guid id)
+    public AttributeTypeView Get(Guid id)
     {
         var dm = _attributeRepository.Get(id);
 
         if (dm == null)
             throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
 
-        return _mapper.Map<AttributeLibCm>(dm);
+        return _mapper.Map<AttributeTypeView>(dm);
     }
 
     /// <inheritdoc />
-    public async Task<AttributeLibCm> Create(AttributeTypeRequest request)
+    public async Task<AttributeTypeView> Create(AttributeTypeRequest request)
     {
         if (request == null)
             throw new ArgumentNullException(nameof(request));
@@ -95,11 +95,11 @@ public class AttributeService : IAttributeService
         _attributeRepository.ClearAllChangeTrackers();
         //await _logService.CreateLog(createdAttribute, LogType.Create, createdAttribute?.State.ToString(), createdAttribute?.CreatedBy);
 
-        return _mapper.Map<AttributeLibCm>(createdAttribute);
+        return _mapper.Map<AttributeTypeView>(createdAttribute);
     }
 
     /// <inheritdoc />
-    public async Task<AttributeLibCm> Update(Guid id, AttributeTypeRequest request)
+    public async Task<AttributeTypeView> Update(Guid id, AttributeTypeRequest request)
     {
         //var validation = attributeAm.ValidateObject();
 

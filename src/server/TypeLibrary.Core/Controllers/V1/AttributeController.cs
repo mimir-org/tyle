@@ -46,7 +46,7 @@ public class AttributeController : ControllerBase
     /// </summary>
     /// <returns>A collection of attributes</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<AttributeTypeView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get()
@@ -69,7 +69,7 @@ public class AttributeController : ControllerBase
     /// <param name="id">The id of the attribute to get</param>
     /// <returns>The requested attribute</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AttributeTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -100,7 +100,7 @@ public class AttributeController : ControllerBase
     /// <param name="request">The attribute that should be created</param>
     /// <returns>The created attribute</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(AttributeTypeView), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -130,7 +130,7 @@ public class AttributeController : ControllerBase
     /// <param name="request">The new values of the attribute</param>
     /// <returns>The updated attribute</returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AttributeTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]

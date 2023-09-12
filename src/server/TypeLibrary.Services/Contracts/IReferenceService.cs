@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using Mimirorg.TypeLibrary.Models.Domain;
 
 namespace TypeLibrary.Services.Contracts;
 
@@ -9,21 +10,21 @@ public interface IReferenceService
 {
     IEnumerable<ClassifierReferenceCm> GetAllClassifiers();
     IEnumerable<MediumReferenceCm> GetAllMedia();
-    IEnumerable<PredicateReferenceCm> GetAllPredicates();
+    IEnumerable<PredicateReference> GetAllPredicates();
     IEnumerable<PurposeReferenceCm> GetAllPurposes();
-    IEnumerable<UnitReferenceCm> GetAllUnits();
+    IEnumerable<UnitReference> GetAllUnits();
 
     Task<ClassifierReferenceCm> GetClassifier(int id);
     Task<MediumReferenceCm> GetMedium(int id);
-    Task<PredicateReferenceCm> GetPredicate(int id);
+    Task<PredicateReference> GetPredicate(int id);
     Task<PurposeReferenceCm> GetPurpose(int id);
-    Task<UnitReferenceCm> GetUnit(int id);
+    Task<UnitReference> GetUnit(int id);
 
     Task<ClassifierReferenceCm> CreateClassifier(ClassifierReferenceAm classifierAm);
     Task<MediumReferenceCm> CreateMedium(MediumReferenceAm mediumAm);
-    Task<PredicateReferenceCm> CreatePredicate(PredicateReferenceRequest request);
+    Task<PredicateReference> CreatePredicate(PredicateReferenceRequest request);
     Task<PurposeReferenceCm> CreatePurpose(PurposeReferenceAm purposeAm);
-    Task<UnitReferenceCm> CreateUnit(UnitReferenceRequest request);
+    Task<UnitReference> CreateUnit(UnitReferenceRequest request);
 
     Task DeleteClassifier(int id);
     Task DeleteMedium(int id);

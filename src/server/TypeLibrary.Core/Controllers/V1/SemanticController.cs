@@ -88,7 +88,7 @@ public class SemanticController : ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("attribute/{id}")]
-    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AttributeTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

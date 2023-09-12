@@ -185,7 +185,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         _logger.LogInformation($"Number of new attributes: {created}");
     }
 
-    private static bool AttributeIsUnchanged(AttributeLibCm stored, AttributeLibAm external)
+    private static bool AttributeIsUnchanged(AttributeTypeView stored, AttributeLibAm external)
     {
         if (stored.Name != external.Name)
             return false;

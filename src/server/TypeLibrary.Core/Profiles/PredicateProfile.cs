@@ -15,12 +15,5 @@ public class PredicateProfile : Profile
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
             .ForMember(dest => dest.Source, opt => opt.Ignore());
-
-        CreateMap<PredicateReference, PredicateReferenceCm>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-            .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
-            .ForMember(dest => dest.Source, opt => opt.MapFrom(src => src.Source));
     }
 }

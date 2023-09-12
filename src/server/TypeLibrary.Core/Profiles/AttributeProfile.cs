@@ -15,10 +15,10 @@ public class AttributeProfile : Profile
 {
     public AttributeProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor)
     {
-        CreateMap<AttributeType, AttributeLibCm>()
+        CreateMap<AttributeType, AttributeTypeView>()
             .ForMember(dest => dest.Units, opt => opt.MapFrom(src => src.Units.Select(x => x.Unit)));
 
-        CreateMap<AttributeLibCm, ApprovalCm>()
+        CreateMap<AttributeTypeView, ApprovalCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.UserId, opt => opt.Ignore())

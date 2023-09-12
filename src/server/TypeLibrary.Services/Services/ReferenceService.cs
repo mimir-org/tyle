@@ -45,11 +45,11 @@ public class ReferenceService : IReferenceService
         return !media.Any() ? new List<MediumReferenceCm>() : _mapper.Map<List<MediumReferenceCm>>(media);
     }
 
-    public IEnumerable<PredicateReferenceCm> GetAllPredicates()
+    public IEnumerable<PredicateReference> GetAllPredicates()
     {
         var predicates = _predicateRepository.GetAll().ToList();
 
-        return !predicates.Any() ? new List<PredicateReferenceCm>() : _mapper.Map<List<PredicateReferenceCm>>(predicates);
+        return predicates;
     }
 
     public IEnumerable<PurposeReferenceCm> GetAllPurposes()
@@ -59,11 +59,11 @@ public class ReferenceService : IReferenceService
         return !purposes.Any() ? new List<PurposeReferenceCm>() : _mapper.Map<List<PurposeReferenceCm>>(purposes);
     }
 
-    public IEnumerable<UnitReferenceCm> GetAllUnits()
+    public IEnumerable<UnitReference> GetAllUnits()
     {
         var units = _unitRepository.GetAll().ToList();
 
-        return !units.Any() ? new List<UnitReferenceCm>() : _mapper.Map<List<UnitReferenceCm>>(units);
+        return units;
     }
 
     public async Task<ClassifierReferenceCm> GetClassifier(int id)
@@ -78,10 +78,10 @@ public class ReferenceService : IReferenceService
         return _mapper.Map<MediumReferenceCm>(medium);
     }
 
-    public async Task<PredicateReferenceCm> GetPredicate(int id)
+    public async Task<PredicateReference> GetPredicate(int id)
     {
         var predicate = await _predicateRepository.GetAsync(id) ?? throw new MimirorgNotFoundException($"Predicate with id {id} not found.");
-        return _mapper.Map<PredicateReferenceCm>(predicate);
+        return predicate;
     }
 
     public async Task<PurposeReferenceCm> GetPurpose(int id)
@@ -90,10 +90,10 @@ public class ReferenceService : IReferenceService
         return _mapper.Map<PurposeReferenceCm>(purpose);
     }
 
-    public async Task<UnitReferenceCm> GetUnit(int id)
+    public async Task<UnitReference> GetUnit(int id)
     {
         var unit = await _unitRepository.GetAsync(id) ?? throw new MimirorgNotFoundException($"Unit with id {id} not found.");
-        return _mapper.Map<UnitReferenceCm>(unit);
+        return unit;
     }
 
     public async Task<ClassifierReferenceCm> CreateClassifier(ClassifierReferenceAm classifierAm)
@@ -120,7 +120,7 @@ public class ReferenceService : IReferenceService
         return _mapper.Map<MediumReferenceCm>(medium);
     }
 
-    public async Task<PredicateReferenceCm> CreatePredicate(PredicateReferenceRequest request)
+    public async Task<PredicateReference> CreatePredicate(PredicateReferenceRequest request)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
 
@@ -129,7 +129,7 @@ public class ReferenceService : IReferenceService
         await _predicateRepository.SaveAsync();
         _predicateRepository.Detach(predicate);
 
-        return _mapper.Map<PredicateReferenceCm>(predicate);
+        return await GetPredicate(predicate.Id);
     }
 
     public async Task<PurposeReferenceCm> CreatePurpose(PurposeReferenceAm purposeAm)
@@ -144,7 +144,7 @@ public class ReferenceService : IReferenceService
         return _mapper.Map<PurposeReferenceCm>(purpose);
     }
 
-    public async Task<UnitReferenceCm> CreateUnit(UnitReferenceRequest request)
+    public async Task<UnitReference> CreateUnit(UnitReferenceRequest request)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
 
@@ -153,7 +153,7 @@ public class ReferenceService : IReferenceService
         await _unitRepository.SaveAsync();
         _unitRepository.Detach(unit);
 
-        return _mapper.Map<UnitReferenceCm>(unit);
+        return await GetUnit(unit.Id);
     }
 
     public Task DeleteClassifier(int id)

@@ -45,7 +45,6 @@ public static class TypeLibraryServiceCollectionExtensions
         cfg.AddProfile(new PredicateProfile());
         cfg.AddProfile(new PurposeProfile());
         cfg.AddProfile(new UnitProfile());
-        cfg.AddProfile(new ValueConstraintProfile());
         cfg.AddProfile(new LogProfile());
         cfg.AddProfile(new SymbolProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<IOptions<ApplicationSettings>>()));
 

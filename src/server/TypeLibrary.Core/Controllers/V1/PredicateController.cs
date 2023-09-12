@@ -10,6 +10,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Mimirorg.TypeLibrary.Models.Domain;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1;
@@ -31,7 +32,7 @@ public class PredicateController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<PredicateReferenceCm>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<PredicateReference>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get()
@@ -49,7 +50,7 @@ public class PredicateController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(PredicateReferenceCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PredicateReference), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -75,7 +76,7 @@ public class PredicateController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(PredicateReferenceCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PredicateReference), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
