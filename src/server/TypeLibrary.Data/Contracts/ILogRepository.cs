@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TypeLibrary.Data.Models;
+using Mimirorg.TypeLibrary.Models.Domain;
 
 namespace TypeLibrary.Data.Contracts;
 

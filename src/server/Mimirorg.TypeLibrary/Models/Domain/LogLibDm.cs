@@ -1,7 +1,6 @@
 using Mimirorg.TypeLibrary.Enums;
-using System;
 
-namespace TypeLibrary.Data.Models;
+namespace Mimirorg.TypeLibrary.Models.Domain;
 
 public class LogLibDm
 {

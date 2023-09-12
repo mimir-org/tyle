@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using Mimirorg.TypeLibrary.Enums;
 
-namespace TypeLibrary.Data.Models;
+namespace Mimirorg.TypeLibrary.Models.Domain;
 
-public class MediumReference
+public class ClassifierReference
 {
     public int Id { get; set; }
     public required string Name { get; set; }
@@ -11,5 +10,6 @@ public class MediumReference
     public required string Iri { get; set; }
     public ReferenceSource Source { get; set; } = ReferenceSource.UserSubmission;
 
+    public ICollection<BlockType> Blocks { get; set; } = new List<BlockType>();
     public ICollection<TerminalType> Terminals { get; set; } = new List<TerminalType>();
 }

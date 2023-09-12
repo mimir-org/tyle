@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Mimirorg.TypeLibrary.Models.Domain;
 using TypeLibrary.Data.Configurations;
-using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data;
 

@@ -1,6 +1,6 @@
 using Mimirorg.TypeLibrary.Enums;
 
-namespace TypeLibrary.Data.Models;
+namespace Mimirorg.TypeLibrary.Models.Domain;
 
 public class UnitReference : GenericReference
 {

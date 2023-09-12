@@ -6,9 +6,9 @@ using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System;
+using Mimirorg.TypeLibrary.Models.Domain;
 using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Core.Profiles;
 

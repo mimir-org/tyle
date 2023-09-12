@@ -1,11 +1,6 @@
-using Mimirorg.Common.Contracts;
-using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Enums;
-using System;
-using System.Collections.Generic;
-using TypeLibrary.Data.Contracts.Common;
 
-namespace TypeLibrary.Data.Models;
+namespace Mimirorg.TypeLibrary.Models.Domain;
 
 public class TerminalType // : ILogable, IStatefulObject
 {

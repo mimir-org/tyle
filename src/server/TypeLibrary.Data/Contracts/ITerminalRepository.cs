@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mimirorg.Common.Enums;
-using TypeLibrary.Data.Models;
+using Mimirorg.TypeLibrary.Models.Domain;
 
 namespace TypeLibrary.Data.Contracts;
 

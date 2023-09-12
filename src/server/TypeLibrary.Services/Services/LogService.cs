@@ -4,9 +4,9 @@ using Mimirorg.TypeLibrary.Models.Client;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Mimirorg.TypeLibrary.Models.Domain;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
-using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;

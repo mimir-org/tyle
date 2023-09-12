@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Mimirorg.Common.Converters;
-using TypeLibrary.Data.Models;
+using Mimirorg.TypeLibrary.Models.Domain;
 
 namespace TypeLibrary.Data.Configurations;
 

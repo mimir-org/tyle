@@ -11,7 +11,6 @@ using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace Mimirorg.Test.Setup;

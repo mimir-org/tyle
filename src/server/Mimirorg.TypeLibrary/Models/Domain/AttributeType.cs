@@ -1,13 +1,6 @@
-using Microsoft.AspNetCore.Http;
-using Mimirorg.Common.Contracts;
-using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using TypeLibrary.Data.Contracts.Common;
 
-namespace TypeLibrary.Data.Models;
+namespace Mimirorg.TypeLibrary.Models.Domain;
 
 public class AttributeType : GenericType // ILogable, IStatefulObject
 {

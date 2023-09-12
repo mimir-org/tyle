@@ -8,8 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Mimirorg.TypeLibrary.Models.Domain;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -60,10 +60,10 @@ public class SymbolService : ISymbolService
 
         await _symbolRepository.Create(notExisting, string.IsNullOrEmpty(createdBy) ? State.Draft : State.Approved);
 
-        await _logService.CreateLogs(
+        /*await _logService.CreateLogs(
             notExisting,
             LogType.Create,
-            string.IsNullOrEmpty(createdBy) ? State.Draft.ToString() : State.Approved.ToString(), notExisting[0]?.CreatedBy);
+            string.IsNullOrEmpty(createdBy) ? State.Draft.ToString() : State.Approved.ToString(), notExisting[0]?.CreatedBy);*/
 
         _symbolRepository.ClearAllChangeTrackers();
     }

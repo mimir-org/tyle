@@ -5,10 +5,10 @@ using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Domain;
 using Moq;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
-using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 using TypeLibrary.Services.Services;
 

@@ -6,8 +6,8 @@ using AutoMapper;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using Mimirorg.TypeLibrary.Models.Domain;
 using TypeLibrary.Data.Contracts.Ef;
-using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;

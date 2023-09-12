@@ -1,7 +1,7 @@
 using AutoMapper;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Data.Models;
+using Mimirorg.TypeLibrary.Models.Domain;
 
 namespace TypeLibrary.Core.Profiles;
 

@@ -1,5 +1,5 @@
 using Mimirorg.Common.Abstract;
-using TypeLibrary.Data.Models;
+using Mimirorg.TypeLibrary.Models.Domain;
 
 namespace TypeLibrary.Data.Contracts.Ef;
 

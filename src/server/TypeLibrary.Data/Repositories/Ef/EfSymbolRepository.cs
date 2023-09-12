@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
+using Mimirorg.TypeLibrary.Models.Domain;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
-using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 

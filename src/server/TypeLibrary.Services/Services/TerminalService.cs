@@ -14,10 +14,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Mimirorg.TypeLibrary.Models.Domain;
 using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
-using TypeLibrary.Data.Models;
 using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 

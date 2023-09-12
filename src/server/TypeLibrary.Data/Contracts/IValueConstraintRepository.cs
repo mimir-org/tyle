@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Mimirorg.TypeLibrary.Models.Application;
-using TypeLibrary.Data.Models;
+using Mimirorg.TypeLibrary.Models.Domain;
 
 namespace TypeLibrary.Data.Contracts;
 

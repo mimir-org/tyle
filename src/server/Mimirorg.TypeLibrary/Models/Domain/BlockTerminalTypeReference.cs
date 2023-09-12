@@ -1,8 +1,7 @@
-using System;
 using Mimirorg.TypeLibrary.Enums;
 using VDS.RDF;
 
-namespace TypeLibrary.Data.Models;
+namespace Mimirorg.TypeLibrary.Models.Domain;
 
 public class BlockTerminalTypeReference
 {

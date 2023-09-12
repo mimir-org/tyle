@@ -1,12 +1,10 @@
 using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Enums;
-using System;
-using TypeLibrary.Data.Contracts.Common;
 
-namespace TypeLibrary.Data.Models;
+namespace Mimirorg.TypeLibrary.Models.Domain;
 
-public class SymbolLibDm : IStatefulObject, ILogable
+public class SymbolLibDm : IStatefulObject //, ILogable
 {
     public string Id { get; set; }
     public string Name { get; set; }
@@ -16,7 +14,7 @@ public class SymbolLibDm : IStatefulObject, ILogable
     public string CreatedBy { get; set; }
     public State State { get; set; }
     public string Data { get; set; }
-    public LogLibDm CreateLog(LogType logType, string logTypeValue, string createdBy)
+    /*public LogLibDm CreateLog(LogType logType, string logTypeValue, string createdBy)
     {
         return new LogLibDm
         {
@@ -30,5 +28,5 @@ public class SymbolLibDm : IStatefulObject, ILogable
             Created = DateTime.UtcNow,
             CreatedBy = createdBy
         };
-    }
+    }*/
 }

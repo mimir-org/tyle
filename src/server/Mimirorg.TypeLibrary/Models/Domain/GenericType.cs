@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using System;
-
-namespace TypeLibrary.Data.Models;
+namespace Mimirorg.TypeLibrary.Models.Domain;
 
 public abstract class GenericType
 {

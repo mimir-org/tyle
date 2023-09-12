@@ -6,10 +6,10 @@ using Mimirorg.TypeLibrary.Models.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mimirorg.TypeLibrary.Models.Domain;
 using TypeLibrary.Core.Factories;
 using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Core.Profiles;
 

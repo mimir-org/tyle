@@ -2,8 +2,8 @@ using System;
 using System.Threading.Tasks;
 using Mimirorg.Common.Abstract;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Domain;
 using TypeLibrary.Data.Contracts.Ef;
-using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 
