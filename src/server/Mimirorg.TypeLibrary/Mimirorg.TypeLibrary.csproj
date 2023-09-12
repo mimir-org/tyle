@@ -10,6 +10,7 @@
     <SignAssembly>False</SignAssembly>
     <Copyright></Copyright>
     <Description>Type Library models and functionality</Description>
+      <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

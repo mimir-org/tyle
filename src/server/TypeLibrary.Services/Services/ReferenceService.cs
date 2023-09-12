@@ -124,7 +124,7 @@ public class ReferenceService : IReferenceService
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
 
-        var predicate = _mapper.Map<PredicateReference>(request);
+        var predicate = new PredicateReference(request.Name, request.Iri, request.Description);
         await _predicateRepository.CreateAsync(predicate);
         await _predicateRepository.SaveAsync();
         _predicateRepository.Detach(predicate);
@@ -148,7 +148,7 @@ public class ReferenceService : IReferenceService
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
 
-        var unit = _mapper.Map<UnitReference>(request);
+        var unit = new UnitReference(request.Name, request.Iri, request.Symbol, request.Description);
         await _unitRepository.CreateAsync(unit);
         await _unitRepository.SaveAsync();
         _unitRepository.Detach(unit);
