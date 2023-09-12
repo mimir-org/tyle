@@ -16,23 +16,7 @@ public class AttributeProfile : Profile
     public AttributeProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor)
     {
         CreateMap<AttributeType, AttributeLibCm>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-            .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => src.CreatedOn))
-            .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
-            .ForMember(dest => dest.ContributedBy, opt => opt.MapFrom(src => src.ContributedBy))
-            .ForMember(dest => dest.LastUpdateOn, opt => opt.MapFrom(src => src.LastUpdateOn))
-            //.ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
-            .ForMember(dest => dest.Predicate, opt => opt.MapFrom(src => src.Predicate))
-            .ForMember(dest => dest.Units, opt => opt.MapFrom(src => src.Units.Select(x => x.Unit)))
-            .ForMember(dest => dest.UnitMinCount, opt => opt.MapFrom(src => src.UnitMinCount))
-            .ForMember(dest => dest.UnitMaxCount, opt => opt.MapFrom(src => src.UnitMaxCount))
-            .ForMember(dest => dest.ProvenanceQualifier, opt => opt.MapFrom(src => src.ProvenanceQualifier))
-            .ForMember(dest => dest.RangeQualifier, opt => opt.MapFrom(src => src.RangeQualifier))
-            .ForMember(dest => dest.RegularityQualifier, opt => opt.MapFrom(src => src.RegularityQualifier))
-            .ForMember(dest => dest.ScopeQualifier, opt => opt.MapFrom(src => src.ScopeQualifier))
-            .ForMember(dest => dest.ValueConstraint, opt => opt.MapFrom(src => src.ValueConstraint));
+            .ForMember(dest => dest.Units, opt => opt.MapFrom(src => src.Units.Select(x => x.Unit)));
 
         CreateMap<AttributeLibCm, ApprovalCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

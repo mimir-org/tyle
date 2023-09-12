@@ -15,6 +15,7 @@ public class ValueConstraintRequest : IValidatableObject
 
     public XsdDataType DataType { get; set; }
 
+    [Range(0, 1, ErrorMessage = "Min count must be null, 0 or 1.")]
     public int? MinCount { get; set; }
 
     public string Pattern { get; set; }
@@ -26,11 +27,6 @@ public class ValueConstraintRequest : IValidatableObject
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        if (MinCount != null && MinCount != 0 && MinCount != 1)
-        {
-            yield return new ValidationResult("Min count must be null, 0 or 1.");
-        }
-
         if (ConstraintType == ConstraintType.HasValue)
         {
             if (MinCount != null)

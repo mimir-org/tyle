@@ -18,9 +18,9 @@ public class ValidationAttributeTests : UnitTest<MimirorgCommonFixture>
 
     [Theory]
     [InlineData("https://rdf.runir.net/ID1234", true)]
-    [InlineData("https://rdf.runir.net/", false)]
+    [InlineData("https://rdf.runir.net/", true)]
     [InlineData(null, true)]
-    [InlineData("", true)]
+    [InlineData("", false)]
     [InlineData("https://rdf.runir.net/ID1234/123/123", true)]
     [InlineData("rdf.runir.net/ID1234", false)]
     public void Iri_Attribute_Validates_Correctly(string value, bool result)

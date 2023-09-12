@@ -15,9 +15,9 @@ public class AttributeTypeRequest : IValidatableObject
 
     [Required]
     public ICollection<int> UnitReferenceIds { get; set; }
-    [Range(0, 1, ErrorMessage = "The unit min count must be 0 or 1.")]
+    [Required, Range(0, 1, ErrorMessage = "The unit min count must be 0 or 1.")]
     public int UnitMinCount { get; set; }
-    [Range(0, 1, ErrorMessage = "The unit max count must be 0 or 1.")]
+    [Required, Range(0, 1, ErrorMessage = "The unit max count must be 0 or 1.")]
     public int UnitMaxCount { get; set; }
 
     public ProvenanceQualifier? ProvenanceQualifier { get; set; }
