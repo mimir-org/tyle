@@ -9,16 +9,16 @@ public class ValueConstraintRequest : IValidatableObject
     [Required]
     public ConstraintType ConstraintType { get; set; }
 
-    public string Value { get; set; }
+    public string? Value { get; set; }
     
-    public ICollection<string> AllowedValues { get; set; }
+    public ICollection<string>? AllowedValues { get; set; }
 
     public XsdDataType DataType { get; set; }
 
     [Range(0, 1, ErrorMessage = "Min count must be null, 0 or 1.")]
     public int? MinCount { get; set; }
 
-    public string Pattern { get; set; }
+    public string? Pattern { get; set; }
     
     public decimal? MinValue { get; set; }
     public decimal? MaxValue { get; set; }

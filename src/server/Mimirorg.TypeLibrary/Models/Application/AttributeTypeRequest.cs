@@ -9,7 +9,7 @@ public class AttributeTypeRequest : IValidatableObject
     [Required]
     public string Name { get; set; }
 
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     public int? PredicateReferenceId { get; set; }
 
@@ -25,7 +25,7 @@ public class AttributeTypeRequest : IValidatableObject
     public RegularityQualifier? RegularityQualifier { get; set; }
     public ScopeQualifier? ScopeQualifier { get; set; }
     
-    public ValueConstraintRequest ValueConstraint { get; set; }
+    public ValueConstraintRequest? ValueConstraint { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

@@ -13,7 +13,7 @@ public class ValueConstraint
     public ConstraintType ConstraintType { get; private set; }
     public string? Value { get; private set; }
     public ICollection<string>? AllowedValues { get; private set; }
-    public XsdDataType? DataType { get; private set; }
+    public XsdDataType DataType { get; private set; }
     public int? MinCount { get; private set; }
     public int? MaxCount { get; } = 1;
     public string? Pattern { get; private set; }
