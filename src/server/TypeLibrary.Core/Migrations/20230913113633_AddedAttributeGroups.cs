@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TypeLibrary.Core.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedGroupAttribute : Migration
+    public partial class AddedAttributeGroups : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,8 +36,7 @@ namespace TypeLibrary.Core.Migrations
                 name: "AttributeGroupAttributes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     AttributeGroupId = table.Column<string>(type: "nvarchar(63)", nullable: true),
                     AttributeId = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false)
                 },

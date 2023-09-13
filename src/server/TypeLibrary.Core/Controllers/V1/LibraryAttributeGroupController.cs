@@ -49,8 +49,7 @@ public class LibraryAttributeGroupController : ControllerBase
     public IActionResult Get()
     {
         try
-        {
-            throw new Exception();
+        {            
             var data = _attributeGroupService.GetAttributeGroupList();
             return Ok(data);
         }

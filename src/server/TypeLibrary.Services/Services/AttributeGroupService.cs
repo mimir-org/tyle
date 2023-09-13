@@ -17,17 +17,19 @@ namespace TypeLibrary.Services.Services
     public class AttributeGroupService : IAttributeGroupService
     {
         private readonly IEfAttributeGroupRepository _attributeGroupRepository;
+        private readonly IEfAttributeGroupAttributeRepository _attributeGroupAttributeRepository;
         private readonly ILogService _logService;
         private readonly IEfAttributeRepository _attributeRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<AttributeGroupService> _logger;
 
 
-        public AttributeGroupService(IEfAttributeGroupRepository attributeGroupRepository, IEfAttributeRepository attributeRepository, ILogService logService, IMapper mapper, ILogger<AttributeGroupService> logger)
+        public AttributeGroupService(IEfAttributeGroupRepository attributeGroupRepository, IEfAttributeGroupAttributeRepository attributeGroupAttributeRepository, IEfAttributeRepository attributeRepository, ILogService logService, IMapper mapper, ILogger<AttributeGroupService> logger)
         {
             _logService = logService;
             _attributeRepository = attributeRepository;
             _attributeGroupRepository = attributeGroupRepository;
+            _attributeGroupAttributeRepository = attributeGroupAttributeRepository;
             _mapper = mapper;
             _logger = logger;
         }
@@ -105,16 +107,49 @@ namespace TypeLibrary.Services.Services
 
 
 
-        public async Task<AttributeGroupLibCm> Update(string id, AttributeGroupLibAm attributeAm)
+        public async Task<AttributeGroupLibCm> Update(string id, AttributeGroupLibAm attributeGroupAm)
         {
-            var itemFromDb = _attributeGroupRepository.GetSingleAttributeGroup(id);
-            if (itemFromDb == null)
+            var attributeGroup = attributeGroupAm.ValidateObject();
+
+            if (!attributeGroup.IsValid)
+                throw new MimirorgBadRequestException("Attribute is not valid.", attributeGroup);
+
+            var attributeGroupToUpdate = _attributeGroupRepository.GetSingleAttributeGroup(id);
+
+            if (attributeGroupToUpdate == null)
                 throw new Exception($"Could not find the Attribute group with id: {id}");
 
-            await Delete(id);
-            var itemCreated = await Create(attributeAm);
 
-            return itemCreated;
+            attributeGroupToUpdate.Name = attributeGroupAm.Name;
+            attributeGroupToUpdate.AttributeGroupAttributes ??= new List<AttributeGroupAttributesLibDm>();
+            attributeGroupToUpdate.Attributes ??= new List<AttributeLibDm>();
+
+
+            foreach (var attributeGroupAttributeItem in attributeGroupToUpdate.AttributeGroupAttributes)
+            {
+                var attributeGroupAttribute = _attributeGroupAttributeRepository.FindBy(x => x.AttributeGroupId == attributeGroupToUpdate.Id).FirstOrDefault();
+                if (attributeGroupAttribute == null)
+                    continue;
+
+                await _attributeGroupAttributeRepository.Delete(attributeGroupAttribute.Id);
+            }
+
+
+            foreach (var attributeId in attributeGroupAm.AttributeIds)
+            {
+
+                var attributeExist = _attributeRepository.FindBy(x => x.Id.Equals(attributeId)).FirstOrDefault();
+                if (attributeExist != null)
+
+                    await _attributeGroupAttributeRepository.CreateAsync(new AttributeGroupAttributesLibDm { AttributeId = attributeExist.Id, AttributeGroupId = attributeGroupToUpdate.Id });
+
+                continue;
+            }
+
+            await _attributeGroupRepository.SaveAsync();
+            await _attributeGroupAttributeRepository.SaveAsync();
+
+            return GetSingleAttributeGroup(attributeGroupToUpdate.Id);
         }
     }
 }

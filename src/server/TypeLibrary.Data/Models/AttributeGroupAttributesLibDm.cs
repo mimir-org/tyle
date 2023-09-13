@@ -8,7 +8,7 @@ namespace TypeLibrary.Data.Models
 {
     public class AttributeGroupAttributesLibDm
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string AttributeGroupId { get; set; }
         public AttributeGroupLibDm AttributeGroup { get; set; }
         public string AttributeId { get; set; }
