@@ -133,7 +133,7 @@ public class SemanticController : ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("terminal/{id}")]
-    [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TerminalTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

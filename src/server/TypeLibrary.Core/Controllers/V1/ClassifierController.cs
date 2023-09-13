@@ -80,14 +80,14 @@ public class ClassifierController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public async Task<IActionResult> Create([FromBody] ClassifierReferenceAm classifierAm)
+    public async Task<IActionResult> Create([FromBody] ClassifierReferenceRequest request)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var cm = await _referenceService.CreateClassifier(classifierAm);
+            var cm = await _referenceService.CreateClassifier(request);
             return Ok(cm);
         }
         catch (MimirorgBadRequestException e)

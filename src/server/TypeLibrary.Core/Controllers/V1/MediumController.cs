@@ -80,14 +80,14 @@ public class MediumController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public async Task<IActionResult> Create([FromBody] MediumReferenceAm mediumAm)
+    public async Task<IActionResult> Create([FromBody] MediumReferenceRequest request)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var cm = await _referenceService.CreateMedium(mediumAm);
+            var cm = await _referenceService.CreateMedium(request);
             return Ok(cm);
         }
         catch (MimirorgBadRequestException e)

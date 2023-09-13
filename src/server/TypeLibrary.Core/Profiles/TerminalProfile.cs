@@ -15,7 +15,7 @@ public class TerminalProfile : Profile
 {
     public TerminalProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor)
     {
-        CreateMap<TerminalLibAm, TerminalType>()
+        CreateMap<TerminalTypeRequest, TerminalType>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
@@ -32,10 +32,9 @@ public class TerminalProfile : Profile
             .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
             .ForMember(dest => dest.Medium, opt => opt.Ignore())
             .ForMember(dest => dest.Qualifier, opt => opt.MapFrom(src => src.Qualifier))
-            .ForMember(dest => dest.TerminalBlocks, opt => opt.Ignore())
             .ForMember(dest => dest.TerminalAttributes, opt => opt.Ignore());
 
-        CreateMap<TerminalType, TerminalLibCm>()
+        CreateMap<TerminalType, TerminalTypeView>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
@@ -53,7 +52,7 @@ public class TerminalProfile : Profile
             .ForMember(dest => dest.Qualifier, opt => opt.MapFrom(src => src.Qualifier))
             .ForMember(dest => dest.TerminalAttributes, opt => opt.MapFrom(src => src.TerminalAttributes));
 
-        CreateMap<TerminalLibCm, ApprovalCm>()
+        CreateMap<TerminalTypeView, ApprovalCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.UserId, opt => opt.Ignore())

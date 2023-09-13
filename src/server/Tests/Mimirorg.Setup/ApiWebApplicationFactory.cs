@@ -58,13 +58,13 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Program>
 
     private static async Task<bool> SeedTerminalData(ITerminalService terminalService)
     {
-        var terminalA = new TerminalLibAm
+        var terminalA = new TerminalTypeRequest
         {
             Name = "Information",
             //Color = "#006600"
         };
 
-        var terminalB = new TerminalLibAm
+        var terminalB = new TerminalTypeRequest
         {
             Name = "Automation System 87",
             //Color = "#00CC66"

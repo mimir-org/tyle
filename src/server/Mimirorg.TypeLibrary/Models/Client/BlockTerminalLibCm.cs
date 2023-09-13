@@ -8,6 +8,6 @@ public class BlockTerminalLibCm
     public int MinCount { get; set; }
     public int? MaxCount { get; set; }
     public Direction Direction { get; set; }
-    public TerminalLibCm Terminal { get; set; }
+    public TerminalTypeView Terminal { get; set; }
     public string Kind => nameof(BlockTerminalLibCm);
 }

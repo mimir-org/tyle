@@ -2,27 +2,26 @@ using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Domain;
 
-public class TerminalType // : ILogable, IStatefulObject
+public class TerminalType : ImfType // : ILogable, IStatefulObject
 {
-    public Guid Id { get; set; }
-    public required string Name { get; set; }
-    public string? Description { get; set; }
-    public string Version { get; set; } = "1.0";
-    public DateTimeOffset CreatedOn { get; set; }
-    public required string CreatedBy { get; set; }
-    public ICollection<string> ContributedBy { get; set; } = new List<string>();
-    public DateTimeOffset LastUpdateOn { get; set; }
     //public int CompanyId { get; set; }
     //public State State { get; set; }
-    public ICollection<ClassifierReference> Classifiers { get; set; } = new List<ClassifierReference>();
+    public ICollection<ClassifierReference> Classifiers { get; set; }
     public PurposeReference? Purpose { get; set; }
     public string? Notation { get; set; }
     public string? Symbol { get; set; }
     public Aspect Aspect { get; set; }
     public MediumReference? Medium { get; set; }
     public Direction Qualifier { get; set; }
-    public ICollection<BlockTerminalTypeReference> TerminalBlocks { get; set; } = null!;
-    public ICollection<TerminalAttributeTypeReference> TerminalAttributes { get; set; } = new List<TerminalAttributeTypeReference>();
+    public ICollection<TerminalAttributeTypeReference> TerminalAttributes { get; set; }
+
+    public TerminalType(string name, string? description, string createdBy, Aspect aspect, Direction qualifier = Direction.Bidirectional) : base(name, description, createdBy)
+    {
+        Classifiers = new List<ClassifierReference>();
+        Aspect = aspect;
+        Qualifier = qualifier;
+        TerminalAttributes = new List<TerminalAttributeTypeReference>();
+    }
 
     /*#region ILogable
 

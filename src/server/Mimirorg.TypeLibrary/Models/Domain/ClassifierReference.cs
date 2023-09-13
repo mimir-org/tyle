@@ -2,14 +2,10 @@ using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Domain;
 
-public class ClassifierReference
+public class ClassifierReference : RdlReference
 {
-    public int Id { get; set; }
-    public required string Name { get; set; }
-    public string? Description { get; set; }
-    public required string Iri { get; set; }
-    public ReferenceSource Source { get; set; } = ReferenceSource.UserSubmission;
-
-    public ICollection<BlockType> Blocks { get; set; } = new List<BlockType>();
-    public ICollection<TerminalType> Terminals { get; set; } = new List<TerminalType>();
+    public ClassifierReference(string name, string iri, string? description,
+        ReferenceSource source = ReferenceSource.UserSubmission) : base(name, iri, description, source)
+    {
+    }
 }

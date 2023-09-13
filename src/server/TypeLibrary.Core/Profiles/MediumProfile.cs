@@ -9,7 +9,7 @@ public class MediumProfile : Profile
 {
     public MediumProfile()
     {
-        CreateMap<MediumReferenceAm, MediumReference>()
+        CreateMap<MediumReferenceRequest, MediumReference>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))

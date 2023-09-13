@@ -17,7 +17,7 @@ public class TerminalServiceTests : IntegrationTest
     [Fact]
     public async Task Create_Terminal_Create_Terminal_When_Ok_Parameters()
     {
-        var terminalAm = new TerminalLibAm
+        var terminalAm = new TerminalTypeRequest
         {
             Name = "TestTerminal2",
             TypeReference = "https://url.com/1234567890",
@@ -54,7 +54,7 @@ public class TerminalServiceTests : IntegrationTest
     [Fact]
     public async Task GetLatestVersions_Terminal_Result_Ok()
     {
-        var terminalAm = new TerminalLibAm
+        var terminalAm = new TerminalTypeRequest
         {
             Name = "TestTerminal3",
             TypeReference = null,

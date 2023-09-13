@@ -9,7 +9,7 @@ public class PurposeProfile : Profile
 {
     public PurposeProfile()
     {
-        CreateMap<PurposeReferenceAm, PurposeReference>()
+        CreateMap<PurposeReferenceRequest, PurposeReference>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))

@@ -44,7 +44,7 @@ public class TerminalController : ControllerBase
     /// </summary>
     /// <returns>A collection of terminals</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<TerminalLibCm>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<TerminalTypeView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get()
@@ -67,7 +67,7 @@ public class TerminalController : ControllerBase
     /// <param name="id">The id of the terminal to get</param>
     /// <returns>The requested terminal</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TerminalTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -98,12 +98,12 @@ public class TerminalController : ControllerBase
     /// <param name="terminal">The terminal that should be created</param>
     /// <returns>The created terminal</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TerminalTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
-    public async Task<IActionResult> Create([FromBody] TerminalLibAm terminal)
+    public async Task<IActionResult> Create([FromBody] TerminalTypeRequest terminal)
     {
         try
         {
@@ -131,14 +131,14 @@ public class TerminalController : ControllerBase
     /// <param name="terminal">The new values of the terminal</param>
     /// <returns>The updated terminal</returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TerminalTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] TerminalLibAm terminal)
+    public async Task<IActionResult> Update(string id, [FromBody] TerminalTypeRequest terminal)
     {
         try
         {
@@ -213,7 +213,7 @@ public class TerminalController : ControllerBase
     /// <param name="state">The new state</param>
     /// <returns>An approval data object containing the id of the terminal and the new state</returns>
     [HttpPatch("{id}/state/{state}")]
-    [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TerminalTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

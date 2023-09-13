@@ -20,10 +20,10 @@ public interface IReferenceService
     Task<PurposeReferenceCm> GetPurpose(int id);
     Task<UnitReference> GetUnit(int id);
 
-    Task<ClassifierReferenceCm> CreateClassifier(ClassifierReferenceAm classifierAm);
-    Task<MediumReferenceCm> CreateMedium(MediumReferenceAm mediumAm);
+    Task<ClassifierReferenceCm> CreateClassifier(ClassifierReferenceRequest request);
+    Task<MediumReferenceCm> CreateMedium(MediumReferenceRequest request);
     Task<PredicateReference> CreatePredicate(PredicateReferenceRequest request);
-    Task<PurposeReferenceCm> CreatePurpose(PurposeReferenceAm purposeAm);
+    Task<PurposeReferenceCm> CreatePurpose(PurposeReferenceRequest request);
     Task<UnitReference> CreateUnit(UnitReferenceRequest request);
 
     Task DeleteClassifier(int id);

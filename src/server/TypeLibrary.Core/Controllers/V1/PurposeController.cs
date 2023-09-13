@@ -80,14 +80,14 @@ public class PurposeController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public async Task<IActionResult> Create([FromBody] PurposeReferenceAm purposeAm)
+    public async Task<IActionResult> Create([FromBody] PurposeReferenceRequest request)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var cm = await _referenceService.CreatePurpose(purposeAm);
+            var cm = await _referenceService.CreatePurpose(request);
             return Ok(cm);
         }
         catch (MimirorgBadRequestException e)

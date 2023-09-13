@@ -96,11 +96,11 @@ public class ReferenceService : IReferenceService
         return unit;
     }
 
-    public async Task<ClassifierReferenceCm> CreateClassifier(ClassifierReferenceAm classifierAm)
+    public async Task<ClassifierReferenceCm> CreateClassifier(ClassifierReferenceRequest request)
     {
-        if (classifierAm == null) throw new ArgumentNullException(nameof(classifierAm));
+        if (request == null) throw new ArgumentNullException(nameof(request));
 
-        var classifier = _mapper.Map<ClassifierReference>(classifierAm);
+        var classifier = _mapper.Map<ClassifierReference>(request);
         await _classifierRepository.CreateAsync(classifier);
         await _classifierRepository.SaveAsync();
         _classifierRepository.Detach(classifier);
@@ -108,11 +108,11 @@ public class ReferenceService : IReferenceService
         return _mapper.Map<ClassifierReferenceCm>(classifier);
     }
 
-    public async Task<MediumReferenceCm> CreateMedium(MediumReferenceAm mediumAm)
+    public async Task<MediumReferenceCm> CreateMedium(MediumReferenceRequest request)
     {
-        if (mediumAm == null) throw new ArgumentNullException(nameof(mediumAm));
+        if (request == null) throw new ArgumentNullException(nameof(request));
 
-        var medium = _mapper.Map<MediumReference>(mediumAm);
+        var medium = _mapper.Map<MediumReference>(request);
         await _mediumRepository.CreateAsync(medium);
         await _mediumRepository.SaveAsync();
         _mediumRepository.Detach(medium);
@@ -132,11 +132,11 @@ public class ReferenceService : IReferenceService
         return await GetPredicate(predicate.Id);
     }
 
-    public async Task<PurposeReferenceCm> CreatePurpose(PurposeReferenceAm purposeAm)
+    public async Task<PurposeReferenceCm> CreatePurpose(PurposeReferenceRequest request)
     {
-        if (purposeAm == null) throw new ArgumentNullException(nameof(purposeAm));
+        if (request == null) throw new ArgumentNullException(nameof(request));
 
-        var purpose = _mapper.Map<PurposeReference>(purposeAm);
+        var purpose = _mapper.Map<PurposeReference>(request);
         await _purposeRepository.CreateAsync(purpose);
         await _purposeRepository.SaveAsync();
         _purposeRepository.Detach(purpose);

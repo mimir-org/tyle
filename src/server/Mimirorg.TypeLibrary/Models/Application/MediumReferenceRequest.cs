@@ -1,5 +1,5 @@
 namespace Mimirorg.TypeLibrary.Models.Application;
 
-public class PurposeReferenceAm : ReferenceRequest
+public class MediumReferenceRequest : ReferenceRequest
 {
 }

@@ -57,29 +57,29 @@ public class TerminalService : ITerminalService
     }
 
     /// <inheritdoc />
-    public IEnumerable<TerminalLibCm> Get()
+    public IEnumerable<TerminalTypeView> Get()
     {
         var dataSet = _terminalRepository.Get()?.ToList();
 
         if (dataSet == null || !dataSet.Any())
-            return new List<TerminalLibCm>();
+            return new List<TerminalTypeView>();
 
-        return _mapper.Map<List<TerminalLibCm>>(dataSet);
+        return _mapper.Map<List<TerminalTypeView>>(dataSet);
     }
 
     /// <inheritdoc />
-    public TerminalLibCm Get(Guid id)
+    public TerminalTypeView Get(Guid id)
     {
         var dm = _terminalRepository.Get(id);
 
         if (dm == null)
             throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
 
-        return _mapper.Map<TerminalLibCm>(dm);
+        return _mapper.Map<TerminalTypeView>(dm);
     }
 
     /// <inheritdoc />
-    public async Task<TerminalLibCm> Create(TerminalLibAm terminal)
+    public async Task<TerminalTypeView> Create(TerminalTypeRequest terminal)
     {
         if (terminal == null)
             throw new ArgumentNullException(nameof(terminal));
@@ -149,7 +149,7 @@ public class TerminalService : ITerminalService
     }
 
     /*/// <inheritdoc />
-    public async Task<TerminalLibCm> Update(string id, TerminalLibAm terminalAm)
+    public async Task<TerminalTypeView> Update(string id, TerminalTypeRequest terminalAm)
     {
         var validation = terminalAm.ValidateObject();
 

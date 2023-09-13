@@ -14,7 +14,7 @@ public interface ITerminalService
     /// Get all terminals
     /// </summary>
     /// <returns>A collection of terminals</returns>
-    IEnumerable<TerminalLibCm> Get();
+    IEnumerable<TerminalTypeView> Get();
 
     /// <summary>
     /// Get a terminal based on given id
@@ -22,7 +22,7 @@ public interface ITerminalService
     /// <param name="id">The id of the terminal</param>
     /// <returns>The terminal of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id.</exception>
-    TerminalLibCm Get(Guid id);
+    TerminalTypeView Get(Guid id);
 
     /// <summary>
     /// Create a new terminal
@@ -30,7 +30,7 @@ public interface ITerminalService
     /// <param name="terminal">The terminal that should be created</param>
     /// <returns></returns>
     /// <exception cref="MimirorgBadRequestException">Throws if terminal is not valid</exception>
-    Task<TerminalLibCm> Create(TerminalLibAm terminal);
+    Task<TerminalTypeView> Create(TerminalTypeRequest terminal);
 
     /*/// <summary>
     /// Update an existing terminal
@@ -41,7 +41,7 @@ public interface ITerminalService
     /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id.</exception>
     /// <exception cref="MimirorgBadRequestException">Throws if the new terminal values are not valid.</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the terminal is not a draft or approved.</exception>
-    Task<TerminalLibCm> Update(string id, TerminalLibAm terminalAm);*/
+    Task<TerminalTypeView> Update(string id, TerminalTypeRequest terminalAm);*/
 
     /// <summary>
     ///  Delete a terminal, it can't be approved

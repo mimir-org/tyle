@@ -5,15 +5,8 @@ using Mimirorg.TypeLibrary.Models.Domain;
 
 namespace Mimirorg.TypeLibrary.Models.Client;
 
-public class AttributeTypeView // : IStatefulObject
+public class AttributeTypeView : ImfTypeView // : IStatefulObject
 {
-    public Guid Id { get; set; }
-    public string Name { get; set; }
-    public string? Description { get; set; }
-    public DateTimeOffset CreatedOn { get; set; }
-    public string CreatedBy { get; set; }
-    public ICollection<string> ContributedBy { get; set; }
-    public DateTimeOffset LastUpdateOn { get; set; }
     //public State State { get; set; }
     public PredicateReference? Predicate { get; set; }
     public ICollection<UnitReference> Units { get; set; }
