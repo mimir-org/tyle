@@ -124,20 +124,20 @@ public class TerminalService : ITerminalService
         return Get(createdTerminal.Id);
     }
 
-    /*/// <inheritdoc />
-    public async Task<TerminalTypeView> Update(string id, TerminalTypeRequest terminalAm)
+    /// <inheritdoc />
+    public async Task<TerminalTypeView> Update(Guid id, TerminalTypeRequest request)
     {
-        var validation = terminalAm.ValidateObject();
+        //var validation = terminalAm.ValidateObject();
 
-        if (!validation.IsValid)
-            throw new MimirorgBadRequestException("Terminal is not valid.", validation);
+        //if (!validation.IsValid)
+            //throw new MimirorgBadRequestException("Terminal is not valid.", validation);
 
-        var terminalToUpdate = _terminalRepository.FindBy(x => x.Id == id, false).Include(x => x.TerminalAttributes).FirstOrDefault();
+        var terminalToUpdate = _terminalRepository.Get(id);
 
         if (terminalToUpdate == null)
             throw new MimirorgNotFoundException("Terminal not found. Update is not possible.");
 
-        if (terminalToUpdate.State != State.Approved && terminalToUpdate.State != State.Draft)
+        /*if (terminalToUpdate.State != State.Approved && terminalToUpdate.State != State.Draft)
             throw new MimirorgInvalidOperationException("Update can only be performed on terminal drafts or approved terminals.");
 
         if (terminalToUpdate.State != State.Approved)
@@ -193,16 +193,27 @@ public class TerminalService : ITerminalService
         {
             terminalToUpdate.Color = terminalAm.Color;
             terminalToUpdate.Description = terminalAm.Description;
-        }
+        }*/
 
+        terminalToUpdate.Name = request.Name;
+        terminalToUpdate.Description = request.Description;
+        if (terminalToUpdate.CreatedBy != _contextAccessor.GetUserId())
+            terminalToUpdate.ContributedBy.Add(_contextAccessor.GetUserId());
+        terminalToUpdate.LastUpdateOn = DateTimeOffset.Now;
+
+        await SetTerminalTypeFields(terminalToUpdate, request);
+
+        _terminalRepository.Update(terminalToUpdate);
+        await _terminalClassifierRepository.SaveAsync();
         await _terminalAttributeRepository.SaveAsync();
         await _terminalRepository.SaveAsync();
+
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
         _terminalRepository.ClearAllChangeTrackers();
-        await _logService.CreateLog(terminalToUpdate, LogType.Update, terminalToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
+        //await _logService.CreateLog(terminalToUpdate, LogType.Update, terminalToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         return Get(terminalToUpdate.Id);
-    }*/
+    }
 
     /// <inheritdoc />
     public async Task Delete(Guid id)

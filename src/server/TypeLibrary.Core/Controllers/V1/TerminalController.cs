@@ -124,11 +124,11 @@ public class TerminalController : ControllerBase
         }
     }
 
-    /*/// <summary>
+    /// <summary>
     /// Update a terminal object
     /// </summary>
     /// <param name="id">The id of the terminal object that should be updated</param>
-    /// <param name="terminal">The new values of the terminal</param>
+    /// <param name="request">The new values of the terminal</param>
     /// <returns>The updated terminal</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(TerminalTypeView), StatusCodes.Status200OK)]
@@ -137,15 +137,12 @@ public class TerminalController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] TerminalTypeRequest terminal)
+    [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
+    public async Task<IActionResult> Update(Guid id, [FromBody] TerminalTypeRequest request)
     {
         try
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var data = await _terminalService.Update(id, terminal);
+            var data = await _terminalService.Update(id, request);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)
@@ -165,7 +162,7 @@ public class TerminalController : ControllerBase
             _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
-    }*/
+    }
 
     /// <summary>
     /// Delete a terminal that is not approved

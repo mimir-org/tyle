@@ -32,7 +32,7 @@ public interface ITerminalService
     /// <exception cref="MimirorgBadRequestException">Throws if terminal is not valid</exception>
     Task<TerminalTypeView> Create(TerminalTypeRequest request);
 
-    /*/// <summary>
+    /// <summary>
     /// Update an existing terminal
     /// </summary>
     /// <param name="id">The id of the terminal that should be updated</param>
@@ -41,7 +41,7 @@ public interface ITerminalService
     /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id.</exception>
     /// <exception cref="MimirorgBadRequestException">Throws if the new terminal values are not valid.</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the terminal is not a draft or approved.</exception>
-    Task<TerminalTypeView> Update(string id, TerminalTypeRequest terminalAm);*/
+    Task<TerminalTypeView> Update(Guid id, TerminalTypeRequest terminalAm);
 
     /// <summary>
     ///  Delete a terminal, it can't be approved
