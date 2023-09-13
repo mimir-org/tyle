@@ -17,7 +17,7 @@ public class BlockType // : IVersionable<BlockLibAm>, IVersionObject, IEquatable
     public DateTimeOffset LastUpdateOn { get; set; }
     //public int CompanyId { get; set; }
     //public State State { get; set; }
-    public ICollection<ClassifierReference> Classifiers { get; set; } = new List<ClassifierReference>();
+    //public ICollection<ClassifierReference> Classifiers { get; set; } = new List<ClassifierReference>();
     public PurposeReference? Purpose { get; set; }
     public string? Notation { get; set; }
     public string? Symbol { get; set; }

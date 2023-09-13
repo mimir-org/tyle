@@ -10,6 +10,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Mimirorg.TypeLibrary.Models.Domain;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1;
@@ -31,7 +32,7 @@ public class MediumController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<MediumReferenceCm>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<MediumReference>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get()
@@ -49,7 +50,7 @@ public class MediumController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(MediumReferenceCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(MediumReference), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -75,7 +76,7 @@ public class MediumController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(MediumReferenceCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(MediumReference), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

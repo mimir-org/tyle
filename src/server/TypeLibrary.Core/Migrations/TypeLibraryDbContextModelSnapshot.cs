@@ -22,37 +22,7 @@ namespace TypeLibrary.Core.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BlockTypeClassifierReference", b =>
-                {
-                    b.Property<Guid>("BlocksId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ClassifiersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BlocksId", "ClassifiersId");
-
-                    b.HasIndex("ClassifiersId");
-
-                    b.ToTable("BlockTypeClassifierReference");
-                });
-
-            modelBuilder.Entity("ClassifierReferenceTerminalType", b =>
-                {
-                    b.Property<int>("ClassifiersId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("TerminalsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ClassifiersId", "TerminalsId");
-
-                    b.HasIndex("TerminalsId");
-
-                    b.ToTable("ClassifierReferenceTerminalType");
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeType", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.AttributeType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,7 +105,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Attribute", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeUnitMapping", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.AttributeUnitMapping", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -158,7 +128,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("AttributeUnitMapping");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.BlockAttributeTypeReference", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.BlockAttributeTypeReference", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -191,7 +161,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Block_Attribute", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.BlockTerminalTypeReference", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.BlockTerminalTypeReference", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -230,7 +200,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Block_Terminal", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.BlockType", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.BlockType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -301,7 +271,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Block", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.ClassifierReference", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.ClassifierReference", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -341,7 +311,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Classifier", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.LogLibDm", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.LogLibDm", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -416,7 +386,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Log", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.MediumReference", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.MediumReference", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -456,7 +426,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Medium", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.PredicateReference", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.PredicateReference", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -496,7 +466,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Predicate", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.PurposeReference", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.PurposeReference", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -536,7 +506,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Purpose", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.SymbolLibDm", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.SymbolLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(63)
@@ -587,7 +557,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Symbol", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalAttributeTypeReference", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.TerminalAttributeTypeReference", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -620,7 +590,30 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Terminal_Attribute", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalType", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.TerminalClassifierMapping", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClassifierId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("TerminalId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassifierId");
+
+                    b.HasIndex("TerminalId");
+
+                    b.ToTable("TerminalClassifierMapping");
+                });
+
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.TerminalType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -699,7 +692,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Terminal", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.UnitReference", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.UnitReference", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -744,7 +737,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Unit", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.ValueConstraint", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.ValueConstraint", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -818,54 +811,24 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Value_Constraint", (string)null);
                 });
 
-            modelBuilder.Entity("BlockTypeClassifierReference", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.AttributeType", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.BlockType", null)
-                        .WithMany()
-                        .HasForeignKey("BlocksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TypeLibrary.Data.Models.ClassifierReference", null)
-                        .WithMany()
-                        .HasForeignKey("ClassifiersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ClassifierReferenceTerminalType", b =>
-                {
-                    b.HasOne("TypeLibrary.Data.Models.ClassifierReference", null)
-                        .WithMany()
-                        .HasForeignKey("ClassifiersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TypeLibrary.Data.Models.TerminalType", null)
-                        .WithMany()
-                        .HasForeignKey("TerminalsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeType", b =>
-                {
-                    b.HasOne("TypeLibrary.Data.Models.PredicateReference", "Predicate")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.PredicateReference", "Predicate")
                         .WithMany()
                         .HasForeignKey("PredicateId");
 
                     b.Navigation("Predicate");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeUnitMapping", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.AttributeUnitMapping", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.AttributeType", "Attribute")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.AttributeType", "Attribute")
                         .WithMany("Units")
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TypeLibrary.Data.Models.UnitReference", "Unit")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.UnitReference", "Unit")
                         .WithMany()
                         .HasForeignKey("UnitId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -876,15 +839,15 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Unit");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.BlockAttributeTypeReference", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.BlockAttributeTypeReference", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.AttributeType", "Attribute")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.AttributeType", "Attribute")
                         .WithMany()
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TypeLibrary.Data.Models.BlockType", "Block")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.BlockType", "Block")
                         .WithMany("BlockAttributes")
                         .HasForeignKey("BlockId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -895,16 +858,16 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Block");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.BlockTerminalTypeReference", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.BlockTerminalTypeReference", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.BlockType", "Block")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.BlockType", "Block")
                         .WithMany("BlockTerminals")
                         .HasForeignKey("BlockId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TypeLibrary.Data.Models.TerminalType", "Terminal")
-                        .WithMany("TerminalBlocks")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.TerminalType", "Terminal")
+                        .WithMany()
                         .HasForeignKey("TerminalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -914,24 +877,24 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Terminal");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.BlockType", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.BlockType", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.PurposeReference", "Purpose")
-                        .WithMany("Blocks")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.PurposeReference", "Purpose")
+                        .WithMany()
                         .HasForeignKey("PurposeId");
 
                     b.Navigation("Purpose");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalAttributeTypeReference", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.TerminalAttributeTypeReference", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.AttributeType", "Attribute")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.AttributeType", "Attribute")
                         .WithMany()
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TypeLibrary.Data.Models.TerminalType", "Terminal")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.TerminalType", "Terminal")
                         .WithMany("TerminalAttributes")
                         .HasForeignKey("TerminalId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -942,14 +905,33 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Terminal");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalType", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.TerminalClassifierMapping", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.MediumReference", "Medium")
-                        .WithMany("Terminals")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.ClassifierReference", "Classifier")
+                        .WithMany()
+                        .HasForeignKey("ClassifierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.TerminalType", "Terminal")
+                        .WithMany("Classifiers")
+                        .HasForeignKey("TerminalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Classifier");
+
+                    b.Navigation("Terminal");
+                });
+
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.TerminalType", b =>
+                {
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.MediumReference", "Medium")
+                        .WithMany()
                         .HasForeignKey("MediumId");
 
-                    b.HasOne("TypeLibrary.Data.Models.PurposeReference", "Purpose")
-                        .WithMany("Terminals")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.PurposeReference", "Purpose")
+                        .WithMany()
                         .HasForeignKey("PurposeId");
 
                     b.Navigation("Medium");
@@ -957,48 +939,36 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Purpose");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.ValueConstraint", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.ValueConstraint", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.AttributeType", "Attribute")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.AttributeType", "Attribute")
                         .WithOne("ValueConstraint")
-                        .HasForeignKey("TypeLibrary.Data.Models.ValueConstraint", "AttributeId")
+                        .HasForeignKey("Mimirorg.TypeLibrary.Models.Domain.ValueConstraint", "AttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Attribute");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeType", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.AttributeType", b =>
                 {
                     b.Navigation("Units");
 
                     b.Navigation("ValueConstraint");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.BlockType", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.BlockType", b =>
                 {
                     b.Navigation("BlockAttributes");
 
                     b.Navigation("BlockTerminals");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.MediumReference", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.TerminalType", b =>
                 {
-                    b.Navigation("Terminals");
-                });
+                    b.Navigation("Classifiers");
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.PurposeReference", b =>
-                {
-                    b.Navigation("Blocks");
-
-                    b.Navigation("Terminals");
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalType", b =>
-                {
                     b.Navigation("TerminalAttributes");
-
-                    b.Navigation("TerminalBlocks");
                 });
 #pragma warning restore 612, 618
         }

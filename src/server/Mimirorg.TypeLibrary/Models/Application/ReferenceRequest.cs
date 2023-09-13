@@ -10,6 +10,6 @@ public abstract class ReferenceRequest
 
     public string? Description { get; set; }
 
-    [Required, ValidIri]
+    [Required, ValidIri(ErrorMessage = "The Iri must be a valid Uri value.")]
     public string Iri { get; set; }
 }

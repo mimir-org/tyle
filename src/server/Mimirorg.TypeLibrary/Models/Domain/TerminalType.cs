@@ -6,7 +6,7 @@ public class TerminalType : ImfType // : ILogable, IStatefulObject
 {
     //public int CompanyId { get; set; }
     //public State State { get; set; }
-    public ICollection<ClassifierReference> Classifiers { get; set; }
+    public ICollection<TerminalClassifierMapping> Classifiers { get; set; }
     public PurposeReference? Purpose { get; set; }
     public string? Notation { get; set; }
     public string? Symbol { get; set; }
@@ -17,7 +17,7 @@ public class TerminalType : ImfType // : ILogable, IStatefulObject
 
     public TerminalType(string name, string? description, string createdBy, Aspect aspect, Direction qualifier = Direction.Bidirectional) : base(name, description, createdBy)
     {
-        Classifiers = new List<ClassifierReference>();
+        Classifiers = new List<TerminalClassifierMapping>();
         Aspect = aspect;
         Qualifier = qualifier;
         TerminalAttributes = new List<TerminalAttributeTypeReference>();

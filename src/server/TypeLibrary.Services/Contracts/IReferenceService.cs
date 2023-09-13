@@ -8,22 +8,22 @@ namespace TypeLibrary.Services.Contracts;
 
 public interface IReferenceService
 {
-    IEnumerable<ClassifierReferenceCm> GetAllClassifiers();
-    IEnumerable<MediumReferenceCm> GetAllMedia();
+    IEnumerable<ClassifierReference> GetAllClassifiers();
+    IEnumerable<MediumReference> GetAllMedia();
     IEnumerable<PredicateReference> GetAllPredicates();
-    IEnumerable<PurposeReferenceCm> GetAllPurposes();
+    IEnumerable<PurposeReference> GetAllPurposes();
     IEnumerable<UnitReference> GetAllUnits();
 
-    Task<ClassifierReferenceCm> GetClassifier(int id);
-    Task<MediumReferenceCm> GetMedium(int id);
+    Task<ClassifierReference> GetClassifier(int id);
+    Task<MediumReference> GetMedium(int id);
     Task<PredicateReference> GetPredicate(int id);
-    Task<PurposeReferenceCm> GetPurpose(int id);
+    Task<PurposeReference> GetPurpose(int id);
     Task<UnitReference> GetUnit(int id);
 
-    Task<ClassifierReferenceCm> CreateClassifier(ClassifierReferenceRequest request);
-    Task<MediumReferenceCm> CreateMedium(MediumReferenceRequest request);
+    Task<ClassifierReference> CreateClassifier(ClassifierReferenceRequest request);
+    Task<MediumReference> CreateMedium(MediumReferenceRequest request);
     Task<PredicateReference> CreatePredicate(PredicateReferenceRequest request);
-    Task<PurposeReferenceCm> CreatePurpose(PurposeReferenceRequest request);
+    Task<PurposeReference> CreatePurpose(PurposeReferenceRequest request);
     Task<UnitReference> CreateUnit(UnitReferenceRequest request);
 
     Task DeleteClassifier(int id);
