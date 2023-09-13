@@ -2,7 +2,7 @@ using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Domain;
 
-public class UnitReference : GenericReference
+public class UnitReference : RdlReference
 {
     public string? Symbol { get; set; }
 

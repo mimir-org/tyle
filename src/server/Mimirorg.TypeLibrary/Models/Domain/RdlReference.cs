@@ -2,7 +2,7 @@ using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Domain;
 
-public abstract class GenericReference
+public abstract class RdlReference
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -10,7 +10,7 @@ public abstract class GenericReference
     public string Iri { get; set; }
     public ReferenceSource Source { get; set; }
 
-    protected GenericReference(string name, string iri, string? description,
+    protected RdlReference(string name, string iri, string? description,
         ReferenceSource source = ReferenceSource.UserSubmission)
     {
         Name = name;

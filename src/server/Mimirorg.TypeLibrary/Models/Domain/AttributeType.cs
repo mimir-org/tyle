@@ -2,7 +2,7 @@ using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Domain;
 
-public class AttributeType : GenericType // ILogable, IStatefulObject
+public class AttributeType : ImfType // ILogable, IStatefulObject
 {
     //public int CompanyId { get; set; }
     //public State State { get; set; }

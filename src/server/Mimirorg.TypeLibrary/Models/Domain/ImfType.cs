@@ -1,6 +1,6 @@
 namespace Mimirorg.TypeLibrary.Models.Domain;
 
-public abstract class GenericType
+public abstract class ImfType
 {
     public Guid Id { get; }
     public string Name { get; set; }
@@ -11,7 +11,7 @@ public abstract class GenericType
     public ICollection<string> ContributedBy { get; }
     public DateTimeOffset LastUpdateOn { get; set; }
 
-    protected GenericType(string name, string? description, string createdBy)
+    protected ImfType(string name, string? description, string createdBy)
     {
         Id = Guid.NewGuid();
         Name = name;
