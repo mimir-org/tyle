@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +31,7 @@ public class LibraryAttributeGroupController : ControllerBase
     private readonly IAttributeGroupService _attributeGroupService;
     private readonly ILogger<LibraryAttributeController> _logger;
 
-    public LibraryAttributeGroupController(IAttributeService attributeService, IAttributeGroupService attributeGroupService, IMimirorgAuthService authService, ILogger<LibraryAttributeController> logger)
+    public LibraryAttributeGroupController(IAttributeGroupService attributeGroupService, IMimirorgAuthService authService, ILogger<LibraryAttributeController> logger)
     {
         _authService = authService;
         _attributeGroupService = attributeGroupService;
@@ -51,13 +50,14 @@ public class LibraryAttributeGroupController : ControllerBase
     {
         try
         {
+            throw new Exception();
             var data = _attributeGroupService.GetAttributeGroupList();
             return Ok(data);
         }
         catch (Exception e)
         {
-            _logger.LogError("Internal server error", (e.Message, e.StackTrace, e.InnerException, e.Data, e.Source));
-            return StatusCode(500, "Internal Server Error.");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
         }
     }
 
@@ -86,7 +86,7 @@ public class LibraryAttributeGroupController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError("Internal server error", (e.Message, e.StackTrace, e.InnerException, e.Data, e.Source));
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -119,7 +119,7 @@ public class LibraryAttributeGroupController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError("Internal server error", (e.Message, e.StackTrace, e.InnerException, e.Data, e.Source));
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -162,7 +162,7 @@ public class LibraryAttributeGroupController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError("Internal server error", (e.Message, e.StackTrace, e.InnerException, e.Data, e.Source));
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -200,7 +200,7 @@ public class LibraryAttributeGroupController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError("Internal server error", (e.Message, e.StackTrace, e.InnerException, e.Data, e.Source));
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
