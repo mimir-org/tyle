@@ -27,10 +27,10 @@ public interface ITerminalService
     /// <summary>
     /// Create a new terminal
     /// </summary>
-    /// <param name="terminal">The terminal that should be created</param>
+    /// <param name="request">The terminal that should be created</param>
     /// <returns></returns>
     /// <exception cref="MimirorgBadRequestException">Throws if terminal is not valid</exception>
-    Task<TerminalTypeView> Create(TerminalTypeRequest terminal);
+    Task<TerminalTypeView> Create(TerminalTypeRequest request);
 
     /*/// <summary>
     /// Update an existing terminal

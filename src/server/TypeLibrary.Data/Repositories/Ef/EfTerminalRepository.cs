@@ -31,6 +31,7 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     {
         return GetAll()
             .Include(x => x.Classifiers)
+            .ThenInclude(x => x.Classifier)
             .Include(x => x.Purpose)
             .Include(x => x.Medium)
             .Include(x => x.TerminalAttributes)
@@ -39,6 +40,7 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
             .Include(x => x.TerminalAttributes)
             .ThenInclude(x => x.Attribute)
             .ThenInclude(x => x.Units)
+            .ThenInclude(x => x.Unit)
             .Include(x => x.TerminalAttributes)
             .ThenInclude(x => x.Attribute)
             .ThenInclude(x => x.ValueConstraint)
@@ -50,6 +52,7 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     {
         var terminal = FindBy(x => x.Id == id)
             .Include(x => x.Classifiers)
+            .ThenInclude(x => x.Classifier)
             .Include(x => x.Purpose)
             .Include(x => x.Medium)
             .Include(x => x.TerminalAttributes)
@@ -58,6 +61,7 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
             .Include(x => x.TerminalAttributes)
             .ThenInclude(x => x.Attribute)
             .ThenInclude(x => x.Units)
+            .ThenInclude(x => x.Unit)
             .Include(x => x.TerminalAttributes)
             .ThenInclude(x => x.Attribute)
             .ThenInclude(x => x.ValueConstraint)
@@ -70,18 +74,6 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     public async Task<TerminalType> Create(TerminalType terminal)
     {
         await CreateAsync(terminal);
-        foreach (var classifier in terminal.Classifiers)
-        {
-            Context.Entry(classifier).State = EntityState.Unchanged;
-        }
-        if (terminal.Purpose != null)
-        {
-            Context.Entry(terminal.Purpose).State = EntityState.Unchanged;
-        }
-        if (terminal.Medium != null)
-        {
-            Context.Entry(terminal.Medium).State = EntityState.Unchanged;
-        }
         await SaveAsync();
 
         return terminal;

@@ -7,7 +7,6 @@ public class TerminalAttributeRequest : IValidatableObject
     [Required, Range(0, int.MaxValue, ErrorMessage = "The attribute min count must be positive.")]
     public int MinCount { get; set; }
 
-
     public int? MaxCount { get; set; }
 
     [Required]

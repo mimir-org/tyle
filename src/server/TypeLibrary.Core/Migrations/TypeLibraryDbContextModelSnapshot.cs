@@ -669,8 +669,11 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<int?>("PurposeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Qualifier")
-                        .HasColumnType("int");
+                    b.Property<string>("Qualifier")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("Qualifier");
 
                     b.Property<string>("Symbol")
                         .HasMaxLength(500)

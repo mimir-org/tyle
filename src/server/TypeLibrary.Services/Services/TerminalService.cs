@@ -38,8 +38,14 @@ public class TerminalService : ITerminalService
     private readonly IEfClassifierRepository _classifierRepository;
     private readonly IEfPurposeRepository _purposeRepository;
     private readonly IEfMediumRepository _mediumRepository;
+    private readonly IEfTerminalClassifierRepository _terminalClassifierRepository;
 
-    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, ILogger<TerminalService> logger, IAttributeService attributeService, IAttributeRepository attributeRepository, IEfTerminalAttributeRepository terminalAttributeRepository, IHttpContextAccessor contextAccessor, IEmailService emailService, IEfClassifierRepository classifierRepository, IEfPurposeRepository purposeRepository, IEfMediumRepository mediumRepository)
+    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService,
+        ILogService logService, ILogger<TerminalService> logger, IAttributeService attributeService,
+        IAttributeRepository attributeRepository, IEfTerminalAttributeRepository terminalAttributeRepository,
+        IHttpContextAccessor contextAccessor, IEmailService emailService, IEfClassifierRepository classifierRepository,
+        IEfPurposeRepository purposeRepository, IEfMediumRepository mediumRepository,
+        IEfTerminalClassifierRepository terminalClassifierRepository)
     {
         _terminalRepository = terminalRepository;
         _mapper = mapper;
@@ -54,15 +60,13 @@ public class TerminalService : ITerminalService
         _classifierRepository = classifierRepository;
         _purposeRepository = purposeRepository;
         _mediumRepository = mediumRepository;
+        _terminalClassifierRepository = terminalClassifierRepository;
     }
 
     /// <inheritdoc />
     public IEnumerable<TerminalTypeView> Get()
     {
-        var dataSet = _terminalRepository.Get()?.ToList();
-
-        if (dataSet == null || !dataSet.Any())
-            return new List<TerminalTypeView>();
+        var dataSet = _terminalRepository.Get();
 
         return _mapper.Map<List<TerminalTypeView>>(dataSet);
     }
@@ -70,49 +74,27 @@ public class TerminalService : ITerminalService
     /// <inheritdoc />
     public TerminalTypeView Get(Guid id)
     {
-        var dm = _terminalRepository.Get(id);
-
-        if (dm == null)
-            throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
+        var dm = _terminalRepository.Get(id) ??
+                 throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
 
         return _mapper.Map<TerminalTypeView>(dm);
     }
 
     /// <inheritdoc />
-    public async Task<TerminalTypeView> Create(TerminalTypeRequest terminal)
+    public async Task<TerminalTypeView> Create(TerminalTypeRequest request)
     {
-        if (terminal == null)
-            throw new ArgumentNullException(nameof(terminal));
+        if (request == null)
+            throw new ArgumentNullException(nameof(request));
 
-        var validation = terminal.ValidateObject();
+        /*var validation = terminal.ValidateObject();
 
         if (!validation.IsValid)
-            throw new MimirorgBadRequestException("Terminal is not valid.", validation);
+            throw new MimirorgBadRequestException("Terminal is not valid.", validation);*/
 
-        var dm = _mapper.Map<TerminalType>(terminal);
-        dm.LastUpdateOn = dm.CreatedOn;
+        var dm = new TerminalType(request.Name, request.Description, _contextAccessor.GetUserId(), request.Aspect,
+            request.Qualifier);
 
-        foreach (var classifierReferenceId in terminal.ClassifierReferenceIds)
-        {
-            // TODO: Add null checking
-
-           // dm.Classifiers.Add(await _classifierRepository.GetAsync(classifierReferenceId));
-        }
-
-        if (terminal.PurposeReferenceId != null)
-        {
-            dm.Purpose = await _purposeRepository.GetAsync((int)terminal.PurposeReferenceId);
-        }
-
-        if (terminal.MediumReferenceId != null)
-        {
-            dm.Medium = await _mediumRepository.GetAsync((int)terminal.MediumReferenceId);
-        }
-
-        foreach (var terminalAttribute in terminal.TerminalAttributes)
-        {
-            dm.TerminalAttributes.Add(new TerminalAttributeTypeReference(dm.Id, terminalAttribute.AttributeId, terminalAttribute.MinCount, terminalAttribute.MaxCount));
-        }
+        await SetTerminalTypeFields(dm, request);
 
         //dm.State = State.Draft;
         /*dm.TerminalAttributes = new List<TerminalAttributeTypeReference>();
@@ -225,7 +207,8 @@ public class TerminalService : ITerminalService
     /// <inheritdoc />
     public async Task Delete(Guid id)
     {
-        var dm = _terminalRepository.Get(id) ?? throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
+        var dm = _terminalRepository.Get(id) ??
+                 throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
 
         /*if (dm.State == State.Approved)
             throw new MimirorgInvalidOperationException($"Can't delete approved terminal with id {id}.");*/
@@ -266,4 +249,91 @@ public class TerminalService : ITerminalService
 
         return new ApprovalDataCm { Id = dm.Id, State = state };
     }*/
+
+    private async Task SetTerminalTypeFields(TerminalType dm, TerminalTypeRequest request)
+    {
+        var classifiersToRemove = new List<TerminalClassifierMapping>();
+
+        foreach (var classifier in dm.Classifiers)
+        {
+            if (request.ClassifierReferenceIds.Contains(classifier.ClassifierId)) continue;
+
+            classifiersToRemove.Add(classifier);
+            await _terminalClassifierRepository.Delete(classifier.Id);
+        }
+
+        foreach (var classifierToRemove in classifiersToRemove)
+        {
+            dm.Classifiers.Remove(classifierToRemove);
+        }
+
+        foreach (var classifierReferenceId in request.ClassifierReferenceIds)
+        {
+            if (dm.Classifiers.Select(x => x.ClassifierId).Contains(classifierReferenceId)) continue;
+
+            var classifier = await _classifierRepository.GetAsync(classifierReferenceId) ??
+                             throw new MimirorgBadRequestException(
+                                 $"No classifier reference with id {classifierReferenceId} found.");
+            dm.Classifiers.Add(new TerminalClassifierMapping(dm.Id, classifierReferenceId));
+        }
+
+        if (request.PurposeReferenceId != null)
+        {
+            var purpose = await _purposeRepository.GetAsync((int) request.PurposeReferenceId) ??
+                          throw new MimirorgBadRequestException(
+                              $"No purpose reference with id {request.PurposeReferenceId} found.");
+            dm.PurposeId = purpose.Id;
+        }
+        else
+        {
+            dm.PurposeId = null;
+            dm.Purpose = null;
+        }
+
+        dm.Notation = request.Notation;
+        dm.Symbol = request.Symbol;
+
+        if (request.MediumReferenceId != null)
+        {
+            var medium = await _mediumRepository.GetAsync((int) request.MediumReferenceId) ??
+                          throw new MimirorgBadRequestException(
+                              $"No purpose reference with id {request.MediumReferenceId} found.");
+            dm.MediumId = medium.Id;
+        }
+        else
+        {
+            dm.MediumId = null;
+            dm.Medium = null;
+        }
+
+        var attributesToRemove = new List<TerminalAttributeTypeReference>();
+
+        foreach (var attribute in dm.TerminalAttributes)
+        {
+            if (request.TerminalAttributes.Any(x => x.AttributeId == attribute.AttributeId)) continue;
+            
+            attributesToRemove.Add(attribute);
+            await _terminalAttributeRepository.Delete(attribute.Id);
+        }
+
+        foreach (var attributeToRemove in attributesToRemove)
+        {
+            dm.TerminalAttributes.Remove(attributeToRemove);
+        }
+
+        foreach (var terminalAttribute in request.TerminalAttributes)
+        {
+            if (dm.TerminalAttributes.Any(x => x.AttributeId == terminalAttribute.AttributeId))
+            {
+                var savedTerminalAttribute =
+                    _terminalAttributeRepository.FindBy(x => x.TerminalId == dm.Id && x.AttributeId == terminalAttribute.AttributeId, false).FirstOrDefault();
+                savedTerminalAttribute!.MinCount = terminalAttribute.MinCount;
+                savedTerminalAttribute.MaxCount = terminalAttribute.MaxCount;
+            }
+            else
+            {
+                dm.TerminalAttributes.Add(new TerminalAttributeTypeReference(dm.Id, terminalAttribute.AttributeId, terminalAttribute.MinCount, terminalAttribute.MaxCount));
+            }
+        }
+    }
 }

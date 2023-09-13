@@ -30,5 +30,6 @@ public class TerminalConfiguration : IEntityTypeConfiguration<TerminalType>
         builder.Property(p => p.Notation).HasColumnName("Notation").HasMaxLength(50);
         builder.Property(p => p.Symbol).HasColumnName("Symbol").HasMaxLength(500);
         builder.Property(p => p.Aspect).HasColumnName("Aspect").IsRequired().HasConversion<string>().HasMaxLength(20);
+        builder.Property(p => p.Qualifier).HasColumnName("Qualifier").IsRequired().HasConversion<string>().HasMaxLength(20);
     }
 }

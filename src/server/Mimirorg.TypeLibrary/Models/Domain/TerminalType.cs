@@ -7,10 +7,12 @@ public class TerminalType : ImfType // : ILogable, IStatefulObject
     //public int CompanyId { get; set; }
     //public State State { get; set; }
     public ICollection<TerminalClassifierMapping> Classifiers { get; set; }
+    public int? PurposeId { get; set; }
     public PurposeReference? Purpose { get; set; }
     public string? Notation { get; set; }
     public string? Symbol { get; set; }
     public Aspect Aspect { get; set; }
+    public int? MediumId { get; set; }
     public MediumReference? Medium { get; set; }
     public Direction Qualifier { get; set; }
     public ICollection<TerminalAttributeTypeReference> TerminalAttributes { get; set; }
