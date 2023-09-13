@@ -3,7 +3,7 @@ using Mimirorg.Common.Attributes;
 
 namespace Mimirorg.TypeLibrary.Models.Application;
 
-public class ReferenceRequest
+public abstract class ReferenceRequest
 {
     [Required]
     public string Name { get; set; }
