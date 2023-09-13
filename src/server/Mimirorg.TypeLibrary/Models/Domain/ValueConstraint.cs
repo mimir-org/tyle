@@ -37,10 +37,10 @@ public class ValueConstraint
         switch (ConstraintType)
         {
             case ConstraintType.HasValue:
-                Value = ParseThenToString(request.Value);
+                Value = ParseThenToString(request.Value!);
                 break;
             case ConstraintType.In:
-                AllowedValues = request.AllowedValues.Select(ParseThenToString).ToList();
+                AllowedValues = request.AllowedValues!.Select(ParseThenToString).ToList();
                 break;
             case ConstraintType.Pattern:
                 Pattern = request.Pattern;
