@@ -426,7 +426,7 @@ public class MimirorgUserService : IMimirorgUserService
 
             if (numberOfUsers != 1 || numberOfCompanies != 0)
                 return;
-
+            await _userManager.AddToRoleAsync(user, MimirorgDefaultRoles.Administrator);
             var company = await _mimirorgCompanyService.CreateCompany(new MimirorgCompanyAm
             {
                 Name = "Mimirorg Company",
@@ -439,7 +439,7 @@ public class MimirorgUserService : IMimirorgUserService
                 HomePage = @"https://github.com/mimir-org/mimir"
             });
 
-            await _userManager.AddToRoleAsync(user, MimirorgDefaultRoles.Administrator);
+
 
             _ = await _mimirorgCompanyService.CreateHook(new MimirorgHookAm
             {
