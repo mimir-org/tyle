@@ -10,7 +10,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Repositories.Ef
 {
-    public class EfAttributeGroupAttributeRepository: GenericRepository<TypeLibraryDbContext, AttributeGroupAttributesLibDm>, IEfAttributeGroupAttributeRepository
+    public class EfAttributeGroupAttributeRepository : GenericRepository<TypeLibraryDbContext, AttributeGroupAttributesLibDm>, IEfAttributeGroupAttributeRepository
     {
         public EfAttributeGroupAttributeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {
