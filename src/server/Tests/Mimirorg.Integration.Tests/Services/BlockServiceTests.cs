@@ -24,7 +24,7 @@ public class BlockServiceTests : IntegrationTest
 
         var terminal = terminalService.Get().ToList()[0];
 
-        var blockAm = new BlockLibAm
+        var blockAm = new BlockTypeRequest
         {
             Name = "Block2",
             RdsId = "rds-id",
@@ -32,7 +32,7 @@ public class BlockServiceTests : IntegrationTest
             Description = "Description",
             Aspect = Aspect.NotSet,
             CompanyId = 1,
-            BlockTerminals = new List<BlockTerminalLibAm>{
+            BlockTerminals = new List<BlockTerminalRequest>{
                 new()
                 {
                     TerminalId = terminal.Id,
@@ -108,7 +108,7 @@ public class BlockServiceTests : IntegrationTest
     [Fact]
     public async Task GetLatestVersions_Blocks_Result_Ok()
     {
-        var blockAm = new BlockLibAm
+        var blockAm = new BlockTypeRequest
         {
             Name = "Block4",
             RdsId = "rds-id",
@@ -137,7 +137,7 @@ public class BlockServiceTests : IntegrationTest
     [Fact]
     public async Task Update_Block_Result_Ok()
     {
-        var blockAm = new BlockLibAm
+        var blockAm = new BlockTypeRequest
         {
             Name = "Block6",
             RdsId = "rds-id",

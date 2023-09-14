@@ -54,7 +54,7 @@ public class BlockService : IBlockService
     }
 
     /// <inheritdoc />
-    public IEnumerable<BlockLibCm> GetLatestVersions()
+    public IEnumerable<BlockTypeView> GetLatestVersions()
     {
         /*var latestAll = _blockRepository.Get()?.LatestVersions()?.ToList() ?? new List<BlockType>();
         var latestApproved = _blockRepository.Get()?.LatestVersionsApproved()?.ToList() ?? new List<BlockType>();
@@ -63,22 +63,22 @@ public class BlockService : IBlockService
 
         var result = _blockRepository.Get();
 
-        return !result.Any() ? new List<BlockLibCm>() : _mapper.Map<List<BlockLibCm>>(result);
+        return !result.Any() ? new List<BlockTypeView>() : _mapper.Map<List<BlockTypeView>>(result);
     }
 
     /// <inheritdoc />
-    public BlockLibCm Get(Guid id)
+    public BlockTypeView Get(Guid id)
     {
         var dm = _blockRepository.Get(id);
 
         if (dm == null)
             throw new MimirorgNotFoundException($"Block with id {id} not found.");
 
-        return _mapper.Map<BlockLibCm>(dm);
+        return _mapper.Map<BlockTypeView>(dm);
     }
 
     /*/// <inheritdoc />
-    public BlockLibCm GetLatestApproved(string id)
+    public BlockTypeView GetLatestApproved(string id)
     {
         var givenBlock = _blockRepository.Get(id);
 
@@ -91,11 +91,11 @@ public class BlockService : IBlockService
         if (latestVersionApproved == null)
             throw new MimirorgNotFoundException($"No approved version was found for block with id {id}.");
 
-        return _mapper.Map<BlockLibCm>(latestVersionApproved);
+        return _mapper.Map<BlockTypeView>(latestVersionApproved);
     }*/
 
     /// <inheritdoc />
-    public async Task<BlockLibCm> Create(BlockLibAm blockAm)
+    public async Task<BlockTypeView> Create(BlockTypeRequest blockAm)
     {
         if (blockAm == null)
             throw new ArgumentNullException(nameof(blockAm));
@@ -149,7 +149,7 @@ public class BlockService : IBlockService
     }
 
     /*/// <inheritdoc />
-    public async Task<BlockLibCm> Update(string id, BlockLibAm blockAm)
+    public async Task<BlockTypeView> Update(string id, BlockTypeRequest blockAm)
     {
         var validation = blockAm.ValidateObject();
 
@@ -176,7 +176,7 @@ public class BlockService : IBlockService
 
         blockAm.Version = CalculateVersion(blockAm, blockToUpdate);
 
-        BlockLibCm blockToReturn;
+        BlockTypeView blockToReturn;
 
         if (blockToUpdate.State == State.Approved)
             blockToReturn = await CreateNewDraft(blockAm, blockToUpdate);
@@ -189,7 +189,7 @@ public class BlockService : IBlockService
         return blockToReturn;
     }
 
-    private string CalculateVersion(BlockLibAm blockAm, BlockType blockToUpdate)
+    private string CalculateVersion(BlockTypeRequest blockAm, BlockType blockToUpdate)
     {
         var latestApprovedVersion = _blockRepository.Get().LatestVersionApproved(blockToUpdate.FirstVersionId);
 
@@ -210,7 +210,7 @@ public class BlockService : IBlockService
         };
     }
 
-    private async Task<BlockLibCm> CreateNewDraft(BlockLibAm blockAm, BlockType blockToUpdate)
+    private async Task<BlockTypeView> CreateNewDraft(BlockTypeRequest blockAm, BlockType blockToUpdate)
     {
         var dm = _mapper.Map<BlockType>(blockAm);
 
@@ -247,7 +247,7 @@ public class BlockService : IBlockService
         return Get(createdBlock?.Id);
     }
 
-    private async Task<BlockLibCm> UpdateDraft(BlockLibAm blockAm, BlockType blockToUpdate)
+    private async Task<BlockTypeView> UpdateDraft(BlockTypeRequest blockAm, BlockType blockToUpdate)
     {
         blockToUpdate.Name = blockAm.Name;
         blockToUpdate.TypeReference = blockAm.TypeReference;

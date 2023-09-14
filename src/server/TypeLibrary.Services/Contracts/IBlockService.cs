@@ -14,7 +14,7 @@ public interface IBlockService
     /// Get the latest approved block versions as well as any unfinished or in review drafts
     /// </summary>
     /// <returns>A collection of blocks</returns>
-    IEnumerable<BlockLibCm> GetLatestVersions();
+    IEnumerable<BlockTypeView> GetLatestVersions();
 
     /// <summary>
     /// Get a block based on given id
@@ -22,7 +22,7 @@ public interface IBlockService
     /// <param name="id">The id of the block</param>
     /// <returns>The block of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no block with the given id.</exception>
-    BlockLibCm Get(Guid id);
+    BlockTypeView Get(Guid id);
 
     /*/// <summary>
     /// Get the latest approved version of a block
@@ -30,7 +30,7 @@ public interface IBlockService
     /// <param name="id">The id of the block we want to get the latest approved version of</param>
     /// <returns>The latest approved version of the block of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no latest approved block with the given id.</exception>
-    BlockLibCm GetLatestApproved(Guid id);*/
+    BlockTypeView GetLatestApproved(Guid id);*/
 
     /// <summary>
     /// Create a new block
@@ -40,7 +40,7 @@ public interface IBlockService
     /// <exception cref="MimirorgBadRequestException">Throws if block is not valid</exception>
     /// <remarks>Remember that creating a new block could be creating a new version of existing block.
     /// They will have the same first version id, but have different version and id.</remarks>
-    Task<BlockLibCm> Create(BlockLibAm blockAm);
+    Task<BlockTypeView> Create(BlockTypeRequest blockAm);
 
     /*/// <summary>
     /// Update a block if the data is allowed to be changed.
@@ -52,7 +52,7 @@ public interface IBlockService
     /// <exception cref="MimirorgBadRequestException">Throws if the block is not valid.</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the block is a state that makes it invalid for updates,
     /// a draft already exists for this type or if changes are not allowed.</exception>
-    Task<BlockLibCm> Update(string id, BlockLibAm blockAm);*/
+    Task<BlockTypeView> Update(string id, BlockTypeRequest blockAm);*/
 
     /// <summary>
     ///  Delete a block, it can't be approved

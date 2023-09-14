@@ -10,7 +10,7 @@ public class BlockAttributeProfile : Profile
 {
     public BlockAttributeProfile()
     {
-        CreateMap<BlockAttributeLibAm, BlockAttributeTypeReference>()
+        CreateMap<BlockAttributeRequest, BlockAttributeTypeReference>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.MinCount, opt => opt.MapFrom(src => src.MinCount))
             .ForMember(dest => dest.MaxCount, opt => opt.MapFrom(src => src.MaxCount))

@@ -5,31 +5,30 @@ namespace Mimirorg.TypeLibrary.Models.Domain;
 /// <summary>
 /// Block domain model
 /// </summary>
-public class BlockType // : IVersionable<BlockLibAm>, IVersionObject, IEquatable<BlockType>, ILogable
+public class BlockType : ImfType // : IVersionable<BlockTypeRequest>, IVersionObject, IEquatable<BlockType>, ILogable
 {
-    public Guid Id { get; set; }
-    public required string Name { get; set; }
-    public string? Description { get; set; }
-    public string Version { get; set; } = "1.0";
-    public DateTimeOffset CreatedOn { get; set; }
-    public required string CreatedBy { get; set; }
-    public ICollection<string> ContributedBy { get; set; } = new List<string>();
-    public DateTimeOffset LastUpdateOn { get; set; }
     //public int CompanyId { get; set; }
     //public State State { get; set; }
-    //public ICollection<ClassifierReference> Classifiers { get; set; } = new List<ClassifierReference>();
+    public ICollection<BlockClassifierMapping> Classifiers { get; set; }
+    public int? PurposeId { get; set; }
     public PurposeReference? Purpose { get; set; }
     public string? Notation { get; set; }
     public string? Symbol { get; set; }
     public Aspect Aspect { get; set; }
 
-    public virtual ICollection<BlockTerminalTypeReference> BlockTerminals { get; set; } = null!;
-    public virtual ICollection<BlockAttributeTypeReference> BlockAttributes { get; set; } = null!;
-    //public virtual List<SelectedAttributePredefinedLibDm> SelectedAttributePredefined { get; set; }
+    public ICollection<BlockTerminalTypeReference> BlockTerminals { get; set; }
+    public ICollection<BlockAttributeTypeReference> BlockAttributes { get; set; }
+
+    public BlockType(string name, string? description, string createdBy) : base(name, description, createdBy)
+    {
+        Classifiers = new List<BlockClassifierMapping>();
+        BlockTerminals = new List<BlockTerminalTypeReference>();
+        BlockAttributes = new List<BlockAttributeTypeReference>();
+    }
 
     /*#region IVersionable
 
-    public Validation HasIllegalChanges(BlockLibAm other)
+    public Validation HasIllegalChanges(BlockTypeRequest other)
     {
         if (other == null)
             throw new ArgumentNullException(nameof(other));
@@ -54,7 +53,7 @@ public class BlockType // : IVersionable<BlockLibAm>, IVersionObject, IEquatable
 
         //Terminals
         BlockTerminals ??= new List<BlockTerminalTypeReference>();
-        other.BlockTerminals ??= new List<BlockTerminalLibAm>();
+        other.BlockTerminals ??= new List<BlockTerminalRequest>();
         var otherTerminals = other.BlockTerminals.Select(x => (x.TerminalId, x.Direction));
         if (BlockTerminals.Select(y => (y.TerminalId, y.Direction)).Any(identifier => otherTerminals.Select(x => x).All(x => x != identifier)))
         {
@@ -82,7 +81,7 @@ public class BlockType // : IVersionable<BlockLibAm>, IVersionObject, IEquatable
         return validation;
     }
 
-    public VersionStatus CalculateVersionStatus(BlockLibAm other)
+    public VersionStatus CalculateVersionStatus(BlockTypeRequest other)
     {
         if (other == null)
             throw new ArgumentNullException(nameof(other));
@@ -122,7 +121,7 @@ public class BlockType // : IVersionable<BlockLibAm>, IVersionObject, IEquatable
 
         // Block Terminals
         BlockTerminals ??= new List<BlockTerminalTypeReference>();
-        other.BlockTerminals ??= new List<BlockTerminalLibAm>();
+        other.BlockTerminals ??= new List<BlockTerminalRequest>();
         var otherTerminals = other.BlockTerminals.Select(x => (x.TerminalId, x.Direction, MaxCount: x.MaxCount == 0 ? int.MaxValue : x.MaxCount)).OrderBy(x => x.TerminalId).ThenBy(x => x.Direction).ThenBy(x => x.MaxCount);
         if (!BlockTerminals.Select(x => (x.TerminalId, x.Direction, x.MaxCount)).OrderBy(x => x.TerminalId).ThenBy(x => x.Direction).ThenBy(x => x.MaxCount).SequenceEqual(otherTerminals))
             major = true;

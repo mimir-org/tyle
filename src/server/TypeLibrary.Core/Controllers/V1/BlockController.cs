@@ -42,7 +42,7 @@ public class BlockController : ControllerBase
     /// </summary>
     /// <returns>A collection of blocks</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<BlockLibCm>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<BlockTypeView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult GetLatestVersions()
@@ -65,7 +65,7 @@ public class BlockController : ControllerBase
     /// <param name="id">The id of the block to get</param>
     /// <returns>The requested block</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -96,7 +96,7 @@ public class BlockController : ControllerBase
     /// <param name="id">The id of the block we want to get the latest approved version of</param>
     /// <returns>The requested block</returns>
     [HttpGet("latest-approved/{id}")]
-    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -127,12 +127,12 @@ public class BlockController : ControllerBase
     /// <param name="block">The block that should be created</param>
     /// <returns>The created block</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "block", "CompanyId")]
-    public async Task<IActionResult> Create([FromBody] BlockLibAm block)
+    public async Task<IActionResult> Create([FromBody] BlockTypeRequest block)
     {
         try
         {
@@ -160,14 +160,14 @@ public class BlockController : ControllerBase
     /// <param name="block">The new values of the block</param>
     /// <returns>The updated block</returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "block", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] BlockLibAm block)
+    public async Task<IActionResult> Update(string id, [FromBody] BlockTypeRequest block)
     {
         try
         {

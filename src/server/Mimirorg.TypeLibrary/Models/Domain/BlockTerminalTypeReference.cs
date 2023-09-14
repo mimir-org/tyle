@@ -1,3 +1,4 @@
+using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using VDS.RDF;
 
@@ -9,11 +10,23 @@ public class BlockTerminalTypeReference
     public int MinCount { get; set; }
     public int? MaxCount { get; set; }
     public Direction Direction { get; set; }
+    public Guid BlockId { get; set; }
     public BlockType Block { get; set; } = null!;
+    public Guid TerminalId { get; set; }
     public TerminalType Terminal { get; set; } = null!;
 
-    public string GetHash()
+    public BlockTerminalTypeReference(Guid blockId, Guid terminalId, Direction direction, int minCount, int? maxCount = null)
     {
-        return $"{MinCount}-{MaxCount}-{Direction}-{Terminal.Id}".GetSha256Hash();
+        if (minCount < 0) throw new MimirorgBadRequestException("The terminal min count cannot be negative.");
+
+        if (minCount > maxCount)
+            throw new MimirorgBadRequestException(
+                "The terminal min count cannot be larger than the terminal max count.");
+
+        BlockId = blockId;
+        TerminalId = terminalId;
+        Direction = direction;
+        MinCount = minCount;
+        MaxCount = maxCount;
     }
 }

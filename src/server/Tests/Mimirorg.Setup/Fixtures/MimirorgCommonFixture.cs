@@ -60,14 +60,14 @@ public class MimirorgCommonFixture : IDisposable
         MimirorgAuthSettings.RequiredLength = 10;
     }
 
-    public (BlockLibAm am, BlockType dm) CreateBlockTestData()
+    public (BlockTypeRequest am, BlockType dm) CreateBlockTestData()
     {
-        var blockLibAm = new BlockLibAm
+        var blockLibAm = new BlockTypeRequest
         {
             Name = "AA",
             //RdsId = "AA",
             Aspect = Aspect.Function,
-            BlockTerminals = new List<BlockTerminalLibAm>()
+            BlockTerminals = new List<BlockTerminalRequest>()
             /*{
                 new()
                 {
