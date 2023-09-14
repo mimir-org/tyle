@@ -487,6 +487,11 @@ public class MimirorgUserService : IMimirorgUserService
             var currentCompany = await _mimirorgCompanyService.GetCompanyById(userAm.CompanyId);
             user.CompanyName = currentCompany?.DisplayName ?? currentCompany?.Name;
         }
+        else
+        {
+            user.CompanyName = "Mimirorg Company";
+            user.CompanyId = 1;
+        }
 
         user.EmailConfirmed = !_authSettings.RequireConfirmedAccount;
         user.TwoFactorEnabled = !_authSettings.RequireConfirmedAccount;
