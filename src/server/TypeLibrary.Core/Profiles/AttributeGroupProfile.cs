@@ -44,7 +44,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Description, opt => opt.Ignore())
                 .ForMember(dest => dest.Iri, opt => opt.Ignore())
                 .ForMember(dest => dest.Kind, opt => opt.Ignore());
-                          
+
         }
     }
 }
