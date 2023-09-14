@@ -38,13 +38,10 @@ namespace TypeLibrary.Data.Repositories.Ef
 
         public AttributeGroupLibDm GetSingleAttributeGroup(string id)
         {
-            {
-
-                return FindBy(x => x.Id == id)
-                    .Include(x => x.AttributeGroupAttributes)
-                    .ThenInclude(x => x.Attribute)
-                    .FirstOrDefault();
-            }
+            return FindBy(x => x.Id == id)
+                .Include(x => x.AttributeGroupAttributes)
+                .ThenInclude(x => x.Attribute)
+                .FirstOrDefault();
         }
 
         public void ClearAllChangeTrackers()

@@ -1,4 +1,5 @@
 using AutoMapper;
+using Lucene.Net.Util;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
@@ -123,25 +124,26 @@ namespace TypeLibrary.Services.Services
             attributeGroupToUpdate.Attributes ??= new List<AttributeLibDm>();
 
 
-            foreach (var attributeGroupAttributeItem in attributeGroupToUpdate.AttributeGroupAttributes)
+            foreach (var item in attributeGroupToUpdate.AttributeGroupAttributes.Select(x => x.Id).Except(attributeGroupAm.AttributeIds).ToList())
             {
-                var attributeGroupAttribute = _attributeGroupAttributeRepository.FindBy(x => x.AttributeGroupId == attributeGroupToUpdate.Id).FirstOrDefault();
-                if (attributeGroupAttribute == null)
-                    continue;
-
-                await _attributeGroupAttributeRepository.Delete(attributeGroupAttribute.Id);
+                await _attributeGroupAttributeRepository.Delete(item);
             }
 
 
-            foreach (var attributeId in attributeGroupAm.AttributeIds)
+            foreach (var attributeGroupAttributeItem in attributeGroupAm.AttributeIds)
             {
 
-                var attributeExist = _attributeRepository.FindBy(x => x.Id.Equals(attributeId)).FirstOrDefault();
-                if (attributeExist != null)
+                if (attributeGroupToUpdate.AttributeGroupAttributes.Select(x => x.AttributeId).Contains(attributeGroupAttributeItem))
+                    continue;
 
-                    await _attributeGroupAttributeRepository.CreateAsync(new AttributeGroupAttributesLibDm { AttributeId = attributeExist.Id, AttributeGroupId = attributeGroupToUpdate.Id });
-
-                continue;
+                if (!attributeGroupToUpdate.AttributeGroupAttributes.Select(x => x.AttributeId).Contains(attributeGroupAttributeItem))
+                {
+                    var attributeExist = _attributeRepository.FindBy(x => x.Id.Equals(attributeGroupAttributeItem)).FirstOrDefault();
+                    if (attributeExist != null)
+                    {
+                        await _attributeGroupAttributeRepository.CreateAsync(new AttributeGroupAttributesLibDm { AttributeId = attributeExist.Id, AttributeGroupId = attributeGroupToUpdate.Id });
+                    }
+                }
             }
 
             await _attributeGroupRepository.SaveAsync();

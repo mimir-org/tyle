@@ -31,19 +31,7 @@ namespace TypeLibrary.Core.Profiles
             .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.AttributeGroupAttributes));
-
-            CreateMap<AttributeGroupAttributesLibDm, AttributeLibCm>()
-                .ForMember(dest => dest.Name, opt => opt.Ignore())
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Attribute.Id))
-                .ForMember(dest => dest.State, opt => opt.Ignore())
-                .ForMember(dest => dest.TypeReference, opt => opt.Ignore())
-                .ForMember(dest => dest.AttributeUnits, opt => opt.Ignore())
-                .ForMember(dest => dest.Created, opt => opt.Ignore())
-                .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
-                .ForMember(dest => dest.Description, opt => opt.Ignore())
-                .ForMember(dest => dest.Iri, opt => opt.Ignore())
-                .ForMember(dest => dest.Kind, opt => opt.Ignore());
+            .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.AttributeGroupAttributes.Select(x => x.Attribute)));
 
         }
     }
