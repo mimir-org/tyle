@@ -51,9 +51,6 @@ public class MimirorgCompanyService : IMimirorgCompanyService
         if (_mimirorgCompanyRepository.FindBy(x => x.Domain != null && x.Domain.ToLower() == company.Domain.ToLower()).Any())
             throw new MimirorgBadRequestException($"{nameof(company.Domain)} must be unique", new Validation(nameof(company.Domain), $"{nameof(company.Domain)} must be unique"));
 
-        if (!await IsAdministrator())
-            throw new MimirorgUnauthorizedAccessException("Forbidden");
-
         var domainCompany = company.ToDomainModel();
         await _mimirorgCompanyRepository.CreateAsync(domainCompany);
         await _mimirorgCompanyRepository.Context.SaveChangesAsync();
