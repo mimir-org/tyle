@@ -24,14 +24,21 @@ public class MimirorgCommonFixture : IDisposable
 
     // Loggers
     public Mock<ILogger<BlockService>> BlockServiceLogger = new();
+    public Mock<ILogger<TerminalService>> TerminalServiceLogger = new();
 
     // Repositories
     public Mock<IEfBlockRepository> BlockRepository = new();
+    public Mock<IEfTerminalRepository> TerminalRepository = new();
     public Mock<IEfAttributeRepository> AttributeRepository = new();
     public Mock<IEfBlockTerminalRepository> BlockTerminalRepository = new();
     public Mock<IEfBlockAttributeRepository> BlockAttributeRepository = new();
+    public Mock<IEfTerminalAttributeRepository> TerminalAttributeRepository = new();
+    public Mock<IEfClassifierRepository> ClassifierRepository = new();
+    public Mock <IEfMediumRepository> MediumRepository = new();
+    public Mock <IEfPurposeRepository> PurposeRepository = new();
     public Mock<IEfPredicateRepository> PredicateRepository = new();
     public Mock<IEfUnitRepository> UnitRepository = new();
+    public Mock<IEfTerminalClassifierRepository> TerminalClassifierRepository = new();
     public Mock<IEfAttributeUnitRepository> AttributeUnitRepository = new();
     public Mock<IValueConstraintRepository> ValueConstraintRepository = new();
 
