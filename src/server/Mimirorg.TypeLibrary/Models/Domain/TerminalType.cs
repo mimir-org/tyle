@@ -11,7 +11,7 @@ public class TerminalType : ImfType // : ILogable, IStatefulObject
     public PurposeReference? Purpose { get; set; }
     public string? Notation { get; set; }
     public string? Symbol { get; set; }
-    public Aspect Aspect { get; set; }
+    public Aspect? Aspect { get; set; }
     public int? MediumId { get; set; }
     public MediumReference? Medium { get; set; }
     public Direction Qualifier { get; set; }

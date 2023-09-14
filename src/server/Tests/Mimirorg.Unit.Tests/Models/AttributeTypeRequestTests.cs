@@ -10,11 +10,8 @@ namespace Mimirorg.Test.Unit.Models;
 
 public class AttributeTypeRequestTests : UnitTest<MimirorgCommonFixture>
 {
-    private readonly MimirorgCommonFixture _fixture;
-
     public AttributeTypeRequestTests(MimirorgCommonFixture fixture) : base(fixture)
     {
-        _fixture = fixture;
     }
 
     [Theory]
@@ -24,7 +21,7 @@ public class AttributeTypeRequestTests : UnitTest<MimirorgCommonFixture>
     [InlineData(1, 0, false)]
     public void UnitCountValidatesCorrectly(int unitMinCount, int unitMaxCount, bool result)
     {
-        var attributeTypeRequest = new AttributeTypeRequest()
+        var attributeTypeRequest = new AttributeTypeRequest
         {
             Name = "Test",
             UnitReferenceIds = new List<int>(),
@@ -44,7 +41,7 @@ public class AttributeTypeRequestTests : UnitTest<MimirorgCommonFixture>
     [InlineData(1, true)]
     public void NoUnitReferenceIdsWhenMaxCountIsZero(int unitMaxCount, bool result)
     {
-        var attributeTypeRequest = new AttributeTypeRequest()
+        var attributeTypeRequest = new AttributeTypeRequest
         {
             Name = "Test",
             UnitReferenceIds = new List<int>() { 1, 2, 3 },
@@ -62,7 +59,7 @@ public class AttributeTypeRequestTests : UnitTest<MimirorgCommonFixture>
     [Fact]
     public void ValidationFailsWithDuplicateUnitIds()
     {
-        var attributeTypeRequest = new AttributeTypeRequest()
+        var attributeTypeRequest = new AttributeTypeRequest
         {
             Name = "Test",
             UnitReferenceIds = new List<int>() { 1, 2, 3, 1 },

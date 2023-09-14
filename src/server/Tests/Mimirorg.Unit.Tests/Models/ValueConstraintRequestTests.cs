@@ -13,11 +13,8 @@ namespace Mimirorg.Test.Unit.Models;
 
 public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
 {
-    private readonly MimirorgCommonFixture _fixture;
-
     public ValueConstraintRequestTests(MimirorgCommonFixture fixture) : base(fixture)
     {
-        _fixture = fixture;
     }
 
     [Theory]

@@ -14,6 +14,12 @@ public class TerminalAttributeTypeReference
 
     public TerminalAttributeTypeReference(Guid terminalId, Guid attributeId, int minCount, int? maxCount = null)
     {
+        if (minCount < 0) throw new MimirorgBadRequestException("The attribute min count cannot be negative.");
+
+        if (minCount > maxCount)
+            throw new MimirorgBadRequestException(
+                "The attribute min count cannot be larger than the attribute max count.");
+
         TerminalId = terminalId;
         AttributeId = attributeId;
         MinCount = minCount;

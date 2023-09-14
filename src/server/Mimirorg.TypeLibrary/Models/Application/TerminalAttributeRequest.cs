@@ -4,7 +4,7 @@ namespace Mimirorg.TypeLibrary.Models.Application;
 
 public class TerminalAttributeRequest : IValidatableObject
 {
-    [Required, Range(0, int.MaxValue, ErrorMessage = "The attribute min count must be positive.")]
+    [Required, Range(0, int.MaxValue, ErrorMessage = "The attribute min count cannot be negative.")]
     public int MinCount { get; set; }
 
     public int? MaxCount { get; set; }

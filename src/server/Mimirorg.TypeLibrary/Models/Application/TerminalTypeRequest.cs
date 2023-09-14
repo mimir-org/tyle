@@ -34,8 +34,7 @@ public class TerminalTypeRequest : IValidatableObject
     
     public string? Symbol { get; set; }
     
-    [Required]
-    public Aspect Aspect { get; set; }
+    public Aspect? Aspect { get; set; }
 
     public int? MediumReferenceId { get; set; }
 
