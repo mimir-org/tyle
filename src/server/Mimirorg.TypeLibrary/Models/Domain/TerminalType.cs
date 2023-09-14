@@ -17,11 +17,9 @@ public class TerminalType : ImfType // : ILogable, IStatefulObject
     public Direction Qualifier { get; set; }
     public ICollection<TerminalAttributeTypeReference> TerminalAttributes { get; set; }
 
-    public TerminalType(string name, string? description, string createdBy, Aspect aspect, Direction qualifier = Direction.Bidirectional) : base(name, description, createdBy)
+    public TerminalType(string name, string? description, string createdBy) : base(name, description, createdBy)
     {
         Classifiers = new List<TerminalClassifierMapping>();
-        Aspect = aspect;
-        Qualifier = qualifier;
         TerminalAttributes = new List<TerminalAttributeTypeReference>();
     }
 

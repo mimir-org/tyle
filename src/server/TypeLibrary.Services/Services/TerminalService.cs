@@ -91,8 +91,7 @@ public class TerminalService : ITerminalService
         if (!validation.IsValid)
             throw new MimirorgBadRequestException("Terminal is not valid.", validation);*/
 
-        var dm = new TerminalType(request.Name, request.Description, _contextAccessor.GetUserId(), request.Aspect,
-            request.Qualifier);
+        var dm = new TerminalType(request.Name, request.Description, _contextAccessor.GetUserId());
 
         await SetTerminalTypeFields(dm, request);
 
@@ -303,6 +302,7 @@ public class TerminalService : ITerminalService
 
         dm.Notation = request.Notation;
         dm.Symbol = request.Symbol;
+        dm.Aspect = request.Aspect;
 
         if (request.MediumReferenceId != null)
         {
@@ -316,6 +316,8 @@ public class TerminalService : ITerminalService
             dm.MediumId = null;
             dm.Medium = null;
         }
+
+        dm.Qualifier = request.Qualifier;
 
         var attributesToRemove = new List<TerminalAttributeTypeReference>();
 
