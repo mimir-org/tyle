@@ -1,11 +1,12 @@
 using Mimirorg.TypeLibrary.Enums;
 using System.ComponentModel.DataAnnotations;
+using Mimirorg.TypeLibrary.Validators;
 
 // ReSharper disable InconsistentNaming
 
 namespace Mimirorg.TypeLibrary.Models.Application;
 
-public class TerminalTypeRequest
+public class TerminalTypeRequest : IValidatableObject
 {
     /// <summary>
     /// The name of the terminal
@@ -50,4 +51,19 @@ public class TerminalTypeRequest
     /// </remarks>
     [Required]
     public ICollection<TerminalAttributeRequest> TerminalAttributes { get; set; }
+
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        foreach (var validationResult in UniqueCollectionValidator.Validate(ClassifierReferenceIds,
+                     "Classifier reference id"))
+        {
+            yield return validationResult;
+        }
+
+        foreach (var validationResult in UniqueCollectionValidator.Validate(
+                     TerminalAttributes.Select(x => x.AttributeId), "Attribute id"))
+        {
+            yield return validationResult;
+        }
+    }
 }

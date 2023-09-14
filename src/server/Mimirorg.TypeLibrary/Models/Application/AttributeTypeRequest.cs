@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
 using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Validators;
 
 namespace Mimirorg.TypeLibrary.Models.Application;
 
@@ -39,13 +40,9 @@ public class AttributeTypeRequest : IValidatableObject
             yield return new ValidationResult("Unit max count is 0, but the unit list is not empty.");
         }
 
-        var uniqueUnitIds = new HashSet<int>();
-        foreach (var unitId in UnitReferenceIds)
+        foreach (var validationResult in UniqueCollectionValidator.Validate(UnitReferenceIds, "Unit reference id"))
         {
-            if (!uniqueUnitIds.Add(unitId))
-            {
-                yield return new ValidationResult("There are duplicate unit reference ids.");
-            }
+            yield return validationResult;
         }
     }
 }
