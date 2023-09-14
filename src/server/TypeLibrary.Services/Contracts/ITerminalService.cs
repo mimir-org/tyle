@@ -5,6 +5,8 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Exceptions;
+using Exceptions;
 
 namespace TypeLibrary.Services.Contracts;
 
@@ -29,7 +31,7 @@ public interface ITerminalService
     /// </summary>
     /// <param name="request">The terminal that should be created</param>
     /// <returns></returns>
-    /// <exception cref="MimirorgBadRequestException">Throws if terminal is not valid</exception>
+    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException">Throws if terminal is not valid</exception>
     Task<TerminalTypeView> Create(TerminalTypeRequest request);
 
     /// <summary>
@@ -39,7 +41,7 @@ public interface ITerminalService
     /// <param name="terminalAm">The new terminal values</param>
     /// <returns>The updated terminal</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id.</exception>
-    /// <exception cref="MimirorgBadRequestException">Throws if the new terminal values are not valid.</exception>
+    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException">Throws if the new terminal values are not valid.</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the terminal is not a draft or approved.</exception>
     Task<TerminalTypeView> Update(Guid id, TerminalTypeRequest terminalAm);
 

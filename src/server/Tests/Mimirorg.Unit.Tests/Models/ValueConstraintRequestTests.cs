@@ -1,12 +1,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Castle.Components.DictionaryAdapter.Xml;
-using J2N.Text;
 using Microsoft.IdentityModel.Tokens;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
-using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
+using Tyle.Core.Attributes.Domain;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Models;

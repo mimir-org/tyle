@@ -5,6 +5,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Exceptions;
 
 namespace TypeLibrary.Services.Contracts;
 
@@ -37,7 +38,7 @@ public interface IBlockService
     /// </summary>
     /// <param name="blockAm">The block that should be created</param>
     /// <returns>The created block</returns>
-    /// <exception cref="MimirorgBadRequestException">Throws if block is not valid</exception>
+    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException">Throws if block is not valid</exception>
     /// <remarks>Remember that creating a new block could be creating a new version of existing block.
     /// They will have the same first version id, but have different version and id.</remarks>
     Task<BlockLibCm> Create(BlockLibAm blockAm);

@@ -5,6 +5,8 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Exceptions;
+using Exceptions;
 
 namespace TypeLibrary.Services.Contracts;
 
@@ -28,7 +30,7 @@ public interface IAttributeService
     /// </summary>
     /// <param name="request">The attribute that should be created</param>
     /// <returns>The created attribute</returns>
-    /// <exception cref="MimirorgBadRequestException">Throws if attribute is not valid</exception>
+    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException">Throws if attribute is not valid</exception>
     Task<AttributeTypeView> Create(AttributeTypeRequest request);
 
     /// <summary>
@@ -38,7 +40,7 @@ public interface IAttributeService
     /// <param name="request">The new attribute values</param>
     /// <returns>The updated attribute</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no attribute with the given id.</exception>
-    /// <exception cref="MimirorgBadRequestException">Throws if the new attribute values are not valid.</exception>
+    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException">Throws if the new attribute values are not valid.</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the attribute is not a draft or approved.</exception>
     Task<AttributeTypeView> Update(Guid id, AttributeTypeRequest request);
 

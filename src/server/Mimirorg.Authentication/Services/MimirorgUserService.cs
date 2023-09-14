@@ -18,6 +18,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
+using Exceptions;
 
 namespace Mimirorg.Authentication.Services;
 
@@ -166,7 +167,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// <param name="userAm"></param>
     /// <returns></returns>
     /// <exception cref="MimirorgConfigurationException"></exception>
-    /// <exception cref="MimirorgBadRequestException"></exception>
+    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
     /// <exception cref="MimirorgInvalidOperationException"></exception>
     /// <exception cref="MimirorgDuplicateException"></exception>
     public async Task<MimirorgUserCm> CreateUser(MimirorgUserAm userAm)

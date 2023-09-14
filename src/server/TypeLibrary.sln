@@ -27,6 +27,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Test.Integration",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Test.Setup", "Tests\Mimirorg.Setup\Mimirorg.Test.Setup.csproj", "{7D14C07E-9676-4A8D-8EE8-FE341C9254E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tyle.Core", "Tyle.Core\Tyle.Core.csproj", "{B92559A9-6FCC-4B08-98A0-284F32C5E8E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tyle.Application", "Tyle.Application\Tyle.Application.csproj", "{53ECBCB6-834F-4F3D-97CF-001391FFDB4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +81,14 @@ Global
 		{7D14C07E-9676-4A8D-8EE8-FE341C9254E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D14C07E-9676-4A8D-8EE8-FE341C9254E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D14C07E-9676-4A8D-8EE8-FE341C9254E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B92559A9-6FCC-4B08-98A0-284F32C5E8E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B92559A9-6FCC-4B08-98A0-284F32C5E8E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B92559A9-6FCC-4B08-98A0-284F32C5E8E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B92559A9-6FCC-4B08-98A0-284F32C5E8E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53ECBCB6-834F-4F3D-97CF-001391FFDB4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53ECBCB6-834F-4F3D-97CF-001391FFDB4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53ECBCB6-834F-4F3D-97CF-001391FFDB4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53ECBCB6-834F-4F3D-97CF-001391FFDB4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

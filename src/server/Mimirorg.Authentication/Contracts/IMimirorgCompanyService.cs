@@ -1,3 +1,6 @@
+using Exceptions;
+using Exceptions;
+using Exceptions;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -12,7 +15,7 @@ public interface IMimirorgCompanyService
     /// </summary>
     /// <param name="company">MimirorgCompanyAm</param>
     /// <returns>MimirorgCompanyCm</returns>
-    /// <exception cref="MimirorgBadRequestException"></exception>
+    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
     /// <exception cref="MimirorgInvalidOperationException"></exception>
     Task<MimirorgCompanyCm> CreateCompany(MimirorgCompanyAm company);
 
@@ -36,7 +39,7 @@ public interface IMimirorgCompanyService
     /// <param name="mimirorgCompanyAuth">Domain and secret</param>
     /// <returns>MimirorgCompanyCm</returns>
     /// <exception cref="MimirorgNotFoundException"></exception>
-    /// <exception cref="MimirorgBadRequestException"></exception>
+    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
     Task<MimirorgCompanyCm> GetCompanyByAuth(MimirorgCompanyAuthAm mimirorgCompanyAuth);
 
     /// <summary>
@@ -45,7 +48,7 @@ public interface IMimirorgCompanyService
     /// <param name="id"></param>
     /// <param name="company"></param>
     /// <returns>MimirorgCompanyCm</returns>
-    /// <exception cref="MimirorgBadRequestException"></exception>
+    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
     /// <exception cref="MimirorgNotFoundException"></exception>
     Task<MimirorgCompanyCm> UpdateCompany(int id, MimirorgCompanyAm company);
 

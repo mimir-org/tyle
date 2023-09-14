@@ -1,10 +1,8 @@
 using System.Collections.Generic;
-using Mimirorg.Common.Exceptions;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
-using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Domain;
+using Tyle.Core.Attributes.Domain;
+using Tyle.Core.Exceptions;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Models;
