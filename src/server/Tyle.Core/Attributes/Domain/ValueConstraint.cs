@@ -29,7 +29,7 @@ public class ValueConstraint
         Value = ParseThenToString(value);
     }
 
-    public void SetInConstraint(XsdDataType dataType, ICollection<string> allowedValues, int minCount)
+    public void SetInConstraint(XsdDataType dataType, IEnumerable<string> allowedValues, int minCount)
     {
         SetAllConstraintsToNull();
         ConstraintType = ConstraintType.In;
@@ -60,7 +60,7 @@ public class ValueConstraint
     {
         if (dataType != XsdDataType.Decimal && dataType != XsdDataType.Integer)
         {
-            throw new MimirorgBadRequestException("A range constraint must have a numerical datatype.");
+            throw new MimirorgBadRequestException("A range constraint must have a numerical data type.");
         }
         if (minValue == null && maxValue == null)
         {

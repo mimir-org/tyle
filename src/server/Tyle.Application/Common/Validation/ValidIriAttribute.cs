@@ -5,7 +5,7 @@ namespace Tyle.Application.Common.Validation;
 [AttributeUsage(AttributeTargets.Property)]
 public class ValidIriAttribute : ValidationAttribute
 {
-    public override bool IsValid(object value)
+    public override bool IsValid(object? value)
     {
         if (value == null)
         {
