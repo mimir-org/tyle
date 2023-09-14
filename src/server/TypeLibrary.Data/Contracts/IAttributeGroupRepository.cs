@@ -29,34 +29,10 @@ namespace TypeLibrary.Data.Contracts
         /// <summary>
         /// Create a new attribute group
         /// </summary>
-        /// <param name="attributeAm">The attribute group that should be created</param>
-        /// <param name="createdBy">Used to set created by value for instances where objects are not created by the user</param>
+        /// <param name="attributeAm">The attribute group that should be created</param>    
         /// <returns>The created attribute group</returns>
         /// <exception cref="MimirorgBadRequestException">Throws if attribute group is not valid</exception>
         Task<AttributeGroupLibDm> Create(AttributeGroupLibDm attributeAm);
-
-        /// <summary>
-        /// Update an existing attribute group
-        /// </summary>
-        /// <param name="id">The id of the attribute group that should be updated</param>
-        /// <param name="attributeAm">The new attribute group values</param>
-        /// <returns>The updated attribute group</returns>
-        /// <exception cref="MimirorgNotFoundException">Throws if there is no attribute group with the given id.</exception>
-        /// <exception cref="MimirorgBadRequestException">Throws if the new attribute group values are not valid.</exception>
-        /// <exception cref="MimirorgInvalidOperationException">Throws if the attribute group is not a draft or approved.</exception>
-        AttributeGroupLibDm Update(string id, AttributeGroupLibDm attributeAm);
-
-        /// <summary>
-        /// Change attribute group state
-        /// </summary>
-        /// <param name="id">The id of the attribute group that should change state</param>
-        /// <param name="state">The new attribute group state</param>
-        /// <param name="sendStateEmail"></param>
-        /// <returns>An approval data object</returns>
-        /// <exception cref="MimirorgNotFoundException">Throws if the attribute group does not exist</exception>
-        /// <exception cref="MimirorgInvalidOperationException">Throws if the attribute group is already
-        /// approved or contains references to deleted or unapproved units.</exception>
-        Task ChangeState(string id, State state, bool sendStateEmail);
 
         /// <summary>
         /// Clear all entity framework change trackers

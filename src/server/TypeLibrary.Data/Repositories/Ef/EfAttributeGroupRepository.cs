@@ -17,17 +17,8 @@ namespace TypeLibrary.Data.Repositories.Ef
         {
         }
 
-        public async Task ChangeState(string id, State state, bool sendStateEmail)
-        {
-            var attribute = await GetAsync(id);
-            await SaveAsync();
-            Detach(attribute);
-        }
-
-
         public async Task<AttributeGroupLibDm> Create(AttributeGroupLibDm attributeGroupLibDm)
         {
-            //BUG: TODO if list is null it fails
 
             await CreateAsync(attributeGroupLibDm);
             await SaveAsync();
@@ -54,14 +45,6 @@ namespace TypeLibrary.Data.Repositories.Ef
                     .ThenInclude(x => x.Attribute)
                     .FirstOrDefault();
             }
-        }
-
-        public AttributeGroupLibDm Update(string id, AttributeGroupLibDm attributeGroupLibDm)
-        {
-            var item = GetSingleAttributeGroup(id);
-            //Do the updates
-            Update(item);
-            return item;
         }
 
         public void ClearAllChangeTrackers()

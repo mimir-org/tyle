@@ -31,7 +31,6 @@ namespace TypeLibrary.Core.Profiles
             .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            //.ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes))
             .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.AttributeGroupAttributes));
 
             CreateMap<AttributeGroupAttributesLibDm, AttributeLibCm>()

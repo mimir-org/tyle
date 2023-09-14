@@ -18,15 +18,13 @@ namespace TypeLibrary.Services.Services
     {
         private readonly IEfAttributeGroupRepository _attributeGroupRepository;
         private readonly IEfAttributeGroupAttributeRepository _attributeGroupAttributeRepository;
-        private readonly ILogService _logService;
         private readonly IEfAttributeRepository _attributeRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<AttributeGroupService> _logger;
 
 
-        public AttributeGroupService(IEfAttributeGroupRepository attributeGroupRepository, IEfAttributeGroupAttributeRepository attributeGroupAttributeRepository, IEfAttributeRepository attributeRepository, ILogService logService, IMapper mapper, ILogger<AttributeGroupService> logger)
+        public AttributeGroupService(IEfAttributeGroupRepository attributeGroupRepository, IEfAttributeGroupAttributeRepository attributeGroupAttributeRepository, IEfAttributeRepository attributeRepository, IMapper mapper, ILogger<AttributeGroupService> logger)
         {
-            _logService = logService;
             _attributeRepository = attributeRepository;
             _attributeGroupRepository = attributeGroupRepository;
             _attributeGroupAttributeRepository = attributeGroupAttributeRepository;
