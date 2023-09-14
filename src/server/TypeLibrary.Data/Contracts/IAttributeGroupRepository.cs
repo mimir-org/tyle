@@ -29,10 +29,10 @@ namespace TypeLibrary.Data.Contracts
         /// <summary>
         /// Create a new attribute group
         /// </summary>
-        /// <param name="attributeAm">The attribute group that should be created</param>    
+        /// <param name="attributeDm">The attribute group that should be created</param>    
         /// <returns>The created attribute group</returns>
         /// <exception cref="MimirorgBadRequestException">Throws if attribute group is not valid</exception>
-        Task<AttributeGroupLibDm> Create(AttributeGroupLibDm attributeAm);
+        Task<AttributeGroupLibDm> Create(AttributeGroupLibDm attributeDm);
 
         /// <summary>
         /// Clear all entity framework change trackers

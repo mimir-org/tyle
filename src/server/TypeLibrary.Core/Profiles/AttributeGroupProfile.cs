@@ -44,19 +44,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Description, opt => opt.Ignore())
                 .ForMember(dest => dest.Iri, opt => opt.Ignore())
                 .ForMember(dest => dest.Kind, opt => opt.Ignore());
-
-
-            CreateMap<AttributeGroupLibCm, ApprovalCm>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.UserId, opt => opt.Ignore())
-                .ForMember(dest => dest.UserName, opt => opt.Ignore())
-                .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => 0))
-                .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => ""))
-                .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => "AttributeGroup"))
-                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.State, opt => opt.Ignore())
-                .ForMember(dest => dest.StateName, opt => opt.Ignore());
+                          
         }
     }
 }
