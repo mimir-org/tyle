@@ -44,7 +44,7 @@ public class SemanticController : ControllerBase
     /// <returns></returns>
     // ReSharper disable once StringLiteralTypo
     [HttpGet("block/{id}")]
-    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

@@ -49,7 +49,7 @@ public class BlockServiceTests : UnitTest<MimirorgCommonFixture>
     [InlineData("Invalid_Block", "Fake_RdsId", null)]
     public async Task Create_Block_Returns_MimirorgBadRequestException_When_Missing_Parameters(string name, string rdsId, string purposeName)
     {
-        var blockToCreate = new BlockLibAm
+        var blockToCreate = new BlockTypeRequest
         {
             Name = name,
             RdsId = rdsId,
@@ -66,7 +66,7 @@ public class BlockServiceTests : UnitTest<MimirorgCommonFixture>
     [InlineData(0)]
     public async Task Create_Block_Returns_MimirorgBadRequestException_When_CompanyId_Is_Not_Greater_Than_Zero(int companyId)
     {
-        var blockToCreate = new BlockLibAm
+        var blockToCreate = new BlockTypeRequest
         {
             Name = "Invalid_Block",
             RdsId = "Fake_RdsId",

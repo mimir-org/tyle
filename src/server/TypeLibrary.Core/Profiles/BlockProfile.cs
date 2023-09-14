@@ -17,7 +17,7 @@ public class BlockProfile : Profile
 {
     public BlockProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor, ICompanyFactory companyFactory)
     {
-        CreateMap<BlockLibAm, BlockType>()
+        CreateMap<BlockTypeRequest, BlockType>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
@@ -41,7 +41,7 @@ public class BlockProfile : Profile
             .ForMember(dest => dest.BlockAttributes, opt => opt.MapFrom(src => src.BlockAttributes));
             //.ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
-        CreateMap<BlockType, BlockLibCm>()
+        CreateMap<BlockType, BlockTypeView>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
@@ -61,7 +61,7 @@ public class BlockProfile : Profile
             .ForMember(dest => dest.BlockAttributes, opt => opt.MapFrom(src => src.BlockAttributes));
             //.ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
-        CreateMap<BlockLibCm, ApprovalCm>()
+        CreateMap<BlockTypeView, ApprovalCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.UserId, opt => opt.Ignore())
@@ -74,12 +74,12 @@ public class BlockProfile : Profile
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
     }
 
-    /*private static IEnumerable<BlockTerminalLibAm> CreateTerminals(ICollection<BlockTerminalLibAm> terminals)
+    /*private static IEnumerable<BlockTerminalRequest> CreateTerminals(ICollection<BlockTerminalRequest> terminals)
     {
         if (terminals == null || !terminals.Any())
             yield break;
 
-        var sortedTerminalTypes = new List<BlockTerminalLibAm>();
+        var sortedTerminalTypes = new List<BlockTerminalRequest>();
 
         foreach (var item in terminals)
         {

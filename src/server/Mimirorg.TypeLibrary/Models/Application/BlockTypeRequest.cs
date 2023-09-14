@@ -2,13 +2,14 @@ using System.ComponentModel.DataAnnotations;
 using Mimirorg.Common.Attributes;
 using Mimirorg.Common.Contracts;
 using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Validators;
 
 namespace Mimirorg.TypeLibrary.Models.Application;
 
 /// <summary>
 /// Object used to create or update a block
 /// </summary>
-public class BlockLibAm // : ICompanyObject
+public class BlockTypeRequest : IValidatableObject // : ICompanyObject
 {
     /// <summary>
     /// The name of the block
@@ -25,7 +26,7 @@ public class BlockLibAm // : ICompanyObject
     /// <remarks>
     /// A description change, will trigger a minor version increase
     /// </remarks>
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     /*/// <summary>
     /// The block version
@@ -62,7 +63,7 @@ public class BlockLibAm // : ICompanyObject
     /// <remarks>
     /// The RDS is not allowed to change
     /// </remarks>
-    public string Notation { get; set; }
+    public string? Notation { get; set; }
 
     /// <summary>
     /// The symbol of the block type
@@ -70,7 +71,7 @@ public class BlockLibAm // : ICompanyObject
     /// <remarks>
     /// A symbol change, will trigger a minor version increase
     /// </remarks>
-    public string Symbol { get; set; }
+    public string? Symbol { get; set; }
 
     /// <summary>
     /// The aspect of the block
@@ -88,7 +89,7 @@ public class BlockLibAm // : ICompanyObject
     /// It is not allowed to remove terminals
     /// Adding terminals generates a major increase
     /// </remarks>
-    public ICollection<BlockTerminalLibAm> BlockTerminals { get; set; }
+    public ICollection<BlockTerminalRequest> BlockTerminals { get; set; }
 
     /// <summary>
     /// A list of attributes
@@ -97,14 +98,26 @@ public class BlockLibAm // : ICompanyObject
     /// It is not allowed to remove attributes
     /// Adding attributes generates a major increase
     /// </remarks>
-    public ICollection<BlockAttributeLibAm> BlockAttributes { get; set; }
+    public ICollection<BlockAttributeRequest> BlockAttributes { get; set; }
 
-    /*/// <summary>
-    /// A list of selected predefined attributes
-    /// </summary>
-    /// <remarks>
-    /// It is not allowed to remove predefined attributes
-    /// Adding predefined attributes generates a major increase
-    /// </remarks>
-    public ICollection<SelectedAttributePredefinedLibAm> SelectedAttributePredefined { get; set; }*/
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        foreach (var validationResult in UniqueCollectionValidator.Validate(ClassifierReferenceIds,
+                     "Classifier reference id"))
+        {
+            yield return validationResult;
+        }
+
+        foreach (var validationResult in UniqueCollectionValidator.Validate(
+                     BlockTerminals.Select(x => (x.TerminalId, x.Direction)), "Terminal id and direction"))
+        {
+            yield return validationResult;
+        }
+
+        foreach (var validationResult in UniqueCollectionValidator.Validate(
+                     BlockAttributes.Select(x => x.AttributeId), "Attribute id"))
+        {
+            yield return validationResult;
+        }
+    }
 }

@@ -47,7 +47,7 @@ public class LibraryBlockControllerTests : IntegrationTest
         const string guid = "2f9e0813-1067-472e-86ea-7c0b47a4eb18";
 
         // Ensure block in fake database
-        var blockToCreate = new BlockLibAm
+        var blockToCreate = new BlockTypeRequest
         {
             Name = $"{guid}_dummy_name",
             RdsId = "rds-id",
