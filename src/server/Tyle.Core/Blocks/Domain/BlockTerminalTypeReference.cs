@@ -1,8 +1,7 @@
-using Mimirorg.Common.Exceptions;
-using Mimirorg.TypeLibrary.Enums;
-using VDS.RDF;
+using Tyle.Core.Common.Exceptions;
+using Tyle.Core.Terminals.Domain;
 
-namespace Mimirorg.TypeLibrary.Models.Domain;
+namespace Tyle.Core.Blocks.Domain;
 
 public class BlockTerminalTypeReference
 {

@@ -1,5 +1,5 @@
 using Tyle.Core.Attributes.Domain;
-using Tyle.Core.Exceptions;
+using Tyle.Core.Common.Exceptions;
 
 namespace Tyle.Core.Terminals.Domain;
 

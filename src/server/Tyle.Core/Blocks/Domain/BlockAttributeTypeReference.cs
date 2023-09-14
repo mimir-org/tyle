@@ -1,6 +1,7 @@
-using Mimirorg.Common.Exceptions;
+using Tyle.Core.Attributes.Domain;
+using Tyle.Core.Common.Exceptions;
 
-namespace Mimirorg.TypeLibrary.Models.Domain;
+namespace Tyle.Core.Blocks.Domain;
 
 public class BlockAttributeTypeReference
 {

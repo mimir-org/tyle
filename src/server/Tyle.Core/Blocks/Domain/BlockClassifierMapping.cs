@@ -1,4 +1,6 @@
-namespace Mimirorg.TypeLibrary.Models.Domain;
+using Tyle.Core.Common.Domain;
+
+namespace Tyle.Core.Blocks.Domain;
 
 public class BlockClassifierMapping
 {

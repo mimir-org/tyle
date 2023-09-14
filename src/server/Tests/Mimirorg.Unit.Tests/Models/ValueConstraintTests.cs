@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
 using Tyle.Core.Attributes.Domain;
-using Tyle.Core.Exceptions;
+using Tyle.Core.Common.Exceptions;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Models;

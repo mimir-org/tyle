@@ -1,4 +1,4 @@
-namespace Tyle.Core.Exceptions;
+namespace Tyle.Core.Common.Exceptions;
 
 [Serializable]
 public class MimirorgBadRequestException : Exception

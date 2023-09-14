@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using Mimirorg.TypeLibrary.Enums;
+using Tyle.Core.Terminals.Domain;
 
-namespace Mimirorg.TypeLibrary.Models.Application;
+namespace Tyle.Application.Blocks.Requests;
 
 public class BlockTerminalRequest : IValidatableObject
 {

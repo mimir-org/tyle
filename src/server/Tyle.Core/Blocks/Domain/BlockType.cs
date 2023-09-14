@@ -1,6 +1,6 @@
-using Mimirorg.TypeLibrary.Enums;
+using Tyle.Core.Common.Domain;
 
-namespace Mimirorg.TypeLibrary.Models.Domain;
+namespace Tyle.Core.Blocks.Domain;
 
 /// <summary>
 /// Block domain model

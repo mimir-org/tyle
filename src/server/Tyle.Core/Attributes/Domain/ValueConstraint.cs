@@ -1,5 +1,5 @@
 using System.Globalization;
-using Tyle.Core.Exceptions;
+using Tyle.Core.Common.Exceptions;
 
 namespace Tyle.Core.Attributes.Domain;
 

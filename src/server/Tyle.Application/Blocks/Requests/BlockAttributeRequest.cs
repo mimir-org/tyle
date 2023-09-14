@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Mimirorg.TypeLibrary.Models.Application;
+namespace Tyle.Application.Blocks.Requests;
 
 public class BlockAttributeRequest : IValidatableObject
 {

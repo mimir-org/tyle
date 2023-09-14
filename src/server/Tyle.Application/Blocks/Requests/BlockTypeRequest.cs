@@ -1,10 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using Mimirorg.Common.Attributes;
-using Mimirorg.Common.Contracts;
-using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Validators;
+using Tyle.Application.Common.Validation;
+using Tyle.Core.Common.Domain;
 
-namespace Mimirorg.TypeLibrary.Models.Application;
+namespace Tyle.Application.Blocks.Requests;
 
 /// <summary>
 /// Object used to create or update a block
