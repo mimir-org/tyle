@@ -118,24 +118,20 @@ namespace TypeLibrary.Services.Services
             if (attributeGroupToUpdate == null)
                 throw new Exception($"Could not find the Attribute group with id: {id}");
 
-
             attributeGroupToUpdate.Name = attributeGroupAm.Name;
             attributeGroupToUpdate.AttributeGroupAttributes ??= new List<AttributeGroupAttributesLibDm>();
             attributeGroupToUpdate.Attributes ??= new List<AttributeLibDm>();
-
-
-            foreach (var item in attributeGroupToUpdate.AttributeGroupAttributes.Select(x => x.AttributeId).Except(attributeGroupAm.AttributeIds).ToList())
+                        
+            var itemsAlreadyInDb = attributeGroupToUpdate.AttributeGroupAttributes.Select(x => x.AttributeId).ToList();            
+                               
+            foreach (var item in itemsAlreadyInDb.Except(attributeGroupAm.AttributeIds.ToList()).ToList())
             {
-                await _attributeGroupAttributeRepository.Delete(item);
+                var attributeGroupAttributeId = attributeGroupToUpdate.AttributeGroupAttributes.Where(x=>x.AttributeId.Equals(item)).FirstOrDefault();
+                await _attributeGroupAttributeRepository.Delete(attributeGroupAttributeId.Id);
             }
 
-
-            foreach (var attributeGroupAttributeItem in attributeGroupAm.AttributeIds)
-            {
-
-                if (attributeGroupToUpdate.AttributeGroupAttributes.Select(x => x.AttributeId).Contains(attributeGroupAttributeItem))
-                    continue;
-
+            foreach (var attributeGroupAttributeItem in attributeGroupAm.AttributeIds.ToList().Except(itemsAlreadyInDb).ToList())
+            {                               
                 if (!attributeGroupToUpdate.AttributeGroupAttributes.Select(x => x.AttributeId).Contains(attributeGroupAttributeItem))
                 {
                     var attributeExist = _attributeRepository.FindBy(x => x.Id.Equals(attributeGroupAttributeItem)).FirstOrDefault();
