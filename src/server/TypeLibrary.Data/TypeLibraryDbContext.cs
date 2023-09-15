@@ -19,7 +19,8 @@ public class TypeLibraryDbContext : DbContext
     public virtual DbSet<BlockAttributeLibDm> BlockAttribute { get; set; }
     public virtual DbSet<TerminalAttributeLibDm> TerminalAttribute { get; set; }
     public virtual DbSet<RdsLibDm> Rds { get; set; }
-
+    public virtual DbSet<AttributeGroupLibDm> AttributeGroup { get; set; }
+    public virtual DbSet<AttributeGroupAttributesLibDm> AttributeGroupAttributes { get; set; }
 
     public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)
     {
@@ -42,5 +43,7 @@ public class TypeLibraryDbContext : DbContext
         modelBuilder.ApplyConfiguration(new BlockAttributeConfiguration());
         modelBuilder.ApplyConfiguration(new TerminalAttributeConfiguration());
         modelBuilder.ApplyConfiguration(new RdsConfiguration());
+        modelBuilder.ApplyConfiguration(new AttributeGroupConfiguration());
+        modelBuilder.ApplyConfiguration(new AttributeGroupAttributesConfiguration());
     }
 }

@@ -48,9 +48,7 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     {
         await CreateAsync(attribute);
         await SaveAsync();
-
         Detach(attribute);
-
         return attribute;
     }
 

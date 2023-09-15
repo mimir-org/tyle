@@ -48,6 +48,7 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IDynamicSymbolDataProvider, EfSymbolRepository>();
         services.AddScoped<IEfLogRepository, EfLogRepository>();
         services.AddScoped<IEfAttributeRepository, EfAttributeRepository>();
+        services.AddScoped<IEfAttributeGroupRepository, EfAttributeGroupRepository>();
         services.AddScoped<IEfUnitRepository, EfUnitRepository>();
         services.AddScoped<IEfQuantityDatumRepository, EfQuantityDatumRepository>();
         services.AddScoped<IEfRdsRepository, EfRdsRepository>();
@@ -55,11 +56,13 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IEfBlockAttributeRepository, EfBlockAttributeRepository>();
         services.AddScoped<IEfTerminalAttributeRepository, EfTerminalAttributeRepository>();
         services.AddScoped<IEfAttributeUnitRepository, EfAttributeUnitRepository>();
+        services.AddScoped<IEfAttributeGroupAttributeRepository, EfAttributeGroupAttributeRepository>();
 
         services.AddScoped<IQuantityDatumRepository, EfQuantityDatumRepository>();
         services.AddScoped<IAttributePredefinedRepository, EfAttributePredefinedRepository>();
         services.AddScoped<IUnitRepository, EfUnitRepository>();
         services.AddScoped<IAttributeRepository, EfAttributeRepository>();
+        services.AddScoped<IAttributeGroupRepository, EfAttributeGroupRepository>();
         services.AddScoped<IPurposeReferenceRepository, PurposeReferenceRepository>();
         services.AddScoped<IBlockRepository, EfBlockRepository>();
         services.AddScoped<IRdsRepository, EfRdsRepository>();
@@ -73,6 +76,7 @@ public static class TypeLibraryModuleExtensions
         // Dependency Injection - Services
         services.AddScoped<ITerminalService, TerminalService>();
         services.AddScoped<IAttributeService, AttributeService>();
+        services.AddScoped<IAttributeGroupService, AttributeGroupService>();
         services.AddScoped<IRdsService, RdsService>();
         services.AddScoped<ISeedingService, SeedingService>();
         services.AddScoped<ISymbolService, SymbolService>();
