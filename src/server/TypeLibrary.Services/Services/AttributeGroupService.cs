@@ -121,17 +121,17 @@ namespace TypeLibrary.Services.Services
             attributeGroupToUpdate.Name = attributeGroupAm.Name;
             attributeGroupToUpdate.AttributeGroupAttributes ??= new List<AttributeGroupAttributesLibDm>();
             attributeGroupToUpdate.Attributes ??= new List<AttributeLibDm>();
-                        
-            var itemsAlreadyInDb = attributeGroupToUpdate.AttributeGroupAttributes.Select(x => x.AttributeId).ToList();            
-                               
+
+            var itemsAlreadyInDb = attributeGroupToUpdate.AttributeGroupAttributes.Select(x => x.AttributeId).ToList();
+
             foreach (var item in itemsAlreadyInDb.Except(attributeGroupAm.AttributeIds.ToList()).ToList())
             {
-                var attributeGroupAttributeId = attributeGroupToUpdate.AttributeGroupAttributes.Where(x=>x.AttributeId.Equals(item)).FirstOrDefault();
+                var attributeGroupAttributeId = attributeGroupToUpdate.AttributeGroupAttributes.Where(x => x.AttributeId.Equals(item)).FirstOrDefault();
                 await _attributeGroupAttributeRepository.Delete(attributeGroupAttributeId.Id);
             }
 
             foreach (var attributeGroupAttributeItem in attributeGroupAm.AttributeIds.ToList().Except(itemsAlreadyInDb).ToList())
-            {                               
+            {
                 if (!attributeGroupToUpdate.AttributeGroupAttributes.Select(x => x.AttributeId).Contains(attributeGroupAttributeItem))
                 {
                     var attributeExist = _attributeRepository.FindBy(x => x.Id.Equals(attributeGroupAttributeItem)).FirstOrDefault();
