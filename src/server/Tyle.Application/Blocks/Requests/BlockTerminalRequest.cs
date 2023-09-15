@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Tyle.Core.Terminals.Domain;
+using Tyle.Core.Terminals;
 
 namespace Tyle.Application.Blocks.Requests;
 

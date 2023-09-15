@@ -1,4 +1,4 @@
-namespace Tyle.Core.Attributes.Domain;
+namespace Tyle.Core.Attributes;
 
 public class AttributeUnitMapping
 {

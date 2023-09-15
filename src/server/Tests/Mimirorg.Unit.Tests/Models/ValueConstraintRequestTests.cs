@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
-using Tyle.Core.Attributes.Domain;
+using Tyle.Core.Attributes;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Models;

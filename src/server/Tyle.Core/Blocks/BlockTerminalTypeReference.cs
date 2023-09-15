@@ -1,7 +1,7 @@
 using Tyle.Core.Common.Exceptions;
-using Tyle.Core.Terminals.Domain;
+using Tyle.Core.Terminals;
 
-namespace Tyle.Core.Blocks.Domain;
+namespace Tyle.Core.Blocks;
 
 public class BlockTerminalTypeReference
 {

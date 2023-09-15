@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using Tyle.Core.Attributes.Domain;
+using Tyle.Core.Attributes;
 
 namespace Tyle.Application.Attributes.Requests;
 

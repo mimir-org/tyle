@@ -1,6 +1,6 @@
 using Tyle.Application.Common.Views;
-using Tyle.Core.Common.Domain;
-using Tyle.Core.Terminals.Domain;
+using Tyle.Core.Common;
+using Tyle.Core.Terminals;
 
 namespace Tyle.Application.Terminals.Views;
 

@@ -1,6 +1,6 @@
-using Tyle.Core.Common.Domain;
+using Tyle.Core.Common;
 
-namespace Tyle.Core.Blocks.Domain;
+namespace Tyle.Core.Blocks;
 
 public class BlockClassifierMapping
 {

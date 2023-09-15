@@ -1,4 +1,4 @@
-namespace Tyle.Core.Common.Domain;
+namespace Tyle.Core.Common;
 
 public enum Aspect
 {

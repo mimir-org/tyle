@@ -1,7 +1,7 @@
 using System.Globalization;
 using Tyle.Core.Common.Exceptions;
 
-namespace Tyle.Core.Attributes.Domain;
+namespace Tyle.Core.Attributes;
 
 public class ValueConstraint
 {

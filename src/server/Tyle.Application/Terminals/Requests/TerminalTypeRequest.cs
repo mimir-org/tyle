@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Tyle.Application.Common.Validation;
-using Tyle.Core.Common.Domain;
-using Tyle.Core.Terminals.Domain;
+using Tyle.Core.Common;
+using Tyle.Core.Terminals;
 
 // ReSharper disable InconsistentNaming
 

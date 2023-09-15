@@ -1,19 +1,19 @@
-using Tyle.Core.Attributes.Domain;
+using Tyle.Core.Attributes;
 using Tyle.Core.Common.Exceptions;
 
-namespace Tyle.Core.Terminals.Domain;
+namespace Tyle.Core.Blocks;
 
-public class TerminalAttributeTypeReference
+public class BlockAttributeTypeReference
 {
     public int Id { get; set; }
     public int MinCount { get; set; }
     public int? MaxCount { get; set; }
-    public Guid TerminalId { get; set; }
-    public TerminalType Terminal { get; set; } = null!;
+    public Guid BlockId { get; set; }
+    public BlockType Block { get; set; } = null!;
     public Guid AttributeId { get; set; }
     public AttributeType Attribute { get; set; } = null!;
 
-    public TerminalAttributeTypeReference(Guid terminalId, Guid attributeId, int minCount, int? maxCount = null)
+    public BlockAttributeTypeReference(Guid blockId, Guid attributeId, int minCount, int? maxCount = null)
     {
         if (minCount < 0) throw new MimirorgBadRequestException("The attribute min count cannot be negative.");
 
@@ -21,7 +21,7 @@ public class TerminalAttributeTypeReference
             throw new MimirorgBadRequestException(
                 "The attribute min count cannot be larger than the attribute max count.");
 
-        TerminalId = terminalId;
+        BlockId = blockId;
         AttributeId = attributeId;
         MinCount = minCount;
         MaxCount = maxCount;

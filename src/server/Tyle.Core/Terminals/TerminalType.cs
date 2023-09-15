@@ -1,6 +1,6 @@
-using Tyle.Core.Common.Domain;
+using Tyle.Core.Common;
 
-namespace Tyle.Core.Terminals.Domain;
+namespace Tyle.Core.Terminals;
 
 public class TerminalType : ImfType
 {
