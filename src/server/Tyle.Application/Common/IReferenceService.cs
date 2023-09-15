@@ -1,18 +1,19 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
-using Mimirorg.TypeLibrary.Models.Domain;
+using Tyle.Application.Attributes.Requests;
+using Tyle.Application.Common.Requests;
+using Tyle.Application.Terminals.Requests;
+using Tyle.Core.Attributes;
+using Tyle.Core.Common;
+using Tyle.Core.Terminals;
 
-namespace TypeLibrary.Services.Contracts;
+namespace Tyle.Application.Common;
 
 public interface IReferenceService
 {
-    IEnumerable<ClassifierReference> GetAllClassifiers();
-    IEnumerable<MediumReference> GetAllMedia();
-    IEnumerable<PredicateReference> GetAllPredicates();
-    IEnumerable<PurposeReference> GetAllPurposes();
-    IEnumerable<UnitReference> GetAllUnits();
+    Task<IEnumerable<ClassifierReference>> GetAllClassifiers();
+    Task<IEnumerable<MediumReference>> GetAllMedia();
+    Task<IEnumerable<PredicateReference>> GetAllPredicates();
+    Task<IEnumerable<PurposeReference>> GetAllPurposes();
+    Task<IEnumerable<UnitReference>> GetAllUnits();
 
     Task<ClassifierReference> GetClassifier(int id);
     Task<MediumReference> GetMedium(int id);

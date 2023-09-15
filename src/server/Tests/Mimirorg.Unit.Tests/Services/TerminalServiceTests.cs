@@ -2,6 +2,7 @@ using System;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
+using Tyle.Core.Common.Exceptions;
 using TypeLibrary.Services.Services;
 using Xunit;
 

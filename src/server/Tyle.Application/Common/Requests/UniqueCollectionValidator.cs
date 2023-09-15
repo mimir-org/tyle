@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Tyle.Application.Common.Validation;
+namespace Tyle.Application.Common.Requests;
 
 public static class UniqueCollectionValidator
 {

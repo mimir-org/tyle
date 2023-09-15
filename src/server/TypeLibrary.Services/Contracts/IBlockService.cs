@@ -6,6 +6,11 @@ using Mimirorg.TypeLibrary.Models.Client;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
 
 namespace TypeLibrary.Services.Contracts;
 
@@ -22,7 +27,7 @@ public interface IBlockService
     /// </summary>
     /// <param name="id">The id of the block</param>
     /// <returns>The block of given id</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if there is no block with the given id.</exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException">Throws if there is no block with the given id.</exception>
     BlockTypeView Get(Guid id);
 
     /*/// <summary>
@@ -49,9 +54,9 @@ public interface IBlockService
     /// <param name="id">The id of the block to update</param>
     /// <param name="request">The new block values</param>
     /// <returns>The updated block</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if the block with the given id is not found.</exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException">Throws if the block with the given id is not found.</exception>
     /// <exception cref="MimirorgBadRequestException">Throws if the block is not valid.</exception>
-    /// <exception cref="MimirorgInvalidOperationException">Throws if the block is a state that makes it invalid for updates,
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgInvalidOperationException">Throws if the block is a state that makes it invalid for updates,
     /// a draft already exists for this type or if changes are not allowed.</exception>
     Task<BlockTypeView> Update(Guid id, BlockTypeRequest request);
 
@@ -59,8 +64,8 @@ public interface IBlockService
     ///  Delete a block, it can't be approved
     /// </summary>
     /// <param name="id">The id of the block to delete</param>
-    /// <exception cref="MimirorgNotFoundException">Throws if the block with the given id is not found.</exception>
-    /// <exception cref="MimirorgInvalidOperationException">Throws if the block in question can't be deleted.</exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException">Throws if the block with the given id is not found.</exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgInvalidOperationException">Throws if the block in question can't be deleted.</exception>
     Task Delete(Guid id);
 
     /*/// <summary>

@@ -7,6 +7,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Exceptions;
 using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
 
 namespace TypeLibrary.Services.Contracts;
 
@@ -23,7 +28,7 @@ public interface ITerminalService
     /// </summary>
     /// <param name="id">The id of the terminal</param>
     /// <returns>The terminal of given id</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id.</exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException">Throws if there is no terminal with the given id.</exception>
     TerminalTypeView Get(Guid id);
 
     /// <summary>
@@ -40,17 +45,17 @@ public interface ITerminalService
     /// <param name="id">The id of the terminal that should be updated</param>
     /// <param name="terminalAm">The new terminal values</param>
     /// <returns>The updated terminal</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id.</exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException">Throws if there is no terminal with the given id.</exception>
     /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException">Throws if the new terminal values are not valid.</exception>
-    /// <exception cref="MimirorgInvalidOperationException">Throws if the terminal is not a draft or approved.</exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgInvalidOperationException">Throws if the terminal is not a draft or approved.</exception>
     Task<TerminalTypeView> Update(Guid id, TerminalTypeRequest terminalAm);
 
     /// <summary>
     ///  Delete a terminal, it can't be approved
     /// </summary>
     /// <param name="id">The id of the terminal to delete</param>
-    /// <exception cref="MimirorgNotFoundException">Throws if the terminal with the given id is not found.</exception>
-    /// <exception cref="MimirorgInvalidOperationException">Throws if the terminal in question can't be deleted.</exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException">Throws if the terminal with the given id is not found.</exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgInvalidOperationException">Throws if the terminal in question can't be deleted.</exception>
     Task Delete(Guid id);
 
     /*/// <summary>

@@ -19,6 +19,20 @@ using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
 using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
 
 namespace Mimirorg.Authentication.Services;
 
@@ -48,7 +62,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// </summary>
     /// <param name="principal"></param>
     /// <returns></returns>
-    /// <exception cref="MimirorgNotFoundException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
     public async Task<MimirorgUserCm> GetUser(IPrincipal principal)
     {
         if (principal?.Identity?.Name == null)
@@ -75,7 +89,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// </summary>
     /// <param name="id"></param>
     /// <returns>UserCm</returns>
-    /// <exception cref="MimirorgNotFoundException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
     public async Task<MimirorgUserCm> GetUser(string id)
     {
         var user = await _userManager.FindByIdAsync(id);
@@ -122,8 +136,8 @@ public class MimirorgUserService : IMimirorgUserService
     /// </summary>
     /// <param name="userAm">New last name</param>
     /// <returns>UserCm</returns>
-    /// <exception cref="MimirorgNotFoundException"></exception>
-    /// <exception cref="MimirorgInvalidOperationException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgInvalidOperationException"></exception>
     public async Task<MimirorgUserCm> UpdateUser(MimirorgUserAm userAm)
     {
         var user = await _userManager.FindByEmailAsync(userAm.Email);
@@ -148,7 +162,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// <param name="principal"></param>
     /// <param name="permission"></param>
     /// <returns>A collection of company ids</returns>
-    /// <exception cref="MimirorgNotFoundException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
     public async Task<ICollection<int>> GetCompaniesForUser(IPrincipal principal, MimirorgPermission permission)
     {
         if (principal?.Identity?.Name == null)
@@ -168,7 +182,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// <returns></returns>
     /// <exception cref="MimirorgConfigurationException"></exception>
     /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="MimirorgInvalidOperationException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgInvalidOperationException"></exception>
     /// <exception cref="MimirorgDuplicateException"></exception>
     public async Task<MimirorgUserCm> CreateUser(MimirorgUserAm userAm)
     {
@@ -194,8 +208,8 @@ public class MimirorgUserService : IMimirorgUserService
     /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="MimirorgConfigurationException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    /// <exception cref="MimirorgNotFoundException"></exception>
-    /// <exception cref="MimirorgInvalidOperationException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgInvalidOperationException"></exception>
     public async Task<MimirorgQrCodeCm> GenerateTwoFactor(MimirorgVerifyAm verifyEmail)
     {
         if (_authSettings == null)
@@ -234,7 +248,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// </summary>
     /// <param name="email">The email address for the user secret token</param>
     /// <returns>A completed task</returns>
-    /// <exception cref="MimirorgInvalidOperationException">Throws if user does not exist</exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgInvalidOperationException">Throws if user does not exist</exception>
     public async Task GenerateChangePasswordSecret(string email)
     {
         var user = await _userManager.FindByEmailAsync(email);
@@ -256,7 +270,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// </summary>
     /// <param name="changePassword">Object information for resetting password</param>
     /// <returns>A completed task</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if user or token not exist</exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException">Throws if user or token not exist</exception>
     public async Task<bool> ChangePassword(MimirorgChangePasswordAm changePassword)
     {
         var regToken = await _tokenRepository.FindBy(x =>
@@ -317,8 +331,8 @@ public class MimirorgUserService : IMimirorgUserService
     /// </summary>
     /// <param name="verifyEmail">The email verify data</param>
     /// <returns>bool</returns>
-    /// <exception cref="MimirorgInvalidOperationException"></exception>
-    /// <exception cref="MimirorgNotFoundException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgInvalidOperationException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
     public async Task<bool> VerifyAccount(MimirorgVerifyAm verifyEmail)
     {
         var regToken = await _tokenRepository.FindBy(x => x.Secret == verifyEmail.Code && x.Email == verifyEmail.Email).FirstOrDefaultAsync(x => x.TokenType == MimirorgTokenType.VerifyEmail);
@@ -461,7 +475,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// <param name="userAm">User data</param>
     /// <param name="existingUser">Existing user</param>
     /// <returns>The updated user</returns>
-    /// <exception cref="MimirorgInvalidOperationException">Throws if user could not be updated or password could be changed</exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgInvalidOperationException">Throws if user could not be updated or password could be changed</exception>
     /// <remarks>This is the workflow for register new user, if the user did not fulfilled the registration the first time</remarks>
     private async Task<MimirorgUserCm> UpdateTempUser(MimirorgUserAm userAm, MimirorgUser existingUser)
     {
@@ -487,7 +501,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// </summary>
     /// <param name="userAm">User data</param>
     /// <returns>The created user</returns>
-    /// <exception cref="MimirorgInvalidOperationException">Throws if user could not be created</exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgInvalidOperationException">Throws if user could not be created</exception>
     /// <remarks>This is the workflow for register new user, if the user did not fulfilled the registration the first time</remarks>
     private async Task<MimirorgUserCm> CreateNewUser(MimirorgUserAm userAm)
     {

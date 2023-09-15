@@ -8,6 +8,10 @@ using Exceptions;
 using Exceptions;
 using Exceptions;
 using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
 
 namespace Mimirorg.Authentication.Contracts;
 
@@ -55,7 +59,7 @@ public interface IMimirorgAuthService
     /// <param name="userRole">MimirorgUserRoleAm</param>
     /// <returns>bool</returns>
     /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="MimirorgNotFoundException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
     Task<bool> AddUserToRole(MimirorgUserRoleAm userRole);
 
     /// <summary>
@@ -64,7 +68,7 @@ public interface IMimirorgAuthService
     /// <param  name="userRole">MimirorgUserRoleAm</param>
     /// <returns>bool</returns>
     /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="MimirorgNotFoundException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
     Task<bool> RemoveUserFromRole(MimirorgUserRoleAm userRole);
 
     /// <summary>
@@ -79,7 +83,7 @@ public interface IMimirorgAuthService
     /// <param name="userPermission">MimirorgUserPermissionAm</param>
     /// <returns>Completed task</returns>
     /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="MimirorgNotFoundException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
     Task SetPermission(MimirorgUserPermissionAm userPermission);
 
     /// <summary>
@@ -88,7 +92,7 @@ public interface IMimirorgAuthService
     /// <param name="userPermission">MimirorgUserPermissionAm</param>
     /// <returns>Completed task</returns>
     /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="MimirorgNotFoundException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
     Task RemovePermission(MimirorgUserPermissionAm userPermission);
 
     /// <summary>

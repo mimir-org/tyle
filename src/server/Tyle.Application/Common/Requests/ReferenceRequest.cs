@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Tyle.Application.Common.Validation;
 
 namespace Tyle.Application.Common.Requests;
 

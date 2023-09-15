@@ -21,6 +21,10 @@ using Exceptions;
 using Exceptions;
 using Exceptions;
 using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
+using Exceptions;
 
 namespace Mimirorg.Authentication.Services;
 
@@ -164,7 +168,7 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// <param name="userRole">MimirorgUserRoleAm</param>
     /// <returns>bool</returns>
     /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="MimirorgNotFoundException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
     public async Task<bool> AddUserToRole(MimirorgUserRoleAm userRole)
     {
         var validation = userRole.ValidateObject();
@@ -193,7 +197,7 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// <param  name="userRole">MimirorgUserRoleAm</param>
     /// <returns>bool</returns>
     /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="MimirorgNotFoundException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
     public async Task<bool> RemoveUserFromRole(MimirorgUserRoleAm userRole)
     {
         var validation = userRole.ValidateObject();
@@ -232,7 +236,7 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// <param name="userPermission">MimirorgUserPermissionAm</param>
     /// <returns>Completed task</returns>
     /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="MimirorgNotFoundException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
     public async Task SetPermission(MimirorgUserPermissionAm userPermission)
     {
         var validation = userPermission.ValidateObject();
@@ -269,7 +273,7 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// <param name="userPermission">MimirorgUserPermissionAm</param>
     /// <returns>Completed task</returns>
     /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="MimirorgNotFoundException"></exception>
+    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
     public async Task RemovePermission(MimirorgUserPermissionAm userPermission)
     {
         var validation = userPermission.ValidateObject();
