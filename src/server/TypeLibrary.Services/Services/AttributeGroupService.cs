@@ -124,7 +124,7 @@ namespace TypeLibrary.Services.Services
             attributeGroupToUpdate.Attributes ??= new List<AttributeLibDm>();
 
 
-            foreach (var item in attributeGroupToUpdate.AttributeGroupAttributes.Select(x => x.Id).Except(attributeGroupAm.AttributeIds).ToList())
+            foreach (var item in attributeGroupToUpdate.AttributeGroupAttributes.Select(x => x.AttributeId).Except(attributeGroupAm.AttributeIds).ToList())
             {
                 await _attributeGroupAttributeRepository.Delete(item);
             }
