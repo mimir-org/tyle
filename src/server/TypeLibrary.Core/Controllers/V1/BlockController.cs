@@ -153,11 +153,11 @@ public class BlockController : ControllerBase
         }
     }
 
-    /*/// <summary>
+    /// <summary>
     /// Update a block
     /// </summary>
     /// <param name="id">The id of the block that should be updated</param>
-    /// <param name="block">The new values of the block</param>
+    /// <param name="request">The new values of the block</param>
     /// <returns>The updated block</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(BlockTypeView), StatusCodes.Status200OK)]
@@ -166,15 +166,12 @@ public class BlockController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "block", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] BlockTypeRequest block)
+    [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
+    public async Task<IActionResult> Update(Guid id, [FromBody] BlockTypeRequest request)
     {
         try
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var data = await _blockService.Update(id, block);
+            var data = await _blockService.Update(id, request);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)
@@ -194,7 +191,7 @@ public class BlockController : ControllerBase
             _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
-    }*/
+    }
 
     /// <summary>
     /// Delete a block that is not approved

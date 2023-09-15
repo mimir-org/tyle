@@ -60,7 +60,7 @@ public class MimirorgCommonFixture : IDisposable
         MimirorgAuthSettings.RequiredLength = 10;
     }
 
-    public (BlockTypeRequest am, BlockType dm) CreateBlockTestData()
+    /*public (BlockTypeRequest am, BlockType dm) CreateBlockTestData()
     {
         var blockLibAm = new BlockTypeRequest
         {
@@ -95,7 +95,7 @@ public class MimirorgCommonFixture : IDisposable
                     Key = "555"
                 }
             },
-            TypeReference = "https://www.tyle.com/"*/
+            TypeReference = "https://www.tyle.com/"
         };
 
         var blockLibDm = new BlockType
@@ -106,7 +106,7 @@ public class MimirorgCommonFixture : IDisposable
             //RdsId = "AA",
             Aspect = Aspect.Function,
             BlockTerminals = new List<BlockTerminalTypeReference>()
-            /*{
+            {
                 new()
                 {
                     Direction = Direction.Input,
@@ -123,11 +123,11 @@ public class MimirorgCommonFixture : IDisposable
                     Key = "123"
                 }
             },
-            TypeReference = "https://www.tyle.com/"*/
+            TypeReference = "https://www.tyle.com/"
         };
 
         return (blockLibAm, blockLibDm);
-    }
+    }*/
 
     public void Dispose()
     {

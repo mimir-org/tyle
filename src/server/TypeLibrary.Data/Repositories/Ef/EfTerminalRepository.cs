@@ -76,6 +76,8 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
         await CreateAsync(terminal);
         await SaveAsync();
 
+        Detach(terminal);
+
         return terminal;
     }
 

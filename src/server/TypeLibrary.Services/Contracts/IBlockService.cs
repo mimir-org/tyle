@@ -36,24 +36,24 @@ public interface IBlockService
     /// <summary>
     /// Create a new block
     /// </summary>
-    /// <param name="blockAm">The block that should be created</param>
+    /// <param name="request">The block that should be created</param>
     /// <returns>The created block</returns>
     /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException">Throws if block is not valid</exception>
     /// <remarks>Remember that creating a new block could be creating a new version of existing block.
     /// They will have the same first version id, but have different version and id.</remarks>
-    Task<BlockTypeView> Create(BlockTypeRequest blockAm);
+    Task<BlockTypeView> Create(BlockTypeRequest request);
 
-    /*/// <summary>
+    /// <summary>
     /// Update a block if the data is allowed to be changed.
     /// </summary>
     /// <param name="id">The id of the block to update</param>
-    /// <param name="blockAm">The new block values</param>
+    /// <param name="request">The new block values</param>
     /// <returns>The updated block</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the block with the given id is not found.</exception>
     /// <exception cref="MimirorgBadRequestException">Throws if the block is not valid.</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the block is a state that makes it invalid for updates,
     /// a draft already exists for this type or if changes are not allowed.</exception>
-    Task<BlockTypeView> Update(string id, BlockTypeRequest blockAm);*/
+    Task<BlockTypeView> Update(Guid id, BlockTypeRequest request);
 
     /// <summary>
     ///  Delete a block, it can't be approved

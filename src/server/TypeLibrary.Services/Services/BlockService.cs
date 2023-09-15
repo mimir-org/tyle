@@ -19,6 +19,7 @@ using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Services.Contracts;
+using TypeLibrary.Data.Repositories.Ef;
 
 namespace TypeLibrary.Services.Services;
 
@@ -29,28 +30,34 @@ public class BlockService : IBlockService
     private readonly IAttributeRepository _attributeRepository;
     private readonly IEfBlockTerminalRepository _blockTerminalRepository;
     private readonly IEfBlockAttributeRepository _blockAttributeRepository;
+    private readonly IEfTerminalRepository _terminalRepository;
     private readonly IAttributeService _attributeService;
-    private readonly ITerminalService _terminalService;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
     private readonly ILogger<BlockService> _logger;
     private readonly IHttpContextAccessor _contextAccessor;
     private readonly IEmailService _emailService;
+    private readonly IEfBlockClassifierRepository _blockClassifierRepository;
+    private readonly IEfClassifierRepository _classifierRepository;
+    private readonly IEfPurposeRepository _purposeRepository;
 
-    public BlockService(IMapper mapper, IEfBlockRepository blockRepository, IAttributeRepository attributeRepository, IEfBlockTerminalRepository blockTerminalRepository, IEfBlockAttributeRepository blockAttributeRepository, ITerminalService terminalService, IAttributeService attributeService, ITimedHookService hookService, ILogService logService, ILogger<BlockService> logger, IHttpContextAccessor contextAccessor, IEmailService emailService)
+    public BlockService(IMapper mapper, IEfBlockRepository blockRepository, IAttributeRepository attributeRepository, IEfBlockTerminalRepository blockTerminalRepository, IEfBlockAttributeRepository blockAttributeRepository, IEfTerminalRepository terminalRepository, IAttributeService attributeService, ITimedHookService hookService, ILogService logService, ILogger<BlockService> logger, IHttpContextAccessor contextAccessor, IEmailService emailService, IEfBlockClassifierRepository blockClassifierRepository, IEfClassifierRepository classifierRepository, IEfPurposeRepository purposeRepository)
     {
         _mapper = mapper;
         _blockRepository = blockRepository;
         _attributeRepository = attributeRepository;
         _blockTerminalRepository = blockTerminalRepository;
         _blockAttributeRepository = blockAttributeRepository;
-        _terminalService = terminalService;
+        _terminalRepository = terminalRepository;
         _attributeService = attributeService;
         _hookService = hookService;
         _logService = logService;
         _logger = logger;
         _contextAccessor = contextAccessor;
         _emailService = emailService;
+        _blockClassifierRepository = blockClassifierRepository;
+        _classifierRepository = classifierRepository;
+        _purposeRepository = purposeRepository;
     }
 
     /// <inheritdoc />
@@ -95,37 +102,29 @@ public class BlockService : IBlockService
     }*/
 
     /// <inheritdoc />
-    public async Task<BlockTypeView> Create(BlockTypeRequest blockAm)
+    public async Task<BlockTypeView> Create(BlockTypeRequest request)
     {
-        if (blockAm == null)
-            throw new ArgumentNullException(nameof(blockAm));
+        if (request == null)
+            throw new ArgumentNullException(nameof(request));
 
-        var validation = blockAm.ValidateObject();
+        //var validation = request.ValidateObject();
 
-        if (!validation.IsValid)
-            throw new MimirorgBadRequestException("Block is not valid.", validation);
+        //if (!validation.IsValid)
+            //throw new MimirorgBadRequestException("Block is not valid.", validation);
 
-        //blockAm.Version = "1.0";
-        var dm = _mapper.Map<BlockType>(blockAm);
+        //request.Version = "1.0";
+        var dm = new BlockType(request.Name, request.Description, _contextAccessor.GetUserId());
+
+        await SetBlockTypeFields(dm, request);
 
         //dm.FirstVersionId ??= dm.Id;
         //dm.State = State.Draft;
 
-        foreach (var blockTerminal in dm.BlockTerminals)
-        {
-            blockTerminal.Block = dm;
-        }
-
-        foreach (var blockAttribute in dm.BlockAttributes)
-        {
-            blockAttribute.Block = dm;
-        }
-
         /*dm.BlockAttributes = new List<BlockAttributeTypeReference>();
 
-        if (blockAm.Attributes != null)
+        if (request.Attributes != null)
         {
-            foreach (var attributeId in blockAm.Attributes)
+            foreach (var attributeId in request.Attributes)
             {
                 var attribute = _attributeRepository.Get(attributeId);
 
@@ -145,23 +144,23 @@ public class BlockService : IBlockService
         _hookService.HookQueue.Enqueue(CacheKey.Block);
         //await _logService.CreateLog(createdBlock, LogType.Create, createdBlock?.State.ToString(), createdBlock?.CreatedBy);
 
-        return Get(createdBlock!.Id);
+        return Get(createdBlock.Id);
     }
 
-    /*/// <inheritdoc />
-    public async Task<BlockTypeView> Update(string id, BlockTypeRequest blockAm)
+    /// <inheritdoc />
+    public async Task<BlockTypeView> Update(Guid id, BlockTypeRequest request)
     {
-        var validation = blockAm.ValidateObject();
+        /*var validation = request.ValidateObject();
 
         if (!validation.IsValid)
-            throw new MimirorgBadRequestException("Block is not valid.", validation);
+            throw new MimirorgBadRequestException("Block is not valid.", validation);*/
 
-        var blockToUpdate = _blockRepository.FindBy(x => x.Id == id, false).Include(x => x.BlockTerminals).Include(x => x.BlockAttributes).AsSplitQuery().FirstOrDefault();
+        var blockToUpdate = _blockRepository.Get(id);
 
         if (blockToUpdate == null)
             throw new MimirorgNotFoundException("Block not found. Update is not possible.");
 
-        if (blockToUpdate.State != State.Approved && blockToUpdate.State != State.Draft)
+        /*if (blockToUpdate.State != State.Approved && blockToUpdate.State != State.Draft)
             throw new MimirorgInvalidOperationException("Update can only be performed on block drafts or approved blocks.");
 
         // If the block we want to update is approved, we want to make sure it is the latest version of this object
@@ -174,34 +173,48 @@ public class BlockService : IBlockService
                 throw new MimirorgInvalidOperationException($"Cannot create new version draft for this object, a draft or newer approved version already exists (id: {latestVersion.Id}).");
         }
 
-        blockAm.Version = CalculateVersion(blockAm, blockToUpdate);
+        request.Version = CalculateVersion(request, blockToUpdate);
 
         BlockTypeView blockToReturn;
 
         if (blockToUpdate.State == State.Approved)
-            blockToReturn = await CreateNewDraft(blockAm, blockToUpdate);
+            blockToReturn = await CreateNewDraft(request, blockToUpdate);
         else
-            blockToReturn = await UpdateDraft(blockAm, blockToUpdate);
+            blockToReturn = await UpdateDraft(request, blockToUpdate);*/
+
+        blockToUpdate.Name = request.Name;
+        blockToUpdate.Description = request.Description;
+        if (blockToUpdate.CreatedBy != _contextAccessor.GetUserId())
+            blockToUpdate.ContributedBy.Add(_contextAccessor.GetUserId());
+        blockToUpdate.LastUpdateOn = DateTimeOffset.Now;
+
+        await SetBlockTypeFields(blockToUpdate, request);
+
+        _blockRepository.Update(blockToUpdate);
+        await _blockClassifierRepository.SaveAsync();
+        await _blockTerminalRepository.SaveAsync();
+        await _blockAttributeRepository.SaveAsync();
+        await _blockRepository.SaveAsync();
 
         _blockRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Block);
 
-        return blockToReturn;
+        return Get(blockToUpdate.Id);
     }
 
-    private string CalculateVersion(BlockTypeRequest blockAm, BlockType blockToUpdate)
+    /*private string CalculateVersion(BlockTypeRequest request, BlockType blockToUpdate)
     {
         var latestApprovedVersion = _blockRepository.Get().LatestVersionApproved(blockToUpdate.FirstVersionId);
 
         if (latestApprovedVersion == null)
             return "1.0";
 
-        var validation = latestApprovedVersion.HasIllegalChanges(blockAm);
+        var validation = latestApprovedVersion.HasIllegalChanges(request);
 
         if (!validation.IsValid)
             throw new MimirorgInvalidOperationException(validation.Message);
 
-        var versionStatus = latestApprovedVersion.CalculateVersionStatus(blockAm);
+        var versionStatus = latestApprovedVersion.CalculateVersionStatus(request);
 
         return versionStatus switch
         {
@@ -210,9 +223,9 @@ public class BlockService : IBlockService
         };
     }
 
-    private async Task<BlockTypeView> CreateNewDraft(BlockTypeRequest blockAm, BlockType blockToUpdate)
+    private async Task<BlockTypeView> CreateNewDraft(BlockTypeRequest request, BlockType blockToUpdate)
     {
-        var dm = _mapper.Map<BlockType>(blockAm);
+        var dm = _mapper.Map<BlockType>(request);
 
         dm.State = State.Draft;
         dm.FirstVersionId = blockToUpdate.FirstVersionId;
@@ -224,9 +237,9 @@ public class BlockService : IBlockService
 
         dm.BlockAttributes = new List<BlockAttributeTypeReference>();
 
-        if (blockAm.Attributes != null)
+        if (request.Attributes != null)
         {
-            foreach (var attributeId in blockAm.Attributes)
+            foreach (var attributeId in request.Attributes)
             {
                 var attribute = _attributeRepository.Get(attributeId);
                 if (attribute == null)
@@ -247,23 +260,23 @@ public class BlockService : IBlockService
         return Get(createdBlock?.Id);
     }
 
-    private async Task<BlockTypeView> UpdateDraft(BlockTypeRequest blockAm, BlockType blockToUpdate)
+    private async Task<BlockTypeView> UpdateDraft(BlockTypeRequest request, BlockType blockToUpdate)
     {
-        blockToUpdate.Name = blockAm.Name;
-        blockToUpdate.TypeReference = blockAm.TypeReference;
-        blockToUpdate.Version = blockAm.Version;
-        blockToUpdate.PurposeName = blockAm.PurposeName;
-        blockToUpdate.RdsId = blockAm.RdsId;
-        blockToUpdate.Symbol = blockAm.Symbol;
-        blockToUpdate.Description = blockAm.Description;
+        blockToUpdate.Name = request.Name;
+        blockToUpdate.TypeReference = request.TypeReference;
+        blockToUpdate.Version = request.Version;
+        blockToUpdate.PurposeName = request.PurposeName;
+        blockToUpdate.RdsId = request.RdsId;
+        blockToUpdate.Symbol = request.Symbol;
+        blockToUpdate.Description = request.Description;
 
         if (blockToUpdate.Version == VersionConstant.OnePointZero)
         {
-            blockToUpdate.Aspect = blockAm.Aspect;
-            blockToUpdate.CompanyId = blockAm.CompanyId;
+            blockToUpdate.Aspect = request.Aspect;
+            blockToUpdate.CompanyId = request.CompanyId;
         }
 
-        var tempDm = _mapper.Map<BlockType>(blockAm);
+        var tempDm = _mapper.Map<BlockType>(request);
 
         blockToUpdate.SelectedAttributePredefined = tempDm.SelectedAttributePredefined;
         blockToUpdate.BlockTerminals ??= new List<BlockTerminalTypeReference>();
@@ -297,9 +310,9 @@ public class BlockService : IBlockService
         var currentBlockAttributes = blockToUpdate.BlockAttributes.ToHashSet();
         var newBlockAttributes = new HashSet<BlockAttributeTypeReference>();
 
-        if (blockAm.Attributes != null)
+        if (request.Attributes != null)
         {
-            foreach (var attributeId in blockAm.Attributes)
+            foreach (var attributeId in request.Attributes)
             {
                 var attribute = _attributeRepository.Get(attributeId);
 
@@ -421,4 +434,130 @@ public class BlockService : IBlockService
     {
         return _blockRepository.HasCompany(id);
     }*/
+
+    private async Task SetBlockTypeFields(BlockType dm, BlockTypeRequest request)
+    {
+        ValidateBlockTerminals(request.BlockTerminals, dm.Aspect);
+
+        var classifiersToRemove = new List<BlockClassifierMapping>();
+
+        foreach (var classifier in dm.Classifiers)
+        {
+            if (request.ClassifierReferenceIds.Contains(classifier.ClassifierId)) continue;
+
+            classifiersToRemove.Add(classifier);
+            await _blockClassifierRepository.Delete(classifier.Id);
+        }
+
+        foreach (var classifierToRemove in classifiersToRemove)
+        {
+            dm.Classifiers.Remove(classifierToRemove);
+        }
+
+        foreach (var classifierReferenceId in request.ClassifierReferenceIds)
+        {
+            if (dm.Classifiers.Select(x => x.ClassifierId).Contains(classifierReferenceId)) continue;
+
+            var classifier = await _classifierRepository.GetAsync(classifierReferenceId) ??
+                             throw new MimirorgBadRequestException(
+                                 $"No classifier reference with id {classifierReferenceId} found.");
+            dm.Classifiers.Add(new BlockClassifierMapping(dm.Id, classifierReferenceId));
+        }
+
+        if (request.PurposeReferenceId != null)
+        {
+            var purpose = await _purposeRepository.GetAsync((int) request.PurposeReferenceId) ??
+                          throw new MimirorgBadRequestException(
+                              $"No purpose reference with id {request.PurposeReferenceId} found.");
+            dm.PurposeId = purpose.Id;
+        }
+        else
+        {
+            dm.PurposeId = null;
+            dm.Purpose = null;
+        }
+
+        dm.Notation = request.Notation;
+        dm.Symbol = request.Symbol;
+        dm.Aspect = request.Aspect;
+
+        var terminalsToRemove = new List<BlockTerminalTypeReference>();
+
+        foreach (var terminal in dm.BlockTerminals)
+        {
+            if (request.BlockTerminals.Any(x => x.TerminalId == terminal.TerminalId && x.Direction == terminal.Direction)) continue;
+
+            terminalsToRemove.Add(terminal);
+            await _blockTerminalRepository.Delete(terminal.Id);
+        }
+
+        foreach (var terminalToRemove in terminalsToRemove)
+        {
+            dm.BlockTerminals.Remove(terminalToRemove);
+        }
+
+        foreach (var blockTerminal in request.BlockTerminals)
+        {
+            if (dm.BlockTerminals.Any(x => x.TerminalId == blockTerminal.TerminalId && x.Direction == blockTerminal.Direction))
+            {
+                var savedBlockTerminal =
+                    _blockTerminalRepository.FindBy(x => x.BlockId == dm.Id && x.TerminalId == blockTerminal.TerminalId && x.Direction == blockTerminal.Direction, false).FirstOrDefault();
+                savedBlockTerminal!.MinCount = blockTerminal.MinCount;
+                savedBlockTerminal.MaxCount = blockTerminal.MaxCount;
+            }
+            else
+            {
+                dm.BlockTerminals.Add(new BlockTerminalTypeReference(dm.Id, blockTerminal.TerminalId, blockTerminal.Direction, blockTerminal.MinCount, blockTerminal.MaxCount));
+            }
+        }
+
+        var attributesToRemove = new List<BlockAttributeTypeReference>();
+
+        foreach (var attribute in dm.BlockAttributes)
+        {
+            if (request.BlockAttributes.Any(x => x.AttributeId == attribute.AttributeId)) continue;
+
+            attributesToRemove.Add(attribute);
+            await _blockAttributeRepository.Delete(attribute.Id);
+        }
+
+        foreach (var attributeToRemove in attributesToRemove)
+        {
+            dm.BlockAttributes.Remove(attributeToRemove);
+        }
+
+        foreach (var blockAttribute in request.BlockAttributes)
+        {
+            if (dm.BlockAttributes.Any(x => x.AttributeId == blockAttribute.AttributeId))
+            {
+                var savedBlockAttribute =
+                    _blockAttributeRepository.FindBy(x => x.BlockId == dm.Id && x.AttributeId == blockAttribute.AttributeId, false).FirstOrDefault();
+                savedBlockAttribute!.MinCount = blockAttribute.MinCount;
+                savedBlockAttribute.MaxCount = blockAttribute.MaxCount;
+            }
+            else
+            {
+                dm.BlockAttributes.Add(new BlockAttributeTypeReference(dm.Id, blockAttribute.AttributeId, blockAttribute.MinCount, blockAttribute.MaxCount));
+            }
+        }
+    }
+
+    private void ValidateBlockTerminals(IEnumerable<BlockTerminalRequest> blockTerminals, Aspect blockAspect)
+    {
+        foreach (var blockTerminal in blockTerminals)
+        {
+            var terminal = _terminalRepository.Get(blockTerminal.TerminalId);
+            
+            if (terminal.Aspect != null && terminal.Aspect != blockAspect)
+            {
+                throw new MimirorgBadRequestException($"A {terminal.Aspect} terminal cannot be assigned to a {blockAspect} block.");
+            }
+
+            if (terminal.Qualifier != Direction.Bidirectional && terminal.Qualifier != blockTerminal.Direction)
+            {
+                throw new MimirorgBadRequestException(
+                    $"A terminal with qualifier {terminal.Qualifier} cannot be used as an {blockTerminal.Direction.ToString().ToLower()} terminal.");
+            }
+        }
+    }
 }
