@@ -55,6 +55,7 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IEfPredicateRepository, EfPredicateRepository>();
         services.AddScoped<IEfPurposeRepository, EfPurposeRepository>();
         services.AddScoped<IEfUnitRepository, EfUnitRepository>();
+        services.AddScoped<IEfBlockClassifierRepository, EfBlockClassifierRepository>();
         services.AddScoped<IEfTerminalClassifierRepository, EfTerminalClassifierRepository>();
         services.AddScoped<IEfAttributeUnitRepository, EfAttributeUnitRepository>();
 

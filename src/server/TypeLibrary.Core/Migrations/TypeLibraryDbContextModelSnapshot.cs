@@ -161,6 +161,29 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Block_Attribute", (string)null);
                 });
 
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.BlockClassifierMapping", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("BlockId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ClassifierId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlockId");
+
+                    b.HasIndex("ClassifierId");
+
+                    b.ToTable("BlockClassifierMapping");
+                });
+
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.BlockTerminalTypeReference", b =>
                 {
                     b.Property<int>("Id")
@@ -861,6 +884,25 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Block");
                 });
 
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.BlockClassifierMapping", b =>
+                {
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.BlockType", "Block")
+                        .WithMany("Classifiers")
+                        .HasForeignKey("BlockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Domain.ClassifierReference", "Classifier")
+                        .WithMany()
+                        .HasForeignKey("ClassifierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Block");
+
+                    b.Navigation("Classifier");
+                });
+
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.BlockTerminalTypeReference", b =>
                 {
                     b.HasOne("Mimirorg.TypeLibrary.Models.Domain.BlockType", "Block")
@@ -965,6 +1007,8 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("BlockAttributes");
 
                     b.Navigation("BlockTerminals");
+
+                    b.Navigation("Classifiers");
                 });
 
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Domain.TerminalType", b =>
