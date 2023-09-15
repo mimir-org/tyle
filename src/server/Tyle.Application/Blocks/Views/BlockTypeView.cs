@@ -1,7 +1,4 @@
-using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Domain;
-
-namespace Mimirorg.TypeLibrary.Models.Client;
+namespace Tyle.Application.Blocks.Views;
 
 public class BlockTypeView : ImfTypeView
 {

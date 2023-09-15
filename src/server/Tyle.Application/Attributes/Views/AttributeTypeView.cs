@@ -1,9 +1,7 @@
-using Mimirorg.Common.Contracts;
-using Mimirorg.Common.Enums;
-using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Domain;
+using Tyle.Application.Common.Views;
+using Tyle.Core.Attributes.Domain;
 
-namespace Mimirorg.TypeLibrary.Models.Client;
+namespace Tyle.Application.Attributes.Views;
 
 public class AttributeTypeView : ImfTypeView // : IStatefulObject
 {

@@ -1,6 +1,4 @@
-using Mimirorg.TypeLibrary.Enums;
-
-namespace Mimirorg.TypeLibrary.Models.Client;
+namespace Tyle.Application.Blocks.Views;
 
 public class TerminalTypeReferenceView : TerminalTypeView
 {

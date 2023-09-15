@@ -1,6 +1,6 @@
-using Mimirorg.TypeLibrary.Enums;
+using Tyle.Core.Attributes.Domain;
 
-namespace Mimirorg.TypeLibrary.Models.Client;
+namespace Tyle.Application.Attributes.Views;
 
 public class ValueConstraintView
 {

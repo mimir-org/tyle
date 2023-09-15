@@ -1,4 +1,6 @@
-namespace Mimirorg.TypeLibrary.Models.Client;
+using Tyle.Application.Attributes.Views;
+
+namespace Tyle.Application.Common.Views;
 
 public class AttributeTypeReferenceView : AttributeTypeView
 {

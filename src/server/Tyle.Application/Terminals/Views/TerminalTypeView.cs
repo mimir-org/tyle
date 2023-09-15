@@ -1,7 +1,8 @@
-using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Domain;
+using Tyle.Application.Common.Views;
+using Tyle.Core.Common.Domain;
+using Tyle.Core.Terminals.Domain;
 
-namespace Mimirorg.TypeLibrary.Models.Client;
+namespace Tyle.Application.Terminals.Views;
 
 public class TerminalTypeView : ImfTypeView
 {

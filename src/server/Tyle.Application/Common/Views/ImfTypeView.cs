@@ -1,4 +1,4 @@
-namespace Mimirorg.TypeLibrary.Models.Client;
+namespace Tyle.Application.Common.Views;
 
 public abstract class ImfTypeView
 {
