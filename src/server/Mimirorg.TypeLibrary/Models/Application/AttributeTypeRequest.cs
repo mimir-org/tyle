@@ -44,5 +44,29 @@ public class AttributeTypeRequest : IValidatableObject
         {
             yield return validationResult;
         }
+
+        if (UnitMightBeRequired())
+        {
+            if (!(UnitMaxCount == 0 || (UnitMinCount == 1 && UnitReferenceIds.Count == 1)))
+            {
+                yield return new ValidationResult(
+                    "When setting a numerical constraint, the value must either have no unit or have a specified unit.");
+            }
+        }
+    }
+
+    private bool UnitMightBeRequired()
+    {
+        if (ValueConstraint == null) return false;
+
+        if (ValueConstraint.ConstraintType == ConstraintType.Range) return true;
+
+        if (ValueConstraint.ConstraintType is ConstraintType.HasValue or ConstraintType.In &&
+            ValueConstraint.DataType is XsdDataType.Decimal or XsdDataType.Integer)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -30,8 +30,8 @@ public class BlockService : IBlockService
     private readonly IAttributeRepository _attributeRepository;
     private readonly IEfBlockTerminalRepository _blockTerminalRepository;
     private readonly IEfBlockAttributeRepository _blockAttributeRepository;
+    private readonly IEfTerminalRepository _terminalRepository;
     private readonly IAttributeService _attributeService;
-    private readonly ITerminalService _terminalService;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
     private readonly ILogger<BlockService> _logger;
@@ -41,14 +41,14 @@ public class BlockService : IBlockService
     private readonly IEfClassifierRepository _classifierRepository;
     private readonly IEfPurposeRepository _purposeRepository;
 
-    public BlockService(IMapper mapper, IEfBlockRepository blockRepository, IAttributeRepository attributeRepository, IEfBlockTerminalRepository blockTerminalRepository, IEfBlockAttributeRepository blockAttributeRepository, ITerminalService terminalService, IAttributeService attributeService, ITimedHookService hookService, ILogService logService, ILogger<BlockService> logger, IHttpContextAccessor contextAccessor, IEmailService emailService, IEfBlockClassifierRepository blockClassifierRepository, IEfClassifierRepository classifierRepository, IEfPurposeRepository purposeRepository)
+    public BlockService(IMapper mapper, IEfBlockRepository blockRepository, IAttributeRepository attributeRepository, IEfBlockTerminalRepository blockTerminalRepository, IEfBlockAttributeRepository blockAttributeRepository, IEfTerminalRepository terminalRepository, IAttributeService attributeService, ITimedHookService hookService, ILogService logService, ILogger<BlockService> logger, IHttpContextAccessor contextAccessor, IEmailService emailService, IEfBlockClassifierRepository blockClassifierRepository, IEfClassifierRepository classifierRepository, IEfPurposeRepository purposeRepository)
     {
         _mapper = mapper;
         _blockRepository = blockRepository;
         _attributeRepository = attributeRepository;
         _blockTerminalRepository = blockTerminalRepository;
         _blockAttributeRepository = blockAttributeRepository;
-        _terminalService = terminalService;
+        _terminalRepository = terminalRepository;
         _attributeService = attributeService;
         _hookService = hookService;
         _logService = logService;
@@ -437,6 +437,8 @@ public class BlockService : IBlockService
 
     private async Task SetBlockTypeFields(BlockType dm, BlockTypeRequest request)
     {
+        ValidateBlockTerminals(request.BlockTerminals, dm.Aspect);
+
         var classifiersToRemove = new List<BlockClassifierMapping>();
 
         foreach (var classifier in dm.Classifiers)
@@ -536,6 +538,25 @@ public class BlockService : IBlockService
             else
             {
                 dm.BlockAttributes.Add(new BlockAttributeTypeReference(dm.Id, blockAttribute.AttributeId, blockAttribute.MinCount, blockAttribute.MaxCount));
+            }
+        }
+    }
+
+    private void ValidateBlockTerminals(IEnumerable<BlockTerminalRequest> blockTerminals, Aspect blockAspect)
+    {
+        foreach (var blockTerminal in blockTerminals)
+        {
+            var terminal = _terminalRepository.Get(blockTerminal.TerminalId);
+            
+            if (terminal.Aspect != null && terminal.Aspect != blockAspect)
+            {
+                throw new MimirorgBadRequestException($"A {terminal.Aspect} terminal cannot be assigned to a {blockAspect} block.");
+            }
+
+            if (terminal.Qualifier != Direction.Bidirectional && terminal.Qualifier != blockTerminal.Direction)
+            {
+                throw new MimirorgBadRequestException(
+                    $"A terminal with qualifier {terminal.Qualifier} cannot be used as an {blockTerminal.Direction.ToString().ToLower()} terminal.");
             }
         }
     }
