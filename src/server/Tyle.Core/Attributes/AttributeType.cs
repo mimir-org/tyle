@@ -4,19 +4,18 @@ namespace Tyle.Core.Attributes;
 
 public class AttributeType : ImfType
 {
-    public int? PredicateId { get; set; }
-    public PredicateReference? Predicate { get; set; }
-    public ICollection<AttributeUnitMapping> Units { get; }
-    public int UnitMinCount { get; set; }
-    public int UnitMaxCount { get; set; }
-    public ProvenanceQualifier? ProvenanceQualifier { get; set; }
-    public RangeQualifier? RangeQualifier { get; set; }
-    public RegularityQualifier? RegularityQualifier { get; set; }
-    public ScopeQualifier? ScopeQualifier { get; set; }
-    public ValueConstraint? ValueConstraint { get; set; }
+    public PredicateReference? Predicate { get; }
+    public ICollection<UnitReference> Units { get; }
+    public int UnitMinCount { get; }
+    public int UnitMaxCount { get; }
+    public ProvenanceQualifier? ProvenanceQualifier { get; }
+    public RangeQualifier? RangeQualifier { get; }
+    public RegularityQualifier? RegularityQualifier { get; }
+    public ScopeQualifier? ScopeQualifier { get; }
+    public ValueConstraint? ValueConstraint { get; }
 
-    public AttributeType(string name, string? description, string createdBy) : base(name, description, createdBy)
+    public AttributeType(string name, string? description, User createdBy) : base(name, description, createdBy)
     {
-        Units = new List<AttributeUnitMapping>();
+        Units = new HashSet<UnitReference>();
     }
 }

@@ -3,15 +3,15 @@ namespace Tyle.Core.Common;
 public abstract class ImfType
 {
     public Guid Id { get; }
-    public string Name { get; set; }
-    public string? Description { get; set; }
-    public string Version { get; private set; }
+    public string Name { get; }
+    public string? Description { get; }
+    public string Version { get; }
     public DateTimeOffset CreatedOn { get; }
-    public string CreatedBy { get; }
-    public ICollection<string> ContributedBy { get; }
-    public DateTimeOffset LastUpdateOn { get; set; }
+    public User CreatedBy { get; }
+    public ICollection<User> ContributedBy { get; }
+    public DateTimeOffset LastUpdateOn { get; }
 
-    protected ImfType(string name, string? description, string createdBy)
+    protected ImfType(string name, string? description, User createdBy)
     {
         Id = Guid.NewGuid();
         Name = name;
@@ -19,7 +19,7 @@ public abstract class ImfType
         Version = "1.0";
         CreatedOn = DateTimeOffset.Now;
         CreatedBy = createdBy;
-        ContributedBy = new HashSet<string>();
+        ContributedBy = new HashSet<User>();
         LastUpdateOn = CreatedOn;
     }
 }
