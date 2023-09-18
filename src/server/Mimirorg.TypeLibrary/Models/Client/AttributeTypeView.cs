@@ -1,7 +1,4 @@
-using Tyle.Application.Common.Views;
-using Tyle.Core.Attributes;
-
-namespace Tyle.Application.Attributes.Views;
+namespace Mimirorg.TypeLibrary.Models.Client;
 
 public class AttributeTypeView : ImfTypeView // : IStatefulObject
 {

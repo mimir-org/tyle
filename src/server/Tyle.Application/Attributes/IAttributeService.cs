@@ -1,5 +1,4 @@
 using Tyle.Application.Attributes.Requests;
-using Tyle.Application.Attributes.Views;
 using Tyle.Core.Common.Exceptions;
 
 namespace Tyle.Application.Attributes;

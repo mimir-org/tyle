@@ -1,29 +1,33 @@
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using Tyle.Core.Attributes;
 
 namespace Tyle.Application.Attributes.Requests;
 
 public class ValueConstraintRequest : IValidatableObject
 {
     [Required]
-    public ConstraintType ConstraintType { get; set; }
+    public ConstraintType ConstraintType { get; }
 
-    public string? Value { get; set; }
+    public XsdDataType DataType { get; }
+
+    [Range(0, int.MaxValue, ErrorMessage = "Min count must be null or above zero.")]
+    public int? MinCount { get; }
+
+    public int? MaxCount { get; }
+
+    public string? Value { get; }
     
-    public ICollection<string>? AllowedValues { get; set; }
+    public ICollection<string>? ValueList { get; }
 
-    public XsdDataType DataType { get; set; }
-
-    [Range(0, 1, ErrorMessage = "Min count must be null, 0 or 1.")]
-    public int? MinCount { get; set; }
-
-    public string? Pattern { get; set; }
+    public string? Pattern { get; }
     
-    public decimal? MinValue { get; set; }
-    public decimal? MaxValue { get; set; }
-    public bool? MinInclusive { get; set; }
-    public bool? MaxInclusive { get; set; }
+    public decimal? MinValue { get; }
+
+    public decimal? MaxValue { get; }
+
+    public bool? MinInclusive { get; }
+
+    public bool? MaxInclusive { get; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
@@ -40,11 +44,19 @@ public class ValueConstraintRequest : IValidatableObject
             {
                 yield return new ValidationResult("Min count must be set when the constraint type is not HasValue.");
             }
+            else if (MaxCount < MinCount)
+            {
+                yield return new ValidationResult("The max count can't be smaller than the min count.");
+            }
         }
 
         switch (ConstraintType)
         {
             case ConstraintType.HasValue:
+                if (DataType == XsdDataType.Boolean)
+                {
+                    yield return new ValidationResult("Constraints of type HasValue can't have data type boolean.");
+                }
                 if (Value == null)
                 {
                     yield return new ValidationResult("Constraints of type HasValue must specify a value.");
@@ -55,13 +67,17 @@ public class ValueConstraintRequest : IValidatableObject
                 }
                 break;
             case ConstraintType.In:
-                if (AllowedValues == null || AllowedValues.Count < 2)
+                if (DataType == XsdDataType.Boolean)
+                {
+                    yield return new ValidationResult("Constraints of type In can't have data type boolean.");
+                }
+                if (ValueList == null || ValueList.Count < 2)
                 {
                     yield return new ValidationResult("Constraints of type In must specify at least two possible values.");
                 }
                 else
                 {
-                    foreach (var value in AllowedValues)
+                    foreach (var value in ValueList)
                     {
                         if (!ValidateAgainstDataType(value, DataType, out var result))
                         {
@@ -90,12 +106,31 @@ public class ValueConstraintRequest : IValidatableObject
                     yield return new ValidationResult(
                         "Constraints of type Range must have data type decimal or integer.");
                 }
-                // Null and type checking for this constraint type is performed in controller and ValueConstraint constructor.
+                if (MinValue == null && MaxValue == null)
+                {
+                    yield return new ValidationResult("Constraints of type Range must provide at least an upper or lower bound.");
+                }
+                if (MinValue != null && MinInclusive == null)
+                {
+                    yield return new ValidationResult("When providing a lower bound, the lower inclusive/exclusive parameter must be set.");
+                }
+                if (MaxValue != null && MaxInclusive == null)
+                {
+                    yield return new ValidationResult("When providing an upper bound, the upper inclusive/exclusive parameter must be set.");
+                }
+                if (DataType == XsdDataType.Decimal && MinValue >= MaxValue)
+                {
+                    yield return new ValidationResult("The upper bound must be larger than the lower bound.");
+                }
+                else if (DataType == XsdDataType.Integer && (int?)MinValue >= (int?)MaxValue)
+                {
+                    yield return new ValidationResult("The upper bound must be larger than the lower bound.");
+                }
                 break;
         }
     }
 
-    private static bool ValidateAgainstDataType(string value, XsdDataType dataType, out ValidationResult result)
+    private static bool ValidateAgainstDataType(string value, XsdDataType dataType, out ValidationResult? result)
     {
         IFormatProvider provider = CultureInfo.InvariantCulture;
         switch (dataType)
@@ -112,9 +147,6 @@ public class ValueConstraintRequest : IValidatableObject
                 return false;
             case XsdDataType.Integer when !int.TryParse(value, out var _):
                 result = new ValidationResult("Values with data type integer must be a valid integer.");
-                return false;
-            case XsdDataType.Boolean when !bool.TryParse(value, out var _): 
-                result = new ValidationResult("Values with data type boolean must be true or false.");
                 return false;
             default:
                 result = null;

@@ -7,25 +7,30 @@ namespace Tyle.Application.Attributes.Requests;
 public class AttributeTypeRequest : IValidatableObject
 {
     [Required]
-    public string Name { get; set; }
+    public string Name { get; }
 
-    public string? Description { get; set; }
+    public string? Description { get; }
 
-    public int? PredicateReferenceId { get; set; }
+    public int? PredicateReferenceId { get; }
 
     [Required]
-    public ICollection<int> UnitReferenceIds { get; set; }
-    [Required, Range(0, 1, ErrorMessage = "The unit min count must be 0 or 1.")]
-    public int UnitMinCount { get; set; }
-    [Required, Range(0, 1, ErrorMessage = "The unit max count must be 0 or 1.")]
-    public int UnitMaxCount { get; set; }
+    public ICollection<int> UnitReferenceIds { get; }
 
-    public ProvenanceQualifier? ProvenanceQualifier { get; set; }
-    public RangeQualifier? RangeQualifier { get; set; }
-    public RegularityQualifier? RegularityQualifier { get; set; }
-    public ScopeQualifier? ScopeQualifier { get; set; }
+    [Required, Range(0, 1, ErrorMessage = "The unit min count must be 0 or 1.")]
+    public int UnitMinCount { get; }
+
+    [Required, Range(0, 1, ErrorMessage = "The unit max count must be 0 or 1.")]
+    public int UnitMaxCount { get; }
+
+    public ProvenanceQualifier? ProvenanceQualifier { get; }
+
+    public RangeQualifier? RangeQualifier { get; }
+
+    public RegularityQualifier? RegularityQualifier { get; }
+
+    public ScopeQualifier? ScopeQualifier { get; }
     
-    public ValueConstraintRequest? ValueConstraint { get; set; }
+    public ValueConstraintRequest? ValueConstraint { get; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
@@ -34,38 +39,9 @@ public class AttributeTypeRequest : IValidatableObject
             yield return new ValidationResult("The unit min count cannot be larger than the unit max count.");
         }
 
-        if (UnitMaxCount == 0 && UnitReferenceIds.Count > 0)
-        {
-            yield return new ValidationResult("Unit max count is 0, but the unit list is not empty.");
-        }
-
         foreach (var validationResult in UniqueCollectionValidator.Validate(UnitReferenceIds, "Unit reference id"))
         {
             yield return validationResult;
         }
-
-        if (UnitMightBeRequired())
-        {
-            if (!(UnitMaxCount == 0 || (UnitMinCount == 1 && UnitReferenceIds.Count == 1)))
-            {
-                yield return new ValidationResult(
-                    "When setting a numerical constraint, the value must either have no unit or have a specified unit.");
-            }
-        }
-    }
-
-    private bool UnitMightBeRequired()
-    {
-        if (ValueConstraint == null) return false;
-
-        if (ValueConstraint.ConstraintType == ConstraintType.Range) return true;
-
-        if (ValueConstraint.ConstraintType is ConstraintType.HasValue or ConstraintType.In &&
-            ValueConstraint.DataType is XsdDataType.Decimal or XsdDataType.Integer)
-        {
-            return true;
-        }
-
-        return false;
     }
 }

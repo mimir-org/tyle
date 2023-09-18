@@ -1,8 +1,4 @@
-using Tyle.Application.Common.Views;
-using Tyle.Core.Common;
-using Tyle.Core.Terminals;
-
-namespace Tyle.Application.Terminals.Views;
+namespace Mimirorg.TypeLibrary.Models.Client;
 
 public class TerminalTypeView : ImfTypeView
 {

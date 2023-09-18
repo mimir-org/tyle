@@ -1,16 +1,16 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Tyle.Application.Terminals.Requests;
+namespace Tyle.Application.Common.Requests;
 
-public class TerminalAttributeRequest : IValidatableObject
+public class AttributeTypeReferenceRequest : IValidatableObject
 {
     [Required, Range(0, int.MaxValue, ErrorMessage = "The attribute min count cannot be negative.")]
-    public int MinCount { get; set; }
+    public int MinCount { get; }
 
-    public int? MaxCount { get; set; }
+    public int? MaxCount { get; }
 
     [Required]
-    public Guid AttributeId { get; set; }
+    public Guid AttributeId { get; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

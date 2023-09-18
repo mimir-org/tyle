@@ -1,4 +1,4 @@
-namespace Tyle.Application.Blocks.Views;
+namespace Mimirorg.TypeLibrary.Models.Client;
 
 public class TerminalTypeReferenceView : TerminalTypeView
 {

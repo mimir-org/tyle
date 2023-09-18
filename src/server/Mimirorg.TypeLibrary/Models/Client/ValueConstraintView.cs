@@ -1,7 +1,4 @@
-using Tyle.Application.Attributes.Requests;
-using Tyle.Core.Attributes;
-
-namespace Tyle.Application.Attributes.Views;
+namespace Mimirorg.TypeLibrary.Models.Client;
 
 public class ValueConstraintView
 {
