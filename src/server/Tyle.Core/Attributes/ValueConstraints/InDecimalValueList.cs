@@ -1,6 +1,8 @@
+using Tyle.Core.Common;
+
 namespace Tyle.Core.Attributes.ValueConstraints;
 
-public class InDecimalValueList : CardinalityConstraint, IValueConstraint
+public class InDecimalValueList : HasCardinality, IValueConstraint
 {
     public ICollection<decimal> ValueList { get; }
 

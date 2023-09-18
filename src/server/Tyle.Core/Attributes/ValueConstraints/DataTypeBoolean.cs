@@ -1,6 +1,8 @@
+using Tyle.Core.Common;
+
 namespace Tyle.Core.Attributes.ValueConstraints;
 
-public class DataTypeBoolean : CardinalityConstraint, IValueConstraint
+public class DataTypeBoolean : HasCardinality, IValueConstraint
 {
     /// <summary>
     /// Creates a new boolean data type constraint.

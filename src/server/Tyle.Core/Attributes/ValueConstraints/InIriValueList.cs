@@ -1,6 +1,8 @@
+using Tyle.Core.Common;
+
 namespace Tyle.Core.Attributes.ValueConstraints;
 
-public class InIriValueList : CardinalityConstraint, IValueConstraint
+public class InIriValueList : HasCardinality, IValueConstraint
 {
     public ICollection<Uri> ValueList { get; }
 

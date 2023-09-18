@@ -1,4 +1,4 @@
-namespace Tyle.Core.Attributes;
+namespace Tyle.Application.Attributes.Requests;
 
 public enum ConstraintType
 {

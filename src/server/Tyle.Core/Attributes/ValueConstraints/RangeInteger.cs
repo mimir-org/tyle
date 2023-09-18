@@ -1,6 +1,8 @@
+using Tyle.Core.Common;
+
 namespace Tyle.Core.Attributes.ValueConstraints;
 
-public class RangeInteger : CardinalityConstraint, IValueConstraint
+public class RangeInteger : HasCardinality, IValueConstraint
 {
     public int? MinValue { get; }
     public int? MaxValue { get; }

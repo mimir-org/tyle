@@ -1,11 +1,11 @@
-namespace Tyle.Core.Attributes.ValueConstraints;
+namespace Tyle.Core.Common;
 
-public abstract class CardinalityConstraint
+public abstract class HasCardinality
 {
     public int MinCount { get; }
     public int? MaxCount { get; }
 
-    protected CardinalityConstraint(int minCount, int? maxCount = null)
+    protected HasCardinality(int minCount, int? maxCount = null)
     {
         if (minCount < 0)
         {

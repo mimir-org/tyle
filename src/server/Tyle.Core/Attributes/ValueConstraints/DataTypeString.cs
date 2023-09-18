@@ -1,6 +1,8 @@
+using Tyle.Core.Common;
+
 namespace Tyle.Core.Attributes.ValueConstraints;
 
-public class DataTypeString : CardinalityConstraint, IValueConstraint
+public class DataTypeString : HasCardinality, IValueConstraint
 {
     /// <summary>
     /// Creates a new string data type constraint.

@@ -1,6 +1,8 @@
+using Tyle.Core.Common;
+
 namespace Tyle.Core.Attributes.ValueConstraints;
 
-public class RangeDecimal : CardinalityConstraint, IValueConstraint
+public class RangeDecimal : HasCardinality, IValueConstraint
 {
     public decimal? MinValue { get; }
     public decimal? MaxValue { get; }

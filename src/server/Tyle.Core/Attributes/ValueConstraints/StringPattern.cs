@@ -1,8 +1,9 @@
 using System.Text.RegularExpressions;
+using Tyle.Core.Common;
 
 namespace Tyle.Core.Attributes.ValueConstraints;
 
-public class StringPattern : CardinalityConstraint, IValueConstraint
+public class StringPattern : HasCardinality, IValueConstraint
 {
     public string Pattern { get; }
 

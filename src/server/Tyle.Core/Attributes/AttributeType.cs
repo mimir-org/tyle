@@ -19,10 +19,10 @@ public class AttributeType : ImfType
     /// Creates a new attribute type.
     /// </summary>
     /// <param name="name">The name of the attribute type.</param>
-    /// <param name="description">The description of the attribute type. Can be null.</param>
+    /// <param name="description">A description of the attribute type. Can be null.</param>
     /// <param name="createdBy">A user struct containing information about the user creating the type.</param>
     public AttributeType(string name, string? description, User createdBy) : base(name, description, createdBy)
     {
-        Units = new HashSet<UnitReference>();
+        Units = new List<UnitReference>();
     }
 }

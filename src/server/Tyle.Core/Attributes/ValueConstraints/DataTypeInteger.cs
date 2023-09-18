@@ -1,6 +1,8 @@
+using Tyle.Core.Common;
+
 namespace Tyle.Core.Attributes.ValueConstraints;
 
-public class DataTypeInteger : CardinalityConstraint, IValueConstraint
+public class DataTypeInteger : HasCardinality, IValueConstraint
 {
     /// <summary>
     /// Creates a new integer data type constraint.

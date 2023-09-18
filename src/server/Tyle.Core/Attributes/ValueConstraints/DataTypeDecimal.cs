@@ -1,6 +1,8 @@
+using Tyle.Core.Common;
+
 namespace Tyle.Core.Attributes.ValueConstraints;
 
-public class DataTypeDecimal : CardinalityConstraint, IValueConstraint
+public class DataTypeDecimal : HasCardinality, IValueConstraint
 {
     /// <summary>
     /// Creates a new decimal data type constraint.
