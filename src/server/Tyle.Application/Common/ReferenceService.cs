@@ -51,74 +51,59 @@ public class ReferenceService : IReferenceService
         return await _unitRepository.GetAll();
     }
 
-    public async Task<ClassifierReference> GetClassifier(int id)
+    public async Task<ClassifierReference?> GetClassifier(int id)
     {
-        var classifier = await _classifierRepository.Get(id) ?? throw new KeyNotFoundException($"Classifier with id {id} not found.");
-        return classifier;
+        return await _classifierRepository.Get(id);
     }
 
-    public async Task<MediumReference> GetMedium(int id)
+    public async Task<MediumReference?> GetMedium(int id)
     {
-        var medium = await _mediumRepository.Get(id) ?? throw new KeyNotFoundException($"Medium with id {id} not found.");
-        return medium;
+        return await _mediumRepository.Get(id);
     }
 
-    public async Task<PredicateReference> GetPredicate(int id)
+    public async Task<PredicateReference?> GetPredicate(int id)
     {
-        var predicate = await _predicateRepository.Get(id) ?? throw new KeyNotFoundException($"Predicate with id {id} not found.");
-        return predicate;
+        return await _predicateRepository.Get(id);
     }
 
-    public async Task<PurposeReference> GetPurpose(int id)
+    public async Task<PurposeReference?> GetPurpose(int id)
     {
-        var purpose = await _purposeRepository.Get(id) ?? throw new KeyNotFoundException($"Purpose with id {id} not found.");
-        return purpose;
+        return await _purposeRepository.Get(id);
     }
 
-    public async Task<UnitReference> GetUnit(int id)
+    public async Task<UnitReference?> GetUnit(int id)
     {
-        var unit = await _unitRepository.Get(id) ?? throw new KeyNotFoundException($"Unit with id {id} not found.");
-        return unit;
+        return await _unitRepository.Get(id);
     }
 
     public async Task<ClassifierReference> CreateClassifier(ClassifierReferenceRequest request)
     {
         var classifier = new ClassifierReference(request.Name, new Uri(request.Iri), request.Description);
-        await _classifierRepository.Create(classifier);
-
-        return await GetClassifier(classifier.Id);
+        return await _classifierRepository.Create(classifier);
     }
 
     public async Task<MediumReference> CreateMedium(MediumReferenceRequest request)
     {
         var medium = new MediumReference(request.Name, new Uri(request.Iri), request.Description);
-        await _mediumRepository.Create(medium);
-
-        return await GetMedium(medium.Id);
+        return await _mediumRepository.Create(medium);
     }
 
     public async Task<PredicateReference> CreatePredicate(PredicateReferenceRequest request)
     {
         var predicate = new PredicateReference(request.Name, new Uri(request.Iri), request.Description);
-        await _predicateRepository.Create(predicate);
-
-        return await GetPredicate(predicate.Id);
+        return await _predicateRepository.Create(predicate);
     }
 
     public async Task<PurposeReference> CreatePurpose(PurposeReferenceRequest request)
     {
         var purpose = new PurposeReference(request.Name, new Uri(request.Iri), request.Description);
-        await _purposeRepository.Create(purpose);
-
-        return await GetPurpose(purpose.Id);
+        return await _purposeRepository.Create(purpose);
     }
 
     public async Task<UnitReference> CreateUnit(UnitReferenceRequest request)
     {
         var unit = new UnitReference(request.Name, new Uri(request.Iri), request.Symbol, request.Description);
-        await _unitRepository.Create(unit);
-
-        return await GetUnit(unit.Id);
+        return await _unitRepository.Create(unit);
     }
 
     public async Task DeleteClassifier(int id)
