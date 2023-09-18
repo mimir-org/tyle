@@ -1,3 +1,4 @@
+using Tyle.Core.Attributes.ValueConstraints;
 using Tyle.Core.Common;
 
 namespace Tyle.Core.Attributes;
@@ -12,8 +13,14 @@ public class AttributeType : ImfType
     public RangeQualifier? RangeQualifier { get; }
     public RegularityQualifier? RegularityQualifier { get; }
     public ScopeQualifier? ScopeQualifier { get; }
-    public ValueConstraint? ValueConstraint { get; }
+    public IValueConstraint? ValueConstraint { get; }
 
+    /// <summary>
+    /// Creates a new attribute type.
+    /// </summary>
+    /// <param name="name">The name of the attribute type.</param>
+    /// <param name="description">The description of the attribute type. Can be null.</param>
+    /// <param name="createdBy">A user struct containing information about the user creating the type.</param>
     public AttributeType(string name, string? description, User createdBy) : base(name, description, createdBy)
     {
         Units = new HashSet<UnitReference>();

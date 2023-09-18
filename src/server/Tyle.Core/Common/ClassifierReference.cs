@@ -9,7 +9,7 @@ public class ClassifierReference : RdlReference
     /// <param name="iri">The reference IRI.</param>
     /// <param name="description">A description of the classifier reference. Can be null.</param>
     /// <param name="source">The source of the classifier reference. The default value is user submission.</param>
-    /// /// <exception cref="ArgumentException">Thrown if the given IRI is not an absolute URI.</exception>
+    /// <exception cref="ArgumentException">Thrown if the given IRI is not an absolute URI.</exception>
     public ClassifierReference(string name, Uri iri, string? description,
         ReferenceSource source = ReferenceSource.UserSubmission) : base(name, iri, description, source)
     {
