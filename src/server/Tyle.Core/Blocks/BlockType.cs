@@ -4,20 +4,25 @@ namespace Tyle.Core.Blocks;
 
 public class BlockType : ImfType
 {
-    public ICollection<BlockClassifierMapping> Classifiers { get; set; }
-    public int? PurposeId { get; set; }
-    public PurposeReference? Purpose { get; set; }
-    public string? Notation { get; set; }
-    public string? Symbol { get; set; }
-    public Aspect Aspect { get; set; }
+    public ICollection<ClassifierReference> Classifiers { get; }
+    public PurposeReference? Purpose { get; }
+    public string? Notation { get; }
+    public string? Symbol { get; }
+    public Aspect? Aspect { get; }
 
-    public ICollection<BlockTerminalTypeReference> BlockTerminals { get; set; }
-    public ICollection<BlockAttributeTypeReference> BlockAttributes { get; set; }
+    public ICollection<TerminalTypeReference> BlockTerminals { get; set; }
+    public ICollection<AttributeTypeReference> Attributes { get; set; }
 
-    public BlockType(string name, string? description, string createdBy) : base(name, description, createdBy)
+    /// <summary>
+    /// Creates a new block type
+    /// </summary>
+    /// <param name="name">The name of the block type.</param>
+    /// <param name="description">A description of the block type. Can be null.</param>
+    /// <param name="createdBy">A user struct containing information about the user creating the type.</param>
+    public BlockType(string name, string? description, User createdBy) : base(name, description, createdBy)
     {
-        Classifiers = new List<BlockClassifierMapping>();
-        BlockTerminals = new List<BlockTerminalTypeReference>();
-        BlockAttributes = new List<BlockAttributeTypeReference>();
+        Classifiers = new List<ClassifierReference>();
+        BlockTerminals = new List<TerminalTypeReference>();
+        Attributes = new List<AttributeTypeReference>();
     }
 }

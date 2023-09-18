@@ -11,7 +11,7 @@ public class TerminalType : ImfType
     public Aspect? Aspect { get; }
     public MediumReference? Medium { get; }
     public Direction Qualifier { get; }
-    public ICollection<AttributeTypeReference> TerminalAttributes { get; }
+    public ICollection<AttributeTypeReference> Attributes { get; }
 
     /// <summary>
     /// Creates a new terminal type
@@ -21,7 +21,8 @@ public class TerminalType : ImfType
     /// <param name="createdBy">A user struct containing information about the user creating the type.</param>
     public TerminalType(string name, string? description, User createdBy) : base(name, description, createdBy)
     {
+        Qualifier = Direction.Bidirectional;
         Classifiers = new List<ClassifierReference>();
-        TerminalAttributes = new List<AttributeTypeReference>();
+        Attributes = new List<AttributeTypeReference>();
     }
 }
