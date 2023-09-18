@@ -1,7 +1,7 @@
 import { DevTool } from "@hookform/devtools";
 import { MimirorgQrCodeCm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
 import { useExecuteOnCriteria } from "common/hooks/useExecuteOnCriteria";
-import { Actionable, Button, Digits, Flexbox, Input, Text } from "@mimirorg/component-library";
+import { Actionable, Button, Flexbox, Input, Text } from "@mimirorg/component-library";
 import { useGenerateMfa, useVerification } from "external/sources/user/user.queries";
 import { AuthContent } from "features/auth/common/auth-content/AuthContent";
 import { Error } from "features/auth/common/error/Error";
@@ -11,6 +11,7 @@ import { onSubmitForm } from "features/auth/register/verification/RegisterVerifi
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { Digits } from "features/auth/digits/Digits";
 
 type VerificationProps = Pick<MimirorgVerifyAm, "email"> & {
   setMfaInfo: (info: MimirorgQrCodeCm) => void;
