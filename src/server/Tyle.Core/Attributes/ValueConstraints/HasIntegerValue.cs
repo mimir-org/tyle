@@ -1,6 +1,6 @@
 namespace Tyle.Core.Attributes.ValueConstraints;
 
-public class HasIntegerValue
+public class HasIntegerValue : IValueConstraint
 {
     public int Value { get; }
 

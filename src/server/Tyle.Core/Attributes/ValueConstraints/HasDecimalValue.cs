@@ -1,6 +1,6 @@
 namespace Tyle.Core.Attributes.ValueConstraints;
 
-public class HasDecimalValue
+public class HasDecimalValue : IValueConstraint
 {
     public decimal Value { get; }
 
