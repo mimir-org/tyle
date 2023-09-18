@@ -1,9 +1,10 @@
+using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common.Requests;
+using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
 using Tyle.Core.Attributes;
 using Tyle.Core.Common;
-using Tyle.Core.Common.Exceptions;
 using Tyle.Core.Terminals;
 
 namespace Tyle.Application.Common;
@@ -52,37 +53,37 @@ public class ReferenceService : IReferenceService
 
     public async Task<ClassifierReference> GetClassifier(int id)
     {
-        var classifier = await _classifierRepository.Get(id) ?? throw new MimirorgNotFoundException($"Classifier with id {id} not found.");
+        var classifier = await _classifierRepository.Get(id) ?? throw new KeyNotFoundException($"Classifier with id {id} not found.");
         return classifier;
     }
 
     public async Task<MediumReference> GetMedium(int id)
     {
-        var medium = await _mediumRepository.Get(id) ?? throw new MimirorgNotFoundException($"Medium with id {id} not found.");
+        var medium = await _mediumRepository.Get(id) ?? throw new KeyNotFoundException($"Medium with id {id} not found.");
         return medium;
     }
 
     public async Task<PredicateReference> GetPredicate(int id)
     {
-        var predicate = await _predicateRepository.Get(id) ?? throw new MimirorgNotFoundException($"Predicate with id {id} not found.");
+        var predicate = await _predicateRepository.Get(id) ?? throw new KeyNotFoundException($"Predicate with id {id} not found.");
         return predicate;
     }
 
     public async Task<PurposeReference> GetPurpose(int id)
     {
-        var purpose = await _purposeRepository.Get(id) ?? throw new MimirorgNotFoundException($"Purpose with id {id} not found.");
+        var purpose = await _purposeRepository.Get(id) ?? throw new KeyNotFoundException($"Purpose with id {id} not found.");
         return purpose;
     }
 
     public async Task<UnitReference> GetUnit(int id)
     {
-        var unit = await _unitRepository.Get(id) ?? throw new MimirorgNotFoundException($"Unit with id {id} not found.");
+        var unit = await _unitRepository.Get(id) ?? throw new KeyNotFoundException($"Unit with id {id} not found.");
         return unit;
     }
 
     public async Task<ClassifierReference> CreateClassifier(ClassifierReferenceRequest request)
     {
-        var classifier = new ClassifierReference(request.Name, request.Iri, request.Description);
+        var classifier = new ClassifierReference(request.Name, new Uri(request.Iri), request.Description);
         await _classifierRepository.Create(classifier);
 
         return await GetClassifier(classifier.Id);
@@ -90,7 +91,7 @@ public class ReferenceService : IReferenceService
 
     public async Task<MediumReference> CreateMedium(MediumReferenceRequest request)
     {
-        var medium = new MediumReference(request.Name, request.Iri, request.Description);
+        var medium = new MediumReference(request.Name, new Uri(request.Iri), request.Description);
         await _mediumRepository.Create(medium);
 
         return await GetMedium(medium.Id);
@@ -98,7 +99,7 @@ public class ReferenceService : IReferenceService
 
     public async Task<PredicateReference> CreatePredicate(PredicateReferenceRequest request)
     {
-        var predicate = new PredicateReference(request.Name, request.Iri, request.Description);
+        var predicate = new PredicateReference(request.Name, new Uri(request.Iri), request.Description);
         await _predicateRepository.Create(predicate);
 
         return await GetPredicate(predicate.Id);
@@ -106,7 +107,7 @@ public class ReferenceService : IReferenceService
 
     public async Task<PurposeReference> CreatePurpose(PurposeReferenceRequest request)
     {
-        var purpose = new PurposeReference(request.Name, request.Iri, request.Description);
+        var purpose = new PurposeReference(request.Name, new Uri(request.Iri), request.Description);
         await _purposeRepository.Create(purpose);
 
         return await GetPurpose(purpose.Id);
@@ -114,7 +115,7 @@ public class ReferenceService : IReferenceService
 
     public async Task<UnitReference> CreateUnit(UnitReferenceRequest request)
     {
-        var unit = new UnitReference(request.Name, request.Iri, request.Symbol, request.Description);
+        var unit = new UnitReference(request.Name, new Uri(request.Iri), request.Symbol, request.Description);
         await _unitRepository.Create(unit);
 
         return await GetUnit(unit.Id);
