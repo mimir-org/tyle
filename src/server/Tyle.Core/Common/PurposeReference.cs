@@ -1,6 +1,6 @@
 namespace Tyle.Core.Common;
 
-public class PurposeReference : RdlReference
+public record PurposeReference : RdlReference
 {
     /// <summary>
     /// Creates a new purpose reference.

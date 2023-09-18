@@ -1,6 +1,6 @@
 namespace Tyle.Core.Common;
 
-public abstract class RdlReference
+public abstract record RdlReference
 {
     public int Id { get; }
     public string Name { get; }

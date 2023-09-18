@@ -2,7 +2,7 @@ using Tyle.Core.Common;
 
 namespace Tyle.Core.Attributes;
 
-public class PredicateReference : RdlReference
+public record PredicateReference : RdlReference
 {
     /// <summary>
     /// Creates a new predicate reference.

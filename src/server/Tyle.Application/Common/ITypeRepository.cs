@@ -1,6 +1,6 @@
 namespace Tyle.Application.Common;
 
-public interface ITypeRepository<T, TRequest>
+public interface ITypeRepository<T>
 {
     /// <summary>
     /// Gets all entities of a type.
@@ -18,23 +18,22 @@ public interface ITypeRepository<T, TRequest>
     /// <summary>
     /// Creates a new type.
     /// </summary>
-    /// <param name="request">A request with the needed information to create the type.</param>
+    /// <param name="type">The type that should be created.</param>
     /// <returns>The created type.</returns>
-    Task<T> Create(TRequest request);
+    Task<T> Create(T type);
 
     /// <summary>
-    /// Updates the type with the given id.
+    /// Updates the type given by the id of the input type.
     /// </summary>
-    /// <param name="id">The id of the type to update.</param>
-    /// <param name="request">A request with the needed information to update the type.</param>
+    /// <param name="type">A type object containing the new values for the type.</param>
     /// <returns>The updated type.</returns>
     /// <exception cref="KeyNotFoundException">Thrown if no type is found with the given id.</exception>
-    Task<T> Update(Guid id, TRequest request);
+    Task<T> Update(T type);
 
     /// <summary>
     /// Deletes the type with the given id.
     /// </summary>
     /// <param name="id">The id of the type to delete.</param>
     /// <exception cref="KeyNotFoundException">Thrown if no type is found with the given id.</exception>
-    Task Delete(int id);
+    Task Delete(Guid id);
 }

@@ -2,7 +2,7 @@ using Tyle.Core.Common;
 
 namespace Tyle.Core.Terminals;
 
-public class MediumReference : RdlReference
+public record MediumReference : RdlReference
 {
     /// <summary>
     /// Creates a new medium reference.

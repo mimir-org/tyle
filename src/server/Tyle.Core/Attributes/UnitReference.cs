@@ -2,7 +2,7 @@ using Tyle.Core.Common;
 
 namespace Tyle.Core.Attributes;
 
-public class UnitReference : RdlReference
+public record UnitReference : RdlReference
 {
     public string? Symbol { get; }
 

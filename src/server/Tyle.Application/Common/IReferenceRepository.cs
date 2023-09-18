@@ -18,7 +18,7 @@ public interface IReferenceRepository<T>
     /// <summary>
     /// Creates a new reference.
     /// </summary>
-    /// <param name="reference">A request with the needed information to create the reference.</param>
+    /// <param name="reference">The reference that should be created.</param>
     /// <returns>The created reference object.</returns>
     Task<T> Create(T reference);
 

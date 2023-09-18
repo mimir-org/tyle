@@ -4,6 +4,6 @@ using Tyle.Core.Attributes;
 
 namespace Tyle.Application.Attributes;
 
-public interface IAttributeRepository : ITypeRepository<AttributeType, AttributeTypeRequest>
+public interface IAttributeRepository : ITypeRepository<AttributeType>
 {
 }

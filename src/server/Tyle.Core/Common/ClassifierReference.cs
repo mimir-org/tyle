@@ -1,6 +1,6 @@
 namespace Tyle.Core.Common;
 
-public class ClassifierReference : RdlReference
+public record ClassifierReference : RdlReference
 {
     /// <summary>
     /// Creates a new classifier reference.

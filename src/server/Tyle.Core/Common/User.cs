@@ -15,4 +15,14 @@ public readonly struct User
         UserId = userId;
         Name = name;
     }
+
+    public static bool operator ==(User left, User right)
+    {
+        return left.UserId == right.UserId;
+    }
+
+    public static bool operator !=(User left, User right)
+    {
+        return left.UserId != right.UserId;
+    }
 }

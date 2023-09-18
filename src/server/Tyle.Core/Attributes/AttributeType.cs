@@ -5,15 +5,15 @@ namespace Tyle.Core.Attributes;
 
 public class AttributeType : ImfType
 {
-    public PredicateReference? Predicate { get; }
+    public PredicateReference? Predicate { get; set; }
     public ICollection<UnitReference> Units { get; }
-    public int UnitMinCount { get; }
-    public int UnitMaxCount { get; }
-    public ProvenanceQualifier? ProvenanceQualifier { get; }
-    public RangeQualifier? RangeQualifier { get; }
-    public RegularityQualifier? RegularityQualifier { get; }
-    public ScopeQualifier? ScopeQualifier { get; }
-    public IValueConstraint? ValueConstraint { get; }
+    public int UnitMinCount { get; set; }
+    public int UnitMaxCount { get; set; }
+    public ProvenanceQualifier? ProvenanceQualifier { get; set; }
+    public RangeQualifier? RangeQualifier { get; set; }
+    public RegularityQualifier? RegularityQualifier { get; set; }
+    public ScopeQualifier? ScopeQualifier { get; set; }
+    public IValueConstraint? ValueConstraint { get; set; }
 
     /// <summary>
     /// Creates a new attribute type.

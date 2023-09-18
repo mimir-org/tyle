@@ -23,6 +23,8 @@ public interface IAttributeService
     /// </summary>
     /// <param name="request">The request containing the information needed to create the attribute type.</param>
     /// <returns>The created attribute type.</returns>
+    /// <exception cref="ArgumentException">Thrown if the request information hinders attribute creation,
+    /// for instance if a reference id is invalid.</exception>
     Task<AttributeType> Create(AttributeTypeRequest request);
 
     /// <summary>
@@ -32,6 +34,8 @@ public interface IAttributeService
     /// <param name="request">The request containing the information needed to update the attribute type.</param>
     /// <returns>The updated attribute type.</returns>
     /// <exception cref="KeyNotFoundException">Thrown if there is no attribute type with the given id.</exception>
+    /// <exception cref="ArgumentException">Thrown if the request information hinders the update of the attribute,
+    /// for instance if a reference id is invalid.</exception>
     Task<AttributeType> Update(Guid id, AttributeTypeRequest request);
 
     /// <summary>
