@@ -1,13 +1,25 @@
 namespace Tyle.Core.Attributes.ValueConstraints;
 
-public class RangeInteger : IValueConstraint
+public class RangeInteger : CardinalityConstraint, IValueConstraint
 {
     public int? MinValue { get; }
     public int? MaxValue { get; }
     public bool? MinInclusive { get; }
     public bool? MaxInclusive { get; }
 
-    public RangeInteger(int? minValue, int? maxValue, bool? minInclusive, bool? maxInclusive)
+    /// <summary>
+    /// Creates a new integer range constraint.
+    /// </summary>
+    /// <param name="minValue">The lower bound. Can be null.</param>
+    /// <param name="maxValue">The upper bound. Can be null.</param>
+    /// <param name="minInclusive">Set to true if the lower bound is inclusive, false if it is exclusive.</param>
+    /// <param name="maxInclusive">Set to true if the upper bound is inclusive, false if it is exclusive.</param>
+    /// <param name="minCount">The minimum number of values for this attribute type. Can be zero.</param>
+    /// <param name="maxCount">The maximum number of values for this attribute type. Can be omitted.</param>
+    /// <exception cref="ArgumentException">Thrown when both upper and lower bounds are null, when the
+    /// inclusive/exclusive parameter is not given for a bound, when the upper bound is larger than the lower
+    /// bound, when the minimum count is less than zero, or when the maximum count is smaller than the minimum count.</exception>
+    public RangeInteger(int? minValue, int? maxValue, bool? minInclusive, bool? maxInclusive, int minCount, int? maxCount = null) : base(minCount, maxCount)
     {
         if (minValue == null && maxValue == null)
         {
