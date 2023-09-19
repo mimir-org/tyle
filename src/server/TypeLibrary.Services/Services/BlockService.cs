@@ -159,17 +159,12 @@ public class BlockService : IBlockService
             }
         }
 
-
-
         var createdBlock = await _blockRepository.Create(dm);
         _blockRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Block);
         await _logService.CreateLog(createdBlock, LogType.Create, createdBlock?.State.ToString(), createdBlock?.CreatedBy);
 
         return Get(createdBlock?.Id);
-
-
-
     }
 
     /// <inheritdoc />
