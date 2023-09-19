@@ -99,9 +99,7 @@ public class BlockService : IBlockService
 
     /// <inheritdoc />
     public async Task<BlockLibCm> Create(BlockLibAm blockAm)
-    {
-        try
-        {
+    {       
             if (blockAm == null)
                 throw new ArgumentNullException(nameof(blockAm));
 
@@ -161,8 +159,6 @@ public class BlockService : IBlockService
                 }
             }
 
-
-
             var createdBlock = await _blockRepository.Create(dm);
             _blockRepository.ClearAllChangeTrackers();
             _hookService.HookQueue.Enqueue(CacheKey.Block);
@@ -170,11 +166,6 @@ public class BlockService : IBlockService
 
             return Get(createdBlock?.Id);
 
-        }
-        catch (Exception ex)
-        {
-
-            throw;
         }
     }
 
