@@ -1,8 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Tyle.Application.Attributes;
 using Tyle.Application.Common;
+using Tyle.Application.Terminals;
+using Tyle.Persistence.Attributes;
 using Tyle.Persistence.Common;
+using Tyle.Persistence.Terminals;
 
 namespace Tyle.Persistence;
 
@@ -41,6 +45,10 @@ public static class PersistenceDependencyInjection
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IClassifierRepository, ClassifierRepository>();
+        services.AddScoped<IMediumRepository, MediumRepository>();
+        services.AddScoped<IPredicateRepository, PredicateRepository>();
+        services.AddScoped<IPurposeRepository, PurposeRepository>();
+        services.AddScoped<IUnitRepository, UnitRepository>();
 
         return services;
     }

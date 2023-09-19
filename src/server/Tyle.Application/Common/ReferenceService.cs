@@ -12,18 +12,18 @@ namespace Tyle.Application.Common;
 public class ReferenceService : IReferenceService
 {
     private readonly IClassifierRepository _classifierRepository;
-    //private readonly IMediumRepository _mediumRepository;
-    //private readonly IPredicateRepository _predicateRepository;
-    //private readonly IPurposeRepository _purposeRepository;
-    //private readonly IUnitRepository _unitRepository;
+    private readonly IMediumRepository _mediumRepository;
+    private readonly IPredicateRepository _predicateRepository;
+    private readonly IPurposeRepository _purposeRepository;
+    private readonly IUnitRepository _unitRepository;
 
-    public ReferenceService(IClassifierRepository classifierRepository) //, IMediumRepository mediumRepository, IPredicateRepository predicateRepository, IPurposeRepository purposeRepository, IUnitRepository unitRepository)
+    public ReferenceService(IClassifierRepository classifierRepository, IMediumRepository mediumRepository, IPredicateRepository predicateRepository, IPurposeRepository purposeRepository, IUnitRepository unitRepository)
     {
         _classifierRepository = classifierRepository;
-        //_mediumRepository = mediumRepository;
-        //_predicateRepository = predicateRepository;
-        //_purposeRepository = purposeRepository;
-        //_unitRepository = unitRepository;
+        _mediumRepository = mediumRepository;
+        _predicateRepository = predicateRepository;
+        _purposeRepository = purposeRepository;
+        _unitRepository = unitRepository;
     }
 
     public async Task<IEnumerable<ClassifierReference>> GetAllClassifiers()
@@ -31,7 +31,7 @@ public class ReferenceService : IReferenceService
         return await _classifierRepository.GetAll();
     }
 
-    /*public async Task<IEnumerable<MediumReference>> GetAllMedia()
+    public async Task<IEnumerable<MediumReference>> GetAllMedia()
     {
         return await _mediumRepository.GetAll();
     }
@@ -49,14 +49,14 @@ public class ReferenceService : IReferenceService
     public async Task<IEnumerable<UnitReference>> GetAllUnits()
     {
         return await _unitRepository.GetAll();
-    }*/
+    }
 
     public async Task<ClassifierReference?> GetClassifier(int id)
     {
         return await _classifierRepository.Get(id);
     }
 
-    /*public async Task<MediumReference?> GetMedium(int id)
+    public async Task<MediumReference?> GetMedium(int id)
     {
         return await _mediumRepository.Get(id);
     }
@@ -74,7 +74,7 @@ public class ReferenceService : IReferenceService
     public async Task<UnitReference?> GetUnit(int id)
     {
         return await _unitRepository.Get(id);
-    }*/
+    }
 
     public async Task<ClassifierReference> CreateClassifier(ClassifierReferenceRequest request)
     {
@@ -82,7 +82,7 @@ public class ReferenceService : IReferenceService
         return await _classifierRepository.Create(classifier);
     }
 
-    /*public async Task<MediumReference> CreateMedium(MediumReferenceRequest request)
+    public async Task<MediumReference> CreateMedium(MediumReferenceRequest request)
     {
         var medium = new MediumReference(request.Name, new Uri(request.Iri), request.Description);
         return await _mediumRepository.Create(medium);
@@ -104,14 +104,14 @@ public class ReferenceService : IReferenceService
     {
         var unit = new UnitReference(request.Name, new Uri(request.Iri), request.Symbol, request.Description);
         return await _unitRepository.Create(unit);
-    }*/
+    }
 
     public async Task DeleteClassifier(int id)
     {
         await _classifierRepository.Delete(id);
     }
 
-    /*public async Task DeleteMedium(int id)
+    public async Task DeleteMedium(int id)
     {
         await _mediumRepository.Delete(id);
     }
@@ -129,5 +129,5 @@ public class ReferenceService : IReferenceService
     public async Task DeleteUnit(int id)
     {
         await _unitRepository.Delete(id);
-    }*/
+    }
 }

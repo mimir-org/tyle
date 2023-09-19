@@ -6,7 +6,7 @@ namespace Tyle.Persistence.Common;
 
 [Table("Classifiers")]
 [Index(nameof(Iri), IsUnique = true)]
-public class ClassifierDao : ReferenceDao
+public class ClassifierDao
 {
     public int Id { get; set; }
 

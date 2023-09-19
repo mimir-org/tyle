@@ -4,5 +4,5 @@ namespace Tyle.Application.Attributes.Requests;
 
 public class UnitReferenceRequest : ReferenceRequest
 {
-    public string? Symbol { get; }
+    public string? Symbol { get; set; }
 }
