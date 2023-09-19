@@ -30,10 +30,10 @@ public class MimirorgCommonFixture : IDisposable
     public Mock<IAttributeRepository> AttributeRepository = new();
     public Mock<IEfBlockTerminalRepository> BlockTerminalRepository = new();
     public Mock<IEfBlockAttributeRepository> BlockAttributeRepository = new();
+    public Mock<IEfAttributeGroupRepository> AttributeGroupRepository = new();
 
     // Services
     public Mock<IAttributeService> AttributeService = new();
-    public Mock<IAttributeGroupService> AttributeGroupService = new();
     public Mock<ITerminalService> TerminalService = new();
     public Mock<IRdsService> RdsService = new();
     public Mock<ITimedHookService> TimedHookService = new();
