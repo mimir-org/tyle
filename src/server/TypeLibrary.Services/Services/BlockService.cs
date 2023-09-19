@@ -155,7 +155,7 @@ public class BlockService : IBlockService
 
                         foreach (var attributeGroupItem in currentAttributeGroup.AttributeGroupAttributes)
                         {
-                            dm.BlockAttributes.Add(new BlockAttributeLibDm { BlockId = dm.Id, AttributeId = attributeGroupItem.AttributeId , PartOfAttributeGroup = item });
+                            dm.BlockAttributes.Add(new BlockAttributeLibDm { BlockId = dm.Id, AttributeId = attributeGroupItem.AttributeId, PartOfAttributeGroup = item });
                         }
                     }
                 }

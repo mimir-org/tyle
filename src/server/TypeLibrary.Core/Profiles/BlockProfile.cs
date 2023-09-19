@@ -37,7 +37,7 @@ public class BlockProfile : Profile
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.BlockTerminals, opt => opt.MapFrom(src => CreateTerminals(src.BlockTerminals)))
             .ForMember(dest => dest.BlockAttributes, opt => opt.Ignore())
-            .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));            
+            .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
         CreateMap<BlockLibDm, BlockLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
