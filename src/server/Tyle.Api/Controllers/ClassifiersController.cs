@@ -34,6 +34,27 @@ public class ClassifiersController : ControllerBase
         }
     }
 
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(ClassifierReference), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Get([FromRoute] int id)
+    {
+        try
+        {
+            var classifier = await _referenceService.GetClassifier(id);
+            if (classifier == null)
+            {
+                return NotFound();
+            }
+            return Ok(classifier);
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error.");
+        }
+    }
+
     [HttpPost]
     [ProducesResponseType(typeof(ClassifierReference), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -43,6 +64,27 @@ public class ClassifiersController : ControllerBase
         try
         {
             return Ok(await _referenceService.CreateClassifier(request));
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error.");
+        }
+    }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Delete([FromRoute] int id)
+    {
+        try
+        {
+            await _referenceService.DeleteClassifier(id);
+            return NoContent();
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound();
         }
         catch (Exception)
         {
