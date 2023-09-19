@@ -159,6 +159,8 @@ public class BlockService : IBlockService
                 }
             }
 
+
+
             var createdBlock = await _blockRepository.Create(dm);
             _blockRepository.ClearAllChangeTrackers();
             _hookService.HookQueue.Enqueue(CacheKey.Block);
@@ -166,7 +168,8 @@ public class BlockService : IBlockService
 
             return Get(createdBlock?.Id);
 
-        }
+        
+
     }
 
     /// <inheritdoc />
