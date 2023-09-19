@@ -1,6 +1,7 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using Tyle.Application.Common;
+using Tyle.Application.Common.Requests;
 using Tyle.Core.Common;
 
 namespace Tyle.Api.Controllers;
@@ -29,7 +30,23 @@ public class ClassifiersController : ControllerBase
         }
         catch (Exception)
         {
-            return StatusCode(500, "Internal Server Error.");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error.");
+        }
+    }
+
+    [HttpPost]
+    [ProducesResponseType(typeof(ClassifierReference), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Create([FromBody] ClassifierReferenceRequest request)
+    {
+        try
+        {
+            return Ok(await _referenceService.CreateClassifier(request));
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error.");
         }
     }
 }

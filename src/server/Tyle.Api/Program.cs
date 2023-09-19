@@ -1,8 +1,8 @@
-using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Tyle.Application;
 using Tyle.Persistence;
-using Tyle.Persistence.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
+    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
     options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 });
+
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddApplicationServices()
     .AddDatabaseConfiguration(builder.Configuration)
@@ -37,6 +40,13 @@ if (!builder.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<TyleDbContext>();
+    context.Database.Migrate();
+}
 
 app.MapControllers();
 
