@@ -7,4 +7,5 @@ public class BlockAttributeLibDm
     public BlockLibDm Block { get; set; }
     public string AttributeId { get; set; }
     public AttributeLibDm Attribute { get; set; }
+    public string PartOfAttributeGroup { get; set; }
 }

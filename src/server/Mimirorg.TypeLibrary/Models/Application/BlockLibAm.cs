@@ -107,6 +107,15 @@ public class BlockLibAm : ICompanyObject
     public ICollection<string> Attributes { get; set; }
 
     /// <summary>
+    /// A list of attribute ids
+    /// </summary>
+    /// <remarks>
+    /// It is not allowed to remove attributes
+    /// Adding attributes generates a major increase
+    /// </remarks>
+    public ICollection<string> AttributeGroups { get; set; }
+
+    /// <summary>
     /// A list of selected predefined attributes
     /// </summary>
     /// <remarks>

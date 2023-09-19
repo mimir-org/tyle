@@ -1,4 +1,5 @@
 using AutoMapper;
+using Lucene.Net.Util;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -27,6 +28,7 @@ public class BlockService : IBlockService
     private readonly IMapper _mapper;
     private readonly IEfBlockRepository _blockRepository;
     private readonly IAttributeRepository _attributeRepository;
+    private readonly IAttributeGroupRepository _attributeGroupRepository;
     private readonly IEfBlockTerminalRepository _blockTerminalRepository;
     private readonly IEfBlockAttributeRepository _blockAttributeRepository;
     private readonly IAttributeService _attributeService;
@@ -38,11 +40,12 @@ public class BlockService : IBlockService
     private readonly IHttpContextAccessor _contextAccessor;
     private readonly IEmailService _emailService;
 
-    public BlockService(IMapper mapper, IEfBlockRepository blockRepository, IAttributeRepository attributeRepository, IEfBlockTerminalRepository blockTerminalRepository, IEfBlockAttributeRepository blockAttributeRepository, ITerminalService terminalService, IAttributeService attributeService, IRdsService rdsService, ITimedHookService hookService, ILogService logService, ILogger<BlockService> logger, IHttpContextAccessor contextAccessor, IEmailService emailService)
+    public BlockService(IMapper mapper, IEfBlockRepository blockRepository, IAttributeRepository attributeRepository, IAttributeGroupRepository attributeGroupRepository, IEfBlockTerminalRepository blockTerminalRepository, IEfBlockAttributeRepository blockAttributeRepository, ITerminalService terminalService, IAttributeService attributeService, IRdsService rdsService, ITimedHookService hookService, ILogService logService, ILogger<BlockService> logger, IHttpContextAccessor contextAccessor, IEmailService emailService)
     {
         _mapper = mapper;
         _blockRepository = blockRepository;
         _attributeRepository = attributeRepository;
+        _attributeGroupRepository = attributeGroupRepository;
         _blockTerminalRepository = blockTerminalRepository;
         _blockAttributeRepository = blockAttributeRepository;
         _terminalService = terminalService;
@@ -97,50 +100,82 @@ public class BlockService : IBlockService
     /// <inheritdoc />
     public async Task<BlockLibCm> Create(BlockLibAm blockAm)
     {
-        if (blockAm == null)
-            throw new ArgumentNullException(nameof(blockAm));
-
-        var validation = blockAm.ValidateObject();
-
-        if (!validation.IsValid)
-            throw new MimirorgBadRequestException("Block is not valid.", validation);
-
-        blockAm.Version = "1.0";
-        var dm = _mapper.Map<BlockLibDm>(blockAm);
-
-        dm.FirstVersionId ??= dm.Id;
-        dm.State = State.Draft;
-
-        foreach (var blockTerminal in dm.BlockTerminals)
+        try
         {
-            blockTerminal.BlockId = dm.Id;
-        }
+            if (blockAm == null)
+                throw new ArgumentNullException(nameof(blockAm));
 
-        dm.BlockAttributes = new List<BlockAttributeLibDm>();
+            var validation = blockAm.ValidateObject();
 
-        if (blockAm.Attributes != null)
-        {
-            foreach (var attributeId in blockAm.Attributes)
+            if (!validation.IsValid)
+                throw new MimirorgBadRequestException("Block is not valid.", validation);
+
+            blockAm.Version = "1.0";
+            var dm = _mapper.Map<BlockLibDm>(blockAm);
+
+            dm.FirstVersionId ??= dm.Id;
+            dm.State = State.Draft;
+
+            foreach (var blockTerminal in dm.BlockTerminals)
             {
-                var attribute = _attributeRepository.Get(attributeId);
+                blockTerminal.BlockId = dm.Id;
+            }
 
-                if (attribute == null)
+            dm.BlockAttributes = new List<BlockAttributeLibDm>();
+
+            if (blockAm.Attributes != null)
+            {
+                foreach (var attributeId in blockAm.Attributes)
                 {
-                    _logger.LogError($"Could not add attribute with id {attributeId} to block with id {dm.Id}, attribute not found.");
-                }
-                else
-                {
-                    dm.BlockAttributes.Add(new BlockAttributeLibDm { BlockId = dm.Id, AttributeId = attribute.Id });
+                    var attribute = _attributeRepository.Get(attributeId);
+
+                    if (attribute == null)
+                    {
+                        _logger.LogError($"Could not add attribute with id {attributeId} to block with id {dm.Id}, attribute not found.");
+                    }
+                    else
+                    {
+                        dm.BlockAttributes.Add(new BlockAttributeLibDm { BlockId = dm.Id, AttributeId = attribute.Id });
+                    }
                 }
             }
+
+            if (blockAm.AttributeGroups != null)
+            {
+                foreach (var item in blockAm.AttributeGroups)
+                {
+                    var currentAttributeGroup = _attributeGroupRepository.GetSingleAttributeGroup(item);
+
+                    if (currentAttributeGroup == null)
+                    {
+                        _logger.LogError($"Could not add attribute group with id {item} to block with id {dm.Id}, attribute not found.");
+                    }
+                    else
+                    {
+
+                        foreach (var attributeGroupItem in currentAttributeGroup.AttributeGroupAttributes)
+                        {
+                            dm.BlockAttributes.Add(new BlockAttributeLibDm { BlockId = dm.Id, AttributeId = attributeGroupItem.AttributeId , PartOfAttributeGroup = item });
+                        }
+                    }
+                }
+            }
+
+
+
+            var createdBlock = await _blockRepository.Create(dm);
+            _blockRepository.ClearAllChangeTrackers();
+            _hookService.HookQueue.Enqueue(CacheKey.Block);
+            await _logService.CreateLog(createdBlock, LogType.Create, createdBlock?.State.ToString(), createdBlock?.CreatedBy);
+
+            return Get(createdBlock?.Id);
+
         }
+        catch (Exception ex)
+        {
 
-        var createdBlock = await _blockRepository.Create(dm);
-        _blockRepository.ClearAllChangeTrackers();
-        _hookService.HookQueue.Enqueue(CacheKey.Block);
-        await _logService.CreateLog(createdBlock, LogType.Create, createdBlock?.State.ToString(), createdBlock?.CreatedBy);
-
-        return Get(createdBlock?.Id);
+            throw;
+        }
     }
 
     /// <inheritdoc />
