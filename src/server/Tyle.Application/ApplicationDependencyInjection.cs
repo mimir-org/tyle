@@ -8,7 +8,7 @@ public static class ApplicationDependencyInjection
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddScoped<IAttributeService, AttributeService>();
+        //services.AddScoped<IAttributeService, AttributeService>();
         services.AddScoped<IReferenceService, ReferenceService>();
 
         return services;

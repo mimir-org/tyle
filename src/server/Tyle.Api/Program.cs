@@ -1,6 +1,8 @@
+using System.Reflection;
 using Newtonsoft.Json;
 using Tyle.Application;
 using Tyle.Persistence;
+using Tyle.Persistence.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 
 builder.Services.AddApplicationServices()
     .AddDatabaseConfiguration(builder.Configuration)
+    .AddDaoMapping()
     .AddRepositories();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

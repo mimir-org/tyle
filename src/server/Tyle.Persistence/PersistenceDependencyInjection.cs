@@ -28,6 +28,16 @@ public static class PersistenceDependencyInjection
         return services;
     }
 
+    public static IServiceCollection AddDaoMapping(this IServiceCollection services)
+    {
+        services.AddAutoMapper(config =>
+        {
+            config.AddProfile(new ClassifierProfile());
+        });
+
+        return services;
+    }
+
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IClassifierRepository, ClassifierRepository>();

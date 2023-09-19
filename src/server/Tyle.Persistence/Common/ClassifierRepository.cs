@@ -11,7 +11,7 @@ public class ClassifierRepository : IClassifierRepository
     private readonly DbSet<ClassifierDao> _dbSet;
     private readonly IMapper _mapper;
 
-    protected ClassifierRepository(TyleDbContext context, IMapper mapper)
+    public ClassifierRepository(TyleDbContext context, IMapper mapper)
     {
         _context = context;
         _dbSet = context.Classifiers;
