@@ -16,7 +16,7 @@ public class BlockServiceTests : UnitTest<MimirorgCommonFixture>
 
     public BlockServiceTests(MimirorgCommonFixture fixture) : base(fixture)
     {
-        _blockService = new BlockService(fixture.Mapper.Object, fixture.BlockRepository.Object, fixture.AttributeRepository.Object, fixture.BlockTerminalRepository.Object, fixture.BlockAttributeRepository.Object, fixture.TerminalService.Object, fixture.AttributeService.Object, fixture.RdsService.Object, fixture.TimedHookService.Object, fixture.LogService.Object, fixture.BlockServiceLogger.Object, fixture.HttpContextAccessor.Object, fixture.EmailService.Object);
+        _blockService = new BlockService(fixture.Mapper.Object, fixture.BlockRepository.Object, fixture.AttributeRepository.Object, fixture.AttributeGroupService.Object, fixture.BlockTerminalRepository.Object, fixture.BlockAttributeRepository.Object, fixture.TerminalService.Object, fixture.AttributeService.Object, fixture.RdsService.Object, fixture.TimedHookService.Object, fixture.LogService.Object, fixture.BlockServiceLogger.Object, fixture.HttpContextAccessor.Object, fixture.EmailService.Object);
     }
 
     [Fact]

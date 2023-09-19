@@ -33,6 +33,7 @@ public class MimirorgCommonFixture : IDisposable
 
     // Services
     public Mock<IAttributeService> AttributeService = new();
+    public Mock<IAttributeGroupRepository> AttributeGroupService = new();
     public Mock<ITerminalService> TerminalService = new();
     public Mock<IRdsService> RdsService = new();
     public Mock<ITimedHookService> TimedHookService = new();
