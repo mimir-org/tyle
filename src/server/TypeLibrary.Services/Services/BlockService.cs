@@ -99,76 +99,76 @@ public class BlockService : IBlockService
 
     /// <inheritdoc />
     public async Task<BlockLibCm> Create(BlockLibAm blockAm)
-    {       
-            if (blockAm == null)
-                throw new ArgumentNullException(nameof(blockAm));
+    {
+        if (blockAm == null)
+            throw new ArgumentNullException(nameof(blockAm));
 
-            var validation = blockAm.ValidateObject();
+        var validation = blockAm.ValidateObject();
 
-            if (!validation.IsValid)
-                throw new MimirorgBadRequestException("Block is not valid.", validation);
+        if (!validation.IsValid)
+            throw new MimirorgBadRequestException("Block is not valid.", validation);
 
-            blockAm.Version = "1.0";
-            var dm = _mapper.Map<BlockLibDm>(blockAm);
+        blockAm.Version = "1.0";
+        var dm = _mapper.Map<BlockLibDm>(blockAm);
 
-            dm.FirstVersionId ??= dm.Id;
-            dm.State = State.Draft;
+        dm.FirstVersionId ??= dm.Id;
+        dm.State = State.Draft;
 
-            foreach (var blockTerminal in dm.BlockTerminals)
+        foreach (var blockTerminal in dm.BlockTerminals)
+        {
+            blockTerminal.BlockId = dm.Id;
+        }
+
+        dm.BlockAttributes = new List<BlockAttributeLibDm>();
+
+        if (blockAm.Attributes != null)
+        {
+            foreach (var attributeId in blockAm.Attributes)
             {
-                blockTerminal.BlockId = dm.Id;
-            }
+                var attribute = _attributeRepository.Get(attributeId);
 
-            dm.BlockAttributes = new List<BlockAttributeLibDm>();
-
-            if (blockAm.Attributes != null)
-            {
-                foreach (var attributeId in blockAm.Attributes)
+                if (attribute == null)
                 {
-                    var attribute = _attributeRepository.Get(attributeId);
+                    _logger.LogError($"Could not add attribute with id {attributeId} to block with id {dm.Id}, attribute not found.");
+                }
+                else
+                {
+                    dm.BlockAttributes.Add(new BlockAttributeLibDm { BlockId = dm.Id, AttributeId = attribute.Id });
+                }
+            }
+        }
 
-                    if (attribute == null)
+        if (blockAm.AttributeGroups != null)
+        {
+            foreach (var item in blockAm.AttributeGroups)
+            {
+                var currentAttributeGroup = _attributeGroupRepository.GetSingleAttributeGroup(item);
+
+                if (currentAttributeGroup == null)
+                {
+                    _logger.LogError($"Could not add attribute group with id {item} to block with id {dm.Id}, attribute not found.");
+                }
+                else
+                {
+
+                    foreach (var attributeGroupItem in currentAttributeGroup.AttributeGroupAttributes)
                     {
-                        _logger.LogError($"Could not add attribute with id {attributeId} to block with id {dm.Id}, attribute not found.");
-                    }
-                    else
-                    {
-                        dm.BlockAttributes.Add(new BlockAttributeLibDm { BlockId = dm.Id, AttributeId = attribute.Id });
+                        dm.BlockAttributes.Add(new BlockAttributeLibDm { BlockId = dm.Id, AttributeId = attributeGroupItem.AttributeId, PartOfAttributeGroup = item });
                     }
                 }
             }
-
-            if (blockAm.AttributeGroups != null)
-            {
-                foreach (var item in blockAm.AttributeGroups)
-                {
-                    var currentAttributeGroup = _attributeGroupRepository.GetSingleAttributeGroup(item);
-
-                    if (currentAttributeGroup == null)
-                    {
-                        _logger.LogError($"Could not add attribute group with id {item} to block with id {dm.Id}, attribute not found.");
-                    }
-                    else
-                    {
-
-                        foreach (var attributeGroupItem in currentAttributeGroup.AttributeGroupAttributes)
-                        {
-                            dm.BlockAttributes.Add(new BlockAttributeLibDm { BlockId = dm.Id, AttributeId = attributeGroupItem.AttributeId, PartOfAttributeGroup = item });
-                        }
-                    }
-                }
-            }
+        }
 
 
 
-            var createdBlock = await _blockRepository.Create(dm);
-            _blockRepository.ClearAllChangeTrackers();
-            _hookService.HookQueue.Enqueue(CacheKey.Block);
-            await _logService.CreateLog(createdBlock, LogType.Create, createdBlock?.State.ToString(), createdBlock?.CreatedBy);
+        var createdBlock = await _blockRepository.Create(dm);
+        _blockRepository.ClearAllChangeTrackers();
+        _hookService.HookQueue.Enqueue(CacheKey.Block);
+        await _logService.CreateLog(createdBlock, LogType.Create, createdBlock?.State.ToString(), createdBlock?.CreatedBy);
 
-            return Get(createdBlock?.Id);
+        return Get(createdBlock?.Id);
 
-        
+
 
     }
 
