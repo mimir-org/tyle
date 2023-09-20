@@ -4,21 +4,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tyle.Persistence.Attributes;
 
-[Table("Predicates")]
+[Table("Predicate")]
 [Index(nameof(Iri), IsUnique = true)]
 public class PredicateDao
 {
     public int Id { get; set; }
 
     [Required, MaxLength(100)]
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
     [MaxLength(500)]
     public string? Description { get; set; }
 
     [Required, MaxLength(500)]
-    public string Iri { get; set; }
+    public required string Iri { get; set; }
 
     [Required, MaxLength(50)]
-    public string Source { get; set; }
+    public required string Source { get; set; }
 }

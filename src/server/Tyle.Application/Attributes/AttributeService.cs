@@ -64,7 +64,7 @@ public class AttributeService : IAttributeService
 
     private async Task UpdateAttributeTypeFields(AttributeType attribute, AttributeTypeRequest request)
     {
-        /*if (request.PredicateReferenceId == null)
+        if (request.PredicateReferenceId == null)
         {
             attribute.Predicate = null;
         }
@@ -86,7 +86,7 @@ public class AttributeService : IAttributeService
 
             var unit = await _referenceService.GetUnit(unitReferenceId) ?? throw new ArgumentException($"No unit with id {unitReferenceId} found.", nameof(request));
             attribute.Units.Add(unit);
-        }*/
+        }
 
         attribute.UnitMinCount = request.UnitMinCount;
         attribute.UnitMaxCount = request.UnitMaxCount;
