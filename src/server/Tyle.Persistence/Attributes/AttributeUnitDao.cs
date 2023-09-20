@@ -12,4 +12,10 @@ public class AttributeUnitDao
 
     public int UnitId { get; set; }
     public UnitDao Unit { get; set; } = null!;
+
+    public AttributeUnitDao(Guid attributeId, int unitId)
+    {
+        AttributeId = attributeId;
+        UnitId = unitId;
+    }
 }
