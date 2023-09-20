@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tyle.Persistence.Attributes;
 
-[Table("ValueListEntries")]
+[Table("ValueListEntry")]
 public class ValueListEntriesDao
 {
     public int Id { get; set; }

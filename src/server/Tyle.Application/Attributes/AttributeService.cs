@@ -2,6 +2,7 @@ using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Attributes;
 using Tyle.Core.Attributes.ValueConstraints;
+using Tyle.Core.Common;
 
 namespace Tyle.Application.Attributes;
 
@@ -9,13 +10,13 @@ public class AttributeService : IAttributeService
 {
     private readonly IAttributeRepository _attributeRepository;
     private readonly IReferenceService _referenceService;
-    private readonly IUserService _userService;
+    //private readonly IUserService _userService;
 
-    public AttributeService(IAttributeRepository attributeRepository, IReferenceService referenceService, IUserService userService)
+    public AttributeService(IAttributeRepository attributeRepository, IReferenceService referenceService) //, IUserService userService)
     {
         _attributeRepository = attributeRepository;
         _referenceService = referenceService;
-        _userService = userService;
+        //_userService = userService;
     }
 
     public async Task<IEnumerable<AttributeType>> GetAll()
@@ -30,7 +31,7 @@ public class AttributeService : IAttributeService
 
     public async Task<AttributeType> Create(AttributeTypeRequest request)
     {
-        var attribute = new AttributeType(request.Name, request.Description, await _userService.GetCurrentUser());
+        var attribute = new AttributeType(request.Name, request.Description, new User("userid")); // await _userService.GetCurrentUser());
 
         await UpdateAttributeTypeFields(attribute, request);
 
@@ -44,11 +45,11 @@ public class AttributeService : IAttributeService
         attribute.Name = request.Name;
         attribute.Description = request.Description;
         
-        var updatingUser = await _userService.GetCurrentUser();
+        /*var updatingUser = await _userService.GetCurrentUser();
         if (updatingUser != attribute.CreatedBy)
         {
             attribute.ContributedBy.Add(updatingUser);
-        }
+        }*/
 
         attribute.LastUpdateOn = DateTimeOffset.Now;
 
