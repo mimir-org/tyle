@@ -7,30 +7,30 @@ namespace Tyle.Application.Attributes.Requests;
 public class AttributeTypeRequest : IValidatableObject
 {
     [Required]
-    public string Name { get; }
+    public string Name { get; set; }
 
-    public string? Description { get; }
+    public string? Description { get; set; }
 
-    public int? PredicateReferenceId { get; }
+    public int? PredicateReferenceId { get; set; }
 
     [Required]
-    public ICollection<int> UnitReferenceIds { get; }
+    public ICollection<int> UnitReferenceIds { get; set; }
 
     [Required, Range(0, 1, ErrorMessage = "The unit min count must be 0 or 1.")]
-    public int UnitMinCount { get; }
+    public int UnitMinCount { get; set; }
 
     [Required, Range(0, 1, ErrorMessage = "The unit max count must be 0 or 1.")]
-    public int UnitMaxCount { get; }
+    public int UnitMaxCount { get; set; }
 
-    public ProvenanceQualifier? ProvenanceQualifier { get; }
+    public ProvenanceQualifier? ProvenanceQualifier { get; set; }
 
-    public RangeQualifier? RangeQualifier { get; }
+    public RangeQualifier? RangeQualifier { get; set; }
 
-    public RegularityQualifier? RegularityQualifier { get; }
+    public RegularityQualifier? RegularityQualifier { get; set; }
 
-    public ScopeQualifier? ScopeQualifier { get; }
+    public ScopeQualifier? ScopeQualifier { get; set; }
     
-    public ValueConstraintRequest? ValueConstraint { get; }
+    public ValueConstraintRequest? ValueConstraint { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

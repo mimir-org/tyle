@@ -6,28 +6,28 @@ namespace Tyle.Application.Attributes.Requests;
 public class ValueConstraintRequest : IValidatableObject
 {
     [Required]
-    public ConstraintType ConstraintType { get; }
+    public ConstraintType ConstraintType { get; set; }
 
-    public XsdDataType DataType { get; }
+    public XsdDataType DataType { get; set; }
 
     [Range(0, int.MaxValue, ErrorMessage = "Min count must be null or above zero.")]
-    public int? MinCount { get; }
+    public int? MinCount { get; set; }
 
-    public int? MaxCount { get; }
+    public int? MaxCount { get; set; }
 
-    public string? Value { get; }
+    public string? Value { get; set; }
     
-    public ICollection<string>? ValueList { get; }
+    public ICollection<string>? ValueList { get; set; }
 
-    public string? Pattern { get; }
+    public string? Pattern { get; set; }
     
-    public decimal? MinValue { get; }
+    public decimal? MinValue { get; set; }
 
-    public decimal? MaxValue { get; }
+    public decimal? MaxValue { get; set; }
 
-    public bool? MinInclusive { get; }
+    public bool? MinInclusive { get; set; }
 
-    public bool? MaxInclusive { get; }
+    public bool? MaxInclusive { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

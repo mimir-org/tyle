@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Tyle.Persistence.Attributes;
 
 [Table("ValueListEntry")]
-public class ValueListEntriesDao
+public class ValueListEntryDao
 {
     public int Id { get; set; }
 
@@ -12,5 +12,11 @@ public class ValueListEntriesDao
     public ValueConstraintDao ValueConstraint { get; set; } = null!;
 
     [Required, MaxLength(500)]
-    public required string ValueListEntry { get; set; }
+    public string ValueListEntry { get; set; }
+
+    public ValueListEntryDao(Guid valueConstraintId, string valueListEntry)
+    {
+        ValueConstraintId = valueConstraintId;
+        ValueListEntry = valueListEntry;
+    }
 }

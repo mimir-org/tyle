@@ -24,7 +24,7 @@ public class ValueConstraintDao
     [MaxLength(500)]
     public string? Value { get; set; }
 
-    public ICollection<ValueListEntriesDao> ValueList { get; set; } = new List<ValueListEntriesDao>();
+    public ICollection<ValueListEntryDao> ValueList { get; set; } = new List<ValueListEntryDao>();
 
     [MaxLength(500)]
     public string? Pattern { get; set; }

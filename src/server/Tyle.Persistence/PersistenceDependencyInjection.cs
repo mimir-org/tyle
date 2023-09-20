@@ -37,6 +37,12 @@ public static class PersistenceDependencyInjection
         services.AddAutoMapper(config =>
         {
             config.AddProfile(new ClassifierProfile());
+            config.AddProfile(new PurposeProfile());
+
+            config.AddProfile(new AttributeProfile());
+            config.AddProfile(new PredicateProfile());
+            config.AddProfile(new UnitProfile());
+            config.AddProfile(new ValueConstraintProfile());
         });
 
         return services;

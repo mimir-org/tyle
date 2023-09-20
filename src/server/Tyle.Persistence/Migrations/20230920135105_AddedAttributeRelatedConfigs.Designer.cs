@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tyle.Persistence;
 
@@ -11,9 +12,11 @@ using Tyle.Persistence;
 namespace Tyle.Persistence.Migrations
 {
     [DbContext(typeof(TyleDbContext))]
-    partial class TyleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230920135105_AddedAttributeRelatedConfigs")]
+    partial class AddedAttributeRelatedConfigs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

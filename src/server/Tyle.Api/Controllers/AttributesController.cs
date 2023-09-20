@@ -1,6 +1,7 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using Tyle.Application.Attributes;
+using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common.Requests;
 using Tyle.Core.Attributes;
 using Tyle.Core.Common;
@@ -56,15 +57,15 @@ public class AttributesController : ControllerBase
         }
     }
 
-    /*[HttpPost]
-    [ProducesResponseType(typeof(ClassifierReference), StatusCodes.Status200OK)]
+    [HttpPost]
+    [ProducesResponseType(typeof(AttributeType), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Create([FromBody] ClassifierReferenceRequest request)
+    public async Task<IActionResult> Create([FromBody] AttributeTypeRequest request)
     {
         try
         {
-            return Ok(await _referenceService.CreateClassifier(request));
+            return Ok(await _attributeService.Create(request));
         }
         catch (Exception)
         {
@@ -72,7 +73,7 @@ public class AttributesController : ControllerBase
         }
     }
 
-    [HttpDelete("{id}")]
+    /*[HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

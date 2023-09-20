@@ -1,5 +1,8 @@
 using AutoMapper;
+using Azure.Core;
+using Tyle.Application.Attributes.Requests;
 using Tyle.Core.Attributes;
+using Tyle.Core.Attributes.ValueConstraints;
 
 namespace Tyle.Persistence.Attributes;
 
@@ -35,5 +38,100 @@ public class AttributeProfile : Profile
                 opt.PreCondition(src => (src.ScopeQualifier != null));
                 opt.MapFrom(src => src.ScopeQualifier.ToString());
             });
+
+        CreateMap<AttributeDao, AttributeType>()
+            .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
+            .ForMember(dest => dest.ContributedBy, opt => opt.Ignore())
+            .ForMember(dest => dest.Units, opt => opt.MapFrom(src => src.AttributeUnits.Select(x => x.Unit)))
+            .ForMember(dest => dest.ProvenanceQualifier, opt =>
+            {
+                opt.PreCondition(src => (src.ProvenanceQualifier != null));
+                opt.MapFrom(src => Enum.Parse<ProvenanceQualifier>(src.ProvenanceQualifier!));
+            })
+            .ForMember(dest => dest.RangeQualifier, opt =>
+            {
+                opt.PreCondition(src => (src.RangeQualifier != null));
+                opt.MapFrom(src => Enum.Parse<ProvenanceQualifier>(src.RangeQualifier!));
+            })
+            .ForMember(dest => dest.RegularityQualifier, opt =>
+            {
+                opt.PreCondition(src => (src.RegularityQualifier != null));
+                opt.MapFrom(src => Enum.Parse<ProvenanceQualifier>(src.RegularityQualifier!));
+            })
+            .ForMember(dest => dest.ScopeQualifier, opt =>
+            {
+                opt.PreCondition(src => (src.ScopeQualifier != null));
+                opt.MapFrom(src => Enum.Parse<ProvenanceQualifier>(src.ScopeQualifier!));
+            })
+            .ForMember(dest => dest.ValueConstraint, opt => opt.MapFrom(src => MapValueConstraint(src.ValueConstraint)));
+    }
+
+    private IValueConstraint MapValueConstraint(ValueConstraintDao? valueConstraintDao)
+    {
+        if (valueConstraintDao == null)
+        {
+            return null;
+        }
+
+        var constraintType = Enum.Parse<ConstraintType>(valueConstraintDao.ConstraintType);
+        var dataType = Enum.Parse<XsdDataType>(valueConstraintDao.DataType);
+        var valueList = valueConstraintDao.ValueList.Select(x => x.ValueListEntry).ToList();
+
+        switch (constraintType)
+        {
+            case ConstraintType.HasValue:
+                switch (dataType)
+                {
+                    case XsdDataType.String:
+                        return new HasStringValue(valueConstraintDao.Value!);
+                    case XsdDataType.Decimal:
+                        return new HasDecimalValue(decimal.Parse(valueConstraintDao.Value!));
+                    case XsdDataType.Integer:
+                        return new HasIntegerValue(int.Parse(valueConstraintDao.Value!));
+                    case XsdDataType.AnyUri:
+                        return new HasIriValue(new Uri(valueConstraintDao.Value!));
+                }
+                break;
+            case ConstraintType.In:
+                switch (dataType)
+                {
+                    case XsdDataType.String:
+                        return new InStringValueList(valueList, (int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
+                    case XsdDataType.Decimal:
+                        return new InDecimalValueList(valueList.Select(decimal.Parse).ToList(), (int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
+                    case XsdDataType.Integer:
+                        return new InIntegerValueList(valueList.Select(int.Parse).ToList(), (int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
+                    case XsdDataType.AnyUri:
+                        return new InIriValueList(valueList.Select(x => new Uri(x)).ToList(), (int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
+                }
+                break;
+            case ConstraintType.DataType:
+                switch (dataType)
+                {
+                    case XsdDataType.String:
+                        return new DataTypeString((int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
+                    case XsdDataType.Decimal:
+                        return new DataTypeDecimal((int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
+                    case XsdDataType.Integer:
+                        return new DataTypeInteger((int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
+                    case XsdDataType.Boolean:
+                        return new DataTypeBoolean((int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
+                }
+                break;
+            case ConstraintType.Pattern:
+                return new StringPattern(valueConstraintDao.Pattern!, (int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
+            case ConstraintType.Range:
+                if (dataType == XsdDataType.Decimal)
+                {
+                    return new RangeDecimal(valueConstraintDao.MinValue, valueConstraintDao.MaxValue, valueConstraintDao.MinInclusive, valueConstraintDao.MaxInclusive, (int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
+                }
+                if (dataType == XsdDataType.Integer)
+                {
+                    return new RangeInteger((int?)valueConstraintDao.MinValue, (int?)valueConstraintDao.MaxValue, valueConstraintDao.MinInclusive, valueConstraintDao.MaxInclusive, (int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
+                }
+                break;
+        }
+
+        return null;
     }
 }

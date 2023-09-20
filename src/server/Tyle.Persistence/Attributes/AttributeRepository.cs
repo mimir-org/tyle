@@ -1,7 +1,9 @@
+using System.Globalization;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Tyle.Application.Attributes;
 using Tyle.Core.Attributes;
+using Tyle.Core.Attributes.ValueConstraints;
 
 namespace Tyle.Persistence.Attributes;
 
@@ -47,9 +49,26 @@ public class AttributeRepository : IAttributeRepository
         return _mapper.Map<AttributeType>(attributeDao);
     }
 
-    public Task<AttributeType> Create(AttributeType type)
+    public async Task<AttributeType> Create(AttributeType attribute)
     {
-        throw new NotImplementedException();
+        var attributeDao = _mapper.Map<AttributeDao>(attribute);
+
+        if (attribute.ValueConstraint != null)
+        {
+            attributeDao.ValueConstraint!.ValueList = attribute.ValueConstraint switch
+            {
+                InDecimalValueList c => c.ValueList.Select(x => new ValueListEntryDao(attributeDao.Id, x.ToString("F19", CultureInfo.InvariantCulture))).ToList(),
+                InIntegerValueList c => c.ValueList.Select(x => new ValueListEntryDao(attributeDao.Id, x.ToString())).ToList(),
+                InIriValueList c => c.ValueList.Select(x => new ValueListEntryDao(attributeDao.Id, x.AbsoluteUri)).ToList(),
+                InStringValueList c => c.ValueList.Select(x => new ValueListEntryDao(attributeDao.Id, x)).ToList(),
+                _ => attributeDao.ValueConstraint!.ValueList
+            };
+        }
+
+        await _dbSet.AddAsync(attributeDao);
+        await _context.SaveChangesAsync();
+
+        return await Get(attributeDao.Id);
     }
 
     public Task<AttributeType> Update(AttributeType type)
