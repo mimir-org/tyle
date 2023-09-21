@@ -27,7 +27,7 @@ public class PredicateRepository : IPredicateRepository
 
     public async Task<PredicateReference?> Get(int id)
     {
-        var predicateDao = await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
+        var predicateDao = await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
         return _mapper.Map<PredicateReference>(predicateDao);
     }
@@ -35,7 +35,7 @@ public class PredicateRepository : IPredicateRepository
     public async Task<PredicateReference> Create(PredicateReference predicate)
     {
         var predicateDao = _mapper.Map<PredicateDao>(predicate);
-        await _dbSet.AddAsync(predicateDao);
+        _dbSet.Add(predicateDao);
         await _context.SaveChangesAsync();
 
         return await Get(predicateDao.Id);

@@ -27,7 +27,7 @@ public class UnitRepository : IUnitRepository
 
     public async Task<UnitReference?> Get(int id)
     {
-        var unitDao = await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
+        var unitDao = await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
         return _mapper.Map<UnitReference>(unitDao);
     }
@@ -35,7 +35,7 @@ public class UnitRepository : IUnitRepository
     public async Task<UnitReference> Create(UnitReference unit)
     {
         var unitDao = _mapper.Map<UnitDao>(unit);
-        await _dbSet.AddAsync(unitDao);
+        _dbSet.Add(unitDao);
         await _context.SaveChangesAsync();
 
         return await Get(unitDao.Id);

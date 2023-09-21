@@ -27,7 +27,7 @@ public class PurposeRepository : IPurposeRepository
 
     public async Task<PurposeReference?> Get(int id)
     {
-        var purposeDao = await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
+        var purposeDao = await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
         return _mapper.Map<PurposeReference>(purposeDao);
     }
@@ -35,7 +35,7 @@ public class PurposeRepository : IPurposeRepository
     public async Task<PurposeReference> Create(PurposeReference purpose)
     {
         var purposeDao = _mapper.Map<PurposeDao>(purpose);
-        await _dbSet.AddAsync(purposeDao);
+        _dbSet.Add(purposeDao);
         await _context.SaveChangesAsync();
 
         return await Get(purposeDao.Id);

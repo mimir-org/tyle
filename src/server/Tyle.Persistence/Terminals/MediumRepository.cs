@@ -27,7 +27,7 @@ public class MediumRepository : IMediumRepository
 
     public async Task<MediumReference?> Get(int id)
     {
-        var mediumDao = await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
+        var mediumDao = await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
         return _mapper.Map<MediumReference>(mediumDao);
     }
@@ -35,7 +35,7 @@ public class MediumRepository : IMediumRepository
     public async Task<MediumReference> Create(MediumReference medium)
     {
         var mediumDao = _mapper.Map<MediumDao>(medium);
-        await _dbSet.AddAsync(mediumDao);
+        _dbSet.Add(mediumDao);
         await _context.SaveChangesAsync();
 
         return await Get(mediumDao.Id);

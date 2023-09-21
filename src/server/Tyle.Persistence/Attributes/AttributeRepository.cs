@@ -48,6 +48,8 @@ public class AttributeRepository : IAttributeRepository
         await _context.Entry(attributeDao).Collection(x => x.AttributeUnits).Query().Include(x => x.Unit).LoadAsync();
         await _context.Entry(attributeDao).Reference(x => x.ValueConstraint).Query().Include(x => x.ValueList).LoadAsync();
 
+        _context.Entry(attributeDao).State = EntityState.Detached;
+
         return _mapper.Map<AttributeType>(attributeDao);
     }
 
@@ -67,7 +69,7 @@ public class AttributeRepository : IAttributeRepository
             };
         }
 
-        await _dbSet.AddAsync(attributeDao);
+        _dbSet.Add(attributeDao);
         await _context.SaveChangesAsync();
 
         return await Get(attributeDao.Id);
@@ -99,14 +101,17 @@ public class AttributeRepository : IAttributeRepository
             _context.AttributeUnits.Remove(unitAttribute);
         }
 
-        var valueConstraintStub = new ValueConstraintDao // This is a stub, only used to delete the old value constraint
+        if (currentAttribute.ValueConstraint != null)
         {
-            AttributeId = attribute.Id,
-            ConstraintType = "",
-            DataType = ""
-        };
-        _context.ValueConstraints.Attach(valueConstraintStub);
-        _context.ValueConstraints.Remove(valueConstraintStub);
+            var valueConstraintStub = new ValueConstraintDao // This is a stub, only used to delete the old value constraint
+            {
+                AttributeId = attribute.Id,
+                ConstraintType = "",
+                DataType = ""
+            };
+            _context.ValueConstraints.Attach(valueConstraintStub);
+            _context.ValueConstraints.Remove(valueConstraintStub);
+        }
 
         await _context.SaveChangesAsync();
 
@@ -117,7 +122,7 @@ public class AttributeRepository : IAttributeRepository
         {
             if (currentAttribute.Units.FirstOrDefault(x => x.Id == unitAttribute.UnitId) != null) continue;
 
-            await _context.AttributeUnits.AddAsync(unitAttribute);
+            _context.AttributeUnits.Add(unitAttribute);
         }
 
         await _context.SaveChangesAsync();

@@ -27,7 +27,7 @@ public class ClassifierRepository : IClassifierRepository
 
     public async Task<ClassifierReference?> Get(int id)
     {
-        var classifierDao = await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
+        var classifierDao = await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
         return _mapper.Map<ClassifierReference>(classifierDao);
     }
@@ -35,7 +35,7 @@ public class ClassifierRepository : IClassifierRepository
     public async Task<ClassifierReference> Create(ClassifierReference classifier)
     {
         var classifierDao = _mapper.Map<ClassifierDao>(classifier);
-        await _dbSet.AddAsync(classifierDao);
+        _dbSet.Add(classifierDao);
         await _context.SaveChangesAsync();
 
         return await Get(classifierDao.Id);
