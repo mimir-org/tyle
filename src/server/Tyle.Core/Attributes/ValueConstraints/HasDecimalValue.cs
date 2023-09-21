@@ -2,7 +2,7 @@ namespace Tyle.Core.Attributes.ValueConstraints;
 
 public class HasDecimalValue : IValueConstraint
 {
-    public decimal Value { get; }
+    public decimal Value { get; set; }
 
     /// <summary>
     /// Creates a new HasValue constraint with a decimal value.

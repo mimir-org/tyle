@@ -2,8 +2,8 @@ namespace Tyle.Core.Common;
 
 public abstract class HasCardinality
 {
-    public int MinCount { get; }
-    public int? MaxCount { get; }
+    public int MinCount { get; set; }
+    public int? MaxCount { get; set; }
 
     protected HasCardinality(int minCount, int? maxCount = null)
     {

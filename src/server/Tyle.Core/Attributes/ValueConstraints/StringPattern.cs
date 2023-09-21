@@ -5,7 +5,7 @@ namespace Tyle.Core.Attributes.ValueConstraints;
 
 public class StringPattern : HasCardinality, IValueConstraint
 {
-    public string Pattern { get; }
+    public string Pattern { get; set; }
 
     /// <summary>
     /// Creates a new string pattern constraint.

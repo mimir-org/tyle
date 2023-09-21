@@ -4,14 +4,14 @@ namespace Tyle.Core.Terminals;
 
 public class TerminalType : ImfType
 {
-    public ICollection<ClassifierReference> Classifiers { get; }
-    public PurposeReference? Purpose { get; }
-    public string? Notation { get; }
-    public string? Symbol { get; }
-    public Aspect? Aspect { get; }
-    public MediumReference? Medium { get; }
-    public Direction Qualifier { get; }
-    public ICollection<AttributeTypeReference> Attributes { get; }
+    public ICollection<ClassifierReference> Classifiers { get; set; }
+    public PurposeReference? Purpose { get; set; }
+    public string? Notation { get; set; }
+    public string? Symbol { get; set; }
+    public Aspect? Aspect { get; set; }
+    public MediumReference? Medium { get; set; }
+    public Direction Qualifier { get; set; }
+    public ICollection<AttributeTypeReference> Attributes { get; set; }
 
     /// <summary>
     /// Creates a new terminal type

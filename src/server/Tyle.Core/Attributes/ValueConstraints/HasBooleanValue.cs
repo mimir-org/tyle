@@ -2,7 +2,7 @@ namespace Tyle.Core.Attributes.ValueConstraints;
 
 public class HasBooleanValue : IValueConstraint
 {
-    public bool Value { get; }
+    public bool Value { get; set; }
 
     /// <summary>
     /// Creates a new HasValue constraint with a boolean value.

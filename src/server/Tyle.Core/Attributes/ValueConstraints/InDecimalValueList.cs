@@ -4,7 +4,7 @@ namespace Tyle.Core.Attributes.ValueConstraints;
 
 public class InDecimalValueList : HasCardinality, IValueConstraint
 {
-    public ICollection<decimal> ValueList { get; }
+    public ICollection<decimal> ValueList { get; set; }
 
     /// <summary>
     /// Creates a new In constraint with decimal values.

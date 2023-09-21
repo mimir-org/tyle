@@ -1,3 +1,4 @@
+using System.Globalization;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Attributes;
@@ -115,7 +116,7 @@ public class AttributeService : IAttributeService
                     case XsdDataType.String:
                         return new HasStringValue(request.Value!);
                     case XsdDataType.Decimal:
-                        return new HasDecimalValue(decimal.Parse(request.Value!));
+                        return new HasDecimalValue(decimal.Parse(request.Value!, CultureInfo.InvariantCulture));
                     case XsdDataType.Integer:
                         return new HasIntegerValue(int.Parse(request.Value!));
                     case XsdDataType.AnyUri:
@@ -128,7 +129,7 @@ public class AttributeService : IAttributeService
                     case XsdDataType.String:
                         return new InStringValueList(request.ValueList!, (int)request.MinCount!, request.MaxCount);
                     case XsdDataType.Decimal:
-                        return new InDecimalValueList(request.ValueList!.Select(decimal.Parse).ToList(), (int)request.MinCount!, request.MaxCount);
+                        return new InDecimalValueList(request.ValueList!.Select(x => decimal.Parse(x, CultureInfo.InvariantCulture)).ToList(), (int)request.MinCount!, request.MaxCount);
                     case XsdDataType.Integer:
                         return new InIntegerValueList(request.ValueList!.Select(int.Parse).ToList(), (int)request.MinCount!, request.MaxCount);
                     case XsdDataType.AnyUri:

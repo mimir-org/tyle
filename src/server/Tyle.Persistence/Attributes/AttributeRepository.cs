@@ -27,6 +27,7 @@ public class AttributeRepository : IAttributeRepository
             .Include(x => x.AttributeUnits)
             .ThenInclude(x => x.Unit)
             .Include(x => x.ValueConstraint)
+            .ThenInclude(x => x.ValueList)
             .AsSplitQuery()
             .ToListAsync();
 
@@ -44,7 +45,7 @@ public class AttributeRepository : IAttributeRepository
 
         await _context.Entry(attributeDao).Reference(x => x.Predicate).LoadAsync();
         await _context.Entry(attributeDao).Collection(x => x.AttributeUnits).Query().Include(x => x.Unit).LoadAsync();
-        await _context.Entry(attributeDao).Reference(x => x.ValueConstraint).LoadAsync();
+        await _context.Entry(attributeDao).Reference(x => x.ValueConstraint).Query().Include(x => x.ValueList).LoadAsync();
 
         return _mapper.Map<AttributeType>(attributeDao);
     }

@@ -4,10 +4,10 @@ namespace Tyle.Core.Attributes.ValueConstraints;
 
 public class RangeInteger : HasCardinality, IValueConstraint
 {
-    public int? MinValue { get; }
-    public int? MaxValue { get; }
-    public bool? MinInclusive { get; }
-    public bool? MaxInclusive { get; }
+    public int? MinValue { get; set; }
+    public int? MaxValue { get; set; }
+    public bool? MinInclusive { get; set; }
+    public bool? MaxInclusive { get; set; }
 
     /// <summary>
     /// Creates a new integer range constraint.

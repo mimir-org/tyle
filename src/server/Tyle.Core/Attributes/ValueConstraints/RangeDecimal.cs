@@ -4,10 +4,10 @@ namespace Tyle.Core.Attributes.ValueConstraints;
 
 public class RangeDecimal : HasCardinality, IValueConstraint
 {
-    public decimal? MinValue { get; }
-    public decimal? MaxValue { get; }
-    public bool? MinInclusive { get; }
-    public bool? MaxInclusive { get; }
+    public decimal? MinValue { get; set; }
+    public decimal? MaxValue { get; set; }
+    public bool? MinInclusive { get; set; }
+    public bool? MaxInclusive { get; set; }
 
     /// <summary>
     /// Creates a new decimal range constraint.

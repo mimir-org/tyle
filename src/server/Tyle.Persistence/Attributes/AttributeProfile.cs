@@ -1,8 +1,10 @@
+using System.Globalization;
 using AutoMapper;
 using Azure.Core;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Core.Attributes;
 using Tyle.Core.Attributes.ValueConstraints;
+using Tyle.Core.Common;
 
 namespace Tyle.Persistence.Attributes;
 
@@ -40,7 +42,7 @@ public class AttributeProfile : Profile
             });
 
         CreateMap<AttributeDao, AttributeType>()
-            .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
+            .ConstructUsing(x => new AttributeType(x.Name, x.Description, new User("", "")))
             .ForMember(dest => dest.ContributedBy, opt => opt.Ignore())
             .ForMember(dest => dest.Units, opt => opt.MapFrom(src => src.AttributeUnits.Select(x => x.Unit)))
             .ForMember(dest => dest.ProvenanceQualifier, opt =>
@@ -51,17 +53,17 @@ public class AttributeProfile : Profile
             .ForMember(dest => dest.RangeQualifier, opt =>
             {
                 opt.PreCondition(src => (src.RangeQualifier != null));
-                opt.MapFrom(src => Enum.Parse<ProvenanceQualifier>(src.RangeQualifier!));
+                opt.MapFrom(src => Enum.Parse<RangeQualifier>(src.RangeQualifier!));
             })
             .ForMember(dest => dest.RegularityQualifier, opt =>
             {
                 opt.PreCondition(src => (src.RegularityQualifier != null));
-                opt.MapFrom(src => Enum.Parse<ProvenanceQualifier>(src.RegularityQualifier!));
+                opt.MapFrom(src => Enum.Parse<RegularityQualifier>(src.RegularityQualifier!));
             })
             .ForMember(dest => dest.ScopeQualifier, opt =>
             {
                 opt.PreCondition(src => (src.ScopeQualifier != null));
-                opt.MapFrom(src => Enum.Parse<ProvenanceQualifier>(src.ScopeQualifier!));
+                opt.MapFrom(src => Enum.Parse<ScopeQualifier>(src.ScopeQualifier!));
             })
             .ForMember(dest => dest.ValueConstraint, opt => opt.MapFrom(src => MapValueConstraint(src.ValueConstraint)));
     }
@@ -85,7 +87,7 @@ public class AttributeProfile : Profile
                     case XsdDataType.String:
                         return new HasStringValue(valueConstraintDao.Value!);
                     case XsdDataType.Decimal:
-                        return new HasDecimalValue(decimal.Parse(valueConstraintDao.Value!));
+                        return new HasDecimalValue(decimal.Parse(valueConstraintDao.Value!, CultureInfo.InvariantCulture));
                     case XsdDataType.Integer:
                         return new HasIntegerValue(int.Parse(valueConstraintDao.Value!));
                     case XsdDataType.AnyUri:
@@ -98,7 +100,7 @@ public class AttributeProfile : Profile
                     case XsdDataType.String:
                         return new InStringValueList(valueList, (int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
                     case XsdDataType.Decimal:
-                        return new InDecimalValueList(valueList.Select(decimal.Parse).ToList(), (int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
+                        return new InDecimalValueList(valueList.Select(x => decimal.Parse(x, CultureInfo.InvariantCulture)).ToList(), (int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
                     case XsdDataType.Integer:
                         return new InIntegerValueList(valueList.Select(int.Parse).ToList(), (int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
                     case XsdDataType.AnyUri:

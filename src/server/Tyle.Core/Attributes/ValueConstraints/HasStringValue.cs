@@ -2,7 +2,7 @@ namespace Tyle.Core.Attributes.ValueConstraints;
 
 public class HasStringValue : IValueConstraint
 {
-    public string Value { get; }
+    public string Value { get; set; }
 
     /// <summary>
     /// Creates a new HasValue constraint with a string value.

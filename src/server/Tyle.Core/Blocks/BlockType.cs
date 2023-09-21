@@ -4,11 +4,11 @@ namespace Tyle.Core.Blocks;
 
 public class BlockType : ImfType
 {
-    public ICollection<ClassifierReference> Classifiers { get; }
-    public PurposeReference? Purpose { get; }
-    public string? Notation { get; }
-    public string? Symbol { get; }
-    public Aspect? Aspect { get; }
+    public ICollection<ClassifierReference> Classifiers { get; set; }
+    public PurposeReference? Purpose { get; set; }
+    public string? Notation { get; set; }
+    public string? Symbol { get; set; }
+    public Aspect? Aspect { get; set; }
 
     public ICollection<TerminalTypeReference> BlockTerminals { get; set; }
     public ICollection<AttributeTypeReference> Attributes { get; set; }

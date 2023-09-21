@@ -4,7 +4,7 @@ namespace Tyle.Core.Attributes;
 
 public record UnitReference : RdlReference
 {
-    public string? Symbol { get; }
+    public string? Symbol { get; set; }
 
     /// <summary>
     /// Creates a new unit reference.

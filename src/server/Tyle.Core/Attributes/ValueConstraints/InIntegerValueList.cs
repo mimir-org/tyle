@@ -4,7 +4,7 @@ namespace Tyle.Core.Attributes.ValueConstraints;
 
 public class InIntegerValueList : HasCardinality, IValueConstraint
 {
-    public ICollection<int> ValueList { get; }
+    public ICollection<int> ValueList { get; set; }
 
     /// <summary>
     /// Creates a new In constraint with integer values.

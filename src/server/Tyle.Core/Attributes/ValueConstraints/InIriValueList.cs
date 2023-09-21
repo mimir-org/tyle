@@ -4,7 +4,7 @@ namespace Tyle.Core.Attributes.ValueConstraints;
 
 public class InIriValueList : HasCardinality, IValueConstraint
 {
-    public ICollection<Uri> ValueList { get; }
+    public ICollection<Uri> ValueList { get; set; }
 
     /// <summary>
     /// Creates a new In constraint with IRI values.

@@ -6,7 +6,7 @@ namespace Tyle.Core.Attributes;
 public class AttributeType : ImfType
 {
     public PredicateReference? Predicate { get; set; }
-    public ICollection<UnitReference> Units { get; }
+    public ICollection<UnitReference> Units { get; set; }
     public int UnitMinCount { get; set; }
     public int UnitMaxCount { get; set; }
     public ProvenanceQualifier? ProvenanceQualifier { get; set; }

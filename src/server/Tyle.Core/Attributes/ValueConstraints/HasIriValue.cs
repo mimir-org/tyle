@@ -2,7 +2,7 @@ namespace Tyle.Core.Attributes.ValueConstraints;
 
 public class HasIriValue : IValueConstraint
 {
-    public Uri Value { get; }
+    public Uri Value { get; set; }
 
     /// <summary>
     /// Creates a new HasValue constraint with an IRI value.
