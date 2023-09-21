@@ -152,13 +152,12 @@ public class AttributeService : IAttributeService
             case ConstraintType.Pattern:
                 return new StringPattern(request.Pattern!, (int) request.MinCount!, request.MaxCount);
             case ConstraintType.Range:
-                if (request.DataType == XsdDataType.Decimal)
+                switch (request.DataType)
                 {
-                    return new RangeDecimal(request.MinValue, request.MaxValue, request.MinInclusive, request.MaxInclusive, (int) request.MinCount!, request.MaxCount);
-                }
-                else if (request.DataType == XsdDataType.Integer)
-                {
-                    return new RangeInteger((int?)request.MinValue, (int?)request.MaxValue, request.MinInclusive, request.MaxInclusive, (int) request.MinCount!, request.MaxCount);
+                    case XsdDataType.Decimal:
+                        return new RangeDecimal(request.MinValue, request.MaxValue, request.MinInclusive, request.MaxInclusive, (int) request.MinCount!, request.MaxCount);
+                    case XsdDataType.Integer:
+                        return new RangeInteger((int?)request.MinValue, (int?)request.MaxValue, request.MinInclusive, request.MaxInclusive, (int) request.MinCount!, request.MaxCount);
                 }
                 break;
         }

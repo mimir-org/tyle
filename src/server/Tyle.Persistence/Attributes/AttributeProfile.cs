@@ -123,13 +123,12 @@ public class AttributeProfile : Profile
             case ConstraintType.Pattern:
                 return new StringPattern(valueConstraintDao.Pattern!, (int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
             case ConstraintType.Range:
-                if (dataType == XsdDataType.Decimal)
+                switch (dataType)
                 {
-                    return new RangeDecimal(valueConstraintDao.MinValue, valueConstraintDao.MaxValue, valueConstraintDao.MinInclusive, valueConstraintDao.MaxInclusive, (int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
-                }
-                if (dataType == XsdDataType.Integer)
-                {
-                    return new RangeInteger((int?)valueConstraintDao.MinValue, (int?)valueConstraintDao.MaxValue, valueConstraintDao.MinInclusive, valueConstraintDao.MaxInclusive, (int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
+                    case XsdDataType.Decimal:
+                        return new RangeDecimal(valueConstraintDao.MinValue, valueConstraintDao.MaxValue, valueConstraintDao.MinInclusive, valueConstraintDao.MaxInclusive, (int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
+                    case XsdDataType.Integer:
+                        return new RangeInteger((int?)valueConstraintDao.MinValue, (int?)valueConstraintDao.MaxValue, valueConstraintDao.MinInclusive, valueConstraintDao.MaxInclusive, (int)valueConstraintDao.MinCount!, valueConstraintDao.MaxCount);
                 }
                 break;
         }
