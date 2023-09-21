@@ -20,7 +20,7 @@ public class UnitRepository : IUnitRepository
 
     public async Task<IEnumerable<UnitReference>> GetAll()
     {
-        var unitDaos = await _dbSet.ToListAsync();
+        var unitDaos = await _dbSet.AsNoTracking().ToListAsync();
 
         return _mapper.Map<List<UnitReference>>(unitDaos);
     }
@@ -43,7 +43,7 @@ public class UnitRepository : IUnitRepository
 
     public async Task Delete(int id)
     {
-        var unitDao = await _dbSet.FindAsync(id) ?? throw new KeyNotFoundException($"No unit reference with id {id} found.");
+        var unitDao = await _dbSet.FirstOrDefaultAsync(x => x.Id == id) ?? throw new KeyNotFoundException($"No unit reference with id {id} found.");
         _dbSet.Remove(unitDao);
         await _context.SaveChangesAsync();
     }

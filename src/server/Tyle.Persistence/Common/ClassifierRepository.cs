@@ -20,7 +20,7 @@ public class ClassifierRepository : IClassifierRepository
 
     public async Task<IEnumerable<ClassifierReference>> GetAll()
     {
-        var classifierDaos = await _dbSet.ToListAsync();
+        var classifierDaos = await _dbSet.AsNoTracking().ToListAsync();
 
         return _mapper.Map<List<ClassifierReference>>(classifierDaos);
     }
@@ -43,7 +43,7 @@ public class ClassifierRepository : IClassifierRepository
 
     public async Task Delete(int id)
     {
-        var classifierDao = await _dbSet.FindAsync(id) ?? throw new KeyNotFoundException($"No classifier reference with id {id} found.");
+        var classifierDao = await _dbSet.FirstOrDefaultAsync(x => x.Id == id) ?? throw new KeyNotFoundException($"No classifier reference with id {id} found.");
         _dbSet.Remove(classifierDao);
         await _context.SaveChangesAsync();
     }

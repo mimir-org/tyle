@@ -20,7 +20,7 @@ public class PurposeRepository : IPurposeRepository
 
     public async Task<IEnumerable<PurposeReference>> GetAll()
     {
-        var purposeDaos = await _dbSet.ToListAsync();
+        var purposeDaos = await _dbSet.AsNoTracking().ToListAsync();
 
         return _mapper.Map<List<PurposeReference>>(purposeDaos);
     }
@@ -43,7 +43,7 @@ public class PurposeRepository : IPurposeRepository
 
     public async Task Delete(int id)
     {
-        var purposeDao = await _dbSet.FindAsync(id) ?? throw new KeyNotFoundException($"No purpose reference with id {id} found.");
+        var purposeDao = await _dbSet.FirstOrDefaultAsync(x => x.Id == id) ?? throw new KeyNotFoundException($"No purpose reference with id {id} found.");
         _dbSet.Remove(purposeDao);
         await _context.SaveChangesAsync();
     }

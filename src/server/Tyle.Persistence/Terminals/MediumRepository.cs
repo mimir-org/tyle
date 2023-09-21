@@ -20,7 +20,7 @@ public class MediumRepository : IMediumRepository
 
     public async Task<IEnumerable<MediumReference>> GetAll()
     {
-        var mediumDaos = await _dbSet.ToListAsync();
+        var mediumDaos = await _dbSet.AsNoTracking().ToListAsync();
 
         return _mapper.Map<List<MediumReference>>(mediumDaos);
     }
@@ -43,7 +43,7 @@ public class MediumRepository : IMediumRepository
 
     public async Task Delete(int id)
     {
-        var mediumDao = await _dbSet.FindAsync(id) ?? throw new KeyNotFoundException($"No medium reference with id {id} found.");
+        var mediumDao = await _dbSet.FirstOrDefaultAsync(x => x.Id == id) ?? throw new KeyNotFoundException($"No medium reference with id {id} found.");
         _dbSet.Remove(mediumDao);
         await _context.SaveChangesAsync();
     }

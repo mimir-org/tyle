@@ -20,7 +20,7 @@ public class PredicateRepository : IPredicateRepository
 
     public async Task<IEnumerable<PredicateReference>> GetAll()
     {
-        var predicateDaos = await _dbSet.ToListAsync();
+        var predicateDaos = await _dbSet.AsNoTracking().ToListAsync();
 
         return _mapper.Map<List<PredicateReference>>(predicateDaos);
     }
@@ -43,7 +43,7 @@ public class PredicateRepository : IPredicateRepository
 
     public async Task Delete(int id)
     {
-        var predicateDao = await _dbSet.FindAsync(id) ?? throw new KeyNotFoundException($"No predicate reference with id {id} found.");
+        var predicateDao = await _dbSet.FirstOrDefaultAsync(x => x.Id == id) ?? throw new KeyNotFoundException($"No predicate reference with id {id} found.");
         _dbSet.Remove(predicateDao);
         await _context.SaveChangesAsync();
     }

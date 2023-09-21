@@ -48,8 +48,6 @@ public class AttributeRepository : IAttributeRepository
         await _context.Entry(attributeDao).Collection(x => x.AttributeUnits).Query().Include(x => x.Unit).LoadAsync();
         await _context.Entry(attributeDao).Reference(x => x.ValueConstraint).Query().Include(x => x.ValueList).LoadAsync();
 
-        _context.Entry(attributeDao).State = EntityState.Detached;
-
         return _mapper.Map<AttributeType>(attributeDao);
     }
 
@@ -129,10 +127,8 @@ public class AttributeRepository : IAttributeRepository
 
     public async Task Delete(Guid id)
     {
-        var attributeDao = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id) ?? throw new KeyNotFoundException($"No attribute type with id {id} found.");
-        
+        var attributeDao = await _dbSet.FirstOrDefaultAsync(x => x.Id == id) ?? throw new KeyNotFoundException($"No attribute type with id {id} found.");
         _dbSet.Remove(attributeDao);
-
         await _context.SaveChangesAsync();
     }
 }
