@@ -13,7 +13,10 @@ public class MediumProfile : Profile
             .ForMember(dest => dest.Source, opt => opt.MapFrom(src => src.Source.ToString()));
 
         CreateMap<MediumDao, MediumReference>()
-            .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => new Uri(src.Iri)))
-            .ForMember(dest => dest.Source, opt => opt.MapFrom(src => Enum.Parse<ReferenceSource>(src.Source)));
+            .ConstructUsing(src => new MediumReference(
+                src.Name,
+                new Uri(src.Iri),
+                src.Description,
+                Enum.Parse<ReferenceSource>(src.Source)));
     }
 }

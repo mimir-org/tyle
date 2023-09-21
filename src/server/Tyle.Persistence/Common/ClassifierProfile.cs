@@ -12,7 +12,10 @@ public class ClassifierProfile : Profile
             .ForMember(dest => dest.Source, opt => opt.MapFrom(src => src.Source.ToString()));
 
         CreateMap<ClassifierDao, ClassifierReference>()
-            .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => new Uri(src.Iri)))
-            .ForMember(dest => dest.Source, opt => opt.MapFrom(src => Enum.Parse<ReferenceSource>(src.Source)));
+            .ConstructUsing(src => new ClassifierReference(
+                src.Name,
+                new Uri(src.Iri),
+                src.Description,
+                Enum.Parse<ReferenceSource>(src.Source)));
     }
 }

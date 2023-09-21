@@ -13,7 +13,11 @@ public class UnitProfile : Profile
             .ForMember(dest => dest.Source, opt => opt.MapFrom(src => src.Source.ToString()));
 
         CreateMap<UnitDao, UnitReference>()
-            .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => new Uri(src.Iri)))
-            .ForMember(dest => dest.Source, opt => opt.MapFrom(src => Enum.Parse<ReferenceSource>(src.Source)));
+            .ConstructUsing(src => new UnitReference(
+                src.Name,
+                new Uri(src.Iri),
+                src.Symbol,
+                src.Description,
+                Enum.Parse<ReferenceSource>(src.Source)));
     }
 }

@@ -42,7 +42,7 @@ public class AttributeProfile : Profile
             });
 
         CreateMap<AttributeDao, AttributeType>()
-            .ConstructUsing(x => new AttributeType(x.Name, x.Description, new User("", "")))
+            .ConstructUsing(src => new AttributeType(src.Name, src.Description, new User("", "")))
             .ForMember(dest => dest.ContributedBy, opt => opt.Ignore())
             .ForMember(dest => dest.Units, opt => opt.MapFrom(src => src.AttributeUnits.Select(x => x.Unit)))
             .ForMember(dest => dest.ProvenanceQualifier, opt =>

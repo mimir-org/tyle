@@ -13,7 +13,10 @@ public class PredicateProfile : Profile
             .ForMember(dest => dest.Source, opt => opt.MapFrom(src => src.Source.ToString()));
 
         CreateMap<PredicateDao, PredicateReference>()
-            .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => new Uri(src.Iri)))
-            .ForMember(dest => dest.Source, opt => opt.MapFrom(src => Enum.Parse<ReferenceSource>(src.Source)));
+            .ConstructUsing(src => new PredicateReference(
+                src.Name,
+                new Uri(src.Iri),
+                src.Description,
+                Enum.Parse<ReferenceSource>(src.Source)));
     }
 }

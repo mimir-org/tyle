@@ -12,7 +12,10 @@ public class PurposeProfile : Profile
             .ForMember(dest => dest.Source, opt => opt.MapFrom(src => src.Source.ToString()));
 
         CreateMap<PurposeDao, PurposeReference>()
-            .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => new Uri(src.Iri)))
-            .ForMember(dest => dest.Source, opt => opt.MapFrom(src => Enum.Parse<ReferenceSource>(src.Source)));
+            .ConstructUsing(src => new PurposeReference(
+                src.Name,
+                new Uri(src.Iri),
+                src.Description,
+                Enum.Parse<ReferenceSource>(src.Source)));
     }
 }
