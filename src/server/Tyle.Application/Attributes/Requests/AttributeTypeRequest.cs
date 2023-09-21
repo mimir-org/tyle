@@ -7,14 +7,14 @@ namespace Tyle.Application.Attributes.Requests;
 public class AttributeTypeRequest : IValidatableObject
 {
     [Required]
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
     public string? Description { get; set; }
 
     public int? PredicateReferenceId { get; set; }
 
     [Required]
-    public ICollection<int> UnitReferenceIds { get; set; }
+    public ICollection<int> UnitReferenceIds { get; set; } = new List<int>();
 
     [Required, Range(0, 1, ErrorMessage = "The unit min count must be 0 or 1.")]
     public int UnitMinCount { get; set; }

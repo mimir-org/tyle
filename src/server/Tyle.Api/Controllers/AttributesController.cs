@@ -2,9 +2,7 @@ using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
-using Tyle.Application.Common.Requests;
 using Tyle.Core.Attributes;
-using Tyle.Core.Common;
 
 namespace Tyle.Api.Controllers;
 

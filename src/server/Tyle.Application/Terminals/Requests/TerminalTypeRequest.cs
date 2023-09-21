@@ -8,28 +8,28 @@ namespace Tyle.Application.Terminals.Requests;
 public class TerminalTypeRequest : IValidatableObject
 {
     [Required]
-    public string Name { get; }
+    public required string Name { get; set; }
 
-    public string? Description { get; }
-
-    [Required]
-    public ICollection<int> ClassifierReferenceIds { get; }
-    
-    public int? PurposeReferenceId { get; }
-    
-    public string? Notation { get; }
-    
-    public string? Symbol { get; }
-    
-    public Aspect? Aspect { get; }
-
-    public int? MediumReferenceId { get; }
+    public string? Description { get; set; }
 
     [Required]
-    public Direction Qualifier { get; }
+    public ICollection<int> ClassifierReferenceIds { get; set; } = new List<int>();
+    
+    public int? PurposeReferenceId { get; set; }
+    
+    public string? Notation { get; set; }
+    
+    public string? Symbol { get; set; }
+    
+    public Aspect? Aspect { get; set; }
+
+    public int? MediumReferenceId { get; set; }
 
     [Required]
-    public ICollection<AttributeTypeReferenceRequest> Attributes { get; }
+    public Direction Qualifier { get; set; }
+
+    [Required]
+    public ICollection<AttributeTypeReferenceRequest> Attributes { get; set; } = new List<AttributeTypeReferenceRequest>();
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

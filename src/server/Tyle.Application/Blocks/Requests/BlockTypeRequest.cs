@@ -7,26 +7,26 @@ namespace Tyle.Application.Blocks.Requests;
 public class BlockTypeRequest : IValidatableObject
 {
     [Required]
-    public string Name { get; }
+    public required string Name { get; set; }
 
-    public string? Description { get; }
-
-    [Required]
-    public ICollection<int> ClassifierReferenceIds { get; }
-
-    public int? PurposeReferenceId { get; }
-
-    public string? Notation { get; }
-
-    public string? Symbol { get; }
-
-    public Aspect? Aspect { get; }
+    public string? Description { get; set; }
 
     [Required]
-    public ICollection<TerminalTypeReferenceRequest> Terminals { get; }
+    public ICollection<int> ClassifierReferenceIds { get; set; } = new List<int>();
+
+    public int? PurposeReferenceId { get; set; }
+
+    public string? Notation { get; set; }
+
+    public string? Symbol { get; set; }
+
+    public Aspect? Aspect { get; set; }
 
     [Required]
-    public ICollection<AttributeTypeReferenceRequest> Attributes { get; }
+    public ICollection<TerminalTypeReferenceRequest> Terminals { get; set; } = new List<TerminalTypeReferenceRequest>();
+
+    [Required]
+    public ICollection<AttributeTypeReferenceRequest> Attributes { get; set; } = new List<AttributeTypeReferenceRequest>();
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

@@ -73,7 +73,7 @@ public class DatabaseConfigurationOptions
     public string? Password { get; set; }
     public string? ConnectionString => CreateConnectionString();
 
-    private string CreateConnectionString()
+    private string? CreateConnectionString()
     {
         if (string.IsNullOrWhiteSpace(DataSource) || string.IsNullOrWhiteSpace(InitialCatalog) || string.IsNullOrWhiteSpace(DbUser) || string.IsNullOrWhiteSpace(Password))
         {
