@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,7 @@ namespace Tyle.Persistence.Attributes;
 
 public class AttributeRepository : IAttributeRepository
 {
-    private readonly DbContext _context;
+    private readonly TyleDbContext _context;
     private readonly DbSet<AttributeDao> _dbSet;
     private readonly IMapper _mapper;
 
@@ -22,7 +23,7 @@ public class AttributeRepository : IAttributeRepository
 
     public async Task<IEnumerable<AttributeType>> GetAll()
     {
-        var attributeDaos = await _dbSet
+        var attributeDaos = await _dbSet.AsNoTracking()
             .Include(x => x.Predicate)
             .Include(x => x.AttributeUnits)
             .ThenInclude(x => x.Unit)
@@ -46,6 +47,8 @@ public class AttributeRepository : IAttributeRepository
         await _context.Entry(attributeDao).Reference(x => x.Predicate).LoadAsync();
         await _context.Entry(attributeDao).Collection(x => x.AttributeUnits).Query().Include(x => x.Unit).LoadAsync();
         await _context.Entry(attributeDao).Reference(x => x.ValueConstraint).Query().Include(x => x.ValueList).LoadAsync();
+
+        _context.Entry(attributeDao).State = EntityState.Detached;
 
         return _mapper.Map<AttributeType>(attributeDao);
     }
@@ -72,13 +75,64 @@ public class AttributeRepository : IAttributeRepository
         return await Get(attributeDao.Id);
     }
 
-    public Task<AttributeType> Update(AttributeType type)
+    public async Task<AttributeType> Update(AttributeType attribute)
     {
-        throw new NotImplementedException();
+        var currentAttribute = await Get(attribute.Id) ?? throw new KeyNotFoundException($"No attribute type with id {attribute.Id} found.");
+        var newAttributeDao = _mapper.Map<AttributeDao>(attribute);
+
+        if (attribute.ValueConstraint != null)
+        {
+            newAttributeDao.ValueConstraint!.ValueList = attribute.ValueConstraint switch
+            {
+                InDecimalValueList c => c.ValueList.Select(x => new ValueListEntryDao(newAttributeDao.Id, x.ToString("F19", CultureInfo.InvariantCulture))).ToList(),
+                InIntegerValueList c => c.ValueList.Select(x => new ValueListEntryDao(newAttributeDao.Id, x.ToString())).ToList(),
+                InIriValueList c => c.ValueList.Select(x => new ValueListEntryDao(newAttributeDao.Id, x.AbsoluteUri)).ToList(),
+                InStringValueList c => c.ValueList.Select(x => new ValueListEntryDao(newAttributeDao.Id, x)).ToList(),
+                _ => newAttributeDao.ValueConstraint!.ValueList
+            };
+        }
+
+        foreach (var unit in currentAttribute.Units)
+        {
+            if (newAttributeDao.AttributeUnits.FirstOrDefault(x => x.UnitId == unit.Id) != null) continue;
+
+            var unitAttribute = new AttributeUnitDao(attribute.Id, unit.Id);
+            _context.AttributeUnits.Attach(unitAttribute);
+            _context.AttributeUnits.Remove(unitAttribute);
+        }
+
+        var valueConstraintStub = new ValueConstraintDao // This is a stub, only used to delete the old value constraint
+        {
+            AttributeId = attribute.Id,
+            ConstraintType = "",
+            DataType = ""
+        };
+        _context.ValueConstraints.Attach(valueConstraintStub);
+        _context.ValueConstraints.Remove(valueConstraintStub);
+
+        await _context.SaveChangesAsync();
+
+        _dbSet.Attach(newAttributeDao);
+        _context.Entry(newAttributeDao).State = EntityState.Modified;
+
+        foreach (var unitAttribute in newAttributeDao.AttributeUnits)
+        {
+            if (currentAttribute.Units.FirstOrDefault(x => x.Id == unitAttribute.UnitId) != null) continue;
+
+            await _context.AttributeUnits.AddAsync(unitAttribute);
+        }
+
+        await _context.SaveChangesAsync();
+
+        return await Get(newAttributeDao.Id);
     }
 
-    public Task Delete(Guid id)
+    public async Task Delete(Guid id)
     {
-        throw new NotImplementedException();
+        var attributeDao = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id) ?? throw new KeyNotFoundException($"No attribute type with id {id} found.");
+        
+        _dbSet.Remove(attributeDao);
+
+        await _context.SaveChangesAsync();
     }
 }

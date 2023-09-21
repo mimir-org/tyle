@@ -76,16 +76,10 @@ public class AttributeService : IAttributeService
             attribute.Predicate = predicate;
         }
 
-        var unitsToRemove = attribute.Units.Where(unit => !request.UnitReferenceIds.Contains(unit.Id));
-        foreach (var unit in unitsToRemove)
-        {
-            attribute.Units.Remove(unit);
-        }
+        attribute.Units.Clear();
 
         foreach (var unitReferenceId in request.UnitReferenceIds)
         {
-            if (attribute.Units.Select(x => x.Id).Contains(unitReferenceId)) continue;
-
             var unit = await _referenceService.GetUnit(unitReferenceId) ?? throw new ArgumentException($"No unit with id {unitReferenceId} found.", nameof(request));
             attribute.Units.Add(unit);
         }

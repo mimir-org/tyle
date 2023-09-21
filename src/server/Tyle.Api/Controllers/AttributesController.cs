@@ -73,15 +73,36 @@ public class AttributesController : ControllerBase
         }
     }
 
-    /*[HttpDelete("{id}")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [HttpPut("{id}")]
+    [ProducesResponseType(typeof(AttributeType), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Delete([FromRoute] int id)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] AttributeTypeRequest request)
     {
         try
         {
-            await _referenceService.DeleteClassifier(id);
+            return Ok(await _attributeService.Update(id, request));
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound();
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error.");
+        }
+    }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Delete([FromRoute] Guid id)
+    {
+        try
+        {
+            await _attributeService.Delete(id);
             return NoContent();
         }
         catch (KeyNotFoundException)
@@ -92,5 +113,5 @@ public class AttributesController : ControllerBase
         {
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error.");
         }
-    }*/
+    }
 }
