@@ -68,6 +68,8 @@ export const About = ({ selected }: AboutProps) => {
         return typeName("quantityDatum.title");
       case "rds":
         return typeName("rds.title");
+      case "AttributeGroup":
+        return "Attribute Group";
       default:
         return t("about.title");
     }

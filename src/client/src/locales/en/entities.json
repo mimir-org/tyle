@@ -11,6 +11,17 @@
         "add": "Add"
       }
     },
+    "attributeGroup": {
+      "title": "Attribute Groups",
+      "open": "Open attribute groups(s) selection dialog",
+      "remove": "Remove attribute group",
+      "dialog": {
+        "title": "Select attribute groups(s)",
+        "description": "The attribute groups that are listed below can be reused across multiple entities.",
+        "search": "Search",
+        "add": "Add"
+      }
+    },
     "references": {
       "title": "References",
       "add": "Add reference",
