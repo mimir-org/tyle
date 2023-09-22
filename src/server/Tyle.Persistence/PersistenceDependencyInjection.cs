@@ -56,6 +56,7 @@ public static class PersistenceDependencyInjection
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IAttributeRepository, AttributeRepository>();
+        services.AddScoped<ITerminalRepository, TerminalRepository>();
 
         services.AddScoped<IClassifierRepository, ClassifierRepository>();
         services.AddScoped<IMediumRepository, MediumRepository>();

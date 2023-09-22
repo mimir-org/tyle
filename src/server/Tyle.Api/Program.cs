@@ -18,8 +18,8 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddApplicationServices()
     .AddDatabaseConfiguration(builder.Configuration)
-    .AddDaoMapping()
-    .AddRepositories();
+    .AddRepositories()
+    .AddDaoMapping();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
