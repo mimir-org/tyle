@@ -1,3 +1,4 @@
+using Tyle.Application.Attributes;
 using Tyle.Application.Common;
 using Tyle.Application.Terminals.Requests;
 using Tyle.Core.Common;
@@ -7,11 +8,13 @@ namespace Tyle.Application.Terminals;
 
 public class TerminalService : ITerminalService
 {
+    private readonly IAttributeService _attributeService;
     private readonly IReferenceService _referenceService;
     private readonly ITerminalRepository _terminalRepository;
 
-    public TerminalService(IReferenceService referenceService, ITerminalRepository terminalRepository)
+    public TerminalService(IAttributeService attributeService, IReferenceService referenceService, ITerminalRepository terminalRepository)
     {
+        _attributeService = attributeService;
         _referenceService = referenceService;
         _terminalRepository = terminalRepository;
     }
@@ -92,6 +95,12 @@ public class TerminalService : ITerminalService
 
         terminal.Qualifier = request.Qualifier;
 
-        // TODO: Attribute references
+        terminal.Attributes.Clear();
+
+        foreach (var attributeTypeReference in request.Attributes)
+        {
+            var attribute = await _attributeService.Get(attributeTypeReference.AttributeId) ?? throw new ArgumentException($"No attribute with id {attributeTypeReference.AttributeId} found.", nameof(request));
+            terminal.Attributes.Add(new AttributeTypeReference(attribute, attributeTypeReference.MinCount, attributeTypeReference.MaxCount));
+        }
     }
 }
