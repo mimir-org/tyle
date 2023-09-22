@@ -59,9 +59,9 @@ public class AttributeService : IAttributeService
         return await _attributeRepository.Update(attribute);
     }
 
-    public Task Delete(Guid id)
+    public async Task Delete(Guid id)
     {
-        return _attributeRepository.Delete(id);
+        await _attributeRepository.Delete(id);
     }
 
     private async Task UpdateAttributeTypeFields(AttributeType attribute, AttributeTypeRequest request)
