@@ -18,6 +18,9 @@ public class TyleDbContext : DbContext
     public DbSet<ValueListEntryDao> ValueListEntries { get; set; }
 
     public DbSet<MediumDao> Media { get; set; }
+    public DbSet<TerminalAttributeDao> TerminalAttributes { get; set; }
+    public DbSet<TerminalClassifierDao> TerminalClassifiers { get; set; }
+    public DbSet<TerminalDao> Terminals { get; set; }
 
     public TyleDbContext(DbContextOptions<TyleDbContext> options) : base(options)
     {

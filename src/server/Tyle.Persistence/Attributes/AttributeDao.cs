@@ -14,7 +14,7 @@ public class AttributeDao
     [MaxLength(500)]
     public string? Description { get; set; }
 
-    [Required, MinLength(10)]
+    [Required, MaxLength(10)]
     public required string Version { get; set; }
 
     public DateTimeOffset CreatedOn { get; set; }
@@ -30,9 +30,16 @@ public class AttributeDao
     public int UnitMinCount { get; set; }
     public int UnitMaxCount { get; set; }
 
+    [MaxLength(20)]
     public string? ProvenanceQualifier { get; set; }
+
+    [MaxLength(20)]
     public string? RangeQualifier { get; set; }
+
+    [MaxLength(20)]
     public string? RegularityQualifier { get; set; }
+
+    [MaxLength(20)]
     public string? ScopeQualifier { get; set; }
 
     public ValueConstraintDao? ValueConstraint { get; set; }

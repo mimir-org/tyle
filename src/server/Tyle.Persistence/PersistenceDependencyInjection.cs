@@ -34,6 +34,8 @@ public static class PersistenceDependencyInjection
 
     public static IServiceCollection AddDaoMapping(this IServiceCollection services)
     {
+        var provider = services.BuildServiceProvider();
+
         services.AddAutoMapper(config =>
         {
             config.AddProfile(new ClassifierProfile());
@@ -43,6 +45,9 @@ public static class PersistenceDependencyInjection
             config.AddProfile(new PredicateProfile());
             config.AddProfile(new UnitProfile());
             config.AddProfile(new ValueConstraintProfile());
+
+            config.AddProfile(new MediumProfile());
+            config.AddProfile(new TerminalProfile(provider.GetService<IAttributeService>()!));
         });
 
         return services;
