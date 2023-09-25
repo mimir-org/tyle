@@ -1,10 +1,10 @@
 import { MimirorgThemeProvider } from "@mimirorg/component-library";
 import { LinkMenu } from "./LinkMenu";
 import { cleanup, render, screen } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect } from "vitest";
+import { afterEach, describe, expect } from "vitest";
 import { Link } from "common/types/link";
 import "@testing-library/jest-dom";
-import { UserEvent, userEvent } from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 
 const menuLinksMock: Link[] = [
@@ -64,14 +64,5 @@ describe("Create dropdown menu integration tests", () => {
 
     expect(await screen.findByText("Block")).toBeVisible();
     expect(await screen.findByText("Terminal")).toBeVisible();
-  });
-
-  test("Should display block form", async () => {
-    const { createButton, user } = setup();
-    await user.click(createButton);
-
-    const blockButton = screen.getByText("Block");
-    await user.click(blockButton);
-    //Hvordan teste at man havner i blockform?
   });
 });
