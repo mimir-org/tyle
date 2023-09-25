@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using Tyle.Application.Common.Requests;
-using Tyle.Core.Attributes;
+using TypeLibrary.Services.Common.Requests;
 
-namespace Tyle.Application.Attributes.Requests;
+namespace TypeLibrary.Services.Attributes.Requests;
 
 public class AttributeTypeRequest : IValidatableObject
 {

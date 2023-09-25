@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
-namespace Tyle.Application.Attributes.Requests;
+namespace TypeLibrary.Services.Attributes.Requests;
 
 public class ValueConstraintRequest : IValidatableObject
 {

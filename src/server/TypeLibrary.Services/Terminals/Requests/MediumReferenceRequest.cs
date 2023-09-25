@@ -1,6 +1,6 @@
-using Tyle.Application.Common.Requests;
+using TypeLibrary.Services.Common.Requests;
 
-namespace Tyle.Application.Terminals.Requests;
+namespace TypeLibrary.Services.Terminals.Requests;
 
 public class MediumReferenceRequest : ReferenceRequest
 {

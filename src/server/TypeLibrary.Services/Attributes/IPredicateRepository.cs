@@ -1,7 +1,6 @@
-using Tyle.Application.Common;
-using Tyle.Core.Attributes;
+using TypeLibrary.Services.Common;
 
-namespace Tyle.Application.Attributes;
+namespace TypeLibrary.Services.Attributes;
 
 public interface IPredicateRepository : IReferenceRepository<PredicateReference>
 {

@@ -1,7 +1,4 @@
-using Tyle.Application.Common;
-using Tyle.Core.Terminals;
-
-namespace Tyle.Application.Terminals;
+namespace TypeLibrary.Services.Terminals;
 
 public interface ITerminalRepository : ITypeRepository<TerminalType>
 {

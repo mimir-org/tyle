@@ -1,6 +1,6 @@
-using Tyle.Application.Common.Requests;
+using TypeLibrary.Services.Common.Requests;
 
-namespace Tyle.Application.Attributes.Requests;
+namespace TypeLibrary.Services.Attributes.Requests;
 
 public class PredicateReferenceRequest : ReferenceRequest
 {

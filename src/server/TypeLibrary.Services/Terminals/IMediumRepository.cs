@@ -1,7 +1,6 @@
-using Tyle.Application.Common;
-using Tyle.Core.Terminals;
+using TypeLibrary.Services.Common;
 
-namespace Tyle.Application.Terminals;
+namespace TypeLibrary.Services.Terminals;
 
 public interface IMediumRepository : IReferenceRepository<MediumReference>
 {

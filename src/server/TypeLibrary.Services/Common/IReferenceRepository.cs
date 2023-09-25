@@ -1,4 +1,4 @@
-namespace Tyle.Application.Common;
+namespace TypeLibrary.Services.Common;
 
 public interface IReferenceRepository<T>
 {

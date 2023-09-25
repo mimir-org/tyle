@@ -1,6 +1,4 @@
-using Tyle.Core.Common;
-
-namespace Tyle.Application.Common;
+namespace TypeLibrary.Services.Common;
 
 public interface IPurposeRepository : IReferenceRepository<PurposeReference>
 {

@@ -1,4 +1,4 @@
-namespace Tyle.Application.Common.Requests;
+namespace TypeLibrary.Services.Common.Requests;
 
 public class PurposeReferenceRequest : ReferenceRequest
 {
