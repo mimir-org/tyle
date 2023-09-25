@@ -2,35 +2,35 @@ using System.Net.Mime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using TypeLibrary.Core.Common;
-using TypeLibrary.Services.Common;
-using TypeLibrary.Services.Common.Requests;
+using TypeLibrary.Core.Terminals;
+using TypeLibrary.Services.Terminals;
+using TypeLibrary.Services.Terminals.Requests;
 
 namespace TypeLibrary.Api.Controllers.V1;
 
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]
 [Route("[controller]")]
-[SwaggerTag("Classifier services")]
-public class ClassifiersController : ControllerBase
+[SwaggerTag("Medium services")]
+public class MediaController : ControllerBase
 {
-    private readonly IClassifierRepository _classifierRepository;
-    
+    private readonly IMediumRepository _mediumRepository;
 
-    public ClassifiersController(IClassifierRepository classifierRepository)
+
+    public MediaController(IMediumRepository mediumRepository)
     {
-        _classifierRepository = classifierRepository;
+        _mediumRepository = mediumRepository;
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<RdlClassifier>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IEnumerable<RdlMedium>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     //[AllowAnonymous]
     public async Task<IActionResult> GetAll()
     {
         try
         {
-            return Ok(await _classifierRepository.GetAll());
+            return Ok(await _mediumRepository.GetAll());
         }
         catch (Exception)
         {
@@ -39,7 +39,7 @@ public class ClassifiersController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(RdlClassifier), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(RdlMedium), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     //[AllowAnonymous]
@@ -47,11 +47,11 @@ public class ClassifiersController : ControllerBase
     {
         try
         {
-            var classifier = await _classifierRepository.Get(id);
-            if (classifier == null)
+            var medium = await _mediumRepository.Get(id);
+            if (medium == null)
                 return NotFound();
 
-            return Ok(classifier);
+            return Ok(medium);
         }
         catch (Exception)
         {
@@ -60,17 +60,17 @@ public class ClassifiersController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(RdlClassifier), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(RdlMedium), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     //[AllowAnonymous]
-    public async Task<IActionResult> Create([FromBody] RdlClassifierRequest request)
+    public async Task<IActionResult> Create([FromBody] RdlMediumRequest request)
     {
         try
         {
-            var classifier = await _classifierRepository.Create(request);
-            return Ok(classifier);
+            var medium = await _mediumRepository.Create(request);
+            return Ok(medium);
         }
         catch (Exception)
         {

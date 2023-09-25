@@ -11,26 +11,26 @@ namespace TypeLibrary.Api.Controllers.V1;
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]
 [Route("[controller]")]
-[SwaggerTag("Classifier services")]
-public class ClassifiersController : ControllerBase
+[SwaggerTag("Purpose services")]
+public class PurposesController : ControllerBase
 {
-    private readonly IClassifierRepository _classifierRepository;
-    
+    private readonly IPurposeRepository _purposeRepository;
 
-    public ClassifiersController(IClassifierRepository classifierRepository)
+
+    public PurposesController(IPurposeRepository purposeRepository)
     {
-        _classifierRepository = classifierRepository;
+        _purposeRepository = purposeRepository;
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<RdlClassifier>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IEnumerable<RdlPurpose>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     //[AllowAnonymous]
     public async Task<IActionResult> GetAll()
     {
         try
         {
-            return Ok(await _classifierRepository.GetAll());
+            return Ok(await _purposeRepository.GetAll());
         }
         catch (Exception)
         {
@@ -39,7 +39,7 @@ public class ClassifiersController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(RdlClassifier), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(RdlPurpose), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     //[AllowAnonymous]
@@ -47,11 +47,11 @@ public class ClassifiersController : ControllerBase
     {
         try
         {
-            var classifier = await _classifierRepository.Get(id);
-            if (classifier == null)
+            var purpose = await _purposeRepository.Get(id);
+            if (purpose == null)
                 return NotFound();
 
-            return Ok(classifier);
+            return Ok(purpose);
         }
         catch (Exception)
         {
@@ -60,17 +60,17 @@ public class ClassifiersController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(RdlClassifier), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(RdlPurpose), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     //[AllowAnonymous]
-    public async Task<IActionResult> Create([FromBody] RdlClassifierRequest request)
+    public async Task<IActionResult> Create([FromBody] RdlPurposeRequest request)
     {
         try
         {
-            var classifier = await _classifierRepository.Create(request);
-            return Ok(classifier);
+            var purpose = await _purposeRepository.Create(request);
+            return Ok(purpose);
         }
         catch (Exception)
         {
