@@ -1,0 +1,233 @@
+using System.Globalization;
+using AutoMapper;
+using Tyle.Application.Attributes.Requests;
+using Tyle.Core.Attributes.ValueConstraints;
+
+namespace Tyle.Persistence.Attributes;
+
+public class ValueConstraintProfile : Profile
+{
+    public ValueConstraintProfile()
+    {
+        CreateMap<DataTypeBoolean, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.DataType.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.Boolean.ToString()))
+            .ForMember(dest => dest.Value, opt => opt.Ignore())
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.Pattern, opt => opt.Ignore())
+            .ForMember(dest => dest.MinValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MinInclusive, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxInclusive, opt => opt.Ignore());
+
+        CreateMap<DataTypeDecimal, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.DataType.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.Decimal.ToString()))
+            .ForMember(dest => dest.Value, opt => opt.Ignore())
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.Pattern, opt => opt.Ignore())
+            .ForMember(dest => dest.MinValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MinInclusive, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxInclusive, opt => opt.Ignore());
+
+        CreateMap<DataTypeInteger, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.DataType.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.Integer.ToString()))
+            .ForMember(dest => dest.Value, opt => opt.Ignore())
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.Pattern, opt => opt.Ignore())
+            .ForMember(dest => dest.MinValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MinInclusive, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxInclusive, opt => opt.Ignore());
+
+        CreateMap<DataTypeIri, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.DataType.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.AnyUri.ToString()))
+            .ForMember(dest => dest.Value, opt => opt.Ignore())
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.Pattern, opt => opt.Ignore())
+            .ForMember(dest => dest.MinValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MinInclusive, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxInclusive, opt => opt.Ignore());
+
+        CreateMap<DataTypeString, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.DataType.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.String.ToString()))
+            .ForMember(dest => dest.Value, opt => opt.Ignore())
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.Pattern, opt => opt.Ignore())
+            .ForMember(dest => dest.MinValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MinInclusive, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxInclusive, opt => opt.Ignore());
+
+        CreateMap<HasBooleanValue, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.HasValue.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.Boolean.ToString()))
+            .ForMember(dest => dest.MinCount, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxCount, opt => opt.Ignore())
+            .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Value.ToString()))
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.Pattern, opt => opt.Ignore())
+            .ForMember(dest => dest.MinValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MinInclusive, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxInclusive, opt => opt.Ignore());
+
+        CreateMap<HasDecimalValue, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.HasValue.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.Decimal.ToString()))
+            .ForMember(dest => dest.MinCount, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxCount, opt => opt.Ignore())
+            .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Value.ToString("F19", CultureInfo.InvariantCulture)))
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.Pattern, opt => opt.Ignore())
+            .ForMember(dest => dest.MinValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MinInclusive, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxInclusive, opt => opt.Ignore());
+
+        CreateMap<HasIntegerValue, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.HasValue.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.Integer.ToString()))
+            .ForMember(dest => dest.MinCount, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxCount, opt => opt.Ignore())
+            .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Value.ToString()))
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.Pattern, opt => opt.Ignore())
+            .ForMember(dest => dest.MinValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MinInclusive, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxInclusive, opt => opt.Ignore());
+
+        CreateMap<HasIriValue, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.HasValue.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.AnyUri.ToString()))
+            .ForMember(dest => dest.MinCount, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxCount, opt => opt.Ignore())
+            .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Value.AbsoluteUri))
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.Pattern, opt => opt.Ignore())
+            .ForMember(dest => dest.MinValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MinInclusive, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxInclusive, opt => opt.Ignore());
+
+        CreateMap<HasStringValue, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.HasValue.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.String.ToString()))
+            .ForMember(dest => dest.MinCount, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxCount, opt => opt.Ignore())
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.Pattern, opt => opt.Ignore())
+            .ForMember(dest => dest.MinValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MinInclusive, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxInclusive, opt => opt.Ignore());
+
+        CreateMap<InDecimalValueList, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.In.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.Decimal.ToString()))
+            .ForMember(dest => dest.Value, opt => opt.Ignore())
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.Pattern, opt => opt.Ignore())
+            .ForMember(dest => dest.MinValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MinInclusive, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxInclusive, opt => opt.Ignore());
+
+        CreateMap<InIntegerValueList, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.In.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.Integer.ToString()))
+            .ForMember(dest => dest.Value, opt => opt.Ignore())
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.Pattern, opt => opt.Ignore())
+            .ForMember(dest => dest.MinValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MinInclusive, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxInclusive, opt => opt.Ignore());
+
+        CreateMap<InIriValueList, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.In.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.AnyUri.ToString()))
+            .ForMember(dest => dest.Value, opt => opt.Ignore())
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.Pattern, opt => opt.Ignore())
+            .ForMember(dest => dest.MinValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MinInclusive, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxInclusive, opt => opt.Ignore());
+
+        CreateMap<InStringValueList, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.In.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.String.ToString()))
+            .ForMember(dest => dest.Value, opt => opt.Ignore())
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.Pattern, opt => opt.Ignore())
+            .ForMember(dest => dest.MinValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MinInclusive, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxInclusive, opt => opt.Ignore());
+
+        CreateMap<RangeDecimal, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.Range.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.Decimal.ToString()))
+            .ForMember(dest => dest.Value, opt => opt.Ignore())
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.Pattern, opt => opt.Ignore());
+
+        CreateMap<RangeInteger, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.Range.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.Integer.ToString()))
+            .ForMember(dest => dest.Value, opt => opt.Ignore())
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.Pattern, opt => opt.Ignore());
+
+        CreateMap<StringPattern, ValueConstraintDao>()
+            .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
+            .ForMember(dest => dest.ConstraintType, opt => opt.MapFrom(src => ConstraintType.Pattern.ToString()))
+            .ForMember(dest => dest.DataType, opt => opt.MapFrom(src => XsdDataType.String.ToString()))
+            .ForMember(dest => dest.Value, opt => opt.Ignore())
+            .ForMember(dest => dest.ValueList, opt => opt.Ignore())
+            .ForMember(dest => dest.MinValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxValue, opt => opt.Ignore())
+            .ForMember(dest => dest.MinInclusive, opt => opt.Ignore())
+            .ForMember(dest => dest.MaxInclusive, opt => opt.Ignore());
+    }
+}
