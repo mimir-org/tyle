@@ -1,17 +1,10 @@
-using System;
-using System.Linq;
-using AutoMapper;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
-using Mimirorg.TypeLibrary.Models.Domain;
+namespace TypeLibrary.Data.Profiles;
 
-namespace TypeLibrary.Core.Profiles;
-
-public class TerminalAttributeProfile : Profile
+public class BlockAttributeProfile : Profile
 {
-    public TerminalAttributeProfile()
+    public BlockAttributeProfile()
     {
-        CreateMap<TerminalAttributeTypeReference, AttributeTypeReferenceView>()
+        CreateMap<BlockAttributeTypeReference, AttributeTypeReferenceView>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.AttributeId))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Attribute.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Attribute.Description))

@@ -1,16 +1,6 @@
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using Mimirorg.Common.Extensions;
-using Mimirorg.Common.Models;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using System;
-using Mimirorg.TypeLibrary.Models.Domain;
-using TypeLibrary.Data.Constants;
-using TypeLibrary.Data.Contracts;
 
-namespace TypeLibrary.Core.Profiles;
+namespace TypeLibrary.Data.Profiles;
 
 public class SymbolProfile : Profile
 {

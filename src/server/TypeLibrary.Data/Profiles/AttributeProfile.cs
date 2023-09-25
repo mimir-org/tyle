@@ -1,15 +1,4 @@
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Mimirorg.Common.Extensions;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
-using System;
-using System.Linq;
-using Mimirorg.TypeLibrary.Models.Domain;
-using TypeLibrary.Data.Constants;
-using TypeLibrary.Data.Contracts;
-
-namespace TypeLibrary.Core.Profiles;
+namespace TypeLibrary.Data.Profiles;
 
 public class AttributeProfile : Profile
 {
