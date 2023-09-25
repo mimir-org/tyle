@@ -15,7 +15,7 @@ public class TerminalRepository : ITerminalRepository
     public TerminalRepository(TyleDbContext context, IMapper mapper)
     {
         _context = context;
-        _dbSet = context.Terminals;
+        //_dbSet = context.Terminals;
         _mapper = mapper;
     }
 

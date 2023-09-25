@@ -10,8 +10,7 @@ namespace TypeLibrary.Api.Controllers.V1;
 
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]
-[ApiVersion("1.0")]
-[Route("V{version:apiVersion}/[controller]")]
+[Route("[controller]")]
 [SwaggerTag("Classifier services")]
 public class ClassifiersController : ControllerBase
 {

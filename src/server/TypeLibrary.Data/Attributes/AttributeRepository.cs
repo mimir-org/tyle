@@ -15,7 +15,7 @@ public class AttributeRepository : IAttributeRepository
     public AttributeRepository(TyleDbContext context, IMapper mapper)
     {
         _context = context;
-        _dbSet = context.Attributes;
+        //_dbSet = context.Attributes;
         _mapper = mapper;
     }
 
