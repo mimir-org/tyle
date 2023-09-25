@@ -1,45 +1,35 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Constants;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Mimirorg.TypeLibrary.Models.Domain;
-using TypeLibrary.Services.Contracts;
 
-namespace TypeLibrary.Core.Controllers.V1;
+namespace TypeLibrary.Api.Controllers.V1;
 
 [Produces("application/json")]
 [ApiController]
 [ApiVersion(VersionConstant.OnePointZero)]
 [Route("V{version:apiVersion}/[controller]")]
-[SwaggerTag("Medium services")]
-public class MediumController : ControllerBase
+[SwaggerTag("Purpose services")]
+public class PurposeController : ControllerBase
 {
-    private readonly ILogger<MediumController> _logger;
+    private readonly ILogger<PurposeController> _logger;
     private readonly IReferenceService _referenceService;
 
-    public MediumController(ILogger<MediumController> logger, IReferenceService referenceService)
+    public PurposeController(ILogger<PurposeController> logger, IReferenceService referenceService)
     {
         _logger = logger;
         _referenceService = referenceService;
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<MediumReference>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<PurposeReference>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get()
     {
         try
         {
-            var data = _referenceService.GetAllMedia();
+            var data = _referenceService.GetAllPurposes();
             return Ok(data);
         }
         catch (Exception e)
@@ -50,7 +40,7 @@ public class MediumController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(MediumReference), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PurposeReference), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -58,7 +48,7 @@ public class MediumController : ControllerBase
     {
         try
         {
-            var data = _referenceService.GetMedium(id);
+            var data = _referenceService.GetPurpose(id);
             if (data == null)
                 return NotFound(id);
 
@@ -76,19 +66,19 @@ public class MediumController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(MediumReference), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PurposeReference), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public async Task<IActionResult> Create([FromBody] MediumReferenceRequest request)
+    public async Task<IActionResult> Create([FromBody] PurposeReferenceRequest request)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var cm = await _referenceService.CreateMedium(request);
+            var cm = await _referenceService.CreatePurpose(request);
             return Ok(cm);
         }
         catch (MimirorgBadRequestException e)

@@ -1,45 +1,35 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Constants;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Mimirorg.TypeLibrary.Models.Domain;
-using TypeLibrary.Services.Contracts;
 
-namespace TypeLibrary.Core.Controllers.V1;
+namespace TypeLibrary.Api.Controllers.V1;
 
 [Produces("application/json")]
 [ApiController]
 [ApiVersion(VersionConstant.OnePointZero)]
 [Route("V{version:apiVersion}/[controller]")]
-[SwaggerTag("Classifier services")]
-public class ClassifierController : ControllerBase
+[SwaggerTag("Unit services")]
+public class UnitController : ControllerBase
 {
-    private readonly ILogger<ClassifierController> _logger;
+    private readonly ILogger<UnitController> _logger;
     private readonly IReferenceService _referenceService;
 
-    public ClassifierController(ILogger<ClassifierController> logger, IReferenceService referenceService)
+    public UnitController(ILogger<UnitController> logger, IReferenceService referenceService)
     {
         _logger = logger;
         _referenceService = referenceService;
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<ClassifierReference>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<UnitReference>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get()
     {
         try
         {
-            var data = _referenceService.GetAllClassifiers();
+            var data = _referenceService.GetAllUnits();
             return Ok(data);
         }
         catch (Exception e)
@@ -48,9 +38,9 @@ public class ClassifierController : ControllerBase
             return StatusCode(500, "Internal Server Error");
         }
     }
-
+    
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(ClassifierReference), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(UnitReference), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -58,7 +48,7 @@ public class ClassifierController : ControllerBase
     {
         try
         {
-            var data = _referenceService.GetClassifier(id);
+            var data = _referenceService.GetUnit(id);
             if (data == null)
                 return NotFound(id);
 
@@ -76,19 +66,19 @@ public class ClassifierController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(ClassifierReference), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(UnitReference), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public async Task<IActionResult> Create([FromBody] ClassifierReferenceRequest request)
+    public async Task<IActionResult> Create([FromBody] UnitReferenceRequest request)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var cm = await _referenceService.CreateClassifier(request);
+            var cm = await _referenceService.CreateUnit(request);
             return Ok(cm);
         }
         catch (MimirorgBadRequestException e)

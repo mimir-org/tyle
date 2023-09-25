@@ -1,28 +1,12 @@
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Models;
-using System.Threading;
-using TypeLibrary.Core.Factories;
-using TypeLibrary.Data;
-using TypeLibrary.Data.Common;
-using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Contracts.Common;
-using TypeLibrary.Data.Contracts.Ef;
-using TypeLibrary.Data.Repositories.Application;
-using TypeLibrary.Data.Repositories.Common;
-using TypeLibrary.Data.Repositories.Ef;
-using TypeLibrary.Data.Repositories.External;
-using TypeLibrary.Services.Contracts;
-using TypeLibrary.Services.Services;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
-namespace TypeLibrary.Core.Extensions;
+namespace TypeLibrary.Api.Extensions;
 
 public static class TypeLibraryModuleExtensions
 {
@@ -128,8 +112,8 @@ public static class TypeLibraryModuleExtensions
         var authSettings = serviceScope.ServiceProvider.GetRequiredService<IOptions<MimirorgAuthSettings>>();
         logger.LogInformation(authSettings?.Value.ToString());
 
-        if (context.Database.IsRelational())
-            context.Database.Migrate();
+        if (RelationalDatabaseFacadeExtensions.IsRelational(context.Database))
+            RelationalDatabaseFacadeExtensions.Migrate(context.Database);
 
         var awaiter = seedingService.LoadDataFromFiles().ConfigureAwait(true).GetAwaiter();
         while (!awaiter.IsCompleted)

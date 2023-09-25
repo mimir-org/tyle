@@ -1,25 +1,15 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
-using Mimirorg.Common.Enums;
-using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
-using Mimirorg.Common.Models;
-using TypeLibrary.Services.Contracts;
 
-namespace TypeLibrary.Core.Controllers.V1;
+namespace TypeLibrary.Api.Controllers.V1;
 
 [Produces("application/json")]
 [ApiController]

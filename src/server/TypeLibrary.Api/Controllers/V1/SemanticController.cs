@@ -1,16 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
-using System;
-using System.Linq;
 using TypeLibrary.Services.Contracts;
 
-namespace TypeLibrary.Core.Controllers.V1;
+namespace TypeLibrary.Api.Controllers.V1;
 
 /// <summary>
 /// TypeCm file services
