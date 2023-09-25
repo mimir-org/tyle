@@ -11,17 +11,7 @@
         "add": "Add"
       }
     },
-    "attributeGroup": {
-      "title": "Attribute Groups",
-      "open": "Open attribute groups(s) selection dialog",
-      "remove": "Remove attribute group",
-      "dialog": {
-        "title": "Select attribute groups(s)",
-        "description": "The attribute groups that are listed below can be reused across multiple entities.",
-        "search": "Search",
-        "add": "Add"
-      }
-    },
+
     "references": {
       "title": "References",
       "add": "Add reference",
@@ -143,6 +133,24 @@
       "loading": "Submitting attribute",
       "success": "Your attribute has been submitted",
       "error": "An error occurred during attribute submission"
+    }
+  },
+  "attributeGroup": {
+    "title": "Attribute Group",
+    "description": "Description",
+    "open": "Open attribute group(s) selection dialog",
+    "remove": "Remove attribute group",
+    "name": "Name",
+    "placeholders": {
+      "name": "Name",
+      "color": "Select color",
+      "description": "Additional information about this attribute group can be supplied here."
+    },
+    "dialog": {
+      "title": "Select attribute groups(s)",
+      "description": "The attribute groups that are listed below can be reused across multiple entities.",
+      "search": "Search",
+      "add": "Add"
     }
   },
   "quantityDatum": {

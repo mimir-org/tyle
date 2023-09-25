@@ -17,7 +17,6 @@ export const useGetAttributeGroup = (id?: string) =>
 
 export const useCreateAttributeGroup = () => {
   const queryClient = useQueryClient();
-
   return useMutation((item: AttributeGroupLibAm) => attributeGroupApi.postAttributeGroup(item), {
     onSuccess: () => queryClient.invalidateQueries(keys.allAttributes),
   });

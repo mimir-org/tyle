@@ -1,36 +1,38 @@
-import { AttributeGroupLibAm, AttributeGroupLibCm, UnitLibCm } from "@mimirorg/typelibrary-types";
-import { FormUnitHelper } from "features/entities/units/types/FormUnitHelper";
+import { AttributeGroupLibAm, AttributeGroupLibCm } from "@mimirorg/typelibrary-types";
+import { ValueObject } from "features/entities/types/valueObject";
 
-export interface FormAttributeGroupLib extends Omit<AttributeGroupLibAm, "attributeGroupUnits"> {}
+/**
+ * This type functions as a layer between client needs and the backend model.
+ * It allows you to adapt the expected api model to fit client/form logic needs.
+ */
+export interface FormAttributeGroupLib extends Omit<AttributeGroupLibAm, "attributes"> {
+  attributes: ValueObject<string>[];
+}
 
-export const fromFormAttributeGroupLibToApiModel = (
-  formAttributeGroup: FormAttributeGroupLib,
-): AttributeGroupLibAm => ({
-  name: formAttributeGroup.name,
-  description: formAttributeGroup.description,
-  attributeIds: formAttributeGroup.attributeIds,
+/**
+ * Maps the client-only model back to the model expected by the backend api
+ * @param formTerminal client-only model
+ */
+export const mapFormAttributeGroupLibToApiModel = (formAttributeGroup: FormAttributeGroupLib): AttributeGroupLibAm => ({
+  ...formAttributeGroup,
+  attributeIds: formAttributeGroup.attributes.map((x) => x.value),
 });
 
-export const toFormAttributeGroupLib = (attributeGroup: AttributeGroupLibCm): FormAttributeGroupLib => {
-  return {
-    name: attributeGroup.name,
-    description: attributeGroup.description,
-    attributeIds: attributeGroup.attributes.map((x) => x.id),
-  };
-};
+export const mapAttributeGroupLibCmToFormAttributeGroupLib = (
+  attributeGroupLibCm: AttributeGroupLibCm,
+): FormAttributeGroupLib => ({
+  ...attributeGroupLibCm,
+  attributes: attributeGroupLibCm.attributes.map((x) => ({ value: x.id })),
+  attributeIds: attributeGroupLibCm.attributes.map((x) => x.id),
+});
 
-export const toFormUnitHelper = (unit: UnitLibCm): FormUnitHelper => {
-  return {
-    name: unit.name,
-    description: unit.description,
-    symbol: unit.symbol,
-    unitId: unit.id,
-    state: unit.state,
-  };
-};
+export const createEmptyFormAttributeGroupLib = (): FormAttributeGroupLib => ({
+  ...emptyTerminalLibAm,
+  attributes: [],
+});
 
-export const createEmptyAttributeGroup = (): FormAttributeGroupLib => ({
+const emptyTerminalLibAm: AttributeGroupLibAm = {
   name: "",
   description: "",
   attributeIds: [],
-});
+};

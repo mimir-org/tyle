@@ -1,47 +1,52 @@
 import { DevTool } from "@hookform/devtools";
-import { AttributeGroupLibCm } from "@mimirorg/typelibrary-types";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { AttributeGroupLibCm, State } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
+import { Box, FormContainer } from "@mimirorg/component-library";
 import { Loader } from "features/common/loader";
+import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
+import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
 import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useAttributeGroupMutation, useAttributeGroupQuery } from "./AttributeGroupForm.helpers";
-import { AttributeGroupFormBaseFields } from "./AttributeGroupFormBaseFields";
+import { useTheme } from "styled-components";
+import { FormMode } from "../types/formMode";
 import {
   FormAttributeGroupLib,
-  createEmptyAttributeGroup,
-  fromFormAttributeGroupLibToApiModel,
-  toFormAttributeGroupLib,
+  createEmptyFormAttributeGroupLib,
+  mapAttributeGroupLibCmToFormAttributeGroupLib,
+  mapFormAttributeGroupLibToApiModel,
 } from "./types/formAttributeGroupLib";
-import { FormMode } from "../types/formMode";
-import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
-import { useTheme } from "styled-components";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { attributeGroupSchema } from "./attributeGroupSchema";
-import { PlainLink } from "features/common/plain-link";
-import { AttributeGroupFormPreview } from "../entityPreviews/attributeGroup/AttributeGroupFormPreview";
+import { useAttributeGroupMutation, useAttributeGroupQuery } from "./AttributeGroupForm.helpers";
+import { AttributeGroupFormBaseFields } from "./AttributeGroupFormBaseFields";
 
 interface AttributeGroupFormProps {
   defaultValues?: FormAttributeGroupLib;
   mode?: FormMode;
 }
 
-export const AttributeGroupForm = ({ defaultValues = createEmptyAttributeGroup(), mode }: AttributeGroupFormProps) => {
-  const { t } = useTranslation("entities");
+export const AttributeGroupForm = ({
+  defaultValues = createEmptyFormAttributeGroupLib(),
+  mode,
+}: AttributeGroupFormProps) => {
   const theme = useTheme();
+  const { t } = useTranslation("entities");
 
   const formMethods = useForm<FormAttributeGroupLib>({
     defaultValues: defaultValues,
     resolver: yupResolver(attributeGroupSchema(t)),
   });
 
-  const { handleSubmit, control, setError, reset } = formMethods;
+  const { register, handleSubmit, control, setError, reset } = formMethods;
+
+  const attributeFields = useFieldArray({ control, name: "attributes" });
 
   const query = useAttributeGroupQuery();
-  const mapper = (source: AttributeGroupLibCm) => toFormAttributeGroupLib(source);
+  const mapper = (source: AttributeGroupLibCm) => mapAttributeGroupLibCmToFormAttributeGroupLib(source);
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useAttributeGroupMutation(query.data?.id, mode);
@@ -50,31 +55,33 @@ export const AttributeGroupForm = ({ defaultValues = createEmptyAttributeGroup()
 
   const toast = useSubmissionToast(t("attributeGroup.title"));
 
+  const limited = mode === "edit";
+  // && query.data?.state === State.Approved;
+
   return (
     <FormProvider {...formMethods}>
       <FormContainer
         onSubmit={handleSubmit((data) =>
-          onSubmitForm(fromFormAttributeGroupLibToApiModel(data), mutation.mutateAsync, toast),
+          onSubmitForm(mapFormAttributeGroupLibToApiModel(data), mutation.mutateAsync, toast),
         )}
       >
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.mimirorg.spacing.multiple(6)}>
-            <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
-              <Text variant={"display-small"}>{t("attributeGroup.title")}</Text>
-              <AttributeGroupFormBaseFields limited={mode === "edit"} />
-              <Flexbox justifyContent={"center"} gap={theme.mimirorg.spacing.xl}>
-                <PlainLink tabIndex={-1} to={"/"}>
-                  <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
-                    {t("common.cancel")}
-                  </Button>
-                </PlainLink>
-                <Button type={"submit"}>{mode === "edit" ? t("common.edit") : t("common.submit")}</Button>
-              </Flexbox>
-            </Flexbox>
-            <AttributeGroupFormPreview control={control} />
-          </Box>
+        {isLoading && <Loader />}
+        {!isLoading && (
+          <>
+            <AttributeGroupFormBaseFields limited={limited} mode={mode} />
+
+            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
+              <FormAttributes
+                register={(index) => register(`attributes.${index}`)}
+                fields={attributeFields.fields}
+                append={attributeFields.append}
+                remove={attributeFields.remove}
+                preprocess={prepareAttributes}
+                canAddAttributes={!limited}
+                canRemoveAttributes={!limited}
+              />
+            </Box>
+          </>
         )}
         <DevTool control={control} placement={"bottom-right"} />
       </FormContainer>

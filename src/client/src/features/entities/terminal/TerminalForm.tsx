@@ -39,6 +39,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
   });
 
   const { register, handleSubmit, control, setError, reset } = formMethods;
+
   const attributeFields = useFieldArray({ control, name: "attributes" });
 
   const query = useTerminalQuery();
