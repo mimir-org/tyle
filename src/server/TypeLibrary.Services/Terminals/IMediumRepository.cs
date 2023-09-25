@@ -4,6 +4,6 @@ using TypeLibrary.Services.Terminals.Requests;
 
 namespace TypeLibrary.Services.Terminals;
 
-public interface IMediumRepository : IReferenceRepository<RdlMedium, MediumReferenceRequest>
+public interface IMediumRepository : IReferenceRepository<RdlMedium, RdlMediumRequest>
 {
 }

@@ -4,6 +4,6 @@ using TypeLibrary.Services.Common;
 
 namespace TypeLibrary.Services.Attributes;
 
-public interface IUnitRepository : IReferenceRepository<RdlUnit, UnitReferenceRequest>
+public interface IUnitRepository : IReferenceRepository<RdlUnit, RdlUnitRequest>
 {
 }

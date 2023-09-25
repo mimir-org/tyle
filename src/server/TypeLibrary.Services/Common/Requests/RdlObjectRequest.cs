@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TypeLibrary.Services.Common.Requests;
 
-public abstract class ReferenceRequest
+public abstract class RdlObjectRequest
 {
     [Required]
     public required string Name { get; set; }
