@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Options;
+/*using Microsoft.Extensions.Options;
 using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts;
 
@@ -16,4 +16,4 @@ public class ApplicationSettingsRepository : IApplicationSettingsRepository
         ApplicationUrl = applicationSettings?.Value.ApplicationUrl;
         PcaSyncTime = applicationSettings?.Value.PcaSyncTime;
     }
-}
+}*/

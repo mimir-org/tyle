@@ -1,8 +1,12 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TypeLibrary.Data.Attributes;
 using TypeLibrary.Data.Common;
 using TypeLibrary.Data.Terminals;
+using TypeLibrary.Services.Attributes;
+using TypeLibrary.Services.Common;
+using TypeLibrary.Services.Terminals;
 
 namespace TypeLibrary.Data;
 
@@ -28,22 +32,17 @@ public static class PersistenceDependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddDaoMapping(this IServiceCollection services)
+    public static IServiceCollection AddRequestToDomainMapping(this IServiceCollection services)
     {
-        var provider = services.BuildServiceProvider();
-
         services.AddAutoMapper(config =>
         {
             config.AddProfile(new ClassifierProfile());
             config.AddProfile(new PurposeProfile());
 
-            config.AddProfile(new AttributeProfile());
             config.AddProfile(new PredicateProfile());
             config.AddProfile(new UnitProfile());
-            config.AddProfile(new ValueConstraintProfile());
 
             config.AddProfile(new MediumProfile());
-            config.AddProfile(new TerminalProfile(provider.GetService<IAttributeService>()!));
         });
 
         return services;

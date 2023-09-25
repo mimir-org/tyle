@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+/*using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Mimirorg.TypeLibrary.Models.Domain;
 
@@ -19,4 +19,4 @@ public class SymbolConfiguration : IEntityTypeConfiguration<SymbolLibDm>
         builder.Property(p => p.State).HasColumnName("State").IsRequired().HasConversion<string>().HasMaxLength(31);
         builder.Property(p => p.Data).HasColumnName("Data").IsRequired();
     }
-}
+}*/

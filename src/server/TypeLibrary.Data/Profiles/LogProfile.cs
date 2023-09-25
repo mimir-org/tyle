@@ -1,3 +1,5 @@
+/*using AutoMapper;
+
 namespace TypeLibrary.Data.Profiles;
 
 public class LogProfile : Profile
@@ -16,4 +18,4 @@ public class LogProfile : Profile
             .ForMember(dest => dest.LogType, opt => opt.MapFrom(src => src.LogType))
             .ForMember(dest => dest.LogTypeValue, opt => opt.MapFrom(src => src.LogTypeValue));
     }
-}
+}*/

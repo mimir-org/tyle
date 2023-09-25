@@ -1,4 +1,8 @@
-using System;
+/*using System;
+using AutoMapper;
+using Microsoft.Extensions.Options;
+using TypeLibrary.Data.Constants;
+using TypeLibrary.Data.Contracts;
 
 namespace TypeLibrary.Data.Profiles;
 
@@ -26,4 +30,4 @@ public class SymbolProfile : Profile
             .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
             .ForMember(dest => dest.Data, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.Data) ? null : $"{applicationSettings.Value.ApplicationUrl}/symbol/{src.Id}.svg"));
     }
-}
+}*/

@@ -1,4 +1,6 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using TypeLibrary.Core.Common;
 using TypeLibrary.Core.Terminals;
 using TypeLibrary.Services.Terminals;
 using TypeLibrary.Services.Terminals.Requests;
@@ -9,11 +11,13 @@ public class MediumRepository : IMediumRepository
 {
     private readonly DbContext _context;
     private readonly DbSet<RdlMedium> _dbSet;
+    private readonly IMapper _mapper;
 
-    public MediumRepository(TyleDbContext context)
+    public MediumRepository(TyleDbContext context, IMapper mapper)
     {
         _context = context;
         _dbSet = context.Media;
+        _mapper = mapper;
     }
 
     public async Task<IEnumerable<RdlMedium>> GetAll()
@@ -28,11 +32,15 @@ public class MediumRepository : IMediumRepository
 
     public async Task<RdlMedium> Create(RdlMediumRequest request)
     {
-        // TODO: Implement
+        var medium = _mapper.Map<RdlMedium>(request);
+        _dbSet.Add(medium);
+        await _context.SaveChangesAsync();
+
+        return medium;
     }
 
     public async Task<bool> Delete(int id)
     {
-        // TODO: Implement
+        throw new NotImplementedException();
     }
 }

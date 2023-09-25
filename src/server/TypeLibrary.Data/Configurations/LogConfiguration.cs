@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+/*using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Mimirorg.TypeLibrary.Models.Domain;
 
@@ -26,4 +26,4 @@ public class LogConfiguration : IEntityTypeConfiguration<LogLibDm>
         builder.Property(p => p.LogType).HasColumnName("LogType").IsRequired().HasConversion<string>().HasMaxLength(31);
         builder.Property(p => p.LogTypeValue).HasColumnName("LogTypeValue").IsRequired().HasMaxLength(255);
     }
-}
+}*/

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+/*using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mimirorg.Common.Abstract;
 using Mimirorg.TypeLibrary.Models.Domain;
@@ -31,4 +31,4 @@ public class EfLogRepository : GenericRepository<TypeLibraryDbContext, LogLibDm>
 
         await SaveAsync();
     }
-}
+}*/

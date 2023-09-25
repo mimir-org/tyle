@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+/*using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Models.Domain;
@@ -11,4 +11,4 @@ public interface ISymbolRepository
     SymbolLibDm Get(string id);
     Task Create(List<SymbolLibDm> symbols, State state);
     void ClearAllChangeTrackers();
-}
+}*/

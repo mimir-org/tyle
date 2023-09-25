@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+/*using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mimirorg.TypeLibrary.Models.Domain;
 
@@ -24,4 +24,4 @@ public interface ILogRepository
     /// </summary>
     /// <param name="logDms">The log entry to be created</param>
     Task Create(ICollection<LogLibDm> logDms);
-}
+}*/
