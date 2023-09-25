@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+/*using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
@@ -81,7 +81,7 @@ public class BlockController : ControllerBase
         }
     }
 
-    /*/// <summary>
+    *//*/// <summary>
     /// Get latest approved version of a block by id
     /// </summary>
     /// <param name="id">The id of the block we want to get the latest approved version of</param>
@@ -110,7 +110,7 @@ public class BlockController : ControllerBase
             _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
-    }*/
+    }*//*
 
     /// <summary>
     /// Create a block
@@ -200,10 +200,10 @@ public class BlockController : ControllerBase
         try
         {
             var block = _blockService.Get(id);
-            /*var hasAccess = await _authService.CanDelete(block.State, block.CreatedBy, block.CompanyId);
+            *//*var hasAccess = await _authService.CanDelete(block.State, block.CreatedBy, block.CompanyId);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);*/
+                return StatusCode(StatusCodes.Status403Forbidden);*//*
 
             await _blockService.Delete(id);
             return NoContent();
@@ -223,7 +223,7 @@ public class BlockController : ControllerBase
         }
     }
 
-    /*/// <summary>
+    *//*/// <summary>
     /// Update a block with new state
     /// </summary>
     /// <param name="id">The id of the block to be updated</param>
@@ -262,5 +262,5 @@ public class BlockController : ControllerBase
             _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
-    }*/
-}
+    }*//*
+}*/

@@ -1,73 +1,52 @@
-using Mimirorg.Authentication.Extensions;
-using Mimirorg.Common;
-using Mimirorg.Common.Abstract;
-using Mimirorg.Common.Middleware;
-using Mimirorg.Common.Models;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using TypeLibrary.Core.Extensions;
+using Newtonsoft.Json.Serialization;
+using TypeLibrary.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole().AddConsoleFormatter<CustomTimePrefixingFormatter, CustomWrappingConsoleFormatterOptions>();
+// Add services to the container.
 
-builder.Configuration.AddJsonFile($"{Directory.GetCurrentDirectory()}/appsettings.local.json", true);
-
-builder.Services.AddControllers().AddNewtonsoftJson(o =>
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
-    o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-    o.SerializerSettings.ContractResolver = new CamelCaseExceptDictionaryKeysResolver();
-    o.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 });
 
-// Add Cors policy
-var origins = builder.Configuration.GetSection("CorsConfiguration").GetValue<string>("ValidOrigins")?.Split(",");
-var hasOrigins = origins != null && origins.Any();
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("CorsPolicy", corsPolicyBuilder =>
-    {
-        if (hasOrigins)
-        {
-            corsPolicyBuilder.WithOrigins(origins!).AllowCredentials();
-        }
-        else
-        {
-            corsPolicyBuilder.AllowAnyOrigin();
-        }
+builder.Services
+    .AddDatabaseConfiguration(builder.Configuration)
+    .AddRequestToDomainMapping()
+    .AddRepositories();
 
-        corsPolicyBuilder.AllowAnyHeader().AllowAnyMethod().SetPreflightMaxAge(TimeSpan.FromSeconds(2520));
-    });
-});
-
-// Add routing
-builder.Services.AddRouting(o => o.LowercaseUrls = true);
-
-// Add modules
-builder.Services.AddMimirorgAuthenticationModule();
-builder.Services.AddTypeLibraryModule(builder.Configuration);
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-if (builder.Environment.IsDevelopment())
-    app.UseDeveloperExceptionPage();
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 if (!builder.Environment.IsDevelopment())
+{
     app.UseHttpsRedirection();
+}
 
+app.UseAuthorization();
 
-app.UseCors("CorsPolicy");
-app.UseRouting();
-app.UseDynamicImageMiddleware();
-
-// User modules
-app.UseTypeLibraryModule();
-app.UseMimirorgAuthenticationModule();
-app.UseCookiePolicy();
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<TyleDbContext>();
+    context.Database.Migrate();
+}
 
 app.MapControllers();
 
 app.Run();
-
-public partial class Program { } // so you can reference it from tests

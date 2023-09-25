@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+/*using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
@@ -169,10 +169,10 @@ public class AttributeController : ControllerBase
         try
         {
             var attribute = _attributeService.Get(id);
-            /*var hasAccess = await _authService.CanDelete(attribute.State, attribute.CreatedBy, CompanyConstants.AnyCompanyId);
+            *//*var hasAccess = await _authService.CanDelete(attribute.State, attribute.CreatedBy, CompanyConstants.AnyCompanyId);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);*/
+                return StatusCode(StatusCodes.Status403Forbidden);*//*
 
             await _attributeService.Delete(id);
             return NoContent();
@@ -192,7 +192,7 @@ public class AttributeController : ControllerBase
         }
     }
 
-    /*/// <summary>
+    *//*/// <summary>
     /// Update an attribute with a new state
     /// </summary>
     /// <param name="id">The id of the attribute to be updated</param>
@@ -251,5 +251,5 @@ public class AttributeController : ControllerBase
             _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
-    }*/
-}
+    }*//*
+}*/

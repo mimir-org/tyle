@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+/*using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
@@ -171,10 +171,10 @@ public class TerminalController : ControllerBase
         try
         {
             var terminal = _terminalService.Get(id);
-            /*var hasAccess = await _authService.CanDelete(terminal.State, terminal.CreatedBy, CompanyConstants.AnyCompanyId);
+            *//*var hasAccess = await _authService.CanDelete(terminal.State, terminal.CreatedBy, CompanyConstants.AnyCompanyId);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);*/
+                return StatusCode(StatusCodes.Status403Forbidden);*//*
 
             await _terminalService.Delete(id);
             return NoContent();
@@ -194,7 +194,7 @@ public class TerminalController : ControllerBase
         }
     }
 
-    /*/// <summary>
+    *//*/// <summary>
     /// Update a terminal with a new state
     /// </summary>
     /// <param name="id">The id of the terminal to be updated</param>
@@ -232,5 +232,5 @@ public class TerminalController : ControllerBase
             _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
-    }*/
-}
+    }*//*
+}*/

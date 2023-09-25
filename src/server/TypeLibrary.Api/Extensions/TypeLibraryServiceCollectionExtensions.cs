@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Mimirorg.Common.Models;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore;
 
 namespace TypeLibrary.Api.Extensions;
 
@@ -19,7 +22,7 @@ public static class TypeLibraryServiceCollectionExtensions
         return builder;
     }
 
-    public static IServiceCollection AddAutoMapperConfigurations(this IServiceCollection serviceCollection)
+    /*public static IServiceCollection AddAutoMapperConfigurations(this IServiceCollection serviceCollection)
     {
         var provider = serviceCollection.BuildServiceProvider();
         var cfg = new MapperConfigurationExpression();
@@ -37,9 +40,9 @@ public static class TypeLibraryServiceCollectionExtensions
         mapperConfig.AssertConfigurationIsValid();
         serviceCollection.AddSingleton(_ => mapperConfig.CreateMapper());
         return serviceCollection;
-    }
+    }*/
 
-    public static IServiceCollection AddDatabaseConfigurations(this IServiceCollection serviceCollection, IConfigurationRoot config)
+    /*public static IServiceCollection AddDatabaseConfigurations(this IServiceCollection serviceCollection, IConfigurationRoot config)
     {
         var dbConfig = new DatabaseConfiguration();
         var databaseConfigSection = config.GetSection("DatabaseConfiguration");
@@ -63,9 +66,9 @@ public static class TypeLibraryServiceCollectionExtensions
         }
 
         return serviceCollection;
-    }
+    }*/
 
-    public static IServiceCollection AddApplicationSettings(this IServiceCollection serviceCollection, IConfigurationRoot config)
+    /*public static IServiceCollection AddApplicationSettings(this IServiceCollection serviceCollection, IConfigurationRoot config)
     {
         var appSettings = new ApplicationSettings();
         var appSettingsSection = config.GetSection("ApplicationSettings");
@@ -74,7 +77,7 @@ public static class TypeLibraryServiceCollectionExtensions
         serviceCollection.AddSingleton(Options.Create(appSettings));
 
         return serviceCollection;
-    }
+    }*/
 
     public static IServiceCollection AddApiVersion(this IServiceCollection serviceCollection)
     {
@@ -90,6 +93,67 @@ public static class TypeLibraryServiceCollectionExtensions
             o.GroupNameFormat = "'v'VVV";
             o.SubstituteApiVersionInUrl = true;
         });
+
+        return serviceCollection;
+    }
+
+    public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection serviceCollection, IConfiguration config)
+    {
+        // Swagger configurations
+        var swaggerConfigurationSection = config.GetSection(nameof(SwaggerConfiguration));
+        var swaggerConfiguration = new SwaggerConfiguration();
+        swaggerConfigurationSection.Bind(swaggerConfiguration);
+        serviceCollection.Configure<SwaggerConfiguration>(swaggerConfigurationSection.Bind);
+
+        serviceCollection.AddSwaggerGen(c =>
+        {
+            var provider = serviceCollection.BuildServiceProvider();
+            var service = provider.GetRequiredService<IApiVersionDescriptionProvider>();
+
+            foreach (var description in service.ApiVersionDescriptions)
+            {
+                c.SwaggerDoc(description.GroupName,
+                    new OpenApiInfo
+                    {
+                        Title = swaggerConfiguration.Title,
+                        Version = description.ApiVersion.ToString(),
+                        Description = swaggerConfiguration.Description,
+                        Contact = new OpenApiContact { Name = swaggerConfiguration.Contact?.Name, Email = swaggerConfiguration.Contact?.Email }
+                    });
+            }
+
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, "swagger.xml");
+
+            c.IncludeXmlComments(xmlPath, true);
+            c.CustomSchemaIds(x => x.FullName);
+            c.EnableAnnotations();
+
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                Name = "Authorization",
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "Bearer",
+                BearerFormat = "JWT",
+                In = ParameterLocation.Header,
+                Description = "JWT Authorization header using the Bearer scheme."
+            });
+
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    Array.Empty<string>()
+                }
+            });
+        });
+        serviceCollection.AddSwaggerGenNewtonsoftSupport();
 
         return serviceCollection;
     }

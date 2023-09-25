@@ -1,9 +1,18 @@
+using System.ComponentModel.Design;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using Mimirorg.Common.Abstract;
-using Mimirorg.Common.Models;
+using TypeLibrary.Core.Factories;
+using TypeLibrary.Data;
+using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Common;
+using TypeLibrary.Data.Repositories.Application;
+using TypeLibrary.Services.Attributes;
+using TypeLibrary.Services.Blocks;
+using TypeLibrary.Services.Contracts;
+using TypeLibrary.Services.Services;
+using TypeLibrary.Services.Terminals;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace TypeLibrary.Api.Extensions;
@@ -17,56 +26,60 @@ public static class TypeLibraryModuleExtensions
 
         // Cache
         services.AddMemoryCache();
-        services.AddSingleton<ICacheRepository, InMemoryCacheRepository>();
+        //services.AddSingleton<ICacheRepository, InMemoryCacheRepository>();
 
         // Common
-        services.AddSingleton<ISparQlWebClient, SparQlWebClient>();
+        //services.AddSingleton<ISparQlWebClient, SparQlWebClient>();
 
         // Dependency Injection - Repositories
-        services.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>();
-        services.AddScoped<IEfBlockRepository, EfBlockRepository>();
-        services.AddScoped<IEfTerminalRepository, EfTerminalRepository>();
+        //services.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>();
+        //services.AddScoped<IEfBlockRepository, EfBlockRepository>();
+        //services.AddScoped<IEfTerminalRepository, EfTerminalRepository>();
         services.AddSingleton<IFileRepository, JsonFileRepository>();
-        services.AddScoped<IEfSymbolRepository, EfSymbolRepository>();
-        services.AddScoped<IDynamicSymbolDataProvider, EfSymbolRepository>();
-        services.AddScoped<IEfLogRepository, EfLogRepository>();
-        services.AddScoped<IEfAttributeRepository, EfAttributeRepository>();
-        services.AddScoped<IEfBlockTerminalRepository, EfBlockTerminalRepository>();
-        services.AddScoped<IEfBlockAttributeRepository, EfBlockAttributeRepository>();
-        services.AddScoped<IEfTerminalAttributeRepository, EfTerminalAttributeRepository>();
-        services.AddScoped<IEfClassifierRepository, EfClassifierRepository>();
-        services.AddScoped<IEfMediumRepository, EfMediumRepository>();
-        services.AddScoped<IEfPredicateRepository, EfPredicateRepository>();
-        services.AddScoped<IEfPurposeRepository, EfPurposeRepository>();
-        services.AddScoped<IEfUnitRepository, EfUnitRepository>();
-        services.AddScoped<IEfBlockClassifierRepository, EfBlockClassifierRepository>();
-        services.AddScoped<IEfTerminalClassifierRepository, EfTerminalClassifierRepository>();
-        services.AddScoped<IEfAttributeUnitRepository, EfAttributeUnitRepository>();
+        //services.AddScoped<IEfSymbolRepository, EfSymbolRepository>();
+        //services.AddScoped<IDynamicSymbolDataProvider, EfSymbolRepository>();
+        //services.AddScoped<IEfLogRepository, EfLogRepository>();
+        //services.AddScoped<IEfAttributeRepository, EfAttributeRepository>();
+        //services.AddScoped<IEfBlockTerminalRepository, EfBlockTerminalRepository>();
+        //services.AddScoped<IEfBlockAttributeRepository, EfBlockAttributeRepository>();
+        //services.AddScoped<IEfTerminalAttributeRepository, EfTerminalAttributeRepository>();
+        //services.AddScoped<IEfClassifierRepository, EfClassifierRepository>();
+        //services.AddScoped<IEfMediumRepository, EfMediumRepository>();
+        //services.AddScoped<IEfPredicateRepository, EfPredicateRepository>();
+        //services.AddScoped<IEfPurposeRepository, EfPurposeRepository>();
+        //services.AddScoped<IEfUnitRepository, EfUnitRepository>();
+        //services.AddScoped<IEfBlockClassifierRepository, EfBlockClassifierRepository>();
+        //services.AddScoped<IEfTerminalClassifierRepository, EfTerminalClassifierRepository>();
+        //services.AddScoped<IEfAttributeUnitRepository, EfAttributeUnitRepository>();
 
-        services.AddScoped<IAttributeRepository, EfAttributeRepository>();
-        services.AddScoped<IBlockRepository, EfBlockRepository>();
-        services.AddScoped<ITerminalRepository, EfTerminalRepository>();
-        services.AddScoped<ISymbolRepository, EfSymbolRepository>();
-        services.AddScoped<IValueConstraintRepository, EfValueConstraintRepository>();
-        services.AddScoped<ILogRepository, EfLogRepository>();
+        //services.AddScoped<IAttributeRepository, EfAttributeRepository>();
+        //services.AddScoped<IBlockRepository, EfBlockRepository>();
+        //services.AddScoped<ITerminalRepository, EfTerminalRepository>();
+        //services.AddScoped<ISymbolRepository, EfSymbolRepository>();
+        //services.AddScoped<IValueConstraintRepository, EfValueConstraintRepository>();
+        //services.AddScoped<ILogRepository, EfLogRepository>();
 
         // Dependency Injection - Services
-        services.AddScoped<ITerminalService, TerminalService>();
-        services.AddScoped<IAttributeService, AttributeService>();
-        services.AddScoped<ISeedingService, SeedingService>();
-        services.AddScoped<ISymbolService, SymbolService>();
-        services.AddScoped<IBlockService, BlockService>();
-        services.AddScoped<IModuleService, ModuleService>();
-        services.AddScoped<ILogService, LogService>();
-        //services.AddScoped<IApprovalService, ApprovalService>();
-        services.AddScoped<IEmailService, EmailService>();
-        services.AddScoped<IReferenceService, ReferenceService>();
+        //services.AddScoped<ITerminalService, TerminalService>();
+        //services.AddScoped<IAttributeService, AttributeService>();
+        //services.AddScoped<ISeedingService, SeedingService>();
+        //services.AddScoped<ISymbolService, SymbolService>();
+        //services.AddScoped<IBlockService, BlockService>();
+        //services.AddScoped<IModuleService, ModuleService>();
+        //services.AddScoped<ILogService, LogService>();
+        ////services.AddScoped<IApprovalService, ApprovalService>();
+        //services.AddScoped<IEmailService, EmailService>();
+        //services.AddScoped<IReferenceService, ReferenceService>();
 
         // Hosted services
         //services.AddHostedService<TimedPcaSyncingService>();
 
         // Factories
-        services.AddScoped<ICompanyFactory, CompanyFactory>();
+        //services.AddScoped<ICompanyFactory, CompanyFactory>();
+
+        services.AddDatabaseConfiguration(configuration)
+            .AddRequestToDomainMapping()
+            .AddRepositories();
 
         services.AddHttpContextAccessor();
         services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
@@ -75,19 +88,19 @@ public static class TypeLibraryModuleExtensions
         var config = builder.Build();
 
         // Add database-configuration
-        services.AddDatabaseConfigurations(config);
+        //services.AddDatabaseConfigurations(config);
 
         // Add application-settings
-        services.AddApplicationSettings(config);
+        //services.AddApplicationSettings(config);
 
         // Add auto-mapper configurations
-        services.AddAutoMapperConfigurations();
+        //services.AddAutoMapperConfigurations();
 
         // Add API version
         services.AddApiVersion();
 
         // Add Application Insights
-        services.AddApplicationInsightsTelemetry();
+        //services.AddApplicationInsightsTelemetry();
 
         // Add authentication
 
@@ -98,29 +111,29 @@ public static class TypeLibraryModuleExtensions
     public static IApplicationBuilder UseTypeLibraryModule(this IApplicationBuilder app)
     {
         using var serviceScope = app.ApplicationServices.CreateScope();
-        var context = serviceScope.ServiceProvider.GetRequiredService<TypeLibraryDbContext>();
-        var seedingService = serviceScope.ServiceProvider.GetRequiredService<ISeedingService>();
-        var seedingServiceLogger = serviceScope.ServiceProvider.GetRequiredService<ILogger<ISeedingService>>();
+        //var context = serviceScope.ServiceProvider.GetRequiredService<TypeLibraryDbContext>();
+        //var seedingService = serviceScope.ServiceProvider.GetRequiredService<ISeedingService>();
+        //var seedingServiceLogger = serviceScope.ServiceProvider.GetRequiredService<ILogger<ISeedingService>>();
         var logger = serviceScope.ServiceProvider.GetRequiredService<ILogger<IModuleService>>();
 
-        var applicationSettings = serviceScope.ServiceProvider.GetRequiredService<IOptions<ApplicationSettings>>();
-        logger.LogInformation(applicationSettings?.Value.ToString());
+        //var applicationSettings = serviceScope.ServiceProvider.GetRequiredService<IOptions<ApplicationSettings>>();
+        //logger.LogInformation(applicationSettings?.Value.ToString());
 
-        var databaseConfigurations = serviceScope.ServiceProvider.GetRequiredService<IOptions<DatabaseConfiguration>>();
-        logger.LogInformation(databaseConfigurations?.Value.ToString());
+        //var databaseConfigurations = serviceScope.ServiceProvider.GetRequiredService<IOptions<DatabaseConfiguration>>();
+        //logger.LogInformation(databaseConfigurations?.Value.ToString());
 
-        var authSettings = serviceScope.ServiceProvider.GetRequiredService<IOptions<MimirorgAuthSettings>>();
-        logger.LogInformation(authSettings?.Value.ToString());
+        //var authSettings = serviceScope.ServiceProvider.GetRequiredService<IOptions<MimirorgAuthSettings>>();
+        //logger.LogInformation(authSettings?.Value.ToString());
 
-        if (RelationalDatabaseFacadeExtensions.IsRelational(context.Database))
-            RelationalDatabaseFacadeExtensions.Migrate(context.Database);
+        //if (RelationalDatabaseFacadeExtensions.IsRelational(context.Database))
+        //    RelationalDatabaseFacadeExtensions.Migrate(context.Database);
 
-        var awaiter = seedingService.LoadDataFromFiles().ConfigureAwait(true).GetAwaiter();
+        /*var awaiter = seedingService.LoadDataFromFiles().ConfigureAwait(true).GetAwaiter();
         while (!awaiter.IsCompleted)
         {
             seedingServiceLogger.LogInformation("Starting initialize db");
             Thread.Sleep(2000);
-        }
+        }*/
         return app;
     }
 }

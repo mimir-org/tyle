@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+/*using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mimirorg.TypeLibrary.Constants;
 using Swashbuckle.AspNetCore.Annotations;
@@ -91,4 +91,4 @@ public class PredicateController : ControllerBase
             return StatusCode(500, "Internal Server Error");
         }
     }
-}
+}*/

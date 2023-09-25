@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+/*using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -47,4 +47,4 @@ public class LibrarySymbolController : ControllerBase
             return StatusCode(500, "Internal Server Error");
         }
     }
-}
+}*/

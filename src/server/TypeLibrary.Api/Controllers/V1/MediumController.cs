@@ -1,7 +1,9 @@
+/*using System.ComponentModel.Design;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mimirorg.TypeLibrary.Constants;
 using Swashbuckle.AspNetCore.Annotations;
+using Tyle.Core.Common.Exceptions;
 
 namespace TypeLibrary.Api.Controllers.V1;
 
@@ -91,4 +93,4 @@ public class MediumController : ControllerBase
             return StatusCode(500, "Internal Server Error");
         }
     }
-}
+}*/
