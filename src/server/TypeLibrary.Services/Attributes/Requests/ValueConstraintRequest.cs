@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using TypeLibrary.Core.Attributes;
 
 namespace TypeLibrary.Services.Attributes.Requests;
 
@@ -8,9 +9,10 @@ public class ValueConstraintRequest : IValidatableObject
     [Required]
     public ConstraintType ConstraintType { get; set; }
 
+    [Required]
     public XsdDataType DataType { get; set; }
 
-    [Range(0, int.MaxValue, ErrorMessage = "Min count must be null or above zero.")]
+    [Range(0, int.MaxValue, ErrorMessage = "Min count must be null or a non-negative integer.")]
     public int? MinCount { get; set; }
 
     public int? MaxCount { get; set; }

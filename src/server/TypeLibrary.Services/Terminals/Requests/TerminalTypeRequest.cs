@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using TypeLibrary.Core.Common;
+using TypeLibrary.Core.Terminals;
 using TypeLibrary.Services.Common.Requests;
 
 namespace TypeLibrary.Services.Terminals.Requests;
@@ -11,7 +13,7 @@ public class TerminalTypeRequest : IValidatableObject
     public string? Description { get; set; }
 
     [Required]
-    public ICollection<int> ClassifierReferenceIds { get; set; } = new List<int>();
+    public ICollection<int> ClassifierReferenceIds { get; set; }
     
     public int? PurposeReferenceId { get; set; }
     
@@ -27,7 +29,7 @@ public class TerminalTypeRequest : IValidatableObject
     public Direction Qualifier { get; set; }
 
     [Required]
-    public ICollection<AttributeTypeReferenceRequest> Attributes { get; set; } = new List<AttributeTypeReferenceRequest>();
+    public ICollection<AttributeTypeReferenceRequest> Attributes { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

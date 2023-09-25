@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using TypeLibrary.Core.Terminals;
 
 namespace TypeLibrary.Services.Blocks.Requests;
 

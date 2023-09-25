@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using TypeLibrary.Core.Common;
 using TypeLibrary.Services.Common.Requests;
 
 namespace TypeLibrary.Services.Blocks.Requests;
@@ -11,7 +12,7 @@ public class BlockTypeRequest : IValidatableObject
     public string? Description { get; set; }
 
     [Required]
-    public ICollection<int> ClassifierReferenceIds { get; set; } = new List<int>();
+    public ICollection<int> ClassifierReferenceIds { get; set; }
 
     public int? PurposeReferenceId { get; set; }
 
@@ -22,10 +23,10 @@ public class BlockTypeRequest : IValidatableObject
     public Aspect? Aspect { get; set; }
 
     [Required]
-    public ICollection<TerminalTypeReferenceRequest> Terminals { get; set; } = new List<TerminalTypeReferenceRequest>();
+    public ICollection<TerminalTypeReferenceRequest> Terminals { get; set; }
 
     [Required]
-    public ICollection<AttributeTypeReferenceRequest> Attributes { get; set; } = new List<AttributeTypeReferenceRequest>();
+    public ICollection<AttributeTypeReferenceRequest> Attributes { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

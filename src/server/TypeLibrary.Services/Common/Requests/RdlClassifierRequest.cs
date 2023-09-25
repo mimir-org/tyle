@@ -1,5 +1,5 @@
 namespace TypeLibrary.Services.Common.Requests;
 
-public class ClassifierReferenceRequest : ReferenceRequest
+public class RdlClassifierRequest : RdlObjectRequest
 {
 }

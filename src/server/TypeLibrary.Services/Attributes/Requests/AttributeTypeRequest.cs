@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using TypeLibrary.Core.Attributes;
 using TypeLibrary.Services.Common.Requests;
 
 namespace TypeLibrary.Services.Attributes.Requests;
@@ -13,7 +14,7 @@ public class AttributeTypeRequest : IValidatableObject
     public int? PredicateReferenceId { get; set; }
 
     [Required]
-    public ICollection<int> UnitReferenceIds { get; set; } = new List<int>();
+    public ICollection<int> UnitReferenceIds { get; set; }
 
     [Required, Range(0, 1, ErrorMessage = "The unit min count must be 0 or 1.")]
     public int UnitMinCount { get; set; }

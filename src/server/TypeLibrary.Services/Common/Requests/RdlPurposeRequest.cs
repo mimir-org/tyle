@@ -1,5 +1,5 @@
 namespace TypeLibrary.Services.Common.Requests;
 
-public class PurposeReferenceRequest : ReferenceRequest
+public class RdlPurposeRequest : RdlObjectRequest
 {
 }
