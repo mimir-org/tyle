@@ -1,9 +1,9 @@
 import { MimirorgThemeProvider } from "@mimirorg/component-library";
 import { LinkMenu } from "./LinkMenu";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect } from "vitest";
 import { Link } from "common/types/link";
-import { BrowserRouter } from "react-router-dom";
+import "@testing-library/jest-dom";
 
 const menuLinksMock: Link[] = [
   {
@@ -32,16 +32,13 @@ const menuLinksMock: Link[] = [
   }
 ];
 
-//TODO: Skille ut denne testfilen i to tester unit og integration.
 const setup = () => {
   const testComponent = render(
-    <BrowserRouter>
-      <MimirorgThemeProvider theme={"tyleLight"}>
-        <LinkMenu name={"Create"} links={menuLinksMock} justifyContent={"center"} disabled={false}/>
-      </MimirorgThemeProvider>
-    </BrowserRouter>
+    <MimirorgThemeProvider theme={"tyleLight"}>
+      <LinkMenu name={"Create"} links={menuLinksMock} justifyContent={"center"} disabled={false} />
+    </MimirorgThemeProvider>
   );
-  const createButton = screen.getByText(/create/i);
+  const createButton = screen.getByRole("button", {name: "Create"});
 
   return {
     createButton,
@@ -49,15 +46,13 @@ const setup = () => {
   };
 };
 
-describe("Create Button tests", () => {
+describe("Create dropdown menu unit tests", () => {
   afterEach(() => {
     cleanup();
   });
 
-  test("Should display create dropdown menu", async () => {
+  test("Did component render", () => {
     const { createButton } = setup();
-    fireEvent.click(createButton);
-    //TODO: Vitest tror toBeInTheDocument() er en chai metode??
-    // expect(screen.getByText(/block/i)).toBeInTheDocument();
+    expect(createButton).toBeVisible();
   });
 });

@@ -4,6 +4,7 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { MimirorgThemeProvider } from "@mimirorg/component-library";
 import "@testing-library/jest-dom";
+import { userEvent } from "@testing-library/user-event";
 
 
 const filterGroupsMock = [
@@ -63,52 +64,56 @@ const activeFiltersMock = [
 ];
 
 const setup = () => {
+  const user = userEvent.setup();
   const mockToggleFilter = vi.fn();
+
   const testComponent = render(
     <MimirorgThemeProvider theme={"tyleLight"}>
       <FilterMenu toggleFilter={mockToggleFilter} name={"Filter"} filterGroups={filterGroupsMock}
                   activeFilters={activeFiltersMock} />
     </MimirorgThemeProvider>
   );
-  const filterButton = screen.getByRole('button', {name: "Filter"});
+  const filterButton = screen.getByRole("button", { name: "Filter" });
 
   return {
+    user,
     mockToggleFilter,
     filterButton,
     ...testComponent
   };
 };
 
-describe("Filter Button tests", () => {
+
+describe("Filter dropdown menu integration tests", () => {
   afterEach(() => {
     cleanup();
   });
 
   test("Should display filter dropdown menu", async () => {
-    const { filterButton } = setup();
-    fireEvent.click(filterButton);
+    const { filterButton, user } = setup();
+    await user.click(filterButton);
 
     expect(await screen.findByText("Entity")).toBeVisible();
   });
 
   test("Should expand filters available on each menu item", async () => {
-    const { filterButton } = setup();
-    fireEvent.click(filterButton);
+    const { filterButton, user } = setup();
+    await user.click(filterButton);
 
     const accordionButton = screen.getByText("Entity");
-    fireEvent.click(accordionButton);
-    expect(await screen.findByText("Block")).toBeVisible(); //toBeVisible
+    await user.click(accordionButton);
+    expect(await screen.findByText("Block")).toBeVisible();
   });
 
-  test("Toggle filter click handler called", async ()  => {
-    const { filterButton, mockToggleFilter } = setup();
-    fireEvent.click(filterButton); //bruke userEvent?
+  test("Toggle filter click handler called", async () => {
+    const { filterButton, mockToggleFilter, user } = setup();
+    await user.click(filterButton);
 
     const accordionButton = screen.getByText("Entity");
-    fireEvent.click(accordionButton);
+    await user.click(accordionButton);
 
     const availableFiltersButton = screen.getByText("Block");
-    fireEvent.click(availableFiltersButton);
+    await user.click(availableFiltersButton);
     expect(mockToggleFilter).toHaveBeenCalled();
   });
 });

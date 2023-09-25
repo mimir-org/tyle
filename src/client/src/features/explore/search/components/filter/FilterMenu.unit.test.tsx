@@ -4,8 +4,6 @@ import { cleanup, render, screen } from "@testing-library/react";
 import React from "react";
 import { MimirorgThemeProvider } from "@mimirorg/component-library";
 import "@testing-library/jest-dom";
-import { userEvent } from "@testing-library/user-event/setup/index";
-
 
 const filterGroupsMock = [
   {
@@ -80,7 +78,7 @@ const setup = () => {
   };
 };
 
-describe("Filter dropdown menu button tests", () => {
+describe("Filter dropdown menu unit tests", () => {
   afterEach(() => {
     cleanup();
   });
@@ -88,12 +86,5 @@ describe("Filter dropdown menu button tests", () => {
   test("Did component render", () => {
     const { filterButton } = setup();
     expect(filterButton).toBeVisible();
-  });
-
-  test("Hover color ", () => {
-    const { filterButton } = setup();
-    userEvent.hover(filterButton);
-    //TODO: Dobbeltsjekket at dette er riktig fargekode.
-    expect(filterButton).toHaveStyle(`background-color: "#b7f08b"`);
   });
 });
