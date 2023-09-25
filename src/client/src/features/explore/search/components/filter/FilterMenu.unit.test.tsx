@@ -62,17 +62,15 @@ const activeFiltersMock = [
 ];
 
 const setup = () => {
-  const mockToggleFilter = vi.fn();
   const testComponent = render(
     <MimirorgThemeProvider theme={"tyleLight"}>
-      <FilterMenu toggleFilter={mockToggleFilter} name={"Filter"} filterGroups={filterGroupsMock}
+      <FilterMenu toggleFilter={() => {}} name={"Filter"} filterGroups={filterGroupsMock}
                   activeFilters={activeFiltersMock} />
     </MimirorgThemeProvider>
   );
   const filterButton = screen.getByRole("button", { name: "Filter" });
 
   return {
-    mockToggleFilter,
     filterButton,
     ...testComponent
   };
