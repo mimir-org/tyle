@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using Tyle.Persistence.Common;
 
-namespace Tyle.Persistence.Terminals;
+namespace TypeLibrary.Data.Terminals;
 
 [Table("Terminal_Classifier")]
 [PrimaryKey(nameof(TerminalId), nameof(ClassifierId))]

@@ -1,10 +1,4 @@
-using AutoMapper;
-using Tyle.Application.Attributes;
-using Tyle.Core.Attributes;
-using Tyle.Core.Common;
-using Tyle.Core.Terminals;
-
-namespace Tyle.Persistence.Terminals;
+namespace TypeLibrary.Data.Terminals;
 
 public class TerminalProfile : Profile
 {

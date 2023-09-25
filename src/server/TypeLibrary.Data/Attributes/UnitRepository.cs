@@ -1,50 +1,38 @@
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Tyle.Application.Attributes;
-using Tyle.Core.Attributes;
+using TypeLibrary.Core.Attributes;
+using TypeLibrary.Services.Attributes;
+using TypeLibrary.Services.Attributes.Requests;
 
-namespace Tyle.Persistence.Attributes;
+namespace TypeLibrary.Data.Attributes;
 
 public class UnitRepository : IUnitRepository
 {
     private readonly DbContext _context;
-    private readonly DbSet<UnitDao> _dbSet;
-    private readonly IMapper _mapper;
+    private readonly DbSet<RdlUnit> _dbSet;
 
-    public UnitRepository(TyleDbContext context, IMapper mapper)
+    public UnitRepository(TyleDbContext context)
     {
         _context = context;
         _dbSet = context.Units;
-        _mapper = mapper;
     }
 
-    public async Task<IEnumerable<UnitReference>> GetAll()
+    public async Task<IEnumerable<RdlUnit>> GetAll()
     {
-        var unitDaos = await _dbSet.AsNoTracking().ToListAsync();
-
-        return _mapper.Map<List<UnitReference>>(unitDaos);
+        return await _dbSet.AsNoTracking().ToListAsync();
     }
 
-    public async Task<UnitReference?> Get(int id)
+    public async Task<RdlUnit?> Get(int id)
     {
-        var unitDao = await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-
-        return _mapper.Map<UnitReference>(unitDao);
+        return await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<UnitReference> Create(UnitReference unit)
+    public async Task<RdlUnit> Create(RdlUnitRequest request)
     {
-        var unitDao = _mapper.Map<UnitDao>(unit);
-        _dbSet.Add(unitDao);
-        await _context.SaveChangesAsync();
-
-        return await Get(unitDao.Id);
+        // TODO: Implement
     }
 
-    public async Task Delete(int id)
+    public async Task<bool> Delete(int id)
     {
-        var unitDao = await _dbSet.FirstOrDefaultAsync(x => x.Id == id) ?? throw new KeyNotFoundException($"No unit reference with id {id} found.");
-        _dbSet.Remove(unitDao);
-        await _context.SaveChangesAsync();
+        // TODO: Implement
     }
 }

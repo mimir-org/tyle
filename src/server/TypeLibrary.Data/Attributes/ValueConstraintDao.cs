@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Tyle.Persistence.Attributes;
+namespace TypeLibrary.Data.Attributes;
 
 [Table("ValueConstraint")]
 public class ValueConstraintDao

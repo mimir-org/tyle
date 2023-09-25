@@ -1,50 +1,38 @@
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Tyle.Application.Attributes;
-using Tyle.Core.Attributes;
+using TypeLibrary.Core.Attributes;
+using TypeLibrary.Services.Attributes;
+using TypeLibrary.Services.Attributes.Requests;
 
-namespace Tyle.Persistence.Attributes;
+namespace TypeLibrary.Data.Attributes;
 
 public class PredicateRepository : IPredicateRepository
 {
     private readonly DbContext _context;
-    private readonly DbSet<PredicateDao> _dbSet;
-    private readonly IMapper _mapper;
+    private readonly DbSet<RdlPredicate> _dbSet;
 
-    public PredicateRepository(TyleDbContext context, IMapper mapper)
+    public PredicateRepository(TyleDbContext context)
     {
         _context = context;
         _dbSet = context.Predicates;
-        _mapper = mapper;
     }
 
-    public async Task<IEnumerable<PredicateReference>> GetAll()
+    public async Task<IEnumerable<RdlPredicate>> GetAll()
     {
-        var predicateDaos = await _dbSet.AsNoTracking().ToListAsync();
-
-        return _mapper.Map<List<PredicateReference>>(predicateDaos);
+        return await _dbSet.AsNoTracking().ToListAsync();
     }
 
-    public async Task<PredicateReference?> Get(int id)
+    public async Task<RdlPredicate?> Get(int id)
     {
-        var predicateDao = await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-
-        return _mapper.Map<PredicateReference>(predicateDao);
+        return await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<PredicateReference> Create(PredicateReference predicate)
+    public async Task<RdlPredicate> Create(RdlPredicateRequest request)
     {
-        var predicateDao = _mapper.Map<PredicateDao>(predicate);
-        _dbSet.Add(predicateDao);
-        await _context.SaveChangesAsync();
-
-        return await Get(predicateDao.Id);
+        // TODO: Implement
     }
 
-    public async Task Delete(int id)
+    public async Task<bool> Delete(int id)
     {
-        var predicateDao = await _dbSet.FirstOrDefaultAsync(x => x.Id == id) ?? throw new KeyNotFoundException($"No predicate reference with id {id} found.");
-        _dbSet.Remove(predicateDao);
-        await _context.SaveChangesAsync();
+        // TODO: Implement
     }
 }

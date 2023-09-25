@@ -1,50 +1,38 @@
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Tyle.Application.Common;
-using Tyle.Core.Common;
+using TypeLibrary.Core.Common;
+using TypeLibrary.Services.Common;
+using TypeLibrary.Services.Common.Requests;
 
-namespace Tyle.Persistence.Common;
+namespace TypeLibrary.Data.Common;
 
 public class ClassifierRepository : IClassifierRepository
 {
     private readonly DbContext _context;
-    private readonly DbSet<ClassifierDao> _dbSet;
-    private readonly IMapper _mapper;
+    private readonly DbSet<RdlClassifier> _dbSet;
 
-    public ClassifierRepository(TyleDbContext context, IMapper mapper)
+    public ClassifierRepository(TyleDbContext context)
     {
         _context = context;
         _dbSet = context.Classifiers;
-        _mapper = mapper;
     }
 
-    public async Task<IEnumerable<ClassifierReference>> GetAll()
+    public async Task<IEnumerable<RdlClassifier>> GetAll()
     {
-        var classifierDaos = await _dbSet.AsNoTracking().ToListAsync();
-
-        return _mapper.Map<List<ClassifierReference>>(classifierDaos);
+        return await _dbSet.AsNoTracking().ToListAsync();
     }
 
-    public async Task<ClassifierReference?> Get(int id)
+    public async Task<RdlClassifier?> Get(int id)
     {
-        var classifierDao = await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-
-        return _mapper.Map<ClassifierReference>(classifierDao);
+        return await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<ClassifierReference> Create(ClassifierReference classifier)
+    public async Task<RdlClassifier> Create(RdlClassifierRequest request)
     {
-        var classifierDao = _mapper.Map<ClassifierDao>(classifier);
-        _dbSet.Add(classifierDao);
-        await _context.SaveChangesAsync();
-
-        return await Get(classifierDao.Id);
+        // TODO: Implement
     }
 
-    public async Task Delete(int id)
+    public async Task<bool> Delete(int id)
     {
-        var classifierDao = await _dbSet.FirstOrDefaultAsync(x => x.Id == id) ?? throw new KeyNotFoundException($"No classifier reference with id {id} found.");
-        _dbSet.Remove(classifierDao);
-        await _context.SaveChangesAsync();
+        // TODO: Implement
     }
 }

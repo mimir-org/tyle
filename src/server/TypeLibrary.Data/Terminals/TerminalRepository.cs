@@ -1,11 +1,6 @@
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Tyle.Application.Attributes;
-using Tyle.Application.Terminals;
-using Tyle.Core.Terminals;
-using Tyle.Persistence.Attributes;
 
-namespace Tyle.Persistence.Terminals;
+namespace TypeLibrary.Data.Terminals;
 
 public class TerminalRepository : ITerminalRepository
 {

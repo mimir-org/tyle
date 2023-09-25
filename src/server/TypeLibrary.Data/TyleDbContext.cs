@@ -1,26 +1,26 @@
 using Microsoft.EntityFrameworkCore;
-using Tyle.Persistence.Attributes;
-using Tyle.Persistence.Common;
-using Tyle.Persistence.Terminals;
+using TypeLibrary.Core.Attributes;
+using TypeLibrary.Core.Common;
+using TypeLibrary.Core.Terminals;
 
-namespace Tyle.Persistence;
+namespace TypeLibrary.Data;
 
 public class TyleDbContext : DbContext
 {
-    public DbSet<ClassifierDao> Classifiers { get; set; }
-    public DbSet<PurposeDao> Purposes { get; set; }
+    public DbSet<RdlClassifier> Classifiers { get; set; }
+    public DbSet<RdlPurpose> Purposes { get; set; }
 
-    public DbSet<AttributeDao> Attributes { get; set; }
-    public DbSet<AttributeUnitDao> AttributeUnits { get; set; }
-    public DbSet<PredicateDao> Predicates { get; set; }
-    public DbSet<UnitDao> Units { get; set; }
-    public DbSet<ValueConstraintDao> ValueConstraints { get; set; }
-    public DbSet<ValueListEntryDao> ValueListEntries { get; set; }
+    public DbSet<AttributeType> Attributes { get; set; }
+    public DbSet<AttributeUnitJoin> AttributeUnits { get; set; }
+    public DbSet<RdlPredicate> Predicates { get; set; }
+    public DbSet<RdlUnit> Units { get; set; }
+    public DbSet<ValueConstraint> ValueConstraints { get; set; }
+    public DbSet<ValueListEntry> ValueListEntries { get; set; }
 
-    public DbSet<MediumDao> Media { get; set; }
-    public DbSet<TerminalAttributeDao> TerminalAttributes { get; set; }
-    public DbSet<TerminalClassifierDao> TerminalClassifiers { get; set; }
-    public DbSet<TerminalDao> Terminals { get; set; }
+    public DbSet<RdlMedium> Media { get; set; }
+    public DbSet<TerminalAttributeTypeReference> TerminalAttributes { get; set; }
+    public DbSet<TerminalClassifierJoin> TerminalClassifiers { get; set; }
+    public DbSet<TerminalType> Terminals { get; set; }
 
     public TyleDbContext(DbContextOptions<TyleDbContext> options) : base(options)
     {

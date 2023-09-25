@@ -1,50 +1,38 @@
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Tyle.Application.Terminals;
-using Tyle.Core.Terminals;
+using TypeLibrary.Core.Terminals;
+using TypeLibrary.Services.Terminals;
+using TypeLibrary.Services.Terminals.Requests;
 
-namespace Tyle.Persistence.Terminals;
+namespace TypeLibrary.Data.Terminals;
 
 public class MediumRepository : IMediumRepository
 {
     private readonly DbContext _context;
-    private readonly DbSet<MediumDao> _dbSet;
-    private readonly IMapper _mapper;
+    private readonly DbSet<RdlMedium> _dbSet;
 
-    public MediumRepository(TyleDbContext context, IMapper mapper)
+    public MediumRepository(TyleDbContext context)
     {
         _context = context;
         _dbSet = context.Media;
-        _mapper = mapper;
     }
 
-    public async Task<IEnumerable<MediumReference>> GetAll()
+    public async Task<IEnumerable<RdlMedium>> GetAll()
     {
-        var mediumDaos = await _dbSet.AsNoTracking().ToListAsync();
-
-        return _mapper.Map<List<MediumReference>>(mediumDaos);
+        return await _dbSet.AsNoTracking().ToListAsync();
     }
 
-    public async Task<MediumReference?> Get(int id)
+    public async Task<RdlMedium?> Get(int id)
     {
-        var mediumDao = await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-
-        return _mapper.Map<MediumReference>(mediumDao);
+        return await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<MediumReference> Create(MediumReference medium)
+    public async Task<RdlMedium> Create(RdlMediumRequest request)
     {
-        var mediumDao = _mapper.Map<MediumDao>(medium);
-        _dbSet.Add(mediumDao);
-        await _context.SaveChangesAsync();
-
-        return await Get(mediumDao.Id);
+        // TODO: Implement
     }
 
-    public async Task Delete(int id)
+    public async Task<bool> Delete(int id)
     {
-        var mediumDao = await _dbSet.FirstOrDefaultAsync(x => x.Id == id) ?? throw new KeyNotFoundException($"No medium reference with id {id} found.");
-        _dbSet.Remove(mediumDao);
-        await _context.SaveChangesAsync();
+        // TODO: Implement
     }
 }

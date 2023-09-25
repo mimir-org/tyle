@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Tyle.Persistence.Attributes;
+using TypeLibrary.Data.Attributes;
 
-namespace Tyle.Persistence.Terminals;
+namespace TypeLibrary.Data.Terminals;
 
 [Table("Terminal_Attribute")]
 public class TerminalAttributeDao

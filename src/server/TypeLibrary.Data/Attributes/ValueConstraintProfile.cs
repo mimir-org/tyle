@@ -1,9 +1,6 @@
 using System.Globalization;
-using AutoMapper;
-using Tyle.Application.Attributes.Requests;
-using Tyle.Core.Attributes.ValueConstraints;
 
-namespace Tyle.Persistence.Attributes;
+namespace TypeLibrary.Data.Attributes;
 
 public class ValueConstraintProfile : Profile
 {

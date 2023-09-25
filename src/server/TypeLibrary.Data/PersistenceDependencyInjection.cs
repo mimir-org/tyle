@@ -1,14 +1,10 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Tyle.Application.Attributes;
-using Tyle.Application.Common;
-using Tyle.Application.Terminals;
-using Tyle.Persistence.Attributes;
-using Tyle.Persistence.Common;
-using Tyle.Persistence.Terminals;
+using TypeLibrary.Data.Attributes;
+using TypeLibrary.Data.Common;
+using TypeLibrary.Data.Terminals;
 
-namespace Tyle.Persistence;
+namespace TypeLibrary.Data;
 
 public static class PersistenceDependencyInjection
 {

@@ -2,12 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <RootNamespace>TypeLibrary.Data</RootNamespace>
+      <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <Compile Remove="Attributes\ValueConstraintDao.cs" />
+    <Compile Remove="Attributes\ValueConstraintProfile.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="dotNetRDF" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.10" />
@@ -18,8 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mimirorg.Common\Mimirorg.Common.csproj" />
-    <ProjectReference Include="..\Mimirorg.TypeLibrary\Mimirorg.TypeLibrary.csproj" />
+    <ProjectReference Include="..\TypeLibrary.Services\TypeLibrary.Services.csproj" />
   </ItemGroup>
 
 </Project>

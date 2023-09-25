@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Tyle.Persistence.Attributes;
+namespace TypeLibrary.Data.Attributes;
 
 public class ValueConstraintConfiguration : IEntityTypeConfiguration<ValueConstraintDao>
 {

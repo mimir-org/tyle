@@ -1,11 +1,7 @@
 using System.Globalization;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Tyle.Application.Attributes;
-using Tyle.Core.Attributes;
-using Tyle.Core.Attributes.ValueConstraints;
 
-namespace Tyle.Persistence.Attributes;
+namespace TypeLibrary.Data.Attributes;
 
 public class AttributeRepository : IAttributeRepository
 {
