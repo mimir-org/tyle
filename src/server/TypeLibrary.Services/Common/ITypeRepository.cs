@@ -18,17 +18,17 @@ public interface ITypeRepository<T, TRequest>
     /// <summary>
     /// Creates a new type.
     /// </summary>
-    /// <param name="type">The type that should be created.</param>
+    /// <param name="request">A request defining the type that should be created.</param>
     /// <returns>The created type.</returns>
-    Task<T> Create(TRequest type);
+    Task<T> Create(TRequest request);
 
     /// <summary>
     /// Updates the type given by the id of the input type.
     /// </summary>
     /// <param name="id">The id of the type to update.</param>
-    /// <param name="type">A type object containing the new values for the type.</param>
+    /// <param name="request">A request defining the new values for the type.</param>
     /// <returns>The updated type, or null if no type was found.</returns>
-    Task<T?> Update(Guid id, TRequest type);
+    Task<T?> Update(Guid id, TRequest request);
 
     /// <summary>
     /// Deletes the type with the given id.

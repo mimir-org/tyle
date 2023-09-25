@@ -1,6 +1,6 @@
 namespace TypeLibrary.Services.Common;
 
-public interface IReferenceRepository<T>
+public interface IReferenceRepository<T, TRequest>
 {
     /// <summary>
     /// Gets all references of type T.
@@ -18,14 +18,14 @@ public interface IReferenceRepository<T>
     /// <summary>
     /// Creates a new reference.
     /// </summary>
-    /// <param name="reference">The reference that should be created.</param>
+    /// <param name="request">A request defining the reference that should be created.</param>
     /// <returns>The created reference object.</returns>
-    Task<T> Create(T reference);
+    Task<T> Create(TRequest request);
 
     /// <summary>
     /// Deletes the reference with the given id.
     /// </summary>
     /// <param name="id">The id of the reference to delete.</param>
-    /// <exception cref="KeyNotFoundException">Thrown if no reference is found with the given id.</exception>
-    Task Delete(int id);
+    /// <returns>True if the reference was deleted, false if it was not found.</returns>
+    Task<bool> Delete(int id);
 }
