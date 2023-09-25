@@ -1,4 +1,4 @@
-using AutoMapper;
+/*using AutoMapper;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
 using System.Collections.Generic;
@@ -67,4 +67,4 @@ public class LogService : ILogService
         var logDms = logObjects.Select(x => x.CreateLog(logType, logTypeValue, createdBy)).ToList();
         await _logRepository.Create(logDms);
     }
-}
+}*/

@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Exceptions;
@@ -40,4 +40,4 @@ public class CompanyFactory : ICompanyFactory
             throw;
         }
     }
-}
+}*/

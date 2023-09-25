@@ -1,4 +1,4 @@
-using Mimirorg.TypeLibrary.Enums;
+/*using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -40,4 +40,4 @@ public interface ILogService
     /// <param name="createdBy"></param>
     /// <returns>Completed task</returns>
     Task CreateLogs(IEnumerable<ILogable> logObjects, LogType logType, string logTypeValue, string createdBy);
-}
+}*/

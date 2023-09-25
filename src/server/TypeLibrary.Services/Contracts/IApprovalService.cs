@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+/*using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mimirorg.TypeLibrary.Models.Client;
 
@@ -11,4 +11,4 @@ public interface IApprovalService
     /// </summary>
     /// <returns>A collection of approvals</returns>
     Task<ICollection<ApprovalCm>> GetApprovals();
-}
+}*/

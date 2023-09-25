@@ -1,4 +1,4 @@
-using AutoMapper;
+/*using AutoMapper;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
@@ -60,11 +60,11 @@ public class SymbolService : ISymbolService
 
         await _symbolRepository.Create(notExisting, string.IsNullOrEmpty(createdBy) ? State.Draft : State.Approved);
 
-        /*await _logService.CreateLogs(
+        *//*await _logService.CreateLogs(
             notExisting,
             LogType.Create,
-            string.IsNullOrEmpty(createdBy) ? State.Draft.ToString() : State.Approved.ToString(), notExisting[0]?.CreatedBy);*/
+            string.IsNullOrEmpty(createdBy) ? State.Draft.ToString() : State.Approved.ToString(), notExisting[0]?.CreatedBy);*//*
 
         _symbolRepository.ClearAllChangeTrackers();
     }
-}
+}*/

@@ -1,4 +1,4 @@
-using Mimirorg.Common.Enums;
+/*using Mimirorg.Common.Enums;
 using System.Threading.Tasks;
 
 namespace TypeLibrary.Services.Contracts
@@ -15,4 +15,4 @@ namespace TypeLibrary.Services.Contracts
         /// <returns></returns>
         Task SendObjectStateEmail(string objectId, State objectState, string objectName, string objectTypeName);
     }
-}
+}*/

@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Logging;
+/*using Microsoft.Extensions.Logging;
 using Mimirorg.TypeLibrary.Models.Application;
 using System;
 using System.Linq;
@@ -48,4 +48,4 @@ public class SeedingService : ISeedingService
             _logger.LogError($"Could not create initial data from file: error: {e.Message}");
         }
     }
-}
+}*/
