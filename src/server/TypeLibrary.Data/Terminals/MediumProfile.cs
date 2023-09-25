@@ -1,0 +1,17 @@
+using AutoMapper;
+using TypeLibrary.Core.Common;
+using TypeLibrary.Core.Terminals;
+using TypeLibrary.Services.Terminals.Requests;
+
+namespace TypeLibrary.Data.Terminals;
+
+public class MediumProfile : Profile
+{
+    public MediumProfile()
+    {
+        CreateMap<RdlMediumRequest, RdlMedium>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => new Uri(src.Iri)))
+            .ForMember(dest => dest.Source, opt => opt.MapFrom(src => ReferenceSource.UserSubmission));
+    }
+}

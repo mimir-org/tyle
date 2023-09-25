@@ -1,5 +1,7 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Core.Attributes;
+using TypeLibrary.Core.Common;
 using TypeLibrary.Services.Attributes;
 using TypeLibrary.Services.Attributes.Requests;
 
@@ -9,11 +11,13 @@ public class PredicateRepository : IPredicateRepository
 {
     private readonly DbContext _context;
     private readonly DbSet<RdlPredicate> _dbSet;
+    private readonly IMapper _mapper;
 
-    public PredicateRepository(TyleDbContext context)
+    public PredicateRepository(TyleDbContext context, IMapper mapper)
     {
         _context = context;
         _dbSet = context.Predicates;
+        _mapper = mapper;
     }
 
     public async Task<IEnumerable<RdlPredicate>> GetAll()
@@ -28,11 +32,15 @@ public class PredicateRepository : IPredicateRepository
 
     public async Task<RdlPredicate> Create(RdlPredicateRequest request)
     {
-        // TODO: Implement
+        var predicate = _mapper.Map<RdlPredicate>(request);
+        _dbSet.Add(predicate);
+        await _context.SaveChangesAsync();
+
+        return predicate;
     }
 
     public async Task<bool> Delete(int id)
     {
-        // TODO: Implement
+        throw new NotImplementedException();
     }
 }

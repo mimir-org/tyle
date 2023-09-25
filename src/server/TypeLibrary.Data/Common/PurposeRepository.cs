@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Core.Common;
 using TypeLibrary.Services.Common;
@@ -9,11 +10,13 @@ public class PurposeRepository : IPurposeRepository
 {
     private readonly DbContext _context;
     private readonly DbSet<RdlPurpose> _dbSet;
+    private readonly IMapper _mapper;
 
-    public PurposeRepository(TyleDbContext context)
+    public PurposeRepository(TyleDbContext context, IMapper mapper)
     {
         _context = context;
         _dbSet = context.Purposes;
+        _mapper = mapper;
     }
 
     public async Task<IEnumerable<RdlPurpose>> GetAll()
@@ -28,11 +31,15 @@ public class PurposeRepository : IPurposeRepository
 
     public async Task<RdlPurpose> Create(RdlPurposeRequest request)
     {
-        // TODO: Implement
+        var purpose = _mapper.Map<RdlPurpose>(request);
+        _dbSet.Add(purpose);
+        await _context.SaveChangesAsync();
+
+        return purpose;
     }
 
     public async Task<bool> Delete(int id)
     {
-        // TODO: Implement
+        throw new NotImplementedException();
     }
 }

@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Core.Attributes;
 using TypeLibrary.Services.Attributes;
@@ -9,11 +10,13 @@ public class UnitRepository : IUnitRepository
 {
     private readonly DbContext _context;
     private readonly DbSet<RdlUnit> _dbSet;
+    private readonly IMapper _mapper;
 
-    public UnitRepository(TyleDbContext context)
+    public UnitRepository(TyleDbContext context, IMapper mapper)
     {
         _context = context;
         _dbSet = context.Units;
+        _mapper = mapper;
     }
 
     public async Task<IEnumerable<RdlUnit>> GetAll()
@@ -28,11 +31,15 @@ public class UnitRepository : IUnitRepository
 
     public async Task<RdlUnit> Create(RdlUnitRequest request)
     {
-        // TODO: Implement
+        var unit = _mapper.Map<RdlUnit>(request);
+        _dbSet.Add(unit);
+        await _context.SaveChangesAsync();
+
+        return unit;
     }
 
     public async Task<bool> Delete(int id)
     {
-        // TODO: Implement
+        throw new NotImplementedException();
     }
 }

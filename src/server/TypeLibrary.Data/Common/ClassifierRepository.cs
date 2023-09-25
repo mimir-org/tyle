@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Core.Common;
 using TypeLibrary.Services.Common;
@@ -9,11 +10,13 @@ public class ClassifierRepository : IClassifierRepository
 {
     private readonly DbContext _context;
     private readonly DbSet<RdlClassifier> _dbSet;
+    private readonly IMapper _mapper;
 
-    public ClassifierRepository(TyleDbContext context)
+    public ClassifierRepository(TyleDbContext context, IMapper mapper)
     {
         _context = context;
         _dbSet = context.Classifiers;
+        _mapper = mapper;
     }
 
     public async Task<IEnumerable<RdlClassifier>> GetAll()
@@ -28,11 +31,15 @@ public class ClassifierRepository : IClassifierRepository
 
     public async Task<RdlClassifier> Create(RdlClassifierRequest request)
     {
-        // TODO: Implement
+        var classifier = _mapper.Map<RdlClassifier>(request);
+        _dbSet.Add(classifier);
+        await _context.SaveChangesAsync();
+
+        return classifier;
     }
 
     public async Task<bool> Delete(int id)
     {
-        // TODO: Implement
+        throw new NotImplementedException();
     }
 }
