@@ -77,4 +77,29 @@ public class MediaController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    //[AllowAnonymous]
+    public async Task<IActionResult> Delete([FromRoute] int id)
+    {
+        try
+        {
+            if (await _mediumRepository.Delete(id))
+            {
+                return NoContent();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+    }
 }

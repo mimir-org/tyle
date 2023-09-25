@@ -40,6 +40,17 @@ public class PurposeRepository : IPurposeRepository
 
     public async Task<bool> Delete(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var purposeStub = new RdlPurpose { Id = id };
+            _dbSet.Remove(purposeStub);
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Core.Common;
+using TypeLibrary.Data.Common;
 using TypeLibrary.Services.Common;
 using TypeLibrary.Services.Common.Requests;
 
@@ -71,6 +72,31 @@ public class PurposesController : ControllerBase
         {
             var purpose = await _purposeRepository.Create(request);
             return Ok(purpose);
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+    }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    //[AllowAnonymous]
+    public async Task<IActionResult> Delete([FromRoute] int id)
+    {
+        try
+        {
+            if (await _purposeRepository.Delete(id))
+            {
+                return NoContent();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
         catch (Exception)
         {

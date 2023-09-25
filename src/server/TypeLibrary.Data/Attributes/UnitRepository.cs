@@ -40,6 +40,17 @@ public class UnitRepository : IUnitRepository
 
     public async Task<bool> Delete(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var unitStub = new RdlUnit { Id = id };
+            _dbSet.Remove(unitStub);
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

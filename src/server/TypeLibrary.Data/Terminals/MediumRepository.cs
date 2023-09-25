@@ -1,6 +1,5 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using TypeLibrary.Core.Common;
 using TypeLibrary.Core.Terminals;
 using TypeLibrary.Services.Terminals;
 using TypeLibrary.Services.Terminals.Requests;
@@ -41,6 +40,17 @@ public class MediumRepository : IMediumRepository
 
     public async Task<bool> Delete(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var mediumStub = new RdlMedium { Id = id };
+            _dbSet.Remove(mediumStub);
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

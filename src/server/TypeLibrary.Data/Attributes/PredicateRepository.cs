@@ -1,7 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Core.Attributes;
-using TypeLibrary.Core.Common;
 using TypeLibrary.Services.Attributes;
 using TypeLibrary.Services.Attributes.Requests;
 
@@ -41,6 +40,17 @@ public class PredicateRepository : IPredicateRepository
 
     public async Task<bool> Delete(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var predicateStub = new RdlPredicate { Id = id };
+            _dbSet.Remove(predicateStub);
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            return false;
+        }
+
+        return true;
     }
 }
