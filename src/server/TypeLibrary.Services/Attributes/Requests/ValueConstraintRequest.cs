@@ -55,10 +55,6 @@ public class ValueConstraintRequest : IValidatableObject
         switch (ConstraintType)
         {
             case ConstraintType.HasValue:
-                if (DataType == XsdDataType.Boolean)
-                {
-                    yield return new ValidationResult("Constraints of type HasValue can't have data type boolean.");
-                }
                 if (Value == null)
                 {
                     yield return new ValidationResult("Constraints of type HasValue must specify a value.");

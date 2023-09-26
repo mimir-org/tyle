@@ -9,7 +9,7 @@ using TypeLibrary.Core.Attributes;
 using TypeLibrary.Services.Attributes;
 using TypeLibrary.Services.Attributes.Requests;
 
-namespace TypeLibrary.Api.Controllers.V1;
+namespace TypeLibrary.Api.Attributes;
 
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]

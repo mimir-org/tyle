@@ -1,34 +1,32 @@
-/*using Microsoft.AspNetCore.Authorization;
+using System.Net.Mime;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
-using Mimirorg.Common.Models;
+using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
+using TypeLibrary.Services.Attributes;
+using TypeLibrary.Services.Attributes.Requests;
 
-namespace TypeLibrary.Api.Controllers.V1;
+namespace TypeLibrary.Api.Attributes;
 
-[Produces("application/json")]
+[Produces(MediaTypeNames.Application.Json)]
 [ApiController]
 [ApiVersion(VersionConstant.OnePointZero)]
 [Route("V{version:apiVersion}/[controller]")]
 [SwaggerTag("Attribute services")]
-public class AttributeController : ControllerBase
+public class AttributesController : ControllerBase
 {
-    private readonly ILogger<AttributeController> _logger;
-    private readonly IAttributeService _attributeService;
-    private readonly IMimirorgAuthService _authService;
-    private readonly ApplicationSettings _applicationSettings;
+    private readonly IAttributeRepository _attributeRepository;
+    private readonly IMapper _mapper;
 
-    public AttributeController(ILogger<AttributeController> logger, IAttributeService attributeService, IMimirorgAuthService authService, IOptions<ApplicationSettings> applicationSettings)
+    public AttributesController(IAttributeRepository attributeRepository, IMapper mapper)
     {
-        _logger = logger;
-        _attributeService = attributeService;
-        _authService = authService;
-        _applicationSettings = applicationSettings?.Value;
+        _attributeRepository = attributeRepository;
+        _mapper = mapper;
     }
 
     /// <summary>
@@ -39,17 +37,16 @@ public class AttributeController : ControllerBase
     [ProducesResponseType(typeof(ICollection<AttributeTypeView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult Get()
+    public async Task<IActionResult> GetAll()
     {
         try
         {
-            var data = _attributeService.Get();
-            return Ok(data);
+            var attributes = await _attributeRepository.GetAll();
+            return Ok(_mapper.Map<IEnumerable<AttributeTypeView>>(attributes));
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 
@@ -60,27 +57,24 @@ public class AttributeController : ControllerBase
     /// <returns>The requested attribute</returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(AttributeTypeView), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult Get([FromRoute] Guid id)
+    public async Task<IActionResult> Get([FromRoute] Guid id)
     {
         try
         {
-            var data = _attributeService.Get(id);
-            if (data == null)
-                return NotFound(id);
+            var attribute = await _attributeRepository.Get(id);
+            if (attribute == null)
+            {
+                return NotFound();
+            }
 
-            return Ok(data);
+            return Ok(attribute);
         }
-        catch (MimirorgNotFoundException e)
+        catch (Exception)
         {
-            return NotFound(e.Message);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 
@@ -99,21 +93,16 @@ public class AttributeController : ControllerBase
     {
         try
         {
-            var cm = await _attributeService.Create(request);
-            return Created(new Uri($"{_applicationSettings.ApplicationSemanticUrl}/attribute/{cm.Id}"), cm);
+            var createdAttribute = await _attributeRepository.Create(request);
+            return Created("dummy", createdAttribute);
         }
-        catch (MimirorgBadRequestException e)
+        catch (Exception)
         {
-            return BadRequest(e.Message);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 
-    /// <summary>
+    /*/// <summary>
     /// Update an attribute object
     /// </summary>
     /// <param name="id">The id of the attribute object that should be updated</param>
@@ -251,5 +240,5 @@ public class AttributeController : ControllerBase
             _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
-    }*//*
-}*/
+    }*/
+}

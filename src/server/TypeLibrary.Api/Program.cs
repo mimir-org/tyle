@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using Mimirorg.Authentication.Extensions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using TypeLibrary.Api;
 using TypeLibrary.Api.Extensions;
 using TypeLibrary.Data;
 
@@ -45,7 +46,8 @@ builder.Services.AddMimirorgAuthenticationModule(builder.Configuration);
 builder.Services
     .AddDatabaseConfiguration(builder.Configuration)
     .AddRequestToDomainMapping()
-    .AddRepositories();
+    .AddRepositories()
+    .AddDomainToViewMapping();
 
 // Swagger configurations
 var swaggerConfigurationSection = builder.Configuration.GetSection(nameof(SwaggerConfiguration));

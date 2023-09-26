@@ -11,10 +11,10 @@ public class AttributeTypeRequest : IValidatableObject
 
     public string? Description { get; set; }
 
-    public int? PredicateReferenceId { get; set; }
+    public int? PredicateId { get; set; }
 
     [Required]
-    public ICollection<int> UnitReferenceIds { get; set; }
+    public ICollection<int> UnitIds { get; set; }
 
     [Required, Range(0, 1, ErrorMessage = "The unit min count must be 0 or 1.")]
     public int UnitMinCount { get; set; }
@@ -39,7 +39,7 @@ public class AttributeTypeRequest : IValidatableObject
             yield return new ValidationResult("The unit min count cannot be larger than the unit max count.");
         }
 
-        foreach (var validationResult in UniqueCollectionValidator.Validate(UnitReferenceIds, "Unit reference id"))
+        foreach (var validationResult in UniqueCollectionValidator.Validate(UnitIds, "Unit reference id"))
         {
             yield return validationResult;
         }

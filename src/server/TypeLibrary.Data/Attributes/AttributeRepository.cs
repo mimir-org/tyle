@@ -15,23 +15,42 @@ public class AttributeRepository : IAttributeRepository
     public AttributeRepository(TyleDbContext context, IMapper mapper)
     {
         _context = context;
-        //_dbSet = context.Attributes;
+        _dbSet = context.Attributes;
         _mapper = mapper;
     }
 
     public async Task<IEnumerable<AttributeType>> GetAll()
     {
-        throw new NotImplementedException();
+        return await _dbSet.AsNoTracking()
+            .Include(x => x.Predicate)
+            .Include(x => x.Units).ThenInclude(x => x.Unit)
+            .Include(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
+            .AsSplitQuery()
+            .ToListAsync();
     }
 
     public async Task<AttributeType?> Get(Guid id)
     {
-        throw new NotImplementedException();
+        return await _dbSet.AsNoTracking()
+            .Include(x => x.Predicate)
+            .Include(x => x.Units).ThenInclude(x => x.Unit)
+            .Include(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
+            .AsSplitQuery()
+            .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<AttributeType> Create(AttributeTypeRequest request)
     {
-        throw new NotImplementedException();
+        var attribute = _mapper.Map<AttributeType>(request);
+        attribute.Version = "1.0";
+        attribute.CreatedBy = "";
+        attribute.CreatedOn = DateTime.Now;
+        attribute.LastUpdateOn = attribute.CreatedOn;
+
+        _dbSet.Add(attribute);
+        await _context.SaveChangesAsync();
+        
+        return attribute;
     }
 
     public async Task<AttributeType?> Update(Guid id, AttributeTypeRequest request)

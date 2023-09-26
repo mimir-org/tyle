@@ -39,8 +39,10 @@ public static class PersistenceDependencyInjection
             config.AddProfile(new ClassifierProfile());
             config.AddProfile(new PurposeProfile());
 
+            config.AddProfile(new AttributeProfile());
             config.AddProfile(new PredicateProfile());
             config.AddProfile(new UnitProfile());
+            config.AddProfile(new ValueConstraintProfile());
 
             config.AddProfile(new MediumProfile());
         });
