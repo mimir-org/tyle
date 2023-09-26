@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TypeLibrary.Data;
 
@@ -11,9 +12,11 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Data.Migrations
 {
     [DbContext(typeof(TyleDbContext))]
-    partial class TyleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230926090121_AddAttributeTables")]
+    partial class AddAttributeTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,8 +178,7 @@ namespace TypeLibrary.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal?>("MaxValue")
-                        .HasPrecision(38, 19)
-                        .HasColumnType("decimal(38,19)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("MinCount")
                         .HasColumnType("int");
@@ -185,8 +187,7 @@ namespace TypeLibrary.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal?>("MinValue")
-                        .HasPrecision(38, 19)
-                        .HasColumnType("decimal(38,19)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Pattern")
                         .HasColumnType("nvarchar(max)");

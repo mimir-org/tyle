@@ -166,3 +166,5 @@ using (var scope = app.Services.CreateScope())
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { } // so you can reference it from tests

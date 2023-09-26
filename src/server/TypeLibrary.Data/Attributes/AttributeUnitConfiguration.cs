@@ -8,6 +8,10 @@ public class AttributeUnitConfiguration : IEntityTypeConfiguration<AttributeUnit
 {
     public void Configure(EntityTypeBuilder<AttributeUnitJoin> builder)
     {
+        builder.ToTable("Attribute_Unit");
+
+        builder.HasKey(x => new {x.AttributeId, x.UnitId});
+
         builder
             .HasOne(e => e.Attribute)
             .WithMany(e => e.Units)

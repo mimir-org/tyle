@@ -8,6 +8,15 @@ public class ValueConstraintConfiguration : IEntityTypeConfiguration<ValueConstr
 {
     public void Configure(EntityTypeBuilder<ValueConstraint> builder)
     {
+        builder.ToTable("ValueConstraint");
+
+        builder.HasKey(x => x.AttributeId);
+
+        builder.Property(x => x.ConstraintType).IsRequired().HasConversion<string>();
+        builder.Property(x => x.DataType).IsRequired().HasConversion<string>();
+        builder.Property(x => x.MinValue).HasPrecision(38, 19);
+        builder.Property(x => x.MaxValue).HasPrecision(38, 19);
+
         builder
             .HasOne(e => e.Attribute)
             .WithOne(e => e.ValueConstraint)
