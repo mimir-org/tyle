@@ -1,4 +1,4 @@
-namespace Tyle.Core.Common.Exceptions;
+namespace Mimirorg.Common.Exceptions;
 
 public class MimirorgInvalidOperationException : Exception
 {

@@ -16,15 +16,6 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System.Security.Authentication;
 using System.Security.Claims;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
 
 namespace Mimirorg.Authentication.Services;
 

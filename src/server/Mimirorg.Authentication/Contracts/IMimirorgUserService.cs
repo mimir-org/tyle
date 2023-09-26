@@ -3,19 +3,6 @@ using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System.Security.Principal;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
 
 namespace Mimirorg.Authentication.Contracts;
 
@@ -27,8 +14,8 @@ public interface IMimirorgUserService
     /// <param name="userAm"></param>
     /// <returns></returns>
     /// <exception cref="MimirorgConfigurationException"></exception>
-    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgInvalidOperationException"></exception>
+    /// <exception cref="MimirorgBadRequestException"></exception>
+    /// <exception cref="MimirorgInvalidOperationException"></exception>
     /// <exception cref="MimirorgDuplicateException"></exception>
     Task<MimirorgUserCm> CreateUser(MimirorgUserAm userAm);
 

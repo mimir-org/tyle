@@ -3,15 +3,6 @@ using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System.Security.Authentication;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
 
 namespace Mimirorg.Authentication.Contracts;
 
@@ -24,7 +15,7 @@ public interface IMimirorgAuthService
     /// </summary>
     /// <param name="authenticate">MimirorgAuthenticateAm</param>
     /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
-    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
+    /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="AuthenticationException"></exception>
     Task<ICollection<MimirorgTokenCm>> Authenticate(MimirorgAuthenticateAm authenticate);
 

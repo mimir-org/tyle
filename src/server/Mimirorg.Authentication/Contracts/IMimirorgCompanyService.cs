@@ -1,11 +1,3 @@
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
-using Exceptions;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -20,7 +12,7 @@ public interface IMimirorgCompanyService
     /// </summary>
     /// <param name="company">MimirorgCompanyAm</param>
     /// <returns>MimirorgCompanyCm</returns>
-    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
+    /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgInvalidOperationException"></exception>
     Task<MimirorgCompanyCm> CreateCompany(MimirorgCompanyAm company);
 

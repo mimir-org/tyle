@@ -1,6 +1,9 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Mimirorg.Authentication.Models.Attributes;
+using Mimirorg.TypeLibrary.Constants;
+using Mimirorg.TypeLibrary.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Core.Common;
 using TypeLibrary.Services.Common;
@@ -10,7 +13,8 @@ namespace TypeLibrary.Api.Controllers.V1;
 
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]
-[Route("[controller]")]
+[ApiVersion(VersionConstant.OnePointZero)]
+[Route("V{version:apiVersion}/[controller]")]
 [SwaggerTag("Classifier services")]
 public class ClassifiersController : ControllerBase
 {
@@ -25,7 +29,7 @@ public class ClassifiersController : ControllerBase
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<RdlClassifier>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //[AllowAnonymous]
+    [AllowAnonymous]
     public async Task<IActionResult> GetAll()
     {
         try
@@ -42,7 +46,7 @@ public class ClassifiersController : ControllerBase
     [ProducesResponseType(typeof(RdlClassifier), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //[AllowAnonymous]
+    [AllowAnonymous]
     public async Task<IActionResult> Get([FromRoute] int id)
     {
         try
@@ -62,9 +66,9 @@ public class ClassifiersController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(RdlClassifier), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //[AllowAnonymous]
+    [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] RdlClassifierRequest request)
     {
         try
@@ -81,9 +85,9 @@ public class ClassifiersController : ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //[AllowAnonymous]
+    [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
         try

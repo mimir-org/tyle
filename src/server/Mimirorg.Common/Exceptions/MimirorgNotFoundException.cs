@@ -1,4 +1,4 @@
-namespace Tyle.Core.Common.Exceptions;
+namespace Mimirorg.Common.Exceptions;
 
 [Serializable]
 public class MimirorgNotFoundException : Exception
