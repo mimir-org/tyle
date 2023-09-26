@@ -15,10 +15,14 @@ import { ValueObject } from "features/entities/types/valueObject";
  * It allows you to adapt the expected api model to fit client/form logic needs.
  */
 export interface FormBlockLib
-  extends Omit<BlockLibAm, "attributes" | "selectedAttributePredefined" | "blockTerminals"> {
+  extends Omit<
+    BlockLibAm,
+    "attributes" | "test" | "selectedAttributePredefined" | "blockTerminals" | "attributeGroups"
+  > {
   attributes: ValueObject<string>[];
   selectedAttributePredefined: FormAttributePredefinedLib[];
   blockTerminals: FormBlockTerminalLib[];
+  attributeGroups: ValueObject<string>[];
 }
 
 /**
@@ -28,6 +32,7 @@ export interface FormBlockLib
 export const mapFormBlockLibToApiModel = (formBlock: FormBlockLib): BlockLibAm => ({
   ...formBlock,
   attributes: formBlock.attributes.map((x) => x.value),
+  attributeGroups: formBlock.attributeGroups.map((x) => x.value),
   selectedAttributePredefined: formBlock.selectedAttributePredefined.map((x) =>
     mapFormAttributePredefinedLibToApiModel(x),
   ),
@@ -39,6 +44,7 @@ export const mapBlockLibCmToClientModel = (block: BlockLibCm, newCompanyId?: num
   attributes: block.attributes.map((x) => ({ value: x.id })),
   blockTerminals: block.blockTerminals.map(mapBlockTerminalLibCmToClientModel),
   selectedAttributePredefined: block.selectedAttributePredefined.map(mapAttributePredefinedLibCmToClientModel),
+  attributeGroups: [],
 });
 
 export const createEmptyFormBlockLib = (): FormBlockLib => ({
@@ -46,6 +52,7 @@ export const createEmptyFormBlockLib = (): FormBlockLib => ({
   attributes: [],
   selectedAttributePredefined: [],
   blockTerminals: [],
+  attributeGroups: [],
 });
 
 const emptyBlockLibAm: BlockLibAm = {
@@ -61,4 +68,5 @@ const emptyBlockLibAm: BlockLibAm = {
   symbol: "",
   typeReference: "",
   version: "1.0",
+  attributeGroups: [],
 };
