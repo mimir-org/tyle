@@ -97,7 +97,7 @@ public class AttributeRepository : IAttributeRepository
     {
         var attribute = await _dbSet.AsTracking()
             .Include(x => x.Units)
-            .Include(x => x.ValueConstraint)
+            .Include(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
             .AsSplitQuery()
             .FirstOrDefaultAsync(x => x.Id == id);
 
@@ -114,13 +114,16 @@ public class AttributeRepository : IAttributeRepository
         }
         attribute.LastUpdateOn = DateTimeOffset.Now;
 
-        if (request.PredicateId == null || await _context.Predicates.AsNoTracking().AnyAsync(x => x.Id == request.PredicateId))
+        if (attribute.PredicateId != request.PredicateId)
         {
-            attribute.PredicateId = request.PredicateId;
-        }
-        else
-        {
-            // TODO: Handle the case where a request is sent with a non-valid predicate id
+            if (request.PredicateId == null || await _context.Predicates.AsNoTracking().AnyAsync(x => x.Id == request.PredicateId))
+            {
+                attribute.PredicateId = request.PredicateId;
+            }
+            else
+            {
+                // TODO: Handle the case where a request is sent with a non-valid predicate id
+            }
         }
 
         var attributeUnitsToRemove = attribute.Units.Where(x => !request.UnitIds.Contains(x.UnitId)).ToList();
@@ -155,12 +158,22 @@ public class AttributeRepository : IAttributeRepository
         attribute.RegularityQualifier = request.RegularityQualifier;
         attribute.ScopeQualifier = request.ScopeQualifier;
 
-        if (attribute.ValueConstraint != null)
-        {
-            _context.ValueConstraints.Remove(attribute.ValueConstraint);
-        }
+        var valueConstraintComparer = new ValueConstraintComparer();
+        var requestedValueConstraint = _mapper.Map<ValueConstraint>(request.ValueConstraint);
 
-        attribute.ValueConstraint = request.ValueConstraint == null ? null : _mapper.Map<ValueConstraint>(request.ValueConstraint);
+        if (!valueConstraintComparer.Equals(attribute.ValueConstraint, requestedValueConstraint))
+        {
+            if (attribute.ValueConstraint != null)
+            {
+                if (attribute.ValueConstraint.ConstraintType == ConstraintType.In)
+                {
+                    _context.ValueListEntries.RemoveRange(attribute.ValueConstraint.ValueList!);
+                }
+                _context.ValueConstraints.Remove(attribute.ValueConstraint);
+            }
+
+            attribute.ValueConstraint = requestedValueConstraint;
+        }
 
         await _context.SaveChangesAsync();
 
