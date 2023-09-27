@@ -15,10 +15,13 @@ import {
   isRdsLibCm,
   isTerminalLibCm,
   isUnitLibCm,
+  isAttributeGroupLibCm,
 } from "../guards/isItemValidators";
 import { toUnitItem } from "../../../../common/utils/mappers/toUnitItem";
 import { toQuantityDatumItem } from "../../../../common/utils/mappers/toQuantityDatumItem";
 import { toRdsItem } from "../../../../common/utils/mappers/toRdsItem";
+import { useGetAttributeGroups } from "external/sources/attributeGroup/attributeGroup.queries";
+import { toAttributeGroupItem } from "common/utils/mappers/mapAttributeGroupLibCmToAttributeGroupItem";
 
 /**
  * Filters items if there are any filters available, returns items sorted by date if not.
@@ -80,11 +83,13 @@ export const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean]
   const unitQuery = useGetUnits();
   const datumQuery = useGetQuantityDatums();
   const rdsQuery = useGetAllRds();
+  const attributeGroupsQuery = useGetAttributeGroups();
 
   const isLoading =
     blockQuery.isLoading ||
     terminalQuery.isLoading ||
     attributeQuery.isLoading ||
+    attributeGroupsQuery.isLoading ||
     unitQuery.isLoading ||
     datumQuery.isLoading ||
     rdsQuery.isLoading;
@@ -111,6 +116,7 @@ export const mapSearchResults = (items: SearchResultRaw[]) => {
     else if (isUnitLibCm(x)) mappedSearchResults.push(toUnitItem(x));
     else if (isQuantityDatumLibCm(x)) mappedSearchResults.push(toQuantityDatumItem(x));
     else if (isRdsLibCm(x)) mappedSearchResults.push(toRdsItem(x));
+    else if (isAttributeGroupLibCm(x)) mappedSearchResults.push(toAttributeGroupItem(x));
   });
 
   return mappedSearchResults;

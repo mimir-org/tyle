@@ -1,5 +1,6 @@
 import { AttributeLibAm, AttributeLibCm, State, UnitLibCm } from "@mimirorg/typelibrary-types";
-import { FormAttributeHelper } from "features/entities/types/formAttributeHelper";
+import { FormAttributeHelper } from "features/entities/types/FormAttributeHelper";
+
 import { FormUnitHelper } from "features/entities/units/types/FormUnitHelper";
 
 export interface FormAttributeLib extends Omit<AttributeLibAm, "attributeUnits"> {
