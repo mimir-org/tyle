@@ -2,9 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TypeLibrary.Core.Attributes;
+using TypeLibrary.Core.Blocks;
 using TypeLibrary.Core.Common;
 using TypeLibrary.Core.Terminals;
 using TypeLibrary.Data.Attributes;
+using TypeLibrary.Data.Blocks;
 using TypeLibrary.Data.Common;
 using TypeLibrary.Data.Terminals;
 
@@ -26,6 +28,11 @@ public class TyleDbContext : DbContext
     public DbSet<TerminalAttributeTypeReference> TerminalAttributes { get; set; }
     public DbSet<TerminalClassifierJoin> TerminalClassifiers { get; set; }
     public DbSet<TerminalType> Terminals { get; set; }
+
+    public DbSet<BlockType> Blocks { get; set; }
+    public DbSet<BlockAttributeTypeReference> BlockAttributes { get; set; }
+    public DbSet<BlockClassifierJoin> BlockClassifiers { get; set; }
+    public DbSet<BlockTerminalTypeReference> BlockTerminals { get; set; }
 
     public TyleDbContext(DbContextOptions<TyleDbContext> options) : base(options)
     {
@@ -58,5 +65,10 @@ public class TyleDbContext : DbContext
         modelBuilder.ApplyConfiguration(new TerminalAttributeTypeReferenceConfiguration());
         modelBuilder.ApplyConfiguration(new TerminalClassifierJoinConfiguration());
         modelBuilder.ApplyConfiguration(new TerminalConfiguration(userListValueConverter, userListValueComparer));
+
+        modelBuilder.ApplyConfiguration(new BlockConfiguration(userListValueConverter, userListValueComparer));
+        modelBuilder.ApplyConfiguration(new BlockAttributeTypeReferenceConfiguration());
+        modelBuilder.ApplyConfiguration(new BlockClassifierJoinConfiguration());
+        modelBuilder.ApplyConfiguration(new BlockTerminalTypeReferenceConfiguration());
     }
 }

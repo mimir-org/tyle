@@ -1,4 +1,3 @@
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Core.Terminals;
 using TypeLibrary.Services.Common;
@@ -11,14 +10,12 @@ public class TerminalRepository : ITerminalRepository
 {
     private readonly TyleDbContext _context;
     private readonly DbSet<TerminalType> _dbSet;
-    private readonly IMapper _mapper;
     private readonly IUserInformationService _userInformationService;
 
-    public TerminalRepository(TyleDbContext context, IMapper mapper, IUserInformationService userInformationService)
+    public TerminalRepository(TyleDbContext context, IUserInformationService userInformationService)
     {
         _context = context;
         _dbSet = context.Terminals;
-        _mapper = mapper;
         _userInformationService = userInformationService;
     }
 
