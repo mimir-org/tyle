@@ -87,7 +87,7 @@ public class UnitsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
+    [Authorize]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
         try

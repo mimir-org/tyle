@@ -70,7 +70,7 @@ public class AttributesController : ControllerBase
                 return NotFound();
             }
 
-            return Ok(attribute);
+            return Ok(_mapper.Map<AttributeTypeView>(attribute));
         }
         catch (Exception)
         {
@@ -94,7 +94,7 @@ public class AttributesController : ControllerBase
         try
         {
             var createdAttribute = await _attributeRepository.Create(request);
-            return Created("dummy", createdAttribute);
+            return Created("dummy", _mapper.Map<AttributeTypeView>(createdAttribute));
         }
         catch (Exception)
         {
@@ -102,7 +102,7 @@ public class AttributesController : ControllerBase
         }
     }
 
-    /*/// <summary>
+    /// <summary>
     /// Update an attribute object
     /// </summary>
     /// <param name="id">The id of the attribute object that should be updated</param>
@@ -112,33 +112,25 @@ public class AttributesController : ControllerBase
     [ProducesResponseType(typeof(AttributeTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
+    [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Update(Guid id, [FromBody] AttributeTypeRequest request)
     {
         try
         {
-            var data = await _attributeService.Update(id, request);
-            return Ok(data);
+            var attribute = await _attributeRepository.Update(id, request);
+
+            if (attribute == null)
+            {
+                return NotFound();
+            }
+            
+            return Ok(_mapper.Map<AttributeTypeView>(attribute));
         }
-        catch (MimirorgNotFoundException e)
+        catch (Exception)
         {
-            return NotFound(e.Message);
-        }
-        catch (MimirorgBadRequestException e)
-        {
-            return BadRequest(e.Message);
-        }
-        catch (MimirorgInvalidOperationException e)
-        {
-            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 
@@ -149,7 +141,6 @@ public class AttributesController : ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
@@ -157,88 +148,18 @@ public class AttributesController : ControllerBase
     {
         try
         {
-            var attribute = _attributeService.Get(id);
-            *//*var hasAccess = await _authService.CanDelete(attribute.State, attribute.CreatedBy, CompanyConstants.AnyCompanyId);
-
-            if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);*//*
-
-            await _attributeService.Delete(id);
-            return NoContent();
+            if (await _attributeRepository.Delete(id))
+            {
+                return NoContent();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
-        catch (MimirorgNotFoundException e)
+        catch (Exception)
         {
-            return NotFound(e.Message);
-        }
-        catch (MimirorgInvalidOperationException e)
-        {
-            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
-
-    *//*/// <summary>
-    /// Update an attribute with a new state
-    /// </summary>
-    /// <param name="id">The id of the attribute to be updated</param>
-    /// <param name="state">The new state</param>
-    /// <returns>An approval data object containing the id of the attribute and the new state</returns>
-    [HttpPatch("{id}/state/{state}")]
-    [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [Authorize]
-    public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
-    {
-        try
-        {
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
-
-            if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);
-
-            var data = await _attributeService.ChangeState(id, state, true);
-            return Ok(data);
-        }
-        catch (MimirorgNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-        catch (MimirorgInvalidOperationException e)
-        {
-            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
-
-    /// <summary>
-    /// Get all predefined attributes
-    /// </summary>
-    /// <returns>A collection of predefined attributes</returns>
-    [HttpGet("predefined")]
-    [ProducesResponseType(typeof(ICollection<AttributePredefinedLibCm>), StatusCodes.Status200OK)]
-    [AllowAnonymous]
-    public IActionResult GetPredefined()
-    {
-        try
-        {
-            var data = _attributeService.GetPredefined().ToList();
-            return Ok(data);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
-        }
-    }*/
 }
