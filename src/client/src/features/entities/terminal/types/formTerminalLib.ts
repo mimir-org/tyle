@@ -5,8 +5,9 @@ import { ValueObject } from "features/entities/types/valueObject";
  * This type functions as a layer between client needs and the backend model.
  * It allows you to adapt the expected api model to fit client/form logic needs.
  */
-export interface FormTerminalLib extends Omit<TerminalLibAm, "attributes"> {
+export interface FormTerminalLib extends Omit<TerminalLibAm, "attributes" | "attributeGroups"> {
   attributes: ValueObject<string>[];
+  attributeGroups: ValueObject<string>[];
 }
 
 /**
@@ -16,16 +17,19 @@ export interface FormTerminalLib extends Omit<TerminalLibAm, "attributes"> {
 export const mapFormTerminalLibToApiModel = (formTerminal: FormTerminalLib): TerminalLibAm => ({
   ...formTerminal,
   attributes: formTerminal.attributes.map((x) => x.value),
+  attributeGroups: formTerminal.attributeGroups.map((x) => x.value),
 });
 
 export const mapTerminalLibCmToFormTerminalLib = (terminalLibCm: TerminalLibCm): FormTerminalLib => ({
   ...terminalLibCm,
   attributes: terminalLibCm.attributes.map((x) => ({ value: x.id })),
+  attributeGroups: terminalLibCm.attributeGroups ? terminalLibCm.attributeGroups.map((x) => ({ value: x })) : [],
 });
 
 export const createEmptyFormTerminalLib = (): FormTerminalLib => ({
   ...emptyTerminalLibAm,
   attributes: [],
+  attributeGroups: [],
   color: "#d0d0dd",
 });
 
@@ -35,4 +39,5 @@ const emptyTerminalLibAm: TerminalLibAm = {
   color: "",
   description: "",
   attributes: [],
+  attributeGroups: [],
 };

@@ -21,6 +21,8 @@ export interface FormAttributesProps {
   preprocess?: (attributes?: AttributeLibCm[]) => AttributeLibCm[];
   canAddAttributes?: boolean;
   canRemoveAttributes?: boolean;
+  canAddAttributeGroups?: boolean;
+  canRemoveAttributeGroups?: boolean;
   limitedAttributes?: AttributeLibCm[];
 }
 
@@ -45,6 +47,8 @@ export const FormAttributes = ({
   preprocess,
   canAddAttributes = true,
   canRemoveAttributes = true,
+  canAddAttributeGroups = true,
+  canRemoveAttributeGroups = true,
   limitedAttributes = [],
 }: FormAttributesProps) => {
   const theme = useTheme();
