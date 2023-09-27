@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Core.Blocks;
-using TypeLibrary.Core.Terminals;
 using TypeLibrary.Services.Blocks;
 using TypeLibrary.Services.Blocks.Requests;
 using TypeLibrary.Services.Common;
@@ -172,13 +171,16 @@ public class BlockRepository : IBlockRepository
             }
         }
 
-        if (request.PurposeId == null || await _context.Purposes.AsNoTracking().AnyAsync(x => x.Id == request.PurposeId))
+        if (block.PurposeId != request.PurposeId)
         {
-            block.PurposeId = request.PurposeId;
-        }
-        else
-        {
-            // TODO: Handle the case where a request is sent with a non-valid purpose id
+            if (request.PurposeId == null || await _context.Purposes.AsNoTracking().AnyAsync(x => x.Id == request.PurposeId))
+            {
+                block.PurposeId = request.PurposeId;
+            }
+            else
+            {
+                // TODO: Handle the case where a request is sent with a non-valid purpose id
+            }
         }
 
         block.Notation = request.Notation;
@@ -207,6 +209,10 @@ public class BlockRepository : IBlockRepository
                 MinCount = terminalTypeReferenceRequest.MinCount,
                 MaxCount = terminalTypeReferenceRequest.MaxCount
             };
+
+            var blockTerminalComparer = new BlockTerminalComparer();
+
+            if (!block.Terminals.Contains(blockTerminal, blockTerminalComparer)) continue;
 
             if (block.Terminals.Any(x => x.TerminalId == terminalTypeReferenceRequest.TerminalId && x.Direction == terminalTypeReferenceRequest.Direction))
             {
@@ -240,6 +246,10 @@ public class BlockRepository : IBlockRepository
                 MinCount = attributeTypeReferenceRequest.MinCount,
                 MaxCount = attributeTypeReferenceRequest.MaxCount
             };
+
+            var blockAttributeComparer = new BlockAttributeComparer();
+
+            if (!block.Attributes.Contains(blockAttribute, blockAttributeComparer)) continue;
 
             if (block.Attributes.Any(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId))
             {

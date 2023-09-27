@@ -161,26 +161,32 @@ public class TerminalRepository : ITerminalRepository
             }
         }
 
-        if (request.PurposeId == null || await _context.Purposes.AsNoTracking().AnyAsync(x => x.Id == request.PurposeId))
+        if (terminal.PurposeId != request.PurposeId)
         {
-            terminal.PurposeId = request.PurposeId;
-        }
-        else
-        {
-            // TODO: Handle the case where a request is sent with a non-valid purpose id
+            if (request.PurposeId == null || await _context.Purposes.AsNoTracking().AnyAsync(x => x.Id == request.PurposeId))
+            {
+                terminal.PurposeId = request.PurposeId;
+            }
+            else
+            {
+                // TODO: Handle the case where a request is sent with a non-valid purpose id
+            }
         }
 
         terminal.Notation = request.Notation;
         terminal.Symbol = request.Symbol;
         terminal.Aspect = request.Aspect;
 
-        if (request.MediumId == null || await _context.Media.AsNoTracking().AnyAsync(x => x.Id == request.MediumId))
+        if (terminal.MediumId != request.MediumId)
         {
-            terminal.MediumId = request.MediumId;
-        }
-        else
-        {
-            // TODO: Handle the case where a request is sent with a non-valid medium id
+            if (request.MediumId == null || await _context.Media.AsNoTracking().AnyAsync(x => x.Id == request.MediumId))
+            {
+                terminal.MediumId = request.MediumId;
+            }
+            else
+            {
+                // TODO: Handle the case where a request is sent with a non-valid medium id
+            }
         }
 
         terminal.Qualifier = request.Qualifier;
@@ -207,6 +213,10 @@ public class TerminalRepository : ITerminalRepository
                 MaxCount = attributeTypeReferenceRequest.MaxCount
             };
 
+            var terminalAttributeComparer = new TerminalAttributeComparer();
+
+            if (!terminal.Attributes.Contains(terminalAttribute, terminalAttributeComparer)) continue;
+                
             if (terminal.Attributes.Any(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId))
             {
                 _context.TerminalAttributes.Attach(terminalAttribute);
