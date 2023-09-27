@@ -56,7 +56,6 @@ export const AttributeGroupForm = ({
   const toast = useSubmissionToast(t("attributeGroup.title"));
 
   const limited = mode === "edit";
-  // && query.data?.state === State.Approved;
 
   return (
     <FormProvider {...formMethods}>

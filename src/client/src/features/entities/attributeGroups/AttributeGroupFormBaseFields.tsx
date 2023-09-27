@@ -35,7 +35,6 @@ export const AttributeGroupFormBaseFields = ({ mode, limited }: AttributeGroupFo
   return (
     <FormBaseFieldsContainer>
       <Text variant={"display-small"}>{t("attributeGroup.title")}</Text>
-      <AttributeGroupFormPreview control={control} />
       <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
         <FormField label={t("attributeGroup.name")} error={errors.name}>
           <Input placeholder={t("attributeGroup.placeholders.name")} {...register("name")} disabled={limited} />

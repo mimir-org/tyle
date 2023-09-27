@@ -47,8 +47,6 @@ export const FormAttributes = ({
   preprocess,
   canAddAttributes = true,
   canRemoveAttributes = true,
-  canAddAttributeGroups = true,
-  canRemoveAttributeGroups = true,
   limitedAttributes = [],
 }: FormAttributesProps) => {
   const theme = useTheme();

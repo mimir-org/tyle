@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FormAttributeGroupLib } from "../../attributeGroups/types/formAttributeGroupLib";
 import AttributeGroupPreview from "./AttributeGroupPreview";
 import { StyledFormPreviewDiv } from "../FormPreviewContainer";
+import { size } from "polished";
 
 interface AttributeGroupFormPreviewProps {
   control: Control<FormAttributeGroupLib>;
