@@ -4,7 +4,7 @@ using TypeLibrary.Core.Blocks;
 
 namespace TypeLibrary.Data.Blocks;
 
-public class BlockAttributeTypeReferenceConfiguration : IEntityTypeConfiguration<BlockAttributeTypeReference>
+public class BlockAttributeConfiguration : IEntityTypeConfiguration<BlockAttributeTypeReference>
 {
     public void Configure(EntityTypeBuilder<BlockAttributeTypeReference> builder)
     {

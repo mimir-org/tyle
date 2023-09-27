@@ -4,7 +4,7 @@ using TypeLibrary.Core.Terminals;
 
 namespace TypeLibrary.Data.Terminals;
 
-public class TerminalAttributeTypeReferenceConfiguration : IEntityTypeConfiguration<TerminalAttributeTypeReference>
+public class TerminalAttributeConfiguration : IEntityTypeConfiguration<TerminalAttributeTypeReference>
 {
     public void Configure(EntityTypeBuilder<TerminalAttributeTypeReference> builder)
     {

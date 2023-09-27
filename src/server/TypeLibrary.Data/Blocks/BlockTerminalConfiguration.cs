@@ -4,7 +4,7 @@ using TypeLibrary.Core.Blocks;
 
 namespace TypeLibrary.Data.Blocks;
 
-public class BlockTerminalTypeReferenceConfiguration : IEntityTypeConfiguration<BlockTerminalTypeReference>
+public class BlockTerminalConfiguration : IEntityTypeConfiguration<BlockTerminalTypeReference>
 {
     public void Configure(EntityTypeBuilder<BlockTerminalTypeReference> builder)
     {

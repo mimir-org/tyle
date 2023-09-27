@@ -4,7 +4,7 @@ using TypeLibrary.Core.Blocks;
 
 namespace TypeLibrary.Data.Blocks;
 
-public class BlockClassifierJoinConfiguration : IEntityTypeConfiguration<BlockClassifierJoin>
+public class BlockClassifierConfiguration : IEntityTypeConfiguration<BlockClassifierJoin>
 {
     public void Configure(EntityTypeBuilder<BlockClassifierJoin> builder)
     {

@@ -148,10 +148,10 @@ public class BlockRepository : IBlockRepository
         }
         block.LastUpdateOn = DateTimeOffset.Now;
 
-        var blockClassifierJoinsToRemove = block.Classifiers.Where(x => !request.ClassifierIds.Contains(x.ClassifierId)).ToList();
-        foreach (var blockClassifierJoin in blockClassifierJoinsToRemove)
+        var blockClassifiersToRemove = block.Classifiers.Where(x => !request.ClassifierIds.Contains(x.ClassifierId)).ToList();
+        foreach (var blockClassifier in blockClassifiersToRemove)
         {
-            block.Classifiers.Remove(blockClassifierJoin);
+            block.Classifiers.Remove(blockClassifier);
         }
 
         foreach (var classifierId in request.ClassifierIds)
@@ -185,10 +185,10 @@ public class BlockRepository : IBlockRepository
         block.Symbol = request.Symbol;
         block.Aspect = request.Aspect;
 
-        var blockTerminalTypeReferencesToRemove = block.Terminals.Where(x => request.Terminals.All(y => y.TerminalId != x.TerminalId && y.Direction != x.Direction)).ToList();
-        foreach (var blockTerminalTypeReference in blockTerminalTypeReferencesToRemove)
+        var blockTerminalToRemove = block.Terminals.Where(x => request.Terminals.All(y => y.TerminalId != x.TerminalId && y.Direction != x.Direction)).ToList();
+        foreach (var blockTerminal in blockTerminalToRemove)
         {
-            block.Terminals.Remove(blockTerminalTypeReference);
+            block.Terminals.Remove(blockTerminal);
         }
 
         foreach (var terminalTypeReferenceRequest in request.Terminals)
@@ -199,7 +199,7 @@ public class BlockRepository : IBlockRepository
                 continue;
             }
 
-            var blockTerminalTypeReference = new BlockTerminalTypeReference
+            var blockTerminal = new BlockTerminalTypeReference
             {
                 BlockId = id,
                 TerminalId = terminalTypeReferenceRequest.TerminalId,
@@ -210,19 +210,19 @@ public class BlockRepository : IBlockRepository
 
             if (block.Terminals.Any(x => x.TerminalId == terminalTypeReferenceRequest.TerminalId && x.Direction == terminalTypeReferenceRequest.Direction))
             {
-                _context.BlockTerminals.Attach(blockTerminalTypeReference);
-                _context.Entry(blockTerminalTypeReference).State = EntityState.Modified;
+                _context.BlockTerminals.Attach(blockTerminal);
+                _context.Entry(blockTerminal).State = EntityState.Modified;
             }
             else
             {
-                block.Terminals.Add(blockTerminalTypeReference);
+                block.Terminals.Add(blockTerminal);
             }
         }
 
-        var blockAttributeTypeReferencesToRemove = block.Attributes.Where(x => request.Attributes.All(y => y.AttributeId != x.AttributeId)).ToList();
-        foreach (var blockAttributeTypeReference in blockAttributeTypeReferencesToRemove)
+        var blockAttributesToRemove = block.Attributes.Where(x => request.Attributes.All(y => y.AttributeId != x.AttributeId)).ToList();
+        foreach (var blockAttribute in blockAttributesToRemove)
         {
-            block.Attributes.Remove(blockAttributeTypeReference);
+            block.Attributes.Remove(blockAttribute);
         }
 
         foreach (var attributeTypeReferenceRequest in request.Attributes)
@@ -233,7 +233,7 @@ public class BlockRepository : IBlockRepository
                 continue;
             }
 
-            var blockAttributeTypeReference = new BlockAttributeTypeReference
+            var blockAttribute = new BlockAttributeTypeReference
             {
                 BlockId = id,
                 AttributeId = attributeTypeReferenceRequest.AttributeId,
@@ -243,12 +243,12 @@ public class BlockRepository : IBlockRepository
 
             if (block.Attributes.Any(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId))
             {
-                _context.BlockAttributes.Attach(blockAttributeTypeReference);
-                _context.Entry(blockAttributeTypeReference).State = EntityState.Modified;
+                _context.BlockAttributes.Attach(blockAttribute);
+                _context.Entry(blockAttribute).State = EntityState.Modified;
             }
             else
             {
-                block.Attributes.Add(blockAttributeTypeReference);
+                block.Attributes.Add(blockAttribute);
             }
         }
 

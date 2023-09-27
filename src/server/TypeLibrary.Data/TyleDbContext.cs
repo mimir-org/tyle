@@ -55,20 +55,20 @@ public class TyleDbContext : DbContext
         modelBuilder.ApplyConfiguration(new PurposeConfiguration());
 
         modelBuilder.ApplyConfiguration(new AttributeConfiguration(userListValueConverter, userListValueComparer));
-        modelBuilder.ApplyConfiguration(new AttributeUnitJoinConfiguration());
+        modelBuilder.ApplyConfiguration(new AttributeUnitConfiguration());
         modelBuilder.ApplyConfiguration(new PredicateConfiguration());
         modelBuilder.ApplyConfiguration(new UnitConfiguration());
         modelBuilder.ApplyConfiguration(new ValueConstraintConfiguration());
         modelBuilder.ApplyConfiguration(new ValueListEntryConfiguration());
 
         modelBuilder.ApplyConfiguration(new MediumConfiguration());
-        modelBuilder.ApplyConfiguration(new TerminalAttributeTypeReferenceConfiguration());
-        modelBuilder.ApplyConfiguration(new TerminalClassifierJoinConfiguration());
+        modelBuilder.ApplyConfiguration(new TerminalAttributeConfiguration());
+        modelBuilder.ApplyConfiguration(new TerminalClassifierConfiguration());
         modelBuilder.ApplyConfiguration(new TerminalConfiguration(userListValueConverter, userListValueComparer));
 
         modelBuilder.ApplyConfiguration(new BlockConfiguration(userListValueConverter, userListValueComparer));
-        modelBuilder.ApplyConfiguration(new BlockAttributeTypeReferenceConfiguration());
-        modelBuilder.ApplyConfiguration(new BlockClassifierJoinConfiguration());
-        modelBuilder.ApplyConfiguration(new BlockTerminalTypeReferenceConfiguration());
+        modelBuilder.ApplyConfiguration(new BlockAttributeConfiguration());
+        modelBuilder.ApplyConfiguration(new BlockClassifierConfiguration());
+        modelBuilder.ApplyConfiguration(new BlockTerminalConfiguration());
     }
 }

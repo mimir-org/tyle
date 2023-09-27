@@ -9,8 +9,6 @@ using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Repositories.Application;
 using TypeLibrary.Services.Attributes;
 using TypeLibrary.Services.Blocks;
-using TypeLibrary.Services.Contracts;
-using TypeLibrary.Services.Services;
 using TypeLibrary.Services.Terminals;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
@@ -113,7 +111,7 @@ public static class TypeLibraryModuleExtensions
         //var context = serviceScope.ServiceProvider.GetRequiredService<TypeLibraryDbContext>();
         //var seedingService = serviceScope.ServiceProvider.GetRequiredService<ISeedingService>();
         //var seedingServiceLogger = serviceScope.ServiceProvider.GetRequiredService<ILogger<ISeedingService>>();
-        var logger = serviceScope.ServiceProvider.GetRequiredService<ILogger<IModuleService>>();
+        //var logger = serviceScope.ServiceProvider.GetRequiredService<ILogger<IModuleService>>();
 
         //var applicationSettings = serviceScope.ServiceProvider.GetRequiredService<IOptions<ApplicationSettings>>();
         //logger.LogInformation(applicationSettings?.Value.ToString());

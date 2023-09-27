@@ -137,10 +137,10 @@ public class TerminalRepository : ITerminalRepository
         }
         terminal.LastUpdateOn = DateTimeOffset.Now;
 
-        var terminalClassifierJoinsToRemove = terminal.Classifiers.Where(x => !request.ClassifierIds.Contains(x.ClassifierId)).ToList();
-        foreach (var terminalClassifierJoin in terminalClassifierJoinsToRemove)
+        var terminalClassifiersToRemove = terminal.Classifiers.Where(x => !request.ClassifierIds.Contains(x.ClassifierId)).ToList();
+        foreach (var terminalClassifier in terminalClassifiersToRemove)
         {
-            terminal.Classifiers.Remove(terminalClassifierJoin);
+            terminal.Classifiers.Remove(terminalClassifier);
         }
 
         foreach (var classifierId in request.ClassifierIds)
@@ -185,10 +185,10 @@ public class TerminalRepository : ITerminalRepository
 
         terminal.Qualifier = request.Qualifier;
 
-        var terminalAttributeTypeReferencesToRemove = terminal.Attributes.Where(x => request.Attributes.All(y => y.AttributeId != x.AttributeId)).ToList();
-        foreach (var terminalAttributeTypeReference in terminalAttributeTypeReferencesToRemove)
+        var terminalAttributesToRemove = terminal.Attributes.Where(x => request.Attributes.All(y => y.AttributeId != x.AttributeId)).ToList();
+        foreach (var terminalAttribute in terminalAttributesToRemove)
         {
-            terminal.Attributes.Remove(terminalAttributeTypeReference);
+            terminal.Attributes.Remove(terminalAttribute);
         }
 
         foreach (var attributeTypeReferenceRequest in request.Attributes)
@@ -199,7 +199,7 @@ public class TerminalRepository : ITerminalRepository
                 continue;
             }
 
-            var terminalAttributeTypeReference = new TerminalAttributeTypeReference
+            var terminalAttribute = new TerminalAttributeTypeReference
             {
                 TerminalId = id,
                 AttributeId = attributeTypeReferenceRequest.AttributeId,
@@ -209,12 +209,12 @@ public class TerminalRepository : ITerminalRepository
 
             if (terminal.Attributes.Any(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId))
             {
-                _context.TerminalAttributes.Attach(terminalAttributeTypeReference);
-                _context.Entry(terminalAttributeTypeReference).State = EntityState.Modified;
+                _context.TerminalAttributes.Attach(terminalAttribute);
+                _context.Entry(terminalAttribute).State = EntityState.Modified;
             }
             else
             {
-                terminal.Attributes.Add(terminalAttributeTypeReference);
+                terminal.Attributes.Add(terminalAttribute);
             }
         }
 

@@ -4,7 +4,7 @@ using TypeLibrary.Core.Terminals;
 
 namespace TypeLibrary.Data.Terminals;
 
-public class TerminalClassifierJoinConfiguration : IEntityTypeConfiguration<TerminalClassifierJoin>
+public class TerminalClassifierConfiguration : IEntityTypeConfiguration<TerminalClassifierJoin>
 {
     public void Configure(EntityTypeBuilder<TerminalClassifierJoin> builder)
     {

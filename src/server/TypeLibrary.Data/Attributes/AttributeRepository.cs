@@ -123,10 +123,10 @@ public class AttributeRepository : IAttributeRepository
             // TODO: Handle the case where a request is sent with a non-valid predicate id
         }
 
-        var attributeUnitJoinsToRemove = attribute.Units.Where(x => !request.UnitIds.Contains(x.UnitId)).ToList();
-        foreach (var attributeUnitJoin in attributeUnitJoinsToRemove)
+        var attributeUnitsToRemove = attribute.Units.Where(x => !request.UnitIds.Contains(x.UnitId)).ToList();
+        foreach (var attributeUnit in attributeUnitsToRemove)
         {
-            attribute.Units.Remove(attributeUnitJoin);
+            attribute.Units.Remove(attributeUnit);
         }
 
         foreach (var unitId in request.UnitIds)
