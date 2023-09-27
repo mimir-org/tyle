@@ -230,6 +230,9 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<string>("BlockId")
                         .HasColumnType("nvarchar(63)");
 
+                    b.Property<string>("PartOfAttributeGroup")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AttributeId");
@@ -626,6 +629,9 @@ namespace TypeLibrary.Core.Migrations
 
                     b.Property<string>("AttributeId")
                         .HasColumnType("nvarchar(63)");
+
+                    b.Property<string>("PartOfAttributeGroup")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TerminalId")
                         .HasColumnType("nvarchar(63)");

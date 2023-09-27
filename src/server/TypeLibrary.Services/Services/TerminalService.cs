@@ -17,12 +17,14 @@ using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
 
 public class TerminalService : ITerminalService
 {
+    private readonly IAttributeGroupRepository _attributeGroupRepository;
     private readonly IEfTerminalRepository _terminalRepository;
     private readonly IMapper _mapper;
     private readonly ITimedHookService _hookService;
@@ -34,8 +36,9 @@ public class TerminalService : ITerminalService
     private readonly IHttpContextAccessor _contextAccessor;
     private readonly IEmailService _emailService;
 
-    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, ILogger<TerminalService> logger, IAttributeService attributeService, IAttributeRepository attributeRepository, IEfTerminalAttributeRepository terminalAttributeRepository, IHttpContextAccessor contextAccessor, IEmailService emailService)
+    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, IAttributeGroupRepository attributeGroupRepository, ITimedHookService hookService, ILogService logService, ILogger<TerminalService> logger, IAttributeService attributeService, IAttributeRepository attributeRepository, IEfTerminalAttributeRepository terminalAttributeRepository, IHttpContextAccessor contextAccessor, IEmailService emailService)
     {
+        _attributeGroupRepository = attributeGroupRepository;
         _terminalRepository = terminalRepository;
         _mapper = mapper;
         _hookService = hookService;
@@ -99,6 +102,27 @@ public class TerminalService : ITerminalService
                 else
                 {
                     dm.TerminalAttributes.Add(new TerminalAttributeLibDm { TerminalId = dm.Id, AttributeId = attribute.Id });
+                }
+            }
+        }
+
+        if (terminal.AttributeGroups != null)
+        {
+            foreach (var item in terminal.AttributeGroups)
+            {
+                var currentAttributeGroup = _attributeGroupRepository.GetSingleAttributeGroup(item);
+
+                if (currentAttributeGroup == null)
+                {
+                    _logger.LogError($"Could not add attribute group with id {item} to block with id {dm.Id}, attribute not found.");
+                }
+                else
+                {
+
+                    foreach (var attributeGroupItem in currentAttributeGroup.AttributeGroupAttributes)
+                    {
+                        dm.TerminalAttributes.Add(new TerminalAttributeLibDm { TerminalId = dm.Id, AttributeId = attributeGroupItem.AttributeId, PartOfAttributeGroup = item });
+                    }
                 }
             }
         }
