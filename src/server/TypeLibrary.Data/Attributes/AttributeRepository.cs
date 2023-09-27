@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Core.Attributes;
 using TypeLibrary.Services.Attributes;
 using TypeLibrary.Services.Attributes.Requests;
+using TypeLibrary.Services.Common;
 
 namespace TypeLibrary.Data.Attributes;
 
@@ -11,12 +12,14 @@ public class AttributeRepository : IAttributeRepository
     private readonly TyleDbContext _context;
     private readonly DbSet<AttributeType> _dbSet;
     private readonly IMapper _mapper;
+    private readonly IUserInformationService _userInformationService;
 
-    public AttributeRepository(TyleDbContext context, IMapper mapper)
+    public AttributeRepository(TyleDbContext context, IMapper mapper, IUserInformationService userInformationService)
     {
         _context = context;
         _dbSet = context.Attributes;
         _mapper = mapper;
+        _userInformationService = userInformationService;
     }
 
     public async Task<IEnumerable<AttributeType>> GetAll()
@@ -47,7 +50,7 @@ public class AttributeRepository : IAttributeRepository
             Description = request.Description,
             Version = "1.0",
             CreatedOn = DateTimeOffset.Now,
-            CreatedBy = "",
+            CreatedBy = _userInformationService.GetUserId(),
             UnitMinCount = request.UnitMinCount,
             UnitMaxCount = request.UnitMaxCount,
             ProvenanceQualifier = request.ProvenanceQualifier,
@@ -105,7 +108,11 @@ public class AttributeRepository : IAttributeRepository
 
         attribute.Name = request.Name;
         attribute.Description = request.Description;
-        // TODO: Update last updated and contributors
+        if (_userInformationService.GetUserId() != attribute.CreatedBy)
+        {
+            attribute.ContributedBy.Add(_userInformationService.GetUserId());
+        }
+        attribute.LastUpdateOn = DateTimeOffset.Now;
 
         if (request.PredicateId == null || await _context.Predicates.AsNoTracking().AnyAsync(x => x.Id == request.PredicateId))
         {

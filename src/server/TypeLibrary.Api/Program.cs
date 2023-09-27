@@ -47,7 +47,8 @@ builder.Services
     .AddDatabaseConfiguration(builder.Configuration)
     .AddRequestToDomainMapping()
     .AddRepositories()
-    .AddDomainToViewMapping();
+    .AddDomainToViewMapping()
+    .AddApiServices();
 
 // Swagger configurations
 var swaggerConfigurationSection = builder.Configuration.GetSection(nameof(SwaggerConfiguration));

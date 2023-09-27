@@ -6,11 +6,10 @@ using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Core.Common;
-using TypeLibrary.Data.Common;
 using TypeLibrary.Services.Common;
 using TypeLibrary.Services.Common.Requests;
 
-namespace TypeLibrary.Api.Controllers.V1;
+namespace TypeLibrary.Api.Common;
 
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]

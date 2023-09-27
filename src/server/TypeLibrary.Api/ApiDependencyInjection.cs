@@ -1,4 +1,6 @@
 using TypeLibrary.Api.Attributes;
+using TypeLibrary.Api.Common;
+using TypeLibrary.Services.Common;
 
 namespace TypeLibrary.Api;
 
@@ -10,6 +12,13 @@ public static class ApiDependencyInjection
         {
             config.AddProfile(new AttributeTypeViewProfile());
         });
+
+        return services;
+    }
+
+    public static IServiceCollection AddApiServices(this IServiceCollection services)
+    {
+        services.AddScoped<IUserInformationService, UserInformationService>();
 
         return services;
     }
