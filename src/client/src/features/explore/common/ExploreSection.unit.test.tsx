@@ -3,19 +3,20 @@ import { ExploreSection } from "./ExploreSection";
 import { cleanup, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { MimirorgThemeProvider } from "@mimirorg/component-library";
-import React from "react";
 
 const setup = () => {
   const testComponent = render(
     <MimirorgThemeProvider theme={"tyleLight"}>
-      <ExploreSection title={"test"} children={<></>} />
-    </MimirorgThemeProvider>
+      <ExploreSection title={"test"}>
+        <></>
+      </ExploreSection>
+    </MimirorgThemeProvider>,
   );
   const explorerHeader = screen.getByText("test");
 
   return {
     explorerHeader,
-    ...testComponent
+    ...testComponent,
   };
 };
 describe("Explorer section unit test", () => {
@@ -25,7 +26,5 @@ describe("Explorer section unit test", () => {
   test("Did component render", () => {
     const { explorerHeader } = setup();
     expect(explorerHeader).toBeInTheDocument();
-  })
-  ;
-})
-;
+  });
+});

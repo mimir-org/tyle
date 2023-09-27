@@ -8,41 +8,41 @@ import "@testing-library/jest-dom";
 const menuLinksMock: Link[] = [
   {
     name: "Block",
-    path: "form/block"
+    path: "form/block",
   },
   {
     name: "Terminal",
-    path: "form/terminal"
+    path: "form/terminal",
   },
   {
     name: "Attribute",
-    path: "form/attribute"
+    path: "form/attribute",
   },
   {
     name: "Unit",
-    path: "form/unit"
+    path: "form/unit",
   },
   {
     name: "Quantity Datum",
-    path: "form/quantityDatum"
+    path: "form/quantityDatum",
   },
   {
     name: "RDS",
-    path: "form/rds"
-  }
+    path: "form/rds",
+  },
 ];
 
 const setup = () => {
   const testComponent = render(
     <MimirorgThemeProvider theme={"tyleLight"}>
       <LinkMenu name={"Create"} links={menuLinksMock} justifyContent={"center"} disabled={false} />
-    </MimirorgThemeProvider>
+    </MimirorgThemeProvider>,
   );
-  const createButton = screen.getByRole("button", {name: "Create"});
+  const createButton = screen.getByRole("button", { name: "Create" });
 
   return {
     createButton,
-    ...testComponent
+    ...testComponent,
   };
 };
 

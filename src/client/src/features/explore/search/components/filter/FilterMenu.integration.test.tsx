@@ -1,11 +1,9 @@
 import { afterEach, describe, expect, test } from "vitest";
 import { FilterMenu } from "./FilterMenu";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
-import React from "react";
+import { cleanup, render, screen } from "@testing-library/react";
 import { MimirorgThemeProvider } from "@mimirorg/component-library";
 import "@testing-library/jest-dom";
 import { userEvent } from "@testing-library/user-event";
-
 
 const filterGroupsMock = [
   {
@@ -14,34 +12,34 @@ const filterGroupsMock = [
       {
         key: "kind",
         label: "Block",
-        value: "BlockLibCm"
+        value: "BlockLibCm",
       },
       {
         key: "kind",
         label: "Terminal",
-        value: "TerminalLibCm"
+        value: "TerminalLibCm",
       },
       {
         key: "kind",
         label: "Attribute",
-        value: "AttributeLibCm"
+        value: "AttributeLibCm",
       },
       {
         key: "kind",
         label: "Unit",
-        value: "UnitLibCm"
+        value: "UnitLibCm",
       },
       {
         key: "kind",
         label: "Quantity datum",
-        value: "QuantityDatumLibCm"
+        value: "QuantityDatumLibCm",
       },
       {
         key: "kind",
         label: "RDS",
-        value: "RdsLibCm"
-      }
-    ]
+        value: "RdsLibCm",
+      },
+    ],
   },
   {
     name: "Terminal",
@@ -49,18 +47,18 @@ const filterGroupsMock = [
       {
         key: "kind",
         label: "Terminal",
-        value: "TerminalLibCm"
-      }
-    ]
-  }
+        value: "TerminalLibCm",
+      },
+    ],
+  },
 ];
 
 const activeFiltersMock = [
   {
     key: "kind",
     label: "Block",
-    value: "BlockLibCm"
-  }
+    value: "BlockLibCm",
+  },
 ];
 
 const setup = () => {
@@ -69,9 +67,13 @@ const setup = () => {
 
   const testComponent = render(
     <MimirorgThemeProvider theme={"tyleLight"}>
-      <FilterMenu toggleFilter={mockToggleFilter} name={"Filter"} filterGroups={filterGroupsMock}
-                  activeFilters={activeFiltersMock} />
-    </MimirorgThemeProvider>
+      <FilterMenu
+        toggleFilter={mockToggleFilter}
+        name={"Filter"}
+        filterGroups={filterGroupsMock}
+        activeFilters={activeFiltersMock}
+      />
+    </MimirorgThemeProvider>,
   );
   const filterButton = screen.getByRole("button", { name: "Filter" });
 
@@ -79,10 +81,9 @@ const setup = () => {
     user,
     mockToggleFilter,
     filterButton,
-    ...testComponent
+    ...testComponent,
   };
 };
-
 
 describe("Filter dropdown menu integration tests", () => {
   afterEach(() => {

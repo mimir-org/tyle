@@ -1,7 +1,6 @@
 import { afterEach, describe, expect, test } from "vitest";
 import { FilterMenu } from "./FilterMenu";
 import { cleanup, render, screen } from "@testing-library/react";
-import React from "react";
 import { MimirorgThemeProvider } from "@mimirorg/component-library";
 import "@testing-library/jest-dom";
 
@@ -12,34 +11,34 @@ const filterGroupsMock = [
       {
         key: "kind",
         label: "Block",
-        value: "BlockLibCm"
+        value: "BlockLibCm",
       },
       {
         key: "kind",
         label: "Terminal",
-        value: "TerminalLibCm"
+        value: "TerminalLibCm",
       },
       {
         key: "kind",
         label: "Attribute",
-        value: "AttributeLibCm"
+        value: "AttributeLibCm",
       },
       {
         key: "kind",
         label: "Unit",
-        value: "UnitLibCm"
+        value: "UnitLibCm",
       },
       {
         key: "kind",
         label: "Quantity datum",
-        value: "QuantityDatumLibCm"
+        value: "QuantityDatumLibCm",
       },
       {
         key: "kind",
         label: "RDS",
-        value: "RdsLibCm"
-      }
-    ]
+        value: "RdsLibCm",
+      },
+    ],
   },
   {
     name: "Terminal",
@@ -47,32 +46,36 @@ const filterGroupsMock = [
       {
         key: "kind",
         label: "Terminal",
-        value: "TerminalLibCm"
-      }
-    ]
-  }
+        value: "TerminalLibCm",
+      },
+    ],
+  },
 ];
 
 const activeFiltersMock = [
   {
     key: "kind",
     label: "Block",
-    value: "BlockLibCm"
-  }
+    value: "BlockLibCm",
+  },
 ];
 
 const setup = () => {
   const testComponent = render(
     <MimirorgThemeProvider theme={"tyleLight"}>
-      <FilterMenu toggleFilter={() => {}} name={"Filter"} filterGroups={filterGroupsMock}
-                  activeFilters={activeFiltersMock} />
-    </MimirorgThemeProvider>
+      <FilterMenu
+        toggleFilter={() => {}}
+        name={"Filter"}
+        filterGroups={filterGroupsMock}
+        activeFilters={activeFiltersMock}
+      />
+    </MimirorgThemeProvider>,
   );
   const filterButton = screen.getByRole("button", { name: "Filter" });
 
   return {
     filterButton,
-    ...testComponent
+    ...testComponent,
   };
 };
 
