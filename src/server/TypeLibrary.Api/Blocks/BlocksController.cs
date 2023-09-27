@@ -2,45 +2,48 @@ using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
+using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
-using TypeLibrary.Services.Attributes;
-using TypeLibrary.Services.Attributes.Requests;
+using TypeLibrary.Services.Blocks;
+using TypeLibrary.Services.Blocks.Requests;
 
-namespace TypeLibrary.Api.Attributes;
+namespace TypeLibrary.Api.Blocks;
 
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]
 [ApiVersion(VersionConstant.OnePointZero)]
 [Route("V{version:apiVersion}/[controller]")]
-[SwaggerTag("Attribute services")]
-public class AttributesController : ControllerBase
+[SwaggerTag("Block services")]
+public class BlocksController : ControllerBase
 {
-    private readonly IAttributeRepository _attributeRepository;
+    private readonly IBlockRepository _blockRepository;
     private readonly IMapper _mapper;
 
-    public AttributesController(IAttributeRepository attributeRepository, IMapper mapper)
+    public BlocksController(IBlockRepository blockRepository, IMapper mapper)
     {
-        _attributeRepository = attributeRepository;
+        _blockRepository = blockRepository;
         _mapper = mapper;
     }
 
     /// <summary>
-    /// Get all attributes
+    /// Get all blocks
     /// </summary>
-    /// <returns>A collection of attributes</returns>
+    /// <returns>A collection of blocks</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<AttributeView>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<BlockTypeView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public async Task<IActionResult> GetAll()
     {
         try
         {
-            var attributes = await _attributeRepository.GetAll();
-            return Ok(_mapper.Map<IEnumerable<AttributeView>>(attributes));
+            var blocks = await _blockRepository.GetAll();
+            return Ok(_mapper.Map<IEnumerable<BlockView>>(blocks));
         }
         catch (Exception)
         {
@@ -49,12 +52,12 @@ public class AttributesController : ControllerBase
     }
 
     /// <summary>
-    /// Get attribute by id
+    /// Get block by id
     /// </summary>
-    /// <param name="id">The id of the attribute to get</param>
-    /// <returns>The requested attribute</returns>
+    /// <param name="id">The id of the block to get</param>
+    /// <returns>The requested block</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(AttributeView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -62,13 +65,14 @@ public class AttributesController : ControllerBase
     {
         try
         {
-            var attribute = await _attributeRepository.Get(id);
-            if (attribute == null)
+            var block = await _blockRepository.Get(id);
+
+            if (block == null)
             {
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<AttributeView>(attribute));
+            return Ok(_mapper.Map<BlockView>(block));
         }
         catch (Exception)
         {
@@ -77,22 +81,22 @@ public class AttributesController : ControllerBase
     }
 
     /// <summary>
-    /// Create an attribute
+    /// Create a block
     /// </summary>
-    /// <param name="request">The attribute that should be created</param>
-    /// <returns>The created attribute</returns>
+    /// <param name="request">The block that should be created</param>
+    /// <returns>The created block</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(AttributeView), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(BlockTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
-    public async Task<IActionResult> Create([FromBody] AttributeTypeRequest request)
+    public async Task<IActionResult> Create([FromBody] BlockTypeRequest request)
     {
         try
         {
-            var createdAttribute = await _attributeRepository.Create(request);
-            return Created("dummy", _mapper.Map<AttributeView>(createdAttribute));
+            var createdBlock = await _blockRepository.Create(request);
+            return Created("dummy", _mapper.Map<BlockView>(createdBlock));
         }
         catch (Exception)
         {
@@ -101,30 +105,30 @@ public class AttributesController : ControllerBase
     }
 
     /// <summary>
-    /// Update an attribute object
+    /// Update a block
     /// </summary>
-    /// <param name="id">The id of the attribute object that should be updated</param>
-    /// <param name="request">The new values of the attribute</param>
-    /// <returns>The updated attribute</returns>
+    /// <param name="id">The id of the block that should be updated</param>
+    /// <param name="request">The new values of the block</param>
+    /// <returns>The updated block</returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(AttributeView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
-    public async Task<IActionResult> Update(Guid id, [FromBody] AttributeTypeRequest request)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] BlockTypeRequest request)
     {
         try
         {
-            var attribute = await _attributeRepository.Update(id, request);
+            var block = await _blockRepository.Update(id, request);
 
-            if (attribute == null)
+            if (block == null)
             {
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<AttributeView>(attribute));
+            return Ok(_mapper.Map<BlockView>(block));
         }
         catch (Exception)
         {
@@ -133,9 +137,9 @@ public class AttributesController : ControllerBase
     }
 
     /// <summary>
-    /// Delete an attribute that is not approved
+    /// Delete a block that is not approved
     /// </summary>
-    /// <param name="id">The id of the attribute to delete</param>
+    /// <param name="id">The id of the block to delete</param>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -146,7 +150,7 @@ public class AttributesController : ControllerBase
     {
         try
         {
-            if (await _attributeRepository.Delete(id))
+            if (await _blockRepository.Delete(id))
             {
                 return NoContent();
             }

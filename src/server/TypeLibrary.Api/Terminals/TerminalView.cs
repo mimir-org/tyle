@@ -3,7 +3,7 @@ using TypeLibrary.Core.Terminals;
 
 namespace TypeLibrary.Api.Terminals;
 
-public class TerminalTypeView : ImfType
+public class TerminalView : ImfType
 {
     public ICollection<RdlClassifier> Classifiers { get; set; }
     public RdlPurpose? Purpose { get; set; }

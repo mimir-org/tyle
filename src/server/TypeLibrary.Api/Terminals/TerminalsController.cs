@@ -2,12 +2,9 @@ using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
-using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Services.Terminals;
 using TypeLibrary.Services.Terminals.Requests;
@@ -35,15 +32,15 @@ public class TerminalsController : ControllerBase
     /// </summary>
     /// <returns>A collection of terminals</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<TerminalTypeView>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<TerminalView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> GetAll()
     {
         try
         {
             var terminals = await _terminalRepository.GetAll();
-            return Ok(_mapper.Map<IEnumerable<TerminalTypeView>>(terminals));
+            return Ok(_mapper.Map<IEnumerable<TerminalView>>(terminals));
         }
         catch (Exception)
         {
@@ -57,7 +54,7 @@ public class TerminalsController : ControllerBase
     /// <param name="id">The id of the terminal to get</param>
     /// <returns>The requested terminal</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(TerminalTypeView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TerminalView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -72,7 +69,7 @@ public class TerminalsController : ControllerBase
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<TerminalTypeView>(terminal));
+            return Ok(_mapper.Map<TerminalView>(terminal));
         }
         catch (Exception)
         {
@@ -86,7 +83,7 @@ public class TerminalsController : ControllerBase
     /// <param name="request">The terminal that should be created</param>
     /// <returns>The created terminal</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(TerminalTypeView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TerminalView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -96,7 +93,7 @@ public class TerminalsController : ControllerBase
         try
         {
             var createdTerminal = await _terminalRepository.Create(request);
-            return Created("dummy", _mapper.Map<TerminalTypeView>(createdTerminal));
+            return Created("dummy", _mapper.Map<TerminalView>(createdTerminal));
         }
         catch (Exception)
         {
@@ -111,7 +108,7 @@ public class TerminalsController : ControllerBase
     /// <param name="request">The new values of the terminal</param>
     /// <returns>The updated terminal</returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(TerminalTypeView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TerminalView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -128,7 +125,7 @@ public class TerminalsController : ControllerBase
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<TerminalTypeView>(terminal));
+            return Ok(_mapper.Map<TerminalView>(terminal));
         }
         catch (Exception)
         {

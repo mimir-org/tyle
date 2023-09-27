@@ -4,11 +4,11 @@ using TypeLibrary.Core.Attributes;
 
 namespace TypeLibrary.Api.Attributes;
 
-public class AttributeTypeViewProfile : Profile
+public class AttributeViewProfile : Profile
 {
-    public AttributeTypeViewProfile()
+    public AttributeViewProfile()
     {
-        CreateMap<AttributeType, AttributeTypeView>()
+        CreateMap<AttributeType, AttributeView>()
             .ForMember(dest => dest.Units, opt => opt.MapFrom(src => src.Units.Select(x => x.Unit)))
             .ForMember(dest => dest.ValueConstraint, opt => opt.MapFrom(src => CreateValueConstraintView(src.ValueConstraint)));
     }

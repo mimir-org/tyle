@@ -2,9 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TypeLibrary.Data.Attributes;
+using TypeLibrary.Data.Blocks;
 using TypeLibrary.Data.Common;
 using TypeLibrary.Data.Terminals;
 using TypeLibrary.Services.Attributes;
+using TypeLibrary.Services.Blocks;
 using TypeLibrary.Services.Common;
 using TypeLibrary.Services.Terminals;
 
@@ -52,6 +54,7 @@ public static class PersistenceDependencyInjection
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IAttributeRepository, AttributeRepository>();
+        services.AddScoped<IBlockRepository, BlockRepository>();
         services.AddScoped<ITerminalRepository, TerminalRepository>();
 
         services.AddScoped<IClassifierRepository, ClassifierRepository>();

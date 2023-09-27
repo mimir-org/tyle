@@ -4,9 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using TypeLibrary.Data;
-using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Contracts.Common;
-using TypeLibrary.Data.Repositories.Application;
 using TypeLibrary.Services.Attributes;
 using TypeLibrary.Services.Blocks;
 using TypeLibrary.Services.Terminals;
@@ -32,7 +29,6 @@ public static class TypeLibraryModuleExtensions
         //services.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>();
         //services.AddScoped<IEfBlockRepository, EfBlockRepository>();
         //services.AddScoped<IEfTerminalRepository, EfTerminalRepository>();
-        services.AddSingleton<IFileRepository, JsonFileRepository>();
         //services.AddScoped<IEfSymbolRepository, EfSymbolRepository>();
         //services.AddScoped<IDynamicSymbolDataProvider, EfSymbolRepository>();
         //services.AddScoped<IEfLogRepository, EfLogRepository>();

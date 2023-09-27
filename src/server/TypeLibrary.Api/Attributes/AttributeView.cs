@@ -3,7 +3,7 @@ using TypeLibrary.Core.Common;
 
 namespace TypeLibrary.Api.Attributes;
 
-public class AttributeTypeView : ImfType
+public class AttributeView : ImfType
 {
     public RdlPredicate? Predicate { get; set; }
     public ICollection<RdlUnit> Units { get; set; }
