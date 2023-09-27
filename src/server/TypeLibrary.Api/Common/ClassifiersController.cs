@@ -19,7 +19,7 @@ namespace TypeLibrary.Api.Common;
 public class ClassifiersController : ControllerBase
 {
     private readonly IClassifierRepository _classifierRepository;
-    
+
 
     public ClassifiersController(IClassifierRepository classifierRepository)
     {

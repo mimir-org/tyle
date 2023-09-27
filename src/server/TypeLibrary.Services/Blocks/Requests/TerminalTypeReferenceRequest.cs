@@ -7,7 +7,7 @@ public class TerminalTypeReferenceRequest : IValidatableObject
 {
     [Required, Range(0, int.MaxValue, ErrorMessage = "The terminal min count cannot be negative.")]
     public int MinCount { get; set; }
-    
+
     public int? MaxCount { get; set; }
 
     [Required]

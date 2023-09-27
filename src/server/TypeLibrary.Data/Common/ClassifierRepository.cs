@@ -42,7 +42,7 @@ public class ClassifierRepository : IClassifierRepository
     {
         try
         {
-            var classifierStub = new RdlClassifier {Id = id};
+            var classifierStub = new RdlClassifier { Id = id };
             _dbSet.Remove(classifierStub);
             await _context.SaveChangesAsync();
         }

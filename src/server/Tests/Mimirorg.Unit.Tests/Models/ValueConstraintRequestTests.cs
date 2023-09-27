@@ -112,9 +112,9 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
     public static IEnumerable<object[]> AllowedValuesExamples()
     {
         yield return new object[] { null, false };
-        yield return new object[] {new List<string> {"single"}, false};
-        yield return new object[] {new List<string> {"one", "two"}, true};
-        yield return new object[] {new List<string> {"one", "two", "three"}, true};
+        yield return new object[] { new List<string> { "single" }, false };
+        yield return new object[] { new List<string> { "one", "two" }, true };
+        yield return new object[] { new List<string> { "one", "two", "three" }, true };
     }
 
     [Fact]

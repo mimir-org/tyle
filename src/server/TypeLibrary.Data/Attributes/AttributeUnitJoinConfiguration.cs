@@ -10,7 +10,7 @@ public class AttributeUnitJoinConfiguration : IEntityTypeConfiguration<Attribute
     {
         builder.ToTable("Attribute_Unit");
 
-        builder.HasKey(x => new {x.AttributeId, x.UnitId});
+        builder.HasKey(x => new { x.AttributeId, x.UnitId });
 
         builder
             .HasOne(e => e.Attribute)

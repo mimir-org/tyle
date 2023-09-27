@@ -59,7 +59,7 @@ public class AttributeRepository : IAttributeRepository
             ScopeQualifier = request.ScopeQualifier,
             ValueConstraint = _mapper.Map<ValueConstraint>(request.ValueConstraint)
         };
-        
+
         attribute.LastUpdateOn = attribute.CreatedOn;
 
         if (request.PredicateId == null || await _context.Predicates.AsNoTracking().AnyAsync(x => x.Id == request.PredicateId))
@@ -89,7 +89,7 @@ public class AttributeRepository : IAttributeRepository
 
         _dbSet.Add(attribute);
         await _context.SaveChangesAsync();
-        
+
         return await Get(attribute.Id);
     }
 

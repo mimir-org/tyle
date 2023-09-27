@@ -29,7 +29,7 @@ public class AttributeTypeRequest : IValidatableObject
     public RegularityQualifier? RegularityQualifier { get; set; }
 
     public ScopeQualifier? ScopeQualifier { get; set; }
-    
+
     public ValueConstraintRequest? ValueConstraint { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

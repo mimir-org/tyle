@@ -18,11 +18,11 @@ public class ValueConstraintRequest : IValidatableObject
     public int? MaxCount { get; set; }
 
     public string? Value { get; set; }
-    
+
     public ICollection<string>? ValueList { get; set; }
 
     public string? Pattern { get; set; }
-    
+
     public decimal? MinValue { get; set; }
 
     public decimal? MaxValue { get; set; }
@@ -120,7 +120,7 @@ public class ValueConstraintRequest : IValidatableObject
                 {
                     yield return new ValidationResult("The upper bound must be larger than the lower bound.");
                 }
-                else if (DataType == XsdDataType.Integer && (int?)MinValue >= (int?)MaxValue)
+                else if (DataType == XsdDataType.Integer && (int?) MinValue >= (int?) MaxValue)
                 {
                     yield return new ValidationResult("The upper bound must be larger than the lower bound.");
                 }

@@ -34,8 +34,8 @@ public class MimirorgCommonFixture : IDisposable
     public Mock<IEfBlockAttributeRepository> BlockAttributeRepository = new();
     public Mock<IEfTerminalAttributeRepository> TerminalAttributeRepository = new();
     public Mock<IEfClassifierRepository> ClassifierRepository = new();
-    public Mock <IEfMediumRepository> MediumRepository = new();
-    public Mock <IEfPurposeRepository> PurposeRepository = new();
+    public Mock<IEfMediumRepository> MediumRepository = new();
+    public Mock<IEfPurposeRepository> PurposeRepository = new();
     public Mock<IEfPredicateRepository> PredicateRepository = new();
     public Mock<IEfUnitRepository> UnitRepository = new();
     public Mock<IEfTerminalClassifierRepository> TerminalClassifierRepository = new();

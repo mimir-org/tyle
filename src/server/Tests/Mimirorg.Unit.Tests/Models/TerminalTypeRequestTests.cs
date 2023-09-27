@@ -50,7 +50,7 @@ public class TerminalTypeRequestTests : UnitTest<MimirorgCommonFixture>
 
         Assert.True(results.IsNullOrEmpty());
     }
-    
+
     [Fact]
     public void ValidationFailsWithDuplicateClassifierIds()
     {

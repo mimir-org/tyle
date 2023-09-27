@@ -25,7 +25,7 @@ public class AttributeConfiguration : IEntityTypeConfiguration<AttributeType>
         builder.Property(x => x.Version).IsRequired();
         builder.Property(x => x.CreatedBy).IsRequired();
         builder.Property(x => x.ContributedBy).IsRequired().HasConversion(_valueConverter, _valueComparer);
-        
+
         builder.Property(x => x.UnitMinCount).IsRequired();
         builder.Property(x => x.UnitMaxCount).IsRequired();
         builder.Property(x => x.ProvenanceQualifier).HasConversion<string>();

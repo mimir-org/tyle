@@ -14,13 +14,13 @@ public class TerminalTypeRequest : IValidatableObject
 
     [Required]
     public ICollection<int> ClassifierIds { get; set; }
-    
+
     public int? PurposeId { get; set; }
-    
+
     public string? Notation { get; set; }
-    
+
     public string? Symbol { get; set; }
-    
+
     public Aspect? Aspect { get; set; }
 
     public int? MediumId { get; set; }

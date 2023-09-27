@@ -123,7 +123,7 @@ public class AttributesController : ControllerBase
             {
                 return NotFound();
             }
-            
+
             return Ok(_mapper.Map<AttributeTypeView>(attribute));
         }
         catch (Exception)
