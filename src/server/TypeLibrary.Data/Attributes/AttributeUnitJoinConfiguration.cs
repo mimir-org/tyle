@@ -4,7 +4,7 @@ using TypeLibrary.Core.Attributes;
 
 namespace TypeLibrary.Data.Attributes;
 
-public class AttributeUnitConfiguration : IEntityTypeConfiguration<AttributeUnitJoin>
+public class AttributeUnitJoinConfiguration : IEntityTypeConfiguration<AttributeUnitJoin>
 {
     public void Configure(EntityTypeBuilder<AttributeUnitJoin> builder)
     {

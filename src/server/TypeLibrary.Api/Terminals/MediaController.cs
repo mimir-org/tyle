@@ -9,7 +9,7 @@ using TypeLibrary.Core.Terminals;
 using TypeLibrary.Services.Terminals;
 using TypeLibrary.Services.Terminals.Requests;
 
-namespace TypeLibrary.Api.Controllers.V1;
+namespace TypeLibrary.Api.Terminals;
 
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]

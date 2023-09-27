@@ -1,5 +1,6 @@
 using TypeLibrary.Api.Attributes;
 using TypeLibrary.Api.Common;
+using TypeLibrary.Api.Terminals;
 using TypeLibrary.Services.Common;
 
 namespace TypeLibrary.Api;
@@ -11,6 +12,7 @@ public static class ApiDependencyInjection
         services.AddAutoMapper(config =>
         {
             config.AddProfile(new AttributeTypeViewProfile());
+            config.AddProfile(new TerminalTypeViewProfile());
         });
 
         return services;

@@ -2,45 +2,48 @@ using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
+using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
-using TypeLibrary.Services.Attributes;
-using TypeLibrary.Services.Attributes.Requests;
+using TypeLibrary.Services.Terminals;
+using TypeLibrary.Services.Terminals.Requests;
 
-namespace TypeLibrary.Api.Attributes;
+namespace TypeLibrary.Api.Terminals;
 
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]
 [ApiVersion(VersionConstant.OnePointZero)]
 [Route("V{version:apiVersion}/[controller]")]
-[SwaggerTag("Attribute services")]
-public class AttributesController : ControllerBase
+[SwaggerTag("Terminal services")]
+public class TerminalsController : ControllerBase
 {
-    private readonly IAttributeRepository _attributeRepository;
     private readonly IMapper _mapper;
+    private readonly ITerminalRepository _terminalRepository;
 
-    public AttributesController(IAttributeRepository attributeRepository, IMapper mapper)
+    public TerminalsController(IMapper mapper, ITerminalRepository terminalRepository)
     {
-        _attributeRepository = attributeRepository;
         _mapper = mapper;
+        _terminalRepository = terminalRepository;
     }
 
     /// <summary>
-    /// Get all attributes
+    /// Get all terminals
     /// </summary>
-    /// <returns>A collection of attributes</returns>
+    /// <returns>A collection of terminals</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<AttributeTypeView>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<TerminalTypeView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> Get()
     {
         try
         {
-            var attributes = await _attributeRepository.GetAll();
-            return Ok(_mapper.Map<IEnumerable<AttributeTypeView>>(attributes));
+            var terminals = await _terminalRepository.GetAll();
+            return Ok(_mapper.Map<IEnumerable<TerminalTypeView>>(terminals));
         }
         catch (Exception)
         {
@@ -49,12 +52,12 @@ public class AttributesController : ControllerBase
     }
 
     /// <summary>
-    /// Get attribute by id
+    /// Get terminal by id
     /// </summary>
-    /// <param name="id">The id of the attribute to get</param>
-    /// <returns>The requested attribute</returns>
+    /// <param name="id">The id of the terminal to get</param>
+    /// <returns>The requested terminal</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(AttributeTypeView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TerminalTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -62,13 +65,14 @@ public class AttributesController : ControllerBase
     {
         try
         {
-            var attribute = await _attributeRepository.Get(id);
-            if (attribute == null)
+            var terminal = await _terminalRepository.Get(id);
+
+            if (terminal == null)
             {
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<AttributeTypeView>(attribute));
+            return Ok(_mapper.Map<TerminalTypeView>(terminal));
         }
         catch (Exception)
         {
@@ -77,22 +81,22 @@ public class AttributesController : ControllerBase
     }
 
     /// <summary>
-    /// Create an attribute
+    /// Create a terminal
     /// </summary>
-    /// <param name="request">The attribute that should be created</param>
-    /// <returns>The created attribute</returns>
+    /// <param name="request">The terminal that should be created</param>
+    /// <returns>The created terminal</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(AttributeTypeView), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(TerminalTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
-    public async Task<IActionResult> Create([FromBody] AttributeTypeRequest request)
+    public async Task<IActionResult> Create([FromBody] TerminalTypeRequest request)
     {
         try
         {
-            var createdAttribute = await _attributeRepository.Create(request);
-            return Created("dummy", _mapper.Map<AttributeTypeView>(createdAttribute));
+            var createdTerminal = await _terminalRepository.Create(request);
+            return Created("dummy", _mapper.Map<TerminalTypeView>(createdTerminal));
         }
         catch (Exception)
         {
@@ -101,30 +105,30 @@ public class AttributesController : ControllerBase
     }
 
     /// <summary>
-    /// Update an attribute object
+    /// Update a terminal object
     /// </summary>
-    /// <param name="id">The id of the attribute object that should be updated</param>
-    /// <param name="request">The new values of the attribute</param>
-    /// <returns>The updated attribute</returns>
+    /// <param name="id">The id of the terminal object that should be updated</param>
+    /// <param name="request">The new values of the terminal</param>
+    /// <returns>The updated terminal</returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(AttributeTypeView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TerminalTypeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
-    public async Task<IActionResult> Update(Guid id, [FromBody] AttributeTypeRequest request)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] TerminalTypeRequest request)
     {
         try
         {
-            var attribute = await _attributeRepository.Update(id, request);
+            var terminal = await _terminalRepository.Update(id, request);
 
-            if (attribute == null)
+            if (terminal == null)
             {
                 return NotFound();
             }
-            
-            return Ok(_mapper.Map<AttributeTypeView>(attribute));
+
+            return Ok(_mapper.Map<TerminalTypeView>(terminal));
         }
         catch (Exception)
         {
@@ -133,9 +137,9 @@ public class AttributesController : ControllerBase
     }
 
     /// <summary>
-    /// Delete an attribute that is not approved
+    /// Delete a terminal that is not approved
     /// </summary>
-    /// <param name="id">The id of the attribute to delete</param>
+    /// <param name="id">The id of the terminal to delete</param>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -146,7 +150,7 @@ public class AttributesController : ControllerBase
     {
         try
         {
-            if (await _attributeRepository.Delete(id))
+            if (await _terminalRepository.Delete(id))
             {
                 return NoContent();
             }

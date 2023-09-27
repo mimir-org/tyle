@@ -23,9 +23,9 @@ public class TyleDbContext : DbContext
     public DbSet<ValueListEntry> ValueListEntries { get; set; }
 
     public DbSet<RdlMedium> Media { get; set; }
-    //public DbSet<TerminalAttributeTypeReference> TerminalAttributes { get; set; }
-    //public DbSet<TerminalClassifierJoin> TerminalClassifiers { get; set; }
-    //public DbSet<TerminalType> Terminals { get; set; }
+    public DbSet<TerminalAttributeTypeReference> TerminalAttributes { get; set; }
+    public DbSet<TerminalClassifierJoin> TerminalClassifiers { get; set; }
+    public DbSet<TerminalType> Terminals { get; set; }
 
     public TyleDbContext(DbContextOptions<TyleDbContext> options) : base(options)
     {
@@ -48,12 +48,15 @@ public class TyleDbContext : DbContext
         modelBuilder.ApplyConfiguration(new PurposeConfiguration());
 
         modelBuilder.ApplyConfiguration(new AttributeConfiguration(userListValueConverter, userListValueComparer));
-        modelBuilder.ApplyConfiguration(new AttributeUnitConfiguration());
+        modelBuilder.ApplyConfiguration(new AttributeUnitJoinConfiguration());
         modelBuilder.ApplyConfiguration(new PredicateConfiguration());
         modelBuilder.ApplyConfiguration(new UnitConfiguration());
         modelBuilder.ApplyConfiguration(new ValueConstraintConfiguration());
         modelBuilder.ApplyConfiguration(new ValueListEntryConfiguration());
 
         modelBuilder.ApplyConfiguration(new MediumConfiguration());
+        modelBuilder.ApplyConfiguration(new TerminalAttributeTypeReferenceConfiguration());
+        modelBuilder.ApplyConfiguration(new TerminalClassifierJoinConfiguration());
+        modelBuilder.ApplyConfiguration(new TerminalConfiguration(userListValueConverter, userListValueComparer));
     }
 }

@@ -13,9 +13,9 @@ public class TerminalTypeRequest : IValidatableObject
     public string? Description { get; set; }
 
     [Required]
-    public ICollection<int> ClassifierReferenceIds { get; set; }
+    public ICollection<int> ClassifierIds { get; set; }
     
-    public int? PurposeReferenceId { get; set; }
+    public int? PurposeId { get; set; }
     
     public string? Notation { get; set; }
     
@@ -23,7 +23,7 @@ public class TerminalTypeRequest : IValidatableObject
     
     public Aspect? Aspect { get; set; }
 
-    public int? MediumReferenceId { get; set; }
+    public int? MediumId { get; set; }
 
     [Required]
     public Direction Qualifier { get; set; }
@@ -33,7 +33,7 @@ public class TerminalTypeRequest : IValidatableObject
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        foreach (var validationResult in UniqueCollectionValidator.Validate(ClassifierReferenceIds, "Classifier reference id"))
+        foreach (var validationResult in UniqueCollectionValidator.Validate(ClassifierIds, "Classifier reference id"))
         {
             yield return validationResult;
         }
