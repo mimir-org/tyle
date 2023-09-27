@@ -10,6 +10,6 @@ public class BlockType : ImfType
     public string? Notation { get; set; }
     public string? Symbol { get; set; }
     public Aspect? Aspect { get; set; }
-    public ICollection<BlockTerminalTypeReference> BlockTerminals { get; set; } = new List<BlockTerminalTypeReference>();
+    public ICollection<BlockTerminalTypeReference> Terminals { get; set; } = new List<BlockTerminalTypeReference>();
     public ICollection<BlockAttributeTypeReference> Attributes { get; set; } = new List<BlockAttributeTypeReference>();
 }
