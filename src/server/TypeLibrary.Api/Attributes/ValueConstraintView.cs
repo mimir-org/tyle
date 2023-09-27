@@ -13,5 +13,4 @@ public class ValueConstraintView
     public decimal? MaxValue { get; set; }
     public bool? MinInclusive { get; set; }
     public bool? MaxInclusive { get; set; }
-
 }
