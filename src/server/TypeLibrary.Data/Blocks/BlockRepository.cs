@@ -187,7 +187,7 @@ public class BlockRepository : IBlockRepository
         block.Symbol = request.Symbol;
         block.Aspect = request.Aspect;
 
-        var blockTerminalToRemove = block.Terminals.Where(x => request.Terminals.All(y => y.TerminalId != x.TerminalId && y.Direction != x.Direction)).ToList();
+        var blockTerminalToRemove = block.Terminals.Where(x => !request.Terminals.Any(y => y.TerminalId == x.TerminalId && y.Direction == x.Direction)).ToList();
         foreach (var blockTerminal in blockTerminalToRemove)
         {
             block.Terminals.Remove(blockTerminal);
@@ -206,7 +206,7 @@ public class BlockRepository : IBlockRepository
                 MaxCount = terminalTypeReferenceRequest.MaxCount
             };
 
-            if (!block.Terminals.Contains(blockTerminal, blockTerminalComparer)) continue;
+            if (block.Terminals.Contains(blockTerminal, blockTerminalComparer)) continue;
 
             if (!await _context.Terminals.AnyAsync(x => x.Id == terminalTypeReferenceRequest.TerminalId))
             {
