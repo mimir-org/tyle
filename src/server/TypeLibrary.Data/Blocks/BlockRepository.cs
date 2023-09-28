@@ -245,7 +245,7 @@ public class BlockRepository : IBlockRepository
                 MaxCount = attributeTypeReferenceRequest.MaxCount
             };
 
-            if (!block.Attributes.Contains(blockAttribute, blockAttributeComparer)) continue;
+            if (block.Attributes.Contains(blockAttribute, blockAttributeComparer)) continue;
 
             if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
             {
