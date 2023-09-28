@@ -8,7 +8,7 @@ export const toAttributeGroupItem = (attribute: AttributeGroupLibCm): AttributeG
     created: attribute.created,
     createdBy: attribute.createdBy,
     description: attribute.description,
-    kind: attribute.kind,
+    kind: "AttributeGroupItem",
     attributeIds: attribute.attributes.map((x) => x.id),
     state: attribute.state,
   };

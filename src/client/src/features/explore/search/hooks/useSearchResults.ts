@@ -23,8 +23,12 @@ export const useSearchResults = (
 
   const results = fuseResult.map((x) => x.item);
   const filtered = filterSearchResults(filters, results);
+
   const sliced = filtered.slice((pageNum - 1) * pageSize, pageNum * pageSize);
+
   const mapped = mapSearchResults(sliced);
+
+  console.log(mapped);
 
   return [mapped, filtered.length, isLoading];
 };

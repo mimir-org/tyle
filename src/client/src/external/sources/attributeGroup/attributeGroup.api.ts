@@ -14,7 +14,7 @@ export const attributeGroupApi = {
     return apiClient.put<AttributeGroupLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
   },
   postAttributeGroup(item: AttributeGroupLibAm) {
-    return apiClient.post<AttributeGroupLibCm>(`${_basePath}`, item).then((r) => r.data);
+    return apiClient.post<AttributeGroupLibCm>(_basePath, item).then((r) => r.data);
   },
   deleteAttributeGroup(id: string) {
     return apiClient.delete(`${_basePath}/${id}`);
