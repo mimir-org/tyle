@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
+using TypeLibrary.Services.Attributes.Requests;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Models;
@@ -23,28 +24,8 @@ public class AttributeTypeRequestTests : UnitTest<MimirorgCommonFixture>
         var attributeTypeRequest = new AttributeTypeRequest
         {
             Name = "Test",
-            UnitReferenceIds = new List<int>(),
+            UnitIds = new List<int>(),
             UnitMinCount = unitMinCount,
-            UnitMaxCount = unitMaxCount
-        };
-
-        var validationContext = new ValidationContext(attributeTypeRequest);
-
-        var results = attributeTypeRequest.Validate(validationContext);
-
-        Assert.Equal(result, results.IsNullOrEmpty());
-    }
-
-    [Theory]
-    [InlineData(0, false)]
-    [InlineData(1, true)]
-    public void NoUnitReferenceIdsWhenMaxCountIsZero(int unitMaxCount, bool result)
-    {
-        var attributeTypeRequest = new AttributeTypeRequest
-        {
-            Name = "Test",
-            UnitReferenceIds = new List<int>() { 1, 2, 3 },
-            UnitMinCount = 0,
             UnitMaxCount = unitMaxCount
         };
 
@@ -61,7 +42,7 @@ public class AttributeTypeRequestTests : UnitTest<MimirorgCommonFixture>
         var attributeTypeRequest = new AttributeTypeRequest
         {
             Name = "Test",
-            UnitReferenceIds = new List<int>() { 1, 2, 3, 1 },
+            UnitIds = new List<int>() { 1, 2, 3, 1 },
             UnitMinCount = 0,
             UnitMaxCount = 1
         };

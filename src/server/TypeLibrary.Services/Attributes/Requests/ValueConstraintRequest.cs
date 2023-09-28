@@ -146,6 +146,9 @@ public class ValueConstraintRequest : IValidatableObject
             case XsdDataType.Integer when !int.TryParse(value, out var _):
                 result = new ValidationResult("Values with data type integer must be a valid integer.");
                 return false;
+            case XsdDataType.Boolean when !bool.TryParse(value, out var _):
+                result = new ValidationResult("Values with data type boolean must be a valid boolean.");
+                return false;
             default:
                 result = null;
                 return true;

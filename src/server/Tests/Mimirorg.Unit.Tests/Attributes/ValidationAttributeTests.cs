@@ -3,6 +3,7 @@ using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
+using TypeLibrary.Services.Common.Requests;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Attributes;

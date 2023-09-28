@@ -1,9 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
+using TypeLibrary.Core.Terminals;
+using TypeLibrary.Services.Common.Requests;
+using TypeLibrary.Services.Terminals.Requests;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Models;
@@ -20,9 +21,9 @@ public class TerminalTypeRequestTests : UnitTest<MimirorgCommonFixture>
         var terminalTypeRequest = new TerminalTypeRequest
         {
             Name = "Test",
-            ClassifierReferenceIds = new List<int> { 1, 2, 5, 7 },
+            ClassifierIds = new List<int> { 1, 2, 5, 7 },
             Qualifier = Direction.Bidirectional,
-            TerminalAttributes = new List<TerminalAttributeRequest>
+            Attributes = new List<AttributeTypeReferenceRequest>
             {
                 new()
                 {
@@ -55,9 +56,9 @@ public class TerminalTypeRequestTests : UnitTest<MimirorgCommonFixture>
         var terminalTypeRequest = new TerminalTypeRequest
         {
             Name = "Test",
-            ClassifierReferenceIds = new List<int> { 1, 5, 5, 7 },
+            ClassifierIds = new List<int> { 1, 5, 5, 7 },
             Qualifier = Direction.Bidirectional,
-            TerminalAttributes = new List<TerminalAttributeRequest>
+            Attributes = new List<AttributeTypeReferenceRequest>
             {
                 new()
                 {
@@ -92,9 +93,9 @@ public class TerminalTypeRequestTests : UnitTest<MimirorgCommonFixture>
         var terminalTypeRequest = new TerminalTypeRequest
         {
             Name = "Test",
-            ClassifierReferenceIds = new List<int> { 1, 2, 5, 7 },
+            ClassifierIds = new List<int> { 1, 2, 5, 7 },
             Qualifier = Direction.Bidirectional,
-            TerminalAttributes = new List<TerminalAttributeRequest>
+            Attributes = new List<AttributeTypeReferenceRequest>
             {
                 new()
                 {

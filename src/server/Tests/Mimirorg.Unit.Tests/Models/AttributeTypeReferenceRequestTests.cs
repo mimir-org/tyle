@@ -1,15 +1,15 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
+using TypeLibrary.Services.Common.Requests;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Models;
 
-public class TerminalAttributeRequestTests : UnitTest<MimirorgCommonFixture>
+public class AttributeTypeReferenceRequestTests : UnitTest<MimirorgCommonFixture>
 {
-    public TerminalAttributeRequestTests(MimirorgCommonFixture fixture) : base(fixture)
+    public AttributeTypeReferenceRequestTests(MimirorgCommonFixture fixture) : base(fixture)
     {
     }
 
@@ -22,7 +22,7 @@ public class TerminalAttributeRequestTests : UnitTest<MimirorgCommonFixture>
     [InlineData(0, null, true)]
     public void MinMaxCountValidatesCorrectly(int min, int? max, bool result)
     {
-        var terminalAttributeRequest = new TerminalAttributeRequest
+        var terminalAttributeRequest = new AttributeTypeReferenceRequest
         {
             MinCount = min,
             MaxCount = max,

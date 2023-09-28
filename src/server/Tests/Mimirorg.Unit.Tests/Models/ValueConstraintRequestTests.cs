@@ -1,9 +1,9 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
-using Tyle.Core.Attributes;
+using TypeLibrary.Core.Attributes;
+using TypeLibrary.Services.Attributes.Requests;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Models;
@@ -61,7 +61,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
             ConstraintType = ConstraintType.In,
             DataType = XsdDataType.String,
             MinCount = minCount,
-            AllowedValues = new List<string>() { "A", "B", "C" }
+            ValueList = new List<string>() { "A", "B", "C" }
         };
 
         validationContext = new ValidationContext(valueConstraintRequest);
@@ -98,7 +98,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
         {
             ConstraintType = ConstraintType.In,
             DataType = XsdDataType.String,
-            AllowedValues = values,
+            ValueList = values,
             MinCount = 1
         };
 
@@ -124,7 +124,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
         {
             ConstraintType = ConstraintType.In,
             DataType = XsdDataType.Integer,
-            AllowedValues = new List<string> { "1", "3", "five" },
+            ValueList = new List<string> { "1", "3", "five" },
             MinCount = 1
         };
 
