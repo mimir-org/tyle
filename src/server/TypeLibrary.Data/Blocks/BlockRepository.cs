@@ -193,14 +193,10 @@ public class BlockRepository : IBlockRepository
             block.Terminals.Remove(blockTerminal);
         }
 
+        var blockTerminalComparer = new BlockTerminalComparer();
+
         foreach (var terminalTypeReferenceRequest in request.Terminals)
         {
-            if (!await _context.Terminals.AnyAsync(x => x.Id == terminalTypeReferenceRequest.TerminalId))
-            {
-                // TODO: Handle the case where a request is sent with a non-valid terminal id
-                continue;
-            }
-
             var blockTerminal = new BlockTerminalTypeReference
             {
                 BlockId = id,
@@ -210,14 +206,20 @@ public class BlockRepository : IBlockRepository
                 MaxCount = terminalTypeReferenceRequest.MaxCount
             };
 
-            var blockTerminalComparer = new BlockTerminalComparer();
-
             if (!block.Terminals.Contains(blockTerminal, blockTerminalComparer)) continue;
 
-            if (block.Terminals.Any(x => x.TerminalId == terminalTypeReferenceRequest.TerminalId && x.Direction == terminalTypeReferenceRequest.Direction))
+            if (!await _context.Terminals.AnyAsync(x => x.Id == terminalTypeReferenceRequest.TerminalId))
             {
-                _context.BlockTerminals.Attach(blockTerminal);
-                _context.Entry(blockTerminal).State = EntityState.Modified;
+                // TODO: Handle the case where a request is sent with a non-valid terminal id
+                continue;
+            }
+
+            var blockTerminalToUpdate = block.Terminals.FirstOrDefault(x => x.TerminalId == terminalTypeReferenceRequest.TerminalId && x.Direction == terminalTypeReferenceRequest.Direction);
+
+            if (blockTerminalToUpdate != null)
+            {
+                blockTerminalToUpdate.MinCount = blockTerminal.MinCount;
+                blockTerminalToUpdate.MaxCount = blockTerminal.MaxCount;
             }
             else
             {
@@ -231,14 +233,10 @@ public class BlockRepository : IBlockRepository
             block.Attributes.Remove(blockAttribute);
         }
 
+        var blockAttributeComparer = new BlockAttributeComparer();
+
         foreach (var attributeTypeReferenceRequest in request.Attributes)
         {
-            if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
-            {
-                // TODO: Handle the case where a request is sent with a non-valid attribute id
-                continue;
-            }
-
             var blockAttribute = new BlockAttributeTypeReference
             {
                 BlockId = id,
@@ -247,14 +245,20 @@ public class BlockRepository : IBlockRepository
                 MaxCount = attributeTypeReferenceRequest.MaxCount
             };
 
-            var blockAttributeComparer = new BlockAttributeComparer();
-
             if (!block.Attributes.Contains(blockAttribute, blockAttributeComparer)) continue;
 
-            if (block.Attributes.Any(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId))
+            if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
             {
-                _context.BlockAttributes.Attach(blockAttribute);
-                _context.Entry(blockAttribute).State = EntityState.Modified;
+                // TODO: Handle the case where a request is sent with a non-valid attribute id
+                continue;
+            }
+
+            var blockAttributeToUpdate = block.Attributes.FirstOrDefault(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId);
+
+            if (blockAttributeToUpdate != null)
+            {
+                blockAttributeToUpdate.MinCount = blockAttribute.MinCount;
+                blockAttributeToUpdate.MaxCount = blockAttribute.MaxCount;
             }
             else
             {

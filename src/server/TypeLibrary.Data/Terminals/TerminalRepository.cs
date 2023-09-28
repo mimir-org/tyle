@@ -118,7 +118,7 @@ public class TerminalRepository : ITerminalRepository
 
     public async Task<TerminalType?> Update(Guid id, TerminalTypeRequest request)
     {
-        var terminal = await _dbSet.AsTracking()
+         var terminal = await _dbSet.AsTracking()
             .Include(x => x.Classifiers)
             .Include(x => x.Attributes)
             .AsSplitQuery()
@@ -197,14 +197,10 @@ public class TerminalRepository : ITerminalRepository
             terminal.Attributes.Remove(terminalAttribute);
         }
 
+        var terminalAttributeComparer = new TerminalAttributeComparer();
+
         foreach (var attributeTypeReferenceRequest in request.Attributes)
         {
-            if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
-            {
-                // TODO: Handle the case where a request is sent with a non-valid attribute id
-                continue;
-            }
-
             var terminalAttribute = new TerminalAttributeTypeReference
             {
                 TerminalId = id,
@@ -213,14 +209,20 @@ public class TerminalRepository : ITerminalRepository
                 MaxCount = attributeTypeReferenceRequest.MaxCount
             };
 
-            var terminalAttributeComparer = new TerminalAttributeComparer();
+            if (terminal.Attributes.Contains(terminalAttribute, terminalAttributeComparer)) continue;
 
-            if (!terminal.Attributes.Contains(terminalAttribute, terminalAttributeComparer)) continue;
-                
-            if (terminal.Attributes.Any(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId))
+            if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
             {
-                _context.TerminalAttributes.Attach(terminalAttribute);
-                _context.Entry(terminalAttribute).State = EntityState.Modified;
+                // TODO: Handle the case where a request is sent with a non-valid attribute id
+                continue;
+            }
+
+            var terminalAttributeToUpdate = terminal.Attributes.FirstOrDefault(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId);
+
+            if (terminalAttributeToUpdate != null)
+            {
+                terminalAttributeToUpdate.MinCount = terminalAttribute.MinCount;
+                terminalAttributeToUpdate.MaxCount = terminalAttribute.MaxCount;
             }
             else
             {
