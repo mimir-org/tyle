@@ -1,4 +1,4 @@
-import { AttributeGroupLibAm, AttributeGroupLibCm } from "@mimirorg/typelibrary-types";
+import { AttributeGroupLibAm, AttributeGroupLibCm, State } from "@mimirorg/typelibrary-types";
 import { ValueObject } from "features/entities/types/valueObject";
 
 /**
@@ -7,6 +7,7 @@ import { ValueObject } from "features/entities/types/valueObject";
  */
 export interface FormAttributeGroupLib extends Omit<AttributeGroupLibAm, "attributes"> {
   attributes: ValueObject<string>[];
+  state: State;
 }
 
 /**
@@ -29,6 +30,7 @@ export const mapAttributeGroupLibCmToFormAttributeGroupLib = (
 export const createEmptyFormAttributeGroupLib = (): FormAttributeGroupLib => ({
   ...emptyTerminalLibAm,
   attributes: [],
+  state: State.Draft,
 });
 
 const emptyTerminalLibAm: AttributeGroupLibAm = {
@@ -45,5 +47,6 @@ export const toFormAttributeGroupLib = (attributeGroup: AttributeGroupLibCm): Fo
     description: attributeGroup.description,
     attributeIds: [],
     attributes: [],
+    state: attributeGroup.state,
   };
 };
