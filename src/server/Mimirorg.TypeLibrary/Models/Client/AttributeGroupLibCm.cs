@@ -8,7 +8,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string CreatedBy { get; set; }
         public string Description { get; set; }
         public ICollection<AttributeLibCm> Attributes { get; set; }
-        public string Kind => nameof(AttributeLibCm);
+        public string Kind => nameof(AttributeGroupLibCm);
 
     }
 }
