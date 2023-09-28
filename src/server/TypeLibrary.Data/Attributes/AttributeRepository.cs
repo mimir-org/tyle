@@ -167,7 +167,7 @@ public class AttributeRepository : IAttributeRepository
             {
                 if (attribute.ValueConstraint.ConstraintType == ConstraintType.In)
                 {
-                    _context.ValueListEntries.RemoveRange(attribute.ValueConstraint.ValueList!);
+                    _context.ValueListEntries.RemoveRange(attribute.ValueConstraint.ValueList);
                 }
                 _context.ValueConstraints.Remove(attribute.ValueConstraint);
             }

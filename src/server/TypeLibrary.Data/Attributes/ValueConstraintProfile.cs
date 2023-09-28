@@ -11,10 +11,6 @@ public class ValueConstraintProfile : Profile
         CreateMap<ValueConstraintRequest, ValueConstraint>()
             .ForMember(x => x.AttributeId, opt => opt.Ignore())
             .ForMember(x => x.Attribute, opt => opt.Ignore())
-            .ForMember(dest => dest.ValueList, opt =>
-            {
-                opt.PreCondition(src => src.ValueList != null);
-                opt.MapFrom(src => src.ValueList!.Select(x => new ValueListEntry { EntryValue = x }));
-            });
+            .ForMember(dest => dest.ValueList, opt => opt.MapFrom(src => src.ValueList.Select(x => new ValueListEntry { EntryValue = x })));
     }
 }

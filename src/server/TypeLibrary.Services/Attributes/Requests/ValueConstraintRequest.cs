@@ -19,7 +19,7 @@ public class ValueConstraintRequest : IValidatableObject
 
     public string? Value { get; set; }
 
-    public ICollection<string>? ValueList { get; set; }
+    public ICollection<string> ValueList { get; set; } = new List<string>();
 
     public string? Pattern { get; set; }
 

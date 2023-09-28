@@ -11,18 +11,9 @@ public class ValueConstraintComparer : IEqualityComparer<ValueConstraint>
         if (ReferenceEquals(y, null)) return false;
         if (x.GetType() != y.GetType()) return false;
 
-        if (x.ValueList == null)
+        if (!x.ValueList.Select(e => e.EntryValue).SequenceEqual(y.ValueList.Select(e => e.EntryValue)))
         {
-            if (y.ValueList != null) return false;
-        }
-        else
-        {
-            if (y.ValueList == null) return false;
-
-            if (!x.ValueList.Select(e => e.EntryValue).SequenceEqual(y.ValueList.Select(e => e.EntryValue)))
-            {
-                return false;
-            }
+            return false;
         }
 
         return x.ConstraintType == y.ConstraintType &&
@@ -45,16 +36,9 @@ public class ValueConstraintComparer : IEqualityComparer<ValueConstraint>
         hashCode.Add(obj.MinCount);
         hashCode.Add(obj.MaxCount);
         hashCode.Add(obj.Value);
-        if (obj.ValueList == null)
+        foreach (var entry in obj.ValueList)
         {
-            hashCode.Add(obj.ValueList);
-        }
-        else
-        {
-            foreach (var entry in obj.ValueList)
-            {
-                hashCode.Add(entry);
-            }
+            hashCode.Add(entry);
         }
         hashCode.Add(obj.Pattern);
         hashCode.Add(obj.MinValue);
