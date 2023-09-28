@@ -21,8 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8872F15B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Test.Unit", "Tests\Mimirorg.Unit.Tests\Mimirorg.Test.Unit.csproj", "{0AC7FEAD-F436-4A3C-9FCF-2B0A3FCD4B4F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Package", "Mimirorg.Package\Mimirorg.Package.csproj", "{BF32D4CE-9EF6-4692-AE52-80940465F707}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Test.Integration", "Tests\Mimirorg.Integration.Tests\Mimirorg.Test.Integration.csproj", "{43591D9F-31DD-4207-BB56-1538EBFA3075}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Test.Setup", "Tests\Mimirorg.Setup\Mimirorg.Test.Setup.csproj", "{7D14C07E-9676-4A8D-8EE8-FE341C9254E5}"
@@ -64,10 +62,6 @@ Global
 		{0AC7FEAD-F436-4A3C-9FCF-2B0A3FCD4B4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0AC7FEAD-F436-4A3C-9FCF-2B0A3FCD4B4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AC7FEAD-F436-4A3C-9FCF-2B0A3FCD4B4F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF32D4CE-9EF6-4692-AE52-80940465F707}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF32D4CE-9EF6-4692-AE52-80940465F707}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF32D4CE-9EF6-4692-AE52-80940465F707}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF32D4CE-9EF6-4692-AE52-80940465F707}.Release|Any CPU.Build.0 = Release|Any CPU
 		{43591D9F-31DD-4207-BB56-1538EBFA3075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{43591D9F-31DD-4207-BB56-1538EBFA3075}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43591D9F-31DD-4207-BB56-1538EBFA3075}.Release|Any CPU.Build.0 = Release|Any CPU
