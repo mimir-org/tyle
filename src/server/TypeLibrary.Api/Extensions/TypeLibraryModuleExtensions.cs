@@ -1,12 +1,6 @@
-using System.ComponentModel.Design;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Options;
 using TypeLibrary.Data;
-using TypeLibrary.Services.Attributes;
-using TypeLibrary.Services.Blocks;
-using TypeLibrary.Services.Terminals;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace TypeLibrary.Api.Extensions;
@@ -78,7 +72,7 @@ public static class TypeLibraryModuleExtensions
         services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
         // Build configuration
-        var config = builder.Build();
+        //var config = builder.Build();
 
         // Add database-configuration
         //services.AddDatabaseConfigurations(config);

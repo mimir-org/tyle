@@ -458,7 +458,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// <param name="userAm">User data</param>
     /// <param name="existingUser">Existing user</param>
     /// <returns>The updated user</returns>
-    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgInvalidOperationException">Throws if user could not be updated or password could be changed</exception>
+    /// <exception cref="MimirorgInvalidOperationException">Throws if user could not be updated or password could be changed</exception>
     /// <remarks>This is the workflow for register new user, if the user did not fulfilled the registration the first time</remarks>
     private async Task<MimirorgUserCm> UpdateTempUser(MimirorgUserAm userAm, MimirorgUser existingUser)
     {
@@ -484,7 +484,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// </summary>
     /// <param name="userAm">User data</param>
     /// <returns>The created user</returns>
-    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgInvalidOperationException">Throws if user could not be created</exception>
+    /// <exception cref="MimirorgInvalidOperationException">Throws if user could not be created</exception>
     /// <remarks>This is the workflow for register new user, if the user did not fulfilled the registration the first time</remarks>
     private async Task<MimirorgUserCm> CreateNewUser(MimirorgUserAm userAm)
     {

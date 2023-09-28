@@ -54,7 +54,7 @@ public class AttributeViewProfile : Profile
             {
                 var result = new NumericValueListConstraintView
                 {
-                    ValueList = valueConstraint.ValueList!.Select(x => decimal.Parse(x.EntryValue, NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture))
+                    ValueList = valueConstraint.ValueList.Select(x => decimal.Parse(x.EntryValue, NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture))
                 };
                 return MapCommonValueConstraintViewFields(result, valueConstraint);
             }
@@ -62,7 +62,7 @@ public class AttributeViewProfile : Profile
             {
                 var result = new StringValueListConstraintView
                 {
-                    ValueList = valueConstraint.ValueList!.Select(x => x.EntryValue)
+                    ValueList = valueConstraint.ValueList.Select(x => x.EntryValue)
                 };
                 return MapCommonValueConstraintViewFields(result, valueConstraint);
             }
