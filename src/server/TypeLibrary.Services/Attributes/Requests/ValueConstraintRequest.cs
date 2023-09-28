@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using TypeLibrary.Core.Attributes;
+using TypeLibrary.Services.Common;
 
 namespace TypeLibrary.Services.Attributes.Requests;
 
@@ -17,10 +18,12 @@ public class ValueConstraintRequest : IValidatableObject
 
     public int? MaxCount { get; set; }
 
+    [MaxLength(StringLengthConstants.ValueLength)]
     public string? Value { get; set; }
 
     public ICollection<string> ValueList { get; set; } = new List<string>();
 
+    [MaxLength(StringLengthConstants.ValueLength)]
     public string? Pattern { get; set; }
 
     public decimal? MinValue { get; set; }
@@ -69,7 +72,7 @@ public class ValueConstraintRequest : IValidatableObject
                 {
                     yield return new ValidationResult("Constraints of type In can't have data type boolean.");
                 }
-                if (ValueList == null || ValueList.Count < 2)
+                if (ValueList.Count < 2)
                 {
                     yield return new ValidationResult("Constraints of type In must specify at least two possible values.");
                 }
@@ -77,6 +80,11 @@ public class ValueConstraintRequest : IValidatableObject
                 {
                     foreach (var value in ValueList)
                     {
+                        if (value.Length > StringLengthConstants.ValueLength)
+                        {
+                            yield return new ValidationResult($"Values in a value list can at most be {StringLengthConstants.ValueLength} characters long.");
+                        }
+
                         if (!ValidateAgainstDataType(value, DataType, out var result))
                         {
                             yield return result;

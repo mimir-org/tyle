@@ -1,31 +1,32 @@
 using System.ComponentModel.DataAnnotations;
 using TypeLibrary.Core.Common;
+using TypeLibrary.Services.Common;
 using TypeLibrary.Services.Common.Requests;
 
 namespace TypeLibrary.Services.Blocks.Requests;
 
 public class BlockTypeRequest : IValidatableObject
 {
-    [Required]
+    [Required, MaxLength(StringLengthConstants.NameLength)]
     public required string Name { get; set; }
 
+    [MaxLength(StringLengthConstants.DescriptionLength)]
     public string? Description { get; set; }
 
-    [Required]
     public ICollection<int> ClassifierIds { get; set; } = new List<int>();
 
     public int? PurposeId { get; set; }
 
+    [MaxLength(StringLengthConstants.NotationLength)]
     public string? Notation { get; set; }
 
+    [MaxLength(StringLengthConstants.IriLength)]
     public string? Symbol { get; set; }
 
     public Aspect? Aspect { get; set; }
 
-    [Required]
     public ICollection<TerminalTypeReferenceRequest> Terminals { get; set; } = new List<TerminalTypeReferenceRequest>();
 
-    [Required]
     public ICollection<AttributeTypeReferenceRequest> Attributes { get; set; } = new List<AttributeTypeReferenceRequest>();
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

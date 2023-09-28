@@ -1,20 +1,21 @@
 using System.ComponentModel.DataAnnotations;
 using TypeLibrary.Core.Attributes;
+using TypeLibrary.Services.Common;
 using TypeLibrary.Services.Common.Requests;
 
 namespace TypeLibrary.Services.Attributes.Requests;
 
 public class AttributeTypeRequest : IValidatableObject
 {
-    [Required]
+    [Required, MaxLength(StringLengthConstants.NameLength)]
     public required string Name { get; set; }
 
+    [MaxLength(StringLengthConstants.DescriptionLength)]
     public string? Description { get; set; }
 
     public int? PredicateId { get; set; }
 
-    [Required]
-    public ICollection<int> UnitIds { get; set; }
+    public ICollection<int> UnitIds { get; set; } = new List<int>();
 
     [Required, Range(0, 1, ErrorMessage = "The unit min count must be 0 or 1.")]
     public int UnitMinCount { get; set; }
