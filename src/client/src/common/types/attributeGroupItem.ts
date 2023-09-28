@@ -1,4 +1,4 @@
-import { AttributeLibCm, State } from "@mimirorg/typelibrary-types";
+import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 
 export interface AttributeGroupItem {
   id: string;
@@ -8,6 +8,5 @@ export interface AttributeGroupItem {
   description: string;
   kind: string;
   attributeIds: string[];
-  state: State.Draft;
   attributes: AttributeLibCm[];
 }

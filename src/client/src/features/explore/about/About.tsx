@@ -24,6 +24,8 @@ import UnifiedPanel from "./components/common/UnifiedPanel";
 import { useGetAttributeGroup } from "external/sources/attributeGroup/attributeGroup.queries";
 import { toFormAttributeGroupLib } from "features/entities/attributeGroups/types/formAttributeGroupLib";
 import AttributeGroupPreview from "features/entities/entityPreviews/attributeGroup/AttributeGroupPreview";
+import { toAttributeGroupItem } from "common/utils/mappers/mapAttributeGroupLibCmToAttributeGroupItem";
+import { AttributeGroupPanel } from "./components/attributeGroup/AttributeGroupPanel";
 
 interface AboutProps {
   selected?: SelectedInfo;
@@ -73,7 +75,7 @@ export const About = ({ selected }: AboutProps) => {
         return typeName("quantityDatum.title");
       case "rds":
         return typeName("rds.title");
-      case "AttributeGroup":
+      case "attributeGroup":
         return typeName("attributeGroup.title");
       default:
         return t("about.title");
@@ -114,9 +116,17 @@ export const About = ({ selected }: AboutProps) => {
         </UnifiedPanel>
       )}
       {showAttributeGroupPanel && (
-        <UnifiedPanel {...toFormAttributeGroupLib(attributeGroupQuery.data)}>
-          <AttributeGroupPreview {...toFormAttributeGroupLib(attributeGroupQuery.data)} />
-        </UnifiedPanel>
+        <AttributeGroupPanel
+          key={attributeGroupQuery.data.id + attributeGroupQuery.data.kind}
+          id={attributeGroupQuery.data.id}
+          name={attributeGroupQuery.data.name}
+          created={attributeGroupQuery.data.created}
+          createdBy={attributeGroupQuery.data.createdBy}
+          description={attributeGroupQuery.data.description}
+          kind={attributeGroupQuery.data.kind}
+          attributeIds={attributeGroupQuery.data.attributes.map((x) => x.id)}
+          attributes={attributeGroupQuery.data.attributes}
+        />
       )}
     </ExploreSection>
   );
