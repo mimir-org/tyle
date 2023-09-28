@@ -8,12 +8,11 @@ using Microsoft.IdentityModel.Tokens;
 using Mimirorg.Authentication.Abstract;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Enums;
+using Mimirorg.Authentication.Exceptions;
 using Mimirorg.Authentication.Extensions;
+using Mimirorg.Authentication.Models;
 using Mimirorg.Authentication.Models.Client;
 using Mimirorg.Authentication.Models.Domain;
-using Mimirorg.Common.Exceptions;
-using Mimirorg.Common.Extensions;
-using Mimirorg.Common.Models;
 
 namespace Mimirorg.Authentication.Repositories;
 

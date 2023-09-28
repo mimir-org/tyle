@@ -2,9 +2,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
-using Mimirorg.Common.Extensions;
 using System.Net.Http.Json;
 using Mimirorg.Authentication.Enums;
+using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models.Client;
 using Mimirorg.Authentication.Models.Common;
 

@@ -1,6 +1,6 @@
-using Mimirorg.Common.Attributes;
-using Mimirorg.Common.Extensions;
-using Mimirorg.Common.Models;
+using Mimirorg.Authentication.Attributes;
+using Mimirorg.Authentication.Extensions;
+using Mimirorg.Authentication.Models;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
 using Xunit;

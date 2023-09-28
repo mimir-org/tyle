@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Mimirorg.Common.Attributes;
+using Mimirorg.Authentication.Attributes;
 
 namespace Mimirorg.Authentication.Models.Application;
 

@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Mimirorg.Common.Attributes;
+using Mimirorg.Authentication.Attributes;
 
 namespace Mimirorg.Authentication.Models.Application;
 

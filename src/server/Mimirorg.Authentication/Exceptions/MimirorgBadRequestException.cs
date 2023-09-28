@@ -1,6 +1,6 @@
-using Mimirorg.Common.Models;
+using Mimirorg.Authentication.Models;
 
-namespace Mimirorg.Common.Exceptions;
+namespace Mimirorg.Authentication.Exceptions;
 
 [Serializable]
 public class MimirorgBadRequestException : Exception

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Mimirorg.Common.Extensions;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
 using Xunit;

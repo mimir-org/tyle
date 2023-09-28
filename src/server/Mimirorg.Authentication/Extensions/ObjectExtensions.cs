@@ -1,9 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using Mimirorg.Common.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using Mimirorg.Authentication.Models;
 
-namespace Mimirorg.Common.Extensions;
+namespace Mimirorg.Authentication.Extensions;
 
 public static class ObjectExtensions
 {
@@ -45,32 +43,6 @@ public static class ObjectExtensions
         return validation;
     }
 
-    public static IEnumerable<Validation> ValidateObjects(this IEnumerable<object> objects)
-    {
-        if (objects == null)
-            yield break;
-
-        foreach (var obj in objects)
-        {
-            if (obj == null)
-                continue;
-
-            yield return obj.ValidateObject();
-        }
-    }
-
-    public static T DeepCopy<T>(this T self)
-    {
-        var settings = new JsonSerializerSettings
-        {
-            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-            ContractResolver = new CamelCasePropertyNamesContractResolver(),
-            TypeNameHandling = TypeNameHandling.All
-        };
-        var serialized = JsonConvert.SerializeObject(self, settings);
-        return JsonConvert.DeserializeObject<T>(serialized, settings);
-    }
-
     public static object GetPropValue(this object obj, string name)
     {
         foreach (var part in name.Split('.'))
@@ -84,12 +56,5 @@ public static class ObjectExtensions
             obj = info.GetValue(obj, null);
         }
         return obj;
-    }
-
-    public static T GetPropValue<T>(this object obj, string name)
-    {
-        var value = GetPropValue(obj, name);
-        if (value == null) { return default; }
-        return (T) value;
     }
 }

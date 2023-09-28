@@ -2,7 +2,6 @@ using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Client;
 using Mimirorg.Authentication.Models.Domain;
-using Mimirorg.Common.Enums;
 
 namespace Mimirorg.Authentication.Contracts;
 

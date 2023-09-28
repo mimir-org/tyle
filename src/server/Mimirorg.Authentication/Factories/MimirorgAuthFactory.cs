@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Mimirorg.Authentication.Contracts;
+using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models.Constants;
-using Mimirorg.Common.Extensions;
 
 namespace Mimirorg.Authentication.Factories;
 

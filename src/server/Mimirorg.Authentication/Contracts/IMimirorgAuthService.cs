@@ -1,6 +1,6 @@
-using Mimirorg.Common.Enums;
-using Mimirorg.Common.Exceptions;
 using System.Security.Authentication;
+using Mimirorg.Authentication.Enums;
+using Mimirorg.Authentication.Exceptions;
 using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Client;
 
@@ -49,8 +49,8 @@ public interface IMimirorgAuthService
     /// </summary>
     /// <param name="userRole">MimirorgUserRoleAm</param>
     /// <returns>bool</returns>
-    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
+    /// <exception cref="MimirorgBadRequestException"></exception>
+    /// <exception cref="MimirorgNotFoundException"></exception>
     Task<bool> AddUserToRole(MimirorgUserRoleAm userRole);
 
     /// <summary>
@@ -58,8 +58,8 @@ public interface IMimirorgAuthService
     /// </summary>
     /// <param  name="userRole">MimirorgUserRoleAm</param>
     /// <returns>bool</returns>
-    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
+    /// <exception cref="MimirorgBadRequestException"></exception>
+    /// <exception cref="MimirorgNotFoundException"></exception>
     Task<bool> RemoveUserFromRole(MimirorgUserRoleAm userRole);
 
     /// <summary>
@@ -73,8 +73,8 @@ public interface IMimirorgAuthService
     /// </summary>
     /// <param name="userPermission">MimirorgUserPermissionAm</param>
     /// <returns>Completed task</returns>
-    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
+    /// <exception cref="MimirorgBadRequestException"></exception>
+    /// <exception cref="MimirorgNotFoundException"></exception>
     Task SetPermission(MimirorgUserPermissionAm userPermission);
 
     /// <summary>
@@ -82,8 +82,8 @@ public interface IMimirorgAuthService
     /// </summary>
     /// <param name="userPermission">MimirorgUserPermissionAm</param>
     /// <returns>Completed task</returns>
-    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
+    /// <exception cref="MimirorgBadRequestException"></exception>
+    /// <exception cref="MimirorgNotFoundException"></exception>
     Task RemovePermission(MimirorgUserPermissionAm userPermission);
 
     /// <summary>

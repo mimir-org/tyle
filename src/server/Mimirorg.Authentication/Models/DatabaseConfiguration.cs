@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Mimirorg.Common.Models;
+namespace Mimirorg.Authentication.Models;
 
 public class DatabaseConfiguration
 {

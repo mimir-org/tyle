@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Models.Application;
-using Mimirorg.Common.Extensions;
 
 namespace Mimirorg.Authentication.Extensions;
 

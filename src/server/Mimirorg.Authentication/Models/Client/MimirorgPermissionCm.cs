@@ -1,5 +1,5 @@
 using Mimirorg.Authentication.Enums;
-using Mimirorg.Common.Extensions;
+using Mimirorg.Authentication.Extensions;
 
 namespace Mimirorg.Authentication.Models.Client;
 

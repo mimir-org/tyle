@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Mimirorg.Common.Attributes;
+namespace Mimirorg.Authentication.Attributes;
 
 [AttributeUsage(AttributeTargets.Property)]
 public class RequiredOneAttribute : ValidationAttribute

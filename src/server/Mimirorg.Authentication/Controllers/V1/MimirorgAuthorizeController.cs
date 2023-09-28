@@ -5,10 +5,10 @@ using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Constants;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Enums;
+using Mimirorg.Authentication.Exceptions;
 using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.Authentication.Models.Client;
-using Mimirorg.Common.Exceptions;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Mimirorg.Authentication.Controllers.V1;

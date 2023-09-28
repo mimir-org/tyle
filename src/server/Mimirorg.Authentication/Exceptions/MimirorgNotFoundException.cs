@@ -1,4 +1,4 @@
-namespace Mimirorg.Common.Exceptions;
+namespace Mimirorg.Authentication.Exceptions;
 
 [Serializable]
 public class MimirorgNotFoundException : Exception

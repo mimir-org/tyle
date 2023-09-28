@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Mimirorg.Common.Contracts;
-using Mimirorg.Common.Enums;
-using Mimirorg.Common.Extensions;
+using Mimirorg.Authentication.Enums;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
 using Xunit;

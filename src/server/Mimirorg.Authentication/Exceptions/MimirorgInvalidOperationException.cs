@@ -1,4 +1,4 @@
-namespace Mimirorg.Common.Exceptions;
+namespace Mimirorg.Authentication.Exceptions;
 
 public class MimirorgInvalidOperationException : Exception
 {

@@ -1,4 +1,4 @@
-namespace Mimirorg.Common.Contracts;
+namespace Mimirorg.Authentication.Contracts;
 
 public interface ICompanyObject
 {

@@ -4,13 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Enums;
+using Mimirorg.Authentication.Exceptions;
 using Mimirorg.Authentication.Extensions;
+using Mimirorg.Authentication.Models;
 using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Client;
 using Mimirorg.Authentication.Models.Domain;
-using Mimirorg.Common.Exceptions;
-using Mimirorg.Common.Extensions;
-using Mimirorg.Common.Models;
 
 namespace Mimirorg.Authentication.Services;
 
@@ -36,8 +35,8 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     /// </summary>
     /// <param name="company">MimirorgCompanyAm</param>
     /// <returns>MimirorgCompanyCm</returns>
-    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgInvalidOperationException"></exception>
+    /// <exception cref="MimirorgBadRequestException"></exception>
+    /// <exception cref="MimirorgInvalidOperationException"></exception>
     public async Task<MimirorgCompanyCm> CreateCompany(MimirorgCompanyAm company)
     {
         var validation = company.ValidateObject();
@@ -107,7 +106,7 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     /// </summary>
     /// <param name="id">Unique identifier of a company</param>
     /// <returns>MimirorgCompanyCm</returns>
-    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
+    /// <exception cref="MimirorgNotFoundException"></exception>
     public async Task<MimirorgCompanyCm> GetCompanyById(int id)
     {
         var company = await _mimirorgCompanyRepository.FindBy(x => x.Id == id).Include(x => x.Manager).FirstOrDefaultAsync();
@@ -125,8 +124,8 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     /// </summary>
     /// <param name="mimirorgCompanyAuth">Domain and secret</param>
     /// <returns>MimirorgCompanyCm</returns>
-    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
-    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
+    /// <exception cref="MimirorgNotFoundException"></exception>
+    /// <exception cref="MimirorgBadRequestException"></exception>
     public async Task<MimirorgCompanyCm> GetCompanyByAuth(MimirorgCompanyAuthAm mimirorgCompanyAuth)
     {
         var validation = mimirorgCompanyAuth.ValidateObject();
@@ -151,8 +150,8 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     /// <param name="id"></param>
     /// <param name="company"></param>
     /// <returns>MimirorgCompanyCm</returns>
-    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
+    /// <exception cref="MimirorgBadRequestException"></exception>
+    /// <exception cref="MimirorgNotFoundException"></exception>
     public async Task<MimirorgCompanyCm> UpdateCompany(int id, MimirorgCompanyAm company)
     {
         var validation = company.ValidateObject();
@@ -183,7 +182,7 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     /// </summary>
     /// <param name="id"></param>
     /// <returns>bool</returns>
-    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
+    /// <exception cref="MimirorgNotFoundException"></exception>
     public async Task<bool> DeleteCompany(int id)
     {
         var exist = await _mimirorgCompanyRepository.GetAll().AnyAsync(x => x.Id == id);

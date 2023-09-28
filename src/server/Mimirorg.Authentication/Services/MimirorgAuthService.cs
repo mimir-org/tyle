@@ -7,13 +7,11 @@ using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models.Domain;
-using Mimirorg.Common.Enums;
-using Mimirorg.Common.Exceptions;
-using Mimirorg.Common.Extensions;
-using Mimirorg.Common.Models;
 using System.Security.Authentication;
 using System.Security.Claims;
 using Mimirorg.Authentication.Enums;
+using Mimirorg.Authentication.Exceptions;
+using Mimirorg.Authentication.Models;
 using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Client;
 
@@ -53,7 +51,7 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// </summary>
     /// <param name="authenticate">MimirorgAuthenticateAm</param>
     /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
-    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
+    /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="AuthenticationException"></exception>
     public async Task<ICollection<MimirorgTokenCm>> Authenticate(MimirorgAuthenticateAm authenticate)
     {
@@ -158,8 +156,8 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// </summary>
     /// <param name="userRole">MimirorgUserRoleAm</param>
     /// <returns>bool</returns>
-    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
+    /// <exception cref="MimirorgBadRequestException"></exception>
+    /// <exception cref="MimirorgNotFoundException"></exception>
     public async Task<bool> AddUserToRole(MimirorgUserRoleAm userRole)
     {
         var validation = userRole.ValidateObject();
@@ -187,8 +185,8 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// </summary>
     /// <param  name="userRole">MimirorgUserRoleAm</param>
     /// <returns>bool</returns>
-    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
+    /// <exception cref="MimirorgBadRequestException"></exception>
+    /// <exception cref="MimirorgNotFoundException"></exception>
     public async Task<bool> RemoveUserFromRole(MimirorgUserRoleAm userRole)
     {
         var validation = userRole.ValidateObject();
@@ -226,8 +224,8 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// </summary>
     /// <param name="userPermission">MimirorgUserPermissionAm</param>
     /// <returns>Completed task</returns>
-    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
+    /// <exception cref="MimirorgBadRequestException"></exception>
+    /// <exception cref="MimirorgNotFoundException"></exception>
     public async Task SetPermission(MimirorgUserPermissionAm userPermission)
     {
         var validation = userPermission.ValidateObject();
@@ -263,8 +261,8 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// </summary>
     /// <param name="userPermission">MimirorgUserPermissionAm</param>
     /// <returns>Completed task</returns>
-    /// <exception cref="Tyle.Core.Exceptions.MimirorgBadRequestException"></exception>
-    /// <exception cref="Tyle.Core.Common.Exceptions.MimirorgNotFoundException"></exception>
+    /// <exception cref="MimirorgBadRequestException"></exception>
+    /// <exception cref="MimirorgNotFoundException"></exception>
     public async Task RemovePermission(MimirorgUserPermissionAm userPermission)
     {
         var validation = userPermission.ValidateObject();
