@@ -13,7 +13,7 @@ public class TerminalTypeRequest : IValidatableObject
     public string? Description { get; set; }
 
     [Required]
-    public ICollection<int> ClassifierIds { get; set; }
+    public ICollection<int> ClassifierIds { get; set; } = new List<int>();
 
     public int? PurposeId { get; set; }
 
@@ -29,7 +29,7 @@ public class TerminalTypeRequest : IValidatableObject
     public Direction Qualifier { get; set; }
 
     [Required]
-    public ICollection<AttributeTypeReferenceRequest> Attributes { get; set; }
+    public ICollection<AttributeTypeReferenceRequest> Attributes { get; set; } = new List<AttributeTypeReferenceRequest>();
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
