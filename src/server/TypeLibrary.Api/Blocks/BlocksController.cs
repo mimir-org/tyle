@@ -2,12 +2,9 @@ using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
-using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Services.Blocks;
 using TypeLibrary.Services.Blocks.Requests;
@@ -35,7 +32,7 @@ public class BlocksController : ControllerBase
     /// </summary>
     /// <returns>A collection of blocks</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<BlockTypeView>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<BlockView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public async Task<IActionResult> GetAll()
@@ -57,7 +54,7 @@ public class BlocksController : ControllerBase
     /// <param name="id">The id of the block to get</param>
     /// <returns>The requested block</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(BlockTypeView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -86,7 +83,7 @@ public class BlocksController : ControllerBase
     /// <param name="request">The block that should be created</param>
     /// <returns>The created block</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(BlockTypeView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -111,7 +108,7 @@ public class BlocksController : ControllerBase
     /// <param name="request">The new values of the block</param>
     /// <returns>The updated block</returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(BlockTypeView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
