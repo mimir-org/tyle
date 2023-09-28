@@ -85,8 +85,6 @@ export const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean]
   const rdsQuery = useGetAllRds();
   const attributeGroupsQuery = useGetAttributeGroups();
 
-  console.log(attributeGroupsQuery.data);
-
   const isLoading =
     blockQuery.isLoading ||
     terminalQuery.isLoading ||
@@ -97,13 +95,13 @@ export const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean]
     rdsQuery.isLoading;
 
   const mergedItems = [
-    // ...(blockQuery.data ?? []),
-    // ...(terminalQuery.data ?? []),
-    // ...(attributeQuery.data ?? []),
+    ...(blockQuery.data ?? []),
+    ...(terminalQuery.data ?? []),
+    ...(attributeQuery.data ?? []),
     ...(attributeGroupsQuery.data ?? []),
-    // ...(unitQuery.data ?? []),
-    // ...(datumQuery.data ?? []),
-    // ...(rdsQuery.data ?? []),
+    ...(unitQuery.data ?? []),
+    ...(datumQuery.data ?? []),
+    ...(rdsQuery.data ?? []),
   ];
 
   return [mergedItems, isLoading];
@@ -121,7 +119,6 @@ export const mapSearchResults = (items: SearchResultRaw[]) => {
     else if (isRdsLibCm(x)) mappedSearchResults.push(toRdsItem(x));
     else if (isAttributeGroupLibCm(x)) mappedSearchResults.push(toAttributeGroupItem(x));
   });
-  console.log(mappedSearchResults);
 
   return mappedSearchResults;
 };

@@ -55,8 +55,6 @@ export const AttributeGroupForm = ({
 
   const toast = useSubmissionToast(t("attributeGroup.title"));
 
-  const limited = mode === "edit";
-
   return (
     <FormProvider {...formMethods}>
       <FormContainer
@@ -67,7 +65,7 @@ export const AttributeGroupForm = ({
         {isLoading && <Loader />}
         {!isLoading && (
           <>
-            <AttributeGroupFormBaseFields limited={limited} mode={mode} />
+            <AttributeGroupFormBaseFields mode={mode} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
               <FormAttributes
@@ -76,8 +74,6 @@ export const AttributeGroupForm = ({
                 append={attributeFields.append}
                 remove={attributeFields.remove}
                 preprocess={prepareAttributes}
-                canAddAttributes={!limited}
-                canRemoveAttributes={!limited}
               />
             </Box>
           </>

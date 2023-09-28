@@ -28,7 +28,5 @@ export const useSearchResults = (
 
   const mapped = mapSearchResults(sliced);
 
-  console.log(mapped);
-
   return [mapped, filtered.length, isLoading];
 };

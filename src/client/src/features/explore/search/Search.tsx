@@ -63,6 +63,7 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
   const lowerShown = (Number(pageParam) - 1) * pageLimit + 1;
   const higherShown = Math.min(Number(pageParam) * pageLimit, totalHits);
   const shown = totalHits < pageLimit ? totalHits : lowerShown <= higherShown ? lowerShown + "–" + higherShown : 0;
+
   return (
     <ExploreSection title={t("search.title")}>
       <Flexbox gap={theme.mimirorg.spacing.xxxl} alignItems={"center"}>

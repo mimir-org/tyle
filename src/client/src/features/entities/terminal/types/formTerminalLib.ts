@@ -23,7 +23,7 @@ export const mapFormTerminalLibToApiModel = (formTerminal: FormTerminalLib): Ter
 export const mapTerminalLibCmToFormTerminalLib = (terminalLibCm: TerminalLibCm): FormTerminalLib => ({
   ...terminalLibCm,
   attributes: terminalLibCm.attributes.map((x) => ({ value: x.id })),
-  attributeGroups: terminalLibCm.attributeGroups ? terminalLibCm.attributeGroups.map((x) => ({ value: x })) : [],
+  attributeGroups: [],
 });
 
 export const createEmptyFormTerminalLib = (): FormTerminalLib => ({
