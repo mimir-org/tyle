@@ -11,4 +11,10 @@ public static class StringLengthConstants
     public const int UnitSymbolLength = 20;
 
     public const int NotationLength = 50;
+
+    public const int EnumLength = 50;
+
+    public const int VersionLength = 10;
+    public const int CreatedByLength = 100;
+    public const int ContributedByLength = 2000;
 }

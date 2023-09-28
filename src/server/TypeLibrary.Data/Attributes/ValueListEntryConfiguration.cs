@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TypeLibrary.Core.Attributes;
+using TypeLibrary.Services.Common;
 
 namespace TypeLibrary.Data.Attributes;
 
@@ -10,6 +11,6 @@ public class ValueListEntryConfiguration : IEntityTypeConfiguration<ValueListEnt
     {
         builder.ToTable("ValueListEntry");
 
-        builder.Property(x => x.EntryValue).IsRequired();
+        builder.Property(x => x.EntryValue).IsRequired().HasMaxLength(StringLengthConstants.ValueLength);
     }
 }

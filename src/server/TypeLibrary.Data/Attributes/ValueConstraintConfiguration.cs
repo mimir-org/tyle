@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TypeLibrary.Core.Attributes;
+using TypeLibrary.Services.Common;
 
 namespace TypeLibrary.Data.Attributes;
 
@@ -12,8 +13,10 @@ public class ValueConstraintConfiguration : IEntityTypeConfiguration<ValueConstr
 
         builder.HasKey(x => x.AttributeId);
 
-        builder.Property(x => x.ConstraintType).IsRequired().HasConversion<string>();
-        builder.Property(x => x.DataType).IsRequired().HasConversion<string>();
+        builder.Property(x => x.ConstraintType).IsRequired().HasConversion<string>().HasMaxLength(StringLengthConstants.EnumLength);
+        builder.Property(x => x.DataType).IsRequired().HasConversion<string>().HasMaxLength(StringLengthConstants.EnumLength);
+        builder.Property(x => x.Value).HasMaxLength(StringLengthConstants.ValueLength);
+        builder.Property(x => x.Pattern).HasMaxLength(StringLengthConstants.ValueLength);
         builder.Property(x => x.MinValue).HasPrecision(38, 19);
         builder.Property(x => x.MaxValue).HasPrecision(38, 19);
 
