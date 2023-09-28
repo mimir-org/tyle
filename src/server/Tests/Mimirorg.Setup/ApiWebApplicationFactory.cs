@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication;
 using TypeLibrary.Core.Terminals;
 using TypeLibrary.Data;
+using TypeLibrary.Services.Common;
 using TypeLibrary.Services.Terminals;
 using TypeLibrary.Services.Terminals.Requests;
 
@@ -21,7 +22,7 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Program>
         builder.ConfigureTestServices(services =>
         {
             // remove the existing context configuration
-            var descriptors = services.Where(d => d.ServiceType == typeof(IHostedService) || d.ServiceType == typeof(DbContextOptions<TyleDbContext>) || d.ServiceType == typeof(DbContextOptions<MimirorgAuthenticationContext>)).ToList();
+            var descriptors = services.Where(d => d.ServiceType == typeof(IUserInformationService) || d.ServiceType == typeof(IHostedService) || d.ServiceType == typeof(DbContextOptions<TyleDbContext>) || d.ServiceType == typeof(DbContextOptions<MimirorgAuthenticationContext>)).ToList();
             if (descriptors.Any())
             {
                 foreach (var descriptor in descriptors)
@@ -32,6 +33,7 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Program>
 
             services.AddDbContext<TyleDbContext>(options => options.UseInMemoryDatabase("TestDB"), ServiceLifetime.Transient);
             services.AddDbContext<MimirorgAuthenticationContext>(options => options.UseInMemoryDatabase("TestDBAuth"), ServiceLifetime.Transient);
+            services.AddScoped<IUserInformationService, FakeUserInformationService>();
             services.AddAuthentication("IntegrationUser").AddScheme<AuthenticationSchemeOptions, IntegrationTestAuthenticationHandler>("IntegrationUser", _ => { });
 
             var sp = services.BuildServiceProvider();
@@ -74,5 +76,13 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Program>
         await terminalRepository.Create(terminalB);
 
         return true;
+    }
+}
+
+public class FakeUserInformationService : IUserInformationService
+{
+    public string GetUserId()
+    {
+        return "fake-user-id";
     }
 }

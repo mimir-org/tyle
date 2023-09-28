@@ -162,7 +162,10 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<TyleDbContext>();
-    context.Database.Migrate();
+    if (context.Database.IsRelational())
+    {
+        context.Database.Migrate();
+    }
 }
 
 app.MapControllers();

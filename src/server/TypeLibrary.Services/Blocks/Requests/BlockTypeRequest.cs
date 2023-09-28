@@ -12,7 +12,7 @@ public class BlockTypeRequest : IValidatableObject
     public string? Description { get; set; }
 
     [Required]
-    public ICollection<int> ClassifierIds { get; set; }
+    public ICollection<int> ClassifierIds { get; set; } = new List<int>();
 
     public int? PurposeId { get; set; }
 
@@ -23,10 +23,10 @@ public class BlockTypeRequest : IValidatableObject
     public Aspect? Aspect { get; set; }
 
     [Required]
-    public ICollection<TerminalTypeReferenceRequest> Terminals { get; set; }
+    public ICollection<TerminalTypeReferenceRequest> Terminals { get; set; } = new List<TerminalTypeReferenceRequest>();
 
     [Required]
-    public ICollection<AttributeTypeReferenceRequest> Attributes { get; set; }
+    public ICollection<AttributeTypeReferenceRequest> Attributes { get; set; } = new List<AttributeTypeReferenceRequest>();
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

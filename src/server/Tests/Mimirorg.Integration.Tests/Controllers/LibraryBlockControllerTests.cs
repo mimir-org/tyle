@@ -1,10 +1,10 @@
-/*using System.Net;
+using System.Net;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Test.Setup;
-using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
-using TypeLibrary.Services.Contracts;
+using TypeLibrary.Core.Common;
+using TypeLibrary.Services.Blocks;
+using TypeLibrary.Services.Blocks.Requests;
 using Xunit;
 
 namespace Mimirorg.Test.Integration.Controllers;
@@ -16,7 +16,7 @@ public class LibraryBlockControllerTests : IntegrationTest
     }
 
     [Theory]
-    [InlineData("/v1/libraryblock")]
+    [InlineData("/v1/blocks")]
     public async Task GET_Retrieves_Status_Ok(string endpoint)
     {
         var client = Factory.WithWebHostBuilder(builder =>
@@ -33,7 +33,7 @@ public class LibraryBlockControllerTests : IntegrationTest
     }
 
     [Theory]
-    [InlineData("/v1/libraryblock/")]
+    [InlineData("/v1/blocks/")]
     public async Task GET_Id_Retrieves_Status_Ok(string endpoint)
     {
         var client = Factory.WithWebHostBuilder(builder =>
@@ -50,23 +50,19 @@ public class LibraryBlockControllerTests : IntegrationTest
         var blockToCreate = new BlockTypeRequest
         {
             Name = $"{guid}_dummy_name",
-            RdsId = "rds-id",
-            PurposeName = $"{guid}_dummy_purpose_name",
-            Aspect = Aspect.NotSet,
-            CompanyId = 1,
-            Version = "1.0"
+            Aspect = Aspect.Function
         };
 
         using var scope = Factory.Server.Services.CreateScope();
-        var blockService = scope.ServiceProvider.GetRequiredService<IBlockService>();
-        var createdBlock = await blockService.Create(blockToCreate);
+        var blockRepository = scope.ServiceProvider.GetRequiredService<IBlockRepository>();
+        var createdBlock = await blockRepository.Create(blockToCreate);
 
         var response = await client.GetAsync(endpoint + createdBlock.Id);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 
     [Theory]
-    [InlineData("/v1/libraryblock/666666")]
+    [InlineData("/v1/block/66666666-6666-6666-6666-666666666666")]
     public async Task GET_Id_Retrieves_Status_No_Content(string endpoint)
     {
         var client = Factory.WithWebHostBuilder(builder =>
@@ -80,4 +76,4 @@ public class LibraryBlockControllerTests : IntegrationTest
         var response = await client.GetAsync(endpoint);
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
-}*/
+}
