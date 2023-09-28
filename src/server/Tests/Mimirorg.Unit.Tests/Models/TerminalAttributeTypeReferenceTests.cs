@@ -2,7 +2,6 @@ using System;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
-using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Domain;
 using Xunit;
 

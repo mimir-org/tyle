@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Mimirorg.Common\Mimirorg.Common.csproj" />
-    <ProjectReference Include="..\Mimirorg.TypeLibrary\Mimirorg.TypeLibrary.csproj" />
   </ItemGroup>
 
 </Project>

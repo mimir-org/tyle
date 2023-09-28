@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Mimirorg.Common\Mimirorg.Common.csproj" />
-    <ProjectReference Include="..\..\Mimirorg.TypeLibrary\Mimirorg.TypeLibrary.csproj" />
     <ProjectReference Include="..\Mimirorg.Setup\Mimirorg.Test.Setup.csproj" />
   </ItemGroup>
 

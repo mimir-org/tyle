@@ -4,12 +4,12 @@ using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Authentication.Services;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
-using Mimirorg.TypeLibrary.Enums;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Mimirorg.Authentication.Enums;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Services;

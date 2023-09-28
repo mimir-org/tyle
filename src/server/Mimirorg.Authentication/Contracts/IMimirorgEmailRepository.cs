@@ -1,4 +1,4 @@
-using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.Authentication.Models.Application;
 
 namespace Mimirorg.Authentication.Contracts;
 

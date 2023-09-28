@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.TypeLibrary.Constants;
-using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Security.Authentication;
+using Mimirorg.Authentication.Constants;
+using Mimirorg.Authentication.Enums;
+using Mimirorg.Authentication.Models.Application;
+using Mimirorg.Authentication.Models.Client;
 
 namespace Mimirorg.Authentication.Controllers.V1;
 

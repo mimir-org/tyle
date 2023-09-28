@@ -1,9 +1,9 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Mimirorg.Authentication.Constants;
+using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Models.Attributes;
-using Mimirorg.TypeLibrary.Constants;
-using Mimirorg.TypeLibrary.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Core.Terminals;
 using TypeLibrary.Services.Terminals;

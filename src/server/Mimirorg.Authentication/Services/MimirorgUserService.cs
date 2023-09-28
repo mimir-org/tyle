@@ -10,14 +10,13 @@ using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
-using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Extensions;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
+using Mimirorg.Authentication.Enums;
+using Mimirorg.Authentication.Models.Application;
+using Mimirorg.Authentication.Models.Client;
 
 namespace Mimirorg.Authentication.Services;
 

@@ -1,6 +1,6 @@
+using Mimirorg.Authentication.Enums;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
-using Mimirorg.TypeLibrary.Enums;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Models;

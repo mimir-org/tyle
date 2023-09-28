@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeLibrary.Services", "Typ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Common", "Mimirorg.Common\Mimirorg.Common.csproj", "{752EE90A-8F6E-4C62-BE89-57AE9C7C2D87}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.TypeLibrary", "Mimirorg.TypeLibrary\Mimirorg.TypeLibrary.csproj", "{08BB0BD6-A925-4D91-A54C-3440E6F59763}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Authentication", "Mimirorg.Authentication\Mimirorg.Authentication.csproj", "{4E750FC1-A399-41AD-99A9-1D6A97D37AF1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8872F15B-D9B0-429D-92CB-CEDF151AEFCA}"
@@ -51,10 +49,6 @@ Global
 		{752EE90A-8F6E-4C62-BE89-57AE9C7C2D87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{752EE90A-8F6E-4C62-BE89-57AE9C7C2D87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{752EE90A-8F6E-4C62-BE89-57AE9C7C2D87}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08BB0BD6-A925-4D91-A54C-3440E6F59763}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08BB0BD6-A925-4D91-A54C-3440E6F59763}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08BB0BD6-A925-4D91-A54C-3440E6F59763}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08BB0BD6-A925-4D91-A54C-3440E6F59763}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4E750FC1-A399-41AD-99A9-1D6A97D37AF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4E750FC1-A399-41AD-99A9-1D6A97D37AF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E750FC1-A399-41AD-99A9-1D6A97D37AF1}.Release|Any CPU.ActiveCfg = Release|Any CPU

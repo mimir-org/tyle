@@ -1,8 +1,8 @@
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
+using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
-using Mimirorg.TypeLibrary.Models.Application;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 

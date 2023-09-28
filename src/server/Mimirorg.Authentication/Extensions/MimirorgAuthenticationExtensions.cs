@@ -12,12 +12,12 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Mimirorg.Authentication.Abstract;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Factories;
 using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Authentication.Repositories;
 using Mimirorg.Authentication.Services;
-using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 
