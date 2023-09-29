@@ -13,14 +13,12 @@ export const mapAttributeGroupLibCmToInfoItem = (attributeGroup: AttributeGroupL
     },
   };
 
-  if (true) {
-    return {
-      ...infoItem,
-      descriptors: {
-        ...infoItem.descriptors,
-      },
-    };
-  }
+  return {
+    ...infoItem,
+    descriptors: {
+      ...infoItem.descriptors,
+    },
+  };
 
   return infoItem;
 };
