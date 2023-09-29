@@ -21,8 +21,6 @@ export const AttributeGroupPanel = ({ name, description, attributes }: Attribute
 
   const showAttributes = attributes && attributes.length > 0;
 
-  console.log(attributes);
-
   return (
     <MotionBox
       flex={1}

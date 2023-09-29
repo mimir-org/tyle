@@ -40,8 +40,6 @@ const emptyTerminalLibAm: AttributeGroupLibAm = {
 };
 
 export const toFormAttributeGroupLib = (attributeGroup: AttributeGroupLibCm): FormAttributeGroupLib => {
-  // const defaultUnit = attributeGroup.attributeUnits.find((x) => x.isDefault)?.unit;
-
   return {
     name: attributeGroup.name,
     description: attributeGroup.description,

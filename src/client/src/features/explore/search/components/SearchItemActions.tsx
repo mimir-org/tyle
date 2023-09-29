@@ -16,9 +16,10 @@ type SearchItemProps = {
   user: UserItem | null;
   item: ItemType;
   children?: React.ReactNode;
+  showState?: boolean;
 };
 
-export const SearchItemActions = ({ user, item, children }: SearchItemProps) => {
+export const SearchItemActions = ({ user, item, children, showState = true }: SearchItemProps) => {
   const [isApprovalOpen, setIsApprovalOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const theme = useTheme();
@@ -61,7 +62,7 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
 
   return (
     <>
-      {!isStateApproved && <StateBadge state={item.state} />}
+      {!isStateApproved && showState && <StateBadge state={item.state} />}
       <PlainLink tabIndex={-1} to={cloneLink}>
         <Tooltip content={<Text>{t("search.item.clone")}</Text>}>
           <Button
