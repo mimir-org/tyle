@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Mimirorg.Authentication.Extensions;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;

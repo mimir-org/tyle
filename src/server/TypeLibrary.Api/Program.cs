@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Mimirorg.Authentication.Extensions;
+using Mimirorg.Authentication.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using TypeLibrary.Api;
-using TypeLibrary.Api.Extensions;
 using TypeLibrary.Data;
 
 var builder = WebApplication.CreateBuilder(args);

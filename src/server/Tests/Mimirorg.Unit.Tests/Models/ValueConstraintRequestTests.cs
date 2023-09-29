@@ -2,12 +2,10 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using TypeLibrary.Core.Attributes;
 using TypeLibrary.Services.Attributes.Requests;
 using TypeLibrary.Services.Common;
 using Xunit;
-using static Lucene.Net.Queries.Function.ValueSources.MultiFunction;
 
 namespace Mimirorg.Test.Unit.Models;
 

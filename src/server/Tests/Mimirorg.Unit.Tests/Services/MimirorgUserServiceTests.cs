@@ -5,10 +5,6 @@ using Mimirorg.Authentication.Services;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Mimirorg.Authentication.Enums;
 using Xunit;
 
@@ -304,7 +300,7 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
     private IMimirorgUserService SetupUserService(IEnumerable<MimirorgUser> users, IEnumerable<MimirorgToken> tokens)
     {
         var store = new Mock<IUserStore<MimirorgUser>>();
-        var userManagerMock = new Mock<UserManager<MimirorgUser>>(store.Object, null, null, null, null, null, null, null, null);
+        var userManagerMock = new Mock<UserManager<MimirorgUser>>(store.Object, null!, null!, null!, null!, null!, null!, null!, null!);
         Mock<IMimirorgTokenRepository> tokenRepositoryMock = new();
 
         userManagerMock.Setup(x => x.Users).Returns(users.AsQueryable());

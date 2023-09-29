@@ -2,5 +2,5 @@ namespace TypeLibrary.Api.Attributes;
 
 public class HasStringValueConstraintView : ValueConstraintView
 {
-    public string Value { get; set; }
+    public required string Value { get; set; }
 }

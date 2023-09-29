@@ -14,10 +14,10 @@ public class RequiredOneAttribute : ValidationAttribute
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
-        var dependentValue = validationContext?.ObjectInstance.GetType().GetProperty(_dependent)?.GetValue(validationContext.ObjectInstance, null);
+        var dependentValue = validationContext.ObjectInstance.GetType().GetProperty(_dependent)?.GetValue(validationContext.ObjectInstance, null);
 
         if (string.IsNullOrWhiteSpace(value?.ToString()) && string.IsNullOrWhiteSpace(dependentValue?.ToString()))
-            return new ValidationResult("One of those fields are required.", new List<string> { validationContext?.MemberName, _dependent });
+            return new ValidationResult("One of those fields are required.", new List<string> { validationContext.MemberName, _dependent });
 
         return ValidationResult.Success;
     }

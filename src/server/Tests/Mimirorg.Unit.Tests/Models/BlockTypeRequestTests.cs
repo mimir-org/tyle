@@ -5,7 +5,6 @@ using Mimirorg.Test.Setup.Fixtures;
 using TypeLibrary.Core.Terminals;
 using TypeLibrary.Services.Blocks.Requests;
 using TypeLibrary.Services.Common.Requests;
-using TypeLibrary.Services.Terminals.Requests;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Models;

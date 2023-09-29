@@ -6,7 +6,7 @@ namespace TypeLibrary.Api.Attributes;
 public class AttributeView : ImfType
 {
     public RdlPredicate? Predicate { get; set; }
-    public ICollection<RdlUnit> Units { get; set; }
+    public ICollection<RdlUnit> Units { get; set; } = new List<RdlUnit>();
     public int UnitMinCount { get; set; }
     public int UnitMaxCount { get; set; }
     public ProvenanceQualifier? ProvenanceQualifier { get; set; }
