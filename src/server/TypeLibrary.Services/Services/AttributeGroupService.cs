@@ -1,5 +1,6 @@
 using AutoMapper;
 using Lucene.Net.Util;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
@@ -112,13 +113,14 @@ namespace TypeLibrary.Services.Services
 
             if (!attributeGroup.IsValid)
                 throw new MimirorgBadRequestException("Attribute is not valid.", attributeGroup);
-
-            var attributeGroupToUpdate = _attributeGroupRepository.GetSingleAttributeGroup(id);
+                        
+            var attributeGroupToUpdate = _attributeGroupRepository.FindBy(x => x.Id == id, false).Include(x => x.AttributeGroupAttributes).FirstOrDefault();
 
             if (attributeGroupToUpdate == null)
                 throw new Exception($"Could not find the Attribute group with id: {id}");
 
             attributeGroupToUpdate.Name = attributeGroupAm.Name;
+            attributeGroupToUpdate.Description = attributeGroupAm.Description;
             attributeGroupToUpdate.AttributeGroupAttributes ??= new List<AttributeGroupAttributesLibDm>();
             attributeGroupToUpdate.Attributes ??= new List<AttributeLibDm>();
 
@@ -141,9 +143,9 @@ namespace TypeLibrary.Services.Services
                     }
                 }
             }
-
-            await _attributeGroupRepository.SaveAsync();
             await _attributeGroupAttributeRepository.SaveAsync();
+            await _attributeGroupRepository.SaveAsync();
+      
 
             return GetSingleAttributeGroup(attributeGroupToUpdate.Id);
         }
