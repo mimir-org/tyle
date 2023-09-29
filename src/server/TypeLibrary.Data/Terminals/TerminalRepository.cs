@@ -237,16 +237,15 @@ public class TerminalRepository : ITerminalRepository
 
     public async Task<bool> Delete(Guid id)
     {
-        try
-        {
-            var terminalStub = new TerminalType { Id = id };
-            _dbSet.Remove(terminalStub);
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
+        var terminal = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+        if (terminal == null)
         {
             return false;
         }
+
+        _dbSet.Remove(terminal);
+        await _context.SaveChangesAsync();
 
         return true;
     }

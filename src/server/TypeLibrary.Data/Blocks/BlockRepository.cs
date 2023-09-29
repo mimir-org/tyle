@@ -145,6 +145,7 @@ public class BlockRepository : IBlockRepository
         {
             block.ContributedBy.Add(_userInformationService.GetUserId());
         }
+
         block.LastUpdateOn = DateTimeOffset.Now;
 
         var blockClassifiersToRemove = block.Classifiers.Where(x => !request.ClassifierIds.Contains(x.ClassifierId)).ToList();
@@ -273,16 +274,15 @@ public class BlockRepository : IBlockRepository
 
     public async Task<bool> Delete(Guid id)
     {
-        try
-        {
-            var blockStub = new BlockType { Id = id };
-            _dbSet.Remove(blockStub);
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
+        var block = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+        if (block == null)
         {
             return false;
         }
+
+        _dbSet.Remove(block);
+        await _context.SaveChangesAsync();
 
         return true;
     }

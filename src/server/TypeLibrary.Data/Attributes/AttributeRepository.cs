@@ -182,16 +182,15 @@ public class AttributeRepository : IAttributeRepository
 
     public async Task<bool> Delete(Guid id)
     {
-        try
-        {
-            var attributeStub = new AttributeType { Id = id };
-            _dbSet.Remove(attributeStub);
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
+        var attribute = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+        if (attribute == null)
         {
             return false;
         }
+
+        _dbSet.Remove(attribute);
+        await _context.SaveChangesAsync();
 
         return true;
     }

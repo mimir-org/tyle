@@ -1,11 +1,10 @@
-namespace TypeLibrary.Core.Attributes
+namespace TypeLibrary.Core.Attributes;
+
+public enum XsdDataType
 {
-    public enum XsdDataType
-    {
-        String = 0,
-        Decimal = 1,
-        Integer = 2,
-        Boolean = 3,
-        AnyUri = 4
-    }
+    String = 0,
+    Decimal = 1,
+    Integer = 2,
+    Boolean = 3,
+    AnyUri = 4
 }

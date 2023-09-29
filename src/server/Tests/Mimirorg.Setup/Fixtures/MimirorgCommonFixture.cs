@@ -73,6 +73,7 @@ public class MimirorgCommonFixture : IDisposable
         {
             CreatedBy = "Unknown",
             Name = "AA",
+            Version = "",
             Aspect = Aspect.Function,
             Terminals = new List<BlockTerminalTypeReference>()
             {

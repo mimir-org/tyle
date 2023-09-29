@@ -1,8 +1,7 @@
 using TypeLibrary.Core.Common;
 
-namespace TypeLibrary.Core.Attributes
+namespace TypeLibrary.Core.Attributes;
+
+public class RdlPredicate : RdlObject
 {
-    public class RdlPredicate : RdlObject
-    {
-    }
 }

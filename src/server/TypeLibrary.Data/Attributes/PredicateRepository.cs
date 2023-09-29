@@ -40,16 +40,15 @@ public class PredicateRepository : IPredicateRepository
 
     public async Task<bool> Delete(int id)
     {
-        try
-        {
-            var predicateStub = new RdlPredicate { Id = id };
-            _dbSet.Remove(predicateStub);
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
+        var predicate = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+        if (predicate == null)
         {
             return false;
         }
+
+        _dbSet.Remove(predicate);
+        await _context.SaveChangesAsync();
 
         return true;
     }

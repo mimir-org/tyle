@@ -40,16 +40,15 @@ public class MediumRepository : IMediumRepository
 
     public async Task<bool> Delete(int id)
     {
-        try
-        {
-            var mediumStub = new RdlMedium { Id = id };
-            _dbSet.Remove(mediumStub);
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
+        var medium = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+        if (medium == null)
         {
             return false;
         }
+
+        _dbSet.Remove(medium);
+        await _context.SaveChangesAsync();
 
         return true;
     }

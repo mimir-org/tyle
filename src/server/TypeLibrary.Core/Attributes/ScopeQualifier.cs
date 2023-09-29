@@ -1,8 +1,7 @@
-namespace TypeLibrary.Core.Attributes
+namespace TypeLibrary.Core.Attributes;
+
+public enum ScopeQualifier
 {
-    public enum ScopeQualifier
-    {
-        DesignQualifier = 0,
-        OperatingQualifier = 1
-    }
+    DesignQualifier = 0,
+    OperatingQualifier = 1
 }

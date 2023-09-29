@@ -40,16 +40,15 @@ public class ClassifierRepository : IClassifierRepository
 
     public async Task<bool> Delete(int id)
     {
-        try
-        {
-            var classifierStub = new RdlClassifier { Id = id };
-            _dbSet.Remove(classifierStub);
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
+        var classifier = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+        if (classifier == null)
         {
             return false;
         }
+
+        _dbSet.Remove(classifier);
+        await _context.SaveChangesAsync();
 
         return true;
     }

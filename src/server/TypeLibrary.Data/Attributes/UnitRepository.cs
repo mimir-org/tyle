@@ -40,16 +40,15 @@ public class UnitRepository : IUnitRepository
 
     public async Task<bool> Delete(int id)
     {
-        try
-        {
-            var unitStub = new RdlUnit { Id = id };
-            _dbSet.Remove(unitStub);
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
+        var unit = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+        if (unit == null)
         {
             return false;
         }
+
+        _dbSet.Remove(unit);
+        await _context.SaveChangesAsync();
 
         return true;
     }

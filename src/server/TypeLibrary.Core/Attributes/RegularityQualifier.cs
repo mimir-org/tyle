@@ -1,8 +1,7 @@
-namespace TypeLibrary.Core.Attributes
+namespace TypeLibrary.Core.Attributes;
+
+public enum RegularityQualifier
 {
-    public enum RegularityQualifier
-    {
-        AbsoluteQualifier = 0,
-        ContinuousQualifier = 1
-    }
+    AbsoluteQualifier = 0,
+    ContinuousQualifier = 1
 }
