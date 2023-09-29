@@ -113,7 +113,7 @@ namespace TypeLibrary.Services.Services
 
             if (!attributeGroup.IsValid)
                 throw new MimirorgBadRequestException("Attribute is not valid.", attributeGroup);
-                        
+
             var attributeGroupToUpdate = _attributeGroupRepository.FindBy(x => x.Id == id, false).Include(x => x.AttributeGroupAttributes).FirstOrDefault();
 
             if (attributeGroupToUpdate == null)
@@ -145,7 +145,7 @@ namespace TypeLibrary.Services.Services
             }
             await _attributeGroupAttributeRepository.SaveAsync();
             await _attributeGroupRepository.SaveAsync();
-      
+
 
             return GetSingleAttributeGroup(attributeGroupToUpdate.Id);
         }
