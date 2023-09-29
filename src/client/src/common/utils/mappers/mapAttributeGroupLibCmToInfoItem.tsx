@@ -13,10 +13,6 @@ export const mapAttributeGroupLibCmToInfoItem = (attributeGroup: AttributeGroupL
     },
   };
 
-  const attribute = attributeGroup.attributes;
-
-  //   const attributeHasUnits = attribute.attributeGroupUnits && attribute.attributeGroupUnits.length > 0;
-  //   if (attributeHasUnits)
   if (true) {
     return {
       ...infoItem,

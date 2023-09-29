@@ -30,14 +30,6 @@ export const useUpdateAttributeGroup = (id?: string) => {
   });
 };
 
-// export const usePatchAttributeState = () => {
-//   const queryClient = useQueryClient();
-
-//   return useMutation((item: { id: string; state: State }) => attributeApi.patchAttributeState(item.id, item.state), {
-//     onSuccess: () => queryClient.invalidateQueries(keys.attributeLists()),
-//   });
-// };
-
 export const useDeleteAttributeGroup = (id: string) => {
   const queryClient = useQueryClient();
 

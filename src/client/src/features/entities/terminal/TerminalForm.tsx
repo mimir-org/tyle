@@ -83,7 +83,6 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
                 fields={attributeGroupFields.fields}
                 append={attributeGroupFields.append}
                 remove={attributeGroupFields.remove}
-                // preprocess={prepareAttributeGroups}
                 canAddAttributeGroups={!limited}
                 canRemoveAttributeGroups={!limited}
               />

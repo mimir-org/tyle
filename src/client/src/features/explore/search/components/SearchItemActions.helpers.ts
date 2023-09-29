@@ -55,7 +55,7 @@ export function usePatchMutation(item: ItemType) {
   const patchRdsMutation = usePatchRdsState();
   const patchTerminalMutation = usePatchTerminalState();
   const patchUnitMutation = usePatchUnitState();
-  const patchAttributeGroup = usePatchAttributeState(); //This is just to fix dependencies as attribute group does not have state.... It will never be called...
+  const patchAttributeGroup = usePatchUnitState();
 
   switch (item.kind) {
     case "BlockItem":
