@@ -40,6 +40,7 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     coverage: {
+      provider: "istanbul",
       reporter: ["text", "html"],
       exclude: ["node_modules/", "src/setupTests.ts"],
     },
