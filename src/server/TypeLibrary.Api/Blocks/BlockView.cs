@@ -1,3 +1,4 @@
+using TypeLibrary.Api.Common;
 using TypeLibrary.Core.Blocks;
 using TypeLibrary.Core.Common;
 
@@ -10,6 +11,6 @@ public class BlockView : ImfType
     public string? Notation { get; set; }
     public string? Symbol { get; set; }
     public Aspect? Aspect { get; set; }
-    public ICollection<BlockTerminalTypeReference> Terminals { get; set; } = new List<BlockTerminalTypeReference>();
-    public ICollection<BlockAttributeTypeReference> Attributes { get; set; } = new List<BlockAttributeTypeReference>();
+    public ICollection<TerminalTypeReferenceView> Terminals { get; set; } = new List<TerminalTypeReferenceView>();
+    public ICollection<AttributeTypeReferenceView> Attributes { get; set; } = new List<AttributeTypeReferenceView>();
 }

@@ -1,3 +1,4 @@
+using TypeLibrary.Api.Common;
 using TypeLibrary.Core.Common;
 using TypeLibrary.Core.Terminals;
 
@@ -12,5 +13,5 @@ public class TerminalView : ImfType
     public Aspect? Aspect { get; set; }
     public RdlMedium? Medium { get; set; }
     public Direction Qualifier { get; set; }
-    public ICollection<TerminalAttributeTypeReference> Attributes { get; set; } = new List<TerminalAttributeTypeReference>();
+    public ICollection<AttributeTypeReferenceView> Attributes { get; set; } = new List<AttributeTypeReferenceView>();
 }

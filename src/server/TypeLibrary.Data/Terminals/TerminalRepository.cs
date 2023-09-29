@@ -25,7 +25,9 @@ public class TerminalRepository : ITerminalRepository
             .Include(x => x.Classifiers).ThenInclude(x => x.Classifier)
             .Include(x => x.Purpose)
             .Include(x => x.Medium)
-            .Include(x => x.Attributes).ThenInclude(x => x.Attribute)
+            .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Predicate)
+            .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Units).ThenInclude(x => x.Unit)
+            .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
             .AsSplitQuery()
             .ToListAsync();
     }
@@ -36,7 +38,9 @@ public class TerminalRepository : ITerminalRepository
             .Include(x => x.Classifiers).ThenInclude(x => x.Classifier)
             .Include(x => x.Purpose)
             .Include(x => x.Medium)
-            .Include(x => x.Attributes).ThenInclude(x => x.Attribute)
+            .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Predicate)
+            .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Units).ThenInclude(x => x.Unit)
+            .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
             .AsSplitQuery()
             .FirstOrDefaultAsync(x => x.Id == id);
     }
