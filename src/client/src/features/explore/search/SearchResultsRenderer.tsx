@@ -72,7 +72,7 @@ export function SearchResultsRenderer({
           onClick={() => setSelected({ id: item.id, type: "attributeGroup" })}
           preview={<AttributeGroupPreview small {...toFormAttributeGroupLib(item as AttributeGroupLibCm)} />}
           description={<ItemDescription {...(item as AttributeGroupLibCm)} />}
-          actions={<SearchItemActions user={user} item={item} showState={false} />}
+          actions={<SearchItemActions user={user} item={item} isAttributeGroup={true} />}
         />
       );
     case "UnitItem":

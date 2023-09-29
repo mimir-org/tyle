@@ -1,4 +1,4 @@
-import { AttributeGroupLibCm } from "@mimirorg/typelibrary-types";
+import { AttributeGroupLibCm, State } from "@mimirorg/typelibrary-types";
 import { AttributeGroupItem } from "common/types/attributeGroupItem";
 
 export const toAttributeGroupItem = (attribute: AttributeGroupLibCm): AttributeGroupItem => {
@@ -10,6 +10,7 @@ export const toAttributeGroupItem = (attribute: AttributeGroupLibCm): AttributeG
     description: attribute.description,
     kind: "AttributeGroupItem",
     attributeIds: attribute.attributes.map((x) => x.id),
-    state: attribute.state,
+    state: State.Draft,
+    attributes: attribute.attributes,
   };
 };

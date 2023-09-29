@@ -25,6 +25,7 @@ export const mapAttributeGroupLibCmToFormAttributeGroupLib = (
   ...attributeGroupLibCm,
   attributes: attributeGroupLibCm.attributes.map((x) => ({ value: x.id })),
   attributeIds: attributeGroupLibCm.attributes.map((x) => x.id),
+  state: State.Draft,
 });
 
 export const createEmptyFormAttributeGroupLib = (): FormAttributeGroupLib => ({
@@ -45,6 +46,6 @@ export const toFormAttributeGroupLib = (attributeGroup: AttributeGroupLibCm): Fo
     description: attributeGroup.description,
     attributeIds: [],
     attributes: [],
-    state: attributeGroup.state,
+    state: State.Draft,
   };
 };

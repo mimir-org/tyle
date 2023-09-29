@@ -22,10 +22,8 @@ import { toFormDatumLib } from "../../entities/quantityDatum/types/formQuantityD
 import { toFormRdsLib } from "../../entities/RDS/types/formRdsLib";
 import UnifiedPanel from "./components/common/UnifiedPanel";
 import { useGetAttributeGroup } from "external/sources/attributeGroup/attributeGroup.queries";
-import { toFormAttributeGroupLib } from "features/entities/attributeGroups/types/formAttributeGroupLib";
-import AttributeGroupPreview from "features/entities/entityPreviews/attributeGroup/AttributeGroupPreview";
-import { toAttributeGroupItem } from "common/utils/mappers/mapAttributeGroupLibCmToAttributeGroupItem";
 import { AttributeGroupPanel } from "./components/attributeGroup/AttributeGroupPanel";
+import { State } from "@mimirorg/typelibrary-types";
 
 interface AboutProps {
   selected?: SelectedInfo;
@@ -126,6 +124,7 @@ export const About = ({ selected }: AboutProps) => {
           kind={attributeGroupQuery.data.kind}
           attributeIds={attributeGroupQuery.data.attributes.map((x) => x.id)}
           attributes={attributeGroupQuery.data.attributes}
+          state={State.Draft}
         />
       )}
     </ExploreSection>
