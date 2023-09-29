@@ -2,9 +2,12 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using TypeLibrary.Core.Attributes;
 using TypeLibrary.Services.Attributes.Requests;
+using TypeLibrary.Services.Common;
 using Xunit;
+using static Lucene.Net.Queries.Function.ValueSources.MultiFunction;
 
 namespace Mimirorg.Test.Unit.Models;
 
@@ -72,6 +75,28 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
     }
 
     [Theory]
+    [InlineData(0, 2, true)]
+    [InlineData(3, 3, true)]
+    [InlineData(1, null, true)]
+    [InlineData(5, 1, false)]
+    public void MinCountMustBeSmallerThanOrEqualToMaxCount(int? minCount, int? maxCount, bool result)
+    {
+        var valueConstraintRequest = new ValueConstraintRequest
+        {
+            ConstraintType = ConstraintType.DataType,
+            DataType = XsdDataType.Integer,
+            MinCount = minCount,
+            MaxCount = maxCount
+        };
+
+        var validationContext = new ValidationContext(valueConstraintRequest);
+
+        var results = valueConstraintRequest.Validate(validationContext);
+
+        Assert.Equal(result, results.IsNullOrEmpty());
+    }
+
+    [Theory]
     [InlineData(null, false)]
     [InlineData("test value", true)]
     public void ValueMustBeSetForConstraintTypeHasValue(string value, bool result)
@@ -81,6 +106,45 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
             ConstraintType = ConstraintType.HasValue,
             DataType = XsdDataType.String,
             Value = value
+        };
+
+        var validationContext = new ValidationContext(valueConstraintRequest);
+
+        var results = valueConstraintRequest.Validate(validationContext);
+
+        Assert.Equal(result, results.IsNullOrEmpty());
+    }
+
+    [Fact]
+    public void ConstraintTypeInCanNotHaveBooleanDataType()
+    {
+        var valueConstraintRequest = new ValueConstraintRequest
+        {
+            ConstraintType = ConstraintType.In,
+            DataType = XsdDataType.Boolean,
+            ValueList = new List<string> { "false", "true" },
+            MinCount = 1
+        };
+
+        var validationContext = new ValidationContext(valueConstraintRequest);
+
+        var results = valueConstraintRequest.Validate(validationContext);
+
+        Assert.False(results.IsNullOrEmpty());
+    }
+
+    [Theory]
+    [InlineData(StringLengthConstants.ValueLength - 1, true)]
+    [InlineData(StringLengthConstants.ValueLength, true)]
+    [InlineData(StringLengthConstants.ValueLength + 1, false)]
+    public void DataValueLengthForConstraintTypeInValidatesCorrectly(int length, bool result)
+    {
+        var valueConstraintRequest = new ValueConstraintRequest
+        {
+            ConstraintType = ConstraintType.In,
+            DataType = XsdDataType.String,
+            ValueList = new List<string> { "123", new string('*', length) },
+            MinCount = 1
         };
 
         var validationContext = new ValidationContext(valueConstraintRequest);
@@ -111,7 +175,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
 
     public static IEnumerable<object[]> AllowedValuesExamples()
     {
-        yield return new object[] { null, false };
+        yield return new object[] { new List<string>(), false };
         yield return new object[] { new List<string> { "single" }, false };
         yield return new object[] { new List<string> { "one", "two" }, true };
         yield return new object[] { new List<string> { "one", "two", "three" }, true };
@@ -137,6 +201,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
 
     [Theory]
     [InlineData(null, false)]
+    [InlineData("", false)]
     [InlineData("[0-9]+", true)]
     public void ValueMustBeSetForConstraintTypePattern(string pattern, bool result)
     {
@@ -162,7 +227,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
         {
             ConstraintType = ConstraintType.Pattern,
             DataType = XsdDataType.Boolean,
-            Pattern = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$",
+            Pattern = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$",
             MinCount = 1
         };
 
@@ -195,6 +260,70 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
         var results = valueConstraintRequest.Validate(validationContext);
 
         Assert.Equal(result, results.IsNullOrEmpty());
+    }
+
+    [Theory]
+    [MemberData(nameof(RangeBoundsExamples))]
+    public void RangeBoundsValidateCorrectly(decimal? minValue, decimal? maxValue, bool? minInclusive, bool? maxInclusive, bool result)
+    {
+        var valueConstraintRequest = new ValueConstraintRequest
+        {
+            ConstraintType = ConstraintType.Range,
+            DataType = XsdDataType.Decimal,
+            MinCount = 1,
+            MinValue = minValue,
+            MaxValue = maxValue,
+            MinInclusive = minInclusive,
+            MaxInclusive = maxInclusive
+        };
+
+        var validationContext = new ValidationContext(valueConstraintRequest);
+
+        var results = valueConstraintRequest.Validate(validationContext);
+
+        Assert.Equal(result, results.IsNullOrEmpty());
+    }
+
+    public static IEnumerable<object?[]> RangeBoundsExamples()
+    {
+        yield return new object?[] { null, null, null, null, false };
+        yield return new object?[] { 1M, null, false, null, true };
+        yield return new object?[] { null, 2000M, null, true, true };
+        yield return new object?[] { 23M, 24M, null, true, false };
+        yield return new object?[] { null, 15M, null, null, false };
+        yield return new object?[] { 23.4M, 23.4M, true, true, false };
+        yield return new object?[] { 23.4M, 23.5M, true, true, true };
+        yield return new object?[] { 23.5M, 23.4M, true, true, false };
+    }
+
+    [Theory]
+    [MemberData(nameof(RangeBoundsExamplesWithIntConversion))]
+    public void RangeBoundsValidateCorrectlyWithIntConversion(decimal? minValue, decimal? maxValue, bool result)
+    {
+        var valueConstraintRequest = new ValueConstraintRequest
+        {
+            ConstraintType = ConstraintType.Range,
+            DataType = XsdDataType.Integer,
+            MinCount = 1,
+            MinValue = minValue,
+            MaxValue = maxValue,
+            MinInclusive = false,
+            MaxInclusive = false
+        };
+
+        var validationContext = new ValidationContext(valueConstraintRequest);
+
+        var results = valueConstraintRequest.Validate(validationContext);
+
+        Assert.Equal(result, results.IsNullOrEmpty());
+    }
+
+    public static IEnumerable<object?[]> RangeBoundsExamplesWithIntConversion()
+    {
+        yield return new object?[] { 1M, 2M, true };
+        yield return new object?[] { 1M, 1.2M, false };
+        yield return new object?[] { 1M, 1.7M, false };
+        yield return new object?[] { 2.6M, 2.7M, false };
     }
 
     [Theory]

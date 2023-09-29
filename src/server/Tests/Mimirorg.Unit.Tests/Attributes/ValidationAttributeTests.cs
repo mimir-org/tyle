@@ -31,6 +31,14 @@ public class ValidationAttributeTests : UnitTest<MimirorgCommonFixture>
         Assert.Equal(result, isValid);
     }
 
+    [Fact]
+    public void Iri_Attribute_Fails_On_Non_String()
+    {
+        var attribute = new ValidIriAttribute();
+        var isValid = attribute.IsValid(12);
+        Assert.False(isValid);
+    }
+
     [Theory]
     [InlineData("1234", "1234", true)]
     [InlineData("", "", false)]
