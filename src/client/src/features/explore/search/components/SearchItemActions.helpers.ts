@@ -5,7 +5,6 @@ import { useDeleteUnit, usePatchUnitState } from "external/sources/unit/unit.que
 import { useDeleteQuantityDatum, usePatchQuantityDatumState } from "external/sources/datum/quantityDatum.queries";
 import { useDeleteRds, usePatchRdsState } from "external/sources/rds/rds.queries";
 import { useDeleteAttribute, usePatchAttributeState } from "external/sources/attribute/attribute.queries";
-import { State } from "@mimirorg/typelibrary-types";
 import { useDeleteAttributeGroup } from "external/sources/attributeGroup/attributeGroup.queries";
 
 export function getCloneLink(item: ItemType) {

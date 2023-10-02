@@ -13,7 +13,6 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { FormMode } from "../types/formMode";
 import { FormAttributeGroupLib } from "./types/formAttributeGroupLib";
-import { AttributeGroupFormPreview } from "../entityPreviews/attributeGroup/AttributeGroupFormPreview";
 interface AttributeGroupFormBaseFieldsProps {
   mode?: FormMode;
   limited?: boolean;
@@ -29,13 +28,12 @@ interface AttributeGroupFormBaseFieldsProps {
 export const AttributeGroupFormBaseFields = ({ mode, limited }: AttributeGroupFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
-  const { control, register, formState } = useFormContext<FormAttributeGroupLib>();
+  const { register, formState } = useFormContext<FormAttributeGroupLib>();
   const { errors } = formState;
 
   return (
     <FormBaseFieldsContainer>
       <Text variant={"display-small"}>{t("attributeGroup.title")}</Text>
-      {/* <AttributeGroupFormPreview control={control} /> */}
       <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
         <FormField label={t("attributeGroup.name")} error={errors.name}>
           <Input placeholder={t("attributeGroup.placeholders.name")} {...register("name")} disabled={limited} />

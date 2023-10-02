@@ -1,6 +1,6 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { AttributeGroupLibCm, State } from "@mimirorg/typelibrary-types";
+import { AttributeGroupLibCm } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { Box, FormContainer } from "@mimirorg/component-library";
