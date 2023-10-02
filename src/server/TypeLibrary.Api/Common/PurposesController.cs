@@ -1,7 +1,6 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Mimirorg.Authentication.Constants;
 using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Models.Attributes;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,8 +12,7 @@ namespace TypeLibrary.Api.Common;
 
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]
-[ApiVersion(VersionConstant.OnePointZero)]
-[Route("V{version:apiVersion}/[controller]")]
+[Route("[controller]")]
 [SwaggerTag("Purpose services")]
 public class PurposesController : ControllerBase
 {

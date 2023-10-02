@@ -57,20 +57,13 @@ builder.Services.Configure<SwaggerConfiguration>(swaggerConfigurationSection.Bin
 
 builder.Services.AddSwaggerGen(c =>
 {
-    var provider = builder.Services.BuildServiceProvider();
-    var service = provider.GetRequiredService<IApiVersionDescriptionProvider>();
-
-    foreach (var description in service.ApiVersionDescriptions)
-    {
-        c.SwaggerDoc(description.GroupName,
-            new OpenApiInfo
-            {
-                Title = swaggerConfiguration.Title,
-                Version = description.ApiVersion.ToString(),
-                Description = swaggerConfiguration.Description,
-                Contact = new OpenApiContact { Name = swaggerConfiguration.Contact?.Name, Email = swaggerConfiguration.Contact?.Email }
-            });
-    }
+    c.SwaggerDoc("tyle-api",
+        new OpenApiInfo
+        {
+            Title = swaggerConfiguration.Title,
+            Description = swaggerConfiguration.Description,
+            Contact = new OpenApiContact { Name = swaggerConfiguration.Contact?.Name, Email = swaggerConfiguration.Contact?.Email }
+        });
 
     var xmlPath = Path.Combine(AppContext.BaseDirectory, "swagger.xml");
 
@@ -105,19 +98,6 @@ builder.Services.AddSwaggerGen(c =>
 });
 builder.Services.AddSwaggerGenNewtonsoftSupport();
 
-builder.Services.AddApiVersioning(o =>
-{
-    o.AssumeDefaultVersionWhenUnspecified = false;
-    o.DefaultApiVersion = new ApiVersion(0, 1);
-    o.ReportApiVersions = true;
-});
-
-builder.Services.AddVersionedApiExplorer(o =>
-{
-    o.GroupNameFormat = "'v'VVV";
-    o.SubstituteApiVersionInUrl = true;
-});
-
 builder.Services.AddApplicationInsightsTelemetry();
 
 var app = builder.Build();
@@ -125,25 +105,16 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger(c => { c.RouteTemplate = "/swagger/{documentName}/swagger.json"; });
+    app.UseSwagger();
 
-    using (var scope = app.Services.CreateScope())
+    app.UseSwaggerUI(c =>
     {
-        var service = scope.ServiceProvider.GetRequiredService<IApiVersionDescriptionProvider>();
-        app.UseSwaggerUI(c =>
-        {
-            foreach (var description in service.ApiVersionDescriptions)
-            {
-                c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
-            }
-
-            c.ConfigObject.AdditionalItems.Add("syntaxHighlight", false);
-            c.DisplayOperationId();
-            c.DisplayRequestDuration();
-            c.RoutePrefix = string.Empty;
-        });
-    }
-
+        c.SwaggerEndpoint("/swagger/tyle-api/swagger.json", "Tyle API");
+        c.ConfigObject.AdditionalItems.Add("syntaxHighlight", false);
+        c.DisplayOperationId();
+        c.DisplayRequestDuration();
+        c.RoutePrefix = string.Empty;
+    });
 
     app.UseDeveloperExceptionPage();
 }

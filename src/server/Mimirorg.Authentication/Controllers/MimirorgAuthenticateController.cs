@@ -1,22 +1,20 @@
+using System.Security.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
-using Swashbuckle.AspNetCore.Annotations;
-using System.Security.Authentication;
-using Mimirorg.Authentication.Constants;
 using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Exceptions;
 using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Client;
+using Swashbuckle.AspNetCore.Annotations;
 
-namespace Mimirorg.Authentication.Controllers.V1;
+namespace Mimirorg.Authentication.Controllers;
 
 [Produces("application/json")]
 [ApiController]
-[ApiVersion(VersionConstant.OnePointZero)]
-[Route("V{version:apiVersion}/[controller]")]
+[Route("[controller]")]
 [SwaggerTag("Mimirorg authenticate services")]
 public class MimirorgAuthenticateController : ControllerBase
 {

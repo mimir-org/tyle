@@ -2,7 +2,6 @@ using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Mimirorg.Authentication.Constants;
 using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Models.Attributes;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,8 +12,7 @@ namespace TypeLibrary.Api.Attributes;
 
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]
-[ApiVersion(VersionConstant.OnePointZero)]
-[Route("V{version:apiVersion}/[controller]")]
+[Route("[controller]")]
 [SwaggerTag("Attribute services")]
 public class AttributesController : ControllerBase
 {
