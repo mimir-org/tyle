@@ -1,4 +1,5 @@
 import { AttributeLibAm, AttributeLibCm, State, UnitLibCm } from "@mimirorg/typelibrary-types";
+import { FormAttributeHelper } from "features/entities/types/FormAttributeHelper";
 import { FormUnitHelper } from "features/entities/units/types/FormUnitHelper";
 
 export interface FormAttributeLib extends Omit<AttributeLibAm, "attributeUnits"> {
@@ -48,3 +49,13 @@ export const createEmptyAttribute = (): FormAttributeLib => ({
   units: [],
   defaultUnit: null,
 });
+
+export const toFormAttributeHelper = (unit: AttributeLibCm): FormAttributeHelper => {
+  return {
+    name: unit.name,
+    state: unit.state,
+    description: unit.description,
+    symbol: "",
+    unitId: "",
+  };
+};

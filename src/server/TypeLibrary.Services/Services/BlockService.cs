@@ -158,6 +158,8 @@ public class BlockService : IBlockService
                 }
             }
         }
+        var distinctItems = dm.BlockAttributes.GroupBy(x => x.AttributeId).Select(y => y.First());
+        dm.BlockAttributes = distinctItems.ToList();
 
         var createdBlock = await _blockRepository.Create(dm);
         _blockRepository.ClearAllChangeTrackers();
@@ -351,6 +353,30 @@ public class BlockService : IBlockService
                 AttributeId = blockAttribute.AttributeId
             });
         }
+
+        if (blockAm.AttributeGroups != null)
+        {
+            foreach (var item in blockAm.AttributeGroups)
+            {
+                var currentAttributeGroup = _attributeGroupRepository.GetSingleAttributeGroup(item);
+
+                if (currentAttributeGroup == null)
+                {
+                    _logger.LogError($"Could not add attribute group with id {item} to block with id {blockToUpdate.Id}, attribute not found.");
+                }
+                else
+                {
+
+                    foreach (var attributeGroupItem in currentAttributeGroup.AttributeGroupAttributes)
+                    {
+                        blockToUpdate.BlockAttributes.Add(new BlockAttributeLibDm { BlockId = blockToUpdate.Id, AttributeId = attributeGroupItem.AttributeId, PartOfAttributeGroup = item });
+                    }
+                }
+            }
+        }
+        var distinctItems = blockToUpdate.BlockAttributes.GroupBy(x => x.AttributeId).Select(y => y.First());
+        blockToUpdate.BlockAttributes = distinctItems.ToList();
+
 
         await _blockTerminalRepository.SaveAsync();
         await _blockAttributeRepository.SaveAsync();

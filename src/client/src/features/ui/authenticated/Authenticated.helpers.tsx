@@ -10,6 +10,7 @@ import { attributeFormRoutes } from "../../entities/attributes/AttributeFormRout
 import { unitFormRoutes } from "../../entities/units/UnitFormRoutes";
 import { quantityDatumFormRoutes } from "../../entities/quantityDatum/QuantityDatumFormRoutes";
 import { rdsFormRoutes } from "../../entities/RDS/RdsFormRoutes";
+import { attributeGroupFormRoutes } from "features/entities/attributeGroups/AttributeGroupFormRoutes";
 
 export const useAuthenticatedRouter = () => {
   const { t } = useTranslation("ui");
@@ -32,6 +33,7 @@ export const useAuthenticatedRouter = () => {
         ...blockFormRoutes,
         ...terminalFormRoutes,
         ...attributeFormRoutes,
+        ...attributeGroupFormRoutes,
         ...unitFormRoutes,
         ...quantityDatumFormRoutes,
         ...rdsFormRoutes,

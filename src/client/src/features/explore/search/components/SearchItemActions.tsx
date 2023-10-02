@@ -16,9 +16,10 @@ type SearchItemProps = {
   user: UserItem | null;
   item: ItemType;
   children?: React.ReactNode;
+  isAttributeGroup?: boolean;
 };
 
-export const SearchItemActions = ({ user, item, children }: SearchItemProps) => {
+export const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: SearchItemProps) => {
   const [isApprovalOpen, setIsApprovalOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const theme = useTheme();
@@ -61,7 +62,8 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
 
   return (
     <>
-      {!isStateApproved && <StateBadge state={item.state} />}
+      {!isStateApproved && !isAttributeGroup && <StateBadge state={item.state} />}
+
       <PlainLink tabIndex={-1} to={cloneLink}>
         <Tooltip content={<Text>{t("search.item.clone")}</Text>}>
           <Button
@@ -75,6 +77,7 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
           </Button>
         </Tooltip>
       </PlainLink>
+
       <PlainLink tabIndex={-1} to={editLink}>
         <Tooltip content={<Text>{t("search.item.edit")}</Text>}>
           <Button
@@ -88,28 +91,34 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
           </Button>
         </Tooltip>
       </PlainLink>
-      <AlertDialog
-        gap={theme.mimirorg.spacing.multiple(6)}
-        actions={[approveAction]}
-        title={t("search.item.templates.approve")}
-        description={t("search.item.approveDescription")}
-        hideDescription
-        content={children}
-        open={isApprovalOpen}
-        onOpenChange={(open) => setIsApprovalOpen(open)}
-      />
-      <Tooltip content={<Text>{t("search.item.approve")}</Text>}>
-        <Button
-          disabled={!btnFilter.review}
-          tabIndex={0}
-          variant={btnFilter.approved ? "outlined" : "filled"}
-          icon={<Check />}
-          iconOnly
-          onClick={() => setIsApprovalOpen(true)}
-        >
-          {t("search.item.approve")}
-        </Button>
-      </Tooltip>
+
+      {!isAttributeGroup && (
+        <>
+          <AlertDialog
+            gap={theme.mimirorg.spacing.multiple(6)}
+            actions={[approveAction]}
+            title={t("search.item.templates.approve")}
+            description={t("search.item.approveDescription")}
+            hideDescription
+            content={children}
+            open={isApprovalOpen}
+            onOpenChange={(open) => setIsApprovalOpen(open)}
+          />
+
+          <Tooltip content={<Text>{t("search.item.approve")}</Text>}>
+            <Button
+              disabled={!btnFilter.review}
+              tabIndex={0}
+              variant={btnFilter.approved ? "outlined" : "filled"}
+              icon={<Check />}
+              iconOnly
+              onClick={() => setIsApprovalOpen(true)}
+            >
+              {t("search.item.approve")}
+            </Button>
+          </Tooltip>
+        </>
+      )}
       <AlertDialog
         gap={theme.mimirorg.spacing.multiple(6)}
         actions={[deleteAction]}

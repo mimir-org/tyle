@@ -25,6 +25,7 @@ export const QueryAndMutationExample = () => {
     description: "A description goes here",
     symbol: "http://localhost:5001/symbol/018120B75674ABF18AB2F07691D1865C.svg",
     attributes: [],
+    attributeGroups: [],
     blockTerminals: [
       {
         terminalId: "",

@@ -10,7 +10,6 @@ using System.Linq;
 using System.Reflection.Metadata;
 using TypeLibrary.Data.Contracts.Common;
 
-
 namespace TypeLibrary.Data.Models;
 
 public class AttributeGroupLibDm

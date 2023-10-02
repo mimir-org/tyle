@@ -9,7 +9,7 @@ import { SearchItemActions } from "./components/SearchItemActions";
 import { BlockItem } from "../../../common/types/blockItem";
 import AttributePreview from "../../entities/entityPreviews/attribute/AttributePreview";
 import { toFormAttributeLib } from "../../entities/attributes/types/formAttributeLib";
-import { AttributeLibCm, UnitLibCm } from "@mimirorg/typelibrary-types";
+import { AttributeGroupLibCm, AttributeLibCm, UnitLibCm } from "@mimirorg/typelibrary-types";
 import UnitPreview from "../../entities/entityPreviews/unit/UnitPreview";
 import { FormUnitHelper } from "../../entities/units/types/FormUnitHelper";
 import QuantityDatumPreview from "../../entities/entityPreviews/quantityDatum/QuantityDatumPreview";
@@ -17,6 +17,8 @@ import { QuantityDatumItem } from "../../../common/types/quantityDatumItem";
 import { RdsItem } from "../../../common/types/rdsItem";
 import { RdsPreview } from "../../entities/entityPreviews/rds/RdsPreview";
 import { BlockPreview } from "../../entities/entityPreviews/block/BlockPreview";
+import AttributeGroupPreview from "features/entities/entityPreviews/attributeGroup/AttributeGroupPreview";
+import { toFormAttributeGroupLib } from "features/entities/attributeGroups/types/formAttributeGroupLib";
 
 interface SearchResultsRendererProps {
   item: SearchResult;
@@ -61,6 +63,16 @@ export function SearchResultsRenderer({
           preview={<AttributePreview small {...toFormAttributeLib(item as AttributeLibCm)} />}
           description={<ItemDescription {...(item as AttributeLibCm)} />}
           actions={<SearchItemActions user={user} item={item} />}
+        />
+      );
+    case "AttributeGroupItem":
+      return (
+        <Item
+          isSelected={currentlySelected}
+          onClick={() => setSelected({ id: item.id, type: "attributeGroup" })}
+          preview={<AttributeGroupPreview small {...toFormAttributeGroupLib(item as AttributeGroupLibCm)} />}
+          description={<ItemDescription {...(item as AttributeGroupLibCm)} />}
+          actions={<SearchItemActions user={user} item={item} isAttributeGroup={true} />}
         />
       );
     case "UnitItem":
