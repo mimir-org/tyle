@@ -22,7 +22,9 @@ public class AttributeGroupRepository : IAttributeGroupRepository
     public async Task<IEnumerable<AttributeGroup>> GetAll()
     {
         return await _dbSet.AsNoTracking()
-            .Include(x => x.Attributes)
+            .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Predicate)
+            .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Units).ThenInclude(x => x.Unit)
+            .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
             .AsSplitQuery()
             .ToListAsync();
     }
@@ -30,7 +32,9 @@ public class AttributeGroupRepository : IAttributeGroupRepository
     public async Task<AttributeGroup?> Get(Guid id)
     {
         return await _dbSet.AsNoTracking()
-            .Include(x => x.Attributes)
+            .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Predicate)
+            .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Units).ThenInclude(x => x.Unit)
+            .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
             .AsSplitQuery()
             .FirstOrDefaultAsync(x => x.Id == id);
     }

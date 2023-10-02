@@ -3,9 +3,12 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mimirorg.Authentication.Constants;
+using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Enums;
+using Mimirorg.Authentication.Exceptions;
 using Mimirorg.Authentication.Models.Attributes;
 using Swashbuckle.AspNetCore.Annotations;
+using TypeLibrary.Core.Attributes;
 using TypeLibrary.Services.Attributes;
 using TypeLibrary.Services.Attributes.Requests;
 
@@ -15,32 +18,34 @@ namespace TypeLibrary.Api.Attributes;
 [ApiController]
 [ApiVersion(VersionConstant.OnePointZero)]
 [Route("V{version:apiVersion}/[controller]")]
-[SwaggerTag("Attribute services")]
-public class AttributesController : ControllerBase
+[SwaggerTag("Attribute group services")]
+
+public class AttributeGroupsController : ControllerBase
 {
-    private readonly IAttributeRepository _attributeRepository;
+    private readonly IAttributeGroupRepository _attributeGroupRepository;
     private readonly IMapper _mapper;
 
-    public AttributesController(IAttributeRepository attributeRepository, IMapper mapper)
+    public AttributeGroupsController(IAttributeGroupRepository attributeGroupRepository, IMapper mapper)
     {
-        _attributeRepository = attributeRepository;
+        _attributeGroupRepository = attributeGroupRepository;
         _mapper = mapper;
     }
 
+
     /// <summary>
-    /// Get all attributes
+    /// Get all attribute groups
     /// </summary>
-    /// <returns>A collection of attributes</returns>
+    /// <returns>A collection of attribute groups</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<AttributeView>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<AttributeGroupView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public async Task<IActionResult> GetAll()
     {
         try
         {
-            var attributes = await _attributeRepository.GetAll();
-            return Ok(_mapper.Map<IEnumerable<AttributeView>>(attributes));
+            var attributeGroups = await _attributeGroupRepository.GetAll();
+            return Ok(_mapper.Map<IEnumerable<AttributeGroupView>>(attributeGroups));
         }
         catch (Exception)
         {
@@ -49,12 +54,12 @@ public class AttributesController : ControllerBase
     }
 
     /// <summary>
-    /// Get attribute by id
+    /// Get attribute group by id
     /// </summary>
-    /// <param name="id">The id of the attribute to get</param>
-    /// <returns>The requested attribute</returns>
+    /// <param name="id">The id of the attribute group to get</param>
+    /// <returns>The requested attribute group</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(AttributeView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AttributeGroupView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -62,13 +67,13 @@ public class AttributesController : ControllerBase
     {
         try
         {
-            var attribute = await _attributeRepository.Get(id);
-            if (attribute == null)
+            var attributeGroup = await _attributeGroupRepository.Get(id);
+            if (attributeGroup == null)
             {
-                return NotFound();
+                return NotFound(id);
             }
 
-            return Ok(_mapper.Map<AttributeView>(attribute));
+            return Ok(_mapper.Map<AttributeGroupView>(attributeGroup));
         }
         catch (Exception)
         {
@@ -77,22 +82,22 @@ public class AttributesController : ControllerBase
     }
 
     /// <summary>
-    /// Create an attribute
+    /// Create an attribute group
     /// </summary>
-    /// <param name="request">The attribute that should be created</param>
-    /// <returns>The created attribute</returns>
+    /// <param name="request">The attribute group that should be created</param>
+    /// <returns>The created attribute group</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(AttributeView), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(AttributeGroupView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
-    public async Task<IActionResult> Create([FromBody] AttributeTypeRequest request)
+    public async Task<IActionResult> Create([FromBody] AttributeGroupRequest request)
     {
         try
         {
-            var createdAttribute = await _attributeRepository.Create(request);
-            return Created("dummy", _mapper.Map<AttributeView>(createdAttribute));
+            var createdAttributeGroup = await _attributeGroupRepository.Create(request);
+            return Created("dummy", _mapper.Map<AttributeGroupView>(createdAttributeGroup));
         }
         catch (Exception)
         {
@@ -101,30 +106,30 @@ public class AttributesController : ControllerBase
     }
 
     /// <summary>
-    /// Update an attribute object
+    /// Update an attribute group
     /// </summary>
-    /// <param name="id">The id of the attribute object that should be updated</param>
-    /// <param name="request">The new values of the attribute</param>
-    /// <returns>The updated attribute</returns>
+    /// <param name="id">The id of the attribute group object that should be updated</param>
+    /// <param name="request">The new values of the attribute group</param>
+    /// <returns>The updated attribute group</returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(AttributeView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AttributeGroupView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
-    public async Task<IActionResult> Update(Guid id, [FromBody] AttributeTypeRequest request)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] AttributeGroupRequest request)
     {
         try
         {
-            var attribute = await _attributeRepository.Update(id, request);
+            var attributeGroup = await _attributeGroupRepository.Update(id, request);
 
-            if (attribute == null)
+            if (attributeGroup == null)
             {
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<AttributeView>(attribute));
+            return Ok(_mapper.Map<AttributeGroupView>(attributeGroup));
         }
         catch (Exception)
         {
@@ -133,20 +138,19 @@ public class AttributesController : ControllerBase
     }
 
     /// <summary>
-    /// Delete an attribute
+    /// Delete an attribute group
     /// </summary>
-    /// <param name="id">The id of the attribute to delete</param>
+    /// <param name="id">The id of the attribute group to delete</param>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [Authorize]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         try
         {
-            if (await _attributeRepository.Delete(id))
+            if (await _attributeGroupRepository.Delete(id))
             {
                 return NoContent();
             }
@@ -160,4 +164,5 @@ public class AttributesController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
+
 }

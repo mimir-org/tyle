@@ -18,6 +18,8 @@ public static class ApiDependencyInjection
 
             config.AddProfile(new AttributeTypeReferenceViewProfile());
             config.AddProfile(new TerminalTypeReferenceViewProfile());
+
+            config.AddProfile(new AttributeGroupViewProfile());
         });
 
         return services;
