@@ -21,6 +21,8 @@ export function getCloneLink(item: ItemType) {
       return `/form/quantityDatum/clone/${item.id}`;
     case "RdsItem":
       return `/form/rds/clone/${item.id}`;
+    case "AttributeGroupItem":
+      return `/form/attributeGroup/clone/${item.id}`;
     default:
       return "#";
   }

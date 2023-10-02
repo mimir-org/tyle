@@ -64,21 +64,19 @@ export const SearchItemActions = ({ user, item, children, isAttributeGroup = fal
     <>
       {!isStateApproved && !isAttributeGroup && <StateBadge state={item.state} />}
 
-      {!isAttributeGroup && (
-        <PlainLink tabIndex={-1} to={cloneLink}>
-          <Tooltip content={<Text>{t("search.item.clone")}</Text>}>
-            <Button
-              disabled={!btnFilter.clone}
-              tabIndex={0}
-              as={!btnFilter.clone ? "button" : "span"}
-              icon={<DocumentDuplicate />}
-              iconOnly
-            >
-              {t("search.item.clone")}
-            </Button>
-          </Tooltip>
-        </PlainLink>
-      )}
+      <PlainLink tabIndex={-1} to={cloneLink}>
+        <Tooltip content={<Text>{t("search.item.clone")}</Text>}>
+          <Button
+            disabled={!btnFilter.clone}
+            tabIndex={0}
+            as={!btnFilter.clone ? "button" : "span"}
+            icon={<DocumentDuplicate />}
+            iconOnly
+          >
+            {t("search.item.clone")}
+          </Button>
+        </Tooltip>
+      </PlainLink>
 
       <PlainLink tabIndex={-1} to={editLink}>
         <Tooltip content={<Text>{t("search.item.edit")}</Text>}>
