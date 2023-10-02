@@ -15,7 +15,7 @@ public class LibraryPurposeControllerTests : IntegrationTest
     }
 
     [Theory]
-    [InlineData("/v1/purposes")]
+    [InlineData("/purposes")]
     public async Task GET_Retrieves_Status_Ok(string endpoint)
     {
         var client = Factory.WithWebHostBuilder(builder =>

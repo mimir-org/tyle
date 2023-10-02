@@ -16,7 +16,7 @@ public class LibraryBlockControllerTests : IntegrationTest
     }
 
     [Theory]
-    [InlineData("/v1/blocks")]
+    [InlineData("/blocks")]
     public async Task GET_Retrieves_Status_Ok(string endpoint)
     {
         var client = Factory.WithWebHostBuilder(builder =>
@@ -33,7 +33,7 @@ public class LibraryBlockControllerTests : IntegrationTest
     }
 
     [Theory]
-    [InlineData("/v1/blocks/")]
+    [InlineData("/blocks/")]
     public async Task GET_Id_Retrieves_Status_Ok(string endpoint)
     {
         var client = Factory.WithWebHostBuilder(builder =>
@@ -62,7 +62,7 @@ public class LibraryBlockControllerTests : IntegrationTest
     }
 
     [Theory]
-    [InlineData("/v1/block/66666666-6666-6666-6666-666666666666")]
+    [InlineData("/blocks/66666666-6666-6666-6666-666666666666")]
     public async Task GET_Id_Retrieves_Status_No_Content(string endpoint)
     {
         var client = Factory.WithWebHostBuilder(builder =>
