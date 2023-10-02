@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Data.Models;
+using TypeLibrary.Core.Models;
 
 
 namespace TypeLibrary.Data.Configurations

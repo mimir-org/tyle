@@ -1,15 +1,4 @@
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Mimirorg.Common.Extensions;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
-using System;
-using System.Linq;
-using TypeLibrary.Data.Constants;
-using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Models;
-
-namespace TypeLibrary.Core.Profiles
+namespace TypeLibrary.Data.Profiles
 {
     public class AttributeGroupProfile : Profile
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Data.Models;
+using TypeLibrary.Core.Models;
 
 namespace TypeLibrary.Data.Contracts
 {
