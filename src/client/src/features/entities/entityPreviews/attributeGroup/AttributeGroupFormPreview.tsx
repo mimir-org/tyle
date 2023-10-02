@@ -12,17 +12,10 @@ export const AttributeGroupFormPreview = ({ control }: AttributeGroupFormPreview
   const { t } = useTranslation("entities");
   const name = useWatch({ control, name: "name" });
   const description = useWatch({ control, name: "description" });
-  //  const units = useWatch({ control, name: "units" });
-  //  const defaultUnit = useWatch({ control, name: "defaultUnit" });
 
   return (
     <StyledFormPreviewDiv>
-      <AttributeGroupPreview
-        name={name ? name : t("attributeGroup.name")}
-        description={description}
-        // units={units}
-        // defaultUnit={defaultUnit}
-      />
+      <AttributeGroupPreview name={name ? name : t("attributeGroup.name")} description={description} />
     </StyledFormPreviewDiv>
   );
 };
