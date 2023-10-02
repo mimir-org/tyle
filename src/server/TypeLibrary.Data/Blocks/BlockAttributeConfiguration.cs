@@ -27,5 +27,11 @@ public class BlockAttributeConfiguration : IEntityTypeConfiguration<BlockAttribu
             .HasForeignKey(e => e.AttributeId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
+
+        builder.HasOne(e => e.AsPartOfAttributeGroup)
+            .WithMany()
+            .HasForeignKey(e => e.AttributeGroupId)
+            .OnDelete(DeleteBehavior.SetNull)
+            .IsRequired(false);
     }
 }

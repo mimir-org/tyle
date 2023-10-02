@@ -57,6 +57,8 @@ public class TyleDbContext : DbContext
         modelBuilder.ApplyConfiguration(new PurposeConfiguration());
 
         modelBuilder.ApplyConfiguration(new AttributeConfiguration(userListValueConverter, userListValueComparer));
+        modelBuilder.ApplyConfiguration(new AttributeGroupConfiguration(userListValueConverter, userListValueComparer));
+        modelBuilder.ApplyConfiguration(new AttributeGroupAttributeConfiguration());
         modelBuilder.ApplyConfiguration(new AttributeUnitConfiguration());
         modelBuilder.ApplyConfiguration(new PredicateConfiguration());
         modelBuilder.ApplyConfiguration(new UnitConfiguration());
