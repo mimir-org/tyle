@@ -424,7 +424,7 @@ public class MimirorgUserService : IMimirorgUserService
         if (numberOfUsers != 1 || numberOfCompanies != 0)
             return;
         await _userManager.AddToRoleAsync(user, MimirorgDefaultRoles.Administrator);
-        var company = await _mimirorgCompanyService.CreateCompany(new MimirorgCompanyAm
+        await _mimirorgCompanyService.CreateCompany(new MimirorgCompanyAm
         {
             Name = "Mimirorg Company",
             Description = "Mimirorg is the open source community for Mimir and Tyle",
