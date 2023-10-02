@@ -25,18 +25,18 @@ var hasOrigins = origins != null && origins.Any();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("CorsPolicy", builder =>
+    options.AddPolicy("CorsPolicy", corsPolicyBuilder =>
     {
         if (hasOrigins)
         {
-            builder.WithOrigins(origins!).AllowCredentials();
+            corsPolicyBuilder.WithOrigins(origins!).AllowCredentials();
         }
         else
         {
-            builder.AllowAnyOrigin();
+            corsPolicyBuilder.AllowAnyOrigin();
         }
 
-        builder.AllowAnyHeader().AllowAnyMethod().SetPreflightMaxAge(TimeSpan.FromSeconds(2520));
+        corsPolicyBuilder.AllowAnyHeader().AllowAnyMethod().SetPreflightMaxAge(TimeSpan.FromSeconds(2520));
     });
 });
 

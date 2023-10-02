@@ -26,7 +26,7 @@ public class TerminalProfile : Profile
             .ForMember(dest => dest.State, opt => opt.Ignore())
             .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-            .ForMember(dest => dest.TerminalAspectObjects, opt => opt.Ignore())
+            .ForMember(dest => dest.TerminalBlocks, opt => opt.Ignore())
             .ForMember(dest => dest.TerminalAttributes, opt => opt.Ignore());
 
         CreateMap<TerminalLibDm, TerminalLibCm>()

@@ -40,7 +40,7 @@ public static class TypeLibraryModuleExtensions
 
         // Dependency Injection - Repositories
         services.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>();
-        services.AddScoped<IEfAspectObjectRepository, EfAspectObjectRepository>();
+        services.AddScoped<IEfBlockRepository, EfBlockRepository>();
         services.AddScoped<IEfTerminalRepository, EfTerminalRepository>();
         services.AddScoped<IEfAttributePredefinedRepository, EfAttributePredefinedRepository>();
         services.AddSingleton<IFileRepository, JsonFileRepository>();
@@ -48,20 +48,23 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IDynamicSymbolDataProvider, EfSymbolRepository>();
         services.AddScoped<IEfLogRepository, EfLogRepository>();
         services.AddScoped<IEfAttributeRepository, EfAttributeRepository>();
+        services.AddScoped<IEfAttributeGroupRepository, EfAttributeGroupRepository>();
         services.AddScoped<IEfUnitRepository, EfUnitRepository>();
         services.AddScoped<IEfQuantityDatumRepository, EfQuantityDatumRepository>();
         services.AddScoped<IEfRdsRepository, EfRdsRepository>();
-        services.AddScoped<IEfAspectObjectTerminalRepository, EfAspectObjectTerminalRepository>();
-        services.AddScoped<IEfAspectObjectAttributeRepository, EfAspectObjectAttributeRepository>();
+        services.AddScoped<IEfBlockTerminalRepository, EfBlockTerminalRepository>();
+        services.AddScoped<IEfBlockAttributeRepository, EfBlockAttributeRepository>();
         services.AddScoped<IEfTerminalAttributeRepository, EfTerminalAttributeRepository>();
         services.AddScoped<IEfAttributeUnitRepository, EfAttributeUnitRepository>();
+        services.AddScoped<IEfAttributeGroupAttributeRepository, EfAttributeGroupAttributeRepository>();
 
         services.AddScoped<IQuantityDatumRepository, EfQuantityDatumRepository>();
         services.AddScoped<IAttributePredefinedRepository, EfAttributePredefinedRepository>();
         services.AddScoped<IUnitRepository, EfUnitRepository>();
         services.AddScoped<IAttributeRepository, EfAttributeRepository>();
+        services.AddScoped<IAttributeGroupRepository, EfAttributeGroupRepository>();
         services.AddScoped<IPurposeReferenceRepository, PurposeReferenceRepository>();
-        services.AddScoped<IAspectObjectRepository, EfAspectObjectRepository>();
+        services.AddScoped<IBlockRepository, EfBlockRepository>();
         services.AddScoped<IRdsRepository, EfRdsRepository>();
         services.AddScoped<ITerminalRepository, EfTerminalRepository>();
         services.AddScoped<ISymbolRepository, EfSymbolRepository>();
@@ -73,12 +76,13 @@ public static class TypeLibraryModuleExtensions
         // Dependency Injection - Services
         services.AddScoped<ITerminalService, TerminalService>();
         services.AddScoped<IAttributeService, AttributeService>();
+        services.AddScoped<IAttributeGroupService, AttributeGroupService>();
         services.AddScoped<IRdsService, RdsService>();
         services.AddScoped<ISeedingService, SeedingService>();
         services.AddScoped<ISymbolService, SymbolService>();
         services.AddScoped<IPurposeService, PurposeService>();
         services.AddScoped<IUnitService, UnitService>();
-        services.AddScoped<IAspectObjectService, AspectObjectService>();
+        services.AddScoped<IBlockService, BlockService>();
         services.AddScoped<IModuleService, ModuleService>();
         services.AddScoped<ILogService, LogService>();
         services.AddScoped<IApprovalService, ApprovalService>();

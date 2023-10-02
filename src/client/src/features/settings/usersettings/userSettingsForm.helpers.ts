@@ -1,5 +1,5 @@
 import { MimirorgUserAm, MimirorgUserCm } from "@mimirorg/typelibrary-types";
-import { toast } from "complib/data-display";
+import { toast } from "@mimirorg/component-library";
 import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { useTranslation } from "react-i18next";
 

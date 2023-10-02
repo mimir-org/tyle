@@ -1,11 +1,7 @@
 import { DevTool } from "@hookform/devtools";
 import { MimirorgQrCodeCm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
 import { useExecuteOnCriteria } from "common/hooks/useExecuteOnCriteria";
-import { Button } from "complib/buttons";
-import { Digits, Input } from "complib/inputs";
-import { Flexbox } from "complib/layouts";
-import { Text } from "complib/text";
-import { Actionable } from "complib/types";
+import { Actionable, Button, Digits, Flexbox, Input, Text } from "@mimirorg/component-library";
 import { useGenerateMfa } from "external/sources/user/user.queries";
 import { AuthContent } from "features/auth/common/auth-content/AuthContent";
 import { Error } from "features/auth/common/error/Error";
@@ -71,7 +67,7 @@ export const RecoverVerification = ({
       secondRow={
         <>
           <Text textAlign={"center"}>{t("recover.verify.info.text")}</Text>
-          <Flexbox gap={theme.tyle.spacing.xxl} alignSelf={"center"}>
+          <Flexbox gap={theme.mimirorg.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>
                 {cancel.actionText}

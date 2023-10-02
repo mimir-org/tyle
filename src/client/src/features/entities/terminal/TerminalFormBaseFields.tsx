@@ -1,15 +1,18 @@
-import { Button } from "complib/buttons";
-import { FormField } from "complib/form";
-import { Input, Textarea } from "complib/inputs";
-import { Flexbox } from "complib/layouts";
+import {
+  Button,
+  Flexbox,
+  FormBaseFieldsContainer,
+  FormField,
+  Input,
+  Textarea,
+  Text,
+} from "@mimirorg/component-library";
 import { PlainLink } from "features/common/plain-link";
 import { TerminalFormPreview } from "features/entities/entityPreviews/terminal/TerminalFormPreview";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { Text } from "../../../complib/text";
-import { FormBaseFieldsContainer } from "complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
 interface TerminalFormBaseFieldsProps {
   mode?: FormMode;
@@ -33,7 +36,7 @@ export const TerminalFormBaseFields = ({ mode, limited }: TerminalFormBaseFields
     <FormBaseFieldsContainer>
       <Text variant={"display-small"}>{t("terminal.title")}</Text>
       <TerminalFormPreview control={control} />
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
         <FormField label={t("terminal.name")} error={errors.name}>
           <Input placeholder={t("terminal.placeholders.name")} {...register("name")} disabled={limited} />
         </FormField>
@@ -47,7 +50,7 @@ export const TerminalFormBaseFields = ({ mode, limited }: TerminalFormBaseFields
         </FormField>
       </Flexbox>
 
-      <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
+      <Flexbox justifyContent={"center"} gap={theme.mimirorg.spacing.xl}>
         <PlainLink tabIndex={-1} to={"/"}>
           <Button tabIndex={0} as={"span"} variant={"outlined"}>
             {t("common.cancel")}

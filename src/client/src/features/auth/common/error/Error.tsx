@@ -1,5 +1,4 @@
-import { FormErrorBanner } from "complib/form";
-import { Text } from "complib/text";
+import { FormErrorBanner, Text } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 
@@ -21,7 +20,7 @@ export const Error = ({ children }: ErrorProps) => {
   return (
     <FormErrorBanner>
       {children}
-      <Text as={"a"} href={`mailto:${t("support.email")}`} color={theme.tyle.color.sys.error.on}>
+      <Text as={"a"} href={`mailto:${t("support.email")}`} color={theme.mimirorg.color.error.on}>
         {t("support.text")}
       </Text>
     </FormErrorBanner>

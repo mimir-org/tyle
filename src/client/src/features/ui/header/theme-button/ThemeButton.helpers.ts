@@ -1,7 +1,7 @@
 export const toggleDarkTheme = () => {
-  localStorage.getItem("theme") === "dark"
-    ? localStorage.setItem("theme", "light")
-    : localStorage.setItem("theme", "dark");
+  localStorage.getItem("theme") === "tyleDark"
+    ? localStorage.setItem("theme", "tyleLight")
+    : localStorage.setItem("theme", "tyleDark");
 
   window.dispatchEvent(new Event("storage"));
 };

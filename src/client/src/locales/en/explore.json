@@ -49,9 +49,10 @@
     },
     "create": {
       "title": "Create",
-      "aspectObject": "Aspect object",
+      "block": "Block",
       "terminal": "Terminal",
       "attribute": "Attribute",
+      "attributeGroup": "Attribute Group",
       "unit": "Unit",
       "quantityDatum": "Quantity Datum",
       "rds": "RDS"
@@ -60,6 +61,7 @@
   "about": {
     "title": "About",
     "attributes": "Attributes",
+    "attributeGroups": "Attribute Groups",
     "terminals": {
       "title": "Terminals",
       "name": "Name",

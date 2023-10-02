@@ -1,10 +1,8 @@
-import { FormField } from "complib/form";
-import { Input, Select, Textarea } from "complib/inputs";
+import { FormBaseFieldsContainer, FormField, Input, Select, Textarea } from "@mimirorg/component-library";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useGetUnits } from "../../../external/sources/unit/unit.queries";
 import { FormAttributeLib, toFormUnitHelper } from "./types/formAttributeLib";
-import { FormBaseFieldsContainer } from "../../../complib/form/FormContainer.styled";
 
 interface AttributeFormBaseFieldsProps {
   limited?: boolean;

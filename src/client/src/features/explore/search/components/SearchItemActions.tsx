@@ -3,16 +3,12 @@ import { useTranslation } from "react-i18next";
 import { useButtonStateFilter } from "../hooks/useButtonFilter";
 import { State } from "@mimirorg/typelibrary-types";
 import { PlainLink } from "../../../common/plain-link";
-import { Button } from "../../../../complib/buttons";
 import { Check, DocumentDuplicate, PencilSquare, Trash } from "@styled-icons/heroicons-outline";
-import { AlertDialog } from "../../../../complib/overlays";
 import { UserItem } from "../../../../common/types/userItem";
 import { getCloneLink, getEditLink, useDeleteMutation, usePatchMutation } from "./SearchItemActions.helpers";
 import { ItemType } from "../../../entities/types/itemTypes";
-import { Text } from "../../../../complib/text";
-import { Tooltip } from "../../../../complib/data-display";
+import { AlertDialog, Button, Text, toast, Tooltip } from "@mimirorg/component-library";
 import { StateBadge } from "../../../ui/badges/StateBadge";
-import { toast } from "complib/data-display";
 import { AxiosError } from "axios";
 import { useState } from "react";
 
@@ -20,9 +16,10 @@ type SearchItemProps = {
   user: UserItem | null;
   item: ItemType;
   children?: React.ReactNode;
+  isAttributeGroup?: boolean;
 };
 
-export const SearchItemActions = ({ user, item, children }: SearchItemProps) => {
+export const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: SearchItemProps) => {
   const [isApprovalOpen, setIsApprovalOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const theme = useTheme();
@@ -65,7 +62,8 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
 
   return (
     <>
-      {!isStateApproved && <StateBadge state={item.state} />}
+      {!isStateApproved && !isAttributeGroup && <StateBadge state={item.state} />}
+
       <PlainLink tabIndex={-1} to={cloneLink}>
         <Tooltip content={<Text>{t("search.item.clone")}</Text>}>
           <Button
@@ -79,6 +77,7 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
           </Button>
         </Tooltip>
       </PlainLink>
+
       <PlainLink tabIndex={-1} to={editLink}>
         <Tooltip content={<Text>{t("search.item.edit")}</Text>}>
           <Button
@@ -92,30 +91,36 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
           </Button>
         </Tooltip>
       </PlainLink>
+
+      {!isAttributeGroup && (
+        <>
+          <AlertDialog
+            gap={theme.mimirorg.spacing.multiple(6)}
+            actions={[approveAction]}
+            title={t("search.item.templates.approve")}
+            description={t("search.item.approveDescription")}
+            hideDescription
+            content={children}
+            open={isApprovalOpen}
+            onOpenChange={(open) => setIsApprovalOpen(open)}
+          />
+
+          <Tooltip content={<Text>{t("search.item.approve")}</Text>}>
+            <Button
+              disabled={!btnFilter.review}
+              tabIndex={0}
+              variant={btnFilter.approved ? "outlined" : "filled"}
+              icon={<Check />}
+              iconOnly
+              onClick={() => setIsApprovalOpen(true)}
+            >
+              {t("search.item.approve")}
+            </Button>
+          </Tooltip>
+        </>
+      )}
       <AlertDialog
-        gap={theme.tyle.spacing.multiple(6)}
-        actions={[approveAction]}
-        title={t("search.item.templates.approve")}
-        description={t("search.item.approveDescription")}
-        hideDescription
-        content={children}
-        open={isApprovalOpen}
-        onOpenChange={(open) => setIsApprovalOpen(open)}
-      />
-      <Tooltip content={<Text>{t("search.item.approve")}</Text>}>
-        <Button
-          disabled={!btnFilter.review}
-          tabIndex={0}
-          variant={btnFilter.approved ? "outlined" : "filled"}
-          icon={<Check />}
-          iconOnly
-          onClick={() => setIsApprovalOpen(true)}
-        >
-          {t("search.item.approve")}
-        </Button>
-      </Tooltip>
-      <AlertDialog
-        gap={theme.tyle.spacing.multiple(6)}
+        gap={theme.mimirorg.spacing.multiple(6)}
         actions={[deleteAction]}
         title={t("search.item.templates.delete", { object: name })}
         description={t("search.item.deleteDescription")}

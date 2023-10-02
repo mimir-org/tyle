@@ -8,17 +8,14 @@ import { useSubmissionToast } from "features/entities/common/utils/useSubmission
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { RdsLibAm, RdsLibCm, State } from "@mimirorg/typelibrary-types";
-import { Box, Flexbox } from "../../../complib/layouts";
+import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
 import { PlainLink } from "../../common/plain-link";
-import { Button } from "../../../complib/buttons";
 import { useTheme } from "styled-components";
 import { createEmptyRds, toRdsLibAm } from "./types/formRdsLib";
 import { rdsCodeToUpper, useRdsMutation, useRdsQuery } from "./RdsForm.helpers";
 import { RdsFormBaseFields } from "./RdsFormBaseFields";
 import { RdsFormPreview } from "../entityPreviews/rds/RdsFormPreview";
-import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
-import { Text } from "../../../complib/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { rdsSchema } from "./rdsSchema";
 import { useGetAllRds } from "external/sources/rds/rds.queries";
@@ -65,11 +62,11 @@ export const RdsForm = ({ defaultValues = createEmptyRds(), mode }: RdsFormProps
         {isLoading ? (
           <Loader />
         ) : (
-          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.tyle.spacing.multiple(6)}>
-            <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.mimirorg.spacing.multiple(6)}>
+            <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
               <Text variant={"display-small"}>{t("rds.title")}</Text>
               <RdsFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
-              <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
+              <Flexbox justifyContent={"center"} gap={theme.mimirorg.spacing.xl}>
                 <PlainLink tabIndex={-1} to={"/"}>
                   <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
                     {t("common.cancel")}

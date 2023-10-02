@@ -1,6 +1,6 @@
 import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { InfoItem } from "common/types/infoItem";
-import { Text } from "complib/text";
+import { Text } from "@mimirorg/component-library";
 
 export const mapAttributeLibCmToInfoItem = (attribute: AttributeLibCm): InfoItem => {
   const infoItem = {

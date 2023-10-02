@@ -1,10 +1,7 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Envelope } from "@styled-icons/heroicons-outline";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
-import { Select } from "complib/inputs";
-import { Box } from "complib/layouts";
-import { Dialog } from "complib/overlays";
-import { Text } from "complib/text";
+import { Box, Dialog, Select, Text } from "@mimirorg/component-library";
 import { useGetCompany } from "external/sources/company/company.queries";
 import { ContactCard } from "features/ui/header/contact/ContactCard";
 import { UserMenuButton } from "features/ui/header/user-menu/UserMenuButton";
@@ -21,7 +18,7 @@ export const ContactButton = () => {
   const { t } = useTranslation("ui");
   const [selected, setSelected] = useState<number>();
 
-  const companies = useGetFilteredCompanies(MimirorgPermission.None);
+  const companies = useGetFilteredCompanies(MimirorgPermission.Read);
   const { data: company } = useGetCompany(selected);
 
   const manager = company?.manager;
@@ -53,7 +50,9 @@ export const ContactButton = () => {
         </>
       }
     >
-      <UserMenuButton icon={<Envelope size={24} />}>{t("header.menu.contact.title")}</UserMenuButton>
+      {companies.length > 0 && (
+        <UserMenuButton icon={<Envelope size={24} />}>{t("header.menu.contact.title")}</UserMenuButton>
+      )}
     </Dialog>
   );
 };

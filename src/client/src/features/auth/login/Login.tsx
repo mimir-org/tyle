@@ -1,11 +1,17 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { MimirorgAuthenticateAm } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
-import { Button } from "complib/buttons";
-import { Form, FormErrorBanner, FormField, FormFieldset } from "complib/form";
-import { Input } from "complib/inputs";
-import { MotionFlexbox } from "complib/layouts";
-import { MotionText, Text } from "complib/text";
+import {
+  Button,
+  Input,
+  Form,
+  FormErrorBanner,
+  FormField,
+  FormFieldset,
+  MotionFlexbox,
+  MotionText,
+  Text,
+} from "@mimirorg/component-library";
 import { useLogin } from "external/sources/authenticate/authenticate.queries";
 import { AuthContent } from "features/auth/common/auth-content/AuthContent";
 import { loginSchema } from "features/auth/login/loginSchema";
@@ -63,13 +69,13 @@ export const Login = () => {
               />
             </FormField>
 
-            <MotionText color={theme.tyle.color.sys.surface.variant.on} layout={"position"} as={"i"}>
+            <MotionText color={theme.mimirorg.color.surface.variant.on} layout={"position"} as={"i"}>
               {t("login.placeholders.required")}
             </MotionText>
           </FormFieldset>
-          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
+          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.mimirorg.spacing.xxl}>
             <Button type={"submit"}>{t("login.submit")}</Button>
-            <Text color={theme.tyle.color.sys.surface.variant.on}>
+            <Text color={theme.mimirorg.color.surface.variant.on}>
               {t("login.altLead")} <Link to={registerBasePath}>{t("login.altLink")}</Link>
             </Text>
           </MotionFlexbox>

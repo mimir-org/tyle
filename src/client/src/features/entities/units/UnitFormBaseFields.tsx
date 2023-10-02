@@ -1,9 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useFormContext } from "react-hook-form";
-import { FormField } from "../../../complib/form";
-import { Input, Textarea } from "../../../complib/inputs";
+import { FormBaseFieldsContainer, FormField, Input, Textarea } from "@mimirorg/component-library";
 import { UnitLibAm } from "@mimirorg/typelibrary-types";
-import { FormBaseFieldsContainer } from "complib/form/FormContainer.styled";
 
 interface UnitFormBaseFieldsProps {
   limited?: boolean;

@@ -1,5 +1,4 @@
-import { sizingMixin } from "complib/mixins";
-import { Sizing } from "complib/props";
+import { sizingMixin, Sizing } from "@mimirorg/component-library";
 import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 

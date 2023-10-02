@@ -1,7 +1,5 @@
 import { UserCircle } from "@styled-icons/heroicons-outline";
-import { Button } from "complib/buttons";
-import { Popover } from "complib/data-display";
-import { Box } from "complib/layouts";
+import { Box, Button, Popover } from "@mimirorg/component-library";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
 
@@ -24,10 +22,10 @@ export const UserMenu = ({ name, children }: UserMenuProps) => {
     <Popover
       align={"end"}
       placement={"bottom"}
-      bgColor={theme.tyle.color.sys.background.base}
-      color={theme.tyle.color.sys.background.on}
+      bgColor={theme.mimirorg.color.background.base}
+      color={theme.mimirorg.color.background.on}
       content={
-        <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xl} width={"170px"}>
+        <Box display={"flex"} flexDirection={"column"} gap={theme.mimirorg.spacing.xl} width={"170px"}>
           {children}
         </Box>
       }
@@ -36,7 +34,7 @@ export const UserMenu = ({ name, children }: UserMenuProps) => {
         icon={<UserCircle size={24} />}
         iconPlacement={"left"}
         textVariant={"label-large"}
-        mr={`-${theme.tyle.spacing.xl}`}
+        spacing={{ mr: `-${theme.mimirorg.spacing.xl}` }}
       >
         {name}
       </Button>

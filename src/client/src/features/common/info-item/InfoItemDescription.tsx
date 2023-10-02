@@ -1,9 +1,5 @@
 import { InfoItem } from "common/types/infoItem";
-import { Button } from "complib/buttons";
-import { Divider } from "complib/data-display";
-import { Box, Flexbox } from "complib/layouts";
-import { Text } from "complib/text";
-import { Actionable } from "complib/types";
+import { Actionable, Box, Button, Divider, Flexbox, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 
 export type InfoItemDescriptionProps = Omit<InfoItem, "id"> & Partial<Actionable>;
@@ -31,14 +27,14 @@ export const InfoItemDescription = ({
   const theme = useTheme();
 
   return (
-    <Box as={"section"} display={"flex"} flexDirection={"column"} width={"118px"} gap={theme.tyle.spacing.l}>
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.base}>
-        <Flexbox gap={theme.tyle.spacing.s} justifyContent={"space-between"} alignItems={"center"}>
+    <Box as={"section"} display={"flex"} flexDirection={"column"} width={"118px"} gap={theme.mimirorg.spacing.l}>
+      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.base}>
+        <Flexbox gap={theme.mimirorg.spacing.s} justifyContent={"space-between"} alignItems={"center"}>
           <Text variant={"title-small"}>{name}</Text>
           {actionable && onAction && (
             <Button
               variant={"filled"}
-              color={theme.tyle.color.sys.surface.on}
+              color={theme.mimirorg.color.surface.on}
               onClick={onAction}
               icon={actionIcon}
               iconOnly
@@ -54,14 +50,14 @@ export const InfoItemDescription = ({
       <Box
         display={"flex"}
         flexDirection={"column"}
-        gap={theme.tyle.spacing.base}
+        gap={theme.mimirorg.spacing.base}
         maxHeight={"250px"}
         overflow={"auto"}
       >
         {descriptors &&
           Object.keys(descriptors).map((k, i) => (
-            <Text key={k + i} variant={"body-small"} color={theme.tyle.color.sys.primary.on}>
-              <Text as={"span"} color={theme.tyle.color.sys.secondary.base} textTransform={"capitalize"}>
+            <Text key={k + i} variant={"body-small"} color={theme.mimirorg.color.primary.on}>
+              <Text as={"span"} color={theme.mimirorg.color.secondary.base} textTransform={"capitalize"}>
                 {k}:{" "}
               </Text>
               {descriptors[k]}

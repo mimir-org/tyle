@@ -1,5 +1,4 @@
-import { Flexbox, MotionBox } from "complib/layouts";
-import { Heading, Text } from "complib/text";
+import { Heading, Flexbox, MotionBox, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 import { State } from "@mimirorg/typelibrary-types";
 import { StateBadge } from "../../../../ui/badges/StateBadge";
@@ -34,11 +33,11 @@ export default function UnifiedPanel({
       flex={1}
       display={"flex"}
       flexDirection={"column"}
-      gap={theme.tyle.spacing.xxxl}
+      gap={theme.mimirorg.spacing.xxxl}
       maxHeight={"100%"}
-      {...theme.tyle.animation.fade}
+      {...theme.mimirorg.animation.fade}
     >
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xl}>
+      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xl}>
         {children}
         {showName && (
           <Heading as={"h2"} variant={"title-large"} fontWeight={"500"} useEllipsis ellipsisMaxLines={2}>
@@ -51,7 +50,7 @@ export default function UnifiedPanel({
           </Text>
         )}
       </Flexbox>
-      <Flexbox gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
+      <Flexbox gap={theme.mimirorg.spacing.xl} flexWrap={"wrap"}>
         <StateBadge state={state} />
       </Flexbox>
     </MotionBox>

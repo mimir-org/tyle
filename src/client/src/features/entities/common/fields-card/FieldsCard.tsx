@@ -1,7 +1,5 @@
 import { Trash } from "@styled-icons/heroicons-outline";
-import { Button } from "complib/buttons";
-import { Box, Flexbox } from "complib/layouts";
-import { Text } from "complib/text";
+import { Box, Button, Flexbox, Text } from "@mimirorg/component-library";
 import { FieldsCardContainer } from "features/entities/common/fields-card/FieldsCard.styled";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
@@ -35,7 +33,7 @@ export const FieldsCard = ({ index, removeText, onRemove, children }: FieldsCard
         </Button>
       </Box>
 
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.s}>
+      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.s}>
         {children}
       </Flexbox>
     </FieldsCardContainer>

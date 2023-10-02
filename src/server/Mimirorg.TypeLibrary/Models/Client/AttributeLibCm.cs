@@ -14,6 +14,5 @@ public class AttributeLibCm : IStatefulObject
     public State State { get; set; }
     public string Description { get; set; }
     public ICollection<AttributeUnitLibCm> AttributeUnits { get; set; }
-
     public string Kind => nameof(AttributeLibCm);
 }

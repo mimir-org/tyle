@@ -1,8 +1,9 @@
 import { UnitLibAm } from "@mimirorg/typelibrary-types";
 import { unitSchema } from "./unitSchema";
+import { vi } from "vitest";
 
 describe("unitSchema tests", () => {
-  const t = jest.fn();
+  const t = vi.fn();
 
   it("should reject without a name", async () => {
     const unitWithoutName: Partial<UnitLibAm> = { name: "" };

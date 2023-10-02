@@ -5,7 +5,7 @@ export const UnauthenticatedLayoutContainer = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: ${(props) => props.theme.tyle.spacing.base};
+  padding: ${(props) => props.theme.mimirorg.spacing.base};
   overflow: auto;
   background: linear-gradient(
     250deg,

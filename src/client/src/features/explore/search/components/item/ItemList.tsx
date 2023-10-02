@@ -17,7 +17,7 @@ export const ItemList = ({ children }: ItemListProps) => {
   const theme = useTheme();
 
   return (
-    <MotionItemListContainer {...theme.tyle.animation.fade}>
+    <MotionItemListContainer {...theme.mimirorg.animation.fade}>
       <AnimatePresence>{children}</AnimatePresence>
     </MotionItemListContainer>
   );

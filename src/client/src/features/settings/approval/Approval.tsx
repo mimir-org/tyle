@@ -1,5 +1,4 @@
-import { Flexbox } from "complib/layouts";
-import { Text } from "complib/text";
+import { Flexbox, Text } from "@mimirorg/component-library";
 import { ApprovalPlaceholder } from "features/settings/approval/placeholder/ApprovalPlaceholder";
 import { ApprovalCard } from "features/settings/common/approval-card/ApprovalCard";
 import { SettingsSection } from "features/settings/common/settings-section/SettingsSection";
@@ -8,7 +7,7 @@ import { useTheme } from "styled-components";
 import { useQueryClient } from "@tanstack/react-query";
 import { approvalKeys, useGetApprovals } from "external/sources/approval/approval.queries";
 import { ApprovalDataCm, State } from "@mimirorg/typelibrary-types";
-import { usePatchAspectObjectState } from "external/sources/aspectobject/aspectObject.queries";
+import { usePatchBlockState } from "external/sources/block/block.queries";
 import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
 import { usePatchAttributeState } from "../../../external/sources/attribute/attribute.queries";
 import { usePatchRdsState } from "../../../external/sources/rds/rds.queries";
@@ -20,7 +19,7 @@ export const Approval = () => {
   const theme = useTheme();
   const { t } = useTranslation("settings");
   const approvals = useGetApprovals();
-  const patchMutationAspectObject = usePatchAspectObjectState();
+  const patchMutationBlock = usePatchBlockState();
   const patchMutationTerminal = usePatchTerminalState();
   const patchMutationAttribute = usePatchAttributeState();
   const patchMutationQuantityDatum = usePatchQuantityDatumState();
@@ -45,8 +44,8 @@ export const Approval = () => {
     const data: ApprovalDataCm = { id: id, state: State.Draft };
 
     switch (objectType) {
-      case "AspectObject":
-        patchMutationAspectObject.mutateAsync(data);
+      case "Block":
+        patchMutationBlock.mutateAsync(data);
         break;
       case "Terminal":
         patchMutationTerminal.mutateAsync(data);
@@ -75,10 +74,10 @@ export const Approval = () => {
   return (
     <SettingsSection title={t("approval.title")}>
       {/* Approval */}
-      <Text variant={"title-medium"} mb={theme.tyle.spacing.l}>
+      <Text variant={"title-medium"} spacing={{ mb: theme.mimirorg.spacing.l }}>
         {t("approval.approval")}
       </Text>
-      <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.tyle.spacing.xxxl}>
+      <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.mimirorg.spacing.xxxl}>
         {showPlaceholder && <ApprovalPlaceholder text={t("approval.placeholders.emptyApproval")} />}
         {approvals.data
           ?.filter((x) => x.state === State.Review)

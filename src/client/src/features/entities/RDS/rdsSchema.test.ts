@@ -1,8 +1,9 @@
 import { RdsLibAm } from "@mimirorg/typelibrary-types";
 import { rdsSchema } from "./rdsSchema";
+import { vi } from "vitest";
 
 describe("rdsSchema tests", () => {
-  const t = jest.fn();
+  const t = vi.fn();
 
   it("should reject without a code", async () => {
     const rdsWithoutCode: Partial<RdsLibAm> = { rdsCode: "" };

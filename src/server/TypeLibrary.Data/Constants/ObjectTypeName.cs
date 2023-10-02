@@ -7,6 +7,6 @@ namespace TypeLibrary.Data.Constants
         public const string Rds = "RDS";
         public const string QuantityDatum = "quantity datum";
         public const string Attribute = "attribute";
-        public const string AspectObject = "aspect object";
+        public const string Block = "block";
     }
 }

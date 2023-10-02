@@ -23,13 +23,14 @@ public class MimirorgCommonFixture : IDisposable
     public Mock<IHttpContextAccessor> HttpContextAccessor = new();
 
     // Loggers
-    public Mock<ILogger<AspectObjectService>> AspectObjectServiceLogger = new();
+    public Mock<ILogger<BlockService>> BlockServiceLogger = new();
 
     // Repositories
-    public Mock<IEfAspectObjectRepository> AspectObjectRepository = new();
+    public Mock<IEfBlockRepository> BlockRepository = new();
     public Mock<IAttributeRepository> AttributeRepository = new();
-    public Mock<IEfAspectObjectTerminalRepository> AspectObjectTerminalRepository = new();
-    public Mock<IEfAspectObjectAttributeRepository> AspectObjectAttributeRepository = new();
+    public Mock<IEfBlockTerminalRepository> BlockTerminalRepository = new();
+    public Mock<IEfBlockAttributeRepository> BlockAttributeRepository = new();
+    public Mock<IEfAttributeGroupRepository> AttributeGroupRepository = new();
 
     // Services
     public Mock<IAttributeService> AttributeService = new();
@@ -50,14 +51,14 @@ public class MimirorgCommonFixture : IDisposable
         MimirorgAuthSettings.RequiredLength = 10;
     }
 
-    public (AspectObjectLibAm am, AspectObjectLibDm dm) CreateAspectObjectTestData()
+    public (BlockLibAm am, BlockLibDm dm) CreateBlockTestData()
     {
-        var aspectObjectLibAm = new AspectObjectLibAm
+        var blockLibAm = new BlockLibAm
         {
             Name = "AA",
             RdsId = "AA",
             Aspect = Aspect.Function,
-            AspectObjectTerminals = new List<AspectObjectTerminalLibAm>
+            BlockTerminals = new List<BlockTerminalLibAm>
             {
                 new()
                 {
@@ -88,13 +89,13 @@ public class MimirorgCommonFixture : IDisposable
             TypeReference = "https://www.tyle.com/"
         };
 
-        var aspectObjectLibDm = new AspectObjectLibDm
+        var blockLibDm = new BlockLibDm
         {
             Id = "68313",
             Name = "AA",
             RdsId = "AA",
             Aspect = Aspect.Function,
-            AspectObjectTerminals = new List<AspectObjectTerminalLibDm>
+            BlockTerminals = new List<BlockTerminalLibDm>
             {
                 new()
                 {
@@ -115,7 +116,7 @@ public class MimirorgCommonFixture : IDisposable
             TypeReference = "https://www.tyle.com/"
         };
 
-        return (aspectObjectLibAm, aspectObjectLibDm);
+        return (blockLibAm, blockLibDm);
     }
 
     public void Dispose()

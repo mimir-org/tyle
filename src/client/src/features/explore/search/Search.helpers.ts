@@ -1,23 +1,28 @@
 import { Link } from "common/types/link";
-import { aspectObjectFormBasePath } from "features/entities/aspectobject/AspectObjectFormRoutes";
+import { blockFormBasePath } from "features/entities/block/BlockFormRoutes";
 import { terminalFormBasePath } from "features/entities/terminal/TerminalFormRoutes";
 import { useTranslation } from "react-i18next";
 import { attributeFormBasePath } from "../../entities/attributes/AttributeFormRoutes";
 import { unitFormBasePath } from "../../entities/units/UnitFormRoutes";
 import { datumFormBasePath } from "../../entities/quantityDatum/QuantityDatumFormRoutes";
 import { rdsFormBasePath } from "../../entities/RDS/RdsFormRoutes";
+import { attributeGroupFormBasePath } from "features/entities/attributeGroups/AttributeGroupFormRoutes";
 
 export const useCreateMenuLinks = (): Link[] => {
   const { t } = useTranslation("explore");
 
   return [
     {
-      name: t("search.create.aspectObject"),
-      path: aspectObjectFormBasePath,
+      name: t("search.create.block"),
+      path: blockFormBasePath,
     },
     {
       name: t("search.create.terminal"),
       path: terminalFormBasePath,
+    },
+    {
+      name: t("search.create.attributeGroup"),
+      path: attributeGroupFormBasePath,
     },
     {
       name: t("search.create.attribute"),

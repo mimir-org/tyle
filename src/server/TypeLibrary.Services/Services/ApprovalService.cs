@@ -11,7 +11,7 @@ namespace TypeLibrary.Services.Services;
 public class ApprovalService : IApprovalService
 {
     private readonly IMapper _mapper;
-    private readonly IAspectObjectService _aspectObjectService;
+    private readonly IBlockService _blockService;
     private readonly ITerminalService _terminalService;
     private readonly IAttributeService _attributeService;
     private readonly IUnitService _unitService;
@@ -19,10 +19,10 @@ public class ApprovalService : IApprovalService
     private readonly IRdsService _rdsService;
     private readonly IMimirorgAuthService _authService;
 
-    public ApprovalService(IMapper mapper, IAspectObjectService aspectObjectService, ITerminalService terminalService, IAttributeService attributeService, IUnitService unitService, IQuantityDatumService quantityDatumService, IRdsService rdsService, IMimirorgAuthService authService)
+    public ApprovalService(IMapper mapper, IBlockService blockService, ITerminalService terminalService, IAttributeService attributeService, IUnitService unitService, IQuantityDatumService quantityDatumService, IRdsService rdsService, IMimirorgAuthService authService)
     {
         _mapper = mapper;
-        _aspectObjectService = aspectObjectService;
+        _blockService = blockService;
         _terminalService = terminalService;
         _attributeService = attributeService;
         _unitService = unitService;
@@ -41,7 +41,7 @@ public class ApprovalService : IApprovalService
 
         var tasks = new List<Task>
         {
-            Task.Run(() => data.ResolveAspectObjects(_aspectObjectService, _mapper, _authService)),
+            Task.Run(() => data.ResolveBlocks(_blockService, _mapper, _authService)),
             Task.Run(() => data.ResolveTerminals(_terminalService, _mapper, _authService)),
             Task.Run(() => data.ResolveAttributes(_attributeService, _mapper, _authService)),
             Task.Run(() => data.ResolveUnits(_unitService, _mapper, _authService)),

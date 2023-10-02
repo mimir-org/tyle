@@ -1,6 +1,5 @@
 import { UserCircle } from "@styled-icons/heroicons-outline";
-import { Box } from "complib/layouts";
-import { Text } from "complib/text";
+import { Box, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 
 interface PermissionCardHeaderProps {
@@ -11,8 +10,8 @@ export const PermissionCardHeader = ({ children }: PermissionCardHeaderProps) =>
   const theme = useTheme();
 
   return (
-    <Box display={"flex"} gap={theme.tyle.spacing.s}>
-      <UserCircle size={24} color={theme.tyle.color.sys.primary.base} />
+    <Box display={"flex"} gap={theme.mimirorg.spacing.s}>
+      <UserCircle size={24} color={theme.mimirorg.color.primary.base} />
       <Text variant={"title-large"}>{children}</Text>
     </Box>
   );
