@@ -8,9 +8,9 @@ import { AttributeGroupItem } from "common/types/attributeGroupItem";
 import AttributeGroupPreview from "features/entities/entityPreviews/attributeGroup/AttributeGroupPreview";
 
 /**
- * Component that displays information about a given terminal.
+ * Component that displays information about a given AttributeGroup.
  *
- * @param props receives all properties of a TerminalItem
+ * @param props receives all properties of a AttributeGroupItem
  * @constructor
  */
 export const AttributeGroupPanel = ({ name, description, attributes }: AttributeGroupItem) => {
