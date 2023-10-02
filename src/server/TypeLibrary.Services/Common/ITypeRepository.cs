@@ -23,7 +23,7 @@ public interface ITypeRepository<T, TRequest>
     Task<T> Create(TRequest request);
 
     /// <summary>
-    /// Updates the type given by the id of the input type.
+    /// Updates the type with the given id.
     /// </summary>
     /// <param name="id">The id of the type to update.</param>
     /// <param name="request">A request defining the new values for the type.</param>
