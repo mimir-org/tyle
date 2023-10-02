@@ -99,7 +99,6 @@ export const BlockForm = ({ defaultValues = createEmptyFormBlockLib(), mode }: B
             </Box>
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
-              {getSubformForAspect(aspect, limited ? latestApprovedQuery.data?.blockTerminals : [])}
               <FormAttributeGroups
                 register={() => register(`attributeGroups`)}
                 fields={attributeGroupFields.fields}

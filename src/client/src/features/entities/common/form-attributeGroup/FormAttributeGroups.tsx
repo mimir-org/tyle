@@ -59,11 +59,11 @@ export const FormAttributeGroups = ({
       action={
         canAddAttributeGroups && (
           <SelectItemDialog
-            title={t("attributeGroups.dialog.title")}
-            description={t("attributeGroups.dialog.description")}
-            searchFieldText={t("attributeGroups.dialog.search")}
-            addItemsButtonText={t("attributeGroups.dialog.add")}
-            openDialogButtonText={t("attributeGroups.open")}
+            title={t("attributeGroup.dialog.title")}
+            description={t("attributeGroup.dialog.description")}
+            searchFieldText={t("attributeGroup.dialog.search")}
+            addItemsButtonText={t("attributeGroup.dialog.add")}
+            openDialogButtonText={t("attributeGroup.open")}
             items={available}
             onAdd={(ids) => onAddAttributeGroup(ids, attributeGroups, append)}
           />
