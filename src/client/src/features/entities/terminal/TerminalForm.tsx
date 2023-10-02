@@ -23,6 +23,7 @@ import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { FormMode } from "../types/formMode";
+import { FormAttributeGroups } from "../common/form-attributeGroup/FormAttributeGroups";
 
 interface TerminalFormProps {
   defaultValues?: FormTerminalLib;
@@ -39,7 +40,9 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
   });
 
   const { register, handleSubmit, control, setError, reset } = formMethods;
+
   const attributeFields = useFieldArray({ control, name: "attributes" });
+  const attributeGroupFields = useFieldArray({ control, name: "attributeGroups" });
 
   const query = useTerminalQuery();
   const mapper = (source: TerminalLibCm) => mapTerminalLibCmToFormTerminalLib(source);
@@ -72,6 +75,16 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
                 preprocess={prepareAttributes}
                 canAddAttributes={!limited}
                 canRemoveAttributes={!limited}
+              />
+            </Box>
+            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
+              <FormAttributeGroups
+                register={(index) => register(`attributeGroups.${index}`)}
+                fields={attributeGroupFields.fields}
+                append={attributeGroupFields.append}
+                remove={attributeGroupFields.remove}
+                canAddAttributeGroups={!limited}
+                canRemoveAttributeGroups={!limited}
               />
             </Box>
           </>

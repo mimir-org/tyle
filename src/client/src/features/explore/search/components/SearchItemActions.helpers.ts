@@ -5,6 +5,7 @@ import { useDeleteUnit, usePatchUnitState } from "external/sources/unit/unit.que
 import { useDeleteQuantityDatum, usePatchQuantityDatumState } from "external/sources/datum/quantityDatum.queries";
 import { useDeleteRds, usePatchRdsState } from "external/sources/rds/rds.queries";
 import { useDeleteAttribute, usePatchAttributeState } from "external/sources/attribute/attribute.queries";
+import { useDeleteAttributeGroup } from "external/sources/attributeGroup/attributeGroup.queries";
 
 export function getCloneLink(item: ItemType) {
   switch (item.kind) {
@@ -20,6 +21,8 @@ export function getCloneLink(item: ItemType) {
       return `/form/quantityDatum/clone/${item.id}`;
     case "RdsItem":
       return `/form/rds/clone/${item.id}`;
+    case "AttributeGroupItem":
+      return `/form/attributeGroup/clone/${item.id}`;
     default:
       return "#";
   }
@@ -39,6 +42,8 @@ export function getEditLink(item: ItemType) {
       return `/form/quantityDatum/edit/${item.id}`;
     case "RdsItem":
       return `/form/rds/edit/${item.id}`;
+    case "AttributeGroupItem":
+      return `/form/attributeGroup/edit/${item.id}`;
     default:
       return "#";
   }
@@ -51,12 +56,15 @@ export function usePatchMutation(item: ItemType) {
   const patchRdsMutation = usePatchRdsState();
   const patchTerminalMutation = usePatchTerminalState();
   const patchUnitMutation = usePatchUnitState();
+  const patchAttributeGroup = usePatchUnitState();
 
   switch (item.kind) {
     case "BlockItem":
       return patchBlockMutation;
     case "AttributeItem":
       return patchAttributeMutation;
+    case "AttributeGroupItem":
+      return patchAttributeGroup;
     case "QuantityDatumItem":
       return patchQuantityDatumMutation;
     case "RdsItem":
@@ -77,12 +85,15 @@ export function useDeleteMutation(item: ItemType) {
   const deleteRdsMutation = useDeleteRds(item.id);
   const deleteTerminalMutation = useDeleteTerminal(item.id);
   const deleteUnitMutation = useDeleteUnit(item.id);
+  const deleteAttributeGroupMutation = useDeleteAttributeGroup(item.id);
 
   switch (item.kind) {
     case "BlockItem":
       return deleteBlockMutation;
     case "AttributeItem":
       return deleteAttributeMutation;
+    case "AttributeGroupItem":
+      return deleteAttributeGroupMutation;
     case "QuantityDatumItem":
       return deleteQuantityDatumMutation;
     case "RdsItem":

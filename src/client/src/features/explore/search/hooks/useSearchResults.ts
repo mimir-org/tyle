@@ -10,7 +10,7 @@ import { SearchResult } from "features/explore/search/types/searchResult";
 /**
  * Indexed fields that the fuzzy-search will try to match a query against
  */
-const searchKeys = ["id", "name", "description", "aspect", "attribute"];
+const searchKeys = ["id", "name", "description", "aspect", "attribute", "attributeGroups"];
 
 export const useSearchResults = (
   query: string,
@@ -23,7 +23,9 @@ export const useSearchResults = (
 
   const results = fuseResult.map((x) => x.item);
   const filtered = filterSearchResults(filters, results);
+
   const sliced = filtered.slice((pageNum - 1) * pageSize, pageNum * pageSize);
+
   const mapped = mapSearchResults(sliced);
 
   return [mapped, filtered.length, isLoading];

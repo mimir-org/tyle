@@ -21,6 +21,8 @@ export interface FormAttributesProps {
   preprocess?: (attributes?: AttributeLibCm[]) => AttributeLibCm[];
   canAddAttributes?: boolean;
   canRemoveAttributes?: boolean;
+  canAddAttributeGroups?: boolean;
+  canRemoveAttributeGroups?: boolean;
   limitedAttributes?: AttributeLibCm[];
 }
 

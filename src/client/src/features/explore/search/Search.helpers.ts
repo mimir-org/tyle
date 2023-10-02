@@ -6,6 +6,7 @@ import { attributeFormBasePath } from "../../entities/attributes/AttributeFormRo
 import { unitFormBasePath } from "../../entities/units/UnitFormRoutes";
 import { datumFormBasePath } from "../../entities/quantityDatum/QuantityDatumFormRoutes";
 import { rdsFormBasePath } from "../../entities/RDS/RdsFormRoutes";
+import { attributeGroupFormBasePath } from "features/entities/attributeGroups/AttributeGroupFormRoutes";
 
 export const useCreateMenuLinks = (): Link[] => {
   const { t } = useTranslation("explore");
@@ -18,6 +19,10 @@ export const useCreateMenuLinks = (): Link[] => {
     {
       name: t("search.create.terminal"),
       path: terminalFormBasePath,
+    },
+    {
+      name: t("search.create.attributeGroup"),
+      path: attributeGroupFormBasePath,
     },
     {
       name: t("search.create.attribute"),

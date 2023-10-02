@@ -25,6 +25,7 @@ import { useTheme } from "styled-components/macro";
 import { FormMode } from "../types/formMode";
 import { useGetLatestApprovedBlock } from "external/sources/block/block.queries";
 import { useGetCurrentUser } from "external/sources/user/user.queries";
+import { FormAttributeGroups } from "../common/form-attributeGroup/FormAttributeGroups";
 
 interface BlockFormProps {
   defaultValues?: FormBlockLib;
@@ -45,6 +46,7 @@ export const BlockForm = ({ defaultValues = createEmptyFormBlockLib(), mode }: B
   const { register, handleSubmit, control, setError, reset } = formMethods;
   const aspect = useWatch({ control, name: "aspect" });
   const attributeFields = useFieldArray({ control, name: "attributes" });
+  const attributeGroupFields = useFieldArray({ control, name: "attributeGroups" });
 
   const query = useBlockQuery();
   const mapper = (source: BlockLibCm) => {
@@ -93,6 +95,16 @@ export const BlockForm = ({ defaultValues = createEmptyFormBlockLib(), mode }: B
                 remove={attributeFields.remove}
                 preprocess={prepareAttributes}
                 limitedAttributes={limited ? latestApprovedQuery.data?.attributes : []}
+              />
+            </Box>
+
+            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
+              <FormAttributeGroups
+                register={() => register(`attributeGroups`)}
+                fields={attributeGroupFields.fields}
+                append={attributeGroupFields.append}
+                remove={attributeGroupFields.remove}
+                limitedAttributeGroups={limited ? latestApprovedQuery.data?.attributes : []}
               />
             </Box>
           </>

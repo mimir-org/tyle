@@ -140,7 +140,7 @@ public class MimirorgCompanyController : ControllerBase
     /// </summary>
     /// <param name="company">MimirorgCompanyAm</param>
     /// <returns>MimirorgCompanyCm</returns>
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     [HttpPost]
     [Route("")]
     [ProducesResponseType(typeof(MimirorgCompanyCm), 200)]

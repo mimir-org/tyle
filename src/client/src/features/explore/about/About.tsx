@@ -21,6 +21,9 @@ import { useGetRds } from "../../../external/sources/rds/rds.queries";
 import { toFormDatumLib } from "../../entities/quantityDatum/types/formQuantityDatumLib";
 import { toFormRdsLib } from "../../entities/RDS/types/formRdsLib";
 import UnifiedPanel from "./components/common/UnifiedPanel";
+import { useGetAttributeGroup } from "external/sources/attributeGroup/attributeGroup.queries";
+import { AttributeGroupPanel } from "./components/attributeGroup/AttributeGroupPanel";
+import { State } from "@mimirorg/typelibrary-types";
 
 interface AboutProps {
   selected?: SelectedInfo;
@@ -39,10 +42,11 @@ export const About = ({ selected }: AboutProps) => {
   const blockQuery = useGetBlock(selected?.type === "block" ? selected?.id : undefined);
   const terminalQuery = useGetTerminal(selected?.type === "terminal" ? selected?.id : undefined);
   const attributeQuery = useGetAttribute(selected?.type === "attribute" ? selected?.id : undefined);
+  const attributeGroupQuery = useGetAttributeGroup(selected?.type === "attributeGroup" ? selected?.id : undefined);
   const unitQuery = useGetUnit(selected?.type === "unit" ? selected?.id : undefined);
   const datumQuery = useGetQuantityDatum(selected?.type === "quantityDatum" ? selected?.id : undefined);
   const rdsQuery = useGetRds(selected?.type === "rds" ? selected?.id : undefined);
-  const allQueries = [blockQuery, terminalQuery, attributeQuery, unitQuery, datumQuery, rdsQuery];
+  const allQueries = [blockQuery, attributeGroupQuery, terminalQuery, attributeQuery, unitQuery, datumQuery, rdsQuery];
 
   const showLoader = allQueries.some((x) => x.isFetching);
 
@@ -50,6 +54,7 @@ export const About = ({ selected }: AboutProps) => {
   const showBlockPanel = !showLoader && selected?.type === "block" && blockQuery.isSuccess;
   const showTerminalPanel = !showLoader && selected?.type === "terminal" && terminalQuery.isSuccess;
   const showAttributePanel = !showLoader && selected?.type === "attribute" && attributeQuery.isSuccess;
+  const showAttributeGroupPanel = !showLoader && selected?.type === "attributeGroup" && attributeGroupQuery.isSuccess;
   const showUnitPanel = !showLoader && selected?.type === "unit" && unitQuery.isSuccess;
   const showDatumPanel = !showLoader && selected?.type === "quantityDatum" && datumQuery.isSuccess;
   const showRdsPanel = !showLoader && selected?.type === "rds" && rdsQuery.isSuccess;
@@ -68,6 +73,8 @@ export const About = ({ selected }: AboutProps) => {
         return typeName("quantityDatum.title");
       case "rds":
         return typeName("rds.title");
+      case "attributeGroup":
+        return typeName("attributeGroup.title");
       default:
         return t("about.title");
     }
@@ -105,6 +112,20 @@ export const About = ({ selected }: AboutProps) => {
         <UnifiedPanel {...toFormRdsLib(rdsQuery.data)}>
           <RdsPreview {...toFormRdsLib(rdsQuery.data)} />
         </UnifiedPanel>
+      )}
+      {showAttributeGroupPanel && (
+        <AttributeGroupPanel
+          key={attributeGroupQuery.data.id + attributeGroupQuery.data.kind}
+          id={attributeGroupQuery.data.id}
+          name={attributeGroupQuery.data.name}
+          created={attributeGroupQuery.data.created}
+          createdBy={attributeGroupQuery.data.createdBy}
+          description={attributeGroupQuery.data.description}
+          kind={attributeGroupQuery.data.kind}
+          attributeIds={attributeGroupQuery.data.attributes.map((x) => x.id)}
+          attributes={attributeGroupQuery.data.attributes}
+          state={State.Draft}
+        />
       )}
     </ExploreSection>
   );
