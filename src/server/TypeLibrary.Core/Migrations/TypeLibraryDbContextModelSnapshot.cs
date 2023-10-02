@@ -231,7 +231,9 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)");
 
                     b.Property<string>("PartOfAttributeGroup")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("PartOfAttributeGroup");
 
                     b.HasKey("Id");
 
@@ -631,7 +633,9 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)");
 
                     b.Property<string>("PartOfAttributeGroup")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("PartOfAttributeGroup");
 
                     b.Property<string>("TerminalId")
                         .HasColumnType("nvarchar(63)");
