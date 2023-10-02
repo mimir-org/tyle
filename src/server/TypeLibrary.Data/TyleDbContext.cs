@@ -18,6 +18,8 @@ public class TyleDbContext : DbContext
     public DbSet<RdlPurpose> Purposes { get; set; }
 
     public DbSet<AttributeType> Attributes { get; set; }
+    public DbSet<AttributeGroup> AttributeGroups { get; set; }
+    public DbSet<AttributeGroupAttributeJoin> AttributeGroupAttributes { get; set; }
     public DbSet<AttributeUnitJoin> AttributeUnits { get; set; }
     public DbSet<RdlPredicate> Predicates { get; set; }
     public DbSet<RdlUnit> Units { get; set; }
