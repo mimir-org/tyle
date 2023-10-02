@@ -127,6 +127,9 @@ public class TerminalService : ITerminalService
             }
         }
 
+        var distinctItems = dm.TerminalAttributes.GroupBy(x => x.AttributeId).Select(y => y.First());
+        dm.TerminalAttributes = distinctItems.ToList();
+
         var createdTerminal = await _terminalRepository.Create(dm);
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
         _terminalRepository.ClearAllChangeTrackers();
@@ -205,6 +208,30 @@ public class TerminalService : ITerminalService
             terminalToUpdate.Color = terminalAm.Color;
             terminalToUpdate.Description = terminalAm.Description;
         }
+
+        if (terminalAm.AttributeGroups != null)
+        {
+            foreach (var item in terminalAm.AttributeGroups)
+            {
+                var currentAttributeGroup = _attributeGroupRepository.GetSingleAttributeGroup(item);
+
+                if (currentAttributeGroup == null)
+                {
+                    _logger.LogError($"Could not add attribute group with id {item} to block with id {terminalToUpdate.Id}, attribute not found.");
+                }
+                else
+                {
+
+                    foreach (var attributeGroupItem in currentAttributeGroup.AttributeGroupAttributes)
+                    {
+                        terminalToUpdate.TerminalAttributes.Add(new TerminalAttributeLibDm { TerminalId = terminalToUpdate.Id, AttributeId = attributeGroupItem.AttributeId, PartOfAttributeGroup = item });
+                    }
+                }
+            }
+        }
+
+        var distinctItems = terminalToUpdate.TerminalAttributes.GroupBy(x => x.AttributeId).Select(y => y.First());
+        terminalToUpdate.TerminalAttributes = distinctItems.ToList();
 
         await _terminalAttributeRepository.SaveAsync();
         await _terminalRepository.SaveAsync();
