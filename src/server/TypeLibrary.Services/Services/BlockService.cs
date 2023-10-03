@@ -335,24 +335,7 @@ public class BlockService : IBlockService
             }
         }
 
-        foreach (var blockAttribute in currentBlockAttributes.ExceptBy(newBlockAttributes.Select(x => x.AttributeId), y => y.AttributeId))
-        {
-            var blockAttributeToDelete = _blockAttributeRepository.FindBy(x => x.BlockId == blockToUpdate.Id && x.AttributeId == blockAttribute.AttributeId).FirstOrDefault();
-
-            if (blockAttributeToDelete == null)
-                continue;
-
-            await _blockAttributeRepository.Delete(blockAttributeToDelete.Id);
-        }
-
-        foreach (var blockAttribute in newBlockAttributes.ExceptBy(currentBlockAttributes.Select(x => x.AttributeId), y => y.AttributeId))
-        {
-            blockToUpdate.BlockAttributes.Add(new BlockAttributeLibDm
-            {
-                BlockId = blockToUpdate.Id,
-                AttributeId = blockAttribute.AttributeId
-            });
-        }
+        var addedAttributesFromAttributeGroup = new List<BlockAttributeLibDm>();
 
         if (blockAm.AttributeGroups != null)
         {
@@ -370,10 +353,37 @@ public class BlockService : IBlockService
                     foreach (var attributeGroupItem in currentAttributeGroup.AttributeGroupAttributes)
                     {
                         blockToUpdate.BlockAttributes.Add(new BlockAttributeLibDm { BlockId = blockToUpdate.Id, AttributeId = attributeGroupItem.AttributeId, PartOfAttributeGroup = item });
+                        addedAttributesFromAttributeGroup.Add(new BlockAttributeLibDm { BlockId = blockToUpdate.Id, AttributeId = attributeGroupItem.AttributeId, PartOfAttributeGroup = item });
                     }
                 }
             }
         }
+
+        foreach (var blockAttribute in currentBlockAttributes.ExceptBy(newBlockAttributes.Select(x => x.AttributeId), y => y.AttributeId))
+        {
+
+            if (addedAttributesFromAttributeGroup.Where(x => x.AttributeId.Equals(blockAttribute.AttributeId)).Any()) continue;
+
+
+            var blockAttributeToDelete = _blockAttributeRepository.FindBy(x => x.BlockId == blockToUpdate.Id && x.AttributeId == blockAttribute.AttributeId).FirstOrDefault();
+
+            if (blockAttributeToDelete == null)
+                continue;
+
+            await _blockAttributeRepository.Delete(blockAttributeToDelete.Id);
+
+        }
+
+        foreach (var blockAttribute in newBlockAttributes.ExceptBy(currentBlockAttributes.Select(x => x.AttributeId), y => y.AttributeId))
+        {
+            blockToUpdate.BlockAttributes.Add(new BlockAttributeLibDm
+            {
+                BlockId = blockToUpdate.Id,
+                AttributeId = blockAttribute.AttributeId
+            });
+        }
+
+
         var distinctItems = blockToUpdate.BlockAttributes.GroupBy(x => x.AttributeId).Select(y => y.First());
         blockToUpdate.BlockAttributes = distinctItems.ToList();
 
