@@ -34,7 +34,12 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Program>
             services.AddDbContext<TyleDbContext>(options => options.UseInMemoryDatabase("TestDB"), ServiceLifetime.Transient);
             services.AddDbContext<MimirorgAuthenticationContext>(options => options.UseInMemoryDatabase("TestDBAuth"), ServiceLifetime.Transient);
             services.AddScoped<IUserInformationService, FakeUserInformationService>();
-            services.AddAuthentication("IntegrationUser").AddScheme<AuthenticationSchemeOptions, IntegrationTestAuthenticationHandler>("IntegrationUser", _ => { });
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = "IntegrationUser";
+                options.DefaultScheme = "IntegrationUser";
+                options.DefaultChallengeScheme = "IntegrationUser";
+            }).AddScheme<AuthenticationSchemeOptions, IntegrationTestAuthenticationHandler>("IntegrationUser", _ => { });
 
             var sp = services.BuildServiceProvider();
 
