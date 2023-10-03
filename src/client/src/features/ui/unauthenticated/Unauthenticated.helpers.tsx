@@ -1,7 +1,7 @@
 import { loginRoutes } from "features/auth/login/LoginRoutes";
 import { recoverRoutes } from "features/auth/recover/RecoverRoutes";
 import { registerRoutes } from "features/auth/register/RegisterRoutes";
-import { ErrorMessage } from "features/ui/common/ErrorMessage";
+import { ErrorMessage } from "@mimirorg/component-library";
 import { UnauthenticatedLayout } from "features/ui/unauthenticated/layout/UnauthenticatedLayout";
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter, Navigate } from "react-router-dom";

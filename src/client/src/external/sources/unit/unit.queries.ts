@@ -37,10 +37,10 @@ export const usePatchUnitState = () => {
   });
 };
 
-export const usePatchUnitStateReject = () => {
+export const useDeleteUnit = (id: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: { id: string }) => unitApi.patchUnitStateReject(item.id), {
+  return useMutation(() => unitApi.deleteUnit(id), {
     onSuccess: () => queryClient.invalidateQueries(keys.unitLists()),
   });
 };

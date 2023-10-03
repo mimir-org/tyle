@@ -12,15 +12,12 @@ import { createEmptyUnit, toUnitLibAm } from "./types/formUnitLib";
 import { useUnitMutation, useUnitQuery } from "./UnitForm.helpers";
 import UnitFormBaseFields from "./UnitFormBaseFields";
 import { UnitFormPreview } from "../entityPreviews/unit/UnitFormPreview";
-import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
-import { Box, Flexbox } from "../../../complib/layouts";
+import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { unitSchema } from "./unitSchema";
 import { PlainLink } from "features/common/plain-link";
-import { Button } from "complib/buttons";
-import { Text } from "../../../complib/text";
 
 interface UnitFormProps {
   defaultValues?: UnitLibAm;
@@ -58,11 +55,11 @@ export const UnitForm = ({ defaultValues = createEmptyUnit(), mode }: UnitFormPr
         {isLoading ? (
           <Loader />
         ) : (
-          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.tyle.spacing.multiple(6)}>
-            <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.mimirorg.spacing.multiple(6)}>
+            <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
               <Text variant={"display-small"}>{t("unit.title")}</Text>
               <UnitFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
-              <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
+              <Flexbox justifyContent={"center"} gap={theme.mimirorg.spacing.xl}>
                 <PlainLink tabIndex={-1} to={"/"}>
                   <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
                     {t("common.cancel")}

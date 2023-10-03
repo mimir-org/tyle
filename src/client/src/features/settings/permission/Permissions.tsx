@@ -1,4 +1,4 @@
-import { Flexbox } from "complib/layouts";
+import { Flexbox } from "@mimirorg/component-library";
 import { RadioFilters } from "features/settings/common/radio-filters/RadioFilters";
 import { SettingsSection } from "features/settings/common/settings-section/SettingsSection";
 import { PermissionDialog } from "features/settings/permission/permission-dialog/PermissionDialog";
@@ -30,7 +30,7 @@ export const Permissions = () => {
 
   return (
     <SettingsSection title={t("permissions.title")}>
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xxl}>
+      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xxl}>
         <RadioFilters
           title={t("permissions.organization")}
           filters={companies}

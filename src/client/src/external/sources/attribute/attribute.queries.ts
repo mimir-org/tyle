@@ -41,10 +41,10 @@ export const usePatchAttributeState = () => {
   });
 };
 
-export const usePatchAttributeStateReject = () => {
+export const useDeleteAttribute = (id: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: { id: string }) => attributeApi.patchAttributeStateReject(item.id), {
+  return useMutation(() => attributeApi.deleteAttribute(id), {
     onSuccess: () => queryClient.invalidateQueries(keys.attributeLists()),
   });
 };

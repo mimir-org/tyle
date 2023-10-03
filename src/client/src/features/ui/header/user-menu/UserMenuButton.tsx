@@ -1,4 +1,4 @@
-import { Button } from "complib/buttons";
+import { Button } from "@mimirorg/component-library";
 import styled from "styled-components/macro";
 
 export const UserMenuButton = styled(Button).attrs(() => ({

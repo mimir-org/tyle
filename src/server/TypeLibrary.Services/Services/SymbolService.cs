@@ -10,7 +10,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -30,8 +29,7 @@ public class SymbolService : ISymbolService
 
     public IEnumerable<SymbolLibCm> Get()
     {
-        var symbolLibDms = _symbolRepository.Get().Where(x => x.State != State.Deleted).ToList()
-            .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+        var symbolLibDms = _symbolRepository.Get().ToList().OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
         return _mapper.Map<List<SymbolLibCm>>(symbolLibDms);
     }

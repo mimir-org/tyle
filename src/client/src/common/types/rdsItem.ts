@@ -6,4 +6,5 @@ export interface RdsItem extends StateItem {
   description: string;
   kind: string;
   rdsCode: string;
+  createdBy: string;
 }

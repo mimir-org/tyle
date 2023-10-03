@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
@@ -12,17 +13,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
 
 public class TerminalService : ITerminalService
 {
+    private readonly IAttributeGroupRepository _attributeGroupRepository;
     private readonly IEfTerminalRepository _terminalRepository;
     private readonly IMapper _mapper;
     private readonly ITimedHookService _hookService;
@@ -32,9 +34,11 @@ public class TerminalService : ITerminalService
     private readonly IAttributeRepository _attributeRepository;
     private readonly IEfTerminalAttributeRepository _terminalAttributeRepository;
     private readonly IHttpContextAccessor _contextAccessor;
+    private readonly IEmailService _emailService;
 
-    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, ILogger<TerminalService> logger, IAttributeService attributeService, IAttributeRepository attributeRepository, IEfTerminalAttributeRepository terminalAttributeRepository, IHttpContextAccessor contextAccessor)
+    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, IAttributeGroupRepository attributeGroupRepository, ITimedHookService hookService, ILogService logService, ILogger<TerminalService> logger, IAttributeService attributeService, IAttributeRepository attributeRepository, IEfTerminalAttributeRepository terminalAttributeRepository, IHttpContextAccessor contextAccessor, IEmailService emailService)
     {
+        _attributeGroupRepository = attributeGroupRepository;
         _terminalRepository = terminalRepository;
         _mapper = mapper;
         _hookService = hookService;
@@ -44,12 +48,13 @@ public class TerminalService : ITerminalService
         _attributeRepository = attributeRepository;
         _terminalAttributeRepository = terminalAttributeRepository;
         _contextAccessor = contextAccessor;
+        _emailService = emailService;
     }
 
     /// <inheritdoc />
     public IEnumerable<TerminalLibCm> Get()
     {
-        var dataSet = _terminalRepository.Get()?.ExcludeDeleted().ToList();
+        var dataSet = _terminalRepository.Get()?.ToList();
 
         if (dataSet == null || !dataSet.Any())
             return new List<TerminalLibCm>();
@@ -75,35 +80,60 @@ public class TerminalService : ITerminalService
             throw new ArgumentNullException(nameof(terminal));
 
         var validation = terminal.ValidateObject();
+
         if (!validation.IsValid)
             throw new MimirorgBadRequestException("Terminal is not valid.", validation);
 
         var dm = _mapper.Map<TerminalLibDm>(terminal);
 
         dm.State = State.Draft;
-
         dm.TerminalAttributes = new List<TerminalAttributeLibDm>();
+
         if (terminal.Attributes != null)
         {
             foreach (var attributeId in terminal.Attributes)
             {
                 var attribute = _attributeRepository.Get(attributeId);
+
                 if (attribute == null)
-                    _logger.LogError(
-                        $"Could not add attribute with id {attributeId} to terminal with id {dm.Id}, attribute not found.");
+                {
+                    _logger.LogError($"Could not add attribute with id {attributeId} to terminal with id {dm.Id}, attribute not found.");
+                }
                 else
-                    dm.TerminalAttributes.Add(new TerminalAttributeLibDm()
-                    {
-                        TerminalId = dm.Id,
-                        AttributeId = attribute.Id
-                    });
+                {
+                    dm.TerminalAttributes.Add(new TerminalAttributeLibDm { TerminalId = dm.Id, AttributeId = attribute.Id });
+                }
             }
         }
 
+        if (terminal.AttributeGroups != null)
+        {
+            foreach (var item in terminal.AttributeGroups)
+            {
+                var currentAttributeGroup = _attributeGroupRepository.GetSingleAttributeGroup(item);
+
+                if (currentAttributeGroup == null)
+                {
+                    _logger.LogError($"Could not add attribute group with id {item} to block with id {dm.Id}, attribute not found.");
+                }
+                else
+                {
+
+                    foreach (var attributeGroupItem in currentAttributeGroup.AttributeGroupAttributes)
+                    {
+                        dm.TerminalAttributes.Add(new TerminalAttributeLibDm { TerminalId = dm.Id, AttributeId = attributeGroupItem.AttributeId, PartOfAttributeGroup = item });
+                    }
+                }
+            }
+        }
+
+        var distinctItems = dm.TerminalAttributes.GroupBy(x => x.AttributeId).Select(y => y.First());
+        dm.TerminalAttributes = distinctItems.ToList();
+
         var createdTerminal = await _terminalRepository.Create(dm);
+        _hookService.HookQueue.Enqueue(CacheKey.Terminal);
         _terminalRepository.ClearAllChangeTrackers();
         await _logService.CreateLog(createdTerminal, LogType.Create, createdTerminal.State.ToString(), createdTerminal.CreatedBy);
-        _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
         return Get(createdTerminal.Id);
     }
@@ -116,17 +146,13 @@ public class TerminalService : ITerminalService
         if (!validation.IsValid)
             throw new MimirorgBadRequestException("Terminal is not valid.", validation);
 
-        var terminalToUpdate = _terminalRepository.FindBy(x => x.Id == id, false).Include(x => x.Attributes).FirstOrDefault();
+        var terminalToUpdate = _terminalRepository.FindBy(x => x.Id == id, false).Include(x => x.TerminalAttributes).FirstOrDefault();
 
         if (terminalToUpdate == null)
-        {
             throw new MimirorgNotFoundException("Terminal not found. Update is not possible.");
-        }
 
         if (terminalToUpdate.State != State.Approved && terminalToUpdate.State != State.Draft)
-        {
             throw new MimirorgInvalidOperationException("Update can only be performed on terminal drafts or approved terminals.");
-        }
 
         if (terminalToUpdate.State != State.Approved)
         {
@@ -134,38 +160,44 @@ public class TerminalService : ITerminalService
             terminalToUpdate.TypeReference = terminalAm.TypeReference;
             terminalToUpdate.Color = terminalAm.Color;
             terminalToUpdate.Description = terminalAm.Description;
-
-            terminalToUpdate.Attributes ??= new List<AttributeLibDm>();
             terminalToUpdate.TerminalAttributes ??= new List<TerminalAttributeLibDm>();
 
-            var currentAttributes = terminalToUpdate.Attributes.ToHashSet();
-            var newAttributes = new HashSet<AttributeLibDm>();
+            var currentTerminalAttributes = terminalToUpdate.TerminalAttributes.ToHashSet();
+            var newTerminalAttributes = new HashSet<TerminalAttributeLibDm>();
+
             if (terminalAm.Attributes != null)
             {
                 foreach (var attributeId in terminalAm.Attributes)
                 {
                     var attribute = _attributeRepository.Get(attributeId);
+
                     if (attribute == null)
-                        _logger.LogError(
-                            $"Could not add attribute with id {attributeId} to terminal with id {id}, attribute not found.");
+                    {
+                        _logger.LogError($"Could not add attribute with id {attributeId} to terminal with id {id}, attribute not found.");
+                    }
                     else
-                        newAttributes.Add(attribute);
+                    {
+                        newTerminalAttributes.Add(new TerminalAttributeLibDm { TerminalId = id, AttributeId = attribute.Id });
+                    }
                 }
             }
 
-            foreach (var attribute in currentAttributes.ExceptBy(newAttributes.Select(x => x.Id), y => y.Id))
+            foreach (var terminalAttribute in currentTerminalAttributes.ExceptBy(newTerminalAttributes.Select(x => x.AttributeId), y => y.AttributeId))
             {
-                var terminalAttribute = _terminalAttributeRepository.FindBy(x => x.TerminalId == terminalToUpdate.Id && x.AttributeId == attribute.Id).FirstOrDefault();
-                if (terminalAttribute == null) continue;
-                await _terminalAttributeRepository.Delete(terminalAttribute.Id);
+                var terminalAttributeToDelete = _terminalAttributeRepository.FindBy(x => x.TerminalId == terminalToUpdate.Id && x.AttributeId == terminalAttribute.AttributeId).FirstOrDefault();
+
+                if (terminalAttributeToDelete == null)
+                    continue;
+
+                await _terminalAttributeRepository.Delete(terminalAttributeToDelete.Id);
             }
 
-            foreach (var attribute in newAttributes.ExceptBy(currentAttributes.Select(x => x.Id), y => y.Id))
+            foreach (var terminalAttribute in newTerminalAttributes.ExceptBy(currentTerminalAttributes.Select(x => x.AttributeId), y => y.AttributeId))
             {
                 terminalToUpdate.TerminalAttributes.Add(new TerminalAttributeLibDm
                 {
                     TerminalId = terminalToUpdate.Id,
-                    AttributeId = attribute.Id
+                    AttributeId = terminalAttribute.AttributeId
                 });
             }
 
@@ -177,57 +209,81 @@ public class TerminalService : ITerminalService
             terminalToUpdate.Description = terminalAm.Description;
         }
 
+        if (terminalAm.AttributeGroups != null)
+        {
+            foreach (var item in terminalAm.AttributeGroups)
+            {
+                var currentAttributeGroup = _attributeGroupRepository.GetSingleAttributeGroup(item);
+
+                if (currentAttributeGroup == null)
+                {
+                    _logger.LogError($"Could not add attribute group with id {item} to block with id {terminalToUpdate.Id}, attribute not found.");
+                }
+                else
+                {
+
+                    foreach (var attributeGroupItem in currentAttributeGroup.AttributeGroupAttributes)
+                    {
+                        terminalToUpdate.TerminalAttributes.Add(new TerminalAttributeLibDm { TerminalId = terminalToUpdate.Id, AttributeId = attributeGroupItem.AttributeId, PartOfAttributeGroup = item });
+                    }
+                }
+            }
+        }
+
+        var distinctItems = terminalToUpdate.TerminalAttributes.GroupBy(x => x.AttributeId).Select(y => y.First());
+        terminalToUpdate.TerminalAttributes = distinctItems.ToList();
+
         await _terminalAttributeRepository.SaveAsync();
         await _terminalRepository.SaveAsync();
-        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
-        await _logService.CreateLog(terminalToUpdate, LogType.Update, terminalToUpdate.State.ToString(), updatedBy);
-
-        _terminalRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
+        _terminalRepository.ClearAllChangeTrackers();
+        await _logService.CreateLog(terminalToUpdate, LogType.Update, terminalToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         return Get(terminalToUpdate.Id);
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state)
+    public async Task Delete(string id)
     {
-        var dm = _terminalRepository.Get().FirstOrDefault(x => x.Id == id);
-
-        if (dm == null)
-            throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
+        var dm = _terminalRepository.Get(id) ?? throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException($"State change on approved terminal with id {id} is not allowed.");
+            throw new MimirorgInvalidOperationException($"Can't delete approved terminal with id {id}.");
 
-        if (state == State.Approve)
+        await _terminalRepository.Delete(id);
+        await _terminalRepository.SaveAsync();
+    }
+
+    /// <inheritdoc />
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
+    {
+        var dm = _terminalRepository.Get(id) ?? throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
+
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
+
+        if (state == State.Review)
         {
-            foreach (var attribute in dm.Attributes)
+            foreach (var terminalAttribute in dm.TerminalAttributes)
             {
-                if (attribute.State == State.Approved) continue;
-                if (attribute.State == State.Deleted) throw new MimirorgInvalidOperationException("Cannot request approval for terminal that uses deleted attributes.");
+                if (terminalAttribute.Attribute.State == State.Approved)
+                    continue;
 
-                await _attributeService.ChangeState(attribute.Id, State.Approve);
+                await _attributeService.ChangeState(terminalAttribute.AttributeId, State.Review, true);
             }
         }
-        else if (state == State.Approved && dm.Attributes.Any(attribute => attribute.State != State.Approved))
+        else if (state == State.Approved && dm.TerminalAttributes.Any(terminalAttribute => terminalAttribute.Attribute.State != State.Approved))
         {
             throw new MimirorgInvalidOperationException("Cannot approve terminal that uses unapproved attributes.");
         }
 
         await _terminalRepository.ChangeState(state, dm.Id);
-
-        await _logService.CreateLog(
-            dm,
-            LogType.State,
-            state.ToString(),
-            !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown);
-
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
+        await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
-        return new ApprovalDataCm
-        {
-            Id = id,
-            State = state
-        };
+        if (sendStateEmail)
+            await _emailService.SendObjectStateEmail(dm.Id, state, dm.Name, ObjectTypeName.Terminal);
+
+        return new ApprovalDataCm { Id = dm.Id, State = state };
     }
 }

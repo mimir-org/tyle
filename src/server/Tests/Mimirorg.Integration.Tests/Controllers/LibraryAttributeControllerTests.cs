@@ -21,7 +21,7 @@ public class LibraryAttributeControllerTests : IntegrationTest
     {
         var client = Factory.WithWebHostBuilder(builder =>
         {
-            builder.ConfigureServices(services =>
+            builder.ConfigureServices(_ =>
             {
 
             });

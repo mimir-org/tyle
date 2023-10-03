@@ -1,15 +1,13 @@
 import { ApprovalDataCm, State } from "@mimirorg/typelibrary-types";
-import { toast } from "complib/data-display";
-import { Text } from "complib/text";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import {
   FormApproval,
   mapFormApprovalToApiModel,
 } from "features/settings/common/approval-card/card-form/types/formApproval";
-import { Flexbox } from "complib/layouts/Flexbox";
+import { Flexbox, Text, toast } from "@mimirorg/component-library";
 import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
-import { usePatchAspectObjectState } from "external/sources/aspectobject/aspectObject.queries";
+import { usePatchBlockState } from "external/sources/block/block.queries";
 import { usePatchUnitState } from "../../../../../external/sources/unit/unit.queries";
 import { usePatchQuantityDatumState } from "../../../../../external/sources/datum/quantityDatum.queries";
 import { usePatchRdsState } from "../../../../../external/sources/rds/rds.queries";
@@ -23,7 +21,7 @@ import { AxiosError } from "axios";
 export const useApprovalToasts = () => {
   const theme = useTheme();
   const { t } = useTranslation("settings");
-  const patchMutationAspectObject = usePatchAspectObjectState();
+  const patchMutationBlock = usePatchBlockState();
   const patchMutationTerminal = usePatchTerminalState();
   const patchMutationUnit = usePatchUnitState();
   const patchMutationQuantityDatum = usePatchQuantityDatumState();
@@ -34,8 +32,8 @@ export const useApprovalToasts = () => {
 
   return async (id: string, submission: FormApproval) => {
     switch (submission.objectType) {
-      case "AspectObject":
-        mutationPromise = patchMutationAspectObject.mutateAsync(mapFormApprovalToApiModel(submission));
+      case "Block":
+        mutationPromise = patchMutationBlock.mutateAsync(mapFormApprovalToApiModel(submission));
         break;
       case "Terminal":
         mutationPromise = patchMutationTerminal.mutateAsync(mapFormApprovalToApiModel(submission));
@@ -62,7 +60,11 @@ export const useApprovalToasts = () => {
         loading: t("common.approval.processing.loading"),
         success: (
           <Flexbox alignContent="center" alignItems="center">
-            <Text variant={"label-large"} mr={theme.tyle.spacing.base} color={theme.tyle.color.sys.pure.base}>
+            <Text
+              variant={"label-large"}
+              spacing={{ mr: theme.mimirorg.spacing.base }}
+              color={theme.mimirorg.color.pure.base}
+            >
               {t("common.approval.processing.success")}
             </Text>
           </Flexbox>
@@ -76,10 +78,10 @@ export const useApprovalToasts = () => {
       {
         success: {
           style: {
-            backgroundColor: theme.tyle.color.sys.tertiary.base,
+            backgroundColor: theme.mimirorg.color.tertiary.base,
           },
         },
-      }
+      },
     );
   };
 };
@@ -90,17 +92,13 @@ export const useApprovalToasts = () => {
  * @param state current state
  * @returns next state
  * @example
- * findNextState(State.Approve) // State.Approved
- * findNextState(State.Delete) // State.Deleted
+ * findNextState(State.Review) // State.Approved
  * findNextState(State.Approved) // State.Approved
- * findNextState(State.Deleted) // State.Deleted
  */
 export const findNextState = (state: State): State => {
   switch (state) {
-    case State.Approve:
+    case State.Review:
       return State.Approved;
-    case State.Delete:
-      return State.Deleted;
     default:
       return state;
   }

@@ -1,15 +1,16 @@
-import { aspectObjectFormRoutes } from "features/entities/aspectobject/AspectObjectFormRoutes";
+import { blockFormRoutes } from "features/entities/block/BlockFormRoutes";
 import { terminalFormRoutes } from "features/entities/terminal/TerminalFormRoutes";
 import { exploreRoutes } from "features/explore/ExploreRoutes";
 import { settingsRoutes } from "features/settings/SettingsRoutes";
 import { AuthenticatedLayout } from "features/ui/authenticated/layout/AuthenticatedLayout";
-import { ErrorMessage } from "features/ui/common/ErrorMessage";
+import { ErrorMessage } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter } from "react-router-dom";
 import { attributeFormRoutes } from "../../entities/attributes/AttributeFormRoutes";
 import { unitFormRoutes } from "../../entities/units/UnitFormRoutes";
 import { quantityDatumFormRoutes } from "../../entities/quantityDatum/QuantityDatumFormRoutes";
 import { rdsFormRoutes } from "../../entities/RDS/RdsFormRoutes";
+import { attributeGroupFormRoutes } from "features/entities/attributeGroups/AttributeGroupFormRoutes";
 
 export const useAuthenticatedRouter = () => {
   const { t } = useTranslation("ui");
@@ -29,9 +30,10 @@ export const useAuthenticatedRouter = () => {
       ),
       children: [
         ...exploreRoutes,
-        ...aspectObjectFormRoutes,
+        ...blockFormRoutes,
         ...terminalFormRoutes,
         ...attributeFormRoutes,
+        ...attributeGroupFormRoutes,
         ...unitFormRoutes,
         ...quantityDatumFormRoutes,
         ...rdsFormRoutes,

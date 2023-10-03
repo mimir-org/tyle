@@ -22,11 +22,10 @@
   },
   "approval": {
     "title": "Approval",
-    "subtitle": "Types ready for approval or deletion",
+    "subtitle": "Types ready for approval",
     "approval": "Types ready for approval",
-    "deletion": "Types ready for deletion",
     "placeholders": {
-      "emptyApproval": "There is no types ready for approval or deletion"
+      "emptyApproval": "There is no types ready for approval"
     }
   },
   "usersettings": {
@@ -88,7 +87,7 @@
       "name": "Name",
       "displayName": "Display name",
       "description": "Description",
-      "secret": "Secret (must be kept for later use)",
+      "secret": "Secret (needed to connect Tyle with Mimir, keep for later use)",
       "hiddenSecret": "Secret (will be unchanged unless you generate a new one)",
       "domain": "Domain name",
       "logo": "Logo (SVG)",

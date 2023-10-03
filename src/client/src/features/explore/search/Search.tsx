@@ -1,9 +1,7 @@
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useDebounceState } from "common/hooks/useDebounceState";
 import { mapMimirorgUserCmToUserItem } from "common/utils/mappers/mapMimirorgUserCmToUserItem";
-import { Token } from "complib/general";
-import { Flexbox, MotionFlexbox } from "complib/layouts";
-import { MotionText } from "complib/text";
+import { Flexbox, MotionFlexbox, MotionText, Token } from "@mimirorg/component-library";
 import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { SearchField } from "features/common/search-field";
 import { ExploreSection } from "features/explore/common/ExploreSection";
@@ -68,7 +66,7 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
 
   return (
     <ExploreSection title={t("search.title")}>
-      <Flexbox gap={theme.tyle.spacing.xxxl} alignItems={"center"}>
+      <Flexbox gap={theme.mimirorg.spacing.xxxl} alignItems={"center"}>
         <SearchField
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -89,7 +87,7 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
       </Flexbox>
 
       {showFilterTokens && (
-        <MotionFlexbox layout={"position"} flexWrap={"wrap"} gap={theme.tyle.spacing.base}>
+        <MotionFlexbox layout={"position"} flexWrap={"wrap"} gap={theme.mimirorg.spacing.base}>
           {activeFilters.map((x) => (
             <Token
               key={`${x.value}`}
@@ -108,8 +106,8 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
         <MotionText
           layout
           variant={"label-large"}
-          color={theme.tyle.color.sys.surface.variant.on}
-          {...theme.tyle.animation.fade}
+          color={theme.mimirorg.color.surface.variant.on}
+          {...theme.mimirorg.animation.fade}
         >
           {t("search.templates.hits", { shown: shown, total: totalHits })}
         </MotionText>

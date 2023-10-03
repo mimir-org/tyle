@@ -1,8 +1,8 @@
-import { Flexbox } from "../../../../complib/layouts";
-import { Text } from "../../../../complib/text";
+import { Flexbox, Text } from "@mimirorg/component-library";
 import styled, { useTheme } from "styled-components/macro";
-import Badge from "../../../ui/badges/Badge";
 import UnitIcon from "../../../icons/UnitIcon";
+import { StateBadge } from "../../../ui/badges/StateBadge";
+import { State } from "@mimirorg/typelibrary-types";
 
 interface UnitContainerProps {
   isDefault?: boolean;
@@ -13,12 +13,12 @@ const StyledUnit = styled.div<UnitContainerProps>`
   display: flex;
   flex-direction: column;
   border: 1px solid #ccc;
-  gap: ${(props) => props.theme.tyle.spacing.l};
-  padding: ${(props) => props.theme.tyle.spacing.l};
-  border-radius: ${(props) => props.theme.tyle.border.radius.large};
+  gap: ${(props) => props.theme.mimirorg.spacing.l};
+  padding: ${(props) => props.theme.mimirorg.spacing.xl};
+  border-radius: ${(props) => props.theme.mimirorg.border.radius.large};
   height: fit-content;
   background-color: ${(props) =>
-    props.isDefault ? props.theme.tyle.color.sys.surface.variant.base : props.theme.tyle.color.sys.pure.base};
+    props.isDefault ? props.theme.mimirorg.color.surface.variant.base : props.theme.mimirorg.color.pure.base};
   max-width: ${(props) => (props.small ? "200px" : "auto")};
   width: 100%;
 `;
@@ -29,8 +29,9 @@ interface UnitPreviewProps {
   isDefault?: boolean;
   unitId?: string;
   symbol: string;
-  noBadge?: boolean;
   small?: boolean;
+  state?: State;
+  stateBadge?: boolean;
 }
 
 export default function UnitPreview({
@@ -39,8 +40,9 @@ export default function UnitPreview({
   unitId,
   isDefault,
   symbol,
-  noBadge,
   small,
+  state,
+  stateBadge = false,
 }: UnitPreviewProps) {
   return (
     <StyledUnit key={unitId} small={small} isDefault={isDefault}>
@@ -49,10 +51,13 @@ export default function UnitPreview({
       ) : (
         <>
           <Flexbox justifyContent={"space-between"}>
-            <Flexbox gap={"1rem"} alignItems={"center"}>
-              <Text variant={"display-small"}>{name}</Text>
+            <Text variant={"display-small"} useEllipsis={small}>
+              {name}
+              {isDefault ? " (default)" : null}
+            </Text>
+            <Flexbox flexDirection={"row"}>
+              {state !== undefined && stateBadge ? <StateBadge state={state} /> : null}
             </Flexbox>
-            {isDefault && !noBadge && <Badge variant={"success"}>default</Badge>}
           </Flexbox>
           <Text variant={"title-medium"} color={"gray"}>
             {symbol}
@@ -69,8 +74,8 @@ export default function UnitPreview({
 const UnitSmallPreview = (symbol: string) => {
   const theme = useTheme();
   return (
-    <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
-      <UnitIcon color={theme.tyle.color.sys.pure.on} />
+    <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.mimirorg.spacing.base}>
+      <UnitIcon color={theme.mimirorg.color.pure.on} />
       <Text variant={"title-medium"} textAlign={"center"}>
         {symbol}
       </Text>

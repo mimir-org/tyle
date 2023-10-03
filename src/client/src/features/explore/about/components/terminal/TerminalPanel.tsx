@@ -1,13 +1,12 @@
 import { TerminalItem } from "common/types/terminalItem";
-import { Token } from "complib/general";
-import { Flexbox, MotionBox } from "complib/layouts";
-import { Heading, Text } from "complib/text";
+import { Flexbox, Heading, MotionBox, Text } from "@mimirorg/component-library";
 import { InfoItemButton } from "features/common/info-item";
 import { TerminalPreview } from "features/entities/entityPreviews/terminal/TerminalPreview";
 import { PanelPropertiesContainer } from "features/explore/about/components/common/PanelPropertiesContainer";
 import { PanelSection } from "features/explore/about/components/common/PanelSection";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { StateBadge } from "../../../../ui/badges/StateBadge";
 
 /**
  * Component that displays information about a given terminal.
@@ -25,14 +24,14 @@ export const TerminalPanel = ({ name, description, color, attributes, tokens }: 
       flex={1}
       display={"flex"}
       flexDirection={"column"}
-      gap={theme.tyle.spacing.xxxl}
+      gap={theme.mimirorg.spacing.xxxl}
       maxHeight={"100%"}
       overflow={"hidden"}
-      {...theme.tyle.animation.fade}
+      {...theme.mimirorg.animation.fade}
     >
       <TerminalPreview name={name} color={color} variant={"large"} />
 
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xl}>
+      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xl}>
         <Heading as={"h2"} variant={"title-large"} fontWeight={"500"} useEllipsis ellipsisMaxLines={2}>
           {name}
         </Heading>
@@ -40,8 +39,8 @@ export const TerminalPanel = ({ name, description, color, attributes, tokens }: 
           {description}
         </Text>
       </Flexbox>
-      <Flexbox gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
-        {tokens && tokens.map((token, i) => <Token key={token + i}>{token}</Token>)}
+      <Flexbox gap={theme.mimirorg.spacing.xl} flexWrap={"wrap"}>
+        {tokens && tokens.map((token, i) => <StateBadge state={token} key={token + i} />)}
       </Flexbox>
 
       <PanelPropertiesContainer>

@@ -1,8 +1,9 @@
 import { MimirorgAuthenticateAm } from "@mimirorg/typelibrary-types";
 import { loginSchema } from "features/auth/login/loginSchema";
+import { vi } from "vitest";
 
 describe("loginSchema tests", () => {
-  const t = (key: string) => key;
+  const t = vi.fn();
 
   it("should reject without an email", async () => {
     const userForm: Partial<MimirorgAuthenticateAm> = { email: "" };

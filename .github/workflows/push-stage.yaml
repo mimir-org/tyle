@@ -1,0 +1,23 @@
+name: Create Docker images on push to stage
+
+on:
+  push:
+    branches: [stage]
+
+jobs:
+
+  # Build and push client to Dockerhub
+  build-and-push-client:
+    uses: ./.github/workflows/build-push.yaml
+    with:
+      build-target: client
+      tags: stage
+    secrets: inherit
+
+    # Build and push server to Dockerhub
+  build-and-push-server:
+    uses: ./.github/workflows/build-push.yaml
+    with:
+      build-target: server
+      tags: stage
+    secrets: inherit

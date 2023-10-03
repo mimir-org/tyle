@@ -9,4 +9,5 @@ export interface TerminalItem extends StateItem {
   attributes: InfoItem[];
   tokens: string[];
   kind: string;
+  createdBy: string;
 }

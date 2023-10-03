@@ -37,14 +37,14 @@ export const usePatchQuantityDatumState = () => {
     (item: { id: string; state: State }) => quantityDatumApi.patchQuantityDatumState(item.id, item.state),
     {
       onSuccess: () => queryClient.invalidateQueries(keys.lists()),
-    }
+    },
   );
 };
 
-export const usePatchQuantityDatumStateReject = () => {
+export const useDeleteQuantityDatum = (id: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: { id: string }) => quantityDatumApi.patchQuantityDatumStateReject(item.id), {
+  return useMutation(() => quantityDatumApi.deleteQuantityDatum(id), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };

@@ -37,10 +37,10 @@ export const usePatchRdsState = () => {
   });
 };
 
-export const usePatchRdsStateReject = () => {
+export const useDeleteRds = (id: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: { id: string }) => rdsApi.patchRdsStateReject(item.id), {
+  return useMutation(() => rdsApi.deleteRds(id), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };

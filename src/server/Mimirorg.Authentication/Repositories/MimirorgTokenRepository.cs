@@ -45,10 +45,10 @@ public class MimirorgTokenRepository : GenericRepository<MimirorgAuthenticationC
         var userClaims = await GetUserClaims(user);
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+            new Claim(JwtRegisteredClaimNames.Sub, user.Email!),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(ClaimTypes.NameIdentifier, user.Id),
-            new Claim(ClaimTypes.Name, user.UserName),
+            new Claim(ClaimTypes.Name, user.UserName!),
             new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
             new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
@@ -145,7 +145,7 @@ public class MimirorgTokenRepository : GenericRepository<MimirorgAuthenticationC
 
         foreach (var role in userRoles)
         {
-            var currentRole = allRoles.FirstOrDefault(x => x.Name.Equals(role.Value));
+            var currentRole = allRoles.FirstOrDefault(x => x.Name!.Equals(role.Value));
             if (currentRole == null)
                 continue;
 

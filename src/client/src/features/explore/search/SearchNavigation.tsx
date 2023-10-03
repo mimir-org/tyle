@@ -1,6 +1,5 @@
-import { ChevronLeft, ChevronRight } from "@styled-icons/heroicons-outline";
-import { Button } from "complib/buttons";
-import { Flexbox } from "complib/layouts";
+import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight } from "@styled-icons/heroicons-outline";
+import { Button, Flexbox } from "@mimirorg/component-library";
 import { useSearchParams } from "react-router-dom";
 import { useTheme } from "styled-components";
 
@@ -32,10 +31,21 @@ export const SearchNavigation = ({ numPages }: SearchNavigationProps) => {
   const theme = useTheme();
   const [searchParams, setSearchParams] = useSearchParams();
   const pageNum = Number(searchParams.get("page"));
-  const { start, end } = getPaginationRange(pageNum, numPages, 2);
+  const { start, end } = getPaginationRange(pageNum, numPages, 3);
 
   return (
-    <Flexbox gap={theme.tyle.spacing.l} alignItems={"center"} justifyContent={"center"}>
+    <Flexbox gap={theme.mimirorg.spacing.l} alignItems={"center"} justifyContent={"center"}>
+      <Flexbox justifyContent={"center"}>
+        <Button
+          variant="filled"
+          icon={<ChevronDoubleLeft />}
+          iconOnly
+          onClick={() => setSearchParams({ page: "1" })}
+          disabled={pageNum === 1}
+        >
+          First
+        </Button>
+      </Flexbox>
       <Flexbox justifyContent={"center"}>
         <Button
           variant="filled"
@@ -47,14 +57,6 @@ export const SearchNavigation = ({ numPages }: SearchNavigationProps) => {
           Previous
         </Button>
       </Flexbox>
-      {4 <= pageNum && (
-        <>
-          <span onClick={() => setSearchParams({ page: "0" })} style={{ cursor: "pointer" }}>
-            1
-          </span>
-          <span>...</span>
-        </>
-      )}
       {[...Array(numPages).keys()]
         .filter((x) => x + 1 >= start && x + 1 <= end)
         .map((x) => (
@@ -66,15 +68,7 @@ export const SearchNavigation = ({ numPages }: SearchNavigationProps) => {
             {x + 1}
           </span>
         ))}
-      {pageNum < numPages - 2 && (
-        <>
-          <span>...</span>
-          <span onClick={() => setSearchParams({ page: String(numPages) })} style={{ cursor: "pointer" }}>
-            {numPages}
-          </span>
-        </>
-      )}
-      <Flexbox>
+      <Flexbox justifyContent={"center"}>
         <Button
           variant="filled"
           icon={<ChevronRight />}
@@ -83,6 +77,17 @@ export const SearchNavigation = ({ numPages }: SearchNavigationProps) => {
           disabled={pageNum >= numPages}
         >
           Next
+        </Button>
+      </Flexbox>
+      <Flexbox justifyContent={"center"}>
+        <Button
+          variant="filled"
+          icon={<ChevronDoubleRight />}
+          iconOnly
+          onClick={() => setSearchParams({ page: String(numPages) })}
+          disabled={pageNum >= numPages}
+        >
+          Last
         </Button>
       </Flexbox>
     </Flexbox>

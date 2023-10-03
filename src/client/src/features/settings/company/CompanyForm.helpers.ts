@@ -1,6 +1,5 @@
 import { MimirorgCompanyAm, MimirorgCompanyCm } from "@mimirorg/typelibrary-types";
-import { toast } from "complib/data-display";
-import { FileInfo, toBase64 } from "complib/inputs/file/FileComponent";
+import { FileInfo, toast, toBase64 } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
 
 export interface FormMimirorgCompany extends Omit<MimirorgCompanyAm, "managerId" | "logo"> {
@@ -15,10 +14,12 @@ export const encodeFile = async (addedFile: File): Promise<FileInfo | null> => {
 
   const bytes = await toBase64(addedFile);
   return {
+    id: 1,
     fileName: addedFile.name,
     fileSize: addedFile.size,
     file: bytes != null ? bytes.toString() : null,
     contentType: addedFile.type,
+    description: "",
   };
 };
 
@@ -32,20 +33,27 @@ export const createEmptyFormMimirorgCompany = (): Omit<FormMimirorgCompany, "sec
 });
 
 export const mapCompanyCmToFormCompany = (
-  companyCm: MimirorgCompanyCm | undefined
+  companyCm: MimirorgCompanyCm | undefined,
 ): Omit<FormMimirorgCompany, "secret"> => {
   if (companyCm === undefined) return createEmptyFormMimirorgCompany();
+
+  const logoFromCm = companyCm.logo
+    ? {
+        id: 1,
+        fileName: companyCm.id + ".svg",
+        fileSize: companyCm.logo.length,
+        file: "data:image/svg+xml;base64," + companyCm.logo,
+        contentType: "image/svg+xml",
+        description: "",
+      }
+    : null;
+
   return {
     name: companyCm.name,
     displayName: companyCm.displayName,
     description: companyCm.description,
     domain: companyCm.domain,
-    logo: {
-      fileName: companyCm.id + ".svg",
-      fileSize: companyCm.logo.length,
-      file: "data:image/svg+xml;base64," + companyCm.logo,
-      contentType: "image/svg+xml",
-    },
+    logo: logoFromCm,
     homePage: companyCm.homePage,
   };
 };
@@ -53,7 +61,7 @@ export const mapCompanyCmToFormCompany = (
 export const mapFormCompanyToCompanyAm = (
   formCompany: FormMimirorgCompany,
   userId: string,
-  secret: string
+  secret: string,
 ): MimirorgCompanyAm => {
   let logo = "";
 

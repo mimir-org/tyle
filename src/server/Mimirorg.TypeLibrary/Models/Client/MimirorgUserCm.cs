@@ -1,6 +1,6 @@
-using System.Security.Claims;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
+using System.Security.Claims;
 using TypeScriptBuilder;
 
 namespace Mimirorg.TypeLibrary.Models.Client;
@@ -12,6 +12,7 @@ public class MimirorgUserCm
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public Dictionary<int, MimirorgPermission> Permissions { get; set; }
+    public List<int> ManageCompanies { get; set; }
     public ICollection<string> Roles { get; set; }
     public int CompanyId { get; set; }
     public string CompanyName { get; set; }

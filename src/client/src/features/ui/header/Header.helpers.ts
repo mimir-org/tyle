@@ -10,7 +10,7 @@ import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
  */
 export const mapPermissionDescriptions = (
   permissions: { [index: number]: MimirorgPermission },
-  companies: MimirorgCompanyCm[]
+  companies: MimirorgCompanyCm[],
 ) => {
   const permissionsValueObjects = getOptionsFromEnum(MimirorgPermission);
 

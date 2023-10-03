@@ -1,8 +1,9 @@
 import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
 import { recoverPasswordSchema } from "features/auth/recover/password/recoverPasswordSchema";
+import { vi } from "vitest";
 
 describe("recoverPasswordSchema tests", () => {
-  const t = (key: string) => key;
+  const t = vi.fn();
 
   it("should reject with password less than 10 characters", async () => {
     const userForm: Partial<MimirorgUserAm> = { password: "somesmall" };

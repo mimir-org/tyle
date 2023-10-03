@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TypeLibrary.Services.Contracts;
 
@@ -43,14 +43,23 @@ public interface IRdsService
     Task<RdsLibCm> Update(string id, RdsLibAm rdsAm);
 
     /// <summary>
+    ///  Delete a RDS, it can't be approved
+    /// </summary>
+    /// <param name="id">The id of the RDS to delete</param>
+    /// <exception cref="MimirorgNotFoundException">Throws if the RDS with the given id is not found.</exception>
+    /// <exception cref="MimirorgInvalidOperationException">Throws if the RDS in question can't be deleted.</exception>
+    Task Delete(string id);
+
+    /// <summary>
     /// Change RDS state
     /// </summary>
     /// <param name="id">The id of the RDS that should change state</param>
     /// <param name="state">The new RDS state</param>
+    /// <param name="sendStateEmail"></param>
     /// <returns>An approval data object</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the RDS does not exist</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the RDS is already approved.</exception>
-    Task<ApprovalDataCm> ChangeState(string id, State state);
+    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail);
 
     /// <summary>
     /// Initializes the database with RDS

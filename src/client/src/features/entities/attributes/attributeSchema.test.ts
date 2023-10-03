@@ -1,8 +1,9 @@
 import { attributeSchema } from "./attributeSchema";
 import { FormAttributeLib } from "./types/formAttributeLib";
+import { vi } from "vitest";
 
 describe("attributeSchema tests", () => {
-  const t = (key: string) => key;
+  const t = vi.fn();
 
   it("should reject without a name", async () => {
     const attributeWithoutName: Partial<FormAttributeLib> = { name: "" };

@@ -48,29 +48,8 @@ public class EfSymbolRepository : GenericRepository<TypeLibraryDbContext, Symbol
         Detach(symbols);
     }
 
-    public async Task<SymbolLibDm> Create(SymbolLibDm symbol, State state)
-    {
-        symbol.State = state;
-        Attach(symbol, EntityState.Added);
-        await SaveAsync();
-        symbol.Iri = $"{_settings.ApplicationSemanticUrl}/symbol/{symbol.Id}";
-        await SaveAsync();
-        Detach(symbol);
-        return symbol;
-    }
-
     public void ClearAllChangeTrackers()
     {
         Context?.ChangeTracker.Clear();
-    }
-
-    public void SetUnchanged(ICollection<SymbolLibDm> items)
-    {
-        Attach(items, EntityState.Unchanged);
-    }
-
-    public void SetDetached(ICollection<SymbolLibDm> items)
-    {
-        Detach(items);
     }
 }

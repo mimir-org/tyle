@@ -1,8 +1,6 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Option } from "common/utils/getOptionsFromEnum";
-import { Button } from "complib/buttons";
-import { toast } from "complib/data-display";
-import { Text } from "complib/text";
+import { Button, Text, toast } from "@mimirorg/component-library";
 import { useAddUserPermission, useRemoveUserPermission } from "external/sources/authorize/authorize.queries";
 import {
   FormUserPermission,
@@ -44,10 +42,10 @@ export const usePermissionToasts = (oldPermission?: Option<MimirorgPermission>) 
       {
         success: {
           style: {
-            backgroundColor: theme.tyle.color.sys.warning.base,
+            backgroundColor: theme.mimirorg.color.warning.base,
           },
         },
-      }
+      },
     );
   };
 };

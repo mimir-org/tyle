@@ -7,9 +7,7 @@ import {
   ApprovalCardFormProps,
 } from "features/settings/common/approval-card/card-form/ApprovalCardForm";
 import { ApprovalCm } from "@mimirorg/typelibrary-types";
-import { Text } from "complib/text";
-import { Horizontal } from "../../../../complib/data-display/divider/Divider.stories";
-import { Flexbox } from "../../../../complib/layouts";
+import { Divider, Flexbox, Text } from "@mimirorg/component-library";
 
 export type ApprovalCardProps = ApprovalCardFormProps & {
   item: ApprovalCm;
@@ -37,14 +35,16 @@ export const ApprovalCard = ({ item, selected, ...delegated }: ApprovalCardProps
       ref={cardRef}
       variant={selected ? "selected" : "filled"}
       layout={"position"}
-      {...theme.tyle.animation.selectHover}
+      {...theme.mimirorg.animation.selectHover}
     >
+      <Text variant={"title-medium"}>{item.objectType}</Text>
+      <Divider orientation={"horizontal"} color={"#2e2e2e"} />
       <ApprovalCardHeader objectType={item.objectType}>
         <Text variant={"title-large"}>{item.name}</Text>
       </ApprovalCardHeader>
-      <Horizontal color={"#2e2e2e"} />
       <Flexbox flexFlow={"column"} justifyContent={"space-between"} style={{ height: "100%" }}>
         <Text variant={"title-small"}>{item.description}</Text>
+        <Divider orientation={"horizontal"} color={"#2e2e2e"} />
         <ApprovalCardForm
           item={item}
           formId={formId}

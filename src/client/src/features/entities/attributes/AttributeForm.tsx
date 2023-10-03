@@ -17,15 +17,12 @@ import {
   toFormAttributeLib,
 } from "./types/formAttributeLib";
 import { AttributeFormPreview } from "../entityPreviews/attribute/AttributeFormPreview";
-import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
-import { Box, Flexbox } from "../../../complib/layouts";
+import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { attributeSchema } from "./attributeSchema";
-import { Text } from "../../../complib/text";
 import { PlainLink } from "features/common/plain-link";
-import { Button } from "complib/buttons";
 
 interface AttributeFormProps {
   defaultValues?: FormAttributeLib;
@@ -57,17 +54,17 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute(), mode }: 
     <FormProvider {...formMethods}>
       <FormContainer
         onSubmit={handleSubmit((data) =>
-          onSubmitForm(fromFormAttributeLibToApiModel(data), mutation.mutateAsync, toast)
+          onSubmitForm(fromFormAttributeLibToApiModel(data), mutation.mutateAsync, toast),
         )}
       >
         {isLoading ? (
           <Loader />
         ) : (
-          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.tyle.spacing.multiple(6)}>
-            <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.mimirorg.spacing.multiple(6)}>
+            <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
               <Text variant={"display-small"}>{t("attribute.title")}</Text>
               <AttributeFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
-              <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
+              <Flexbox justifyContent={"center"} gap={theme.mimirorg.spacing.xl}>
                 <PlainLink tabIndex={-1} to={"/"}>
                   <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
                     {t("common.cancel")}

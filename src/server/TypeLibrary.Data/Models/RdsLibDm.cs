@@ -17,8 +17,6 @@ public class RdsLibDm : ILogable, IStatefulObject
     public string CreatedBy { get; set; }
     public State State { get; set; }
     public string Description { get; set; }
-    public string CategoryId { get; set; }
-    public CategoryLibDm Category { get; set; }
 
     public LogLibDm CreateLog(LogType logType, string logTypeValue, string createdBy)
     {

@@ -52,26 +52,11 @@ public interface IQuantityDatumRepository
     Task<QuantityDatumLibDm> Create(QuantityDatumLibDm quantityDatum);
 
     /// <summary>
-    /// Create all quantity datums in a collection
-    /// </summary>
-    /// <param name="quantityDatums">A collection of quantity datums to create</param>
-    /// <returns>A list of the created quantity datums</returns>
-    Task<ICollection<QuantityDatumLibDm>> Create(ICollection<QuantityDatumLibDm> quantityDatums);
-
-    /// <summary>
     /// Change the state of the quantity datum with the given id
     /// </summary>
     /// <param name="state">The state to change to</param>
     /// <param name="id">The quantity datum id</param>
     Task ChangeState(State state, string id);
-
-    /// <summary>
-    /// Change the state of the quantity datums on all listed ids
-    /// </summary>
-    /// <param name="state">The state to change to</param>
-    /// <param name="ids">A list of quantity datum ids</param>
-    /// <returns>The number of quantity datums with changed state</returns>
-    Task<int> ChangeState(State state, ICollection<string> ids);
 
     /// <summary>
     /// Clear all entity framework change trackers

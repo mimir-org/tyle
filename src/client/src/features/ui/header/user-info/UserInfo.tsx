@@ -1,5 +1,4 @@
-import { Flexbox } from "complib/layouts";
-import { Text } from "complib/text";
+import { Flexbox, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 
 interface UserInfoProps {
@@ -12,23 +11,21 @@ export const UserInfo = ({ name, roles, permissions }: UserInfoProps) => {
   const theme = useTheme();
 
   return (
-    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.s}>
+    <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.s}>
       <Text variant={"title-medium"}>{name}</Text>
       {roles && roles.length > 0 && (
-        <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
-          <Text variant={"title-small"}>{"Roles:"}</Text>
+        <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xs}>
           {roles?.map((x, i) => (
-            <Text key={x + i} variant={"label-medium"}>
+            <Text style={{ color: "gray" }} key={x + i} variant={"label-medium"}>
               {x}
             </Text>
           ))}
         </Flexbox>
       )}
       {permissions && permissions.length > 0 && (
-        <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
-          <Text variant={"title-small"}>{"Permissions:"}</Text>
+        <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xs}>
           {permissions?.map((x, i) => (
-            <Text key={i} variant={"label-small"}>
+            <Text style={{ color: "gray" }} key={i} variant={"label-small"}>
               {x}
             </Text>
           ))}

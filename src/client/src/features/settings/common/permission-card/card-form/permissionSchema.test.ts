@@ -1,9 +1,10 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { permissionSchema } from "features/settings/common/permission-card/card-form/permissionSchema";
 import { FormUserPermission } from "features/settings/common/permission-card/card-form/types/formUserPermission";
+import { vi } from "vitest";
 
 describe("accessSchema tests", () => {
-  const t = (key: string) => key;
+  const t = vi.fn();
 
   it("should reject without a user", async () => {
     const userPermission: Partial<FormUserPermission> = {

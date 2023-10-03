@@ -1,6 +1,6 @@
 import { UnitLibAm } from "@mimirorg/typelibrary-types";
 import { YupShape } from "common/types/yupShape";
-import { TFunction } from "react-i18next";
+import { TFunction } from "i18next";
 import * as yup from "yup";
 
 export const unitSchema = (t: TFunction<"translation">) =>

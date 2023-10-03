@@ -22,19 +22,19 @@ public class RdsService : IRdsService
 {
     private readonly IMapper _mapper;
     private readonly IEfRdsRepository _rdsRepository;
-    private readonly IEfCategoryRepository _categoryRepository;
     private readonly ILogService _logService;
     private readonly ITimedHookService _hookService;
     private readonly IHttpContextAccessor _contextAccessor;
+    private readonly IEmailService _emailService;
 
-    public RdsService(IMapper mapper, IEfRdsRepository rdsRepository, IEfCategoryRepository categoryRepository, ILogService logService, ITimedHookService hookService, IHttpContextAccessor contextAccessor)
+    public RdsService(IMapper mapper, IEfRdsRepository rdsRepository, ILogService logService, ITimedHookService hookService, IHttpContextAccessor contextAccessor, IEmailService emailService)
     {
         _mapper = mapper;
         _rdsRepository = rdsRepository;
-        _categoryRepository = categoryRepository;
         _logService = logService;
         _hookService = hookService;
         _contextAccessor = contextAccessor;
+        _emailService = emailService;
     }
 
     public ICollection<RdsLibCm> Get()
@@ -51,10 +51,12 @@ public class RdsService : IRdsService
     public RdsLibCm Get(string id)
     {
         var rds = _rdsRepository.Get(id);
+
         if (rds == null)
             throw new MimirorgNotFoundException($"RDS with id {id} not found.");
 
         var data = _mapper.Map<RdsLibCm>(rds);
+
         return data;
     }
 
@@ -77,12 +79,11 @@ public class RdsService : IRdsService
         var dm = _mapper.Map<RdsLibDm>(rdsAm);
 
         dm.State = State.Draft;
-        dm.CategoryId = _categoryRepository.GetAll().FirstOrDefault()?.Id;
 
         var createdRds = await _rdsRepository.Create(dm);
+        _hookService.HookQueue.Enqueue(CacheKey.Rds);
         _rdsRepository.ClearAllChangeTrackers();
         await _logService.CreateLog(createdRds, LogType.Create, createdRds.State.ToString(), createdRds.CreatedBy);
-        _hookService.HookQueue.Enqueue(CacheKey.Rds);
 
         return _mapper.Map<RdsLibCm>(createdRds);
     }
@@ -104,63 +105,58 @@ public class RdsService : IRdsService
         }
 
         if (rdsToUpdate == null)
-        {
             throw new MimirorgNotFoundException("RDS not found. Update is not possible.");
-        }
 
         if (rdsToUpdate.State != State.Approved && rdsToUpdate.State != State.Draft)
-        {
             throw new MimirorgInvalidOperationException("Update can only be performed on RDS drafts or approved RDS.");
-        }
 
         if (rdsToUpdate.State != State.Approved)
         {
             rdsToUpdate.RdsCode = rdsAm.RdsCode.ToUpper();
             rdsToUpdate.Name = rdsAm.Name;
             rdsToUpdate.TypeReference = rdsAm.TypeReference;
-            rdsToUpdate.CategoryId = rdsAm.CategoryId;
-
             rdsToUpdate.State = State.Draft;
         }
+
         rdsToUpdate.Description = rdsAm.Description;
 
         _rdsRepository.Update(rdsToUpdate);
         await _rdsRepository.SaveAsync();
-        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
-        await _logService.CreateLog(rdsToUpdate, LogType.Update, rdsToUpdate.State.ToString(), updatedBy);
-
-        _rdsRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Rds);
+        _rdsRepository.ClearAllChangeTrackers();
+        await _logService.CreateLog(rdsToUpdate, LogType.Update, rdsToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         return Get(rdsToUpdate.Id);
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state)
+    public async Task Delete(string id)
     {
-        var dm = _rdsRepository.Get(id);
-
-        if (dm == null)
-            throw new MimirorgNotFoundException($"RDS with id {id} not found.");
+        var dm = _rdsRepository.Get(id) ?? throw new MimirorgNotFoundException($"RDS with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException($"State change on approved RDS with id {id} is not allowed.");
+            throw new MimirorgInvalidOperationException($"Can't delete approved RDS with id {id}.");
+
+        await _rdsRepository.Delete(id);
+        await _rdsRepository.SaveAsync();
+    }
+
+    /// <inheritdoc />
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
+    {
+        var dm = _rdsRepository.Get(id) ?? throw new MimirorgNotFoundException($"RDS with id {id} not found.");
+
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
 
         await _rdsRepository.ChangeState(state, dm.Id);
-
-        await _logService.CreateLog(
-            dm,
-            LogType.State,
-            state.ToString(),
-            !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown);
-
         _hookService.HookQueue.Enqueue(CacheKey.Rds);
+        await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
-        return new ApprovalDataCm
-        {
-            Id = id,
-            State = state
-        };
+        if (sendStateEmail)
+            await _emailService.SendObjectStateEmail(dm.Id, state, dm.Name, ObjectTypeName.Rds);
+
+        return new ApprovalDataCm { Id = dm.Id, State = state };
     }
 
     /// <inheritdoc />

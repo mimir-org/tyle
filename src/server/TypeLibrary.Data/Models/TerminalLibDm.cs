@@ -18,8 +18,7 @@ public class TerminalLibDm : IStatefulObject, ILogable
     public State State { get; set; }
     public string Color { get; set; }
     public string Description { get; set; }
-    public ICollection<AspectObjectTerminalLibDm> TerminalAspectObjects { get; set; }
-    public ICollection<AttributeLibDm> Attributes { get; set; }
+    public ICollection<BlockTerminalLibDm> TerminalBlocks { get; set; }
     public ICollection<TerminalAttributeLibDm> TerminalAttributes { get; set; }
 
     #region ILogable

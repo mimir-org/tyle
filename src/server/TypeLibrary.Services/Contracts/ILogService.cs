@@ -15,6 +15,13 @@ public interface ILogService
     IEnumerable<LogLibCm> Get();
 
     /// <summary>
+    /// Get all logs for a specific object
+    /// </summary>
+    /// <param name="objectId">The id of the object to get logs for</param>
+    /// <returns></returns>
+    List<LogLibCm> Get(string objectId);
+
+    /// <summary>
     /// Create a log entry
     /// </summary>
     /// <param name="logObject"></param>

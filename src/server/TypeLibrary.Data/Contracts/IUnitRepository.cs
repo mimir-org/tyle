@@ -15,14 +15,6 @@ public interface IUnitRepository
     Task ChangeState(State state, string id);
 
     /// <summary>
-    /// Change the state of the unit on all listed ids
-    /// </summary>
-    /// <param name="state">The state to change to</param>
-    /// <param name="ids">A list of unit ids</param>
-    /// <returns>The number of units in given state</returns>
-    Task<int> ChangeState(State state, ICollection<string> ids);
-
-    /// <summary>
     /// Get all units
     /// </summary>
     /// <returns>A collection of units</returns>
@@ -48,13 +40,6 @@ public interface IUnitRepository
     /// <param name="unit">The unit to be created</param>
     /// <returns>The created unit</returns>
     Task<UnitLibDm> Create(UnitLibDm unit);
-
-    /// <summary>
-    /// Create all units in list
-    /// </summary>
-    /// <param name="units">The units to be created</param>
-    /// <returns>The created units</returns>
-    Task<ICollection<UnitLibDm>> Create(ICollection<UnitLibDm> units);
 
     /// <summary>
     /// Clear all entity framework change trackers

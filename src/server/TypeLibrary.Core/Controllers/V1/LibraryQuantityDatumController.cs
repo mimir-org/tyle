@@ -168,6 +168,7 @@ public class LibraryQuantityDatumController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [MimirorgAuthorize(MimirorgPermission.Write, "quantityDatum", "CompanyId")]
     public async Task<IActionResult> Update(string id, [FromBody] QuantityDatumLibAm quantityDatum)
     {
         try
@@ -185,6 +186,45 @@ public class LibraryQuantityDatumController : ControllerBase
         catch (MimirorgBadRequestException e)
         {
             return BadRequest(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
+    /// Delete a quantity datum that is not approved
+    /// </summary>
+    /// <param name="id">The id of the quantity datum to delete</param>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [Authorize]
+    public async Task<IActionResult> Delete([FromRoute] string id)
+    {
+        try
+        {
+            var quantityDatum = _quantityDatumService.Get(id);
+            var hasAccess = await _authService.CanDelete(quantityDatum.State, quantityDatum.CreatedBy, CompanyConstants.AnyCompanyId);
+
+            if (!hasAccess)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            await _quantityDatumService.Delete(id);
+            return NoContent();
+        }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
         }
         catch (MimirorgInvalidOperationException e)
         {
@@ -219,54 +259,7 @@ public class LibraryQuantityDatumController : ControllerBase
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _quantityDatumService.ChangeState(id, state);
-            return Ok(data);
-        }
-        catch (MimirorgNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-        catch (MimirorgInvalidOperationException e)
-        {
-            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
-
-    /// <summary>
-    /// Reject a state change request by setting the state back to 'Draft'
-    /// </summary>
-    /// <param name="id">The id of the quantity datum with the requested state change</param>
-    /// <returns>An approval data object containing the id of the quantity datum and the reverted state</returns>
-    [HttpPatch("{id}/state/reject")]
-    [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [Authorize]
-    public async Task<IActionResult> RejectChangeState([FromRoute] string id)
-    {
-        try
-        {
-            var cm = _quantityDatumService.Get(id);
-
-            if (cm == null)
-                return StatusCode(StatusCodes.Status404NotFound);
-
-            if (cm.State is State.Draft or State.Deleted or State.Approved)
-                return StatusCode(StatusCodes.Status403Forbidden, $"Can't reject a state change for an object with state {cm.State}");
-
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, cm.State == State.Approve ? State.Approved : State.Deleted);
-
-            if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);
-
-            var data = await _quantityDatumService.ChangeState(id, State.Draft);
+            var data = await _quantityDatumService.ChangeState(id, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)

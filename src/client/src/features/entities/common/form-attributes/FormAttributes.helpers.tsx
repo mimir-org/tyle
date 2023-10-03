@@ -5,7 +5,7 @@ import { ValueObject } from "features/entities/types/valueObject";
 export const onAddAttributes = (
   selectedIds: string[],
   allAttributes: AttributeLibCm[],
-  append: (item: ValueObject<string>) => void
+  append: (item: ValueObject<string>) => void,
 ) => {
   selectedIds.forEach((id) => {
     const targetAttribute = allAttributes.find((x) => x.id === id);
@@ -17,7 +17,7 @@ export const onAddAttributes = (
 
 export const resolveSelectedAndAvailableAttributes = (
   fieldAttributes: ValueObject<string>[],
-  allAttributes: AttributeLibCm[]
+  allAttributes: AttributeLibCm[],
 ) => {
   const selectedSet = new Set<string>();
   fieldAttributes.forEach((x) => selectedSet.add(x.value));

@@ -1,16 +1,13 @@
-import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem";
-import { VisuallyHidden } from "complib/accessibility";
-import { Divider, Popover } from "complib/data-display";
-import { Box, Flexbox } from "complib/layouts";
-import { Text } from "complib/text";
+import { BlockTerminalItem } from "common/types/blockTerminalItem";
+import { Box, Divider, Flexbox, Popover, Text, VisuallyHidden } from "@mimirorg/component-library";
 import { TerminalButton } from "features/common/terminal/TerminalButton";
 import { TerminalDescription } from "features/common/terminal/TerminalSingle";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "../../../common/utils/aspectObjectTerminalQuantityRestrictions";
+import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "../../../common/utils/blockTerminalQuantityRestrictions";
 
 interface TerminalCollectionProps {
-  terminals: AspectObjectTerminalItem[];
+  terminals: BlockTerminalItem[];
   placement?: "left" | "right";
 }
 
@@ -27,7 +24,7 @@ export const TerminalCollection = ({ terminals, placement }: TerminalCollectionP
 
   return (
     <Popover placement={placement} content={<TerminalCollectionDescription terminals={terminals} />}>
-      <TerminalButton variant={"large"} color={theme.tyle.color.ref.primary["40"]}>
+      <TerminalButton variant={"large"} color={theme.mimirorg.color.reference.primary["40"]}>
         <VisuallyHidden>{t("terminal.summary.open")}</VisuallyHidden>
       </TerminalButton>
     </Popover>
@@ -35,7 +32,7 @@ export const TerminalCollection = ({ terminals, placement }: TerminalCollectionP
 };
 
 interface TerminalCollectionDescriptionProps {
-  terminals: AspectObjectTerminalItem[];
+  terminals: BlockTerminalItem[];
 }
 
 const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescriptionProps) => {
@@ -46,9 +43,15 @@ const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescript
     totalTerminalAmount >= MAXIMUM_TERMINAL_QUANTITY_VALUE ? t("terminal.infinite") : totalTerminalAmount;
 
   return (
-    <Box display={"flex"} gap={theme.tyle.spacing.l} flexDirection={"column"} maxWidth={"250px"}>
+    <Box display={"flex"} gap={theme.mimirorg.spacing.l} flexDirection={"column"} maxWidth={"250px"}>
       <Text variant={"title-small"}>{t("terminal.summary.title")}</Text>
-      <Box display={"flex"} gap={theme.tyle.spacing.l} flexDirection={"column"} maxHeight={"250px"} overflow={"auto"}>
+      <Box
+        display={"flex"}
+        gap={theme.mimirorg.spacing.l}
+        flexDirection={"column"}
+        maxHeight={"250px"}
+        overflow={"auto"}
+      >
         {terminals.map((x) => (
           <TerminalDescription
             key={x.name + x.color + x.direction}
@@ -60,7 +63,7 @@ const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescript
         ))}
       </Box>
       <Divider />
-      <Flexbox gap={theme.tyle.spacing.base} justifyContent={"space-between"}>
+      <Flexbox gap={theme.mimirorg.spacing.base} justifyContent={"space-between"}>
         <Text variant={"body-medium"}>{t("terminal.summary.total")}</Text>
         <Text variant={"body-medium"}>{shownTerminalAmount}</Text>
       </Flexbox>

@@ -9,17 +9,17 @@ const StyledBadge = styled.span<StyledBadgeProps>`
   border-radius: 99999px;
   margin: 0 4px 0 4px;
   color: ${(props) =>
-    props.variant ? props.theme.tyle.color.sys.badge[props.variant].on : props.theme.tyle.color.sys.badge.success.on};
+    props.variant ? props.theme.mimirorg.color.badge[props.variant].on : props.theme.mimirorg.color.badge.success.on};
   padding: 0 8px 0 8px;
   background-color: ${(props) =>
     props.variant
-      ? props.theme.tyle.color.sys.badge[props.variant].base
-      : props.theme.tyle.color.sys.badge.success.base};
+      ? props.theme.mimirorg.color.badge[props.variant].base
+      : props.theme.mimirorg.color.badge.success.base};
   border: 1px solid
     ${(props) =>
       props.variant
-        ? props.theme.tyle.color.sys.badge[props.variant].on
-        : props.theme.tyle.color.sys.badge.success.base};
+        ? props.theme.mimirorg.color.badge[props.variant].on
+        : props.theme.mimirorg.color.badge.success.base};
   height: fit-content;
   max-height: fit-content;
   width: fit-content;

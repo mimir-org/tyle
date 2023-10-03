@@ -7,20 +7,20 @@ namespace TypeLibrary.Data;
 public class TypeLibraryDbContext : DbContext
 {
     public virtual DbSet<SymbolLibDm> Symbol { get; set; }
-    public virtual DbSet<AspectObjectTerminalLibDm> AspectObjectTerminal { get; set; }
+    public virtual DbSet<BlockTerminalLibDm> BlockTerminal { get; set; }
     public virtual DbSet<AttributePredefinedLibDm> AttributePredefined { get; set; }
     public virtual DbSet<TerminalLibDm> Terminal { get; set; }
-    public virtual DbSet<AspectObjectLibDm> AspectObject { get; set; }
+    public virtual DbSet<BlockLibDm> Block { get; set; }
     public virtual DbSet<LogLibDm> Log { get; set; }
     public virtual DbSet<AttributeLibDm> Attribute { get; set; }
     public virtual DbSet<UnitLibDm> Unit { get; set; }
     public virtual DbSet<AttributeUnitLibDm> AttributeUnit { get; set; }
     public virtual DbSet<QuantityDatumLibDm> QuantityDatum { get; set; }
-    public virtual DbSet<AspectObjectAttributeLibDm> AspectObjectAttribute { get; set; }
+    public virtual DbSet<BlockAttributeLibDm> BlockAttribute { get; set; }
     public virtual DbSet<TerminalAttributeLibDm> TerminalAttribute { get; set; }
-    public virtual DbSet<CategoryLibDm> Category { get; set; }
     public virtual DbSet<RdsLibDm> Rds { get; set; }
-
+    public virtual DbSet<AttributeGroupLibDm> AttributeGroup { get; set; }
+    public virtual DbSet<AttributeGroupAttributesLibDm> AttributeGroupAttributes { get; set; }
 
     public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)
     {
@@ -31,18 +31,19 @@ public class TypeLibraryDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfiguration(new SymbolConfiguration());
-        modelBuilder.ApplyConfiguration(new AspectObjectTerminalConfiguration());
+        modelBuilder.ApplyConfiguration(new BlockTerminalConfiguration());
         modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
         modelBuilder.ApplyConfiguration(new TerminalConfiguration());
-        modelBuilder.ApplyConfiguration(new AspectObjectConfiguration());
+        modelBuilder.ApplyConfiguration(new BlockConfiguration());
         modelBuilder.ApplyConfiguration(new LogConfiguration());
         modelBuilder.ApplyConfiguration(new AttributeConfiguration());
         modelBuilder.ApplyConfiguration(new UnitConfiguration());
         modelBuilder.ApplyConfiguration(new AttributeUnitConfiguration());
         modelBuilder.ApplyConfiguration(new QuantityDatumConfiguration());
-        modelBuilder.ApplyConfiguration(new AspectObjectAttributeConfiguration());
+        modelBuilder.ApplyConfiguration(new BlockAttributeConfiguration());
         modelBuilder.ApplyConfiguration(new TerminalAttributeConfiguration());
-        modelBuilder.ApplyConfiguration(new CategoryConfiguration());
         modelBuilder.ApplyConfiguration(new RdsConfiguration());
+        modelBuilder.ApplyConfiguration(new AttributeGroupConfiguration());
+        modelBuilder.ApplyConfiguration(new AttributeGroupAttributesConfiguration());
     }
 }

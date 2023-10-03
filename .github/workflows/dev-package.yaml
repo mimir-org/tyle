@@ -1,0 +1,39 @@
+name: Create new npm dev package of typelibrary-types and publish it to Github packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version number for the new dev package
+
+jobs:
+  publish-dev-package:
+    if: inputs.version != ''
+    permissions:
+      packages: write
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Package typescript interfaces
+        run: dotnet run
+        working-directory: ./src/server/Mimirorg.Package
+
+      - name: Generate npm package
+        run: |
+          mkdir typelibrary-types
+          cd typelibrary-types
+          cp -a ../src/server/Mimirorg.Package/template/. ./
+          npx tsc index.ts --declaration
+          npm version ${{ inputs.version }}
+          sed -i 's#"name": "@mimirorg/typelibrary-types",#"name": "@mimir-org/typelibrary-types",\n "repository": "https://github.com/mimir-org/typelibrary.git",#' package.json
+
+      - name: Publish npm package
+        run: |
+          echo '@mimir-org:registry=https://npm.pkg.github.com
+          //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}' > .npmrc
+          npm publish
+        working-directory: typelibrary-types
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

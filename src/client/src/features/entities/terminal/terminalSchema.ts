@@ -1,6 +1,6 @@
 import { YupShape } from "common/types/yupShape";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
-import { TFunction } from "react-i18next";
+import { TFunction } from "i18next";
 import * as yup from "yup";
 
 export const terminalSchema = (t: TFunction<"translation">) =>

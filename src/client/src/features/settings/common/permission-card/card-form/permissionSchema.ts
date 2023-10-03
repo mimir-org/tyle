@@ -1,6 +1,6 @@
 import { YupShape } from "common/types/yupShape";
 import { FormUserPermission } from "features/settings/common/permission-card/card-form/types/formUserPermission";
-import { TFunction } from "react-i18next";
+import { TFunction } from "i18next";
 import * as yup from "yup";
 
 export const permissionSchema = (t: TFunction<"translation">) =>

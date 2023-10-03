@@ -27,5 +27,5 @@ export const useApprovalDescriptors = (approval: ApprovalCm): { [key: string]: s
 export const approvalFilter = (approval: ApprovalCm): boolean => {
   if (approval == null) return false;
 
-  return approval.state === State.Approve || approval.state === State.Delete;
+  return approval.state === State.Review;
 };

@@ -1,7 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System;
@@ -21,7 +20,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
     private readonly ILogger<TimedPcaSyncingService> _logger;
     private readonly IServiceProvider _serviceProvider;
     private readonly IApplicationSettingsRepository _settings;
-    private Timer _timer = null;
+    private Timer _timer;
     private readonly IAttributeReferenceRepository _attributeReferenceRepository;
     private readonly IQuantityDatumReferenceRepository _quantityDatumReferenceRepository;
     private readonly IUnitReferenceRepository _unitReferenceRepository;
@@ -41,6 +40,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var now = DateTime.Now;
         var settingsSyncTime = DateTime.Parse(_settings.PcaSyncTime);
         var nextSyncTime = new DateTime(now.Year, now.Month, now.Day, settingsSyncTime.Hour, settingsSyncTime.Minute, settingsSyncTime.Second, settingsSyncTime.Millisecond);
+
         if (now > nextSyncTime)
             nextSyncTime = nextSyncTime.AddDays(1);
 
@@ -87,14 +87,17 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var pcaUnitsFetch = _unitReferenceRepository.FetchUnitsFromReference();
         using var scope = _serviceProvider.CreateScope();
         var unitService = scope.ServiceProvider.GetService<IUnitService>();
-        var dbUnits = unitService.Get().ExcludeDeleted().ToList();
+        var dbUnits = unitService.Get().ToList();
 
         var dbUnitReferences = new Dictionary<string, string>();
+
         foreach (var unit in dbUnits)
         {
-            if (unit.TypeReference == null) continue;
+            if (unit.TypeReference == null)
+                continue;
 
-            if (!unit.TypeReference.Contains("posccaesar.org")) continue;
+            if (!unit.TypeReference.Contains("posccaesar.org"))
+                continue;
 
             if (dbUnitReferences.ContainsKey(unit.TypeReference))
             {
@@ -113,11 +116,12 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
         foreach (var pcaUnit in pcaUnits)
         {
-            if (dbUnitReferences.ContainsKey(pcaUnit.TypeReference))
+            if (dbUnitReferences.TryGetValue(pcaUnit.TypeReference, out var reference))
             {
-                var storedUnit = unitService.Get(dbUnitReferences[pcaUnit.TypeReference]);
+                var storedUnit = unitService.Get(reference);
 
-                if (storedUnit.Equals(pcaUnit)) continue;
+                if (storedUnit.Equals(pcaUnit))
+                    continue;
 
                 _logger.LogError($"Unit with id {storedUnit.Id} deviates from PCA.");
             }
@@ -137,14 +141,16 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var pcaAttributesFetch = _attributeReferenceRepository.FetchAttributesFromReference();
         using var scope = _serviceProvider.CreateScope();
         var attributeService = scope.ServiceProvider.GetService<IAttributeService>();
-        var dbAttributes = attributeService.Get().ExcludeDeleted().ToList();
-
+        var dbAttributes = attributeService.Get().ToList();
         var dbAttributeReferences = new Dictionary<string, string>();
+
         foreach (var attribute in dbAttributes)
         {
-            if (attribute.TypeReference == null) continue;
+            if (attribute.TypeReference == null)
+                continue;
 
-            if (!attribute.TypeReference.Contains("posccaesar.org")) continue;
+            if (!attribute.TypeReference.Contains("posccaesar.org"))
+                continue;
 
             if (dbAttributeReferences.ContainsKey(attribute.TypeReference))
             {
@@ -163,11 +169,12 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
         foreach (var pcaAttribute in pcaAttributes)
         {
-            if (dbAttributeReferences.ContainsKey(pcaAttribute.TypeReference))
+            if (dbAttributeReferences.TryGetValue(pcaAttribute.TypeReference, out var reference))
             {
-                var storedAttribute = attributeService.Get(dbAttributeReferences[pcaAttribute.TypeReference]);
+                var storedAttribute = attributeService.Get(reference);
 
-                if (AttributeIsUnchanged(storedAttribute, pcaAttribute)) continue;
+                if (AttributeIsUnchanged(storedAttribute, pcaAttribute))
+                    continue;
 
                 _logger.LogError($"Attribute with id {storedAttribute.Id} deviates from PCA.");
             }
@@ -184,7 +191,8 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
     private static bool AttributeIsUnchanged(AttributeLibCm stored, AttributeLibAm external)
     {
-        if (stored.Name != external.Name) return false;
+        if (stored.Name != external.Name)
+            return false;
 
         var storedDefaultUnit = stored.AttributeUnits.FirstOrDefault(x => x.IsDefault);
         var externalDefaultUnit = external.AttributeUnits.FirstOrDefault(x => x.IsDefault);
@@ -214,14 +222,16 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var pcaQuantityDatumsFetch = _quantityDatumReferenceRepository.FetchQuantityDatumsFromReference();
         using var scope = _serviceProvider.CreateScope();
         var quantityDatumService = scope.ServiceProvider.GetService<IQuantityDatumService>();
-        var dbQuantityDatums = quantityDatumService.Get().ExcludeDeleted().ToList();
-
+        var dbQuantityDatums = quantityDatumService.Get().ToList();
         var dbQuantityDatumsReferences = new Dictionary<string, string>();
+
         foreach (var quantityDatum in dbQuantityDatums)
         {
-            if (quantityDatum.TypeReference == null) continue;
+            if (quantityDatum.TypeReference == null)
+                continue;
 
-            if (!quantityDatum.TypeReference.Contains("posccaesar.org")) continue;
+            if (!quantityDatum.TypeReference.Contains("posccaesar.org"))
+                continue;
 
             if (dbQuantityDatumsReferences.ContainsKey(quantityDatum.TypeReference))
             {
@@ -240,11 +250,12 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
         foreach (var pcaQuantityDatum in pcaQuantityDatums)
         {
-            if (dbQuantityDatumsReferences.ContainsKey(pcaQuantityDatum.TypeReference))
+            if (dbQuantityDatumsReferences.TryGetValue(pcaQuantityDatum.TypeReference, out var reference))
             {
-                var storedQuantityDatum = quantityDatumService.Get(dbQuantityDatumsReferences[pcaQuantityDatum.TypeReference]);
+                var storedQuantityDatum = quantityDatumService.Get(reference);
 
-                if (storedQuantityDatum.Equals(pcaQuantityDatum)) continue;
+                if (storedQuantityDatum.Equals(pcaQuantityDatum))
+                    continue;
 
                 _logger.LogError($"Quantity datum with id {storedQuantityDatum.Id} deviates from PCA.");
             }

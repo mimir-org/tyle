@@ -22,7 +22,7 @@ export const quantityDatumApi = {
   patchQuantityDatumState(id: string, state: State) {
     return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
-  patchQuantityDatumStateReject(id: string) {
-    return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/reject`).then((r) => r.data);
+  deleteQuantityDatum(id: string) {
+    return apiClient.delete(`${_basePath}/${id}`);
   },
 };

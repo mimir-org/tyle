@@ -1,5 +1,4 @@
-import { MotionFlexbox } from "complib/layouts";
-import { Text } from "complib/text";
+import { MotionFlexbox, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 
 interface SearchPlaceholderProps {
@@ -20,11 +19,11 @@ export const SearchPlaceholder = ({ title, subtitle, tips }: SearchPlaceholderPr
   const theme = useTheme();
 
   return (
-    <MotionFlexbox layout flexDirection={"column"} gap={theme.tyle.spacing.xl} {...theme.tyle.animation.fade}>
-      <Text variant={"title-large"} color={theme.tyle.color.sys.surface.variant.on} wordBreak={"break-all"}>
+    <MotionFlexbox layout flexDirection={"column"} gap={theme.mimirorg.spacing.xl} {...theme.mimirorg.animation.fade}>
+      <Text variant={"title-large"} color={theme.mimirorg.color.surface.variant.on} wordBreak={"break-all"}>
         {title}
       </Text>
-      <Text variant={"label-large"} color={theme.tyle.color.sys.primary.base}>
+      <Text variant={"label-large"} color={theme.mimirorg.color.primary.base}>
         {subtitle}
       </Text>
       <ul>

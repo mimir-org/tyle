@@ -1,8 +1,8 @@
-using System.Security.Principal;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System.Security.Principal;
 
 namespace Mimirorg.Authentication.Contracts;
 
@@ -31,9 +31,15 @@ public interface IMimirorgUserService
     /// Get user from id
     /// </summary>
     /// <param name="id"></param>
-    /// <returns>UserCm</returns>
+    /// <returns>MimirorgUserCm</returns>
     /// <exception cref="MimirorgNotFoundException"></exception>
     Task<MimirorgUserCm> GetUser(string id);
+
+    /// <summary>
+    /// Get all users
+    /// </summary>
+    /// <returns>IEnumerable(MimirorgUserCm)</returns>
+    Task<List<MimirorgUserCm>> GetUsers();
 
     /// <summary>
     /// Update user
@@ -43,7 +49,6 @@ public interface IMimirorgUserService
     /// <exception cref="MimirorgNotFoundException"></exception>
     /// <exception cref="MimirorgInvalidOperationException"></exception>
     Task<MimirorgUserCm> UpdateUser(MimirorgUserAm userAm);
-
 
     /// <summary>
     /// Gets all companies that the principal can access given a specific permission level

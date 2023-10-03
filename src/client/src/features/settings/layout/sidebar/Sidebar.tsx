@@ -1,7 +1,5 @@
 import { LinkGroup } from "common/types/linkGroup";
-import { Divider } from "complib/data-display";
-import { Flexbox } from "complib/layouts";
-import { Heading } from "complib/text";
+import { Divider, Flexbox, Heading } from "@mimirorg/component-library";
 import { useGetApprovals } from "external/sources/approval/approval.queries";
 import { useGetPendingUsers } from "external/sources/company/company.queries";
 import { SidebarContainer, SidebarLink } from "features/settings/layout/sidebar/Sidebar.styled";
@@ -39,7 +37,7 @@ export const Sidebar = ({ title, groups }: SidebarProps) => {
   return (
     <SidebarContainer>
       <Heading variant={"headline-large"}>{title}</Heading>
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.base}>
+      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.base}>
         {groups.map((group, i) => (
           <Fragment key={i}>
             {group.links.map((link, i) => (
@@ -47,7 +45,7 @@ export const Sidebar = ({ title, groups }: SidebarProps) => {
                 {linkText(link.name)}
               </SidebarLink>
             ))}
-            <Divider color={theme.tyle.color.sys.outline.base} />
+            <Divider color={theme.mimirorg.color.outline.base} />
           </Fragment>
         ))}
       </Flexbox>

@@ -48,4 +48,5 @@ public class TerminalLibAm
     /// Adding attributes generates a major increase
     /// </remarks>
     public ICollection<string> Attributes { get; set; }
+    public ICollection<string> AttributeGroups { get; set; }
 }

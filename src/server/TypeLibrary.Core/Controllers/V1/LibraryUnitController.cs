@@ -166,6 +166,45 @@ public class LibraryUnitController : ControllerBase
     }
 
     /// <summary>
+    /// Delete a unit that is not approved
+    /// </summary>
+    /// <param name="id">The id of the unit to delete</param>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [Authorize]
+    public async Task<IActionResult> Delete([FromRoute] string id)
+    {
+        try
+        {
+            var unit = _unitService.Get(id);
+            var hasAccess = await _authService.CanDelete(unit.State, unit.CreatedBy, CompanyConstants.AnyCompanyId);
+
+            if (!hasAccess)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            await _unitService.Delete(id);
+            return NoContent();
+        }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
     /// Update a unit with a new state
     /// </summary>
     /// <param name="id">The id of the unit to be updated</param>
@@ -187,55 +226,7 @@ public class LibraryUnitController : ControllerBase
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _unitService.ChangeState(id, state);
-            return Ok(data);
-        }
-        catch (MimirorgNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-        catch (MimirorgInvalidOperationException e)
-        {
-            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
-
-    /// <summary>
-    /// Reject a state change request by setting the state back to 'Draft'
-    /// </summary>
-    /// <param name="id">The id of the unit with the requested state change</param>
-    /// <returns>An approval data object containing the id of the unit and the reverted state</returns>
-    [HttpPatch("{id}/state/reject")]
-    [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [Authorize]
-    public async Task<IActionResult> RejectChangeState([FromRoute] string id)
-    {
-        try
-        {
-            var cm = _unitService.Get(id);
-
-            if (cm == null)
-                return StatusCode(StatusCodes.Status404NotFound);
-
-            if (cm.State is State.Draft or State.Deleted or State.Approved)
-                return StatusCode(StatusCodes.Status403Forbidden, $"Can't reject a state change for an object with state {cm.State}");
-
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId,
-                cm.State == State.Approve ? State.Approved : State.Deleted);
-
-            if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);
-
-            var data = await _unitService.ChangeState(id, State.Draft);
+            var data = await _unitService.ChangeState(id, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)

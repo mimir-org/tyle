@@ -1,10 +1,10 @@
 import styled from "styled-components/macro";
-import { Text } from "../../../../complib/text";
 import { useTheme } from "styled-components";
 import { FormUnitHelper } from "../../units/types/FormUnitHelper";
 import UnitPreview from "../unit/UnitPreview";
-import { Flexbox } from "../../../../complib/layouts";
+import { Flexbox, Text } from "@mimirorg/component-library";
 import AttributeIcon from "../../../icons/AttributeIcon";
+import { State } from "@mimirorg/typelibrary-types";
 
 interface StyledDivProps {
   small?: boolean;
@@ -13,12 +13,13 @@ interface StyledDivProps {
 const StyledDiv = styled.div<StyledDivProps>`
   display: flex;
   flex-direction: column;
-  gap: ${(props) => (props.small ? props.theme.tyle.spacing.xs : props.theme.tyle.spacing.xl)};
-  padding: ${(props) => props.theme.tyle.spacing.xl};
-  border-radius: ${(props) => props.theme.tyle.border.radius.large};
+  gap: ${(props) => (props.small ? props.theme.mimirorg.spacing.xs : props.theme.mimirorg.spacing.xl)};
+  padding: ${(props) => props.theme.mimirorg.spacing.xl};
+  border-radius: ${(props) => props.theme.mimirorg.border.radius.large};
   background-color: ${(props) =>
-    props.small ? props.theme.tyle.color.sys.pure.base : props.theme.tyle.color.sys.tertiary.on};
-  border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
+    props.small ? props.theme.mimirorg.color.pure.base : props.theme.mimirorg.color.tertiary.on};
+  border: 1px solid ${(props) => props.theme.mimirorg.color.outline.base};
+  max-height: 75vh;
   max-width: 40rem;
   height: fit-content;
   overflow-y: auto;
@@ -27,15 +28,16 @@ const StyledDiv = styled.div<StyledDivProps>`
   cursor: ${(props) => (props.small ? "pointer" : "auto")};
 `;
 
-interface attributePreviewProps {
+interface AttributePreviewProps {
   name: string;
   description: string;
   units?: FormUnitHelper[];
   defaultUnit?: FormUnitHelper | null;
   small?: boolean;
+  state?: State;
 }
 
-export default function AttributePreview({ name, description, units, defaultUnit, small }: attributePreviewProps) {
+export default function AttributePreview({ name, description, units, defaultUnit, small }: AttributePreviewProps) {
   const theme = useTheme();
   units && units.sort((a) => (a.unitId === defaultUnit?.unitId ? -1 : 1));
 
@@ -45,21 +47,29 @@ export default function AttributePreview({ name, description, units, defaultUnit
         AttributeSmallPreview(defaultUnit?.name ?? "Attribute")
       ) : (
         <>
-          <Text
-            color={theme.tyle.color.sys.pure.base}
-            variant={small ? "body-medium" : "headline-small"}
-            useEllipsis={small}
-          >
-            {name}
-          </Text>
-          {!small && <Text color={theme.tyle.color.sys.pure.base}>{description}</Text>}
+          <Flexbox justifyContent={"space-between"}>
+            <Text
+              color={theme.mimirorg.color.pure.base}
+              variant={small ? "body-medium" : "headline-small"}
+              useEllipsis={small}
+            >
+              {name}
+            </Text>
+          </Flexbox>
+          {!small && <Text color={theme.mimirorg.color.pure.base}>{description}</Text>}
           {units &&
             (small
               ? units
                   .filter((unit) => unit.unitId === defaultUnit?.unitId)
-                  .map((unit) => <UnitPreview {...unit} key={unit.unitId} small={small} noBadge />)
+                  .map((unit) => <UnitPreview {...unit} key={unit.unitId} small={small} />)
               : units.map((unit) => (
-                  <UnitPreview {...unit} key={unit.unitId} isDefault={unit.unitId === defaultUnit?.unitId} />
+                  <UnitPreview
+                    {...unit}
+                    key={unit.unitId}
+                    isDefault={unit.unitId === defaultUnit?.unitId}
+                    state={unit.state}
+                    stateBadge
+                  />
                 )))}
         </>
       )}
@@ -70,8 +80,8 @@ export default function AttributePreview({ name, description, units, defaultUnit
 const AttributeSmallPreview = (defaultAttributeSymbol: string) => {
   const theme = useTheme();
   return (
-    <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
-      <AttributeIcon color={theme.tyle.color.sys.pure.on} />
+    <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.mimirorg.spacing.base}>
+      <AttributeIcon color={theme.mimirorg.color.pure.on} />
       <Text variant={"title-medium"} textAlign={"center"}>
         {defaultAttributeSymbol}
       </Text>

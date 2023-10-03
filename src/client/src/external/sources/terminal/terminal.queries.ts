@@ -38,10 +38,10 @@ export const usePatchTerminalState = () => {
   });
 };
 
-export const usePatchTerminalStateReject = () => {
+export const useDeleteTerminal = (id: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: { id: string }) => terminalApi.patchTerminalStateReject(item.id), {
+  return useMutation(() => terminalApi.deleteTerminal(id), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };

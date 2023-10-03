@@ -22,6 +22,9 @@ public class SendGridRepository : IMimirorgEmailRepository
         if (string.IsNullOrWhiteSpace(_authSettings?.EmailSecret))
             throw new MimirorgConfigurationException("Missing configuration for email settings.");
 
+        if (string.IsNullOrWhiteSpace(email?.FromEmail) || string.IsNullOrWhiteSpace(email.ToEmail))
+            return;
+
         var client = new SendGridClient(_authSettings.EmailSecret);
         var from = new EmailAddress(email.FromEmail, email.FromName);
         var to = new EmailAddress(email.ToEmail, email.ToName);

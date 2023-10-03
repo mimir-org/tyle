@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
@@ -11,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
@@ -30,8 +30,9 @@ public class AttributeService : IAttributeService
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
     private readonly IHttpContextAccessor _contextAccessor;
+    private readonly IEmailService _emailService;
 
-    public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository, IEfAttributeRepository attributeRepository, IEfAttributeUnitRepository attributeUnitRepository, IUnitService unitService, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor)
+    public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository, IEfAttributeRepository attributeRepository, IEfAttributeUnitRepository attributeUnitRepository, IUnitService unitService, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor, IEmailService emailService)
     {
         _mapper = mapper;
         _attributePredefinedRepository = attributePredefinedRepository;
@@ -41,12 +42,13 @@ public class AttributeService : IAttributeService
         _hookService = hookService;
         _logService = logService;
         _contextAccessor = contextAccessor;
+        _emailService = emailService;
     }
 
     /// <inheritdoc />
     public IEnumerable<AttributeLibCm> Get()
     {
-        var dataSet = _attributeRepository.Get()?.ExcludeDeleted().ToList();
+        var dataSet = _attributeRepository.Get()?.ToList();
 
         if (dataSet == null || !dataSet.Any())
             return new List<AttributeLibCm>();
@@ -94,9 +96,9 @@ public class AttributeService : IAttributeService
         }
 
         var createdAttribute = await _attributeRepository.Create(dm);
+        _hookService.HookQueue.Enqueue(CacheKey.Attribute);
         _attributeRepository.ClearAllChangeTrackers();
         await _logService.CreateLog(createdAttribute, LogType.Create, createdAttribute?.State.ToString(), createdAttribute?.CreatedBy);
-        _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
         return _mapper.Map<AttributeLibCm>(createdAttribute);
     }
@@ -112,21 +114,16 @@ public class AttributeService : IAttributeService
         var attributeToUpdate = _attributeRepository.FindBy(x => x.Id == id, false).Include(x => x.AttributeUnits).FirstOrDefault();
 
         if (attributeToUpdate == null)
-        {
             throw new MimirorgNotFoundException("Attribute not found. Update is not possible.");
-        }
 
         if (attributeToUpdate.State != State.Approved && attributeToUpdate.State != State.Draft)
-        {
             throw new MimirorgInvalidOperationException("Update can only be performed on attribute drafts or approved attributes.");
-        }
 
         if (attributeToUpdate.State != State.Approved)
         {
             attributeToUpdate.Name = attributeAm.Name;
             attributeToUpdate.TypeReference = attributeAm.TypeReference;
             attributeToUpdate.Description = attributeAm.Description;
-
             attributeToUpdate.AttributeUnits ??= new List<AttributeUnitLibDm>();
 
             var currentAttributeUnits = attributeToUpdate.AttributeUnits.ToHashSet();
@@ -135,7 +132,10 @@ public class AttributeService : IAttributeService
             foreach (var attributeUnit in currentAttributeUnits.ExceptBy(newAttributeUnits.Select(x => x.UnitId + x.IsDefault), y => y.UnitId + y.IsDefault))
             {
                 var attributeUnitDm = _attributeUnitRepository.FindBy(x => x.AttributeId == attributeToUpdate.Id && x.UnitId == attributeUnit.UnitId).FirstOrDefault();
-                if (attributeUnitDm == null) continue;
+
+                if (attributeUnitDm == null)
+                    continue;
+
                 await _attributeUnitRepository.Delete(attributeUnitDm.Id);
             }
 
@@ -154,36 +154,43 @@ public class AttributeService : IAttributeService
 
         await _attributeUnitRepository.SaveAsync();
         await _attributeRepository.SaveAsync();
-        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
-        await _logService.CreateLog(attributeToUpdate, LogType.Update, attributeToUpdate.State.ToString(), updatedBy);
-
-        _attributeRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
+        _attributeRepository.ClearAllChangeTrackers();
+        await _logService.CreateLog(attributeToUpdate, LogType.Update, attributeToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         return Get(attributeToUpdate.Id);
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state)
+    public async Task Delete(string id)
     {
-        var dm = _attributeRepository.Get().FirstOrDefault(x => x.Id == id);
-
-        if (dm == null)
-            throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
+        var dm = _attributeRepository.Get(id) ?? throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException($"State change on approved attribute with id {id} is not allowed.");
+            throw new MimirorgInvalidOperationException($"Can't delete approved attribute with id {id}.");
 
-        if (state == State.Approve)
+        await _attributeRepository.Delete(id);
+        await _attributeRepository.SaveAsync();
+    }
+
+    /// <inheritdoc />
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
+    {
+        var dm = _attributeRepository.Get(id) ?? throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
+
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
+
+        if (state == State.Review)
         {
             foreach (var attributeUnit in dm.AttributeUnits)
             {
                 var unit = _unitService.Get(attributeUnit.UnitId);
 
-                if (unit.State == State.Approved) continue;
-                if (unit.State == State.Deleted) throw new MimirorgInvalidOperationException("Cannot request approval for attribute that uses deleted units.");
+                if (unit.State == State.Approved)
+                    continue;
 
-                await _unitService.ChangeState(unit.Id, State.Approve);
+                await _unitService.ChangeState(unit.Id, State.Review, true);
             }
         }
         else if (state == State.Approved && dm.AttributeUnits.Select(attributeUnit => _unitService.Get(attributeUnit.UnitId)).Any(unit => unit.State != State.Approved))
@@ -191,28 +198,20 @@ public class AttributeService : IAttributeService
             throw new MimirorgInvalidOperationException("Cannot approve attribute that uses unapproved units.");
         }
 
-        await _attributeRepository.ChangeState(state, new List<string> { dm.Id });
-
-        await _logService.CreateLog(
-            dm,
-            LogType.State,
-            state.ToString(),
-            !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown);
-
+        await _attributeRepository.ChangeState(state, dm.Id);
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
+        await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
-        return new ApprovalDataCm
-        {
-            Id = id,
-            State = state
+        if (sendStateEmail)
+            await _emailService.SendObjectStateEmail(dm.Id, state, dm.Name, ObjectTypeName.Attribute);
 
-        };
+        return new ApprovalDataCm { Id = dm.Id, State = state };
     }
 
     /// <inheritdoc />
     public IEnumerable<AttributePredefinedLibCm> GetPredefined()
     {
-        var attributes = _attributePredefinedRepository.GetPredefined().Where(x => x.State != State.Deleted).ToList()
+        var attributes = _attributePredefinedRepository.GetPredefined().ToList()
             .OrderBy(x => x.Aspect).ThenBy(x => x.Key, StringComparer.InvariantCultureIgnoreCase).ToList();
 
         return _mapper.Map<List<AttributePredefinedLibCm>>(attributes);
