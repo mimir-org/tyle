@@ -6,7 +6,7 @@
       "remove": "Remove attribute",
       "dialog": {
         "title": "Select attribute(s)",
-        "description": "The attributes that are listed below can be reused across multiple entities.",
+        "description": "The attributes listed below can be used across multiple entities.",
         "search": "Search",
         "add": "Add"
       }
@@ -147,7 +147,7 @@
     },
     "dialog": {
       "title": "Select attribute groups(s)",
-      "description": "The attribute groups that are listed below can be reused across multiple entities.",
+      "description": "The attribute groups listed below can be used across multiple entities.",
       "search": "Search",
       "add": "Add"
     }
