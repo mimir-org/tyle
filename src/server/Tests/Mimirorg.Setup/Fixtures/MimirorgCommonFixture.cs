@@ -1,8 +1,5 @@
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Authentication.Models;
-using Moq;
 using TypeLibrary.Data;
 
 namespace Mimirorg.Test.Setup.Fixtures;
@@ -12,10 +9,7 @@ public class MimirorgCommonFixture : IDisposable
     // Common
     public MimirorgAuthSettings MimirorgAuthSettings = new();
     public ApplicationSettings ApplicationSettings = new();
-    public Mock<IMapper> Mapper = new();
-    public Mock<IHttpContextAccessor> HttpContextAccessor = new();
-    public TyleDbContext TyleContext { get; set; } = new TyleDbContext(new DbContextOptionsBuilder<TyleDbContext>()
-        .UseInMemoryDatabase($"TestDb{DateTime.Now}").Options);
+    public TyleDbContext TyleContext { get; } = new (new DbContextOptionsBuilder<TyleDbContext>().UseInMemoryDatabase($"TestDb{DateTime.Now}").Options);
 
     public MimirorgCommonFixture()
     {

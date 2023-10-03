@@ -19,16 +19,7 @@ public class LibraryBlockControllerTests : IntegrationTest
     [InlineData("/blocks")]
     public async Task GET_Retrieves_Status_Ok(string endpoint)
     {
-        var client = Factory.WithWebHostBuilder(builder =>
-        {
-            builder.ConfigureServices(_ =>
-            {
-
-            });
-        }).CreateClient(new WebApplicationFactoryClientOptions());
-
-
-        var response = await client.GetAsync(endpoint);
+        var response = await Client.GetAsync(endpoint);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 
@@ -36,14 +27,6 @@ public class LibraryBlockControllerTests : IntegrationTest
     [InlineData("/blocks/")]
     public async Task GET_Id_Retrieves_Status_Ok(string endpoint)
     {
-        var client = Factory.WithWebHostBuilder(builder =>
-        {
-            builder.ConfigureServices(_ =>
-            {
-
-            });
-        }).CreateClient(new WebApplicationFactoryClientOptions());
-
         const string guid = "2f9e0813-1067-472e-86ea-7c0b47a4eb18";
 
         // Ensure block in fake database
@@ -57,7 +40,7 @@ public class LibraryBlockControllerTests : IntegrationTest
         var blockRepository = scope.ServiceProvider.GetRequiredService<IBlockRepository>();
         var createdBlock = await blockRepository.Create(blockToCreate);
 
-        var response = await client.GetAsync(endpoint + createdBlock.Id);
+        var response = await Client.GetAsync(endpoint + createdBlock.Id);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 
@@ -65,15 +48,7 @@ public class LibraryBlockControllerTests : IntegrationTest
     [InlineData("/blocks/66666666-6666-6666-6666-666666666666")]
     public async Task GET_Id_Retrieves_Status_No_Content(string endpoint)
     {
-        var client = Factory.WithWebHostBuilder(builder =>
-        {
-            builder.ConfigureServices(_ =>
-            {
-
-            });
-        }).CreateClient(new WebApplicationFactoryClientOptions());
-
-        var response = await client.GetAsync(endpoint);
+        var response = await Client.GetAsync(endpoint);
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 }
