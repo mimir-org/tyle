@@ -21,12 +21,12 @@ export const useCreateMenuLinks = (): Link[] => {
       path: terminalFormBasePath,
     },
     {
-      name: t("search.create.attributeGroup"),
-      path: attributeGroupFormBasePath,
-    },
-    {
       name: t("search.create.attribute"),
       path: attributeFormBasePath,
+    },
+    {
+      name: t("search.create.attributeGroup"),
+      path: attributeGroupFormBasePath,
     },
     {
       name: t("search.create.unit"),
