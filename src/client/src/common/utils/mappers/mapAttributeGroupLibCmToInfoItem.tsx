@@ -24,8 +24,6 @@ export const mapAttributeGroupLibCmToInfoItem = (attributeGroup: AttributeGroupL
       ...infoItem.descriptors,
     },
   };
-
-  return infoItem;
 };
 
 export const mapAttributeGroupLibCmsToInfoItems = (attributes: AttributeGroupLibCm[]): InfoItem[] =>
