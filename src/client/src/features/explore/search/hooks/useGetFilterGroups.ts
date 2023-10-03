@@ -65,6 +65,11 @@ const getEntityFilters = (): FilterGroup => ({
     },
     {
       key: "kind",
+      label: "Attribute group",
+      value: "AttributeGroupLibCm",
+    },
+    {
+      key: "kind",
       label: "Unit",
       value: "UnitLibCm",
     },

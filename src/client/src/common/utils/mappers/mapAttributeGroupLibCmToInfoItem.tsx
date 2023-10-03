@@ -3,12 +3,17 @@ import { InfoItem } from "common/types/infoItem";
 import { Text } from "@mimirorg/component-library";
 
 export const mapAttributeGroupLibCmToInfoItem = (attributeGroup: AttributeGroupLibCm): InfoItem => {
+  const attributes = attributeGroup.attributes.map((x) => x.name);
+  const i = attributes.map((item, index) => (index ? ", " : "") + item);
+
   const infoItem = {
     id: attributeGroup.id,
     name: attributeGroup.name,
     descriptors: {
-      IRI: (
-        <Text as={"a"} target={"_blank"} rel={"noopener noreferrer"} variant={"body-small"} color={"inherit"}></Text>
+      Attributes: (
+        <Text as={"a"} target={"_blank"} rel={"noopener noreferrer"} variant={"body-small"} color={"inherit"}>
+          {i}
+        </Text>
       ),
     },
   };
@@ -19,8 +24,6 @@ export const mapAttributeGroupLibCmToInfoItem = (attributeGroup: AttributeGroupL
       ...infoItem.descriptors,
     },
   };
-
-  return infoItem;
 };
 
 export const mapAttributeGroupLibCmsToInfoItems = (attributes: AttributeGroupLibCm[]): InfoItem[] =>
