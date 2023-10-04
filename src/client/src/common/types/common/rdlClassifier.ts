@@ -1,4 +1,3 @@
 import { RdlObject } from "./rdlObject";
 
-export interface RdlClassifier extends RdlObject {
-}
+export interface RdlClassifier extends RdlObject {}
