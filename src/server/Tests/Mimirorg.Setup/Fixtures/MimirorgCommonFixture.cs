@@ -9,7 +9,7 @@ public class MimirorgCommonFixture : IDisposable
     // Common
     public MimirorgAuthSettings MimirorgAuthSettings = new();
     public ApplicationSettings ApplicationSettings = new();
-    public TyleDbContext TyleContext { get; } = new (new DbContextOptionsBuilder<TyleDbContext>().UseInMemoryDatabase($"TestDb{DateTime.Now}").Options);
+    public TyleDbContext TyleContext { get; } = new(new DbContextOptionsBuilder<TyleDbContext>().UseInMemoryDatabase($"TestDb{DateTime.Now}").Options);
 
     public MimirorgCommonFixture()
     {

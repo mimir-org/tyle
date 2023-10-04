@@ -1,4 +1,4 @@
 export interface HasCardinality {
-    minCount: number;
-    maxCount: number | null;
+  minCount: number;
+  maxCount: number | null;
 }

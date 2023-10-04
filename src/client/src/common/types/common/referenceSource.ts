@@ -1,3 +1,3 @@
 export enum ReferenceSource {
-    UserSubmission = 0
+  UserSubmission = 0,
 }

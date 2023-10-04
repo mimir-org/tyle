@@ -122,11 +122,11 @@ public class TerminalRepository : ITerminalRepository
 
     public async Task<TerminalType?> Update(Guid id, TerminalTypeRequest request)
     {
-         var terminal = await _dbSet.AsTracking()
-            .Include(x => x.Classifiers)
-            .Include(x => x.Attributes)
-            .AsSplitQuery()
-            .FirstOrDefaultAsync(x => x.Id == id);
+        var terminal = await _dbSet.AsTracking()
+           .Include(x => x.Classifiers)
+           .Include(x => x.Attributes)
+           .AsSplitQuery()
+           .FirstOrDefaultAsync(x => x.Id == id);
 
         if (terminal == null)
         {

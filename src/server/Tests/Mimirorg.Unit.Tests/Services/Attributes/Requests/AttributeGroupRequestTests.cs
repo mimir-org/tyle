@@ -19,7 +19,7 @@ public class AttributeGroupRequestTests : UnitTest<MimirorgCommonFixture>
         var attributeGroupRequest = new AttributeGroupRequest
         {
             Name = "Test group",
-            AttributeIds = new List<Guid> {Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid()}
+            AttributeIds = new List<Guid> { Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid() }
         };
 
         var validationContext = new ValidationContext(attributeGroupRequest);

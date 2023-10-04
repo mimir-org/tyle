@@ -1,4 +1,4 @@
 export enum RegularityQualifier {
-    AbsoluteQualifier = 0,
-    ContinuousQualifier = 1
+  AbsoluteQualifier = 0,
+  ContinuousQualifier = 1,
 }

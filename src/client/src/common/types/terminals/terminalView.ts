@@ -7,12 +7,12 @@ import { Direction } from "./direction";
 import { RdlMedium } from "./rdlMedium";
 
 export interface TerminalView extends ImfType {
-    classifiers: RdlClassifier[];
-    purpose: RdlPurpose | null;
-    notation: string | null;
-    symbol: string | null;
-    aspect: Aspect | null;
-    medium: RdlMedium | null;
-    qualifier: Direction;
-    attributes: AttributeTypeReferenceView[];
+  classifiers: RdlClassifier[];
+  purpose: RdlPurpose | null;
+  notation: string | null;
+  symbol: string | null;
+  aspect: Aspect | null;
+  medium: RdlMedium | null;
+  qualifier: Direction;
+  attributes: AttributeTypeReferenceView[];
 }

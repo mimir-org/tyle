@@ -1,6 +1,6 @@
 export enum Aspect {
-    Function = 0,
-    Product = 1,
-    Location = 2,
-    Installed = 3
+  Function = 0,
+  Product = 1,
+  Location = 2,
+  Installed = 3,
 }
