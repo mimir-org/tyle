@@ -14,6 +14,7 @@ namespace Mimirorg.Authentication.Controllers;
 
 [Produces("application/json")]
 [ApiController]
+[Route("[controller]")]
 [SwaggerTag("Mimirorg company services")]
 public class MimirorgCompanyController : ControllerBase
 {
