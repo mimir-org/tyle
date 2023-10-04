@@ -7,7 +7,7 @@ using TypeLibrary.Services.Common.Requests;
 using TypeLibrary.Services.Terminals.Requests;
 using Xunit;
 
-namespace Mimirorg.Test.Unit.Models;
+namespace Mimirorg.Test.Unit.Services.Terminals.Requests;
 
 public class TerminalTypeRequestTests : UnitTest<MimirorgCommonFixture>
 {

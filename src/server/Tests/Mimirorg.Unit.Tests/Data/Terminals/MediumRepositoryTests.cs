@@ -5,7 +5,7 @@ using TypeLibrary.Data.Terminals;
 using TypeLibrary.Services.Terminals.Requests;
 using Xunit;
 
-namespace Mimirorg.Test.Unit.Repositories;
+namespace Mimirorg.Test.Unit.Data.Terminals;
 
 public class MediumRepositoryTests : UnitTest<MimirorgCommonFixture>
 {

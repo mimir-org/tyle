@@ -2,11 +2,10 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
-using TypeLibrary.Services.Blocks.Requests;
 using TypeLibrary.Services.Common.Requests;
 using Xunit;
 
-namespace Mimirorg.Test.Unit.Models;
+namespace Mimirorg.Test.Unit.Services.Common.Requests;
 
 public class TypeReferenceRequestTests : UnitTest<MimirorgCommonFixture>
 {
@@ -33,19 +32,6 @@ public class TypeReferenceRequestTests : UnitTest<MimirorgCommonFixture>
         var validationContext = new ValidationContext(terminalAttributeRequest);
 
         var results = terminalAttributeRequest.Validate(validationContext);
-
-        Assert.Equal(result, results.IsNullOrEmpty());
-
-        var blockTerminalRequest = new TerminalTypeReferenceRequest
-        {
-            MinCount = min,
-            MaxCount = max,
-            TerminalId = Guid.NewGuid()
-        };
-
-        validationContext = new ValidationContext(blockTerminalRequest);
-
-        results = blockTerminalRequest.Validate(validationContext);
 
         Assert.Equal(result, results.IsNullOrEmpty());
     }

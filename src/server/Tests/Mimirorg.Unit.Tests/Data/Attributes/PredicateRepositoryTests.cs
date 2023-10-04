@@ -5,7 +5,7 @@ using TypeLibrary.Data.Attributes;
 using TypeLibrary.Services.Attributes.Requests;
 using Xunit;
 
-namespace Mimirorg.Test.Unit.Repositories;
+namespace Mimirorg.Test.Unit.Data.Attributes;
 
 public class PredicateRepositoryTests : UnitTest<MimirorgCommonFixture>
 {

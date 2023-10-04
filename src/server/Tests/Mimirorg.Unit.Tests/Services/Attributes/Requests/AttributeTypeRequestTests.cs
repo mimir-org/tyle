@@ -5,7 +5,7 @@ using Mimirorg.Test.Setup.Fixtures;
 using TypeLibrary.Services.Attributes.Requests;
 using Xunit;
 
-namespace Mimirorg.Test.Unit.Models;
+namespace Mimirorg.Test.Unit.Services.Attributes.Requests;
 
 public class AttributeTypeRequestTests : UnitTest<MimirorgCommonFixture>
 {

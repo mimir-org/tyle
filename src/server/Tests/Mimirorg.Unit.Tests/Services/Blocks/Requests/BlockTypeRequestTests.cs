@@ -7,7 +7,7 @@ using TypeLibrary.Services.Blocks.Requests;
 using TypeLibrary.Services.Common.Requests;
 using Xunit;
 
-namespace Mimirorg.Test.Unit.Models;
+namespace Mimirorg.Test.Unit.Services.Blocks.Requests;
 
 public class BlockTypeRequestTests : UnitTest<MimirorgCommonFixture>
 {

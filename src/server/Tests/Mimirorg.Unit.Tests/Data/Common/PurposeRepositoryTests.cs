@@ -5,7 +5,7 @@ using TypeLibrary.Data.Common;
 using TypeLibrary.Services.Common.Requests;
 using Xunit;
 
-namespace Mimirorg.Test.Unit.Repositories;
+namespace Mimirorg.Test.Unit.Data.Common;
 
 public class PurposeRepositoryTests : UnitTest<MimirorgCommonFixture>
 {

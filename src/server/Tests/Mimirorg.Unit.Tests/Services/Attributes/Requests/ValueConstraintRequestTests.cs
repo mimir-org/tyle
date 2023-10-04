@@ -7,7 +7,7 @@ using TypeLibrary.Services.Attributes.Requests;
 using TypeLibrary.Services.Common;
 using Xunit;
 
-namespace Mimirorg.Test.Unit.Models;
+namespace Mimirorg.Test.Unit.Services.Attributes.Requests;
 
 public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
 {
