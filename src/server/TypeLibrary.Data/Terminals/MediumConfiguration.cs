@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Core.Terminals;
-using TypeLibrary.Services.Common;
+using Tyle.Application.Common;
+using Tyle.Core.Terminals;
 
-namespace TypeLibrary.Data.Terminals;
+namespace Tyle.Persistence.Terminals;
 
 public class MediumConfiguration : IEntityTypeConfiguration<RdlMedium>
 {

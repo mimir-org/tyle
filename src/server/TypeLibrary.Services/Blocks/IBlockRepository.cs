@@ -1,8 +1,8 @@
-using TypeLibrary.Core.Blocks;
-using TypeLibrary.Services.Blocks.Requests;
-using TypeLibrary.Services.Common;
+using Tyle.Application.Blocks.Requests;
+using Tyle.Application.Common;
+using Tyle.Core.Blocks;
 
-namespace TypeLibrary.Services.Blocks;
+namespace Tyle.Application.Blocks;
 
 public interface IBlockRepository : ITypeRepository<BlockType, BlockTypeRequest>
 {

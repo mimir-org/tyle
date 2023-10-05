@@ -2,10 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TypeLibrary.Core.Blocks;
-using TypeLibrary.Services.Common;
+using Tyle.Application.Common;
+using Tyle.Core.Blocks;
 
-namespace TypeLibrary.Data.Blocks;
+namespace Tyle.Persistence.Blocks;
 
 public class BlockConfiguration : IEntityTypeConfiguration<BlockType>
 {

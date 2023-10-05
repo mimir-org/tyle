@@ -1,11 +1,11 @@
 using AutoMapper;
-using Mimirorg.Test.Setup;
-using Mimirorg.Test.Setup.Fixtures;
-using TypeLibrary.Data.Terminals;
-using TypeLibrary.Services.Terminals.Requests;
+using Tyle.Application.Terminals.Requests;
+using Tyle.Persistence.Terminals;
+using Tyle.Test.Setup;
+using Tyle.Test.Setup.Fixtures;
 using Xunit;
 
-namespace Mimirorg.Test.Unit.Data.Terminals;
+namespace Tyle.Test.Unit.Data.Terminals;
 
 public class MediumRepositoryTests : UnitTest<MimirorgCommonFixture>
 {

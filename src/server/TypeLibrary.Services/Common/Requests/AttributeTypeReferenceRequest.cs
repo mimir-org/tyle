@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace TypeLibrary.Services.Common.Requests;
+namespace Tyle.Application.Common.Requests;
 
 public class AttributeTypeReferenceRequest : IValidatableObject
 {

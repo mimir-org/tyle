@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using TypeLibrary.Core.Terminals;
-using TypeLibrary.Services.Common;
-using TypeLibrary.Services.Terminals;
-using TypeLibrary.Services.Terminals.Requests;
+using Tyle.Application.Common;
+using Tyle.Application.Terminals;
+using Tyle.Application.Terminals.Requests;
+using Tyle.Core.Terminals;
 
-namespace TypeLibrary.Data.Terminals;
+namespace Tyle.Persistence.Terminals;
 
 public class TerminalRepository : ITerminalRepository
 {

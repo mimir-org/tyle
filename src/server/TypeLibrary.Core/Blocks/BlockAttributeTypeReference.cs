@@ -1,7 +1,7 @@
-using TypeLibrary.Core.Attributes;
-using TypeLibrary.Core.Common;
+using Tyle.Core.Attributes;
+using Tyle.Core.Common;
 
-namespace TypeLibrary.Core.Blocks;
+namespace Tyle.Core.Blocks;
 
 public class BlockAttributeTypeReference : HasCardinality
 {

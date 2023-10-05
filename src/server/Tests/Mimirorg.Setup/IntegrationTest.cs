@@ -1,7 +1,6 @@
-using System.Net.Http.Headers;
 using Xunit;
 
-namespace Mimirorg.Test.Setup;
+namespace Tyle.Test.Setup;
 
 [Trait("Category", "Integration")]
 public abstract class IntegrationTest : IClassFixture<ApiWebApplicationFactory>

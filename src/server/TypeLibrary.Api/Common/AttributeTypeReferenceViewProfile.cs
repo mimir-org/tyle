@@ -1,8 +1,8 @@
 using AutoMapper;
-using TypeLibrary.Core.Blocks;
-using TypeLibrary.Core.Terminals;
+using Tyle.Core.Blocks;
+using Tyle.Core.Terminals;
 
-namespace TypeLibrary.Api.Common;
+namespace Tyle.Api.Common;
 
 public class AttributeTypeReferenceViewProfile : Profile
 {

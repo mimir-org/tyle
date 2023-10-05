@@ -7,13 +7,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication;
-using TypeLibrary.Core.Terminals;
-using TypeLibrary.Data;
-using TypeLibrary.Services.Common;
-using TypeLibrary.Services.Terminals;
-using TypeLibrary.Services.Terminals.Requests;
+using Tyle.Api;
+using Tyle.Application.Common;
+using Tyle.Application.Terminals;
+using Tyle.Application.Terminals.Requests;
+using Tyle.Core.Terminals;
+using Tyle.Persistence;
 
-namespace Mimirorg.Test.Setup;
+namespace Tyle.Test.Setup;
 
 public class ApiWebApplicationFactory : WebApplicationFactory<Program>
 {

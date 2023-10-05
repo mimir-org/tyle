@@ -1,7 +1,7 @@
 using AutoMapper;
-using TypeLibrary.Core.Blocks;
+using Tyle.Core.Blocks;
 
-namespace TypeLibrary.Api.Blocks;
+namespace Tyle.Api.Blocks;
 
 public class BlockViewProfile : Profile
 {

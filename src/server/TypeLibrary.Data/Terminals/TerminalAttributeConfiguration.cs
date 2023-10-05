@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Core.Terminals;
+using Tyle.Core.Terminals;
 
-namespace TypeLibrary.Data.Terminals;
+namespace Tyle.Persistence.Terminals;
 
 public class TerminalAttributeConfiguration : IEntityTypeConfiguration<TerminalAttributeTypeReference>
 {

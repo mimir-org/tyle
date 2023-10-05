@@ -1,6 +1,6 @@
-using TypeLibrary.Core.Terminals;
+using Tyle.Core.Terminals;
 
-namespace TypeLibrary.Data.Terminals;
+namespace Tyle.Persistence.Terminals;
 
 public class TerminalAttributeComparer : IEqualityComparer<TerminalAttributeTypeReference>
 {

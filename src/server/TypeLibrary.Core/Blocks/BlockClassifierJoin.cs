@@ -1,6 +1,6 @@
-using TypeLibrary.Core.Common;
+using Tyle.Core.Common;
 
-namespace TypeLibrary.Core.Blocks;
+namespace Tyle.Core.Blocks;
 
 public class BlockClassifierJoin
 {

@@ -1,8 +1,8 @@
-using TypeLibrary.Core.Attributes;
-using TypeLibrary.Services.Attributes.Requests;
-using TypeLibrary.Services.Common;
+using Tyle.Application.Attributes.Requests;
+using Tyle.Application.Common;
+using Tyle.Core.Attributes;
 
-namespace TypeLibrary.Services.Attributes;
+namespace Tyle.Application.Attributes;
 
 public interface IUnitRepository : IReferenceRepository<RdlUnit, RdlUnitRequest>
 {

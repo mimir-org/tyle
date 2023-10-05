@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Models.Attributes;
 using Swashbuckle.AspNetCore.Annotations;
-using TypeLibrary.Services.Blocks;
-using TypeLibrary.Services.Blocks.Requests;
+using Tyle.Application.Blocks;
+using Tyle.Application.Blocks.Requests;
 
-namespace TypeLibrary.Api.Blocks;
+namespace Tyle.Api.Blocks;
 
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]

@@ -1,4 +1,4 @@
-namespace TypeLibrary.Services.Common.Requests;
+namespace Tyle.Application.Common.Requests;
 
 public class RdlPurposeRequest : RdlObjectRequest
 {

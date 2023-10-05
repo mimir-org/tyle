@@ -1,10 +1,10 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using TypeLibrary.Core.Terminals;
-using TypeLibrary.Services.Terminals;
-using TypeLibrary.Services.Terminals.Requests;
+using Tyle.Application.Terminals;
+using Tyle.Application.Terminals.Requests;
+using Tyle.Core.Terminals;
 
-namespace TypeLibrary.Data.Terminals;
+namespace Tyle.Persistence.Terminals;
 
 public class MediumRepository : IMediumRepository
 {

@@ -1,8 +1,8 @@
-using AutoMapper;
 using System.Globalization;
-using TypeLibrary.Core.Attributes;
+using AutoMapper;
+using Tyle.Core.Attributes;
 
-namespace TypeLibrary.Api.Attributes;
+namespace Tyle.Api.Attributes;
 
 public class AttributeViewProfile : Profile
 {

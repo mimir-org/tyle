@@ -24,9 +24,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\TypeLibrary.Api\TypeLibrary.Api.csproj" />
-        <ProjectReference Include="..\..\TypeLibrary.Data\TypeLibrary.Data.csproj" />
-        <ProjectReference Include="..\..\TypeLibrary.Services\TypeLibrary.Services.csproj" />
+        <ProjectReference Include="..\..\TypeLibrary.Api\Tyle.Api.csproj" />
+        <ProjectReference Include="..\..\TypeLibrary.Data\Tyle.Persistence.csproj" />
+        <ProjectReference Include="..\..\TypeLibrary.Services\Tyle.Application.csproj" />
     </ItemGroup>
 
 </Project>

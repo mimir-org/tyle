@@ -1,10 +1,10 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using TypeLibrary.Core.Common;
-using TypeLibrary.Services.Common;
-using TypeLibrary.Services.Common.Requests;
+using Tyle.Application.Common;
+using Tyle.Application.Common.Requests;
+using Tyle.Core.Common;
 
-namespace TypeLibrary.Data.Common;
+namespace Tyle.Persistence.Common;
 
 public class ClassifierRepository : IClassifierRepository
 {

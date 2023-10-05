@@ -4,8 +4,8 @@ using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using TypeLibrary.Api;
-using TypeLibrary.Data;
+using Tyle.Api;
+using Tyle.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -141,4 +141,7 @@ app.MapControllers();
 
 app.Run();
 
-public partial class Program { } // so you can reference it from tests
+namespace Tyle.Api
+{
+    public partial class Program { }
+} // so you can reference it from tests

@@ -1,8 +1,8 @@
 using AutoMapper;
-using TypeLibrary.Core.Attributes;
-using TypeLibrary.Services.Attributes.Requests;
+using Tyle.Application.Attributes.Requests;
+using Tyle.Core.Attributes;
 
-namespace TypeLibrary.Data.Attributes;
+namespace Tyle.Persistence.Attributes;
 
 public class ValueConstraintProfile : Profile
 {

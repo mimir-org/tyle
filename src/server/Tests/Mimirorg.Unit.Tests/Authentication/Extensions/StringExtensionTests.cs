@@ -1,11 +1,11 @@
 using Mimirorg.Authentication.Extensions;
-using Mimirorg.Test.Setup;
-using Mimirorg.Test.Setup.Fixtures;
+using Tyle.Test.Setup;
+using Tyle.Test.Setup.Fixtures;
 using Xunit;
 
 // ReSharper disable StringLiteralTypo
 
-namespace Mimirorg.Test.Unit.Authentication.Extensions;
+namespace Tyle.Test.Unit.Authentication.Extensions;
 
 public class StringExtensionTests : UnitTest<MimirorgCommonFixture>
 {

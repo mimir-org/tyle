@@ -1,9 +1,9 @@
 using Mimirorg.Authentication.Enums;
-using Mimirorg.Test.Setup;
-using Mimirorg.Test.Setup.Fixtures;
+using Tyle.Test.Setup;
+using Tyle.Test.Setup.Fixtures;
 using Xunit;
 
-namespace Mimirorg.Test.Unit.Authentication.Enums;
+namespace Tyle.Test.Unit.Authentication.Enums;
 
 public class PermissionTests : UnitTest<MimirorgCommonFixture>
 {

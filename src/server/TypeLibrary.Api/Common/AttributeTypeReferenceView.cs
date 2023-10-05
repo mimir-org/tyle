@@ -1,7 +1,7 @@
-using TypeLibrary.Api.Attributes;
-using TypeLibrary.Core.Common;
+using Tyle.Api.Attributes;
+using Tyle.Core.Common;
 
-namespace TypeLibrary.Api.Common;
+namespace Tyle.Api.Common;
 
 public class AttributeTypeReferenceView : HasCardinality
 {

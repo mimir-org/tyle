@@ -1,4 +1,4 @@
-namespace TypeLibrary.Api.Attributes;
+namespace Tyle.Api.Attributes;
 
 public class NumericValueListConstraintView : ValueConstraintView
 {

@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
-using Mimirorg.Test.Setup;
-using Mimirorg.Test.Setup.Fixtures;
-using TypeLibrary.Services.Attributes.Requests;
+using Tyle.Application.Attributes.Requests;
+using Tyle.Test.Setup;
+using Tyle.Test.Setup.Fixtures;
 using Xunit;
 
-namespace Mimirorg.Test.Unit.Services.Attributes.Requests;
+namespace Tyle.Test.Unit.Services.Attributes.Requests;
 
 public class AttributeTypeRequestTests : UnitTest<MimirorgCommonFixture>
 {

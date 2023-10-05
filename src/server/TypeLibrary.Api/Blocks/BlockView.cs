@@ -1,7 +1,7 @@
-using TypeLibrary.Api.Common;
-using TypeLibrary.Core.Common;
+using Tyle.Api.Common;
+using Tyle.Core.Common;
 
-namespace TypeLibrary.Api.Blocks;
+namespace Tyle.Api.Blocks;
 
 public class BlockView : ImfType
 {

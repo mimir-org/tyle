@@ -1,11 +1,11 @@
 using AutoMapper;
-using Mimirorg.Test.Setup;
-using Mimirorg.Test.Setup.Fixtures;
-using TypeLibrary.Data.Attributes;
-using TypeLibrary.Services.Attributes.Requests;
+using Tyle.Application.Attributes.Requests;
+using Tyle.Persistence.Attributes;
+using Tyle.Test.Setup;
+using Tyle.Test.Setup.Fixtures;
 using Xunit;
 
-namespace Mimirorg.Test.Unit.Data.Attributes;
+namespace Tyle.Test.Unit.Data.Attributes;
 
 public class PredicateRepositoryTests : UnitTest<MimirorgCommonFixture>
 {

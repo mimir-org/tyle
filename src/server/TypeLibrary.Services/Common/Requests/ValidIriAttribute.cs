@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace TypeLibrary.Services.Common.Requests;
+namespace Tyle.Application.Common.Requests;
 
 [AttributeUsage(AttributeTargets.Property)]
 public class ValidIriAttribute : ValidationAttribute

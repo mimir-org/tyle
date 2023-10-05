@@ -1,13 +1,13 @@
 using System.Net;
 using System.Net.Http.Json;
-using Mimirorg.Test.Setup;
 using Newtonsoft.Json;
-using TypeLibrary.Api.Attributes;
-using TypeLibrary.Core.Attributes;
-using TypeLibrary.Services.Attributes.Requests;
+using Tyle.Api.Attributes;
+using Tyle.Application.Attributes.Requests;
+using Tyle.Core.Attributes;
+using Tyle.Test.Setup;
 using Xunit;
 
-namespace Mimirorg.Test.Integration.Controllers;
+namespace Tyle.Test.Integration.Controllers;
 
 public class AttributesControllerTests : IntegrationTest
 {

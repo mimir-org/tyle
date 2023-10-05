@@ -1,6 +1,6 @@
-using TypeLibrary.Core.Attributes;
+using Tyle.Core.Attributes;
 
-namespace TypeLibrary.Api.Attributes;
+namespace Tyle.Api.Attributes;
 
 public class ValueConstraintView
 {

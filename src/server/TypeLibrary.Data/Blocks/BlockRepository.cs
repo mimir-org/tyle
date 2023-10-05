@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using TypeLibrary.Core.Blocks;
-using TypeLibrary.Services.Blocks;
-using TypeLibrary.Services.Blocks.Requests;
-using TypeLibrary.Services.Common;
+using Tyle.Application.Blocks;
+using Tyle.Application.Blocks.Requests;
+using Tyle.Application.Common;
+using Tyle.Core.Blocks;
 
-namespace TypeLibrary.Data.Blocks;
+namespace Tyle.Persistence.Blocks;
 
 public class BlockRepository : IBlockRepository
 {

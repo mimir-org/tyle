@@ -1,8 +1,8 @@
-using TypeLibrary.Api.Common;
-using TypeLibrary.Core.Common;
-using TypeLibrary.Core.Terminals;
+using Tyle.Api.Common;
+using Tyle.Core.Common;
+using Tyle.Core.Terminals;
 
-namespace TypeLibrary.Api.Terminals;
+namespace Tyle.Api.Terminals;
 
 public class TerminalView : ImfType
 {

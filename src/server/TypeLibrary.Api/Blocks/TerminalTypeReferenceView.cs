@@ -1,8 +1,8 @@
-using TypeLibrary.Api.Terminals;
-using TypeLibrary.Core.Common;
-using TypeLibrary.Core.Terminals;
+using Tyle.Api.Terminals;
+using Tyle.Core.Common;
+using Tyle.Core.Terminals;
 
-namespace TypeLibrary.Api.Blocks;
+namespace Tyle.Api.Blocks;
 
 public class TerminalTypeReferenceView : HasCardinality
 {

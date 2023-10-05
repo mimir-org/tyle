@@ -3,12 +3,12 @@ using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Authentication.Services;
-using Mimirorg.Test.Setup;
-using Mimirorg.Test.Setup.Fixtures;
 using Moq;
+using Tyle.Test.Setup;
+using Tyle.Test.Setup.Fixtures;
 using Xunit;
 
-namespace Mimirorg.Test.Unit.Authentication.Services;
+namespace Tyle.Test.Unit.Authentication.Services;
 
 public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
 {

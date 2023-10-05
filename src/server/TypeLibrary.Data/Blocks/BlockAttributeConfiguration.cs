@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Core.Blocks;
+using Tyle.Core.Blocks;
 
-namespace TypeLibrary.Data.Blocks;
+namespace Tyle.Persistence.Blocks;
 
 public class BlockAttributeConfiguration : IEntityTypeConfiguration<BlockAttributeTypeReference>
 {

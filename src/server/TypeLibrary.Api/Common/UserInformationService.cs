@@ -1,7 +1,7 @@
 using System.Security.Claims;
-using TypeLibrary.Services.Common;
+using Tyle.Application.Common;
 
-namespace TypeLibrary.Api.Common;
+namespace Tyle.Api.Common;
 
 public class UserInformationService : IUserInformationService
 {

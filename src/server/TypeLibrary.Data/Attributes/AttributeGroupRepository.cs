@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using TypeLibrary.Core.Attributes;
-using TypeLibrary.Services.Attributes;
-using TypeLibrary.Services.Attributes.Requests;
-using TypeLibrary.Services.Common;
+using Tyle.Application.Attributes;
+using Tyle.Application.Attributes.Requests;
+using Tyle.Application.Common;
+using Tyle.Core.Attributes;
 
-namespace TypeLibrary.Data.Attributes;
+namespace Tyle.Persistence.Attributes;
 
 public class AttributeGroupRepository : IAttributeGroupRepository
 {

@@ -1,13 +1,12 @@
 using System.Net;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
-using Mimirorg.Test.Setup;
-using TypeLibrary.Core.Common;
-using TypeLibrary.Services.Blocks;
-using TypeLibrary.Services.Blocks.Requests;
+using Tyle.Application.Blocks;
+using Tyle.Application.Blocks.Requests;
+using Tyle.Core.Common;
+using Tyle.Test.Setup;
 using Xunit;
 
-namespace Mimirorg.Test.Integration.Controllers;
+namespace Tyle.Test.Integration.Controllers;
 
 public class LibraryBlockControllerTests : IntegrationTest
 {

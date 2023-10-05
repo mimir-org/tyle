@@ -1,4 +1,4 @@
-namespace TypeLibrary.Services.Common;
+namespace Tyle.Application.Common;
 
 public interface IUserInformationService
 {

@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Core.Attributes;
-using TypeLibrary.Services.Common;
+using Tyle.Application.Common;
+using Tyle.Core.Attributes;
 
-namespace TypeLibrary.Data.Attributes;
+namespace Tyle.Persistence.Attributes;
 
 public class UnitConfiguration : IEntityTypeConfiguration<RdlUnit>
 {

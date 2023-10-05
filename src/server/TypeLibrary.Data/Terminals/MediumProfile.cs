@@ -1,9 +1,9 @@
 using AutoMapper;
-using TypeLibrary.Core.Common;
-using TypeLibrary.Core.Terminals;
-using TypeLibrary.Services.Terminals.Requests;
+using Tyle.Application.Terminals.Requests;
+using Tyle.Core.Common;
+using Tyle.Core.Terminals;
 
-namespace TypeLibrary.Data.Terminals;
+namespace Tyle.Persistence.Terminals;
 
 public class MediumProfile : Profile
 {

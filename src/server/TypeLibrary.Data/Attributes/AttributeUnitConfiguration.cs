@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Core.Attributes;
+using Tyle.Core.Attributes;
 
-namespace TypeLibrary.Data.Attributes;
+namespace Tyle.Persistence.Attributes;
 
 public class AttributeUnitConfiguration : IEntityTypeConfiguration<AttributeUnitJoin>
 {

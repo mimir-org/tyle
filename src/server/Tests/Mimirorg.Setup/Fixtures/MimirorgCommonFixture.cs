@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Authentication.Models;
-using TypeLibrary.Data;
+using Tyle.Persistence;
 
-namespace Mimirorg.Test.Setup.Fixtures;
+namespace Tyle.Test.Setup.Fixtures;
 
 public class MimirorgCommonFixture : IDisposable
 {

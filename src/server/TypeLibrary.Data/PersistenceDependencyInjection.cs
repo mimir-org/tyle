@@ -1,16 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TypeLibrary.Data.Attributes;
-using TypeLibrary.Data.Blocks;
-using TypeLibrary.Data.Common;
-using TypeLibrary.Data.Terminals;
-using TypeLibrary.Services.Attributes;
-using TypeLibrary.Services.Blocks;
-using TypeLibrary.Services.Common;
-using TypeLibrary.Services.Terminals;
+using Tyle.Application.Attributes;
+using Tyle.Application.Blocks;
+using Tyle.Application.Common;
+using Tyle.Application.Terminals;
+using Tyle.Persistence.Attributes;
+using Tyle.Persistence.Blocks;
+using Tyle.Persistence.Common;
+using Tyle.Persistence.Terminals;
 
-namespace TypeLibrary.Data;
+namespace Tyle.Persistence;
 
 public static class PersistenceDependencyInjection
 {

@@ -1,4 +1,4 @@
-namespace TypeLibrary.Core.Common;
+namespace Tyle.Core.Common;
 
 public class RdlClassifier : RdlObject
 {

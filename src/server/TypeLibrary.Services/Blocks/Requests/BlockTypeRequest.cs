@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
-using TypeLibrary.Core.Common;
-using TypeLibrary.Services.Common;
-using TypeLibrary.Services.Common.Requests;
+using Tyle.Application.Common;
+using Tyle.Application.Common.Requests;
+using Tyle.Core.Common;
 
-namespace TypeLibrary.Services.Blocks.Requests;
+namespace Tyle.Application.Blocks.Requests;
 
 public class BlockTypeRequest : IValidatableObject
 {

@@ -1,6 +1,6 @@
-using TypeLibrary.Core.Blocks;
+using Tyle.Core.Blocks;
 
-namespace TypeLibrary.Data.Blocks;
+namespace Tyle.Persistence.Blocks;
 
 public class BlockTerminalComparer : IEqualityComparer<BlockTerminalTypeReference>
 {

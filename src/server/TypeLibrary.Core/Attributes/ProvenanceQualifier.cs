@@ -1,4 +1,4 @@
-namespace TypeLibrary.Core.Attributes;
+namespace Tyle.Core.Attributes;
 
 public enum ProvenanceQualifier
 {

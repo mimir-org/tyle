@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Models.Attributes;
 using Swashbuckle.AspNetCore.Annotations;
-using TypeLibrary.Core.Terminals;
-using TypeLibrary.Services.Terminals;
-using TypeLibrary.Services.Terminals.Requests;
+using Tyle.Application.Terminals;
+using Tyle.Application.Terminals.Requests;
+using Tyle.Core.Terminals;
 
-namespace TypeLibrary.Api.Terminals;
+namespace Tyle.Api.Terminals;
 
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]

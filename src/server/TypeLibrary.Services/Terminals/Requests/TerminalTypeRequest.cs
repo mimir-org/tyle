@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations;
-using TypeLibrary.Core.Common;
-using TypeLibrary.Core.Terminals;
-using TypeLibrary.Services.Common;
-using TypeLibrary.Services.Common.Requests;
+using Tyle.Application.Common;
+using Tyle.Application.Common.Requests;
+using Tyle.Core.Common;
+using Tyle.Core.Terminals;
 
-namespace TypeLibrary.Services.Terminals.Requests;
+namespace Tyle.Application.Terminals.Requests;
 
 public class TerminalTypeRequest : IValidatableObject
 {

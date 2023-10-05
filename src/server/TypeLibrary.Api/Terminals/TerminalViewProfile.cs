@@ -1,7 +1,7 @@
 using AutoMapper;
-using TypeLibrary.Core.Terminals;
+using Tyle.Core.Terminals;
 
-namespace TypeLibrary.Api.Terminals;
+namespace Tyle.Api.Terminals;
 
 public class TerminalViewProfile : Profile
 {

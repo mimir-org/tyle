@@ -1,7 +1,7 @@
-using TypeLibrary.Core.Attributes;
-using TypeLibrary.Services.Attributes.Requests;
+using Tyle.Application.Attributes.Requests;
+using Tyle.Core.Attributes;
 
-namespace TypeLibrary.Services.Attributes;
+namespace Tyle.Application.Attributes;
 
 public interface IAttributeGroupRepository
 {

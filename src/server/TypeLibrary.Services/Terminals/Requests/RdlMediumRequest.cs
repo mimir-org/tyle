@@ -1,6 +1,6 @@
-using TypeLibrary.Services.Common.Requests;
+using Tyle.Application.Common.Requests;
 
-namespace TypeLibrary.Services.Terminals.Requests;
+namespace Tyle.Application.Terminals.Requests;
 
 public class RdlMediumRequest : RdlObjectRequest
 {

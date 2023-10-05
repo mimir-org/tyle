@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Models.Attributes;
 using Swashbuckle.AspNetCore.Annotations;
-using TypeLibrary.Core.Attributes;
-using TypeLibrary.Services.Attributes;
-using TypeLibrary.Services.Attributes.Requests;
+using Tyle.Application.Attributes;
+using Tyle.Application.Attributes.Requests;
+using Tyle.Core.Attributes;
 
-namespace TypeLibrary.Api.Attributes;
+namespace Tyle.Api.Attributes;
 
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]

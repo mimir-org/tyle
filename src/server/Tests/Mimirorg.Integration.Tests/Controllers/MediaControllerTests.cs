@@ -1,12 +1,12 @@
 using System.Net;
 using System.Net.Http.Json;
-using Mimirorg.Test.Setup;
 using Newtonsoft.Json;
-using TypeLibrary.Core.Terminals;
-using TypeLibrary.Services.Terminals.Requests;
+using Tyle.Application.Terminals.Requests;
+using Tyle.Core.Terminals;
+using Tyle.Test.Setup;
 using Xunit;
 
-namespace Mimirorg.Test.Integration.Controllers;
+namespace Tyle.Test.Integration.Controllers;
 
 public class MediaControllerTests : IntegrationTest
 {

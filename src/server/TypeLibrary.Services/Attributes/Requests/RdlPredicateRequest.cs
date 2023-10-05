@@ -1,6 +1,6 @@
-using TypeLibrary.Services.Common.Requests;
+using Tyle.Application.Common.Requests;
 
-namespace TypeLibrary.Services.Attributes.Requests;
+namespace Tyle.Application.Attributes.Requests;
 
 public class RdlPredicateRequest : RdlObjectRequest
 {

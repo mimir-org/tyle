@@ -1,7 +1,7 @@
-using TypeLibrary.Core.Attributes;
-using TypeLibrary.Core.Common;
+using Tyle.Core.Attributes;
+using Tyle.Core.Common;
 
-namespace TypeLibrary.Api.Attributes;
+namespace Tyle.Api.Attributes;
 
 public class AttributeView : ImfType
 {

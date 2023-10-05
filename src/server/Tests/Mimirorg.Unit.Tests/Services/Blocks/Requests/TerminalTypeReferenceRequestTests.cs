@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
-using Mimirorg.Test.Setup;
-using Mimirorg.Test.Setup.Fixtures;
-using TypeLibrary.Services.Blocks.Requests;
+using Tyle.Application.Blocks.Requests;
+using Tyle.Test.Setup;
+using Tyle.Test.Setup.Fixtures;
 using Xunit;
 
-namespace Mimirorg.Test.Unit.Services.Blocks.Requests;
+namespace Tyle.Test.Unit.Services.Blocks.Requests;
 
 public class TerminalTypeReferenceRequestTests : UnitTest<MimirorgCommonFixture>
 {

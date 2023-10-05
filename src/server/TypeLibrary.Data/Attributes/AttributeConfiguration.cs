@@ -2,10 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TypeLibrary.Core.Attributes;
-using TypeLibrary.Services.Common;
+using Tyle.Application.Common;
+using Tyle.Core.Attributes;
 
-namespace TypeLibrary.Data.Attributes;
+namespace Tyle.Persistence.Attributes;
 
 public class AttributeConfiguration : IEntityTypeConfiguration<AttributeType>
 {

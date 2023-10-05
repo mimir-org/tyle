@@ -1,13 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
-using Mimirorg.Test.Setup;
-using Mimirorg.Test.Setup.Fixtures;
-using TypeLibrary.Core.Attributes;
-using TypeLibrary.Services.Attributes.Requests;
-using TypeLibrary.Services.Common;
+using Tyle.Application.Attributes.Requests;
+using Tyle.Application.Common;
+using Tyle.Core.Attributes;
+using Tyle.Test.Setup;
+using Tyle.Test.Setup.Fixtures;
 using Xunit;
 
-namespace Mimirorg.Test.Unit.Services.Attributes.Requests;
+namespace Tyle.Test.Unit.Services.Attributes.Requests;
 
 public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
 {

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using TypeLibrary.Core.Terminals;
+using Tyle.Core.Terminals;
 
-namespace TypeLibrary.Services.Blocks.Requests;
+namespace Tyle.Application.Blocks.Requests;
 
 public class TerminalTypeReferenceRequest : IValidatableObject
 {

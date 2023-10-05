@@ -1,7 +1,7 @@
-using TypeLibrary.Core.Attributes;
-using TypeLibrary.Core.Common;
+using Tyle.Core.Attributes;
+using Tyle.Core.Common;
 
-namespace TypeLibrary.Core.Terminals;
+namespace Tyle.Core.Terminals;
 
 public class TerminalAttributeTypeReference : HasCardinality
 {

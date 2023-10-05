@@ -1,12 +1,12 @@
 using Mimirorg.Authentication.Attributes;
 using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models;
-using Mimirorg.Test.Setup;
-using Mimirorg.Test.Setup.Fixtures;
-using TypeLibrary.Services.Common.Requests;
+using Tyle.Application.Common.Requests;
+using Tyle.Test.Setup;
+using Tyle.Test.Setup.Fixtures;
 using Xunit;
 
-namespace Mimirorg.Test.Unit.Services.Common.Requests;
+namespace Tyle.Test.Unit.Services.Common.Requests;
 
 public class ValidationAttributeTests : UnitTest<MimirorgCommonFixture>
 {

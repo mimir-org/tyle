@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TypeLibrary.Services\TypeLibrary.Services.csproj" />
+    <ProjectReference Include="..\TypeLibrary.Services\Tyle.Application.csproj" />
   </ItemGroup>
 
 </Project>

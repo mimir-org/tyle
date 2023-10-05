@@ -1,6 +1,6 @@
-using TypeLibrary.Core.Attributes;
+using Tyle.Core.Attributes;
 
-namespace TypeLibrary.Data.Attributes;
+namespace Tyle.Persistence.Attributes;
 
 public class ValueConstraintComparer : IEqualityComparer<ValueConstraint>
 {

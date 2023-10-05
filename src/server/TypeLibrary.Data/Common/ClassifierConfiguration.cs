@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Core.Common;
-using TypeLibrary.Services.Common;
+using Tyle.Application.Common;
+using Tyle.Core.Common;
 
-namespace TypeLibrary.Data.Common;
+namespace Tyle.Persistence.Common;
 
 public class ClassifierConfiguration : IEntityTypeConfiguration<RdlClassifier>
 {

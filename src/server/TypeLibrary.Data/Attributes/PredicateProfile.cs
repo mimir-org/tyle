@@ -1,9 +1,9 @@
 using AutoMapper;
-using TypeLibrary.Core.Attributes;
-using TypeLibrary.Core.Common;
-using TypeLibrary.Services.Attributes.Requests;
+using Tyle.Application.Attributes.Requests;
+using Tyle.Core.Attributes;
+using Tyle.Core.Common;
 
-namespace TypeLibrary.Data.Attributes;
+namespace Tyle.Persistence.Attributes;
 
 public class PredicateProfile : Profile
 {

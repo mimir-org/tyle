@@ -1,12 +1,12 @@
 using System.Net;
 using System.Net.Http.Json;
-using Mimirorg.Test.Setup;
 using Newtonsoft.Json;
-using TypeLibrary.Core.Common;
-using TypeLibrary.Services.Common.Requests;
+using Tyle.Application.Common.Requests;
+using Tyle.Core.Common;
+using Tyle.Test.Setup;
 using Xunit;
 
-namespace Mimirorg.Test.Integration.Controllers;
+namespace Tyle.Test.Integration.Controllers;
 
 public class PurposesControllerTests : IntegrationTest
 {

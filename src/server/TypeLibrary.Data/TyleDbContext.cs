@@ -1,16 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TypeLibrary.Core.Attributes;
-using TypeLibrary.Core.Blocks;
-using TypeLibrary.Core.Common;
-using TypeLibrary.Core.Terminals;
-using TypeLibrary.Data.Attributes;
-using TypeLibrary.Data.Blocks;
-using TypeLibrary.Data.Common;
-using TypeLibrary.Data.Terminals;
+using Tyle.Core.Attributes;
+using Tyle.Core.Blocks;
+using Tyle.Core.Common;
+using Tyle.Core.Terminals;
+using Tyle.Persistence.Attributes;
+using Tyle.Persistence.Blocks;
+using Tyle.Persistence.Common;
+using Tyle.Persistence.Terminals;
 
-namespace TypeLibrary.Data;
+namespace Tyle.Persistence;
 
 public class TyleDbContext : DbContext
 {

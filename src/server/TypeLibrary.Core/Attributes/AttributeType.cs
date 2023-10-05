@@ -1,6 +1,6 @@
-using TypeLibrary.Core.Common;
+using Tyle.Core.Common;
 
-namespace TypeLibrary.Core.Attributes
+namespace Tyle.Core.Attributes
 {
     public class AttributeType : ImfType
     {

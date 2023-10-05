@@ -1,10 +1,10 @@
-using TypeLibrary.Api.Attributes;
-using TypeLibrary.Api.Blocks;
-using TypeLibrary.Api.Common;
-using TypeLibrary.Api.Terminals;
-using TypeLibrary.Services.Common;
+using Tyle.Api.Attributes;
+using Tyle.Api.Blocks;
+using Tyle.Api.Common;
+using Tyle.Api.Terminals;
+using Tyle.Application.Common;
 
-namespace TypeLibrary.Api;
+namespace Tyle.Api;
 
 public static class ApiDependencyInjection
 {

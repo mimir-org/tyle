@@ -1,4 +1,4 @@
-namespace TypeLibrary.Core.Terminals;
+namespace Tyle.Core.Terminals;
 
 public enum Direction
 {

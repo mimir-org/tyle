@@ -1,7 +1,7 @@
-using TypeLibrary.Core.Common;
-using TypeLibrary.Services.Common.Requests;
+using Tyle.Application.Common.Requests;
+using Tyle.Core.Common;
 
-namespace TypeLibrary.Services.Common;
+namespace Tyle.Application.Common;
 
 public interface IClassifierRepository : IReferenceRepository<RdlClassifier, RdlClassifierRequest>
 {

@@ -1,7 +1,7 @@
-using TypeLibrary.Core.Common;
-using TypeLibrary.Core.Terminals;
+using Tyle.Core.Common;
+using Tyle.Core.Terminals;
 
-namespace TypeLibrary.Core.Blocks;
+namespace Tyle.Core.Blocks;
 
 public class BlockTerminalTypeReference : HasCardinality
 {
