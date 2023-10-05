@@ -1,8 +1,11 @@
 import { FormBaseFieldsContainer, FormField, Input, Select, Textarea } from "@mimirorg/component-library";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useGetUnits } from "../../../external/sources/unit/unit.queries";
-import { FormAttributeLib, toFormUnitHelper } from "./types/formAttributeLib";
+//import { useGetUnits } from "../../../external/sources/unit/unit.queries";
+import { toFormUnitHelper } from "./types/formAttributeLib";
+import { AttributeTypeRequest } from "common/types/attributes/attributeTypeRequest";
+import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
+import { ProvenanceQualifier } from "common/types/attributes/provenanceQualifier";
 
 interface AttributeFormBaseFieldsProps {
   limited?: boolean;
@@ -21,12 +24,14 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
     register,
     setValue,
     formState: { errors },
-  } = useFormContext<FormAttributeLib>();
+  } = useFormContext<AttributeTypeRequest>();
 
-  const unitQuery = useGetUnits();
-  const units = unitQuery.data || [];
-  const chosenUnits = useWatch({ control, name: "units" });
-  const defaultUnit = useWatch({ control, name: "defaultUnit" });
+  const provenanceQualifierOptions = getOptionsFromEnum<ProvenanceQualifier>(ProvenanceQualifier);
+
+  //const unitQuery = useGetUnits();
+  //const units = unitQuery.data || [];
+  //const chosenUnits = useWatch({ control, name: "units" });
+  //const defaultUnit = useWatch({ control, name: "defaultUnit" });
 
   return (
     <FormBaseFieldsContainer>
@@ -34,7 +39,31 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
         <Input placeholder={t("attribute.placeholders.name")} {...register("name")} disabled={limited} />
       </FormField>
 
-      <FormField label={t("unit.multiple")} error={errors.units}>
+      <FormField label={t("attribute.description")} error={errors.description}>
+        <Input placeholder={t("attribute.placeholder.description")} {...register("description")} />
+      </FormField>
+
+      <FormField label={t("attribute.provenanceQualifier")} error={errors.provenanceQualifier}>
+        <Controller
+          control={control}
+          name={"provenanceQualifier"}
+          render={({ field: { value, onChange, ref, ...rest }}) => (
+            <Select
+              {...rest}
+              selectRef={ref}
+              placeholder={t("common.templates.select", { object: t("attribute.provenanceQualifier").toLowerCase()})}
+              options={provenanceQualifierOptions}
+              getOptionLabel={(x) => x.label}
+              onChange={(x) => {
+                onChange(x?.value);
+              }}
+              value={provenanceQualifierOptions.find((x) => x.value === value)}
+            />
+          )}
+        />
+      </FormField>
+
+      {/*<FormField label={t("unit.multiple")} error={errors.units}>
         <Controller
           name="units"
           control={control}
@@ -81,11 +110,7 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
             )}
           />
         </FormField>
-      )}
-
-      <FormField label={t("attribute.description")} error={errors.description}>
-        <Textarea placeholder={t("attribute.placeholders.description")} {...register("description")} />
-      </FormField>
+            )}*/}
     </FormBaseFieldsContainer>
   );
 };

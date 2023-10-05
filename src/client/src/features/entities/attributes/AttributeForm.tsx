@@ -11,10 +11,8 @@ import { useTranslation } from "react-i18next";
 import { useAttributeMutation, useAttributeQuery } from "./AttributeForm.helpers";
 import { AttributeFormBaseFields } from "./AttributeFormBaseFields";
 import {
-  createEmptyAttribute,
-  FormAttributeLib,
-  fromFormAttributeLibToApiModel,
-  toFormAttributeLib,
+  createEmptyAttributeTypeRequest,
+  toAttributeTypeRequest,
 } from "./types/formAttributeLib";
 import { AttributeFormPreview } from "../entityPreviews/attribute/AttributeFormPreview";
 import { FormMode } from "../types/formMode";
@@ -23,17 +21,19 @@ import { useTheme } from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { attributeSchema } from "./attributeSchema";
 import { PlainLink } from "features/common/plain-link";
+import { AttributeTypeRequest } from "common/types/attributes/attributeTypeRequest";
+import { AttributeView } from "common/types/attributes/attributeView";
 
 interface AttributeFormProps {
-  defaultValues?: FormAttributeLib;
+  defaultValues?: AttributeTypeRequest;
   mode?: FormMode;
 }
 
-export const AttributeForm = ({ defaultValues = createEmptyAttribute(), mode }: AttributeFormProps) => {
+export const AttributeForm = ({ defaultValues = createEmptyAttributeTypeRequest(), mode }: AttributeFormProps) => {
   const { t } = useTranslation("entities");
   const theme = useTheme();
 
-  const formMethods = useForm<FormAttributeLib>({
+  const formMethods = useForm<AttributeTypeRequest>({
     defaultValues: defaultValues,
     resolver: yupResolver(attributeSchema(t)),
   });
@@ -41,7 +41,7 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute(), mode }: 
   const { handleSubmit, control, setError, reset } = formMethods;
 
   const query = useAttributeQuery();
-  const mapper = (source: AttributeLibCm) => toFormAttributeLib(source);
+  const mapper = (source: AttributeView) => toAttributeTypeRequest(source);
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useAttributeMutation(query.data?.id, mode);
@@ -54,7 +54,7 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute(), mode }: 
     <FormProvider {...formMethods}>
       <FormContainer
         onSubmit={handleSubmit((data) =>
-          onSubmitForm(fromFormAttributeLibToApiModel(data), mutation.mutateAsync, toast),
+          onSubmitForm(data, mutation.mutateAsync, toast),
         )}
       >
         {isLoading ? (
@@ -63,7 +63,7 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute(), mode }: 
           <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.mimirorg.spacing.multiple(6)}>
             <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
               <Text variant={"display-small"}>{t("attribute.title")}</Text>
-              <AttributeFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
+              <AttributeFormBaseFields limited={false} />
               <Flexbox justifyContent={"center"} gap={theme.mimirorg.spacing.xl}>
                 <PlainLink tabIndex={-1} to={"/"}>
                   <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
@@ -73,7 +73,7 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute(), mode }: 
                 <Button type={"submit"}>{mode === "edit" ? t("common.edit") : t("common.submit")}</Button>
               </Flexbox>
             </Flexbox>
-            <AttributeFormPreview control={control} />
+            {/*<AttributeFormPreview control={control} />*/}
           </Box>
         )}
         <DevTool control={control} placement={"bottom-right"} />
