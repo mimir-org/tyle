@@ -1,6 +1,6 @@
+using Mimirorg.Authentication.Abstract;
+using Mimirorg.Authentication.Models.Client;
 using Mimirorg.Authentication.Models.Domain;
-using Mimirorg.Common.Abstract;
-using Mimirorg.TypeLibrary.Models.Client;
 
 namespace Mimirorg.Authentication.Contracts;
 

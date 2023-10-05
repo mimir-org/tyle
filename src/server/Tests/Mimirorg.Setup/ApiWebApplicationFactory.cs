@@ -7,12 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication;
-using Mimirorg.Common.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
+using TypeLibrary.Core.Terminals;
 using TypeLibrary.Data;
-using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Models;
-using TypeLibrary.Services.Contracts;
+using TypeLibrary.Services.Common;
+using TypeLibrary.Services.Terminals;
+using TypeLibrary.Services.Terminals.Requests;
 
 namespace Mimirorg.Test.Setup;
 
@@ -23,7 +22,7 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Program>
         builder.ConfigureTestServices(services =>
         {
             // remove the existing context configuration
-            var descriptors = services.Where(d => d.ServiceType == typeof(IHostedService) || d.ServiceType == typeof(DbContextOptions<TypeLibraryDbContext>) || d.ServiceType == typeof(DbContextOptions<MimirorgAuthenticationContext>)).ToList();
+            var descriptors = services.Where(d => d.ServiceType == typeof(IUserInformationService) || d.ServiceType == typeof(IHostedService) || d.ServiceType == typeof(DbContextOptions<TyleDbContext>) || d.ServiceType == typeof(DbContextOptions<MimirorgAuthenticationContext>)).ToList();
             if (descriptors.Any())
             {
                 foreach (var descriptor in descriptors)
@@ -32,72 +31,63 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Program>
                 }
             }
 
-            services.AddDbContext<TypeLibraryDbContext>(options => options.UseInMemoryDatabase("TestDB"), ServiceLifetime.Transient);
+            services.AddDbContext<TyleDbContext>(options => options.UseInMemoryDatabase("TestDB"), ServiceLifetime.Transient);
             services.AddDbContext<MimirorgAuthenticationContext>(options => options.UseInMemoryDatabase("TestDBAuth"), ServiceLifetime.Transient);
-            services.AddAuthentication("IntegrationUser").AddScheme<AuthenticationSchemeOptions, IntegrationTestAuthenticationHandler>("IntegrationUser", _ => { });
+            services.AddScoped<IUserInformationService, FakeUserInformationService>();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = "IntegrationUser";
+                options.DefaultScheme = "IntegrationUser";
+                options.DefaultChallengeScheme = "IntegrationUser";
+            }).AddScheme<AuthenticationSchemeOptions, IntegrationTestAuthenticationHandler>("IntegrationUser", _ => { });
 
             var sp = services.BuildServiceProvider();
 
             using var scope = sp.CreateScope();
             var scopedServices = scope.ServiceProvider;
-            var db = scopedServices.GetRequiredService<TypeLibraryDbContext>();
+            var db = scopedServices.GetRequiredService<TyleDbContext>();
             var logger = scopedServices.GetRequiredService<ILogger<ApiWebApplicationFactory>>();
 
-            var terminalService = scopedServices.GetRequiredService<ITerminalService>();
-            var rdsRepository = scopedServices.GetRequiredService<IRdsRepository>();
+            var terminalRepository = scopedServices.GetRequiredService<ITerminalRepository>();
             db.Database.EnsureCreated();
 
             try
             {
-                _ = SeedTerminalData(terminalService).Result;
+                _ = SeedTerminalData(terminalRepository).Result;
             }
             catch (Exception e)
             {
                 logger.LogError($"An error occurred seeding the database with test data. Error: {e.Message}");
             }
-            try
-            {
-                var rds = new RdsLibDm
-                {
-                    Id = "rds-id",
-                    RdsCode = "XXXXX",
-                    Name = "Test RDS",
-                    Iri = "",
-                    TypeReference = "",
-                    Created = DateTime.UtcNow,
-                    CreatedBy = "",
-                    State = State.Draft,
-                    Description = ""
-                };
-
-                var createdRds = rdsRepository.Create(rds).Result;
-                rdsRepository.ChangeState(State.Approved, createdRds.Id);
-            }
-            catch (Exception e)
-            {
-                logger.LogError($"An error occurred seeding the database with test rds data. Error: {e.Message}");
-            }
         });
     }
 
-    private static async Task<bool> SeedTerminalData(ITerminalService terminalService)
+    private static async Task<bool> SeedTerminalData(ITerminalRepository terminalRepository)
     {
-        var terminalA = new TerminalLibAm
+        var terminalA = new TerminalTypeRequest
         {
             Name = "Information",
-            Color = "#006600"
+            Qualifier = Direction.Bidirectional
         };
 
-        var terminalB = new TerminalLibAm
+        var terminalB = new TerminalTypeRequest
         {
             Name = "Automation System 87",
-            Color = "#00CC66"
+            Qualifier = Direction.Bidirectional
         };
 
-        await terminalService.Create(terminalA);
+        await terminalRepository.Create(terminalA);
 
-        await terminalService.Create(terminalB);
+        await terminalRepository.Create(terminalB);
 
         return true;
+    }
+}
+
+public class FakeUserInformationService : IUserInformationService
+{
+    public string GetUserId()
+    {
+        return "fake-user-id";
     }
 }

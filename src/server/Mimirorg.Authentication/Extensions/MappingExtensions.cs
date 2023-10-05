@@ -1,7 +1,7 @@
+using Mimirorg.Authentication.Models;
+using Mimirorg.Authentication.Models.Application;
+using Mimirorg.Authentication.Models.Client;
 using Mimirorg.Authentication.Models.Domain;
-using Mimirorg.Common.Models;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 
 namespace Mimirorg.Authentication.Extensions;
 

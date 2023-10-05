@@ -22,9 +22,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Mimirorg.Common\Mimirorg.Common.csproj" />
-    <ProjectReference Include="..\Mimirorg.TypeLibrary\Mimirorg.TypeLibrary.csproj" />
-  </ItemGroup>
-
 </Project>

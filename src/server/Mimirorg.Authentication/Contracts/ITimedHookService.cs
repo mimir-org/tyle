@@ -1,4 +1,4 @@
-using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.Authentication.Enums;
 
 namespace Mimirorg.Authentication.Contracts;
 
