@@ -42,7 +42,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ format('mimirorg/typelibrary-{0}', inputs.build-target) }}
+          images: ${{ format('mimirorg/tyle-{0}', inputs.build-target) }}
           tags: |
             ${{ inputs.tags }}
 
