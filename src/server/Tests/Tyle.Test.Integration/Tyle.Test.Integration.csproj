@@ -31,10 +31,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\TypeLibrary.Api\Tyle.Api.csproj" />
-        <ProjectReference Include="..\..\TypeLibrary.Data\Tyle.Persistence.csproj" />
-        <ProjectReference Include="..\..\TypeLibrary.Services\Tyle.Application.csproj" />
-        <ProjectReference Include="..\Mimirorg.Setup\Tyle.Test.Setup.csproj" />
+        <ProjectReference Include="..\..\Tyle.Api\Tyle.Api.csproj" />
+        <ProjectReference Include="..\..\Tyle.Persistence\Tyle.Persistence.csproj" />
+        <ProjectReference Include="..\..\Tyle.Application\Tyle.Application.csproj" />
+        <ProjectReference Include="..\Tyle.Test.Setup\Tyle.Test.Setup.csproj" />
     </ItemGroup>
 
     <ItemGroup>

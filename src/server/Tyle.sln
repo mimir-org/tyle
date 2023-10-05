@@ -3,23 +3,32 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.Api", "TypeLibrary.Api\Tyle.Api.csproj", "{327F5163-A230-423C-A192-EC338586F4F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.Api", "Tyle.Api\Tyle.Api.csproj", "{327F5163-A230-423C-A192-EC338586F4F6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.Core", "TypeLibrary.Core\Tyle.Core.csproj", "{2B65E748-9896-4DF7-849B-B61CE2432A21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.Core", "Tyle.Core\Tyle.Core.csproj", "{2B65E748-9896-4DF7-849B-B61CE2432A21}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.Persistence", "TypeLibrary.Data\Tyle.Persistence.csproj", "{A6E6950B-072A-4EDE-AD5D-5573524C30ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.Persistence", "Tyle.Persistence\Tyle.Persistence.csproj", "{A6E6950B-072A-4EDE-AD5D-5573524C30ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.Application", "TypeLibrary.Services\Tyle.Application.csproj", "{996E423A-1826-4A3D-906A-5A416280FF16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.Application", "Tyle.Application\Tyle.Application.csproj", "{996E423A-1826-4A3D-906A-5A416280FF16}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Authentication", "Mimirorg.Authentication\Mimirorg.Authentication.csproj", "{4E750FC1-A399-41AD-99A9-1D6A97D37AF1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8872F15B-D9B0-429D-92CB-CEDF151AEFCA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.Test.Unit", "Tests\Mimirorg.Unit.Tests\Tyle.Test.Unit.csproj", "{0AC7FEAD-F436-4A3C-9FCF-2B0A3FCD4B4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.Test.Unit", "Tests\Tyle.Test.Unit\Tyle.Test.Unit.csproj", "{0AC7FEAD-F436-4A3C-9FCF-2B0A3FCD4B4F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7D14C07E-9676-4A8D-8EE8-FE341C9254E5} = {7D14C07E-9676-4A8D-8EE8-FE341C9254E5}
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.Test.Integration", "Tests\Mimirorg.Integration.Tests\Tyle.Test.Integration.csproj", "{43591D9F-31DD-4207-BB56-1538EBFA3075}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.Test.Integration", "Tests\Tyle.Test.Integration\Tyle.Test.Integration.csproj", "{43591D9F-31DD-4207-BB56-1538EBFA3075}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7D14C07E-9676-4A8D-8EE8-FE341C9254E5} = {7D14C07E-9676-4A8D-8EE8-FE341C9254E5}
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.Test.Setup", "Tests\Mimirorg.Setup\Tyle.Test.Setup.csproj", "{7D14C07E-9676-4A8D-8EE8-FE341C9254E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.Test.Setup", "Tests\Tyle.Test.Setup\Tyle.Test.Setup.csproj", "{7D14C07E-9676-4A8D-8EE8-FE341C9254E5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{327F5163-A230-423C-A192-EC338586F4F6} = {327F5163-A230-423C-A192-EC338586F4F6}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

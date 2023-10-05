@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mimirorg.Setup\Tyle.Test.Setup.csproj" />
+    <ProjectReference Include="..\Tyle.Test.Setup\Tyle.Test.Setup.csproj" />
   </ItemGroup>
 
 </Project>
