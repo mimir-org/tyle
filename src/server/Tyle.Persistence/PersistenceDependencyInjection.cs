@@ -26,10 +26,6 @@ public static class PersistenceDependencyInjection
                 options.UseSqlServer(dbConfigOptions.ConnectionString);
             }, ServiceLifetime.Transient);
         }
-        else
-        {
-            services.AddDbContext<TyleDbContext>(options => options.UseInMemoryDatabase("TestDB"), ServiceLifetime.Transient);
-        }
 
         return services;
     }
