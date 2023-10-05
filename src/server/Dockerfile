@@ -6,7 +6,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS base
 COPY */*.csproj ./
 RUN for file in $(ls *.csproj); do mkdir -p ${file%.*}/ && mv $file ${file%.*}/; done
-RUN dotnet restore TypeLibrary.Api/TypeLibrary.Api.csproj
+RUN dotnet restore Tyle.Api/Tyle.Api.csproj
 COPY . .
 
 # FIXME: dotnet-format is broken for 6.0.200 https://github.com/dotnet/format/issues/1519
@@ -19,10 +19,10 @@ RUN /root/.dotnet/tools/dotnet-format . --verify-no-changes --verbosity diagnost
 
 FROM base as build
 RUN dotnet test -c Release
-RUN dotnet build TypeLibrary.Api/TypeLibrary.Api.csproj -c Release --no-restore
+RUN dotnet build Tyle.Api/Tyle.Api.csproj -c Release --no-restore
 
 FROM build as publish
-RUN dotnet publish TypeLibrary.Api/TypeLibrary.Api.csproj -c Release --no-restore --no-build -o /app/publish
+RUN dotnet publish Tyle.Api/Tyle.Api.csproj -c Release --no-restore --no-build -o /app/publish
 
 # icu-libs are not included in alpine runtime images
 # see: https://github.com/dotnet/dotnet-docker/blob/main/samples/selecting-tags.md#alpine-globalization and https://github.com/dotnet/dotnet-docker/blob/main/samples/dotnetapp/Dockerfile.alpine-x64#L19
@@ -38,4 +38,4 @@ ENV \
   LANG=en_US.UTF-8
 RUN apk add --no-cache icu-libs
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "TypeLibrary.Api.dll"]
+ENTRYPOINT ["dotnet", "Tyle.Api.dll"]
