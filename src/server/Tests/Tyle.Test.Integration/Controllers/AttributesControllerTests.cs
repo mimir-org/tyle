@@ -45,7 +45,7 @@ public class AttributesControllerTests : IntegrationTest
 
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
 
-        var responseContent = JsonConvert.DeserializeObject<AttributeView>(response.Content.ReadAsStringAsync().Result);
+        var responseContent = JsonConvert.DeserializeObject<AttributeView>(await response.Content.ReadAsStringAsync());
 
         Assert.Equal(attributesRequest.Name, responseContent?.Name);
         Assert.Equal(attributesRequest.Description, responseContent?.Description);
@@ -69,7 +69,7 @@ public class AttributesControllerTests : IntegrationTest
         };
 
         var predicateResponse = await Client.PostAsync(PredicatesEndpoint, JsonContent.Create(predicateRequest));
-        var predicateResponseContent = JsonConvert.DeserializeObject<RdlPredicate>(predicateResponse.Content.ReadAsStringAsync().Result);
+        var predicateResponseContent = JsonConvert.DeserializeObject<RdlPredicate>(await predicateResponse.Content.ReadAsStringAsync());
 
         var firstUnitRequest = new RdlUnitRequest
         {
@@ -79,7 +79,7 @@ public class AttributesControllerTests : IntegrationTest
         };
 
         var firstUnitResponse = await Client.PostAsync(UnitsEndpoint, JsonContent.Create(firstUnitRequest));
-        var firstUnitResponseContent = JsonConvert.DeserializeObject<RdlUnit>(firstUnitResponse.Content.ReadAsStringAsync().Result);
+        var firstUnitResponseContent = JsonConvert.DeserializeObject<RdlUnit>(await firstUnitResponse.Content.ReadAsStringAsync());
 
         var secondUnitRequest = new RdlUnitRequest
         {
@@ -89,7 +89,7 @@ public class AttributesControllerTests : IntegrationTest
         };
 
         var secondUnitResponse = await Client.PostAsync(UnitsEndpoint, JsonContent.Create(secondUnitRequest));
-        var secondUnitResponseContent = JsonConvert.DeserializeObject<RdlUnit>(secondUnitResponse.Content.ReadAsStringAsync().Result);
+        var secondUnitResponseContent = JsonConvert.DeserializeObject<RdlUnit>(await secondUnitResponse.Content.ReadAsStringAsync());
 
 
         // Creating the attribute type
@@ -113,7 +113,7 @@ public class AttributesControllerTests : IntegrationTest
 
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
 
-        var responseContent = JsonConvert.DeserializeObject<AttributeViewWithStringValueConstraint>(response.Content.ReadAsStringAsync().Result);
+        var responseContent = JsonConvert.DeserializeObject<AttributeViewWithStringValueConstraint>(await response.Content.ReadAsStringAsync());
 
         Assert.Equal(attributesRequest.Name, responseContent?.Name);
         Assert.Equal(attributesRequest.UnitMinCount, responseContent?.UnitMinCount);
@@ -127,7 +127,7 @@ public class AttributesControllerTests : IntegrationTest
     [Fact]
     public async Task GET_Returns_Larger_Collection_After_Creation()
     {
-        var initialCollection = JsonConvert.DeserializeObject<List<AttributeView>>((await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync().Result);
+        var initialCollection = JsonConvert.DeserializeObject<List<AttributeView>>(await (await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync());
 
         var initialCollectionCount = initialCollection?.Count;
 
@@ -146,7 +146,7 @@ public class AttributesControllerTests : IntegrationTest
         await Client.PostAsync(Endpoint, JsonContent.Create(attributeRequest));
         await Client.PostAsync(Endpoint, JsonContent.Create(attributeRequest));
 
-        var collection = JsonConvert.DeserializeObject<List<AttributeView>>((await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync().Result);
+        var collection = JsonConvert.DeserializeObject<List<AttributeView>>(await (await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync());
         var collectionCount = collection?.Count;
 
         Assert.Equal(initialCollectionCount + 3, collectionCount);
@@ -166,7 +166,7 @@ public class AttributesControllerTests : IntegrationTest
 
         var postResponse = await Client.PostAsync(Endpoint, JsonContent.Create(attributeRequest));
 
-        var postResponseContent = JsonConvert.DeserializeObject<AttributeView>(postResponse.Content.ReadAsStringAsync().Result);
+        var postResponseContent = JsonConvert.DeserializeObject<AttributeView>(await postResponse.Content.ReadAsStringAsync());
 
         var getResponse = await Client.GetAsync($"{Endpoint}/{postResponseContent?.Id}");
 
@@ -198,7 +198,7 @@ public class AttributesControllerTests : IntegrationTest
 
         var postResponse = await Client.PostAsync(Endpoint, JsonContent.Create(attributeRequest));
 
-        var postResponseContent = JsonConvert.DeserializeObject<AttributeView>(postResponse.Content.ReadAsStringAsync().Result);
+        var postResponseContent = JsonConvert.DeserializeObject<AttributeView>(await postResponse.Content.ReadAsStringAsync());
 
         var attributesUpdateRequest = new AttributeTypeRequest
         {
@@ -213,7 +213,7 @@ public class AttributesControllerTests : IntegrationTest
 
         Assert.Equal(HttpStatusCode.OK, putResponse.StatusCode);
 
-        var putResponseContent = JsonConvert.DeserializeObject<AttributeView>(putResponse.Content.ReadAsStringAsync().Result);
+        var putResponseContent = JsonConvert.DeserializeObject<AttributeView>(await putResponse.Content.ReadAsStringAsync());
 
         Assert.Equal(attributesUpdateRequest.Name, putResponseContent?.Name);
         Assert.Null(attributesUpdateRequest.Description);
@@ -237,7 +237,7 @@ public class AttributesControllerTests : IntegrationTest
         };
 
         var firstPredicateResponse = await Client.PostAsync(PredicatesEndpoint, JsonContent.Create(firstPredicateRequest));
-        var firstPredicateResponseContent = JsonConvert.DeserializeObject<RdlPredicate>(firstPredicateResponse.Content.ReadAsStringAsync().Result);
+        var firstPredicateResponseContent = JsonConvert.DeserializeObject<RdlPredicate>(await firstPredicateResponse.Content.ReadAsStringAsync());
 
         var secondPredicateRequest = new RdlPredicateRequest
         {
@@ -246,7 +246,7 @@ public class AttributesControllerTests : IntegrationTest
         };
 
         var secondPredicateResponse = await Client.PostAsync(PredicatesEndpoint, JsonContent.Create(secondPredicateRequest));
-        var secondPredicateResponseContent = JsonConvert.DeserializeObject<RdlPredicate>(secondPredicateResponse.Content.ReadAsStringAsync().Result);
+        var secondPredicateResponseContent = JsonConvert.DeserializeObject<RdlPredicate>(await secondPredicateResponse.Content.ReadAsStringAsync());
 
         var firstUnitRequest = new RdlUnitRequest
         {
@@ -256,7 +256,7 @@ public class AttributesControllerTests : IntegrationTest
         };
 
         var firstUnitResponse = await Client.PostAsync(UnitsEndpoint, JsonContent.Create(firstUnitRequest));
-        var firstUnitResponseContent = JsonConvert.DeserializeObject<RdlUnit>(firstUnitResponse.Content.ReadAsStringAsync().Result);
+        var firstUnitResponseContent = JsonConvert.DeserializeObject<RdlUnit>(await firstUnitResponse.Content.ReadAsStringAsync());
 
         var secondUnitRequest = new RdlUnitRequest
         {
@@ -266,7 +266,7 @@ public class AttributesControllerTests : IntegrationTest
         };
 
         var secondUnitResponse = await Client.PostAsync(UnitsEndpoint, JsonContent.Create(secondUnitRequest));
-        var secondUnitResponseContent = JsonConvert.DeserializeObject<RdlUnit>(secondUnitResponse.Content.ReadAsStringAsync().Result);
+        var secondUnitResponseContent = JsonConvert.DeserializeObject<RdlUnit>(await secondUnitResponse.Content.ReadAsStringAsync());
 
         var thirdUnitRequest = new RdlUnitRequest
         {
@@ -276,7 +276,7 @@ public class AttributesControllerTests : IntegrationTest
         };
 
         var thirdUnitResponse = await Client.PostAsync(UnitsEndpoint, JsonContent.Create(thirdUnitRequest));
-        var thirdUnitResponseContent = JsonConvert.DeserializeObject<RdlUnit>(thirdUnitResponse.Content.ReadAsStringAsync().Result);
+        var thirdUnitResponseContent = JsonConvert.DeserializeObject<RdlUnit>(await thirdUnitResponse.Content.ReadAsStringAsync());
 
 
         // Creating the attribute type
@@ -297,7 +297,7 @@ public class AttributesControllerTests : IntegrationTest
         };
 
         var postResponse = await Client.PostAsync(Endpoint, JsonContent.Create(attributesRequest));
-        var postResponseContent = JsonConvert.DeserializeObject<AttributeViewWithStringValueConstraint>(postResponse.Content.ReadAsStringAsync().Result);
+        var postResponseContent = JsonConvert.DeserializeObject<AttributeViewWithStringValueConstraint>(await postResponse.Content.ReadAsStringAsync());
 
         var firstAttributeUpdate = new AttributeTypeRequest
         {
@@ -320,7 +320,7 @@ public class AttributesControllerTests : IntegrationTest
 
         Assert.Equal(HttpStatusCode.OK, firstPutResponse.StatusCode);
 
-        var firstPutResponseContent = JsonConvert.DeserializeObject<AttributeViewWithNumericalValueListConstraint>(firstPutResponse.Content.ReadAsStringAsync().Result);
+        var firstPutResponseContent = JsonConvert.DeserializeObject<AttributeViewWithNumericalValueListConstraint>(await firstPutResponse.Content.ReadAsStringAsync());
 
         Assert.Equal(firstAttributeUpdate.PredicateId, firstPutResponseContent?.Predicate?.Id);
         Assert.Contains(firstUnitResponseContent.Id, firstPutResponseContent!.Units.Select(x => x.Id));
@@ -340,7 +340,7 @@ public class AttributesControllerTests : IntegrationTest
 
         Assert.Equal(HttpStatusCode.OK, secondPutResponse.StatusCode);
 
-        var secondPutResponseContent = JsonConvert.DeserializeObject<AttributeView>(secondPutResponse.Content.ReadAsStringAsync().Result);
+        var secondPutResponseContent = JsonConvert.DeserializeObject<AttributeView>(await secondPutResponse.Content.ReadAsStringAsync());
 
         Assert.Null(secondPutResponseContent!.Predicate);
         Assert.Empty(secondPutResponseContent.Units);
@@ -377,9 +377,9 @@ public class AttributesControllerTests : IntegrationTest
 
         var postResponse = await Client.PostAsync(Endpoint, JsonContent.Create(attributeRequest));
 
-        var postResponseContent = JsonConvert.DeserializeObject<AttributeView>(postResponse.Content.ReadAsStringAsync().Result);
+        var postResponseContent = JsonConvert.DeserializeObject<AttributeView>(await postResponse.Content.ReadAsStringAsync());
 
-        var initialCollection = JsonConvert.DeserializeObject<List<AttributeView>>((await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync().Result);
+        var initialCollection = JsonConvert.DeserializeObject<List<AttributeView>>(await (await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync());
 
         var initialCollectionCount = initialCollection?.Count;
 
@@ -387,7 +387,7 @@ public class AttributesControllerTests : IntegrationTest
 
         Assert.Equal(HttpStatusCode.NoContent, deleteResponse.StatusCode);
 
-        var collection = JsonConvert.DeserializeObject<List<AttributeView>>((await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync().Result);
+        var collection = JsonConvert.DeserializeObject<List<AttributeView>>(await (await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync());
         var collectionCount = collection?.Count;
 
         Assert.Equal(initialCollectionCount - 1, collectionCount);

@@ -38,7 +38,7 @@ public class UnitsControllerTests : IntegrationTest
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-        var responseContent = JsonConvert.DeserializeObject<RdlUnit>(response.Content.ReadAsStringAsync().Result);
+        var responseContent = JsonConvert.DeserializeObject<RdlUnit>(await response.Content.ReadAsStringAsync());
 
         Assert.Equal(unitRequest.Name, responseContent?.Name);
         Assert.Equal(unitRequest.Symbol, responseContent?.Symbol);
@@ -49,7 +49,7 @@ public class UnitsControllerTests : IntegrationTest
     [Fact]
     public async Task GET_Returns_Larger_Collection_After_Creation()
     {
-        var initialCollection = JsonConvert.DeserializeObject<List<RdlUnit>>((await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync().Result);
+        var initialCollection = JsonConvert.DeserializeObject<List<RdlUnit>>(await (await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync());
 
         var initialCollectionCount = initialCollection?.Count;
 
@@ -65,7 +65,7 @@ public class UnitsControllerTests : IntegrationTest
         await Client.PostAsync(Endpoint, JsonContent.Create(unitRequest));
         await Client.PostAsync(Endpoint, JsonContent.Create(unitRequest));
 
-        var collection = JsonConvert.DeserializeObject<List<RdlUnit>>((await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync().Result);
+        var collection = JsonConvert.DeserializeObject<List<RdlUnit>>(await (await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync());
         var collectionCount = collection?.Count;
 
         Assert.Equal(initialCollectionCount + 3, collectionCount);
@@ -83,7 +83,7 @@ public class UnitsControllerTests : IntegrationTest
 
         var postResponse = await Client.PostAsync(Endpoint, JsonContent.Create(unitRequest));
 
-        var postResponseContent = JsonConvert.DeserializeObject<RdlUnit>(postResponse.Content.ReadAsStringAsync().Result);
+        var postResponseContent = JsonConvert.DeserializeObject<RdlUnit>(await postResponse.Content.ReadAsStringAsync());
 
         var getResponse = await Client.GetAsync($"{Endpoint}/{postResponseContent?.Id}");
 
@@ -110,9 +110,9 @@ public class UnitsControllerTests : IntegrationTest
 
         var postResponse = await Client.PostAsync(Endpoint, JsonContent.Create(unitRequest));
 
-        var postResponseContent = JsonConvert.DeserializeObject<RdlUnit>(postResponse.Content.ReadAsStringAsync().Result);
+        var postResponseContent = JsonConvert.DeserializeObject<RdlUnit>(await postResponse.Content.ReadAsStringAsync());
 
-        var initialCollection = JsonConvert.DeserializeObject<List<RdlUnit>>((await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync().Result);
+        var initialCollection = JsonConvert.DeserializeObject<List<RdlUnit>>(await (await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync());
 
         var initialCollectionCount = initialCollection?.Count;
 
@@ -120,7 +120,7 @@ public class UnitsControllerTests : IntegrationTest
 
         Assert.Equal(HttpStatusCode.NoContent, deleteResponse.StatusCode);
 
-        var collection = JsonConvert.DeserializeObject<List<RdlUnit>>((await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync().Result);
+        var collection = JsonConvert.DeserializeObject<List<RdlUnit>>(await (await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync());
         var collectionCount = collection?.Count;
 
         Assert.Equal(initialCollectionCount - 1, collectionCount);
