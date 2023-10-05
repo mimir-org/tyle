@@ -37,7 +37,7 @@ public class PredicatesControllerTests : IntegrationTest
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-        var responseContent = JsonConvert.DeserializeObject<RdlPredicate>(response.Content.ReadAsStringAsync().Result);
+        var responseContent = JsonConvert.DeserializeObject<RdlPredicate>(await response.Content.ReadAsStringAsync());
 
         Assert.Equal(predicateRequest.Name, responseContent?.Name);
         Assert.Equal(predicateRequest.Description, responseContent?.Description);
@@ -47,7 +47,7 @@ public class PredicatesControllerTests : IntegrationTest
     [Fact]
     public async Task GET_Returns_Larger_Collection_After_Creation()
     {
-        var initialCollection = JsonConvert.DeserializeObject<List<RdlPredicate>>((await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync().Result);
+        var initialCollection = JsonConvert.DeserializeObject<List<RdlPredicate>>(await (await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync());
 
         var initialCollectionCount = initialCollection?.Count;
 
@@ -62,7 +62,7 @@ public class PredicatesControllerTests : IntegrationTest
         await Client.PostAsync(Endpoint, JsonContent.Create(predicateRequest));
         await Client.PostAsync(Endpoint, JsonContent.Create(predicateRequest));
 
-        var collection = JsonConvert.DeserializeObject<List<RdlPredicate>>((await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync().Result);
+        var collection = JsonConvert.DeserializeObject<List<RdlPredicate>>(await (await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync());
         var collectionCount = collection?.Count;
 
         Assert.Equal(initialCollectionCount + 3, collectionCount);
@@ -80,7 +80,7 @@ public class PredicatesControllerTests : IntegrationTest
 
         var postResponse = await Client.PostAsync(Endpoint, JsonContent.Create(predicateRequest));
 
-        var postResponseContent = JsonConvert.DeserializeObject<RdlPredicate>(postResponse.Content.ReadAsStringAsync().Result);
+        var postResponseContent = JsonConvert.DeserializeObject<RdlPredicate>(await postResponse.Content.ReadAsStringAsync());
 
         var getResponse = await Client.GetAsync($"{Endpoint}/{postResponseContent?.Id}");
 
@@ -107,9 +107,9 @@ public class PredicatesControllerTests : IntegrationTest
 
         var postResponse = await Client.PostAsync(Endpoint, JsonContent.Create(predicateRequest));
 
-        var postResponseContent = JsonConvert.DeserializeObject<RdlPredicate>(postResponse.Content.ReadAsStringAsync().Result);
+        var postResponseContent = JsonConvert.DeserializeObject<RdlPredicate>(await postResponse.Content.ReadAsStringAsync());
 
-        var initialCollection = JsonConvert.DeserializeObject<List<RdlPredicate>>((await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync().Result);
+        var initialCollection = JsonConvert.DeserializeObject<List<RdlPredicate>>(await (await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync());
 
         var initialCollectionCount = initialCollection?.Count;
 
@@ -117,7 +117,7 @@ public class PredicatesControllerTests : IntegrationTest
 
         Assert.Equal(HttpStatusCode.NoContent, deleteResponse.StatusCode);
 
-        var collection = JsonConvert.DeserializeObject<List<RdlPredicate>>((await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync().Result);
+        var collection = JsonConvert.DeserializeObject<List<RdlPredicate>>(await (await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync());
         var collectionCount = collection?.Count;
 
         Assert.Equal(initialCollectionCount - 1, collectionCount);
