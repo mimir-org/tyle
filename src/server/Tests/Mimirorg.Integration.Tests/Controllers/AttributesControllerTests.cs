@@ -100,7 +100,7 @@ public class AttributesControllerTests : IntegrationTest
             UnitMinCount = 0,
             UnitMaxCount = 1,
             PredicateId = predicateResponseContent?.Id,
-            UnitIds = new List<int> {firstUnitResponseContent!.Id, secondUnitResponseContent!.Id },
+            UnitIds = new List<int> { firstUnitResponseContent!.Id, secondUnitResponseContent!.Id },
             ValueConstraint = new ValueConstraintRequest
             {
                 ConstraintType = ConstraintType.HasValue,
@@ -120,7 +120,7 @@ public class AttributesControllerTests : IntegrationTest
         Assert.Equal(attributesRequest.UnitMaxCount, responseContent?.UnitMaxCount);
         Assert.Equal(attributesRequest.PredicateId, responseContent?.Predicate?.Id);
         Assert.Contains(firstUnitResponseContent.Id, responseContent!.Units.Select(x => x.Id));
-        Assert.Contains(secondUnitResponseContent.Id, responseContent!.Units.Select(x => x.Id)); 
+        Assert.Contains(secondUnitResponseContent.Id, responseContent!.Units.Select(x => x.Id));
         Assert.Equal(attributesRequest.ValueConstraint.Value, responseContent.ValueConstraint?.Value);
     }
 
@@ -305,12 +305,12 @@ public class AttributesControllerTests : IntegrationTest
             UnitMinCount = 0,
             UnitMaxCount = 1,
             PredicateId = secondPredicateResponseContent?.Id,
-            UnitIds = new List<int> {firstUnitResponseContent!.Id, thirdUnitResponseContent!.Id},
+            UnitIds = new List<int> { firstUnitResponseContent!.Id, thirdUnitResponseContent!.Id },
             ValueConstraint = new ValueConstraintRequest
             {
                 ConstraintType = ConstraintType.In,
                 DataType = XsdDataType.Decimal,
-                ValueList = new List<string> {"0.2", "-45.3", "270"},
+                ValueList = new List<string> { "0.2", "-45.3", "270" },
                 MinCount = 1,
                 MaxCount = 1
             }
