@@ -7,7 +7,7 @@ import { AttributeTypeRequest } from "common/types/attributes/attributeTypeReque
 import { AttributeView } from "common/types/attributes/attributeView";
 import { apiClient } from "external/client/apiClient";
 
-const _basePath = "libraryattribute";
+const _basePath = "attributes";
 
 export const attributeApi = {
   getAttributes() {
