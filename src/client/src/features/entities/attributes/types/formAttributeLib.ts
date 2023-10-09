@@ -16,7 +16,7 @@ export const toAttributeTypeRequest = (attribute: AttributeView): AttributeTypeR
   return {
     name: attribute.name,
     description: attribute.description,
-    predicateId: attribute.predicate?.id ?? null,
+    predicateId: attribute.predicate?.id,
     unitIds: attribute.units.map(x => x.id),
     unitMinCount: attribute.unitMinCount,
     unitMaxCount: attribute.unitMaxCount,
@@ -28,15 +28,15 @@ export const toAttributeTypeRequest = (attribute: AttributeView): AttributeTypeR
   };
 };
 
-export const toValueConstraintRequest = (valueConstraint: ValueConstraintView | null): ValueConstraintRequest | null => {
-  if (valueConstraint == null) return null;
+export const toValueConstraintRequest = (valueConstraint: ValueConstraintView | undefined): ValueConstraintRequest | undefined => {
+  if (valueConstraint === undefined) return undefined;
 
   return {
     constraintType: valueConstraint.constraintType,
     dataType: valueConstraint.dataType,
     minCount: valueConstraint.minCount,
     maxCount: valueConstraint.maxCount,
-    value: valueConstraint.value ? valueConstraint.value.toString() : null,
+    value: valueConstraint.value ? valueConstraint.value.toString() : undefined,
     valueList: valueConstraint.valueList ? valueConstraint.valueList.map(x => x.toString()) : [],
     pattern: valueConstraint.pattern,
     minValue: valueConstraint.minValue,
@@ -58,16 +58,16 @@ export const toFormUnitHelper = (unit: UnitLibCm): FormUnitHelper => {
 
 export const createEmptyAttributeTypeRequest = (): AttributeTypeRequest => ({
   name: "",
-  description: null,
-  predicateId: null,
+  description: undefined,
+  predicateId: undefined,
   unitIds: [],
   unitMinCount: 0,
-  unitMaxCount: 1,
-  provenanceQualifier: null,
-  rangeQualifier: null,
-  regularityQualifier: null,
-  scopeQualifier: null,
-  valueConstraint: null
+  unitMaxCount: 0,
+  provenanceQualifier: undefined,
+  rangeQualifier: undefined,
+  regularityQualifier: undefined,
+  scopeQualifier: undefined,
+  valueConstraint: undefined
 });
 
 export const toFormAttributeHelper = (unit: AttributeLibCm): FormAttributeHelper => {
