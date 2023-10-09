@@ -11,6 +11,4 @@ export interface ValueConstraintView {
   pattern: string | undefined;
   minValue: number | undefined;
   maxValue: number | undefined;
-  minInclusive: boolean | undefined;
-  maxInclusive: boolean | undefined;
 }

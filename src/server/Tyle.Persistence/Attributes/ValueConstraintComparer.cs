@@ -23,9 +23,7 @@ public class ValueConstraintComparer : IEqualityComparer<ValueConstraint>
                x.Value == y.Value &&
                x.Pattern == y.Pattern &&
                x.MinValue == y.MinValue &&
-               x.MaxValue == y.MaxValue &&
-               x.MinInclusive == y.MinInclusive &&
-               x.MaxInclusive == y.MaxInclusive;
+               x.MaxValue == y.MaxValue;
     }
 
     public int GetHashCode(ValueConstraint obj)
@@ -43,8 +41,6 @@ public class ValueConstraintComparer : IEqualityComparer<ValueConstraint>
         hashCode.Add(obj.Pattern);
         hashCode.Add(obj.MinValue);
         hashCode.Add(obj.MaxValue);
-        hashCode.Add(obj.MinInclusive);
-        hashCode.Add(obj.MaxInclusive);
         return hashCode.ToHashCode();
     }
 }

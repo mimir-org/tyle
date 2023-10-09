@@ -13,6 +13,4 @@ public class ValueConstraint
     public string? Pattern { get; set; }
     public decimal? MinValue { get; set; }
     public decimal? MaxValue { get; set; }
-    public bool? MinInclusive { get; set; }
-    public bool? MaxInclusive { get; set; }
 }
