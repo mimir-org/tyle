@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Tyle.Application.Common;
 using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
+using Tyle.Core.Common;
 using Tyle.Core.Terminals;
 
 namespace Tyle.Persistence.Terminals;
@@ -45,8 +46,10 @@ public class TerminalRepository : ITerminalRepository
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<TerminalType> Create(TerminalTypeRequest request)
+    public async Task<ApiResponse<TerminalType>> Create(TerminalTypeRequest request)
     {
+        var response = new ApiResponse<TerminalType>();
+
         var terminal = new TerminalType
         {
             Name = request.Name,
@@ -74,7 +77,8 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid classifier id
+                response.ErrorMessage.Add(($"Could not add terminal classifier. Please review your inputs and/or try again later"));
+                
             }
         }
 
@@ -84,7 +88,7 @@ public class TerminalRepository : ITerminalRepository
         }
         else
         {
-            // TODO: Handle the case where a request is sent with a non-valid purpose id
+            response.ErrorMessage.Add(($"Could not add terminal purpose. Please review your inputs and/or try again later"));            
         }
 
         if (request.MediumId == null || await _context.Purposes.AsNoTracking().AnyAsync(x => x.Id == request.MediumId))
@@ -93,7 +97,7 @@ public class TerminalRepository : ITerminalRepository
         }
         else
         {
-            // TODO: Handle the case where a request is sent with a non-valid medium id
+            response.ErrorMessage.Add(($"Could not add medium purpose. Please review your inputs and/or try again later"));            
         }
 
         foreach (var attributeTypeReferenceRequest in request.Attributes)
@@ -110,18 +114,22 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid attribute id
+                response.ErrorMessage.Add(($"Could not add one or more attribute. Please review your inputs and/or try again later"));                
             }
         }
 
         _dbSet.Add(terminal);
         await _context.SaveChangesAsync();
 
-        return await Get(terminal.Id);
+        response.TValue = await Get(terminal.Id);
+
+        return response;
     }
 
-    public async Task<TerminalType?> Update(Guid id, TerminalTypeRequest request)
+    public async Task<ApiResponse<TerminalType?>> Update(Guid id, TerminalTypeRequest request)
     {
+        var response = new ApiResponse<TerminalType?>();
+
         var terminal = await _dbSet.AsTracking()
            .Include(x => x.Classifiers)
            .Include(x => x.Attributes)
@@ -161,7 +169,8 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid classifier id
+                response.ErrorMessage.Add($"Could not update one or more classifier. Please check your inputs and/or try again later");
+                
             }
         }
 
@@ -173,7 +182,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid purpose id
+                response.ErrorMessage.Add($"Could not update one or more purpose. Please check your inputs and/or try again later");                
             }
         }
 
@@ -189,7 +198,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid medium id
+                response.ErrorMessage.Add($"Could not update medium. Please check your inputs and/or try again later");                
             }
         }
 
@@ -217,7 +226,7 @@ public class TerminalRepository : ITerminalRepository
 
             if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
             {
-                // TODO: Handle the case where a request is sent with a non-valid attribute id
+                response.ErrorMessage.Add($"Could not update one or more attributes. Please check your inputs and/or try again later");                
                 continue;
             }
 
@@ -236,7 +245,9 @@ public class TerminalRepository : ITerminalRepository
 
         await _context.SaveChangesAsync();
 
-        return await Get(id);
+        response.TValue = await Get(id);
+
+        return response;
     }
 
     public async Task<bool> Delete(Guid id)

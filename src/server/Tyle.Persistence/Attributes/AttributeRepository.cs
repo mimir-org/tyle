@@ -4,6 +4,7 @@ using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Attributes;
+using Tyle.Core.Common;
 
 namespace Tyle.Persistence.Attributes;
 
@@ -42,9 +43,10 @@ public class AttributeRepository : IAttributeRepository
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<AttributeType> Create(AttributeTypeRequest request)
+    public async Task<ApiResponse<AttributeType>> Create(AttributeTypeRequest request)
     {
-        var attribute = new AttributeType
+        var response = new ApiResponse<AttributeType>();
+        response.TValue = new AttributeType
         {
             Name = request.Name,
             Description = request.Description,
@@ -60,41 +62,44 @@ public class AttributeRepository : IAttributeRepository
             ValueConstraint = _mapper.Map<ValueConstraint>(request.ValueConstraint)
         };
 
-        attribute.LastUpdateOn = attribute.CreatedOn;
+        response.TValue.LastUpdateOn = response.TValue.CreatedOn;
 
         if (request.PredicateId == null || await _context.Predicates.AsNoTracking().AnyAsync(x => x.Id == request.PredicateId))
         {
-            attribute.PredicateId = request.PredicateId;
+            response.TValue.PredicateId = request.PredicateId;
         }
         else
         {
-            // TODO: Handle the case where a request is sent with a non-valid predicate id
+            response.ErrorMessage.Add($"Could not add predicate. Please check and try again later");
         }
 
         foreach (var unitId in request.UnitIds)
         {
             if (await _context.Units.AsNoTracking().AnyAsync(x => x.Id == unitId))
             {
-                attribute.Units.Add(new AttributeUnitJoin
+                response.TValue.Units.Add(new AttributeUnitJoin
                 {
-                    AttributeId = attribute.Id,
+                    AttributeId = response.TValue.Id,
                     UnitId = unitId
                 });
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid unit id
+                response.ErrorMessage.Add($"Adding the attribute {request.Name} failed. Please check your input");
             }
         }
 
-        _dbSet.Add(attribute);
+        _dbSet.Add(response.TValue);
         await _context.SaveChangesAsync();
 
-        return await Get(attribute.Id);
+        response.TValue = await Get(response.TValue.Id);
+        return response;
     }
 
-    public async Task<AttributeType?> Update(Guid id, AttributeTypeRequest request)
+    public async Task<ApiResponse<AttributeType?>> Update(Guid id, AttributeTypeRequest request)
     {
+        var response = new ApiResponse<AttributeType?>();
+
         var attribute = await _dbSet.AsTracking()
             .Include(x => x.Units)
             .Include(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
@@ -122,7 +127,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid predicate id
+                response.ErrorMessage.Add($"Could not add predicate. Please ensure the predicate is correct and try again later.");
             }
         }
 
@@ -146,7 +151,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid unit id
+                response.ErrorMessage.Add("could not remove one or more of the attributes. Please ensure the attribute to remove is correct and try again later.");
             }
         }
 
@@ -177,7 +182,9 @@ public class AttributeRepository : IAttributeRepository
 
         await _context.SaveChangesAsync();
 
-        return await Get(id);
+        response.TValue = await Get(id);
+
+        return response;
     }
 
     public async Task<bool> Delete(Guid id)

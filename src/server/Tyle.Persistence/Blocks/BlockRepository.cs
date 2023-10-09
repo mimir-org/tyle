@@ -3,6 +3,7 @@ using Tyle.Application.Blocks;
 using Tyle.Application.Blocks.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Blocks;
+using Tyle.Core.Common;
 
 namespace Tyle.Persistence.Blocks;
 
@@ -55,8 +56,11 @@ public class BlockRepository : IBlockRepository
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<BlockType> Create(BlockTypeRequest request)
+    public async Task<ApiResponse<BlockType>> Create(BlockTypeRequest request)
     {
+
+        var response = new ApiResponse<BlockType>();
+
         var block = new BlockType
         {
             Name = request.Name,
@@ -83,7 +87,7 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid classifier id
+                response.ErrorMessage.Add("Could not add classifier. Please check the classifier-id and try again later.");
             }
         }
 
@@ -93,7 +97,7 @@ public class BlockRepository : IBlockRepository
         }
         else
         {
-            // TODO: Handle the case where a request is sent with a non-valid purpose id
+            response.ErrorMessage.Add("Could not add purpose. Please check the purpose-id and try again later.");
         }
 
         foreach (var terminalTypeReferenceRequest in request.Terminals)
@@ -111,7 +115,7 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid terminal id
+                response.ErrorMessage.Add("Could not add terminal. Please check the terminal-id and try again later.");
             }
         }
 
@@ -129,18 +133,22 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid attribute id
+                response.ErrorMessage.Add("Could not add attribute. Please check the attribute-id and try again later.");
             }
         }
 
         _dbSet.Add(block);
         await _context.SaveChangesAsync();
 
-        return await Get(block.Id);
+        response.TValue = await Get(block.Id);
+
+        return response;
     }
 
-    public async Task<BlockType?> Update(Guid id, BlockTypeRequest request)
+    public async Task<ApiResponse<BlockType?>> Update(Guid id, BlockTypeRequest request)
     {
+        var response = new ApiResponse<BlockType?>();
+
         var block = await _dbSet.AsTracking()
             .Include(x => x.Classifiers)
             .Include(x => x.Terminals)
@@ -182,7 +190,7 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid classifier id
+                response.ErrorMessage.Add("Could not add classifier. Please check the id and try again later.");
             }
         }
 
@@ -194,7 +202,7 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid purpose id
+                response.ErrorMessage.Add("Could not add purpose. Please check the id and try again later.");
             }
         }
 
@@ -225,7 +233,7 @@ public class BlockRepository : IBlockRepository
 
             if (!await _context.Terminals.AnyAsync(x => x.Id == terminalTypeReferenceRequest.TerminalId))
             {
-                // TODO: Handle the case where a request is sent with a non-valid terminal id
+                response.ErrorMessage.Add("Could not add terminal. Please check the id and try again later.");
                 continue;
             }
 
@@ -264,7 +272,7 @@ public class BlockRepository : IBlockRepository
 
             if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
             {
-                // TODO: Handle the case where a request is sent with a non-valid attribute id
+                response.ErrorMessage.Add("Could not add attribute. Please check the id and try again later.");
                 continue;
             }
 
@@ -283,7 +291,9 @@ public class BlockRepository : IBlockRepository
 
         await _context.SaveChangesAsync();
 
-        return await Get(id);
+        response.TValue = await Get(id);
+
+        return response;
     }
 
     public async Task<bool> Delete(Guid id)

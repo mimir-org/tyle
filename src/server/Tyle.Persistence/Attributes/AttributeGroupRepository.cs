@@ -3,6 +3,7 @@ using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Attributes;
+using Tyle.Core.Common;
 
 namespace Tyle.Persistence.Attributes;
 
@@ -39,8 +40,10 @@ public class AttributeGroupRepository : IAttributeGroupRepository
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<AttributeGroup> Create(AttributeGroupRequest request)
+    public async Task<ApiResponse<AttributeGroup>> Create(AttributeGroupRequest request)
     {
+        var attrbuteReturnItem = new ApiResponse<AttributeGroup>();
+
         var attributeGroup = new AttributeGroup
         {
             Name = request.Name,
@@ -50,7 +53,7 @@ public class AttributeGroupRepository : IAttributeGroupRepository
         };
 
         attributeGroup.LastUpdateOn = attributeGroup.CreatedOn;
-
+              
         foreach (var attributeId in request.AttributeIds)
         {
             if (await _context.Attributes.AsNoTracking().AnyAsync(x => x.Id == attributeId))
@@ -63,18 +66,22 @@ public class AttributeGroupRepository : IAttributeGroupRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid attribute id
+                attrbuteReturnItem.ErrorMessage.Add($"Could not find and add one or more attributes to the attribute group. Please ensure that the attribute you add exists.");
             }
         }
 
         _dbSet.Add(attributeGroup);
         await _context.SaveChangesAsync();
 
-        return await Get(attributeGroup.Id);
+        attrbuteReturnItem.TValue = await Get(attributeGroup.Id);
+
+        return attrbuteReturnItem;
     }
 
-    public async Task<AttributeGroup?> Update(Guid id, AttributeGroupRequest request)
+    public async Task<ApiResponse<AttributeGroup?>> Update(Guid id, AttributeGroupRequest request)
     {
+        var attrbuteReturnItem = new ApiResponse<AttributeGroup>();
+
         var attributeGroup = await _dbSet.AsTracking()
             .Include(x => x.Attributes)
             .AsSplitQuery()
@@ -113,13 +120,14 @@ public class AttributeGroupRepository : IAttributeGroupRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid attribute unit
+                attrbuteReturnItem.ErrorMessage.Add($"Something happened during updating the attribute group {request.Name}. Could not find one or more of the attributes.");                
             }
         }
 
         await _context.SaveChangesAsync();
+        attrbuteReturnItem.TValue = await Get(id);
 
-        return await Get(id);
+        return attrbuteReturnItem!;
     }
 
     public async Task<bool> Delete(Guid id)

@@ -1,3 +1,5 @@
+using Tyle.Core.Common;
+
 namespace Tyle.Application.Common;
 
 public interface ITypeRepository<T, TRequest>
@@ -20,7 +22,7 @@ public interface ITypeRepository<T, TRequest>
     /// </summary>
     /// <param name="request">A request defining the type that should be created.</param>
     /// <returns>The created type.</returns>
-    Task<T> Create(TRequest request);
+    Task<ApiResponse<T>> Create(TRequest request);
 
     /// <summary>
     /// Updates the type with the given id.
@@ -28,7 +30,7 @@ public interface ITypeRepository<T, TRequest>
     /// <param name="id">The id of the type to update.</param>
     /// <param name="request">A request defining the new values for the type.</param>
     /// <returns>The updated type, or null if no type was found.</returns>
-    Task<T?> Update(Guid id, TRequest request);
+    Task<ApiResponse<T?>> Update(Guid id, TRequest request);
 
     /// <summary>
     /// Deletes the type with the given id.

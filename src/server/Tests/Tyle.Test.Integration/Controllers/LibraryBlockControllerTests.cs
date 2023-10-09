@@ -39,7 +39,7 @@ public class LibraryBlockControllerTests : IntegrationTest
         var blockRepository = scope.ServiceProvider.GetRequiredService<IBlockRepository>();
         var createdBlock = await blockRepository.Create(blockToCreate);
 
-        var response = await Client.GetAsync(endpoint + createdBlock.Id);
+        var response = await Client.GetAsync(endpoint + createdBlock.TValue?.Id);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 

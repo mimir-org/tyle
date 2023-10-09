@@ -7,6 +7,7 @@ using Mimirorg.Authentication.Models.Attributes;
 using Swashbuckle.AspNetCore.Annotations;
 using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
+using Tyle.Core.Common;
 
 namespace Tyle.Api.Attributes;
 
@@ -83,6 +84,7 @@ public class AttributeGroupsController : ControllerBase
     /// <returns>The created attribute group</returns>
     [HttpPost]
     [ProducesResponseType(typeof(AttributeGroupView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<AttributeGroupView>), StatusCodes.Status207MultiStatus)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -92,6 +94,12 @@ public class AttributeGroupsController : ControllerBase
         try
         {
             var createdAttributeGroup = await _attributeGroupRepository.Create(request);
+
+            if (createdAttributeGroup.HasError)
+            {
+                return StatusCode(207, (("dummy", _mapper.Map<AttributeGroupView>(createdAttributeGroup), createdAttributeGroup.ErrorMessage)));
+            }
+
             return Created("dummy", _mapper.Map<AttributeGroupView>(createdAttributeGroup));
         }
         catch (Exception)
@@ -108,6 +116,7 @@ public class AttributeGroupsController : ControllerBase
     /// <returns>The updated attribute group</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(AttributeGroupView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<AttributeGroupView>), StatusCodes.Status207MultiStatus)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -123,6 +132,12 @@ public class AttributeGroupsController : ControllerBase
             {
                 return NotFound();
             }
+
+            if (attributeGroup.HasError)
+            {
+                return StatusCode(207, ((_mapper.Map<AttributeGroupView>(attributeGroup), attributeGroup.ErrorMessage)));
+            }
+
 
             return Ok(_mapper.Map<AttributeGroupView>(attributeGroup));
         }
