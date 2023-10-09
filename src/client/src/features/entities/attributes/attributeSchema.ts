@@ -1,20 +1,15 @@
 import { YupShape } from "common/types/yupShape";
 import { TFunction } from "i18next";
 import * as yup from "yup";
-import { FormAttributeLib } from "./types/formAttributeLib";
-
-const formUnitHelperShape = {
-  name: yup.string().max(120).required(),
-  description: yup.string().max(500).nullable(),
-  symbol: yup.string().max(30).nullable(),
-  unitId: yup.string().required(),
-};
+import { AttributeFormFields } from "./AttributeForm.helpers";
+import { DESCRIPTION_LENGTH, NAME_LENGTH } from "common/types/common/stringLengthConstants";
 
 export const attributeSchema = (t: TFunction<"translation">) =>
-  yup.object<YupShape<FormAttributeLib>>({
-    name: yup.string().max(120, t("common.validation.name.max")).required(t("common.validation.name.required")),
-    typeReference: yup.string().max(255).nullable(),
-    description: yup.string().max(500, t("common.validation.description.max")).nullable(),
-    units: yup.array().of(yup.object(formUnitHelperShape)).nullable(),
-    defaultUnit: yup.object(formUnitHelperShape).nullable(),
+  yup.object<YupShape<AttributeFormFields>>({
+    name: yup.string().max(NAME_LENGTH, t("common.validation.name.max")).required(t("common.validation.name.required")),
+    description: yup.string().max(DESCRIPTION_LENGTH, t("common.validation.description.max")),
+    constraintType: yup.number().when("valueConstraint", {
+      is: true,
+      then: (schema) => schema.required(),
+    }),
   });

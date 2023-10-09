@@ -1,7 +1,7 @@
 import { useDeleteBlock, usePatchBlockState } from "external/sources/block/block.queries";
 import { ItemType } from "../../../entities/types/itemTypes";
 import { useDeleteTerminal, usePatchTerminalState } from "external/sources/terminal/terminal.queries";
-import { useDeleteUnit, usePatchUnitState } from "external/sources/unit/unit.queries";
+import { useDeleteUnit } from "external/sources/unit/unit.queries";
 import { useDeleteQuantityDatum, usePatchQuantityDatumState } from "external/sources/datum/quantityDatum.queries";
 import { useDeleteRds, usePatchRdsState } from "external/sources/rds/rds.queries";
 import { useDeleteAttribute, usePatchAttributeState } from "external/sources/attribute/attribute.queries";

@@ -1,5 +1,4 @@
 import { DevTool } from "@hookform/devtools";
-import { AttributeLibCm, State } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { Loader } from "features/common/loader";
@@ -8,12 +7,15 @@ import { usePrefilledForm } from "features/entities/common/utils/usePrefilledFor
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useAttributeMutation, useAttributeQuery } from "./AttributeForm.helpers";
-import { AttributeFormBaseFields } from "./AttributeFormBaseFields";
 import {
-  createEmptyAttributeTypeRequest,
+  AttributeFormFields,
+  createDefaultAttributeFormFields,
+  toAttributeFormFields,
   toAttributeTypeRequest,
-} from "./types/formAttributeLib";
+  useAttributeMutation,
+  useAttributeQuery,
+} from "./AttributeForm.helpers";
+import { AttributeFormBaseFields } from "./AttributeFormBaseFields";
 import { AttributeFormPreview } from "../entityPreviews/attribute/AttributeFormPreview";
 import { FormMode } from "../types/formMode";
 import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
@@ -21,19 +23,20 @@ import { useTheme } from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { attributeSchema } from "./attributeSchema";
 import { PlainLink } from "features/common/plain-link";
-import { AttributeTypeRequest } from "common/types/attributes/attributeTypeRequest";
 import { AttributeView } from "common/types/attributes/attributeView";
+import { ValueConstraintForm } from "./ValueConstraintForm";
+import { AttributeFormUnits } from "./AttributeFormUnits";
 
 interface AttributeFormProps {
-  defaultValues?: AttributeTypeRequest;
+  defaultValues?: AttributeFormFields;
   mode?: FormMode;
 }
 
-export const AttributeForm = ({ defaultValues = createEmptyAttributeTypeRequest(), mode }: AttributeFormProps) => {
+export const AttributeForm = ({ defaultValues = createDefaultAttributeFormFields(), mode }: AttributeFormProps) => {
   const { t } = useTranslation("entities");
   const theme = useTheme();
 
-  const formMethods = useForm<AttributeTypeRequest>({
+  const formMethods = useForm<AttributeFormFields>({
     defaultValues: defaultValues,
     resolver: yupResolver(attributeSchema(t)),
   });
@@ -41,7 +44,7 @@ export const AttributeForm = ({ defaultValues = createEmptyAttributeTypeRequest(
   const { handleSubmit, control, setError, reset } = formMethods;
 
   const query = useAttributeQuery();
-  const mapper = (source: AttributeView) => toAttributeTypeRequest(source);
+  const mapper = (source: AttributeView) => toAttributeFormFields(source);
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useAttributeMutation(query.data?.id, mode);
@@ -53,9 +56,7 @@ export const AttributeForm = ({ defaultValues = createEmptyAttributeTypeRequest(
   return (
     <FormProvider {...formMethods}>
       <FormContainer
-        onSubmit={handleSubmit((data) =>
-          onSubmitForm(data, mutation.mutateAsync, toast),
-        )}
+        onSubmit={handleSubmit((data) => onSubmitForm(toAttributeTypeRequest(data), mutation.mutateAsync, toast))}
       >
         {isLoading ? (
           <Loader />
@@ -73,7 +74,8 @@ export const AttributeForm = ({ defaultValues = createEmptyAttributeTypeRequest(
                 <Button type={"submit"}>{mode === "edit" ? t("common.edit") : t("common.submit")}</Button>
               </Flexbox>
             </Flexbox>
-            {/*<AttributeFormPreview control={control} />*/}
+            <AttributeFormUnits />
+            <ValueConstraintForm />
           </Box>
         )}
         <DevTool control={control} placement={"bottom-right"} />

@@ -12,7 +12,6 @@ import { usePatchTerminalState } from "external/sources/terminal/terminal.querie
 import { usePatchAttributeState } from "../../../external/sources/attribute/attribute.queries";
 import { usePatchRdsState } from "../../../external/sources/rds/rds.queries";
 import { usePatchQuantityDatumState } from "../../../external/sources/datum/quantityDatum.queries";
-import { usePatchUnitState } from "../../../external/sources/unit/unit.queries";
 
 export const Approval = () => {
   const queryClient = useQueryClient();

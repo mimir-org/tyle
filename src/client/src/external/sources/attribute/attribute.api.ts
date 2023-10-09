@@ -1,8 +1,4 @@
-import {
-  AttributePredefinedLibCm,
-  State,
-  ApprovalDataCm,
-} from "@mimirorg/typelibrary-types";
+import { AttributePredefinedLibCm, State, ApprovalDataCm } from "@mimirorg/typelibrary-types";
 import { AttributeTypeRequest } from "common/types/attributes/attributeTypeRequest";
 import { AttributeView } from "common/types/attributes/attributeView";
 import { apiClient } from "external/client/apiClient";

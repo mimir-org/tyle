@@ -1,11 +1,11 @@
 import { Control, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { FormAttributeLib } from "../../attributes/types/formAttributeLib";
+import { AttributeFormFields } from "../../attributes/types/formAttributeLib";
 import AttributePreview from "./AttributePreview";
 import { StyledFormPreviewDiv } from "../FormPreviewContainer";
 
 interface AttributeFormPreviewProps {
-  control: Control<FormAttributeLib>;
+  control: Control<AttributeFormFields>;
 }
 
 export const AttributeFormPreview = ({ control }: AttributeFormPreviewProps) => {

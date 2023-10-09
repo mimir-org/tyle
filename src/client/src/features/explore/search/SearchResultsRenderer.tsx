@@ -8,7 +8,6 @@ import { ItemDescription } from "./components/item/ItemDescription";
 import { SearchItemActions } from "./components/SearchItemActions";
 import { BlockItem } from "../../../common/types/blockItem";
 import AttributePreview from "../../entities/entityPreviews/attribute/AttributePreview";
-import { toAttributeTypeRequest } from "../../entities/attributes/types/formAttributeLib";
 import { AttributeGroupLibCm, AttributeLibCm, UnitLibCm } from "@mimirorg/typelibrary-types";
 import UnitPreview from "../../entities/entityPreviews/unit/UnitPreview";
 import { FormUnitHelper } from "../../entities/units/types/FormUnitHelper";
@@ -60,7 +59,7 @@ export function SearchResultsRenderer({
         <Item
           isSelected={currentlySelected}
           onClick={() => setSelected({ id: item.id, type: "attribute" })}
-          preview={<AttributePreview small {...toAttributeTypeRequest(item as AttributeLibCm)} />}
+          preview={<AttributePreview small {...toAttributeFormFields(item as AttributeLibCm)} />}
           description={<ItemDescription {...(item as AttributeLibCm)} />}
           actions={<SearchItemActions user={user} item={item} />}
         />

@@ -123,14 +123,40 @@
     "color": "Color",
     "owner": "Owner",
     "description": "Description",
+    "predicate": "Predicate",
+    "units": {
+      "title": "Add units"
+    },
+    "unitRequirement": "Unit requirement",
     "provenanceQualifier": "Provenance qualifier",
     "rangeQualifier": "Range qualifier",
     "regularityQualifier": "Regularity qualifier",
     "scopeQualifier": "Scope qualifier",
+    "valueConstraint": {
+      "title": "Add value constraint",
+      "constraintType": "Constraint type",
+      "dataType": "Data type",
+      "requireValue": "Require value to be set",
+      "value": "Value",
+      "pattern": "Regex pattern",
+      "minValue": "Lower bound (inclusive)",
+      "maxValue": "Upper bound (inclusive)",
+      "valueList": {
+        "title": "Allowed values",
+        "add": "Add value to allowed values",
+        "remove": "Remove value from allowed values"
+      }
+    },
     "placeholders": {
       "name": "Name",
       "color": "Select color",
-      "description": "Additional information about this attribute can be supplied here."
+      "description": "Additional information about this attribute can be supplied here.",
+      "valueConstraint": {
+        "value": "Enter attribute value",
+        "pattern": "Enter regex pattern",
+        "minValue": "Enter a number",
+        "maxValue": "Enter a number"
+      }
     },
     "processing": {
       "loading": "Submitting attribute",

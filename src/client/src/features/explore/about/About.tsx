@@ -10,7 +10,6 @@ import { SelectedInfo } from "features/explore/common/selectedInfo";
 import { useTranslation } from "react-i18next";
 import { useGetAttribute } from "../../../external/sources/attribute/attribute.queries";
 import AttributePreview from "../../entities/entityPreviews/attribute/AttributePreview";
-import { toAttributeTypeRequest } from "../../entities/attributes/types/formAttributeLib";
 import UnitPreview from "../../entities/entityPreviews/unit/UnitPreview";
 import QuantityDatumPreview from "../../entities/entityPreviews/quantityDatum/QuantityDatumPreview";
 import { RdsPreview } from "../../entities/entityPreviews/rds/RdsPreview";
@@ -94,8 +93,8 @@ export const About = ({ selected }: AboutProps) => {
         />
       )}
       {showAttributePanel && (
-        <UnifiedPanel {...toAttributeTypeRequest(attributeQuery.data)}>
-          <AttributePreview {...toAttributeTypeRequest(attributeQuery.data)} />
+        <UnifiedPanel {...toAttributeFormFields(attributeQuery.data)}>
+          <AttributePreview {...toAttributeFormFields(attributeQuery.data)} />
         </UnifiedPanel>
       )}
       {showUnitPanel && (

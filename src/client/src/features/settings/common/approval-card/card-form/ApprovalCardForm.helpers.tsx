@@ -8,7 +8,6 @@ import {
 import { Flexbox, Text, toast } from "@mimirorg/component-library";
 import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
 import { usePatchBlockState } from "external/sources/block/block.queries";
-import { usePatchUnitState } from "../../../../../external/sources/unit/unit.queries";
 import { usePatchQuantityDatumState } from "../../../../../external/sources/datum/quantityDatum.queries";
 import { usePatchRdsState } from "../../../../../external/sources/rds/rds.queries";
 import { usePatchAttributeState } from "../../../../../external/sources/attribute/attribute.queries";
