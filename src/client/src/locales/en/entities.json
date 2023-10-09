@@ -123,6 +123,10 @@
     "color": "Color",
     "owner": "Owner",
     "description": "Description",
+    "provenanceQualifier": "Provenance qualifier",
+    "rangeQualifier": "Range qualifier",
+    "regularityQualifier": "Regularity qualifier",
+    "scopeQualifier": "Scope qualifier",
     "placeholders": {
       "name": "Name",
       "color": "Select color",
