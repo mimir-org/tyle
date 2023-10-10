@@ -6,19 +6,16 @@ import {
   FormField,
   Input,
   Select,
-  Textarea,
-  Token,
   VisuallyHidden,
 } from "@mimirorg/component-library";
 import { Controller, useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { AttributeFormFields } from "./AttributeForm.helpers";
 import { ConstraintType } from "common/types/attributes/constraintType";
-import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
+import { getOptionsFromEnum, Option } from "common/utils/getOptionsFromEnum";
 import { XsdDataType } from "common/types/attributes/xsdDataType";
 import { FormSection } from "../common/form-section/FormSection";
 import { PlusSmall, Trash } from "@styled-icons/heroicons-outline";
-import { useState } from "react";
 
 /**
  * Component which contains all simple value fields of the attribute form.
@@ -37,6 +34,10 @@ export const ValueConstraintForm = () => {
 
   const constraintTypeOptions = getOptionsFromEnum<ConstraintType>(ConstraintType);
   const dataTypeOptions = getOptionsFromEnum<XsdDataType>(XsdDataType);
+  const booleanOptions: Option<string>[] = [
+    { value: "true", label: "True" },
+    { value: "false", label: "False" },
+  ];
 
   const valueConstraint = useWatch({ control, name: "valueConstraint" });
   const chosenConstraintType = useWatch({ control, name: "constraintType" });
@@ -167,7 +168,29 @@ export const ValueConstraintForm = () => {
             wrapper={(c) => <VisuallyHidden>{c}</VisuallyHidden>}
           >
             <FormField label={t("attribute.valueConstraint.value")} error={errors.value}>
-              <Input placeholder={t("attribute.placeholders.valueConstraint.value")} {...register("value")} />
+              {chosenDataType === XsdDataType.Boolean ? (
+                <Controller
+                  control={control}
+                  name={"value"}
+                  render={({ field: { value, onChange, ref, ...rest } }) => (
+                    <Select
+                      {...rest}
+                      selectRef={ref}
+                      placeholder={t("common.templates.select", {
+                        object: "value",
+                      })}
+                      options={booleanOptions}
+                      getOptionLabel={(x) => x.label}
+                      onChange={(x) => {
+                        onChange(x?.value);
+                      }}
+                      value={booleanOptions.find((x) => x.value === value)}
+                    />
+                  )}
+                />
+              ) : (
+                <Input placeholder={t("attribute.placeholders.valueConstraint.value")} {...register("value")} />
+              )}
             </FormField>
           </ConditionalWrapper>
 
@@ -185,12 +208,12 @@ export const ValueConstraintForm = () => {
               }
             >
               {valueListEntries.fields.map((field, index) => (
-                <div key={field.id}>
+                <FormField key={field.id} error={errors.valueList ? errors.valueList[index]?.value : undefined}>
                   <Input {...register(`valueList.${index}.value`)} />
                   <Button icon={<Trash />} iconOnly onClick={() => valueListEntries.remove(index)}>
                     {t("attribute.valueConstraint.valueList.remove")}
                   </Button>
-                </div>
+                </FormField>
               ))}
             </FormSection>
           </ConditionalWrapper>
@@ -210,19 +233,11 @@ export const ValueConstraintForm = () => {
           >
             <>
               <FormField label={t("attribute.valueConstraint.minValue")} error={errors.minValue}>
-                <Input
-                  placeholder={t("attribute.placeholders.valueConstraint.minValue")}
-                  type={"number"}
-                  {...register("minValue")}
-                />
+                <Input placeholder={t("attribute.placeholders.valueConstraint.minValue")} {...register("minValue")} />
               </FormField>
 
               <FormField label={t("attribute.valueConstraint.maxValue")} error={errors.maxValue}>
-                <Input
-                  placeholder={t("attribute.placeholders.valueConstraint.maxValue")}
-                  type={"number"}
-                  {...register("maxValue")}
-                />
+                <Input placeholder={t("attribute.placeholders.valueConstraint.maxValue")} {...register("maxValue")} />
               </FormField>
             </>
           </ConditionalWrapper>

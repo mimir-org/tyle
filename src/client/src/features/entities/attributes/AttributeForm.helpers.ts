@@ -6,7 +6,6 @@ import {
 } from "../../../external/sources/attribute/attribute.queries";
 import { FormMode } from "../types/formMode";
 import { AttributeView } from "common/types/attributes/attributeView";
-import { ValueConstraintView } from "common/types/attributes/valueConstraintView";
 import { ValueConstraintRequest } from "common/types/attributes/valueConstraintRequest";
 import { AttributeTypeRequest } from "common/types/attributes/attributeTypeRequest";
 import { RdlPredicate } from "common/types/attributes/rdlPredicate";
@@ -97,7 +96,11 @@ export const toValueConstraintRequest = (
   return {
     constraintType: attributeFormFields.constraintType ?? ConstraintType.HasSpecificValue,
     dataType: attributeFormFields.dataType ?? XsdDataType.String,
-    minCount: attributeFormFields.requireValue ? 1 : attributeFormFields.requireValue === undefined ? undefined : 0,
+    minCount: attributeFormFields.requireValue
+      ? 1
+      : attributeFormFields.constraintType === ConstraintType.HasSpecificValue
+      ? undefined
+      : 0,
     maxCount: undefined,
     value: attributeFormFields.value,
     valueList: attributeFormFields.valueList.map((x) => x.value),
