@@ -9,12 +9,12 @@ import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
 import { useTranslation } from "react-i18next";
 import { useGetAttribute } from "../../../external/sources/attribute/attribute.queries";
-import AttributePreview from "../../entities/entityPreviews/attribute/AttributePreview";
-import UnitPreview from "../../entities/entityPreviews/unit/UnitPreview";
+//import AttributePreview from "../../entities/entityPreviews/attribute/AttributePreview";
+//import UnitPreview from "../../entities/entityPreviews/unit/UnitPreview";
 import QuantityDatumPreview from "../../entities/entityPreviews/quantityDatum/QuantityDatumPreview";
 import { RdsPreview } from "../../entities/entityPreviews/rds/RdsPreview";
-import { toUnitLibAm } from "../../entities/units/types/formUnitLib";
-import { useGetUnit } from "../../../external/sources/unit/unit.queries";
+//import { toUnitLibAm } from "../../entities/units/types/formUnitLib";
+//import { useGetUnit } from "../../../external/sources/unit/unit.queries";
 import { useGetQuantityDatum } from "../../../external/sources/datum/quantityDatum.queries";
 import { useGetRds } from "../../../external/sources/rds/rds.queries";
 import { toFormDatumLib } from "../../entities/quantityDatum/types/formQuantityDatumLib";
@@ -42,19 +42,19 @@ export const About = ({ selected }: AboutProps) => {
   const terminalQuery = useGetTerminal(selected?.type === "terminal" ? selected?.id : undefined);
   const attributeQuery = useGetAttribute(selected?.type === "attribute" ? selected?.id : undefined);
   const attributeGroupQuery = useGetAttributeGroup(selected?.type === "attributeGroup" ? selected?.id : undefined);
-  const unitQuery = useGetUnit(selected?.type === "unit" ? selected?.id : undefined);
+  //const unitQuery = useGetUnit(selected?.type === "unit" ? selected?.id : undefined);
   const datumQuery = useGetQuantityDatum(selected?.type === "quantityDatum" ? selected?.id : undefined);
   const rdsQuery = useGetRds(selected?.type === "rds" ? selected?.id : undefined);
-  const allQueries = [blockQuery, attributeGroupQuery, terminalQuery, attributeQuery, unitQuery, datumQuery, rdsQuery];
+  const allQueries = [blockQuery, attributeGroupQuery, terminalQuery, attributeQuery, datumQuery, rdsQuery];
 
   const showLoader = allQueries.some((x) => x.isFetching);
 
   const showPlaceHolder = !showLoader && selected?.type === undefined;
   const showBlockPanel = !showLoader && selected?.type === "block" && blockQuery.isSuccess;
   const showTerminalPanel = !showLoader && selected?.type === "terminal" && terminalQuery.isSuccess;
-  const showAttributePanel = !showLoader && selected?.type === "attribute" && attributeQuery.isSuccess;
+  //const showAttributePanel = !showLoader && selected?.type === "attribute" && attributeQuery.isSuccess;
   const showAttributeGroupPanel = !showLoader && selected?.type === "attributeGroup" && attributeGroupQuery.isSuccess;
-  const showUnitPanel = !showLoader && selected?.type === "unit" && unitQuery.isSuccess;
+  //const showUnitPanel = !showLoader && selected?.type === "unit" && unitQuery.isSuccess;
   const showDatumPanel = !showLoader && selected?.type === "quantityDatum" && datumQuery.isSuccess;
   const showRdsPanel = !showLoader && selected?.type === "rds" && rdsQuery.isSuccess;
 
@@ -92,16 +92,16 @@ export const About = ({ selected }: AboutProps) => {
           {...mapTerminalLibCmToTerminalItem(terminalQuery.data)}
         />
       )}
-      {showAttributePanel && (
+      {/*showAttributePanel && (
         <UnifiedPanel {...toAttributeFormFields(attributeQuery.data)}>
           <AttributePreview {...toAttributeFormFields(attributeQuery.data)} />
         </UnifiedPanel>
-      )}
-      {showUnitPanel && (
+      )*/}
+      {/*showUnitPanel && (
         <UnifiedPanel {...toUnitLibAm(unitQuery.data)} state={unitQuery.data.state}>
           <UnitPreview {...toUnitLibAm(unitQuery.data)} state={unitQuery.data.state} />
         </UnifiedPanel>
-      )}
+      )*/}
       {showDatumPanel && (
         <UnifiedPanel {...toFormDatumLib(datumQuery.data)}>
           <QuantityDatumPreview {...toFormDatumLib(datumQuery.data)} />

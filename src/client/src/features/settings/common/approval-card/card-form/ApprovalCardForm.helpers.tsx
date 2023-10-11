@@ -22,7 +22,7 @@ export const useApprovalToasts = () => {
   const { t } = useTranslation("settings");
   const patchMutationBlock = usePatchBlockState();
   const patchMutationTerminal = usePatchTerminalState();
-  const patchMutationUnit = usePatchUnitState();
+  //const patchMutationUnit = usePatchUnitState();
   const patchMutationQuantityDatum = usePatchQuantityDatumState();
   const patchMutationRds = usePatchRdsState();
   const patchMutationAttribute = usePatchAttributeState();
@@ -38,7 +38,7 @@ export const useApprovalToasts = () => {
         mutationPromise = patchMutationTerminal.mutateAsync(mapFormApprovalToApiModel(submission));
         break;
       case "Unit":
-        mutationPromise = patchMutationUnit.mutateAsync(mapFormApprovalToApiModel(submission));
+        //mutationPromise = patchMutationUnit.mutateAsync(mapFormApprovalToApiModel(submission));
         break;
       case "Quantity datum":
         mutationPromise = patchMutationQuantityDatum.mutateAsync(mapFormApprovalToApiModel(submission));

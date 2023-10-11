@@ -1,13 +1,10 @@
 import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { Flexbox, Token } from "@mimirorg/component-library";
-import { useGetAttributes } from "external/sources/attribute/attribute.queries";
-import {
-  onAddAttributes,
-  resolveSelectedAndAvailableAttributes,
-} from "features/entities/common/form-attributes/FormAttributes.helpers";
+//import { useGetAttributes } from "external/sources/attribute/attribute.queries";
+//import { onAddAttributes } from "features/entities/common/form-attributes/FormAttributes.helpers";
 import { FormSection } from "features/entities/common/form-section/FormSection";
-import { SelectItemDialog } from "features/entities/common/select-item-dialog/SelectItemDialog";
+//import { SelectItemDialog } from "features/entities/common/select-item-dialog/SelectItemDialog";
 import { ValueObject } from "features/entities/types/valueObject";
 import { UseFormRegisterReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -41,25 +38,24 @@ export interface FormAttributesProps {
  */
 export const FormAttributes = ({
   fields,
-  append,
+  //append,
   remove,
   register,
-  preprocess,
-  canAddAttributes = true,
-  canRemoveAttributes = true,
-  limitedAttributes = [],
+  //canAddAttributes = true,
+  //canRemoveAttributes = true,
+  //limitedAttributes = [],
 }: FormAttributesProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
-  const attributeQuery = useGetAttributes();
-  const attributes = preprocess ? preprocess(attributeQuery.data) : attributeQuery.data ?? [];
-  const [available, selected] = resolveSelectedAndAvailableAttributes(fields, attributes);
+  //const attributeQuery = useGetAttributes();
+  //const attributes = preprocess ? preprocess(attributeQuery.data) : attributeQuery.data ?? [];
+  //const [available, selected] = resolveSelectedAndAvailableAttributes(fields, attributes);
 
   return (
     <FormSection
       title={t("common.attributes.title")}
-      action={
+      /*action={
         canAddAttributes && (
           <SelectItemDialog
             title={t("common.attributes.dialog.title")}
@@ -71,24 +67,25 @@ export const FormAttributes = ({
             onAdd={(ids) => onAddAttributes(ids, attributes, append)}
           />
         )
-      }
+      }*/
     >
       <Flexbox flexWrap={"wrap"} gap={theme.mimirorg.spacing.xl}>
         {fields.map((field, index) => {
-          const attribute = selected.find((x) => x.id === field.value);
+          //const attribute = selected.find((x) => x.id === field.value);
           return (
-            attribute && (
+            /*attribute &&*/ (
               <Token
                 variant={"secondary"}
-                key={attribute.id}
+                //key={attribute.id}
+                key={index}
                 {...register(index)}
-                actionable={canRemoveAttributes && !limitedAttributes.map((x) => x.id).includes(attribute.id ?? "")}
+                //actionable={canRemoveAttributes && !limitedAttributes.map((x) => x.id).includes(attribute.id ?? "")}
                 actionIcon={<XCircle />}
                 actionText={t("common.attributes.remove")}
                 onAction={() => remove(index)}
                 dangerousAction
               >
-                {attribute.name}
+                {/*attribute.name*/}
               </Token>
             )
           );
