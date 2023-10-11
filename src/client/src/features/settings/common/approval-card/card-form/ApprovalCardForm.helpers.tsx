@@ -8,7 +8,6 @@ import {
 import { Flexbox, Text, toast } from "@mimirorg/component-library";
 import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
 import { usePatchBlockState } from "external/sources/block/block.queries";
-import { usePatchUnitState } from "../../../../../external/sources/unit/unit.queries";
 import { usePatchQuantityDatumState } from "../../../../../external/sources/datum/quantityDatum.queries";
 import { usePatchRdsState } from "../../../../../external/sources/rds/rds.queries";
 import { usePatchAttributeState } from "../../../../../external/sources/attribute/attribute.queries";
@@ -23,7 +22,7 @@ export const useApprovalToasts = () => {
   const { t } = useTranslation("settings");
   const patchMutationBlock = usePatchBlockState();
   const patchMutationTerminal = usePatchTerminalState();
-  const patchMutationUnit = usePatchUnitState();
+  //const patchMutationUnit = usePatchUnitState();
   const patchMutationQuantityDatum = usePatchQuantityDatumState();
   const patchMutationRds = usePatchRdsState();
   const patchMutationAttribute = usePatchAttributeState();
@@ -39,7 +38,7 @@ export const useApprovalToasts = () => {
         mutationPromise = patchMutationTerminal.mutateAsync(mapFormApprovalToApiModel(submission));
         break;
       case "Unit":
-        mutationPromise = patchMutationUnit.mutateAsync(mapFormApprovalToApiModel(submission));
+        //mutationPromise = patchMutationUnit.mutateAsync(mapFormApprovalToApiModel(submission));
         break;
       case "Quantity datum":
         mutationPromise = patchMutationQuantityDatum.mutateAsync(mapFormApprovalToApiModel(submission));

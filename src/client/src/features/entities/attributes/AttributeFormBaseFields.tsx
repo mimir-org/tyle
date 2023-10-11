@@ -1,8 +1,17 @@
-import { FormBaseFieldsContainer, FormField, Input, Select, Textarea } from "@mimirorg/component-library";
+import { FormBaseFieldsContainer, FormField, Input, Select, Textarea, Token } from "@mimirorg/component-library";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useGetUnits } from "../../../external/sources/unit/unit.queries";
-import { FormAttributeLib, toFormUnitHelper } from "./types/formAttributeLib";
+//import { useGetUnits } from "../../../external/sources/unit/unit.queries";
+import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
+import { ProvenanceQualifier } from "common/types/attributes/provenanceQualifier";
+import { AttributeFormFields, UnitRequirements, predicateInfoItem } from "./AttributeForm.helpers";
+import { RangeQualifier } from "common/types/attributes/rangeQualifier";
+import { RegularityQualifier } from "common/types/attributes/regularityQualifier";
+import { ScopeQualifier } from "common/types/attributes/scopeQualifier";
+import { FormSection } from "../common/form-section/FormSection";
+import { SelectItemDialog } from "../common/select-item-dialog/SelectItemDialog";
+import { useGetPredicates } from "external/sources/predicate/predicate.queries";
+import { XCircle } from "@styled-icons/heroicons-outline";
 
 interface AttributeFormBaseFieldsProps {
   limited?: boolean;
@@ -21,12 +30,17 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
     register,
     setValue,
     formState: { errors },
-  } = useFormContext<FormAttributeLib>();
+  } = useFormContext<AttributeFormFields>();
 
-  const unitQuery = useGetUnits();
-  const units = unitQuery.data || [];
-  const chosenUnits = useWatch({ control, name: "units" });
-  const defaultUnit = useWatch({ control, name: "defaultUnit" });
+  const predicateQuery = useGetPredicates();
+  const predicateInfoItems = predicateQuery.data?.map((p) => predicateInfoItem(p)) ?? [];
+  const chosenPredicate = useWatch({ control, name: "predicateId" });
+
+  const unitRequirementsOptions = getOptionsFromEnum<UnitRequirements>(UnitRequirements);
+  const provenanceQualifierOptions = getOptionsFromEnum<ProvenanceQualifier>(ProvenanceQualifier);
+  const rangeQualifierOptions = getOptionsFromEnum<RangeQualifier>(RangeQualifier);
+  const regularityQualifierOptions = getOptionsFromEnum<RegularityQualifier>(RegularityQualifier);
+  const scopeQualifierOptions = getOptionsFromEnum<ScopeQualifier>(ScopeQualifier);
 
   return (
     <FormBaseFieldsContainer>
@@ -34,57 +48,146 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
         <Input placeholder={t("attribute.placeholders.name")} {...register("name")} disabled={limited} />
       </FormField>
 
-      <FormField label={t("unit.multiple")} error={errors.units}>
+      <FormField label={t("attribute.description")} error={errors.description}>
+        <Textarea placeholder={t("attribute.placeholders.description")} {...register("description")} />
+      </FormField>
+
+      <FormSection
+        title={t("attribute.predicate.title")}
+        action={
+          !chosenPredicate && (
+            <SelectItemDialog
+              title={t("attribute.dialog.title")}
+              description={t("attribute.dialog.description")}
+              searchFieldText={t("attribute.dialog.search")}
+              addItemsButtonText={t("attribute.dialog.add")}
+              openDialogButtonText={t("attribute.dialog.open")}
+              items={predicateInfoItems}
+              onAdd={(ids) => {
+                setValue("predicateId", Number(ids[0]));
+              }}
+              isMultiSelect={false}
+            />
+          )
+        }
+      >
+        <Input {...register("predicateId")} type="hidden" />
+        {chosenPredicate && (
+          <Token
+            variant={"secondary"}
+            actionable
+            actionIcon={<XCircle />}
+            actionText={t("attribute.predicate.remove")}
+            onAction={() => setValue("predicateId", undefined)}
+            dangerousAction
+          >
+            {predicateInfoItems.find((x) => x.id === chosenPredicate.toString())?.name}
+          </Token>
+        )}
+      </FormSection>
+
+      <FormField label={t("attribute.unitRequirement")} error={errors.unitRequirement}>
         <Controller
-          name="units"
           control={control}
-          render={({ field: { onChange, ref, ...rest } }) => (
+          name={"unitRequirement"}
+          render={({ field: { value, onChange, ref, ...rest } }) => (
             <Select
               {...rest}
               selectRef={ref}
-              placeholder={t("common.templates.select", { object: t("unit.multiple").toLowerCase() })}
-              options={units.map((x) => toFormUnitHelper(x))}
-              isLoading={unitQuery.isLoading}
-              getOptionLabel={(x) => x.name}
-              getOptionValue={(x) => x.unitId}
-              isMulti={true}
-              isDisabled={limited}
-              onChange={(val) => {
-                if (val.filter((x) => x.unitId === defaultUnit?.unitId).length === 0) {
-                  if (val.length === 0) setValue("defaultUnit", null);
-                  else setValue("defaultUnit", val[0]);
-                }
-                onChange(val);
+              placeholder={t("common.templates.select", { object: t("attribute.unitRequirement").toLowerCase() })}
+              options={unitRequirementsOptions}
+              getOptionLabel={(x) => x.label}
+              onChange={(x) => {
+                onChange(x?.value);
               }}
+              value={unitRequirementsOptions.find((x) => x.value === value)}
             />
           )}
         />
       </FormField>
 
-      {chosenUnits.length > 0 && (
-        <FormField label={t("unit.defaultUnitTitle")} error={errors.defaultUnit}>
-          <Controller
-            name="defaultUnit"
-            control={control}
-            render={({ field: { ref, ...rest } }) => (
-              <Select
-                {...rest}
-                selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("unit.defaultUnitTitle").toLowerCase() })}
-                options={chosenUnits}
-                isLoading={unitQuery.isLoading}
-                getOptionLabel={(x) => x.name}
-                getOptionValue={(x) => x.unitId}
-                defaultValue={chosenUnits[0]}
-                isDisabled={limited}
-              />
-            )}
-          />
-        </FormField>
-      )}
+      <FormField label={t("attribute.provenanceQualifier")} error={errors.provenanceQualifier}>
+        <Controller
+          control={control}
+          name={"provenanceQualifier"}
+          render={({ field: { value, onChange, ref, ...rest } }) => (
+            <Select
+              {...rest}
+              selectRef={ref}
+              placeholder={t("common.templates.select", { object: t("attribute.provenanceQualifier").toLowerCase() })}
+              options={provenanceQualifierOptions}
+              getOptionLabel={(x) => x.label}
+              onChange={(x) => {
+                onChange(x?.value);
+              }}
+              value={provenanceQualifierOptions.find((x) => x.value === value)}
+              isClearable
+            />
+          )}
+        />
+      </FormField>
 
-      <FormField label={t("attribute.description")} error={errors.description}>
-        <Textarea placeholder={t("attribute.placeholders.description")} {...register("description")} />
+      <FormField label={t("attribute.rangeQualifier")} error={errors.rangeQualifier}>
+        <Controller
+          control={control}
+          name={"rangeQualifier"}
+          render={({ field: { value, onChange, ref, ...rest } }) => (
+            <Select
+              {...rest}
+              selectRef={ref}
+              placeholder={t("common.templates.select", { object: t("attribute.rangeQualifier").toLowerCase() })}
+              options={rangeQualifierOptions}
+              getOptionLabel={(x) => x.label}
+              onChange={(x) => {
+                onChange(x?.value);
+              }}
+              value={rangeQualifierOptions.find((x) => x.value === value)}
+              isClearable
+            />
+          )}
+        />
+      </FormField>
+
+      <FormField label={t("attribute.regularityQualifier")} error={errors.regularityQualifier}>
+        <Controller
+          control={control}
+          name={"regularityQualifier"}
+          render={({ field: { value, onChange, ref, ...rest } }) => (
+            <Select
+              {...rest}
+              selectRef={ref}
+              placeholder={t("common.templates.select", { object: t("attribute.regularityQualifier").toLowerCase() })}
+              options={regularityQualifierOptions}
+              getOptionLabel={(x) => x.label}
+              onChange={(x) => {
+                onChange(x?.value);
+              }}
+              value={regularityQualifierOptions.find((x) => x.value === value)}
+              isClearable
+            />
+          )}
+        />
+      </FormField>
+
+      <FormField label={t("attribute.scopeQualifier")} error={errors.scopeQualifier}>
+        <Controller
+          control={control}
+          name={"scopeQualifier"}
+          render={({ field: { value, onChange, ref, ...rest } }) => (
+            <Select
+              {...rest}
+              selectRef={ref}
+              placeholder={t("common.templates.select", { object: t("attribute.scopeQualifier").toLowerCase() })}
+              options={scopeQualifierOptions}
+              getOptionLabel={(x) => x.label}
+              onChange={(x) => {
+                onChange(x?.value);
+              }}
+              value={scopeQualifierOptions.find((x) => x.value === value)}
+              isClearable
+            />
+          )}
+        />
       </FormField>
     </FormBaseFieldsContainer>
   );

@@ -1,6 +1,7 @@
-import { AttributeLibAm, State } from "@mimirorg/typelibrary-types";
+import { State } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { attributeApi } from "./attribute.api";
+import { AttributeTypeRequest } from "common/types/attributes/attributeTypeRequest";
 
 const keys = {
   allAttributes: ["attributes"] as const,
@@ -20,7 +21,7 @@ export const useGetAttribute = (id?: string) =>
 export const useCreateAttribute = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: AttributeLibAm) => attributeApi.postAttribute(item), {
+  return useMutation((item: AttributeTypeRequest) => attributeApi.postAttribute(item), {
     onSuccess: () => queryClient.invalidateQueries(keys.allAttributes),
   });
 };
@@ -28,7 +29,7 @@ export const useCreateAttribute = () => {
 export const useUpdateAttribute = (id?: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: AttributeLibAm) => attributeApi.putAttribute(item, id), {
+  return useMutation((item: AttributeTypeRequest) => attributeApi.putAttribute(item, id), {
     onSuccess: (unit) => queryClient.invalidateQueries(keys.attribute(unit.id)),
   });
 };

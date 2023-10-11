@@ -1,7 +1,7 @@
 export enum ConstraintType {
-  HasValue = 0,
-  In = 1,
-  DataType = 2,
-  Pattern = 3,
-  Range = 4,
+  HasSpecificValue = 0,
+  IsInListOfAllowedValues = 1,
+  HasSpecificDataType = 2,
+  MatchesRegexPattern = 3,
+  IsInNumberRange = 4,
 }
