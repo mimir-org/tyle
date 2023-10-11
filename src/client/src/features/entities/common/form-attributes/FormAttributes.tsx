@@ -41,8 +41,7 @@ export const FormAttributes = ({
   //append,
   remove,
   register, //canAddAttributes = true, //limitedAttributes = [], //canRemoveAttributes = true,
-}
-: FormAttributesProps) => {
+}: FormAttributesProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
