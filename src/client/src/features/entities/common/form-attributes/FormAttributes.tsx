@@ -40,9 +40,8 @@ export const FormAttributes = ({
   fields,
   //append,
   remove,
-  register,
-} //canAddAttributes = true,
-//canRemoveAttributes = true,
+  register, //canAddAttributes = true,
+} //canRemoveAttributes = true,
 //limitedAttributes = [],
 : FormAttributesProps) => {
   const theme = useTheme();
