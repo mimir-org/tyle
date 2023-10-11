@@ -101,7 +101,7 @@ public class BlocksController : ControllerBase
                 return StatusCode(207, (("dummy", _mapper.Map<BlockView>(createdBlock.TValue), createdBlock.ErrorMessage)));
             }
 
-            return Created("dummy", _mapper.Map<BlockView>(createdBlock));
+            return Created("dummy", _mapper.Map<BlockView>(createdBlock.TValue));
         }
         catch (Exception)
         {
@@ -139,7 +139,7 @@ public class BlocksController : ControllerBase
                 return StatusCode(207, (("dummy", _mapper.Map<BlockView>(block.TValue), block.ErrorMessage)));
             }
 
-            return Ok(_mapper.Map<BlockView>(block));
+            return Ok(_mapper.Map<BlockView>(block.TValue));
         }
         catch (Exception)
         {

@@ -100,7 +100,7 @@ public class AttributeGroupsController : ControllerBase
                 return StatusCode(207, (("dummy", _mapper.Map<AttributeGroupView>(createdAttributeGroup), createdAttributeGroup.ErrorMessage)));
             }
 
-            return Created("dummy", _mapper.Map<AttributeGroupView>(createdAttributeGroup));
+            return Created("dummy", _mapper.Map<AttributeGroupView>(createdAttributeGroup.TValue));
         }
         catch (Exception)
         {
@@ -139,7 +139,7 @@ public class AttributeGroupsController : ControllerBase
             }
 
 
-            return Ok(_mapper.Map<AttributeGroupView>(attributeGroup));
+            return Ok(_mapper.Map<AttributeGroupView>(attributeGroup.TValue));
         }
         catch (Exception)
         {

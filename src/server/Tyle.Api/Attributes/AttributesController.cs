@@ -97,7 +97,7 @@ public class AttributesController : ControllerBase
                 return StatusCode(207, (("dummy", _mapper.Map<AttributeView>(createdAttribute.TValue), createdAttribute.ErrorMessage)));
             }
 
-            return Created("dummy", _mapper.Map<AttributeView>(createdAttribute));
+            return Created("dummy", _mapper.Map<AttributeView>(createdAttribute.TValue));
         }
         catch (Exception)
         {
@@ -135,7 +135,7 @@ public class AttributesController : ControllerBase
                 return StatusCode(207, (("dummy", _mapper.Map<AttributeView>(attribute.TValue), attribute.ErrorMessage)));
             }
 
-            return Ok(_mapper.Map<AttributeView>(attribute));
+            return Ok(_mapper.Map<AttributeView>(attribute.TValue));
         }
         catch (Exception)
         {

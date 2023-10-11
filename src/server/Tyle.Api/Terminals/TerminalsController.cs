@@ -100,7 +100,7 @@ public class TerminalsController : ControllerBase
                 return StatusCode(207, (("dummy", _mapper.Map<TerminalView>(createdTerminal.TValue), createdTerminal.ErrorMessage)));
             }
 
-            return Created("dummy", _mapper.Map<TerminalView>(createdTerminal));
+            return Created("dummy", _mapper.Map<TerminalView>(createdTerminal.TValue));
         }
         catch (Exception)
         {
@@ -138,7 +138,7 @@ public class TerminalsController : ControllerBase
                 return StatusCode(207, (("dummy", _mapper.Map<TerminalView>(terminal.TValue), terminal.ErrorMessage)));
             }
 
-            return Ok(_mapper.Map<TerminalView>(terminal));
+            return Ok(_mapper.Map<TerminalView>(terminal.TValue));
         }
         catch (Exception)
         {
