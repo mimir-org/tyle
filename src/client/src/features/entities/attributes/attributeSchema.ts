@@ -6,27 +6,36 @@ import { DESCRIPTION_LENGTH, NAME_LENGTH } from "common/types/common/stringLengt
 import { ConstraintType } from "common/types/attributes/constraintType";
 import { XsdDataType } from "common/types/attributes/xsdDataType";
 
-const stringValueObject = (t: TFunction<"translation">) => yup.object({
-  value: yup.string().required(t("attribute.validation.common.string")),
-});
+const stringValueObject = (t: TFunction<"translation">) =>
+  yup.object({
+    value: yup.string().required(t("attribute.validation.common.string")),
+  });
 
-const decimalValueObject = (t: TFunction<"translation">) => yup.object({
-  value: yup.string().matches(/^-?([0-9]*\.)?[0-9]+$/, t("attribute.validation.common.decimal")),
-});
+const decimalValueObject = (t: TFunction<"translation">) =>
+  yup.object({
+    value: yup.string().matches(/^-?([0-9]*\.)?[0-9]+$/, t("attribute.validation.common.decimal")),
+  });
 
-const integerValueObject = (t: TFunction<"translation">) => yup.object({
-  value: yup.string().matches(/^-?[0-9]+$/, t("attribute.validation.common.integer")),
-});
+const integerValueObject = (t: TFunction<"translation">) =>
+  yup.object({
+    value: yup.string().matches(/^-?[0-9]+$/, t("attribute.validation.common.integer")),
+  });
 
-const uriValueObject = (t: TFunction<"translation">) => yup.object({
-  value: yup.string().required(t("attribute.validation.common.iri")).url(t("attribute.validation.common.iri")),
-});
+const uriValueObject = (t: TFunction<"translation">) =>
+  yup.object({
+    value: yup.string().required(t("attribute.validation.common.iri")).url(t("attribute.validation.common.iri")),
+  });
 
 export const attributeSchema = (t: TFunction<"translation">) =>
   yup.object<YupShape<AttributeFormFields>>({
-    name: yup.string().max(NAME_LENGTH, t("common.validation.name.max", { length: NAME_LENGTH })).required(t("common.validation.name.required")),
+    name: yup
+      .string()
+      .max(NAME_LENGTH, t("common.validation.name.max", { length: NAME_LENGTH }))
+      .required(t("common.validation.name.required")),
 
-    description: yup.string().max(DESCRIPTION_LENGTH, t("common.validation.description.max", { length: DESCRIPTION_LENGTH })),
+    description: yup
+      .string()
+      .max(DESCRIPTION_LENGTH, t("common.validation.description.max", { length: DESCRIPTION_LENGTH })),
 
     constraintType: yup.number().when("valueConstraint", {
       is: true,
@@ -61,12 +70,17 @@ export const attributeSchema = (t: TFunction<"translation">) =>
         then: (schema) =>
           schema
             .required(t("attribute.validation.value.boolean"))
-            .test("validBooleanCheck", t("attribute.validation.value.boolean"), (value) => !value || ["true", "false"].includes(value.toLowerCase())),
+            .test(
+              "validBooleanCheck",
+              t("attribute.validation.value.boolean"),
+              (value) => !value || ["true", "false"].includes(value.toLowerCase()),
+            ),
       })
       .when(["constraintType", "dataType"], {
         is: (ct: ConstraintType, dt: XsdDataType) =>
           ct === ConstraintType.HasSpecificValue && dt === XsdDataType.AnyUri,
-        then: (schema) => schema.required(t("attribute.validation.common.iri")).url(t("attribute.validation.common.iri")),
+        then: (schema) =>
+          schema.required(t("attribute.validation.common.iri")).url(t("attribute.validation.common.iri")),
       }),
 
     valueList: yup
@@ -128,6 +142,11 @@ export const attributeSchema = (t: TFunction<"translation">) =>
       })
       .when(["constraintType", "minValue"], {
         is: (ct: ConstraintType, mv: string) => ct === ConstraintType.IsInNumberRange && !!mv,
-        then: (schema) => schema.test("validRangeCheck", t("attribute.validation.range.invalid"), (value, context) => !value || Number(value) > Number(context.parent.minValue)),
+        then: (schema) =>
+          schema.test(
+            "validRangeCheck",
+            t("attribute.validation.range.invalid"),
+            (value, context) => !value || Number(value) > Number(context.parent.minValue),
+          ),
       }),
   });

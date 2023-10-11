@@ -64,7 +64,7 @@ export function usePatchMutation(item: ItemType) {
     case "AttributeItem":
       return patchAttributeMutation;
     //case "AttributeGroupItem":
-      //return patchAttributeGroup;
+    //return patchAttributeGroup;
     case "QuantityDatumItem":
       return patchQuantityDatumMutation;
     case "RdsItem":
@@ -72,7 +72,7 @@ export function usePatchMutation(item: ItemType) {
     case "TerminalItem":
       return patchTerminalMutation;
     //case "UnitItem":
-      //return patchUnitMutation;
+    //return patchUnitMutation;
     default:
       throw new Error("Unknown item kind");
   }
@@ -101,7 +101,7 @@ export function useDeleteMutation(item: ItemType) {
     case "TerminalItem":
       return deleteTerminalMutation;
     //case "UnitItem":
-      //return deleteUnitMutation;
+    //return deleteUnitMutation;
     default:
       throw new Error("Unknown item kind");
   }

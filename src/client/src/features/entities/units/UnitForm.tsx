@@ -52,10 +52,10 @@ export const UnitForm = ({ defaultValues = createEmptyUnit(), mode }: UnitFormPr
           //onSubmitForm(data, mutation.mutateAsync, toast);
         })}
       >
-        {/*isLoading ? (
+        {
+          /*isLoading ? (
           <Loader />
-        ) : */(
-          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.mimirorg.spacing.multiple(6)}>
+        ) : */ <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.mimirorg.spacing.multiple(6)}>
             <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
               <Text variant={"display-small"}>{t("unit.title")}</Text>
               {/*<UnitFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />*/}
@@ -70,7 +70,7 @@ export const UnitForm = ({ defaultValues = createEmptyUnit(), mode }: UnitFormPr
             </Flexbox>
             <UnitFormPreview control={control} />
           </Box>
-        )}
+        }
         <DevTool control={control} placement={"bottom-right"} />
       </FormContainer>
     </FormProvider>

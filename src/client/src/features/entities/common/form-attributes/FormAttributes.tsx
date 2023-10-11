@@ -41,10 +41,10 @@ export const FormAttributes = ({
   //append,
   remove,
   register,
-  //canAddAttributes = true,
-  //canRemoveAttributes = true,
-  //limitedAttributes = [],
-}: FormAttributesProps) => {
+} //canAddAttributes = true,
+//canRemoveAttributes = true,
+//limitedAttributes = [],
+: FormAttributesProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
@@ -73,21 +73,19 @@ export const FormAttributes = ({
         {fields.map((field, index) => {
           //const attribute = selected.find((x) => x.id === field.value);
           return (
-            /*attribute &&*/ (
-              <Token
-                variant={"secondary"}
-                //key={attribute.id}
-                key={index}
-                {...register(index)}
-                //actionable={canRemoveAttributes && !limitedAttributes.map((x) => x.id).includes(attribute.id ?? "")}
-                actionIcon={<XCircle />}
-                actionText={t("common.attributes.remove")}
-                onAction={() => remove(index)}
-                dangerousAction
-              >
-                {/*attribute.name*/}
-              </Token>
-            )
+            /*attribute &&*/ <Token
+              variant={"secondary"}
+              //key={attribute.id}
+              key={index}
+              {...register(index)}
+              //actionable={canRemoveAttributes && !limitedAttributes.map((x) => x.id).includes(attribute.id ?? "")}
+              actionIcon={<XCircle />}
+              actionText={t("common.attributes.remove")}
+              onAction={() => remove(index)}
+              dangerousAction
+            >
+              {/*attribute.name*/}
+            </Token>
           );
         })}
       </Flexbox>
