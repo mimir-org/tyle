@@ -15,12 +15,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.11" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.11" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
-        <PackageReference Include="xunit" Version="2.5.0" />
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.5.0">
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+        <PackageReference Include="xunit" Version="2.5.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.5.1">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
@@ -31,9 +28,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Tyle.Api\Tyle.Api.csproj" />
-        <ProjectReference Include="..\..\Tyle.Persistence\Tyle.Persistence.csproj" />
-        <ProjectReference Include="..\..\Tyle.Application\Tyle.Application.csproj" />
         <ProjectReference Include="..\Tyle.Test.Setup\Tyle.Test.Setup.csproj" />
     </ItemGroup>
 

@@ -27,5 +27,10 @@ type EnumObject = { [key: string]: string | number };
 export const getOptionsFromEnum = <T>(enumObject: EnumObject): Option<T>[] => {
   return Object.keys(enumObject)
     .filter((v) => isNaN(Number(v)))
-    .map((k) => ({ value: enumObject[k] as unknown as T, label: k }));
+    .map((k) => ({ value: enumObject[k] as unknown as T, label: addSpacesToPascalCase(k) }));
+};
+
+const addSpacesToPascalCase = (s: string): string => {
+  const wordsArray = s.split(/(?=[A-Z])/);
+  return wordsArray.join(" ");
 };

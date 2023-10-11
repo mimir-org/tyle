@@ -30,10 +30,6 @@ public class ValueConstraintRequest : IValidatableObject
 
     public decimal? MaxValue { get; set; }
 
-    public bool? MinInclusive { get; set; }
-
-    public bool? MaxInclusive { get; set; }
-
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
         if (ConstraintType == ConstraintType.HasValue)
@@ -115,14 +111,6 @@ public class ValueConstraintRequest : IValidatableObject
                 if (MinValue == null && MaxValue == null)
                 {
                     yield return new ValidationResult("Constraints of type Range must provide at least an upper or lower bound.");
-                }
-                if (MinValue != null && MinInclusive == null)
-                {
-                    yield return new ValidationResult("When providing a lower bound, the lower inclusive/exclusive parameter must be set.");
-                }
-                if (MaxValue != null && MaxInclusive == null)
-                {
-                    yield return new ValidationResult("When providing an upper bound, the upper inclusive/exclusive parameter must be set.");
                 }
                 if (DataType == XsdDataType.Decimal && MinValue >= MaxValue)
                 {

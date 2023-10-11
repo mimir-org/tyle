@@ -37,7 +37,7 @@ public class ClassifiersControllerTests : IntegrationTest
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-        var responseContent = JsonConvert.DeserializeObject<RdlClassifier>(response.Content.ReadAsStringAsync().Result);
+        var responseContent = JsonConvert.DeserializeObject<RdlClassifier>(await response.Content.ReadAsStringAsync());
 
         Assert.Equal(classifierRequest.Name, responseContent?.Name);
         Assert.Equal(classifierRequest.Description, responseContent?.Description);
@@ -47,7 +47,7 @@ public class ClassifiersControllerTests : IntegrationTest
     [Fact]
     public async Task GET_Returns_Larger_Collection_After_Creation()
     {
-        var initialCollection = JsonConvert.DeserializeObject<List<RdlClassifier>>((await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync().Result);
+        var initialCollection = JsonConvert.DeserializeObject<List<RdlClassifier>>(await (await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync());
 
         var initialCollectionCount = initialCollection?.Count;
 
@@ -62,7 +62,7 @@ public class ClassifiersControllerTests : IntegrationTest
         await Client.PostAsync(Endpoint, JsonContent.Create(classifierRequest));
         await Client.PostAsync(Endpoint, JsonContent.Create(classifierRequest));
 
-        var collection = JsonConvert.DeserializeObject<List<RdlClassifier>>((await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync().Result);
+        var collection = JsonConvert.DeserializeObject<List<RdlClassifier>>(await (await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync());
         var collectionCount = collection?.Count;
 
         Assert.Equal(initialCollectionCount + 3, collectionCount);
@@ -80,7 +80,7 @@ public class ClassifiersControllerTests : IntegrationTest
 
         var postResponse = await Client.PostAsync(Endpoint, JsonContent.Create(classifierRequest));
 
-        var postResponseContent = JsonConvert.DeserializeObject<RdlClassifier>(postResponse.Content.ReadAsStringAsync().Result);
+        var postResponseContent = JsonConvert.DeserializeObject<RdlClassifier>(await postResponse.Content.ReadAsStringAsync());
 
         var getResponse = await Client.GetAsync($"{Endpoint}/{postResponseContent?.Id}");
 
@@ -107,9 +107,9 @@ public class ClassifiersControllerTests : IntegrationTest
 
         var postResponse = await Client.PostAsync(Endpoint, JsonContent.Create(classifierRequest));
 
-        var postResponseContent = JsonConvert.DeserializeObject<RdlClassifier>(postResponse.Content.ReadAsStringAsync().Result);
+        var postResponseContent = JsonConvert.DeserializeObject<RdlClassifier>(await postResponse.Content.ReadAsStringAsync());
 
-        var initialCollection = JsonConvert.DeserializeObject<List<RdlClassifier>>((await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync().Result);
+        var initialCollection = JsonConvert.DeserializeObject<List<RdlClassifier>>(await (await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync());
 
         var initialCollectionCount = initialCollection?.Count;
 
@@ -117,7 +117,7 @@ public class ClassifiersControllerTests : IntegrationTest
 
         Assert.Equal(HttpStatusCode.NoContent, deleteResponse.StatusCode);
 
-        var collection = JsonConvert.DeserializeObject<List<RdlClassifier>>((await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync().Result);
+        var collection = JsonConvert.DeserializeObject<List<RdlClassifier>>(await (await Client.GetAsync(Endpoint)).Content.ReadAsStringAsync());
         var collectionCount = collection?.Count;
 
         Assert.Equal(initialCollectionCount - 1, collectionCount);

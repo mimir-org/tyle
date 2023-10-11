@@ -1,16 +1,16 @@
 import { DevTool } from "@hookform/devtools";
-import { UnitLibCm, UnitLibAm, State } from "@mimirorg/typelibrary-types";
-import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
-import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
-import { Loader } from "features/common/loader";
-import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
-import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
-import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
+import { UnitLibAm } from "@mimirorg/typelibrary-types";
+//import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
+//import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
+//import { Loader } from "features/common/loader";
+//import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
+//import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
+//import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { createEmptyUnit, toUnitLibAm } from "./types/formUnitLib";
-import { useUnitMutation, useUnitQuery } from "./UnitForm.helpers";
-import UnitFormBaseFields from "./UnitFormBaseFields";
+import { createEmptyUnit } from "./types/formUnitLib";
+//import { useUnitMutation, useUnitQuery } from "./UnitForm.helpers";
+//import UnitFormBaseFields from "./UnitFormBaseFields";
 import { UnitFormPreview } from "../entityPreviews/unit/UnitFormPreview";
 import { FormMode } from "../types/formMode";
 import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
@@ -33,32 +33,32 @@ export const UnitForm = ({ defaultValues = createEmptyUnit(), mode }: UnitFormPr
     resolver: yupResolver(unitSchema(t)),
   });
 
-  const { handleSubmit, control, setError, reset } = formMethods;
+  const { handleSubmit, control } = formMethods;
 
-  const query = useUnitQuery();
-  const mapper = (source: UnitLibCm) => toUnitLibAm(source);
-  const [_, isLoading] = usePrefilledForm(query, mapper, reset);
+  //const query = useUnitQuery();
+  //const mapper = (source: UnitLibCm) => toUnitLibAm(source);
+  //const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
-  const mutation = useUnitMutation(query.data?.id, mode);
-  useServerValidation(mutation.error, setError);
-  useNavigateOnCriteria("/", mutation.isSuccess);
+  //const mutation = useUnitMutation(query.data?.id, mode);
+  //useServerValidation(mutation.error, setError);
+  //seNavigateOnCriteria("/", mutation.isSuccess);
 
-  const toast = useSubmissionToast(t("unit.title"));
+  //const toast = useSubmissionToast(t("unit.title"));
 
   return (
     <FormProvider {...formMethods}>
       <FormContainer
-        onSubmit={handleSubmit((data) => {
-          onSubmitForm(data, mutation.mutateAsync, toast);
+        onSubmit={handleSubmit(() => {
+          //onSubmitForm(data, mutation.mutateAsync, toast);
         })}
       >
-        {isLoading ? (
+        {
+          /*isLoading ? (
           <Loader />
-        ) : (
-          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.mimirorg.spacing.multiple(6)}>
+        ) : */ <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.mimirorg.spacing.multiple(6)}>
             <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
               <Text variant={"display-small"}>{t("unit.title")}</Text>
-              <UnitFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
+              {/*<UnitFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />*/}
               <Flexbox justifyContent={"center"} gap={theme.mimirorg.spacing.xl}>
                 <PlainLink tabIndex={-1} to={"/"}>
                   <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
@@ -70,7 +70,7 @@ export const UnitForm = ({ defaultValues = createEmptyUnit(), mode }: UnitFormPr
             </Flexbox>
             <UnitFormPreview control={control} />
           </Box>
-        )}
+        }
         <DevTool control={control} placement={"bottom-right"} />
       </FormContainer>
     </FormProvider>

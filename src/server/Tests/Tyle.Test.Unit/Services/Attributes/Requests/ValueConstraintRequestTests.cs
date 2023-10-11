@@ -47,8 +47,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
             ConstraintType = ConstraintType.Range,
             DataType = XsdDataType.Integer,
             MinCount = minCount,
-            MinValue = 15,
-            MinInclusive = true
+            MinValue = 15
         };
 
         var validationContext = new ValidationContext(valueConstraintRequest);
@@ -248,9 +247,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
             DataType = dataType,
             MinCount = 1,
             MinValue = 12,
-            MaxValue = 15,
-            MinInclusive = false,
-            MaxInclusive = true
+            MaxValue = 15
         };
 
         var validationContext = new ValidationContext(valueConstraintRequest);
@@ -262,7 +259,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
 
     [Theory]
     [MemberData(nameof(RangeBoundsExamples))]
-    public void RangeBoundsValidateCorrectly(decimal? minValue, decimal? maxValue, bool? minInclusive, bool? maxInclusive, bool result)
+    public void RangeBoundsValidateCorrectly(decimal? minValue, decimal? maxValue, bool result)
     {
         var valueConstraintRequest = new ValueConstraintRequest
         {
@@ -270,9 +267,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
             DataType = XsdDataType.Decimal,
             MinCount = 1,
             MinValue = minValue,
-            MaxValue = maxValue,
-            MinInclusive = minInclusive,
-            MaxInclusive = maxInclusive
+            MaxValue = maxValue
         };
 
         var validationContext = new ValidationContext(valueConstraintRequest);
@@ -284,14 +279,12 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
 
     public static IEnumerable<object?[]> RangeBoundsExamples()
     {
-        yield return new object?[] { null, null, null, null, false };
-        yield return new object?[] { 1M, null, false, null, true };
-        yield return new object?[] { null, 2000M, null, true, true };
-        yield return new object?[] { 23M, 24M, null, true, false };
-        yield return new object?[] { null, 15M, null, null, false };
-        yield return new object?[] { 23.4M, 23.4M, true, true, false };
-        yield return new object?[] { 23.4M, 23.5M, true, true, true };
-        yield return new object?[] { 23.5M, 23.4M, true, true, false };
+        yield return new object?[] { null, null, false };
+        yield return new object?[] { 1M, null, true };
+        yield return new object?[] { null, 2000M, true };
+        yield return new object?[] { 23.4M, 23.4M, false };
+        yield return new object?[] { 23.4M, 23.5M, true };
+        yield return new object?[] { 23.5M, 23.4M, false };
     }
 
     [Theory]
@@ -304,9 +297,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
             DataType = XsdDataType.Integer,
             MinCount = 1,
             MinValue = minValue,
-            MaxValue = maxValue,
-            MinInclusive = false,
-            MaxInclusive = false
+            MaxValue = maxValue
         };
 
         var validationContext = new ValidationContext(valueConstraintRequest);

@@ -6,14 +6,14 @@ import { ValueConstraintRequest } from "./valueConstraintRequest";
 
 export interface AttributeTypeRequest {
   name: string;
-  description: string | null;
-  predicateId: number | null;
+  description: string | undefined;
+  predicateId: number | undefined;
   unitIds: number[];
   unitMinCount: number;
   unitMaxCount: number;
-  provenanceQualifier: ProvenanceQualifier | null;
-  rangeQualifier: RangeQualifier | null;
-  regularityQualifier: RegularityQualifier | null;
-  scopeQualifier: ScopeQualifier | null;
-  valueConstraint: ValueConstraintRequest | null;
+  provenanceQualifier: ProvenanceQualifier | undefined;
+  rangeQualifier: RangeQualifier | undefined;
+  regularityQualifier: RegularityQualifier | undefined;
+  scopeQualifier: ScopeQualifier | undefined;
+  valueConstraint: ValueConstraintRequest | undefined;
 }

@@ -84,8 +84,6 @@ public class AttributeViewProfile : Profile
         result.Pattern = valueConstraint.Pattern;
         result.MinValue = valueConstraint.MinValue;
         result.MaxValue = valueConstraint.MaxValue;
-        result.MinInclusive = valueConstraint.MinInclusive;
-        result.MaxInclusive = valueConstraint.MaxInclusive;
 
         return result;
     }

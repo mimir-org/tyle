@@ -1,7 +1,7 @@
 export interface ImfType {
   id: string;
   name: string;
-  description: string | null;
+  description: string | undefined;
   version: string;
   createdOn: Date;
   createdBy: string;

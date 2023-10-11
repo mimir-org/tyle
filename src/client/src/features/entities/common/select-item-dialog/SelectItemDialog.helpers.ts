@@ -15,10 +15,15 @@ export const filterInfoItem = (item: InfoItem, query: string) => {
   return queryTokens.every((t) => matchTarget.includes(t.toLowerCase()));
 };
 
-export const onSelectionChange = (id: string, selected: string[], setSelected: (ids: string[]) => void) => {
+export const onSelectionChange = (
+  id: string,
+  selected: string[],
+  setSelected: (ids: string[]) => void,
+  isMultiSelect: boolean,
+) => {
   if (selected.includes(id)) {
     setSelected(selected.filter((x) => x !== id));
   } else {
-    setSelected([...selected, id]);
+    isMultiSelect ? setSelected([...selected, id]) : setSelected([id]);
   }
 };
