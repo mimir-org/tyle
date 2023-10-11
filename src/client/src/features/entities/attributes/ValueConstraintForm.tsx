@@ -177,7 +177,7 @@ export const ValueConstraintForm = () => {
                       {...rest}
                       selectRef={ref}
                       placeholder={t("common.templates.select", {
-                        object: "value",
+                        object: t("attribute.valueConstraint.value").toLowerCase(),
                       })}
                       options={booleanOptions}
                       getOptionLabel={(x) => x.label}

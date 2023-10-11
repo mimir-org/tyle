@@ -36,11 +36,11 @@ export const AttributeFormUnits = ({ canAddUnits = true }: AttributeFormUnitsPro
       action={
         canAddUnits && (
           <SelectItemDialog
-            title="Add units"
-            description="A unit is nice to have"
-            searchFieldText="Find units"
-            addItemsButtonText="Add"
-            openDialogButtonText="test"
+            title={t("attribute.units.title")}
+            description={t("attribute.units.description")}
+            searchFieldText={t("attribute.units.search")}
+            addItemsButtonText={t("attribute.units.add")}
+            openDialogButtonText={t("attribute.units.open")}
             items={unitInfoItems}
             onAdd={(ids) => {
               ids.forEach((id) => {
@@ -59,7 +59,7 @@ export const AttributeFormUnits = ({ canAddUnits = true }: AttributeFormUnitsPro
           {...register(`units.${index}`)}
           actionable
           actionIcon={<XCircle />}
-          actionText={t("remove")}
+          actionText={t("attribute.units.remove")}
           onAction={() => unitFields.remove(index)}
           dangerousAction
         >

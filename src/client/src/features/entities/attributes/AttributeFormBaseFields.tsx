@@ -42,11 +42,6 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
   const regularityQualifierOptions = getOptionsFromEnum<RegularityQualifier>(RegularityQualifier);
   const scopeQualifierOptions = getOptionsFromEnum<ScopeQualifier>(ScopeQualifier);
 
-  //const unitQuery = useGetUnits();
-  //const units = unitQuery.data || [];
-  //const chosenUnits = useWatch({ control, name: "units" });
-  //const defaultUnit = useWatch({ control, name: "defaultUnit" });
-
   return (
     <FormBaseFieldsContainer>
       <FormField label={t("attribute.name")} error={errors.name}>
@@ -58,15 +53,15 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
       </FormField>
 
       <FormSection
-        title={t("attribute.predicate")}
+        title={t("attribute.predicate.title")}
         action={
           !chosenPredicate && (
             <SelectItemDialog
-              title="Add predicate"
-              description="A predicate is cool"
-              searchFieldText="Find predicate"
-              addItemsButtonText="Add"
-              openDialogButtonText="test"
+              title={t("attribute.dialog.title")}
+              description={t("attribute.dialog.description")}
+              searchFieldText={t("attribute.dialog.search")}
+              addItemsButtonText={t("attribute.dialog.add")}
+              openDialogButtonText={t("attribute.dialog.open")}
               items={predicateInfoItems}
               onAdd={(ids) => {
                 setValue("predicateId", Number(ids[0]));
@@ -82,7 +77,7 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
             variant={"secondary"}
             actionable
             actionIcon={<XCircle />}
-            actionText={"Remove"}
+            actionText={t("attribute.predicate.remove")}
             onAction={() => setValue("predicateId", undefined)}
             dangerousAction
           >
