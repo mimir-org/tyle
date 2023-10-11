@@ -128,6 +128,6 @@ export const attributeSchema = (t: TFunction<"translation">) =>
       })
       .when(["constraintType", "minValue"], {
         is: (ct: ConstraintType, mv: string) => ct === ConstraintType.IsInNumberRange && !!mv,
-        then: (schema) => schema.test("validRangeCheck", "blablabla", (value) => !value || Number(value) > Number(yup.ref("minValue"))),
+        then: (schema) => schema.test("validRangeCheck", "blablabla", (value, context) => !value || Number(value) > Number(context.parent.minValue)),
       }),
   });
