@@ -7,6 +7,7 @@ using Mimirorg.Authentication.Models.Attributes;
 using Swashbuckle.AspNetCore.Annotations;
 using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
+using Tyle.Core.Common;
 
 namespace Tyle.Api.Attributes;
 
@@ -81,6 +82,7 @@ public class AttributesController : ControllerBase
     /// <returns>The created attribute</returns>
     [HttpPost]
     [ProducesResponseType(typeof(AttributeView), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ApiResponse<AttributeView>), StatusCodes.Status207MultiStatus)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -90,6 +92,11 @@ public class AttributesController : ControllerBase
         try
         {
             var createdAttribute = await _attributeRepository.Create(request);
+
+            if(createdAttribute.HasError || createdAttribute.ErrorMessage.Count>0) {
+                return StatusCode(207, (("dummy", _mapper.Map<AttributeView>(createdAttribute.TValue), createdAttribute.ErrorMessage)));
+            }
+
             return Created("dummy", _mapper.Map<AttributeView>(createdAttribute));
         }
         catch (Exception)
@@ -106,6 +113,7 @@ public class AttributesController : ControllerBase
     /// <returns>The updated attribute</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(AttributeView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<AttributeView>), StatusCodes.Status207MultiStatus)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -120,6 +128,11 @@ public class AttributesController : ControllerBase
             if (attribute == null)
             {
                 return NotFound();
+            }
+
+            if (attribute.HasError || attribute.ErrorMessage.Count > 0)
+            {
+                return StatusCode(207, (("dummy", _mapper.Map<AttributeView>(attribute.TValue), attribute.ErrorMessage)));
             }
 
             return Ok(_mapper.Map<AttributeView>(attribute));
