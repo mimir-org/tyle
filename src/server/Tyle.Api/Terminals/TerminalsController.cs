@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Models.Attributes;
 using Swashbuckle.AspNetCore.Annotations;
+using Tyle.Api.Blocks;
 using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
+using Tyle.Core.Common;
 
 namespace Tyle.Api.Terminals;
 
@@ -82,6 +84,7 @@ public class TerminalsController : ControllerBase
     /// <returns>The created terminal</returns>
     [HttpPost]
     [ProducesResponseType(typeof(TerminalView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<TerminalView>), StatusCodes.Status207MultiStatus)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -91,6 +94,12 @@ public class TerminalsController : ControllerBase
         try
         {
             var createdTerminal = await _terminalRepository.Create(request);
+
+            if (createdTerminal.HasError || createdTerminal.ErrorMessage.Count > 0)
+            {
+                return StatusCode(207, (("dummy", _mapper.Map<TerminalView>(createdTerminal.TValue), createdTerminal.ErrorMessage)));
+            }
+
             return Created("dummy", _mapper.Map<TerminalView>(createdTerminal));
         }
         catch (Exception)
@@ -107,6 +116,7 @@ public class TerminalsController : ControllerBase
     /// <returns>The updated terminal</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(TerminalView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<TerminalView>), StatusCodes.Status207MultiStatus)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -121,6 +131,11 @@ public class TerminalsController : ControllerBase
             if (terminal == null)
             {
                 return NotFound();
+            }
+
+            if (terminal.HasError || terminal.ErrorMessage.Count > 0)
+            {
+                return StatusCode(207, (("dummy", _mapper.Map<TerminalView>(terminal.TValue), terminal.ErrorMessage)));
             }
 
             return Ok(_mapper.Map<TerminalView>(terminal));

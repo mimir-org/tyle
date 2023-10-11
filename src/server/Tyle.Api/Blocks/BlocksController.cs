@@ -1,3 +1,4 @@
+using System;
 using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -5,8 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Models.Attributes;
 using Swashbuckle.AspNetCore.Annotations;
+using Tyle.Api.Attributes;
 using Tyle.Application.Blocks;
 using Tyle.Application.Blocks.Requests;
+using Tyle.Core.Common;
 
 namespace Tyle.Api.Blocks;
 
@@ -82,6 +85,7 @@ public class BlocksController : ControllerBase
     /// <returns>The created block</returns>
     [HttpPost]
     [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<BlockView>), StatusCodes.Status207MultiStatus)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -91,6 +95,12 @@ public class BlocksController : ControllerBase
         try
         {
             var createdBlock = await _blockRepository.Create(request);
+
+            if (createdBlock.HasError || createdBlock.ErrorMessage.Count > 0)
+            {
+                return StatusCode(207, (("dummy", _mapper.Map<BlockView>(createdBlock.TValue), createdBlock.ErrorMessage)));
+            }
+
             return Created("dummy", _mapper.Map<BlockView>(createdBlock));
         }
         catch (Exception)
@@ -107,6 +117,7 @@ public class BlocksController : ControllerBase
     /// <returns>The updated block</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<BlockView>), StatusCodes.Status207MultiStatus)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -121,6 +132,11 @@ public class BlocksController : ControllerBase
             if (block == null)
             {
                 return NotFound();
+            }
+
+            if (block.HasError || block.ErrorMessage.Count > 0)
+            {
+                return StatusCode(207, (("dummy", _mapper.Map<BlockView>(block.TValue), block.ErrorMessage)));
             }
 
             return Ok(_mapper.Map<BlockView>(block));
