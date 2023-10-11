@@ -38,8 +38,8 @@ export interface AttributeFormFields
   value: string | undefined;
   valueList: ValueObject<string>[];
   pattern: string | undefined;
-  minValue: number | undefined;
-  maxValue: number | undefined;
+  minValue: string | undefined;
+  maxValue: string | undefined;
 }
 
 export enum UnitRequirements {
@@ -70,8 +70,8 @@ export const toAttributeFormFields = (attribute: AttributeView): AttributeFormFi
   value: attribute.valueConstraint?.value?.toString(),
   valueList: attribute.valueConstraint?.valueList?.map((x) => ({ value: x.toString() })) ?? [],
   pattern: attribute.valueConstraint?.pattern,
-  minValue: attribute.valueConstraint?.minValue,
-  maxValue: attribute.valueConstraint?.maxValue,
+  minValue: attribute.valueConstraint?.minValue?.toString(),
+  maxValue: attribute.valueConstraint?.maxValue?.toString(),
 });
 
 export const toAttributeTypeRequest = (attributeFormFields: AttributeFormFields): AttributeTypeRequest => ({
@@ -105,8 +105,8 @@ export const toValueConstraintRequest = (
     value: attributeFormFields.value,
     valueList: attributeFormFields.valueList.map((x) => x.value),
     pattern: attributeFormFields.pattern,
-    minValue: attributeFormFields.minValue,
-    maxValue: attributeFormFields.maxValue,
+    minValue: attributeFormFields.minValue ? Number(attributeFormFields.minValue) : undefined,
+    maxValue: attributeFormFields.maxValue ? Number(attributeFormFields.maxValue) : undefined,
   };
 };
 

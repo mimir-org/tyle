@@ -11,7 +11,7 @@ const stringValueObject = yup.object({
 });
 
 const decimalValueObject = yup.object({
-  value: yup.string().matches(/^-?([0-9]*.)?[0-9]+$/),
+  value: yup.string().matches(/^-?([0-9]*\.)?[0-9]+$/),
 });
 
 const integerValueObject = yup.object({
@@ -48,7 +48,7 @@ export const attributeSchema = (t: TFunction<"translation">) =>
       .when(["constraintType", "dataType"], {
         is: (ct: ConstraintType, dt: XsdDataType) =>
           ct === ConstraintType.HasSpecificValue && dt === XsdDataType.Decimal,
-        then: (schema) => schema.matches(/^-?([0-9]*.)?[0-9]+$/),
+        then: (schema) => schema.matches(/^-?([0-9]*\.)?[0-9]+$/),
       })
       .when(["constraintType", "dataType"], {
         is: (ct: ConstraintType, dt: XsdDataType) =>
@@ -102,7 +102,7 @@ export const attributeSchema = (t: TFunction<"translation">) =>
       .when(["constraintType", "dataType"], {
         is: (ct: ConstraintType, dt: XsdDataType) =>
           ct === ConstraintType.IsInNumberRange && dt === XsdDataType.Decimal,
-        then: (schema) => schema.matches(/^(-?([0-9]*.)?[0-9]+)?$/),
+        then: (schema) => schema.matches(/^(-?([0-9]*\.)?[0-9]+)?$/),
       })
       .when(["constraintType", "dataType"], {
         is: (ct: ConstraintType, dt: XsdDataType) =>
@@ -115,7 +115,7 @@ export const attributeSchema = (t: TFunction<"translation">) =>
       .when(["constraintType", "dataType"], {
         is: (ct: ConstraintType, dt: XsdDataType) =>
           ct === ConstraintType.IsInNumberRange && dt === XsdDataType.Decimal,
-        then: (schema) => schema.matches(/^(-?([0-9]*.)?[0-9]+)?$/),
+        then: (schema) => schema.matches(/^(-?([0-9]*\.)?[0-9]+)?$/),
       })
       .when(["constraintType", "dataType"], {
         is: (ct: ConstraintType, dt: XsdDataType) =>
@@ -125,5 +125,9 @@ export const attributeSchema = (t: TFunction<"translation">) =>
       .when(["constraintType", "minValue"], {
         is: (ct: ConstraintType, mv: string) => ct === ConstraintType.IsInNumberRange && !mv,
         then: (schema) => schema.required(),
+      })
+      .when(["constraintType", "minValue"], {
+        is: (ct: ConstraintType, mv: string) => ct === ConstraintType.IsInNumberRange && !!mv,
+        then: (schema) => schema.test("validRangeCheck", "blablabla", (value) => !value || Number(value) > Number(yup.ref("minValue"))),
       }),
   });
