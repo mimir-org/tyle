@@ -16,7 +16,6 @@ import {
   useAttributeQuery,
 } from "./AttributeForm.helpers";
 import { AttributeFormBaseFields } from "./AttributeFormBaseFields";
-import { AttributeFormPreview } from "../entityPreviews/attribute/AttributeFormPreview";
 import { FormMode } from "../types/formMode";
 import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
@@ -74,8 +73,12 @@ export const AttributeForm = ({ defaultValues = createDefaultAttributeFormFields
                 <Button type={"submit"}>{mode === "edit" ? t("common.edit") : t("common.submit")}</Button>
               </Flexbox>
             </Flexbox>
-            <AttributeFormUnits />
-            <ValueConstraintForm />
+            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
+              <AttributeFormUnits />
+            </Box>
+            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
+              <ValueConstraintForm />
+            </Box>
           </Box>
         )}
         <DevTool control={control} placement={"bottom-right"} />

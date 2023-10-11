@@ -1,5 +1,6 @@
+import { DESCRIPTION_LENGTH, NAME_LENGTH } from "common/types/common/stringLengthConstants";
+import { AttributeFormFields } from "./AttributeForm.helpers";
 import { attributeSchema } from "./attributeSchema";
-import { AttributeFormFields } from "./types/formAttributeLib";
 import { vi } from "vitest";
 
 describe("attributeSchema tests", () => {
@@ -10,13 +11,15 @@ describe("attributeSchema tests", () => {
     await expect(attributeSchema(t).validateAt("name", attributeWithoutName)).rejects.toBeTruthy();
   });
 
-  it("should reject with a name longer than 120 characters", async () => {
-    const attributeWithLongName: Partial<AttributeFormFields> = { name: "c".repeat(121) };
+  it("should reject with a name longer than the limit", async () => {
+    const attributeWithLongName: Partial<AttributeFormFields> = { name: "c".repeat(NAME_LENGTH + 1) };
     await expect(attributeSchema(t).validateAt("name", attributeWithLongName)).rejects.toBeTruthy();
   });
 
-  it("should reject with a description longer than 500 characters", async () => {
-    const attributeWithLongDescription: Partial<AttributeFormFields> = { description: "c".repeat(501) };
+  it("should reject with a description longer than the limit", async () => {
+    const attributeWithLongDescription: Partial<AttributeFormFields> = {
+      description: "c".repeat(DESCRIPTION_LENGTH + 1),
+    };
     await expect(attributeSchema(t).validateAt("description", attributeWithLongDescription)).rejects.toBeTruthy();
   });
 });
