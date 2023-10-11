@@ -40,9 +40,8 @@ export const FormAttributes = ({
   fields,
   //append,
   remove,
-  register, //canAddAttributes = true,
-} //canRemoveAttributes = true,
-//limitedAttributes = [],
+  register, //canAddAttributes = true, //limitedAttributes = [], //canRemoveAttributes = true,
+}
 : FormAttributesProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
