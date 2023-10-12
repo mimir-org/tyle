@@ -7,6 +7,7 @@ import { TerminalView } from "common/types/terminals/terminalView";
 import { Direction } from "common/types/terminals/direction";
 import { RdlMedium } from "common/types/terminals/rdlMedium";
 import { InfoItem } from "common/types/infoItem";
+import { RdlPurpose } from "common/types/common/rdlPurpose";
 
 export const useTerminalQuery = () => {
   const { id } = useParams();
@@ -57,5 +58,23 @@ export const mediumInfoItem = (medium: RdlMedium): InfoItem => ({
   descriptors: {
     Description: medium.description,
     IRI: medium.iri,
+  },
+});
+
+export const classifierInfoItem = (classifier: RdlClassifier): InfoItem => ({
+  id: classifier.id.toString(),
+  name: classifier.name,
+  descriptors: {
+    Description: classifier.description,
+    IRI: classifier.iri,
+  },
+});
+
+export const purposeInfoItem = (purpose: RdlPurpose): InfoItem => ({
+  id: purpose.id.toString(),
+  name: purpose.name,
+  descriptors: {
+    Description: purpose.description,
+    IRI: purpose.iri,
   },
 });

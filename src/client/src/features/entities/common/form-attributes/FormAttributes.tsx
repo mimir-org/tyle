@@ -1,16 +1,18 @@
 import { XCircle } from "@styled-icons/heroicons-outline";
-import { Flexbox, Token } from "@mimirorg/component-library";
+import { Counter, Flexbox, Input, Token } from "@mimirorg/component-library";
 import { useGetAttributes } from "external/sources/attribute/attribute.queries";
 import { onAddAttributes, resolveSelectedAndAvailableAttributes } from "features/entities/common/form-attributes/FormAttributes.helpers";
 import { FormSection } from "features/entities/common/form-section/FormSection";
 import { SelectItemDialog } from "features/entities/common/select-item-dialog/SelectItemDialog";
-import { UseFormRegisterReturn } from "react-hook-form";
+import { Control, Controller, UseFormRegisterReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { AttributeTypeReferenceRequest } from "common/types/common/attributeTypeReferenceRequest";
 import { AttributeView } from "common/types/attributes/attributeView";
+import { TerminalFormFields } from "features/entities/terminal/TerminalForm.helpers";
 
 export interface FormAttributesProps {
+  control: Control<TerminalFormFields>
   fields: AttributeTypeReferenceRequest[];
   append: (item: AttributeTypeReferenceRequest) => void;
   remove: (index: number) => void;
@@ -37,6 +39,7 @@ export interface FormAttributesProps {
  * @constructor
  */
 export const FormAttributes = ({
+  control,
   fields,
   append,
   remove,
@@ -74,7 +77,7 @@ export const FormAttributes = ({
         {fields.map((field, index) => {
           const attribute = selected.find((x) => x.id === field.attributeId);
           return (
-            attribute && <Token
+            attribute && <><Token
               variant={"secondary"}
               key={attribute.id}
               {...register(index)}
@@ -86,6 +89,29 @@ export const FormAttributes = ({
             >
               {attribute.name}
             </Token>
+            <Controller
+              control={control}
+              name={`attributes.${index}.minCount`}
+              render={({ field: { value, ...rest }}) => (
+                <Counter
+                  {...rest}
+                  min={0}
+                  value={value}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name={`attributes.${index}.maxCount`}
+              render={({ field: { value, ...rest }}) => (
+                <Counter
+                  {...rest}
+                  min={1}
+                  value={value ?? 0}
+                />
+              )}
+            />
+            </>
           );
         })}
       </Flexbox>

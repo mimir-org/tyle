@@ -17,6 +17,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { FormMode } from "../types/formMode";
 import { TerminalView } from "common/types/terminals/terminalView";
+import { TerminalFormClassifiers } from "./TerminalFormClassifiers";
 
 interface TerminalFormProps {
   defaultValues?: TerminalFormFields;
@@ -59,7 +60,12 @@ export const TerminalForm = ({ defaultValues = createDefaultTerminalFormFields()
             <TerminalFormBaseFields limited={limited} mode={mode} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
+              <TerminalFormClassifiers />
+            </Box>
+
+            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
               <FormAttributes
+                control={control}
                 register={(index) => register(`attributes.${index}`)}
                 fields={attributeFields.fields}
                 append={attributeFields.append}

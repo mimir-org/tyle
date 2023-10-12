@@ -57,11 +57,11 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
         action={
           !chosenPredicate && (
             <SelectItemDialog
-              title={t("attribute.dialog.title")}
-              description={t("attribute.dialog.description")}
-              searchFieldText={t("attribute.dialog.search")}
-              addItemsButtonText={t("attribute.dialog.add")}
-              openDialogButtonText={t("attribute.dialog.open")}
+              title={t("attribute.predicate.dialog.title")}
+              description={t("attribute.predicate.dialog.description")}
+              searchFieldText={t("attribute.predicate.dialog.search")}
+              addItemsButtonText={t("attribute.predicate.dialog.add")}
+              openDialogButtonText={t("attribute.predicate.dialog.open")}
               items={predicateInfoItems}
               onAdd={(ids) => {
                 setValue("predicateId", Number(ids[0]));
