@@ -100,7 +100,7 @@ export const attributeSchema = (t: TFunction<"translation">) =>
     valueList: yup
       .array()
       .test("uniqueValues", t("attribute.validation.valueList.unique"), (value) => {
-        return value ? value.length === new Set(value.map(x => x.value)).size : true;
+        return value ? value.length === new Set(value.map((x) => x.value)).size : true;
       })
       .when(["constraintType", "dataType"], {
         is: (ct: ConstraintType, dt: XsdDataType) =>
