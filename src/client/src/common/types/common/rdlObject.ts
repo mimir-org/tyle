@@ -3,7 +3,7 @@ import { ReferenceSource } from "./referenceSource";
 export interface RdlObject {
   id: number;
   name: string;
-  description: string | null;
+  description: string | undefined;
   iri: string;
   source: ReferenceSource;
 }

@@ -4,13 +4,13 @@ import { Direction } from "./direction";
 
 export interface TerminalTypeRequest {
   name: string;
-  description: string | null;
+  description: string | undefined;
   classifierIds: number[];
-  purposeId: number | null;
-  notation: string | null;
-  symbol: string | null;
-  aspect: Aspect | null;
-  mediumId: number | null;
+  purposeId: number | undefined;
+  notation: string | undefined;
+  symbol: string | undefined;
+  aspect: Aspect | undefined;
+  mediumId: number | undefined;
   qualifier: Direction;
   attributes: AttributeTypeReferenceRequest[];
 }
