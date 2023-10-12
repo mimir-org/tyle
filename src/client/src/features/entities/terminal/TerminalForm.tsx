@@ -9,7 +9,14 @@ import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
 import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
 import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
-import { TerminalFormFields, createDefaultTerminalFormFields, toTerminalFormFields, toTerminalTypeRequest, useTerminalMutation, useTerminalQuery } from "features/entities/terminal/TerminalForm.helpers";
+import {
+  TerminalFormFields,
+  createDefaultTerminalFormFields,
+  toTerminalFormFields,
+  toTerminalTypeRequest,
+  useTerminalMutation,
+  useTerminalQuery,
+} from "features/entities/terminal/TerminalForm.helpers";
 import { TerminalFormBaseFields } from "features/entities/terminal/TerminalFormBaseFields";
 import { terminalSchema } from "features/entities/terminal/terminalSchema";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";

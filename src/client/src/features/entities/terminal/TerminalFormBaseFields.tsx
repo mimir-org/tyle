@@ -100,14 +100,14 @@ export const TerminalFormBaseFields = ({ mode, limited }: TerminalFormBaseFields
       </FormSection>
 
       <FormField label={t("terminal.notation")} error={errors.notation}>
-          <Input placeholder={t("terminal.placeholders.notation")} {...register("notation")} disabled={limited} />
-        </FormField>
+        <Input placeholder={t("terminal.placeholders.notation")} {...register("notation")} disabled={limited} />
+      </FormField>
 
-        <FormField label={t("terminal.symbol")} error={errors.symbol}>
-          <Input placeholder={t("terminal.placeholders.symbol")} {...register("symbol")} disabled={limited} />
-        </FormField>
+      <FormField label={t("terminal.symbol")} error={errors.symbol}>
+        <Input placeholder={t("terminal.placeholders.symbol")} {...register("symbol")} disabled={limited} />
+      </FormField>
 
-        <FormField label={t("terminal.aspect")} error={errors.aspect}>
+      <FormField label={t("terminal.aspect")} error={errors.aspect}>
         <Controller
           control={control}
           name={"aspect"}

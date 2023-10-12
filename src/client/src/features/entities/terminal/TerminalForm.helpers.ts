@@ -30,13 +30,17 @@ export const toTerminalFormFields = (terminal: TerminalView): TerminalFormFields
   description: terminal.description ?? "",
   purposeId: terminal.purpose?.id,
   mediumId: terminal.medium?.id,
-  attributes: terminal.attributes.map((x) => ({ attributeId: x.attribute.id, minCount: x.minCount, maxCount: x.maxCount }))
+  attributes: terminal.attributes.map((x) => ({
+    attributeId: x.attribute.id,
+    minCount: x.minCount,
+    maxCount: x.maxCount,
+  })),
 });
 
 export const toTerminalTypeRequest = (terminalFormFields: TerminalFormFields): TerminalTypeRequest => ({
   ...terminalFormFields,
   description: terminalFormFields.description ? terminalFormFields.description : undefined,
-  classifierIds: terminalFormFields.classifiers.map(x => x.id)
+  classifierIds: terminalFormFields.classifiers.map((x) => x.id),
 });
 
 export const createDefaultTerminalFormFields = (): TerminalFormFields => ({
@@ -49,7 +53,7 @@ export const createDefaultTerminalFormFields = (): TerminalFormFields => ({
   aspect: undefined,
   mediumId: undefined,
   qualifier: Direction.Bidirectional,
-  attributes: []
+  attributes: [],
 });
 
 export const mediumInfoItem = (medium: RdlMedium): InfoItem => ({

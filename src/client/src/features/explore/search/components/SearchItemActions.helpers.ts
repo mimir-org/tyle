@@ -70,7 +70,7 @@ export function usePatchMutation(item: ItemType) {
     case "RdsItem":
       return patchRdsMutation;
     //case "TerminalItem":
-      //return patchTerminalMutation;
+    //return patchTerminalMutation;
     //case "UnitItem":
     //return patchUnitMutation;
     default:

@@ -1,7 +1,10 @@
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { Counter, Flexbox, Input, Token } from "@mimirorg/component-library";
 import { useGetAttributes } from "external/sources/attribute/attribute.queries";
-import { onAddAttributes, resolveSelectedAndAvailableAttributes } from "features/entities/common/form-attributes/FormAttributes.helpers";
+import {
+  onAddAttributes,
+  resolveSelectedAndAvailableAttributes,
+} from "features/entities/common/form-attributes/FormAttributes.helpers";
 import { FormSection } from "features/entities/common/form-section/FormSection";
 import { SelectItemDialog } from "features/entities/common/select-item-dialog/SelectItemDialog";
 import { Control, Controller, UseFormRegisterReturn } from "react-hook-form";
@@ -12,7 +15,7 @@ import { AttributeView } from "common/types/attributes/attributeView";
 import { TerminalFormFields } from "features/entities/terminal/TerminalForm.helpers";
 
 export interface FormAttributesProps {
-  control: Control<TerminalFormFields>
+  control: Control<TerminalFormFields>;
   fields: AttributeTypeReferenceRequest[];
   append: (item: AttributeTypeReferenceRequest) => void;
   remove: (index: number) => void;
@@ -77,41 +80,32 @@ export const FormAttributes = ({
         {fields.map((field, index) => {
           const attribute = selected.find((x) => x.id === field.attributeId);
           return (
-            attribute && <><Token
-              variant={"secondary"}
-              key={attribute.id}
-              {...register(index)}
-              actionable={canRemoveAttributes && !limitedAttributes.map((x) => x.id).includes(attribute.id ?? "")}
-              actionIcon={<XCircle />}
-              actionText={t("common.attributes.remove")}
-              onAction={() => remove(index)}
-              dangerousAction
-            >
-              {attribute.name}
-            </Token>
-            <Controller
-              control={control}
-              name={`attributes.${index}.minCount`}
-              render={({ field: { value, ...rest }}) => (
-                <Counter
-                  {...rest}
-                  min={0}
-                  value={value}
+            attribute && (
+              <>
+                <Token
+                  variant={"secondary"}
+                  key={attribute.id}
+                  {...register(index)}
+                  actionable={canRemoveAttributes && !limitedAttributes.map((x) => x.id).includes(attribute.id ?? "")}
+                  actionIcon={<XCircle />}
+                  actionText={t("common.attributes.remove")}
+                  onAction={() => remove(index)}
+                  dangerousAction
+                >
+                  {attribute.name}
+                </Token>
+                <Controller
+                  control={control}
+                  name={`attributes.${index}.minCount`}
+                  render={({ field: { value, ...rest } }) => <Counter {...rest} min={0} value={value} />}
                 />
-              )}
-            />
-            <Controller
-              control={control}
-              name={`attributes.${index}.maxCount`}
-              render={({ field: { value, ...rest }}) => (
-                <Counter
-                  {...rest}
-                  min={1}
-                  value={value ?? 0}
+                <Controller
+                  control={control}
+                  name={`attributes.${index}.maxCount`}
+                  render={({ field: { value, ...rest } }) => <Counter {...rest} min={1} value={value ?? 0} />}
                 />
-              )}
-            />
-            </>
+              </>
+            )
           );
         })}
       </Flexbox>

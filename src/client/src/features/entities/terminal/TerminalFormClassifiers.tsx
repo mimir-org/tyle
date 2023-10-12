@@ -29,20 +29,22 @@ export const TerminalFormClassifiers = () => {
     <FormSection
       title={t("terminal.classifiers.title")}
       error={errors.classifiers}
-      action={<SelectItemDialog
-            title={t("terminal.classifiers.dialog.title")}
-            description={t("terminal.classifiers.dialog.description")}
-            searchFieldText={t("terminal.classifiers.dialog.search")}
-            addItemsButtonText={t("terminal.classifiers.dialog.add")}
-            openDialogButtonText={t("terminal.classifiers.dialog.open")}
-            items={classifierInfoItems}
-            onAdd={(ids) => {
-              ids.forEach((id) => {
-                const targetClassifier = classifierQuery.data?.find((x) => x.id === Number(id));
-                if (targetClassifier) classifierFields.append(targetClassifier);
-              });
-            }}
-          />}
+      action={
+        <SelectItemDialog
+          title={t("terminal.classifiers.dialog.title")}
+          description={t("terminal.classifiers.dialog.description")}
+          searchFieldText={t("terminal.classifiers.dialog.search")}
+          addItemsButtonText={t("terminal.classifiers.dialog.add")}
+          openDialogButtonText={t("terminal.classifiers.dialog.open")}
+          items={classifierInfoItems}
+          onAdd={(ids) => {
+            ids.forEach((id) => {
+              const targetClassifier = classifierQuery.data?.find((x) => x.id === Number(id));
+              if (targetClassifier) classifierFields.append(targetClassifier);
+            });
+          }}
+        />
+      }
     >
       {classifierFields.fields.map((field, index) => (
         <Token

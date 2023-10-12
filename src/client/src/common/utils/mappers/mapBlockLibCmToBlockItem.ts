@@ -33,7 +33,7 @@ const mapBlockTerminalLibCmsToBlockTerminalItems = (terminals: BlockTerminalLibC
     color: x.terminal.color,
     maxQuantity: x.maxQuantity,
     direction: ConnectorDirection[x.connectorDirection] as keyof typeof ConnectorDirection,
-    attributes: [] //sortInfoItems(mapAttributeViewsToInfoItems(x.terminal.attributes)),
+    attributes: [], //sortInfoItems(mapAttributeViewsToInfoItems(x.terminal.attributes)),
   }));
 
 const sortBlockTerminals = (terminals: BlockTerminalItem[]) =>
