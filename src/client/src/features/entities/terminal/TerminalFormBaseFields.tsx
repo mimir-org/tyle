@@ -9,11 +9,11 @@ import {
 } from "@mimirorg/component-library";
 import { PlainLink } from "features/common/plain-link";
 import { TerminalFormPreview } from "features/entities/entityPreviews/terminal/TerminalFormPreview";
-import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { FormMode } from "../types/formMode";
+import { TerminalFormFields } from "./TerminalForm.helpers";
 interface TerminalFormBaseFieldsProps {
   mode?: FormMode;
   limited?: boolean;
@@ -29,7 +29,7 @@ interface TerminalFormBaseFieldsProps {
 export const TerminalFormBaseFields = ({ mode, limited }: TerminalFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
-  const { control, register, formState } = useFormContext<FormTerminalLib>();
+  const { control, register, formState } = useFormContext<TerminalFormFields>();
   const { errors } = formState;
 
   return (
@@ -39,10 +39,6 @@ export const TerminalFormBaseFields = ({ mode, limited }: TerminalFormBaseFields
       <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
         <FormField label={t("terminal.name")} error={errors.name}>
           <Input placeholder={t("terminal.placeholders.name")} {...register("name")} disabled={limited} />
-        </FormField>
-
-        <FormField label={t("terminal.color")} error={errors.color}>
-          <Input type={"color"} placeholder={t("terminal.placeholders.color")} {...register("color")} />
         </FormField>
 
         <FormField label={t("terminal.description")} error={errors.description}>

@@ -11,7 +11,7 @@ const keys = {
 export const useGetTerminals = (options?: Pick<UseQueryOptions, "staleTime">) =>
   useQuery(keys.lists(), terminalApi.getTerminals, options);
 
-export const useGetTerminal = (id: string) =>
+export const useGetTerminal = (id?: string) =>
   useQuery(keys.terminal(id), () => terminalApi.getTerminal(id), { enabled: !!id, retry: false });
 
 export const useCreateTerminal = () => {
@@ -22,7 +22,7 @@ export const useCreateTerminal = () => {
   });
 };
 
-export const useUpdateTerminal = (id: string) => {
+export const useUpdateTerminal = (id?: string) => {
   const queryClient = useQueryClient();
 
   return useMutation((item: TerminalTypeRequest) => terminalApi.putTerminal(item, id), {
