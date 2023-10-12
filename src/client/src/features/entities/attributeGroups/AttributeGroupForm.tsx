@@ -5,9 +5,9 @@ import { useServerValidation } from "common/hooks/server-validation/useServerVal
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { Box, FormContainer } from "@mimirorg/component-library";
 import { Loader } from "features/common/loader";
-import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
+//import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
-import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
+//import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
 import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
@@ -41,9 +41,9 @@ export const AttributeGroupForm = ({
     resolver: yupResolver(attributeGroupSchema(t)),
   });
 
-  const { register, handleSubmit, control, setError, reset } = formMethods;
+  const { handleSubmit, control, setError, reset } = formMethods;
 
-  const attributeFields = useFieldArray({ control, name: "attributes" });
+  //const attributeFields = useFieldArray({ control, name: "attributes" });
 
   const query = useAttributeGroupQuery();
   const mapper = (source: AttributeGroupLibCm) => mapAttributeGroupLibCmToFormAttributeGroupLib(source);
@@ -68,13 +68,13 @@ export const AttributeGroupForm = ({
             <AttributeGroupFormBaseFields mode={mode} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
-              <FormAttributes
+              {/*<FormAttributes
                 register={(index) => register(`attributes.${index}`)}
                 fields={attributeFields.fields}
                 append={attributeFields.append}
                 remove={attributeFields.remove}
                 preprocess={prepareAttributes}
-              />
+            />*/}
             </Box>
           </>
         )}

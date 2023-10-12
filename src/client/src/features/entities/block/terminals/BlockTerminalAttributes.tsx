@@ -1,12 +1,12 @@
-import { AttributeLibCm } from "@mimirorg/typelibrary-types";
-import { mapAttributeLibCmToInfoItem } from "common/utils/mappers";
 import { Box, FormField } from "@mimirorg/component-library";
 import { InfoItemButton } from "features/common/info-item";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { mapAttributeViewToInfoItem } from "common/utils/mappers/mapAttributeLibCmToInfoItem";
+import { AttributeView } from "common/types/attributes/attributeView";
 
 interface BlockTerminalAttributesProps {
-  attributes: AttributeLibCm[];
+  attributes: AttributeView[];
   hideLabel?: boolean;
 }
 export const BlockTerminalAttributes = ({ attributes, hideLabel }: BlockTerminalAttributesProps) => {
@@ -25,7 +25,7 @@ export const BlockTerminalAttributes = ({ attributes, hideLabel }: BlockTerminal
             gap={theme.mimirorg.spacing.base}
             minHeight={"40px"}
           >
-            {attributes.map((x) => x && <InfoItemButton key={x.id} {...mapAttributeLibCmToInfoItem(x)} />)}
+            {attributes.map((x) => x && <InfoItemButton key={x.id} {...mapAttributeViewToInfoItem(x)} />)}
           </Box>
         </FormField>
       )}

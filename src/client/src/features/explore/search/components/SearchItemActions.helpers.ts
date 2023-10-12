@@ -1,6 +1,6 @@
 import { useDeleteBlock, usePatchBlockState } from "external/sources/block/block.queries";
 import { ItemType } from "../../../entities/types/itemTypes";
-import { useDeleteTerminal, usePatchTerminalState } from "external/sources/terminal/terminal.queries";
+import { useDeleteTerminal } from "external/sources/terminal/terminal.queries";
 //import { useDeleteUnit } from "external/sources/unit/unit.queries";
 import { useDeleteQuantityDatum, usePatchQuantityDatumState } from "external/sources/datum/quantityDatum.queries";
 import { useDeleteRds, usePatchRdsState } from "external/sources/rds/rds.queries";
@@ -54,7 +54,7 @@ export function usePatchMutation(item: ItemType) {
   const patchAttributeMutation = usePatchAttributeState();
   const patchQuantityDatumMutation = usePatchQuantityDatumState();
   const patchRdsMutation = usePatchRdsState();
-  const patchTerminalMutation = usePatchTerminalState();
+  //const patchTerminalMutation = usePatchTerminalState();
   //const patchUnitMutation = usePatchUnitState();
   //const patchAttributeGroup = usePatchUnitState();
 
@@ -69,8 +69,8 @@ export function usePatchMutation(item: ItemType) {
       return patchQuantityDatumMutation;
     case "RdsItem":
       return patchRdsMutation;
-    case "TerminalItem":
-      return patchTerminalMutation;
+    //case "TerminalItem":
+      //return patchTerminalMutation;
     //case "UnitItem":
     //return patchUnitMutation;
     default:

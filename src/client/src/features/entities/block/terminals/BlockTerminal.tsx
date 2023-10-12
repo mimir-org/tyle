@@ -133,7 +133,7 @@ export const BlockTerminal = ({
                   value={terminalQuery.data?.find((x) => x.id === value)}
                   formatOptionLabel={(x) => (
                     <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
-                      {x.color && <TerminalButton as={"span"} variant={"small"} color={x.color} />}
+                      {/*x.color && <TerminalButton as={"span"} variant={"small"} color={x.color} />*/}
                       <Text>{x.name}</Text>
                     </Flexbox>
                   )}
@@ -224,12 +224,12 @@ export const BlockTerminal = ({
             <AccordionItem value={"attributes"}>
               <AccordionTrigger>{t("block.terminals.attributes")}</AccordionTrigger>
               <AccordionContent>
-                <BlockTerminalAttributes hideLabel attributes={sourceTerminal?.attributes ?? []} />
+                <BlockTerminalAttributes hideLabel attributes={[] /*sourceTerminal?.attributes ?? []*/} />
               </AccordionContent>
             </AccordionItem>
           </Accordion>
         ) : (
-          <BlockTerminalAttributes hideLabel attributes={sourceTerminal?.attributes ?? []} />
+          <BlockTerminalAttributes hideLabel attributes={[] /*sourceTerminal?.attributes ?? []*/} />
         )}
       </BlockTerminalContainer>
       <Box>

@@ -5,9 +5,9 @@ import { useServerValidation } from "common/hooks/server-validation/useServerVal
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { Box, FormContainer } from "@mimirorg/component-library";
 import { Loader } from "features/common/loader";
-import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
+//import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
-import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
+//import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
 import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
 import { getSubformForAspect, useBlockMutation, useBlockQuery } from "features/entities/block/BlockForm.helpers";
@@ -19,13 +19,13 @@ import {
   mapFormBlockLibToApiModel,
   mapBlockLibCmToClientModel,
 } from "features/entities/block/types/formBlockLib";
-import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { FormMode } from "../types/formMode";
 import { useGetLatestApprovedBlock } from "external/sources/block/block.queries";
 import { useGetCurrentUser } from "external/sources/user/user.queries";
-import { FormAttributeGroups } from "../common/form-attributeGroup/FormAttributeGroups";
+//import { FormAttributeGroups } from "../common/form-attributeGroup/FormAttributeGroups";
 
 interface BlockFormProps {
   defaultValues?: FormBlockLib;
@@ -43,10 +43,10 @@ export const BlockForm = ({ defaultValues = createEmptyFormBlockLib(), mode }: B
 
   const user = useGetCurrentUser();
 
-  const { register, handleSubmit, control, setError, reset } = formMethods;
+  const { handleSubmit, control, setError, reset } = formMethods;
   const aspect = useWatch({ control, name: "aspect" });
-  const attributeFields = useFieldArray({ control, name: "attributes" });
-  const attributeGroupFields = useFieldArray({ control, name: "attributeGroups" });
+  //const attributeFields = useFieldArray({ control, name: "attributes" });
+  //const attributeGroupFields = useFieldArray({ control, name: "attributeGroups" });
 
   const query = useBlockQuery();
   const mapper = (source: BlockLibCm) => {
@@ -88,7 +88,7 @@ export const BlockForm = ({ defaultValues = createEmptyFormBlockLib(), mode }: B
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
               {getSubformForAspect(aspect, limited ? latestApprovedQuery.data?.blockTerminals : [])}
-              <FormAttributes
+              {/*<FormAttributes
                 register={(index) => register(`attributes.${index}`)}
                 fields={attributeFields.fields}
                 append={attributeFields.append}
@@ -105,7 +105,7 @@ export const BlockForm = ({ defaultValues = createEmptyFormBlockLib(), mode }: B
                 append={attributeGroupFields.append}
                 remove={attributeGroupFields.remove}
                 limitedAttributeGroups={limited ? latestApprovedQuery.data?.attributes : []}
-              />
+            />*/}
             </Box>
           </>
         )}
