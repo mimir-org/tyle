@@ -1,9 +1,9 @@
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
-import { yupResolver } from "@hookform/resolvers/yup";
+//import { yupResolver } from "@hookform/resolvers/yup";
 import { MimirorgUserAm, MimirorgUserCm } from "@mimirorg/typelibrary-types";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { userSchema } from "features/settings/usersettings/userSchema";
+//import { userSchema } from "features/settings/usersettings/userSchema";
 import {
   addDummyPasswordToUserAm,
   mapMimirorgUserCmToAm,
@@ -27,7 +27,7 @@ export const UserSettingsForm = ({ defaultValues }: UserSettingsFormProps) => {
 
   const formMethods = useForm<MimirorgUserAm>({
     defaultValues: defaultValues,
-    resolver: yupResolver(userSchema(t)),
+    //resolver: yupResolver(userSchema(t)),
   });
 
   const { register, handleSubmit, control, setError, reset, formState } = formMethods;

@@ -1,10 +1,9 @@
-import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
-import { YupShape } from "common/types/yupShape";
 import { TFunction } from "i18next";
 import * as yup from "yup";
 
 export const recoverPasswordSchema = (t: TFunction<"translation">) =>
-  yup.object<YupShape<MimirorgUserAm>>({
+  yup.object({
+    email: yup.string().required(),
     password: yup
       .string()
       .min(10, t("recover.password.validation.password.min"))
@@ -13,4 +12,5 @@ export const recoverPasswordSchema = (t: TFunction<"translation">) =>
       .string()
       .oneOf([yup.ref("password"), undefined], t("recover.password.validation.confirmPassword.match"))
       .required(t("recover.password.validation.confirmPassword.required")),
+    code: yup.string().required(),
   });

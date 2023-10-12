@@ -1,5 +1,5 @@
 import { DevTool } from "@hookform/devtools";
-import { yupResolver } from "@hookform/resolvers/yup";
+//import { yupResolver } from "@hookform/resolvers/yup";
 import { State, TerminalLibCm } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
@@ -12,7 +12,7 @@ import { usePrefilledForm } from "features/entities/common/utils/usePrefilledFor
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
 import { useTerminalMutation, useTerminalQuery } from "features/entities/terminal/TerminalForm.helpers";
 import { TerminalFormBaseFields } from "features/entities/terminal/TerminalFormBaseFields";
-import { terminalSchema } from "features/entities/terminal/terminalSchema";
+//import { terminalSchema } from "features/entities/terminal/terminalSchema";
 import {
   createEmptyFormTerminalLib,
   FormTerminalLib,
@@ -36,7 +36,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
 
   const formMethods = useForm<FormTerminalLib>({
     defaultValues: defaultValues,
-    resolver: yupResolver(terminalSchema(t)),
+    //resolver: yupResolver(terminalSchema(t)),
   });
 
   const { register, handleSubmit, control, setError, reset } = formMethods;

@@ -1,6 +1,6 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { MimirorgChangePasswordAm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
+import { MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useExecuteOnCriteria } from "common/hooks/useExecuteOnCriteria";
 import { Actionable, Button, Flexbox, Form, FormField, FormFieldset, Input, Text } from "@mimirorg/component-library";
@@ -23,7 +23,7 @@ export const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverP
   const theme = useTheme();
   const { t } = useTranslation("auth");
 
-  const formMethods = useForm<MimirorgChangePasswordAm>({
+  const formMethods = useForm({
     resolver: yupResolver(recoverPasswordSchema(t)),
   });
 

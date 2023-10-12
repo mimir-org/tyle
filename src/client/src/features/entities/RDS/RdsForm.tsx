@@ -16,9 +16,9 @@ import { rdsCodeToUpper, useRdsMutation, useRdsQuery } from "./RdsForm.helpers";
 import { RdsFormBaseFields } from "./RdsFormBaseFields";
 import { RdsFormPreview } from "../entityPreviews/rds/RdsFormPreview";
 import { FormMode } from "../types/formMode";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { rdsSchema } from "./rdsSchema";
-import { useGetAllRds } from "external/sources/rds/rds.queries";
+//import { yupResolver } from "@hookform/resolvers/yup";
+//import { rdsSchema } from "./rdsSchema";
+//import { useGetAllRds } from "external/sources/rds/rds.queries";
 
 interface RdsFormProps {
   defaultValues?: RdsLibAm;
@@ -29,17 +29,17 @@ export const RdsForm = ({ defaultValues = createEmptyRds(), mode }: RdsFormProps
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
-  const allRdsQuery = useGetAllRds();
+  //const allRdsQuery = useGetAllRds();
   const query = useRdsQuery();
   const mapper = (source: RdsLibCm) => toRdsLibAm(source);
-  const prohibitedCodes =
+  /*const prohibitedCodes =
     mode === "edit"
       ? allRdsQuery.data?.map((x) => x.rdsCode).filter((x) => x !== query.data?.rdsCode)
-      : allRdsQuery.data?.map((x) => x.rdsCode);
+      : allRdsQuery.data?.map((x) => x.rdsCode);*/
 
   const formMethods = useForm<RdsLibAm>({
     defaultValues: defaultValues,
-    resolver: yupResolver(rdsSchema(t, prohibitedCodes ?? [])),
+    //resolver: yupResolver(rdsSchema(t, prohibitedCodes ?? [])),
   });
 
   const { control, handleSubmit, setError, reset } = formMethods;
