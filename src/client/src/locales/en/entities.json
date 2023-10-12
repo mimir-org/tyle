@@ -186,7 +186,8 @@
         "iri": "Please enter a valid IRI"
       },
       "value": {
-        "boolean": "Please select a value"
+        "boolean": "Please select a value",
+        "max": "The value can be at most {{length}} characters"
       },
       "valueList": {
         "min": "The list of allowed values must contain at least two elements"

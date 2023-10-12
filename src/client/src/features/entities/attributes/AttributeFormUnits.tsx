@@ -36,11 +36,11 @@ export const AttributeFormUnits = ({ canAddUnits = true }: AttributeFormUnitsPro
       action={
         canAddUnits && (
           <SelectItemDialog
-            title={t("attribute.units.title")}
-            description={t("attribute.units.description")}
-            searchFieldText={t("attribute.units.search")}
-            addItemsButtonText={t("attribute.units.add")}
-            openDialogButtonText={t("attribute.units.open")}
+            title={t("attribute.units.dialog.title")}
+            description={t("attribute.units.dialog.description")}
+            searchFieldText={t("attribute.units.dialog.search")}
+            addItemsButtonText={t("attribute.units.dialog.add")}
+            openDialogButtonText={t("attribute.units.dialog.open")}
             items={unitInfoItems}
             onAdd={(ids) => {
               ids.forEach((id) => {
