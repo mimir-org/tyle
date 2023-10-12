@@ -2,28 +2,41 @@ import { YupShape } from "common/types/yupShape";
 import { TFunction } from "i18next";
 import * as yup from "yup";
 import { AttributeFormFields } from "./AttributeForm.helpers";
-import { DESCRIPTION_LENGTH, NAME_LENGTH } from "common/types/common/stringLengthConstants";
+import { DESCRIPTION_LENGTH, NAME_LENGTH, VALUE_LENGTH } from "common/types/common/stringLengthConstants";
 import { ConstraintType } from "common/types/attributes/constraintType";
 import { XsdDataType } from "common/types/attributes/xsdDataType";
 
 const stringValueObject = (t: TFunction<"translation">) =>
   yup.object({
-    value: yup.string().required(t("attribute.validation.common.string")),
+    value: yup
+      .string()
+      .required(t("attribute.validation.common.string"))
+      .max(VALUE_LENGTH, t("attribute.validation.value.max", { length: VALUE_LENGTH })),
   });
 
 const decimalValueObject = (t: TFunction<"translation">) =>
   yup.object({
-    value: yup.string().matches(/^-?([0-9]*\.)?[0-9]+$/, t("attribute.validation.common.decimal")),
+    value: yup
+      .string()
+      .matches(/^-?([0-9]*\.)?[0-9]+$/, t("attribute.validation.common.decimal"))
+      .max(VALUE_LENGTH, t("attribute.validation.value.max", { length: VALUE_LENGTH })),
   });
 
 const integerValueObject = (t: TFunction<"translation">) =>
   yup.object({
-    value: yup.string().matches(/^-?[0-9]+$/, t("attribute.validation.common.integer")),
+    value: yup
+      .string()
+      .matches(/^-?[0-9]+$/, t("attribute.validation.common.integer"))
+      .max(VALUE_LENGTH, t("attribute.validation.value.max", { length: VALUE_LENGTH })),
   });
 
 const uriValueObject = (t: TFunction<"translation">) =>
   yup.object({
-    value: yup.string().required(t("attribute.validation.common.iri")).url(t("attribute.validation.common.iri")),
+    value: yup
+      .string()
+      .required(t("attribute.validation.common.iri"))
+      .url(t("attribute.validation.common.iri"))
+      .max(VALUE_LENGTH, t("attribute.validation.value.max", { length: VALUE_LENGTH })),
   });
 
 export const attributeSchema = (t: TFunction<"translation">) =>
@@ -49,6 +62,7 @@ export const attributeSchema = (t: TFunction<"translation">) =>
 
     value: yup
       .string()
+      .max(VALUE_LENGTH, t("attribute.validation.value.max", { length: VALUE_LENGTH }))
       .when(["constraintType", "dataType"], {
         is: (ct: ConstraintType, dt: XsdDataType) =>
           ct === ConstraintType.HasSpecificValue && dt === XsdDataType.String,
@@ -106,10 +120,13 @@ export const attributeSchema = (t: TFunction<"translation">) =>
         then: (schema) => schema.of(uriValueObject(t)).min(2, t("attribute.validation.valueList.min")),
       }),
 
-    pattern: yup.string().when("constraintType", {
-      is: ConstraintType.MatchesRegexPattern,
-      then: (schema) => schema.required(t("attribute.validation.pattern")),
-    }),
+    pattern: yup
+      .string()
+      .max(VALUE_LENGTH, t("attribute.validation.value.max", { length: VALUE_LENGTH }))
+      .when("constraintType", {
+        is: ConstraintType.MatchesRegexPattern,
+        then: (schema) => schema.required(t("attribute.validation.pattern")),
+      }),
 
     minValue: yup
       .string()
