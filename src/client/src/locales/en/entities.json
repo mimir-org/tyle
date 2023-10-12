@@ -190,7 +190,8 @@
         "max": "The value can be at most {{length}} characters"
       },
       "valueList": {
-        "min": "The list of allowed values must contain at least two elements"
+        "min": "The list of allowed values must contain at least two elements",
+        "unique": "The allowed value list contains duplicate values"
       },
       "pattern": "Please enter a regex pattern",
       "range": {
