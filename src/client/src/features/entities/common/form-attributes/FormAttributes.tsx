@@ -1,5 +1,5 @@
 import { XCircle } from "@styled-icons/heroicons-outline";
-import { Counter, Flexbox, Input, Token } from "@mimirorg/component-library";
+import { Counter, Flexbox, Token } from "@mimirorg/component-library";
 import { useGetAttributes } from "external/sources/attribute/attribute.queries";
 import {
   onAddAttributes,
