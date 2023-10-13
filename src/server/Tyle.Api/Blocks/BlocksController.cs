@@ -85,7 +85,7 @@ public class BlocksController : ControllerBase
     /// <returns>The created block</returns>
     [HttpPost]
     [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse<BlockView>), StatusCodes.Status207MultiStatus)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -96,12 +96,11 @@ public class BlocksController : ControllerBase
         {
             var createdBlock = await _blockRepository.Create(request);
 
-            if (createdBlock.ErrorMessage.Count > 0)
-            {
-                return StatusCode(207, (("dummy", _mapper.Map<BlockView>(createdBlock.TValue), createdBlock.ErrorMessage)));
-            }
-
-            return Created("dummy", _mapper.Map<BlockView>(createdBlock.TValue));
+            return Created("dummy", _mapper.Map<BlockView>(createdBlock));
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return StatusCode(422, ex.Message);
         }
         catch (Exception)
         {
@@ -117,7 +116,7 @@ public class BlocksController : ControllerBase
     /// <returns>The updated block</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse<BlockView>), StatusCodes.Status207MultiStatus)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -134,12 +133,11 @@ public class BlocksController : ControllerBase
                 return NotFound();
             }
 
-            if (block.ErrorMessage.Count > 0)
-            {
-                return StatusCode(207, (("dummy", _mapper.Map<BlockView>(block.TValue), block.ErrorMessage)));
-            }
-
-            return Ok(_mapper.Map<BlockView>(block.TValue));
+            return Ok(_mapper.Map<BlockView>(block));
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return StatusCode(422, ex.Message);
         }
         catch (Exception)
         {

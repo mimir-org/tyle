@@ -3,7 +3,6 @@ using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Attributes;
-using Tyle.Core.Common;
 
 namespace Tyle.Persistence.Attributes;
 
@@ -40,9 +39,9 @@ public class AttributeGroupRepository : IAttributeGroupRepository
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<ApiResponse<AttributeGroup>> Create(AttributeGroupRequest request)
+    public async Task<AttributeGroup> Create(AttributeGroupRequest request)
     {
-        var attrbuteReturnItem = new ApiResponse<AttributeGroup>();
+    
 
         var attributeGroup = new AttributeGroup
         {
@@ -66,22 +65,18 @@ public class AttributeGroupRepository : IAttributeGroupRepository
             }
             else
             {
-                attrbuteReturnItem.ErrorMessage.Add($"Could not find and add one or more attributes to the attribute group. Please ensure that the attribute you add exists.");
+                throw new KeyNotFoundException($"Could not find and add {attributeId} to the attribute group. Please ensure that the attribute you add exists.");                
             }
         }
 
         _dbSet.Add(attributeGroup);
         await _context.SaveChangesAsync();
-
-        attrbuteReturnItem.TValue = await Get(attributeGroup.Id);
-
-        return attrbuteReturnItem;
+                
+        return await Get(attributeGroup.Id);
     }
 
-    public async Task<ApiResponse<AttributeGroup?>> Update(Guid id, AttributeGroupRequest request)
-    {
-        var attrbuteReturnItem = new ApiResponse<AttributeGroup>();
-
+    public async Task<AttributeGroup?> Update(Guid id, AttributeGroupRequest request)
+    {        
         var attributeGroup = await _dbSet.AsTracking()
             .Include(x => x.Attributes)
             .AsSplitQuery()
@@ -120,14 +115,13 @@ public class AttributeGroupRepository : IAttributeGroupRepository
             }
             else
             {
-                attrbuteReturnItem.ErrorMessage.Add($"Something happened during updating the attribute group {request.Name}. Could not find one or more of the attributes.");
+                throw new KeyNotFoundException($"Something happened during updating the attribute group {request.Name}. Could not find one or more of the attributes.");                
             }
         }
 
-        await _context.SaveChangesAsync();
-        attrbuteReturnItem.TValue = await Get(id);
+        await _context.SaveChangesAsync();        
 
-        return attrbuteReturnItem!;
+        return await Get(id);
     }
 
     public async Task<bool> Delete(Guid id)

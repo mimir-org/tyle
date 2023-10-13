@@ -84,7 +84,7 @@ public class AttributeGroupsController : ControllerBase
     /// <returns>The created attribute group</returns>
     [HttpPost]
     [ProducesResponseType(typeof(AttributeGroupView), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse<AttributeGroupView>), StatusCodes.Status207MultiStatus)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -95,12 +95,11 @@ public class AttributeGroupsController : ControllerBase
         {
             var createdAttributeGroup = await _attributeGroupRepository.Create(request);
 
-            if (createdAttributeGroup.ErrorMessage.Count > 0)
-            {
-                return StatusCode(207, (("dummy", _mapper.Map<AttributeGroupView>(createdAttributeGroup), createdAttributeGroup.ErrorMessage)));
-            }
-
-            return Created("dummy", _mapper.Map<AttributeGroupView>(createdAttributeGroup.TValue));
+            return Created("dummy", _mapper.Map<AttributeGroupView>(createdAttributeGroup));
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return StatusCode(422, ex.Message);
         }
         catch (Exception)
         {
@@ -116,7 +115,7 @@ public class AttributeGroupsController : ControllerBase
     /// <returns>The updated attribute group</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(AttributeGroupView), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse<AttributeGroupView>), StatusCodes.Status207MultiStatus)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -131,15 +130,13 @@ public class AttributeGroupsController : ControllerBase
             if (attributeGroup == null)
             {
                 return NotFound();
-            }
+            }       
 
-            if (attributeGroup.ErrorMessage.Count > 0)
-            {
-                return StatusCode(207, ((_mapper.Map<AttributeGroupView>(attributeGroup), attributeGroup.ErrorMessage)));
-            }
-
-
-            return Ok(_mapper.Map<AttributeGroupView>(attributeGroup.TValue));
+            return Ok(_mapper.Map<AttributeGroupView>(attributeGroup));
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return StatusCode(422, ex.Message);
         }
         catch (Exception)
         {

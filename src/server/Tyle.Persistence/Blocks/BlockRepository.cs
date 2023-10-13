@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Tyle.Application.Blocks;
 using Tyle.Application.Blocks.Requests;
 using Tyle.Application.Common;
+using Tyle.Application.Common.Requests;
 using Tyle.Core.Blocks;
 using Tyle.Core.Common;
 
@@ -56,10 +57,8 @@ public class BlockRepository : IBlockRepository
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<ApiResponse<BlockType>> Create(BlockTypeRequest request)
+    public async Task<BlockType> Create(BlockTypeRequest request)
     {
-
-        var response = new ApiResponse<BlockType>();
 
         var block = new BlockType
         {
@@ -87,7 +86,8 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                response.ErrorMessage.Add("Could not add classifier. Please check the classifier-id and try again later.");
+                throw new KeyNotFoundException($"Could not add classifier with id {classifierId}. Please check the classifier-id and try again later.");
+
             }
         }
 
@@ -97,7 +97,7 @@ public class BlockRepository : IBlockRepository
         }
         else
         {
-            response.ErrorMessage.Add("Could not add purpose. Please check the purpose-id and try again later.");
+            throw new KeyNotFoundException($"Could not add purpose with id {request.PurposeId}. Please check the purpose-id and try again later.");
         }
 
         foreach (var terminalTypeReferenceRequest in request.Terminals)
@@ -115,7 +115,7 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                response.ErrorMessage.Add("Could not add terminal. Please check the terminal-id and try again later.");
+                throw new KeyNotFoundException($"Could not add terminal with id {terminalTypeReferenceRequest.TerminalId}. Please check the terminal-id and try again later.");
             }
         }
 
@@ -133,21 +133,18 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                response.ErrorMessage.Add("Could not add attribute. Please check the attribute-id and try again later.");
+                throw new KeyNotFoundException($"Could not add attribute wiht id {attributeTypeReferenceRequest.AttributeId}. Please check the attribute-id and try again later.");
             }
         }
 
         _dbSet.Add(block);
         await _context.SaveChangesAsync();
 
-        response.TValue = await Get(block.Id);
-
-        return response;
+        return await Get(block.Id);
     }
 
-    public async Task<ApiResponse<BlockType?>> Update(Guid id, BlockTypeRequest request)
+    public async Task<BlockType?> Update(Guid id, BlockTypeRequest request)
     {
-        var response = new ApiResponse<BlockType?>();
 
         var block = await _dbSet.AsTracking()
             .Include(x => x.Classifiers)
@@ -190,7 +187,7 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                response.ErrorMessage.Add("Could not add classifier. Please check the id and try again later.");
+                throw new KeyNotFoundException($"Could not add classifier with id {classifierId}. Please check the id and try again later.");
             }
         }
 
@@ -202,7 +199,7 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                response.ErrorMessage.Add("Could not add purpose. Please check the id and try again later.");
+                throw new KeyNotFoundException($"Could not add purpose with id {request.PurposeId}. Please check the id and try again later.");
             }
         }
 
@@ -233,8 +230,8 @@ public class BlockRepository : IBlockRepository
 
             if (!await _context.Terminals.AnyAsync(x => x.Id == terminalTypeReferenceRequest.TerminalId))
             {
-                response.ErrorMessage.Add("Could not add terminal. Please check the id and try again later.");
-                continue;
+                throw new KeyNotFoundException($"Could not add terminal with id {terminalTypeReferenceRequest.TerminalId}. Please check the id and try again later.");
+
             }
 
             var blockTerminalToUpdate = block.Terminals.FirstOrDefault(x => x.TerminalId == terminalTypeReferenceRequest.TerminalId && x.Direction == terminalTypeReferenceRequest.Direction);
@@ -272,8 +269,7 @@ public class BlockRepository : IBlockRepository
 
             if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
             {
-                response.ErrorMessage.Add("Could not add attribute. Please check the id and try again later.");
-                continue;
+                throw new KeyNotFoundException($"Could not add attribute with id {attributeTypeReferenceRequest.AttributeId}. Please check the id and try again later.");
             }
 
             var blockAttributeToUpdate = block.Attributes.FirstOrDefault(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId);
@@ -290,10 +286,8 @@ public class BlockRepository : IBlockRepository
         }
 
         await _context.SaveChangesAsync();
-
-        response.TValue = await Get(id);
-
-        return response;
+                
+        return await Get(id);
     }
 
     public async Task<bool> Delete(Guid id)

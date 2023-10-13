@@ -84,7 +84,7 @@ public class TerminalsController : ControllerBase
     /// <returns>The created terminal</returns>
     [HttpPost]
     [ProducesResponseType(typeof(TerminalView), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse<TerminalView>), StatusCodes.Status207MultiStatus)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -95,12 +95,11 @@ public class TerminalsController : ControllerBase
         {
             var createdTerminal = await _terminalRepository.Create(request);
 
-            if (createdTerminal.ErrorMessage.Count > 0)
-            {
-                return StatusCode(207, (("dummy", _mapper.Map<TerminalView>(createdTerminal.TValue), createdTerminal.ErrorMessage)));
-            }
-
-            return Created("dummy", _mapper.Map<TerminalView>(createdTerminal.TValue));
+            return Created("dummy", _mapper.Map<TerminalView>(createdTerminal));
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return StatusCode(422, ex.Message);
         }
         catch (Exception)
         {
@@ -116,7 +115,7 @@ public class TerminalsController : ControllerBase
     /// <returns>The updated terminal</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(TerminalView), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse<TerminalView>), StatusCodes.Status207MultiStatus)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -133,12 +132,11 @@ public class TerminalsController : ControllerBase
                 return NotFound();
             }
 
-            if (terminal.ErrorMessage.Count > 0)
-            {
-                return StatusCode(207, (("dummy", _mapper.Map<TerminalView>(terminal.TValue), terminal.ErrorMessage)));
-            }
-
-            return Ok(_mapper.Map<TerminalView>(terminal.TValue));
+            return Ok(_mapper.Map<TerminalView>(terminal));
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return StatusCode(422, ex.Message);
         }
         catch (Exception)
         {

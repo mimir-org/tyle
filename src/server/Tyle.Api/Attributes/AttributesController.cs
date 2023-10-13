@@ -82,7 +82,7 @@ public class AttributesController : ControllerBase
     /// <returns>The created attribute</returns>
     [HttpPost]
     [ProducesResponseType(typeof(AttributeView), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(ApiResponse<AttributeView>), StatusCodes.Status207MultiStatus)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -92,14 +92,16 @@ public class AttributesController : ControllerBase
         try
         {
             var createdAttribute = await _attributeRepository.Create(request);
-
-            if (createdAttribute.ErrorMessage.Count > 0)
-            {
-                return StatusCode(207, (("dummy", _mapper.Map<AttributeView>(createdAttribute.TValue), createdAttribute.ErrorMessage)));
-            }
-
-            return Created("dummy", _mapper.Map<AttributeView>(createdAttribute.TValue));
+        
+            return Created("dummy", _mapper.Map<AttributeView>(createdAttribute));
         }
+
+        catch(KeyNotFoundException ex)
+        {
+            return StatusCode(422, ex.Message);
+        }
+
+
         catch (Exception)
         {
             return StatusCode(StatusCodes.Status500InternalServerError);
@@ -114,7 +116,7 @@ public class AttributesController : ControllerBase
     /// <returns>The updated attribute</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(AttributeView), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse<AttributeView>), StatusCodes.Status207MultiStatus)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -131,12 +133,12 @@ public class AttributesController : ControllerBase
                 return NotFound();
             }
 
-            if (attribute.ErrorMessage.Count > 0)
-            {
-                return StatusCode(207, (("dummy", _mapper.Map<AttributeView>(attribute.TValue), attribute.ErrorMessage)));
-            }
 
-            return Ok(_mapper.Map<AttributeView>(attribute.TValue));
+            return Ok(_mapper.Map<AttributeView>(attribute));
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return StatusCode(422, ex.Message);
         }
         catch (Exception)
         {

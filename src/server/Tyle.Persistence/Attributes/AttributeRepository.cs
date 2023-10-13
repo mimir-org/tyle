@@ -43,10 +43,10 @@ public class AttributeRepository : IAttributeRepository
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<ApiResponse<AttributeType>> Create(AttributeTypeRequest request)
+    public async Task<AttributeType> Create(AttributeTypeRequest request)
     {
-        var response = new ApiResponse<AttributeType>();
-        response.TValue = new AttributeType
+      
+        var response = new AttributeType
         {
             Name = request.Name,
             Description = request.Description,
@@ -62,43 +62,42 @@ public class AttributeRepository : IAttributeRepository
             ValueConstraint = _mapper.Map<ValueConstraint>(request.ValueConstraint)
         };
 
-        response.TValue.LastUpdateOn = response.TValue.CreatedOn;
+        response.LastUpdateOn = response.CreatedOn;
 
         if (request.PredicateId == null || await _context.Predicates.AsNoTracking().AnyAsync(x => x.Id == request.PredicateId))
         {
-            response.TValue.PredicateId = request.PredicateId;
+            response.PredicateId = request.PredicateId;
         }
         else
         {
-            response.ErrorMessage.Add($"Could not add predicate. Please check and try again later");
+            throw new KeyNotFoundException($"Could not add predicate with id {response.PredicateId}. Please check and try again later");            
         }
 
         foreach (var unitId in request.UnitIds)
         {
             if (await _context.Units.AsNoTracking().AnyAsync(x => x.Id == unitId))
             {
-                response.TValue.Units.Add(new AttributeUnitJoin
+                response.Units.Add(new AttributeUnitJoin
                 {
-                    AttributeId = response.TValue.Id,
+                    AttributeId = response.Id,
                     UnitId = unitId
                 });
             }
             else
             {
-                response.ErrorMessage.Add($"Adding the attribute {request.Name} failed. Please check your input");
+                throw new KeyNotFoundException($"Adding the attribute {request.Name} failed. Please check your input");                
             }
         }
 
-        _dbSet.Add(response.TValue);
+        _dbSet.Add(response);
         await _context.SaveChangesAsync();
-
-        response.TValue = await Get(response.TValue.Id);
-        return response;
+                
+        return await Get(response.Id);
     }
 
-    public async Task<ApiResponse<AttributeType?>> Update(Guid id, AttributeTypeRequest request)
+    public async Task<AttributeType?> Update(Guid id, AttributeTypeRequest request)
     {
-        var response = new ApiResponse<AttributeType?>();
+
 
         var attribute = await _dbSet.AsTracking()
             .Include(x => x.Units)
@@ -127,7 +126,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                response.ErrorMessage.Add($"Could not add predicate. Please ensure the predicate is correct and try again later.");
+                throw new KeyNotFoundException($"Could not add predicate with id {attribute.PredicateId}. Please ensure the predicate is correct and try again later.");                
             }
         }
 
@@ -151,7 +150,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                response.ErrorMessage.Add("could not remove one or more of the attributes. Please ensure the attribute to remove is correct and try again later.");
+                throw new KeyNotFoundException($"could not remove attribute with id {unitId}. Please ensure the attribute to remove is correct and try again later.");                
             }
         }
 
@@ -181,10 +180,8 @@ public class AttributeRepository : IAttributeRepository
         }
 
         await _context.SaveChangesAsync();
-
-        response.TValue = await Get(id);
-
-        return response;
+                
+        return await Get(id);
     }
 
     public async Task<bool> Delete(Guid id)

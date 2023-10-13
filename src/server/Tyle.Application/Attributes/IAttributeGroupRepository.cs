@@ -24,7 +24,7 @@ public interface IAttributeGroupRepository
     /// </summary>
     /// <param name="request">A request defining the attribute group that should be created.</param>
     /// <returns>The created attribute group.</returns>
-    Task<ApiResponse<AttributeGroup>> Create(AttributeGroupRequest request);
+    Task<AttributeGroup> Create(AttributeGroupRequest request);
 
     /// <summary>
     /// Updates the attribute group with the given id.
@@ -32,7 +32,7 @@ public interface IAttributeGroupRepository
     /// <param name="id">The id of the attribute group to update.</param>
     /// <param name="request">A request defining the new values for the attribute group.</param>
     /// <returns>The updated attribute group, or null if no attribute group was found.</returns>
-    Task<ApiResponse<AttributeGroup?>> Update(Guid id, AttributeGroupRequest request);
+    Task<AttributeGroup?> Update(Guid id, AttributeGroupRequest request);
 
     /// <summary>
     /// Deletes the attribute group with the given id.
