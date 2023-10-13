@@ -1,13 +1,25 @@
-import { YupShape } from "common/types/yupShape";
-import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
 import { TFunction } from "i18next";
 import * as yup from "yup";
 
 export const terminalSchema = (t: TFunction<"translation">) =>
-  yup.object<YupShape<FormTerminalLib>>({
-    name: yup.string().max(120, t("common.validation.name.max")).required(t("common.validation.name.required")),
-    typeReference: yup.string().max(255).nullable(),
-    color: yup.string().max(7).required(t("terminal.validation.color.required")),
-    description: yup.string().max(500, t("common.validation.description.max")).nullable(),
-    attributes: yup.array().nullable(),
+  yup.object({
+    name: yup.string().required(),
+
+    //description: yup.string(),
+
+    classifiers: yup.array().required(),
+
+    //purpose: yup.string(),
+
+    //notation: yup.string(),
+
+    //symbol: yup.string(),
+
+    //aspect: yup.string(),
+
+    //medium: yup.string(),
+
+    qualifier: yup.number().min(0).required(),
+
+    attributes: yup.array().required()
   });

@@ -50,7 +50,7 @@ export enum UnitRequirements {
 
 export const toAttributeFormFields = (attribute: AttributeView): AttributeFormFields => ({
   name: attribute.name,
-  description: attribute.description ?? "",
+  description: attribute.description,
   predicate: attribute.predicate,
   units: attribute.units,
   unitRequirement:

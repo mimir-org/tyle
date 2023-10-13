@@ -1,26 +1,26 @@
 import { AttributeView } from "common/types/attributes/attributeView";
-import { AttributeTypeReferenceRequest } from "common/types/common/attributeTypeReferenceRequest";
+import { AttributeTypeReferenceView } from "common/types/common/attributeTypeReferenceView";
 import { mapAttributeLibCmsToInfoItems } from "common/utils/mappers";
 
 export const onAddAttributes = (
   selectedIds: string[],
   allAttributes: AttributeView[],
-  append: (item: AttributeTypeReferenceRequest) => void,
+  append: (item: AttributeTypeReferenceView) => void,
 ) => {
   selectedIds.forEach((id) => {
     const targetAttribute = allAttributes.find((x) => x.id === id);
     if (targetAttribute) {
-      append({ attributeId: targetAttribute.id, minCount: 1, maxCount: 1 });
+      append({ attribute: targetAttribute, minCount: 1 });
     }
   });
 };
 
 export const resolveSelectedAndAvailableAttributes = (
-  fieldAttributes: AttributeTypeReferenceRequest[],
+  fieldAttributes: AttributeTypeReferenceView[],
   allAttributes: AttributeView[],
 ) => {
   const selectedSet = new Set<string>();
-  fieldAttributes.forEach((x) => selectedSet.add(x.attributeId));
+  fieldAttributes.forEach((x) => selectedSet.add(x.attribute.id));
 
   const selected: AttributeView[] = [];
   const available: AttributeView[] = [];

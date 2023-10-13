@@ -10,14 +10,14 @@ import { SelectItemDialog } from "features/entities/common/select-item-dialog/Se
 import { Control, Controller, UseFormRegisterReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { AttributeTypeReferenceRequest } from "common/types/common/attributeTypeReferenceRequest";
 import { AttributeView } from "common/types/attributes/attributeView";
 import { TerminalFormFields } from "features/entities/terminal/TerminalForm.helpers";
+import { AttributeTypeReferenceView } from "common/types/common/attributeTypeReferenceView";
 
 export interface FormAttributesProps {
   control: Control<TerminalFormFields>;
-  fields: AttributeTypeReferenceRequest[];
-  append: (item: AttributeTypeReferenceRequest) => void;
+  fields: AttributeTypeReferenceView[];
+  append: (item: AttributeTypeReferenceView) => void;
   remove: (index: number) => void;
   register: (index: number) => UseFormRegisterReturn;
   preprocess?: (attributes?: AttributeView[]) => AttributeView[];
@@ -78,7 +78,7 @@ export const FormAttributes = ({
     >
       <Flexbox flexWrap={"wrap"} gap={theme.mimirorg.spacing.xl}>
         {fields.map((field, index) => {
-          const attribute = selected.find((x) => x.id === field.attributeId);
+          const attribute = selected.find((x) => x.id === field.attribute.id);
           return (
             attribute && (
               <>

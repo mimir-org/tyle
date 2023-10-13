@@ -43,11 +43,11 @@ export const TerminalFormBaseFields = ({ mode, limited }: TerminalFormBaseFields
 
   const purposeQuery = useGetPurposes();
   const purposeInfoItems = purposeQuery.data?.map((p) => purposeInfoItem(p)) ?? [];
-  const chosenPurpose = useWatch({ control, name: "purposeId" });
+  const chosenPurpose = useWatch({ control, name: "purpose" });
 
   const mediumQuery = useGetMedia();
   const mediumInfoItems = mediumQuery.data?.map((p) => mediumInfoItem(p)) ?? [];
-  const chosenMedium = useWatch({ control, name: "mediumId" });
+  const chosenMedium = useWatch({ control, name: "medium" });
 
   const aspectOptions = getOptionsFromEnum<Aspect>(Aspect);
   const qualifierOptions = getOptionsFromEnum<Direction>(Direction);
@@ -77,24 +77,24 @@ export const TerminalFormBaseFields = ({ mode, limited }: TerminalFormBaseFields
               openDialogButtonText={t("terminal.purpose.dialog.open")}
               items={purposeInfoItems}
               onAdd={(ids) => {
-                setValue("purposeId", Number(ids[0]));
+                setValue("purpose", purposeQuery.data?.find((x) => x.id === Number(ids[0])));
               }}
               isMultiSelect={false}
             />
           )
         }
       >
-        <Input {...register("purposeId")} type="hidden" />
+        <Input {...register("purpose")} type="hidden" />
         {chosenPurpose && (
           <Token
             variant={"secondary"}
             actionable
             actionIcon={<XCircle />}
             actionText={t("terminal.purpose.remove")}
-            onAction={() => setValue("purposeId", undefined)}
+            onAction={() => setValue("purpose", undefined)}
             dangerousAction
           >
-            {purposeInfoItems.find((x) => x.id === chosenPurpose.toString())?.name}
+            {purposeInfoItems.find((x) => x.id === chosenPurpose.id.toString())?.name}
           </Token>
         )}
       </FormSection>
@@ -140,24 +140,24 @@ export const TerminalFormBaseFields = ({ mode, limited }: TerminalFormBaseFields
               openDialogButtonText={t("terminal.medium.dialog.open")}
               items={mediumInfoItems}
               onAdd={(ids) => {
-                setValue("mediumId", Number(ids[0]));
+                setValue("medium", mediumQuery.data?.find((x) => x.id === Number(ids[0])));
               }}
               isMultiSelect={false}
             />
           )
         }
       >
-        <Input {...register("mediumId")} type="hidden" />
+        <Input {...register("medium")} type="hidden" />
         {chosenMedium && (
           <Token
             variant={"secondary"}
             actionable
             actionIcon={<XCircle />}
             actionText={t("terminal.medium.remove")}
-            onAction={() => setValue("mediumId", undefined)}
+            onAction={() => setValue("medium", undefined)}
             dangerousAction
           >
-            {mediumInfoItems.find((x) => x.id === chosenMedium.toString())?.name}
+            {mediumInfoItems.find((x) => x.id === chosenMedium.id.toString())?.name}
           </Token>
         )}
       </FormSection>
