@@ -1,5 +1,5 @@
 import { DevTool } from "@hookform/devtools";
-import { yupResolver } from "@hookform/resolvers/yup";
+//import { yupResolver } from "@hookform/resolvers/yup";
 import { AttributeGroupLibCm } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
@@ -20,7 +20,7 @@ import {
   mapAttributeGroupLibCmToFormAttributeGroupLib,
   mapFormAttributeGroupLibToApiModel,
 } from "./types/formAttributeGroupLib";
-import { attributeGroupSchema } from "./attributeGroupSchema";
+//import { attributeGroupSchema } from "./attributeGroupSchema";
 import { useAttributeGroupMutation, useAttributeGroupQuery } from "./AttributeGroupForm.helpers";
 import { AttributeGroupFormBaseFields } from "./AttributeGroupFormBaseFields";
 
@@ -38,7 +38,7 @@ export const AttributeGroupForm = ({
 
   const formMethods = useForm<FormAttributeGroupLib>({
     defaultValues: defaultValues,
-    resolver: yupResolver(attributeGroupSchema(t)),
+    //resolver: yupResolver(attributeGroupSchema(t)),
   });
 
   const { register, handleSubmit, control, setError, reset } = formMethods;

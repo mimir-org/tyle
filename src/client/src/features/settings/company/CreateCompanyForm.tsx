@@ -9,8 +9,8 @@ import {
   mapFormCompanyToCompanyAm,
   useCreatingToast,
 } from "features/settings/company/CompanyForm.helpers";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { companySchema } from "features/settings/company/companySchema";
+//import { yupResolver } from "@hookform/resolvers/yup";
+//import { companySchema } from "features/settings/company/companySchema";
 import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
@@ -44,7 +44,7 @@ export const CreateCompanyForm = () => {
 
   const formMethods = useForm<FormMimirorgCompany>({
     defaultValues: { ...createEmptyFormMimirorgCompany(), secret: secret },
-    resolver: yupResolver(companySchema(t)),
+    //resolver: yupResolver(companySchema(t)),
   });
 
   const { register, handleSubmit, control, setError, formState, setValue, getValues } = formMethods;

@@ -9,7 +9,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
   AttributeFormFields,
-  createDefaultAttributeFormFields,
+  defaultAttributeFormFields,
   toAttributeFormFields,
   toAttributeTypeRequest,
   useAttributeMutation,
@@ -31,7 +31,7 @@ interface AttributeFormProps {
   mode?: FormMode;
 }
 
-export const AttributeForm = ({ defaultValues = createDefaultAttributeFormFields(), mode }: AttributeFormProps) => {
+export const AttributeForm = ({ defaultValues = defaultAttributeFormFields, mode }: AttributeFormProps) => {
   const { t } = useTranslation("entities");
   const theme = useTheme();
 

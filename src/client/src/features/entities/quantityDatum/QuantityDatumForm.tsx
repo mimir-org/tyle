@@ -16,8 +16,8 @@ import { useTheme } from "styled-components";
 import { QuantityDatumFormBaseFields } from "./QuantityDatumFormBaseFields";
 import { FormMode } from "../types/formMode";
 import { QuantityDatumFormPreview } from "../entityPreviews/quantityDatum/QuantityDatumFormPreview";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { quantityDatumSchema } from "./quantityDatumSchema";
+//import { yupResolver } from "@hookform/resolvers/yup";
+//import { quantityDatumSchema } from "./quantityDatumSchema";
 
 /**
  * Props for QuantityDatumForm
@@ -43,7 +43,7 @@ export const QuantityDatumForm = ({ defaultValues = createEmptyDatum(), mode }: 
 
   const formMethods = useForm<QuantityDatumLibAm>({
     defaultValues: defaultValues,
-    resolver: yupResolver(quantityDatumSchema(t)),
+    //resolver: yupResolver(quantityDatumSchema(t)),
   });
 
   const { control, handleSubmit, setError, reset } = formMethods;
