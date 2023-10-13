@@ -1,5 +1,5 @@
 import { XCircle } from "@styled-icons/heroicons-outline";
-import { Counter, Flexbox, Token } from "@mimirorg/component-library";
+import { Box, Counter, Flexbox, Token } from "@mimirorg/component-library";
 import { useGetAttributes } from "external/sources/attribute/attribute.queries";
 import {
   onAddAttributes,
@@ -76,12 +76,13 @@ export const FormAttributes = ({
         )
       }
     >
-      <Flexbox flexWrap={"wrap"} gap={theme.mimirorg.spacing.xl}>
+      <Flexbox flexDirection="column" gap={theme.mimirorg.spacing.xl}>
         {fields.map((field, index) => {
           const attribute = selected.find((x) => x.id === field.attribute.id);
           return (
             attribute && (
-              <>
+              <Flexbox alignItems={"center"}>
+                <Box flex={1}>
                 <Token
                   variant={"secondary"}
                   key={attribute.id}
@@ -94,17 +95,22 @@ export const FormAttributes = ({
                 >
                   {attribute.name}
                 </Token>
+                </Box>
+                <Box>
                 <Controller
                   control={control}
                   name={`attributes.${index}.minCount`}
                   render={({ field: { value, ...rest } }) => <Counter {...rest} min={0} value={value} />}
                 />
+                </Box>
+                <Box>
                 <Controller
                   control={control}
                   name={`attributes.${index}.maxCount`}
-                  render={({ field: { value, ...rest } }) => <Counter {...rest} min={1} value={value ?? 0} />}
+                  render={({ field: { value, ...rest } }) => <Counter {...rest} min={1} value={value ?? 0} disabled={!value} />}
                 />
-              </>
+                </Box>
+              </Flexbox>
             )
           );
         })}
