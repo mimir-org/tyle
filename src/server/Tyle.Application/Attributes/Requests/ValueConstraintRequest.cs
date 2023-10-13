@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using Tyle.Application.Common;
+using Tyle.Application.Common.Requests;
 using Tyle.Core.Attributes;
 
 namespace Tyle.Application.Attributes.Requests;
@@ -68,6 +69,12 @@ public class ValueConstraintRequest : IValidatableObject
                 {
                     yield return new ValidationResult("Constraints of type In can't have data type boolean.");
                 }
+
+                foreach (var validationResult in UniqueCollectionValidator.Validate(ValueList, "Value list entry"))
+                {
+                    yield return validationResult;
+                }
+
                 if (ValueList.Count < 2)
                 {
                     yield return new ValidationResult("Constraints of type In must specify at least two possible values.");

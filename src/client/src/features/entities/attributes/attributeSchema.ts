@@ -1,10 +1,9 @@
-import { YupShape } from "common/types/yupShape";
 import { TFunction } from "i18next";
 import * as yup from "yup";
-import { AttributeFormFields } from "./AttributeForm.helpers";
 import { DESCRIPTION_LENGTH, NAME_LENGTH, VALUE_LENGTH } from "common/types/common/stringLengthConstants";
 import { ConstraintType } from "common/types/attributes/constraintType";
 import { XsdDataType } from "common/types/attributes/xsdDataType";
+import { unitSchema } from "../units/unitSchema";
 
 const stringValueObject = (t: TFunction<"translation">) =>
   yup.object({
@@ -40,7 +39,7 @@ const uriValueObject = (t: TFunction<"translation">) =>
   });
 
 export const attributeSchema = (t: TFunction<"translation">) =>
-  yup.object<YupShape<AttributeFormFields>>({
+  yup.object({
     name: yup
       .string()
       .max(NAME_LENGTH, t("common.validation.name.max", { length: NAME_LENGTH }))
@@ -49,6 +48,22 @@ export const attributeSchema = (t: TFunction<"translation">) =>
     description: yup
       .string()
       .max(DESCRIPTION_LENGTH, t("common.validation.description.max", { length: DESCRIPTION_LENGTH })),
+
+    predicateId: yup.number().integer().min(1),
+
+    units: yup.array().of(unitSchema).required(),
+
+    unitRequirement: yup.number().integer().min(0).required(),
+
+    provenanceQualifier: yup.number().integer().min(0),
+
+    rangeQualifier: yup.number().integer().min(0),
+
+    regularityQualifier: yup.number().integer().min(0),
+
+    scopeQualifier: yup.number().integer().min(0),
+
+    valueConstraint: yup.boolean().required(),
 
     constraintType: yup.number().when("valueConstraint", {
       is: true,
@@ -59,6 +74,8 @@ export const attributeSchema = (t: TFunction<"translation">) =>
       is: true,
       then: (schema) => schema.required(t("attribute.validation.dataType")),
     }),
+
+    requireValue: yup.boolean().required(),
 
     value: yup
       .string()
@@ -99,6 +116,10 @@ export const attributeSchema = (t: TFunction<"translation">) =>
 
     valueList: yup
       .array()
+      .required()
+      .test("uniqueValues", t("attribute.validation.valueList.unique"), (value) => {
+        return value ? value.length === new Set(value.map((x) => x.value)).size : true;
+      })
       .when(["constraintType", "dataType"], {
         is: (ct: ConstraintType, dt: XsdDataType) =>
           ct === ConstraintType.IsInListOfAllowedValues && dt === XsdDataType.String,

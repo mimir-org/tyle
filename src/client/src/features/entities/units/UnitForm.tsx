@@ -15,8 +15,8 @@ import { UnitFormPreview } from "../entityPreviews/unit/UnitFormPreview";
 import { FormMode } from "../types/formMode";
 import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { unitSchema } from "./unitSchema";
+//import { yupResolver } from "@hookform/resolvers/yup";
+//import { unitSchema } from "./unitSchema";
 import { PlainLink } from "features/common/plain-link";
 
 interface UnitFormProps {
@@ -30,7 +30,7 @@ export const UnitForm = ({ defaultValues = createEmptyUnit(), mode }: UnitFormPr
 
   const formMethods = useForm<UnitLibAm>({
     defaultValues: defaultValues,
-    resolver: yupResolver(unitSchema(t)),
+    //resolver: yupResolver(unitSchema(t)),
   });
 
   const { handleSubmit, control } = formMethods;

@@ -1,5 +1,5 @@
 import { DevTool } from "@hookform/devtools";
-import { yupResolver } from "@hookform/resolvers/yup";
+//import { yupResolver } from "@hookform/resolvers/yup";
 import { BlockLibCm, MimirorgPermission, State } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
@@ -12,7 +12,7 @@ import { usePrefilledForm } from "features/entities/common/utils/usePrefilledFor
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
 import { getSubformForAspect, useBlockMutation, useBlockQuery } from "features/entities/block/BlockForm.helpers";
 import { BlockFormBaseFields } from "features/entities/block/BlockFormBaseFields";
-import { blockSchema } from "features/entities/block/blockSchema";
+//import { blockSchema } from "features/entities/block/blockSchema";
 import {
   createEmptyFormBlockLib,
   FormBlockLib,
@@ -38,7 +38,7 @@ export const BlockForm = ({ defaultValues = createEmptyFormBlockLib(), mode }: B
 
   const formMethods = useForm<FormBlockLib>({
     defaultValues: defaultValues,
-    resolver: yupResolver(blockSchema(t)),
+    //resolver: yupResolver(blockSchema(t)),
   });
 
   const user = useGetCurrentUser();

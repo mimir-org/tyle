@@ -1,5 +1,4 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { MimirorgAuthenticateAm } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import {
   Button,
@@ -27,7 +26,7 @@ export const Login = () => {
   const { t } = useTranslation("auth");
   const navigate = useNavigate();
 
-  const formMethods = useForm<MimirorgAuthenticateAm>({
+  const formMethods = useForm({
     resolver: yupResolver(loginSchema(t)),
   });
 

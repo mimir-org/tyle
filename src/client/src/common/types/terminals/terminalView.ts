@@ -8,11 +8,11 @@ import { RdlMedium } from "./rdlMedium";
 
 export interface TerminalView extends ImfType {
   classifiers: RdlClassifier[];
-  purpose: RdlPurpose | undefined;
-  notation: string | undefined;
-  symbol: string | undefined;
-  aspect: Aspect | undefined;
-  medium: RdlMedium | undefined;
+  purpose?: RdlPurpose;
+  notation?: string;
+  symbol?: string;
+  aspect?: Aspect;
+  medium?: RdlMedium;
   qualifier: Direction;
   attributes: AttributeTypeReferenceView[];
 }

@@ -25,7 +25,7 @@ export const AttributeFormUnits = ({ canAddUnits = true }: AttributeFormUnitsPro
     formState: { errors },
   } = useFormContext<AttributeFormFields>();
 
-  const unitFields = useFieldArray({ control, name: "units" });
+  const unitFields = useFieldArray({ control: control, name: "units" });
   const unitQuery = useGetUnits();
   const unitInfoItems = unitQuery.data?.map((p) => unitInfoItem(p)) ?? [];
 
