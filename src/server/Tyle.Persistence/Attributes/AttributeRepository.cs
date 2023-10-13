@@ -70,7 +70,7 @@ public class AttributeRepository : IAttributeRepository
         }
         else
         {
-            throw new KeyNotFoundException($"Could not add predicate with id {response.PredicateId}. Please check and try again later");
+            throw new KeyNotFoundException($"Could not add predicate with id {request.PredicateId}. Please check and try again later");
         }
 
         foreach (var unitId in request.UnitIds)
@@ -126,7 +126,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Could not add predicate with id {attribute.PredicateId}. Please ensure the predicate is correct and try again later.");
+                throw new KeyNotFoundException($"Could not add predicate with id {request.PredicateId}. Please ensure the predicate is correct and try again later.");
             }
         }
 
