@@ -1,10 +1,10 @@
-import { yupResolver } from "@hookform/resolvers/yup";
+//import { yupResolver } from "@hookform/resolvers/yup";
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { UserItem } from "common/types/userItem";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { Button, Form, FormField, Input, Select } from "@mimirorg/component-library";
 import { usePermissionToasts } from "features/settings/common/permission-card/card-form/PermissionCardForm.helpers";
-import { permissionSchema } from "features/settings/common/permission-card/card-form/permissionSchema";
+//import { permissionSchema } from "features/settings/common/permission-card/card-form/permissionSchema";
 import { FormUserPermission } from "features/settings/common/permission-card/card-form/types/formUserPermission";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -23,12 +23,12 @@ export const PermissionCardForm = ({ user, formId, onSubmit, showSubmitButton = 
   const currentPermission = permissionOptions.find((x) => x.value === user.permissions[user.company.id]?.value);
 
   const { register, control, handleSubmit, formState } = useForm<FormUserPermission>({
-    resolver: yupResolver(permissionSchema(t)),
+    /*resolver: yupResolver(permissionSchema(t)),
     defaultValues: {
       userId: user.id,
       companyId: user.company?.id,
       permission: currentPermission ?? permissionOptions[0],
-    },
+    },*/
   });
 
   const toast = usePermissionToasts(currentPermission);

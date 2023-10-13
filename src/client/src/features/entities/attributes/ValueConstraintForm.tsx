@@ -10,12 +10,12 @@ import {
 } from "@mimirorg/component-library";
 import { Controller, useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { AttributeFormFields } from "./AttributeForm.helpers";
 import { ConstraintType } from "common/types/attributes/constraintType";
 import { getOptionsFromEnum, Option } from "common/utils/getOptionsFromEnum";
 import { XsdDataType } from "common/types/attributes/xsdDataType";
 import { FormSection } from "../common/form-section/FormSection";
 import { PlusSmall, Trash } from "@styled-icons/heroicons-outline";
+import { AttributeFormFields } from "./AttributeForm.helpers";
 
 /**
  * Component which contains all simple value fields of the attribute form.
@@ -65,7 +65,7 @@ export const ValueConstraintForm = () => {
     if (constraintType === undefined) {
       setValue("constraintType", undefined);
       setValue("dataType", undefined);
-      setValue("requireValue", undefined);
+      setValue("requireValue", false);
     }
   };
 

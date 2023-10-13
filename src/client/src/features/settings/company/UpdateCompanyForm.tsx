@@ -9,8 +9,8 @@ import {
   mapFormCompanyToCompanyAm,
   useUpdateToast,
 } from "features/settings/company/CompanyForm.helpers";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { companySchema } from "features/settings/company/companySchema";
+//import { yupResolver } from "@hookform/resolvers/yup";
+//import { companySchema } from "features/settings/company/companySchema";
 import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
@@ -55,7 +55,7 @@ export const UpdateCompanyForm = () => {
       ...mapCompanyCmToFormCompany(companies.find((c) => c.id === Number(selectedCompany))),
       secret: secret,
     },
-    resolver: yupResolver(companySchema(t)),
+    //resolver: yupResolver(companySchema(t)),
   });
 
   const { register, handleSubmit, control, setError, formState, reset, setValue, getValues } = formMethods;

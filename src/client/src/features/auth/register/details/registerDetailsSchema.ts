@@ -1,10 +1,8 @@
-import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
-import { YupShape } from "common/types/yupShape";
 import { TFunction } from "i18next";
 import * as yup from "yup";
 
 export const registerDetailsSchema = (t: TFunction<"translation">, companiesAreAvailable = false) => {
-  const schema = yup.object<YupShape<MimirorgUserAm>>({
+  const schema = yup.object({
     email: yup
       .string()
       .email(t("register.details.validation.email.email"))

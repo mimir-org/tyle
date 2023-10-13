@@ -1,5 +1,5 @@
 export interface RdlObjectRequest {
   name: string;
-  description: string | null;
+  description?: string;
   iri: string;
 }
