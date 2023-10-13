@@ -45,7 +45,7 @@ public class AttributeRepository : IAttributeRepository
 
     public async Task<AttributeType> Create(AttributeTypeRequest request)
     {
-      
+
         var response = new AttributeType
         {
             Name = request.Name,
@@ -70,7 +70,7 @@ public class AttributeRepository : IAttributeRepository
         }
         else
         {
-            throw new KeyNotFoundException($"Could not add predicate with id {response.PredicateId}. Please check and try again later");            
+            throw new KeyNotFoundException($"Could not add predicate with id {response.PredicateId}. Please check and try again later");
         }
 
         foreach (var unitId in request.UnitIds)
@@ -85,13 +85,13 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Adding the attribute {request.Name} failed. Please check your input");                
+                throw new KeyNotFoundException($"Adding the attribute {request.Name} failed. Please check your input");
             }
         }
 
         _dbSet.Add(response);
         await _context.SaveChangesAsync();
-                
+
         return await Get(response.Id);
     }
 
@@ -126,7 +126,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Could not add predicate with id {attribute.PredicateId}. Please ensure the predicate is correct and try again later.");                
+                throw new KeyNotFoundException($"Could not add predicate with id {attribute.PredicateId}. Please ensure the predicate is correct and try again later.");
             }
         }
 
@@ -150,7 +150,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                throw new KeyNotFoundException($"could not remove attribute with id {unitId}. Please ensure the attribute to remove is correct and try again later.");                
+                throw new KeyNotFoundException($"could not remove attribute with id {unitId}. Please ensure the attribute to remove is correct and try again later.");
             }
         }
 
@@ -180,7 +180,7 @@ public class AttributeRepository : IAttributeRepository
         }
 
         await _context.SaveChangesAsync();
-                
+
         return await Get(id);
     }
 

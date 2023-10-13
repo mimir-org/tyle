@@ -168,7 +168,7 @@ public class TerminalRepository : ITerminalRepository
             else
             {
                 throw new KeyNotFoundException($"Could not update classifier with id {classifierId}. Please check your inputs and/or try again later");
-                                
+
             }
         }
 
@@ -181,7 +181,7 @@ public class TerminalRepository : ITerminalRepository
             else
             {
                 throw new KeyNotFoundException($"Could not update purpose with id {request.PurposeId}. Please check your inputs and/or try again later");
-                
+
             }
         }
 
@@ -197,7 +197,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Could not update medium with id {request.MediumId}. Please check your inputs and/or try again later");                
+                throw new KeyNotFoundException($"Could not update medium with id {request.MediumId}. Please check your inputs and/or try again later");
             }
         }
 
@@ -225,7 +225,7 @@ public class TerminalRepository : ITerminalRepository
 
             if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
             {
-                throw new KeyNotFoundException($"Could not update attribute with id {attributeTypeReferenceRequest}. Please check your inputs and/or try again later");                               
+                throw new KeyNotFoundException($"Could not update attribute with id {attributeTypeReferenceRequest}. Please check your inputs and/or try again later");
             }
 
             var terminalAttributeToUpdate = terminal.Attributes.FirstOrDefault(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId);
@@ -242,7 +242,7 @@ public class TerminalRepository : ITerminalRepository
         }
 
         await _context.SaveChangesAsync();
-                
+
         return await Get(id); ;
     }
 

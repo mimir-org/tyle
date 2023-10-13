@@ -92,11 +92,11 @@ public class AttributesController : ControllerBase
         try
         {
             var createdAttribute = await _attributeRepository.Create(request);
-        
+
             return Created("dummy", _mapper.Map<AttributeView>(createdAttribute));
         }
 
-        catch(KeyNotFoundException ex)
+        catch (KeyNotFoundException ex)
         {
             return StatusCode(422, ex.Message);
         }

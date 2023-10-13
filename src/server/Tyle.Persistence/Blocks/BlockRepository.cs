@@ -286,7 +286,7 @@ public class BlockRepository : IBlockRepository
         }
 
         await _context.SaveChangesAsync();
-                
+
         return await Get(id);
     }
 

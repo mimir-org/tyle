@@ -41,7 +41,7 @@ public class AttributeGroupRepository : IAttributeGroupRepository
 
     public async Task<AttributeGroup> Create(AttributeGroupRequest request)
     {
-    
+
 
         var attributeGroup = new AttributeGroup
         {
@@ -65,18 +65,18 @@ public class AttributeGroupRepository : IAttributeGroupRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Could not find and add {attributeId} to the attribute group. Please ensure that the attribute you add exists.");                
+                throw new KeyNotFoundException($"Could not find and add {attributeId} to the attribute group. Please ensure that the attribute you add exists.");
             }
         }
 
         _dbSet.Add(attributeGroup);
         await _context.SaveChangesAsync();
-                
+
         return await Get(attributeGroup.Id);
     }
 
     public async Task<AttributeGroup?> Update(Guid id, AttributeGroupRequest request)
-    {        
+    {
         var attributeGroup = await _dbSet.AsTracking()
             .Include(x => x.Attributes)
             .AsSplitQuery()
@@ -115,11 +115,11 @@ public class AttributeGroupRepository : IAttributeGroupRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Something happened during updating the attribute group {request.Name}. Could not find one or more of the attributes.");                
+                throw new KeyNotFoundException($"Something happened during updating the attribute group {request.Name}. Could not find one or more of the attributes.");
             }
         }
 
-        await _context.SaveChangesAsync();        
+        await _context.SaveChangesAsync();
 
         return await Get(id);
     }

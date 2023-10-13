@@ -130,7 +130,7 @@ public class AttributeGroupsController : ControllerBase
             if (attributeGroup == null)
             {
                 return NotFound();
-            }       
+            }
 
             return Ok(_mapper.Map<AttributeGroupView>(attributeGroup));
         }
