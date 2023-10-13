@@ -93,7 +93,7 @@ public class AttributesController : ControllerBase
         {
             var createdAttribute = await _attributeRepository.Create(request);
 
-            if (createdAttribute.HasError || createdAttribute.ErrorMessage.Count > 0)
+            if (createdAttribute.ErrorMessage.Count > 0)
             {
                 return StatusCode(207, (("dummy", _mapper.Map<AttributeView>(createdAttribute.TValue), createdAttribute.ErrorMessage)));
             }
@@ -131,7 +131,7 @@ public class AttributesController : ControllerBase
                 return NotFound();
             }
 
-            if (attribute.HasError || attribute.ErrorMessage.Count > 0)
+            if (attribute.ErrorMessage.Count > 0)
             {
                 return StatusCode(207, (("dummy", _mapper.Map<AttributeView>(attribute.TValue), attribute.ErrorMessage)));
             }

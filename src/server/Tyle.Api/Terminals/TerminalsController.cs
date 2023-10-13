@@ -95,7 +95,7 @@ public class TerminalsController : ControllerBase
         {
             var createdTerminal = await _terminalRepository.Create(request);
 
-            if (createdTerminal.HasError || createdTerminal.ErrorMessage.Count > 0)
+            if (createdTerminal.ErrorMessage.Count > 0)
             {
                 return StatusCode(207, (("dummy", _mapper.Map<TerminalView>(createdTerminal.TValue), createdTerminal.ErrorMessage)));
             }
@@ -133,7 +133,7 @@ public class TerminalsController : ControllerBase
                 return NotFound();
             }
 
-            if (terminal.HasError || terminal.ErrorMessage.Count > 0)
+            if (terminal.ErrorMessage.Count > 0)
             {
                 return StatusCode(207, (("dummy", _mapper.Map<TerminalView>(terminal.TValue), terminal.ErrorMessage)));
             }

@@ -96,7 +96,7 @@ public class BlocksController : ControllerBase
         {
             var createdBlock = await _blockRepository.Create(request);
 
-            if (createdBlock.HasError || createdBlock.ErrorMessage.Count > 0)
+            if (createdBlock.ErrorMessage.Count > 0)
             {
                 return StatusCode(207, (("dummy", _mapper.Map<BlockView>(createdBlock.TValue), createdBlock.ErrorMessage)));
             }
@@ -134,7 +134,7 @@ public class BlocksController : ControllerBase
                 return NotFound();
             }
 
-            if (block.HasError || block.ErrorMessage.Count > 0)
+            if (block.ErrorMessage.Count > 0)
             {
                 return StatusCode(207, (("dummy", _mapper.Map<BlockView>(block.TValue), block.ErrorMessage)));
             }

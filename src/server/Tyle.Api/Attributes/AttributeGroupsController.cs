@@ -95,7 +95,7 @@ public class AttributeGroupsController : ControllerBase
         {
             var createdAttributeGroup = await _attributeGroupRepository.Create(request);
 
-            if (createdAttributeGroup.HasError)
+            if (createdAttributeGroup.ErrorMessage.Count > 0)
             {
                 return StatusCode(207, (("dummy", _mapper.Map<AttributeGroupView>(createdAttributeGroup), createdAttributeGroup.ErrorMessage)));
             }
@@ -133,7 +133,7 @@ public class AttributeGroupsController : ControllerBase
                 return NotFound();
             }
 
-            if (attributeGroup.HasError)
+            if (attributeGroup.ErrorMessage.Count > 0)
             {
                 return StatusCode(207, ((_mapper.Map<AttributeGroupView>(attributeGroup), attributeGroup.ErrorMessage)));
             }
