@@ -63,7 +63,7 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
               openDialogButtonText={t("attribute.dialog.open")}
               items={predicateInfoItems}
               onAdd={(ids) => {
-                setValue("predicate", predicateQuery.data?.find((x) => x.id ===Number(ids[0])));
+                setValue("predicate", predicateQuery.data?.find((x) => x.id === Number(ids[0])));
               }}
               isMultiSelect={false}
             />

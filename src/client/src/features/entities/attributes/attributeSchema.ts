@@ -4,7 +4,6 @@ import { DESCRIPTION_LENGTH, NAME_LENGTH, VALUE_LENGTH } from "common/types/comm
 import { ConstraintType } from "common/types/attributes/constraintType";
 import { XsdDataType } from "common/types/attributes/xsdDataType";
 import { unitSchema } from "../units/unitSchema";
-import { AttributeFormFields } from "./AttributeForm.helpers";
 
 const stringValueObject = (t: TFunction<"translation">) =>
   yup.object({

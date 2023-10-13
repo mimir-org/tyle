@@ -6,7 +6,6 @@ import { FormSection } from "../common/form-section/FormSection";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useGetUnits } from "external/sources/unit/unit.queries";
 import { SelectItemDialog } from "../common/select-item-dialog/SelectItemDialog";
-import { RdlUnit } from "common/types/attributes/rdlUnit";
 
 export interface AttributeFormUnitsProps {
   canAddUnits?: boolean;
