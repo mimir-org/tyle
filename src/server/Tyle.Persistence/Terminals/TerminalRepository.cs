@@ -5,6 +5,7 @@ using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
 using Tyle.Core.Common;
 using Tyle.Core.Terminals;
+using Tyle.Persistence.Common;
 
 namespace Tyle.Persistence.Terminals;
 
@@ -77,7 +78,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Could not add terminal classifier with id {classifierId}. Please review your inputs and/or try again later");
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "terminal classifier", classifierId.ToString()));
             }
         }
 
@@ -87,7 +88,7 @@ public class TerminalRepository : ITerminalRepository
         }
         else
         {
-            throw new KeyNotFoundException($"Could not add terminal purpose with id {request.PurposeId}. Please review your inputs and/or try again later");
+            throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "terminal purpose", request.PurposeId.ToString()));
         }
 
         if (request.MediumId == null || await _context.Purposes.AsNoTracking().AnyAsync(x => x.Id == request.MediumId))
@@ -96,8 +97,7 @@ public class TerminalRepository : ITerminalRepository
         }
         else
         {
-            throw new KeyNotFoundException($"Could not add medium purpose with id {request.PurposeId}. Please review your inputs and/or try again later");
-
+            throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "medium purpose", request.MediumId.ToString()));
         }
 
         foreach (var attributeTypeReferenceRequest in request.Attributes)
@@ -114,7 +114,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Could not add attribute with id {attributeTypeReferenceRequest.AttributeId}. Please review your inputs and/or try again later");
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "attribute", attributeTypeReferenceRequest.AttributeId.ToString()));
             }
         }
 
@@ -126,8 +126,6 @@ public class TerminalRepository : ITerminalRepository
 
     public async Task<TerminalType?> Update(Guid id, TerminalTypeRequest request)
     {
-
-
         var terminal = await _dbSet.AsTracking()
            .Include(x => x.Classifiers)
            .Include(x => x.Attributes)
@@ -167,8 +165,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Could not update classifier with id {classifierId}. Please check your inputs and/or try again later");
-
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Update, "classifier", classifierId.ToString()));
             }
         }
 
@@ -180,8 +177,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Could not update purpose with id {request.PurposeId}. Please check your inputs and/or try again later");
-
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Update, "purpose", request.PurposeId.ToString()));
             }
         }
 
@@ -197,7 +193,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Could not update medium with id {request.MediumId}. Please check your inputs and/or try again later");
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Update, "medium", request.MediumId.ToString()));                
             }
         }
 
@@ -225,7 +221,7 @@ public class TerminalRepository : ITerminalRepository
 
             if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
             {
-                throw new KeyNotFoundException($"Could not update attribute with id {attributeTypeReferenceRequest}. Please check your inputs and/or try again later");
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Update, "attribute", attributeTypeReferenceRequest.ToString()));                
             }
 
             var terminalAttributeToUpdate = terminal.Attributes.FirstOrDefault(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId);
@@ -243,7 +239,7 @@ public class TerminalRepository : ITerminalRepository
 
         await _context.SaveChangesAsync();
 
-        return await Get(id); ;
+        return await Get(id);
     }
 
     public async Task<bool> Delete(Guid id)

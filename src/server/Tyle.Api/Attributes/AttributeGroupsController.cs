@@ -83,10 +83,10 @@ public class AttributeGroupsController : ControllerBase
     /// <param name="request">The attribute group that should be created</param>
     /// <returns>The created attribute group</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(AttributeGroupView), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    [ProducesResponseType(typeof(AttributeGroupView), StatusCodes.Status200OK)]    
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] AttributeGroupRequest request)
@@ -99,7 +99,7 @@ public class AttributeGroupsController : ControllerBase
         }
         catch (KeyNotFoundException ex)
         {
-            return StatusCode(422, ex.Message);
+            return UnprocessableEntity(ex);
         }
         catch (Exception)
         {
@@ -114,11 +114,11 @@ public class AttributeGroupsController : ControllerBase
     /// <param name="request">The new values of the attribute group</param>
     /// <returns>The updated attribute group</returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(AttributeGroupView), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    [ProducesResponseType(typeof(AttributeGroupView), StatusCodes.Status200OK)]    
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] AttributeGroupRequest request)
@@ -136,7 +136,7 @@ public class AttributeGroupsController : ControllerBase
         }
         catch (KeyNotFoundException ex)
         {
-            return StatusCode(422, ex.Message);
+            return UnprocessableEntity(ex);
         }
         catch (Exception)
         {

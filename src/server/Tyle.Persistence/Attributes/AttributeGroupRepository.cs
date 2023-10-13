@@ -3,6 +3,7 @@ using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Attributes;
+using Tyle.Persistence.Common;
 
 namespace Tyle.Persistence.Attributes;
 
@@ -65,7 +66,7 @@ public class AttributeGroupRepository : IAttributeGroupRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Could not find and add {attributeId} to the attribute group. Please ensure that the attribute you add exists.");
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "attribute", attributeId.ToString()));                
             }
         }
 
@@ -115,7 +116,7 @@ public class AttributeGroupRepository : IAttributeGroupRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Something happened during updating the attribute group {request.Name}. Could not find one or more of the attributes.");
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "attribute", attributeId.ToString()));                
             }
         }
 

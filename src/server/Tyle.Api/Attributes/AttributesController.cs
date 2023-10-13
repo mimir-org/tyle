@@ -82,9 +82,9 @@ public class AttributesController : ControllerBase
     /// <returns>The created attribute</returns>
     [HttpPost]
     [ProducesResponseType(typeof(AttributeView), StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] AttributeTypeRequest request)
@@ -98,7 +98,7 @@ public class AttributesController : ControllerBase
 
         catch (KeyNotFoundException ex)
         {
-            return StatusCode(422, ex.Message);
+            return UnprocessableEntity(ex);
         }
 
 
@@ -116,10 +116,10 @@ public class AttributesController : ControllerBase
     /// <returns>The updated attribute</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(AttributeView), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Update(Guid id, [FromBody] AttributeTypeRequest request)
@@ -138,7 +138,7 @@ public class AttributesController : ControllerBase
         }
         catch (KeyNotFoundException ex)
         {
-            return StatusCode(422, ex.Message);
+            return UnprocessableEntity(ex);
         }
         catch (Exception)
         {

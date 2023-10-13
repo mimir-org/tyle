@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using Tyle.Application.Blocks;
 using Tyle.Application.Blocks.Requests;
@@ -5,6 +6,7 @@ using Tyle.Application.Common;
 using Tyle.Application.Common.Requests;
 using Tyle.Core.Blocks;
 using Tyle.Core.Common;
+using Tyle.Persistence.Common;
 
 namespace Tyle.Persistence.Blocks;
 
@@ -86,8 +88,7 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Could not add classifier with id {classifierId}. Please check the classifier-id and try again later.");
-
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "classifier", classifierId.ToString()));
             }
         }
 
@@ -97,7 +98,7 @@ public class BlockRepository : IBlockRepository
         }
         else
         {
-            throw new KeyNotFoundException($"Could not add purpose with id {request.PurposeId}. Please check the purpose-id and try again later.");
+            throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "purpose", request.PurposeId.ToString()));
         }
 
         foreach (var terminalTypeReferenceRequest in request.Terminals)
@@ -115,7 +116,8 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Could not add terminal with id {terminalTypeReferenceRequest.TerminalId}. Please check the terminal-id and try again later.");
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "terminal", terminalTypeReferenceRequest.TerminalId.ToString()));
+
             }
         }
 
@@ -133,7 +135,7 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Could not add attribute wiht id {attributeTypeReferenceRequest.AttributeId}. Please check the attribute-id and try again later.");
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "attribute", attributeTypeReferenceRequest.AttributeId.ToString()));
             }
         }
 
@@ -187,7 +189,8 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Could not add classifier with id {classifierId}. Please check the id and try again later.");
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "classifier", classifierId.ToString()));
+
             }
         }
 
@@ -199,7 +202,7 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Could not add purpose with id {request.PurposeId}. Please check the id and try again later.");
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "purpose", request.PurposeId.ToString()));
             }
         }
 
@@ -230,8 +233,7 @@ public class BlockRepository : IBlockRepository
 
             if (!await _context.Terminals.AnyAsync(x => x.Id == terminalTypeReferenceRequest.TerminalId))
             {
-                throw new KeyNotFoundException($"Could not add terminal with id {terminalTypeReferenceRequest.TerminalId}. Please check the id and try again later.");
-
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "terminal", terminalTypeReferenceRequest.TerminalId.ToString()));
             }
 
             var blockTerminalToUpdate = block.Terminals.FirstOrDefault(x => x.TerminalId == terminalTypeReferenceRequest.TerminalId && x.Direction == terminalTypeReferenceRequest.Direction);
@@ -269,7 +271,7 @@ public class BlockRepository : IBlockRepository
 
             if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
             {
-                throw new KeyNotFoundException($"Could not add attribute with id {attributeTypeReferenceRequest.AttributeId}. Please check the id and try again later.");
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "attribute", attributeTypeReferenceRequest.AttributeId.ToString()));                
             }
 
             var blockAttributeToUpdate = block.Attributes.FirstOrDefault(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId);

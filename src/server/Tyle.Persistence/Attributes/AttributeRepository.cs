@@ -5,6 +5,7 @@ using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Attributes;
 using Tyle.Core.Common;
+using Tyle.Persistence.Common;
 
 namespace Tyle.Persistence.Attributes;
 
@@ -70,7 +71,7 @@ public class AttributeRepository : IAttributeRepository
         }
         else
         {
-            throw new KeyNotFoundException($"Could not add predicate with id {request.PredicateId}. Please check and try again later");
+            throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "predicate", request.PredicateId.ToString()));
         }
 
         foreach (var unitId in request.UnitIds)
@@ -85,7 +86,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Adding the attribute {request.Name} failed. Please check your input");
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "attribute", request.Name));
             }
         }
 
@@ -126,7 +127,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                throw new KeyNotFoundException($"Could not add predicate with id {request.PredicateId}. Please ensure the predicate is correct and try again later.");
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "predicate", request.PredicateId.ToString()));
             }
         }
 
@@ -150,7 +151,8 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                throw new KeyNotFoundException($"could not remove attribute with id {unitId}. Please ensure the attribute to remove is correct and try again later.");
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Remove, "attribute", unitId.ToString()));
+                
             }
         }
 

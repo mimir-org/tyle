@@ -1,4 +1,3 @@
-using System;
 using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -6,10 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Models.Attributes;
 using Swashbuckle.AspNetCore.Annotations;
-using Tyle.Api.Attributes;
 using Tyle.Application.Blocks;
 using Tyle.Application.Blocks.Requests;
-using Tyle.Core.Common;
 
 namespace Tyle.Api.Blocks;
 
@@ -85,9 +82,9 @@ public class BlocksController : ControllerBase
     /// <returns>The created block</returns>
     [HttpPost]
     [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] BlockTypeRequest request)
@@ -100,7 +97,7 @@ public class BlocksController : ControllerBase
         }
         catch (KeyNotFoundException ex)
         {
-            return StatusCode(422, ex.Message);
+            return UnprocessableEntity(ex);
         }
         catch (Exception)
         {
@@ -116,10 +113,10 @@ public class BlocksController : ControllerBase
     /// <returns>The updated block</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] BlockTypeRequest request)
@@ -137,7 +134,7 @@ public class BlocksController : ControllerBase
         }
         catch (KeyNotFoundException ex)
         {
-            return StatusCode(422, ex.Message);
+            return UnprocessableEntity(ex);
         }
         catch (Exception)
         {

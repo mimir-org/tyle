@@ -84,9 +84,9 @@ public class TerminalsController : ControllerBase
     /// <returns>The created terminal</returns>
     [HttpPost]
     [ProducesResponseType(typeof(TerminalView), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] TerminalTypeRequest request)
@@ -99,7 +99,7 @@ public class TerminalsController : ControllerBase
         }
         catch (KeyNotFoundException ex)
         {
-            return StatusCode(422, ex.Message);
+            return UnprocessableEntity(ex);
         }
         catch (Exception)
         {
@@ -115,10 +115,10 @@ public class TerminalsController : ControllerBase
     /// <returns>The updated terminal</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(TerminalView), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] TerminalTypeRequest request)
@@ -136,7 +136,7 @@ public class TerminalsController : ControllerBase
         }
         catch (KeyNotFoundException ex)
         {
-            return StatusCode(422, ex.Message);
+            return UnprocessableEntity(ex);
         }
         catch (Exception)
         {
