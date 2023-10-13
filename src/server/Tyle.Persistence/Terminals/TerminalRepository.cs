@@ -78,7 +78,7 @@ public class TerminalRepository : ITerminalRepository
             else
             {
                 response.ErrorMessage.Add(($"Could not add terminal classifier. Please review your inputs and/or try again later"));
-                
+
             }
         }
 
@@ -88,7 +88,7 @@ public class TerminalRepository : ITerminalRepository
         }
         else
         {
-            response.ErrorMessage.Add(($"Could not add terminal purpose. Please review your inputs and/or try again later"));            
+            response.ErrorMessage.Add(($"Could not add terminal purpose. Please review your inputs and/or try again later"));
         }
 
         if (request.MediumId == null || await _context.Purposes.AsNoTracking().AnyAsync(x => x.Id == request.MediumId))
@@ -97,7 +97,7 @@ public class TerminalRepository : ITerminalRepository
         }
         else
         {
-            response.ErrorMessage.Add(($"Could not add medium purpose. Please review your inputs and/or try again later"));            
+            response.ErrorMessage.Add(($"Could not add medium purpose. Please review your inputs and/or try again later"));
         }
 
         foreach (var attributeTypeReferenceRequest in request.Attributes)
@@ -114,7 +114,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                response.ErrorMessage.Add(($"Could not add one or more attribute. Please review your inputs and/or try again later"));                
+                response.ErrorMessage.Add(($"Could not add one or more attribute. Please review your inputs and/or try again later"));
             }
         }
 
@@ -170,7 +170,7 @@ public class TerminalRepository : ITerminalRepository
             else
             {
                 response.ErrorMessage.Add($"Could not update one or more classifier. Please check your inputs and/or try again later");
-                
+
             }
         }
 
@@ -182,7 +182,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                response.ErrorMessage.Add($"Could not update one or more purpose. Please check your inputs and/or try again later");                
+                response.ErrorMessage.Add($"Could not update one or more purpose. Please check your inputs and/or try again later");
             }
         }
 
@@ -198,7 +198,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                response.ErrorMessage.Add($"Could not update medium. Please check your inputs and/or try again later");                
+                response.ErrorMessage.Add($"Could not update medium. Please check your inputs and/or try again later");
             }
         }
 
@@ -226,7 +226,7 @@ public class TerminalRepository : ITerminalRepository
 
             if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
             {
-                response.ErrorMessage.Add($"Could not update one or more attributes. Please check your inputs and/or try again later");                
+                response.ErrorMessage.Add($"Could not update one or more attributes. Please check your inputs and/or try again later");
                 continue;
             }
 

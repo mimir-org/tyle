@@ -53,7 +53,7 @@ public class AttributeGroupRepository : IAttributeGroupRepository
         };
 
         attributeGroup.LastUpdateOn = attributeGroup.CreatedOn;
-              
+
         foreach (var attributeId in request.AttributeIds)
         {
             if (await _context.Attributes.AsNoTracking().AnyAsync(x => x.Id == attributeId))
@@ -120,7 +120,7 @@ public class AttributeGroupRepository : IAttributeGroupRepository
             }
             else
             {
-                attrbuteReturnItem.ErrorMessage.Add($"Something happened during updating the attribute group {request.Name}. Could not find one or more of the attributes.");                
+                attrbuteReturnItem.ErrorMessage.Add($"Something happened during updating the attribute group {request.Name}. Could not find one or more of the attributes.");
             }
         }
 
