@@ -83,7 +83,7 @@ public class AttributeGroupsController : ControllerBase
     /// <param name="request">The attribute group that should be created</param>
     /// <returns>The created attribute group</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(AttributeGroupView), StatusCodes.Status200OK)]    
+    [ProducesResponseType(typeof(AttributeGroupView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
@@ -114,7 +114,7 @@ public class AttributeGroupsController : ControllerBase
     /// <param name="request">The new values of the attribute group</param>
     /// <returns>The updated attribute group</returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(AttributeGroupView), StatusCodes.Status200OK)]    
+    [ProducesResponseType(typeof(AttributeGroupView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

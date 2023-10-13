@@ -193,7 +193,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Update, "medium", request.MediumId.ToString()));                
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Update, "medium", request.MediumId.ToString()));
             }
         }
 
@@ -221,7 +221,7 @@ public class TerminalRepository : ITerminalRepository
 
             if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
             {
-                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Update, "attribute", attributeTypeReferenceRequest.ToString()));                
+                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Update, "attribute", attributeTypeReferenceRequest.ToString()));
             }
 
             var terminalAttributeToUpdate = terminal.Attributes.FirstOrDefault(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId);

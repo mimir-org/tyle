@@ -10,10 +10,10 @@ namespace Tyle.Persistence.Common
     {
         public enum TypeOfMessage
         {
-            Create, Add,Update,Remove
+            Create, Add, Update, Remove
         }
 
-        public static string CreateExeptionMessage( TypeOfMessage action,  string typeOfObject, string? id = null)
+        public static string CreateExeptionMessage(TypeOfMessage action, string typeOfObject, string? id = null)
         {
             var sb = new StringBuilder();
 

@@ -152,7 +152,7 @@ public class AttributeRepository : IAttributeRepository
             else
             {
                 throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Remove, "attribute", unitId.ToString()));
-                
+
             }
         }
 
