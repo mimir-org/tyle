@@ -9,7 +9,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
   AttributeFormFields,
-  createDefaultAttributeFormFields,
+  defaultAttributeFormFields,
   toAttributeFormFields,
   toAttributeTypeRequest,
   useAttributeMutation,
@@ -19,8 +19,8 @@ import { AttributeFormBaseFields } from "./AttributeFormBaseFields";
 import { FormMode } from "../types/formMode";
 import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
-//import { yupResolver } from "@hookform/resolvers/yup";
-//import { attributeSchema } from "./attributeSchema";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { attributeSchema } from "./attributeSchema";
 import { PlainLink } from "features/common/plain-link";
 import { AttributeView } from "common/types/attributes/attributeView";
 import { ValueConstraintForm } from "./ValueConstraintForm";
@@ -31,13 +31,13 @@ interface AttributeFormProps {
   mode?: FormMode;
 }
 
-export const AttributeForm = ({ defaultValues = createDefaultAttributeFormFields(), mode }: AttributeFormProps) => {
+export const AttributeForm = ({ defaultValues = defaultAttributeFormFields, mode }: AttributeFormProps) => {
   const { t } = useTranslation("entities");
   const theme = useTheme();
 
   const formMethods = useForm<AttributeFormFields>({
     defaultValues: defaultValues,
-    //resolver: yupResolver(attributeSchema(t)),
+    resolver: yupResolver(attributeSchema(t)),
   });
 
   const { handleSubmit, control, setError, reset } = formMethods;

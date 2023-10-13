@@ -6,6 +6,7 @@ import { FormSection } from "../common/form-section/FormSection";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useGetUnits } from "external/sources/unit/unit.queries";
 import { SelectItemDialog } from "../common/select-item-dialog/SelectItemDialog";
+import { RdlUnit } from "common/types/attributes/rdlUnit";
 
 export interface AttributeFormUnitsProps {
   canAddUnits?: boolean;
@@ -25,7 +26,7 @@ export const AttributeFormUnits = ({ canAddUnits = true }: AttributeFormUnitsPro
     formState: { errors },
   } = useFormContext<AttributeFormFields>();
 
-  const unitFields = useFieldArray({ control, name: "units" });
+  const unitFields = useFieldArray({ control: control, name: "units" });
   const unitQuery = useGetUnits();
   const unitInfoItems = unitQuery.data?.map((p) => unitInfoItem(p)) ?? [];
 

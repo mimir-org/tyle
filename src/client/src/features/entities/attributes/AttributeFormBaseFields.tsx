@@ -1,7 +1,6 @@
 import { FormBaseFieldsContainer, FormField, Input, Select, Textarea, Token } from "@mimirorg/component-library";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-//import { useGetUnits } from "../../../external/sources/unit/unit.queries";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { ProvenanceQualifier } from "common/types/attributes/provenanceQualifier";
 import { AttributeFormFields, UnitRequirements, predicateInfoItem } from "./AttributeForm.helpers";
@@ -34,7 +33,7 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
 
   const predicateQuery = useGetPredicates();
   const predicateInfoItems = predicateQuery.data?.map((p) => predicateInfoItem(p)) ?? [];
-  const chosenPredicate = useWatch({ control, name: "predicateId" });
+  const chosenPredicate = useWatch({ control, name: "predicate" });
 
   const unitRequirementsOptions = getOptionsFromEnum<UnitRequirements>(UnitRequirements);
   const provenanceQualifierOptions = getOptionsFromEnum<ProvenanceQualifier>(ProvenanceQualifier);
@@ -64,21 +63,21 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
               openDialogButtonText={t("attribute.dialog.open")}
               items={predicateInfoItems}
               onAdd={(ids) => {
-                setValue("predicateId", Number(ids[0]));
+                setValue("predicate", predicateQuery.data?.find((x) => x.id ===Number(ids[0])));
               }}
               isMultiSelect={false}
             />
           )
         }
       >
-        <Input {...register("predicateId")} type="hidden" />
+        <Input {...register("predicate")} type="hidden" />
         {chosenPredicate && (
           <Token
             variant={"secondary"}
             actionable
             actionIcon={<XCircle />}
             actionText={t("attribute.predicate.remove")}
-            onAction={() => setValue("predicateId", undefined)}
+            onAction={() => setValue("predicate", undefined)}
             dangerousAction
           >
             {predicateInfoItems.find((x) => x.id === chosenPredicate.toString())?.name}
