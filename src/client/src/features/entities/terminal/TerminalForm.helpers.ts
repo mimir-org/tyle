@@ -21,7 +21,8 @@ export const useTerminalMutation = (id?: string, mode?: FormMode) => {
   return mode === "edit" ? updateMutation : createMutation;
 };
 
-export interface TerminalFormFields extends Omit<TerminalTypeRequest, "classifierIds" | "purposeId" | "mediumId" | "attributes"> {
+export interface TerminalFormFields
+  extends Omit<TerminalTypeRequest, "classifierIds" | "purposeId" | "mediumId" | "attributes"> {
   classifiers: RdlClassifier[];
   purpose?: RdlPurpose;
   medium?: RdlMedium;
@@ -29,7 +30,7 @@ export interface TerminalFormFields extends Omit<TerminalTypeRequest, "classifie
 }
 
 export const toTerminalFormFields = (terminal: TerminalView): TerminalFormFields => ({
-  ...terminal
+  ...terminal,
 });
 
 export const toTerminalTypeRequest = (terminalFormFields: TerminalFormFields): TerminalTypeRequest => ({
@@ -40,7 +41,7 @@ export const toTerminalTypeRequest = (terminalFormFields: TerminalFormFields): T
   notation: terminalFormFields.notation ? terminalFormFields.notation : undefined,
   symbol: terminalFormFields.symbol ? terminalFormFields.symbol : undefined,
   mediumId: terminalFormFields.medium?.id,
-  attributes: terminalFormFields.attributes.map((x) => ({ ...x, attributeId: x.attribute.id }))
+  attributes: terminalFormFields.attributes.map((x) => ({ ...x, attributeId: x.attribute.id })),
 });
 
 export const createDefaultTerminalFormFields = (): TerminalFormFields => ({

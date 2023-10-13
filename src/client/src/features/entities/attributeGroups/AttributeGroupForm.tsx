@@ -10,7 +10,7 @@ import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
 //import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
 import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { FormMode } from "../types/formMode";

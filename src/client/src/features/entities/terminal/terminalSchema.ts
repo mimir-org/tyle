@@ -1,7 +1,6 @@
-import { TFunction } from "i18next";
 import * as yup from "yup";
 
-export const terminalSchema = (t: TFunction<"translation">) =>
+export const terminalSchema = () =>
   yup.object({
     name: yup.string().required(),
 
@@ -21,5 +20,5 @@ export const terminalSchema = (t: TFunction<"translation">) =>
 
     qualifier: yup.number().min(0).required(),
 
-    attributes: yup.array().required()
+    attributes: yup.array().required(),
   });

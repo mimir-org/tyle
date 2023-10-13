@@ -20,7 +20,7 @@ import {
   Text,
 } from "@mimirorg/component-library";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
-import { TerminalButton } from "features/common/terminal";
+//import { TerminalButton } from "features/common/terminal";
 import {
   BlockTerminalContainer,
   BlockTerminalInputContainer,

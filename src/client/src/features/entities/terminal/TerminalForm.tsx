@@ -6,7 +6,6 @@ import { Box, FormContainer } from "@mimirorg/component-library";
 import { Loader } from "features/common/loader";
 import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
-import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
 import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
 import {
@@ -19,7 +18,7 @@ import {
 } from "features/entities/terminal/TerminalForm.helpers";
 import { TerminalFormBaseFields } from "features/entities/terminal/TerminalFormBaseFields";
 import { terminalSchema } from "features/entities/terminal/terminalSchema";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { FormMode } from "../types/formMode";
@@ -37,12 +36,10 @@ export const TerminalForm = ({ defaultValues = createDefaultTerminalFormFields()
 
   const formMethods = useForm<TerminalFormFields>({
     defaultValues: defaultValues,
-    resolver: yupResolver(terminalSchema(t)),
+    resolver: yupResolver(terminalSchema()),
   });
 
-  const { register, handleSubmit, control, setError, reset } = formMethods;
-
-  const attributeFields = useFieldArray({ control, name: "attributes" });
+  const { handleSubmit, control, setError, reset } = formMethods;
 
   const query = useTerminalQuery();
   const mapper = (source: TerminalView) => toTerminalFormFields(source);
@@ -71,16 +68,7 @@ export const TerminalForm = ({ defaultValues = createDefaultTerminalFormFields()
             </Box>
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
-              <FormAttributes
-                control={control}
-                register={(index) => register(`attributes.${index}`)}
-                fields={attributeFields.fields}
-                append={attributeFields.append}
-                remove={attributeFields.remove}
-                preprocess={prepareAttributes}
-                canAddAttributes={!limited}
-                canRemoveAttributes={!limited}
-              />
+              <FormAttributes />
             </Box>
           </>
         )}
