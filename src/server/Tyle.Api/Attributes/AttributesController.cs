@@ -94,7 +94,6 @@ public class AttributesController : ControllerBase
 
             return Created("dummy", _mapper.Map<AttributeView>(createdAttribute));
         }
-
         catch (KeyNotFoundException ex)
         {
             return StatusCode(422, ex.Message);
