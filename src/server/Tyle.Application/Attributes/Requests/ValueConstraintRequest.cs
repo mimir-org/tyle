@@ -70,17 +70,14 @@ public class ValueConstraintRequest : IValidatableObject
                     yield return new ValidationResult("Constraints of type In can't have data type boolean.");
                 }
 
-                foreach (var validationResult in UniqueCollectionValidator.Validate(ValueList, "Value list entry"))
-                {
-                    yield return validationResult;
-                }
-
                 if (ValueList.Count < 2)
                 {
                     yield return new ValidationResult("Constraints of type In must specify at least two possible values.");
                 }
                 else
                 {
+                    var dataTypeValidationResults = 0;
+
                     foreach (var value in ValueList)
                     {
                         if (value.Length > StringLengthConstants.ValueLength)
@@ -90,7 +87,43 @@ public class ValueConstraintRequest : IValidatableObject
 
                         if (!ValidateAgainstDataType(value, DataType, out var result))
                         {
+                            dataTypeValidationResults++;
                             yield return result;
+                        }
+                    }
+
+                    if (dataTypeValidationResults == 0)
+                    {
+                        switch (DataType)
+                        {
+                            case XsdDataType.String:
+                                foreach (var validationResult in UniqueCollectionValidator.Validate(ValueList, "Value list entry"))
+                                {
+                                    yield return validationResult;
+                                }
+
+                                break;
+                            case XsdDataType.Decimal:
+                                var decimalValueList = ValueList.Select(x => decimal.Parse(x, NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture));
+                                foreach (var validationResult in UniqueCollectionValidator.Validate(decimalValueList, "Value list entry"))
+                                {
+                                    yield return validationResult;
+                                }
+                                break;
+                            case XsdDataType.Integer:
+                                var integerValueList = ValueList.Select(int.Parse);
+                                foreach (var validationResult in UniqueCollectionValidator.Validate(integerValueList, "Value list entry"))
+                                {
+                                    yield return validationResult;
+                                }
+                                break;
+                            case XsdDataType.AnyUri:
+                                var iriValueList = ValueList.Select(x => new Uri(x));
+                                foreach (var validationResult in UniqueCollectionValidator.Validate(iriValueList, "Value list entry"))
+                                {
+                                    yield return validationResult;
+                                }
+                                break;
                         }
                     }
                 }
@@ -133,7 +166,6 @@ public class ValueConstraintRequest : IValidatableObject
 
     private static bool ValidateAgainstDataType(string value, XsdDataType dataType, out ValidationResult? result)
     {
-        IFormatProvider provider = CultureInfo.InvariantCulture;
         switch (dataType)
         {
             case XsdDataType.AnyUri when !Uri.TryCreate(value, UriKind.Absolute, out var _):
@@ -143,7 +175,7 @@ public class ValueConstraintRequest : IValidatableObject
                 result = new ValidationResult("Values with data type string must not be only whitespace.");
                 return false;
             // The number styles and IFormatProvider is needed to prohibit the thousands separator (,)
-            case XsdDataType.Decimal when !decimal.TryParse(value, NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign, provider, out var _):
+            case XsdDataType.Decimal when !decimal.TryParse(value, NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out var _):
                 result = new ValidationResult("Values with data type decimal must be a valid decimal.");
                 return false;
             case XsdDataType.Integer when !int.TryParse(value, out var _):

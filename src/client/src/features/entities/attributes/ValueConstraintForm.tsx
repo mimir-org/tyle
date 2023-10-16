@@ -200,7 +200,7 @@ export const ValueConstraintForm = () => {
           >
             <FormSection
               title={t("attribute.valueConstraint.valueList.title")}
-              error={errors.valueList}
+              error={errors.valueList?.root}
               action={
                 <Button icon={<PlusSmall />} iconOnly onClick={() => valueListEntries.append({ value: "" })}>
                   {t("attribute.valueConstraint.valueList.add")}
@@ -208,7 +208,10 @@ export const ValueConstraintForm = () => {
               }
             >
               {valueListEntries.fields.map((field, index) => (
-                <FormField key={field.id} error={errors.valueList ? errors.valueList[index]?.value : undefined}>
+                <FormField
+                  key={field.id}
+                  error={errors.valueList && !errors.valueList.root ? errors.valueList[index]?.value : undefined}
+                >
                   <Input {...register(`valueList.${index}.value`)} />
                   <Button icon={<Trash />} iconOnly onClick={() => valueListEntries.remove(index)}>
                     {t("attribute.valueConstraint.valueList.remove")}
