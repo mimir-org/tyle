@@ -1,9 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Tyle.Application.Common;
-using Tyle.Application.Common.Requests;
 using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
-using Tyle.Core.Common;
 using Tyle.Core.Terminals;
 using Tyle.Persistence.Common;
 
@@ -50,7 +48,6 @@ public class TerminalRepository : ITerminalRepository
 
     public async Task<TerminalType> Create(TerminalTypeRequest request)
     {
-
         var terminal = new TerminalType
         {
             Name = request.Name,

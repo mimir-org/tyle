@@ -1,11 +1,8 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using Tyle.Application.Blocks;
 using Tyle.Application.Blocks.Requests;
 using Tyle.Application.Common;
-using Tyle.Application.Common.Requests;
 using Tyle.Core.Blocks;
-using Tyle.Core.Common;
 using Tyle.Persistence.Common;
 
 namespace Tyle.Persistence.Blocks;
@@ -61,7 +58,6 @@ public class BlockRepository : IBlockRepository
 
     public async Task<BlockType> Create(BlockTypeRequest request)
     {
-
         var block = new BlockType
         {
             Name = request.Name,
@@ -117,7 +113,6 @@ public class BlockRepository : IBlockRepository
             else
             {
                 throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "terminal", terminalTypeReferenceRequest.TerminalId.ToString()));
-
             }
         }
 
@@ -147,7 +142,6 @@ public class BlockRepository : IBlockRepository
 
     public async Task<BlockType?> Update(Guid id, BlockTypeRequest request)
     {
-
         var block = await _dbSet.AsTracking()
             .Include(x => x.Classifiers)
             .Include(x => x.Terminals)
@@ -190,7 +184,6 @@ public class BlockRepository : IBlockRepository
             else
             {
                 throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "classifier", classifierId.ToString()));
-
             }
         }
 

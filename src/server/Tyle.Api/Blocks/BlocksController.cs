@@ -92,7 +92,6 @@ public class BlocksController : ControllerBase
         try
         {
             var createdBlock = await _blockRepository.Create(request);
-
             return Created("dummy", _mapper.Map<BlockView>(createdBlock));
         }
         catch (KeyNotFoundException ex)

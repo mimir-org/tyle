@@ -92,7 +92,6 @@ public class TerminalsController : ControllerBase
         try
         {
             var createdTerminal = await _terminalRepository.Create(request);
-
             return Created("dummy", _mapper.Map<TerminalView>(createdTerminal));
         }
         catch (KeyNotFoundException ex)

@@ -45,8 +45,7 @@ public class AttributeRepository : IAttributeRepository
 
     public async Task<AttributeType> Create(AttributeTypeRequest request)
     {
-
-        var response = new AttributeType
+        var attribute = new AttributeType
         {
             Name = request.Name,
             Description = request.Description,
@@ -62,11 +61,11 @@ public class AttributeRepository : IAttributeRepository
             ValueConstraint = _mapper.Map<ValueConstraint>(request.ValueConstraint)
         };
 
-        response.LastUpdateOn = response.CreatedOn;
+        attribute.LastUpdateOn = attribute.CreatedOn;
 
         if (request.PredicateId == null || await _context.Predicates.AsNoTracking().AnyAsync(x => x.Id == request.PredicateId))
         {
-            response.PredicateId = request.PredicateId;
+            attribute.PredicateId = request.PredicateId;
         }
         else
         {
@@ -77,9 +76,9 @@ public class AttributeRepository : IAttributeRepository
         {
             if (await _context.Units.AsNoTracking().AnyAsync(x => x.Id == unitId))
             {
-                response.Units.Add(new AttributeUnitJoin
+                attribute.Units.Add(new AttributeUnitJoin
                 {
-                    AttributeId = response.Id,
+                    AttributeId = attribute.Id,
                     UnitId = unitId
                 });
             }
@@ -89,10 +88,10 @@ public class AttributeRepository : IAttributeRepository
             }
         }
 
-        _dbSet.Add(response);
+        _dbSet.Add(attribute);
         await _context.SaveChangesAsync();
 
-        return await Get(response.Id);
+        return await Get(attribute.Id);
     }
 
     public async Task<AttributeType?> Update(Guid id, AttributeTypeRequest request)
@@ -151,7 +150,6 @@ public class AttributeRepository : IAttributeRepository
             else
             {
                 throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Remove, "attribute", unitId.ToString()));
-
             }
         }
 

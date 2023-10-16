@@ -93,7 +93,6 @@ public class AttributeGroupsController : ControllerBase
         try
         {
             var createdAttributeGroup = await _attributeGroupRepository.Create(request);
-
             return Created("dummy", _mapper.Map<AttributeGroupView>(createdAttributeGroup));
         }
         catch (KeyNotFoundException ex)

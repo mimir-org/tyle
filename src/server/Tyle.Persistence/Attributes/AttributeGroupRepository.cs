@@ -42,8 +42,6 @@ public class AttributeGroupRepository : IAttributeGroupRepository
 
     public async Task<AttributeGroup> Create(AttributeGroupRequest request)
     {
-
-
         var attributeGroup = new AttributeGroup
         {
             Name = request.Name,

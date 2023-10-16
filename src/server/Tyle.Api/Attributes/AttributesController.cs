@@ -99,8 +99,6 @@ public class AttributesController : ControllerBase
         {
             return UnprocessableEntity(ex);
         }
-
-
         catch (Exception)
         {
             return StatusCode(StatusCodes.Status500InternalServerError);
@@ -131,7 +129,6 @@ public class AttributesController : ControllerBase
             {
                 return NotFound();
             }
-
 
             return Ok(_mapper.Map<AttributeView>(attribute));
         }
