@@ -16,7 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "TypeLibrary": {
+    "Tyle": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

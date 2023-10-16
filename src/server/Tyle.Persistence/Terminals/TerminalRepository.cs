@@ -3,6 +3,7 @@ using Tyle.Application.Common;
 using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
 using Tyle.Core.Terminals;
+using Tyle.Persistence.Common;
 
 namespace Tyle.Persistence.Terminals;
 
@@ -74,7 +75,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid classifier id
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "classifier", classifierId.ToString()));
             }
         }
 
@@ -84,7 +85,7 @@ public class TerminalRepository : ITerminalRepository
         }
         else
         {
-            // TODO: Handle the case where a request is sent with a non-valid purpose id
+            throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "purpose", request.PurposeId.ToString()));
         }
 
         if (request.MediumId == null || await _context.Purposes.AsNoTracking().AnyAsync(x => x.Id == request.MediumId))
@@ -93,7 +94,7 @@ public class TerminalRepository : ITerminalRepository
         }
         else
         {
-            // TODO: Handle the case where a request is sent with a non-valid medium id
+            throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "medium", request.MediumId.ToString()));
         }
 
         foreach (var attributeTypeReferenceRequest in request.Attributes)
@@ -110,7 +111,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid attribute id
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeTypeReferenceRequest.AttributeId.ToString()));
             }
         }
 
@@ -161,7 +162,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid classifier id
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Update, "classifier", classifierId.ToString()));
             }
         }
 
@@ -173,7 +174,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid purpose id
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Update, "purpose", request.PurposeId.ToString()));
             }
         }
 
@@ -189,7 +190,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid medium id
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Update, "medium", request.MediumId.ToString()));
             }
         }
 
@@ -217,8 +218,7 @@ public class TerminalRepository : ITerminalRepository
 
             if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
             {
-                // TODO: Handle the case where a request is sent with a non-valid attribute id
-                continue;
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Update, "attribute", attributeTypeReferenceRequest.ToString()));
             }
 
             var terminalAttributeToUpdate = terminal.Attributes.FirstOrDefault(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId);
