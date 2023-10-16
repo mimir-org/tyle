@@ -1,24 +1,25 @@
+import { DESCRIPTION_LENGTH, IRI_LENGTH, NAME_LENGTH, NOTATION_LENGTH } from "common/types/common/stringLengthConstants";
+import { TFunction } from "i18next";
 import * as yup from "yup";
 
-export const terminalSchema = () =>
+export const terminalSchema = (t: TFunction<"translation">) =>
   yup.object({
-    name: yup.string().required(),
+    name: yup.string()
+    .max(NAME_LENGTH, t("common.validation.name.max", { length: NAME_LENGTH }))
+    .required(t("common.validation.name.required")),
 
-    //description: yup.string(),
+    description: yup.string()
+    .max(DESCRIPTION_LENGTH, t("common.validation.description.max", { length: DESCRIPTION_LENGTH })),
 
     classifiers: yup.array().required(),
 
-    //purpose: yup.string(),
+    notation: yup.string()
+    .max(NOTATION_LENGTH, t("common.validation.notation.max", { length: NOTATION_LENGTH })),
 
-    //notation: yup.string(),
+    symbol: yup.string()
+    .max(IRI_LENGTH, t("common.validation.symbol.max", { length: IRI_LENGTH })),
 
-    //symbol: yup.string(),
-
-    //aspect: yup.string(),
-
-    //medium: yup.string(),
-
-    qualifier: yup.number().min(0).required(),
+    qualifier: yup.number().required(),
 
     attributes: yup.array().required(),
   });

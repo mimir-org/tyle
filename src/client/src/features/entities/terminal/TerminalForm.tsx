@@ -36,7 +36,7 @@ export const TerminalForm = ({ defaultValues = createDefaultTerminalFormFields()
 
   const formMethods = useForm<TerminalFormFields>({
     defaultValues: defaultValues,
-    resolver: yupResolver(terminalSchema()),
+    resolver: yupResolver(terminalSchema(t)),
   });
 
   const { handleSubmit, control, setError, reset } = formMethods;

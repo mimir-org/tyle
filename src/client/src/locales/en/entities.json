@@ -32,6 +32,12 @@
       },
       "description": {
         "max": "The description can be at most {{length}} characters"
+      },
+      "notation": {
+        "max": "The notation can be at most {{length}} characters"
+      },
+      "symbol": {
+        "max": "The symbol can be at most {{length}} characters"
       }
     },
     "templates": {
