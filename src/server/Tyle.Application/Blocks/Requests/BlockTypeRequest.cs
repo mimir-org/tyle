@@ -23,6 +23,7 @@ public class BlockTypeRequest : IValidatableObject
     [MaxLength(StringLengthConstants.IriLength)]
     public string? Symbol { get; set; }
 
+    [EnumDataType(typeof(Aspect))]
     public Aspect? Aspect { get; set; }
 
     public ICollection<TerminalTypeReferenceRequest> Terminals { get; set; } = new List<TerminalTypeReferenceRequest>();

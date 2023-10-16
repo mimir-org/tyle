@@ -23,12 +23,16 @@ public class AttributeTypeRequest : IValidatableObject
     [Required, Range(0, 1, ErrorMessage = "The unit max count must be 0 or 1.")]
     public int UnitMaxCount { get; set; }
 
+    [EnumDataType(typeof(ProvenanceQualifier))]
     public ProvenanceQualifier? ProvenanceQualifier { get; set; }
 
+    [EnumDataType(typeof(RangeQualifier))]
     public RangeQualifier? RangeQualifier { get; set; }
 
+    [EnumDataType(typeof(RegularityQualifier))]
     public RegularityQualifier? RegularityQualifier { get; set; }
 
+    [EnumDataType(typeof(ScopeQualifier))]
     public ScopeQualifier? ScopeQualifier { get; set; }
 
     public ValueConstraintRequest? ValueConstraint { get; set; }

@@ -24,11 +24,12 @@ public class TerminalTypeRequest : IValidatableObject
     [MaxLength(StringLengthConstants.IriLength)]
     public string? Symbol { get; set; }
 
+    [EnumDataType(typeof(Aspect))]
     public Aspect? Aspect { get; set; }
 
     public int? MediumId { get; set; }
 
-    [Required]
+    [Required, EnumDataType(typeof(Direction))]
     public Direction Qualifier { get; set; }
 
     public ICollection<AttributeTypeReferenceRequest> Attributes { get; set; } = new List<AttributeTypeReferenceRequest>();
