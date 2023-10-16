@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tyle.Persistence.Common
 {
-    public static class ExeptionMessage
+    public static class ExceptionMessage
     {
         public enum TypeOfMessage
         {
