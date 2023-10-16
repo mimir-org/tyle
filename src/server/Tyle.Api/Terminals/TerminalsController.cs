@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Models.Attributes;
 using Swashbuckle.AspNetCore.Annotations;
-using Tyle.Api.Blocks;
 using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
-using Tyle.Core.Common;
 
 namespace Tyle.Api.Terminals;
 
