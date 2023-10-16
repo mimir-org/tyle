@@ -110,7 +110,10 @@ export const attributeSchema = (t: TFunction<"translation">) =>
         is: ConstraintType.IsInListOfAllowedValues,
         then: (schema) => schema.min(2, t("attribute.validation.valueList.min")),
       })
-      .test("uniqueValues", t("attribute.validation.valueList.unique"), (value) => {
+      .test("uniqueValues", t("attribute.validation.valueList.unique"), (value, context) => {
+        if (context.parent.dataType === XsdDataType.Decimal || context.parent.dataType === XsdDataType.Integer) {
+          return value ? value.length === new Set(value.map((x) => Number(x.value))).size : true;
+        }
         return value ? value.length === new Set(value.map((x) => x.value)).size : true;
       })
       .when(["constraintType", "dataType"], {
