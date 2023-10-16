@@ -7,7 +7,6 @@ using Mimirorg.Authentication.Models.Attributes;
 using Swashbuckle.AspNetCore.Annotations;
 using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
-using Tyle.Core.Common;
 
 namespace Tyle.Api.Attributes;
 

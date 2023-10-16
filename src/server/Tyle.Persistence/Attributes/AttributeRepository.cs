@@ -70,7 +70,7 @@ public class AttributeRepository : IAttributeRepository
         }
         else
         {
-            throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "predicate", request.PredicateId.ToString()));
+            throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "predicate", request.PredicateId.ToString()));
         }
 
         foreach (var unitId in request.UnitIds)
@@ -85,7 +85,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "attribute", request.Name));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", request.Name));
             }
         }
 
@@ -126,7 +126,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Add, "predicate", request.PredicateId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "predicate", request.PredicateId.ToString()));
             }
         }
 
@@ -150,7 +150,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExeptionMessage.CreateExeptionMessage(ExeptionMessage.TypeOfMessage.Remove, "attribute", unitId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Remove, "attribute", unitId.ToString()));
 
             }
         }
