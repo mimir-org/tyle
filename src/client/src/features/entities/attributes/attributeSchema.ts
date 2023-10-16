@@ -3,7 +3,6 @@ import * as yup from "yup";
 import { DESCRIPTION_LENGTH, NAME_LENGTH, VALUE_LENGTH } from "common/types/common/stringLengthConstants";
 import { ConstraintType } from "common/types/attributes/constraintType";
 import { XsdDataType } from "common/types/attributes/xsdDataType";
-import { unitSchema } from "../units/unitSchema";
 
 const stringValueObject = (t: TFunction<"translation">) =>
   yup.object({
@@ -49,19 +48,9 @@ export const attributeSchema = (t: TFunction<"translation">) =>
       .string()
       .max(DESCRIPTION_LENGTH, t("common.validation.description.max", { length: DESCRIPTION_LENGTH })),
 
-    predicateId: yup.number().integer().min(1),
+    units: yup.array().required(),
 
-    units: yup.array().of(unitSchema).required(),
-
-    unitRequirement: yup.number().integer().min(0).required(),
-
-    provenanceQualifier: yup.number().integer().min(0),
-
-    rangeQualifier: yup.number().integer().min(0),
-
-    regularityQualifier: yup.number().integer().min(0),
-
-    scopeQualifier: yup.number().integer().min(0),
+    unitRequirement: yup.number().required(),
 
     valueConstraint: yup.boolean().required(),
 
@@ -117,28 +106,32 @@ export const attributeSchema = (t: TFunction<"translation">) =>
     valueList: yup
       .array()
       .required()
+      .when("constraintType", {
+        is: ConstraintType.IsInListOfAllowedValues,
+        then: (schema) => schema.min(2, t("attribute.validation.valueList.min")),
+      })
       .test("uniqueValues", t("attribute.validation.valueList.unique"), (value) => {
         return value ? value.length === new Set(value.map((x) => x.value)).size : true;
       })
       .when(["constraintType", "dataType"], {
         is: (ct: ConstraintType, dt: XsdDataType) =>
           ct === ConstraintType.IsInListOfAllowedValues && dt === XsdDataType.String,
-        then: (schema) => schema.of(stringValueObject(t)).min(2, t("attribute.validation.valueList.min")),
+        then: (schema) => schema.of(stringValueObject(t)),
       })
       .when(["constraintType", "dataType"], {
         is: (ct: ConstraintType, dt: XsdDataType) =>
           ct === ConstraintType.IsInListOfAllowedValues && dt === XsdDataType.Decimal,
-        then: (schema) => schema.of(decimalValueObject(t)).min(2, t("attribute.validation.valueList.min")),
+        then: (schema) => schema.of(decimalValueObject(t)),
       })
       .when(["constraintType", "dataType"], {
         is: (ct: ConstraintType, dt: XsdDataType) =>
           ct === ConstraintType.IsInListOfAllowedValues && dt === XsdDataType.Integer,
-        then: (schema) => schema.of(integerValueObject(t)).min(2, t("attribute.validation.valueList.min")),
+        then: (schema) => schema.of(integerValueObject(t)),
       })
       .when(["constraintType", "dataType"], {
         is: (ct: ConstraintType, dt: XsdDataType) =>
           ct === ConstraintType.IsInListOfAllowedValues && dt === XsdDataType.AnyUri,
-        then: (schema) => schema.of(uriValueObject(t)).min(2, t("attribute.validation.valueList.min")),
+        then: (schema) => schema.of(uriValueObject(t)),
       }),
 
     pattern: yup
