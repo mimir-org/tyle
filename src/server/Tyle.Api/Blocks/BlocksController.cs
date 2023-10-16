@@ -96,7 +96,7 @@ public class BlocksController : ControllerBase
         }
         catch (KeyNotFoundException ex)
         {
-            return UnprocessableEntity(ex);
+             return StatusCode(422,ex.Message);
         }
         catch (Exception)
         {
@@ -133,7 +133,7 @@ public class BlocksController : ControllerBase
         }
         catch (KeyNotFoundException ex)
         {
-            return UnprocessableEntity(ex);
+             return StatusCode(422,ex.Message);
         }
         catch (Exception)
         {

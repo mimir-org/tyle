@@ -17,7 +17,7 @@ namespace Tyle.Persistence.Common
         {
             var sb = new StringBuilder();
 
-            sb.Append($"Could not {action.ToString().ToLower()} {typeOfObject}");
+            sb.Append($"Could not {(string)action.ToString().ToLower()} {typeOfObject}");
             if (id != null)
                 sb.Append($" with id {id}.");
             else sb.Append(".");
