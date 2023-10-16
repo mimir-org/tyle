@@ -85,6 +85,7 @@ public class AttributeGroupsController : ControllerBase
     [ProducesResponseType(typeof(AttributeGroupView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] AttributeGroupRequest request)
@@ -93,6 +94,10 @@ public class AttributeGroupsController : ControllerBase
         {
             var createdAttributeGroup = await _attributeGroupRepository.Create(request);
             return Created("dummy", _mapper.Map<AttributeGroupView>(createdAttributeGroup));
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return StatusCode(422, ex.Message);
         }
         catch (Exception)
         {
@@ -111,6 +116,7 @@ public class AttributeGroupsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] AttributeGroupRequest request)
@@ -125,6 +131,10 @@ public class AttributeGroupsController : ControllerBase
             }
 
             return Ok(_mapper.Map<AttributeGroupView>(attributeGroup));
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return StatusCode(422, ex.Message);
         }
         catch (Exception)
         {

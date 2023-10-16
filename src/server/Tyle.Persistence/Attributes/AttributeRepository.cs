@@ -4,6 +4,7 @@ using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Attributes;
+using Tyle.Persistence.Common;
 
 namespace Tyle.Persistence.Attributes;
 
@@ -68,7 +69,7 @@ public class AttributeRepository : IAttributeRepository
         }
         else
         {
-            // TODO: Handle the case where a request is sent with a non-valid predicate id
+            throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "predicate", request.PredicateId.ToString()));
         }
 
         foreach (var unitId in request.UnitIds)
@@ -83,7 +84,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid unit id
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "unit", unitId.ToString()));
             }
         }
 
@@ -122,7 +123,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid predicate id
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "predicate", request.PredicateId.ToString()));
             }
         }
 
@@ -146,7 +147,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid unit id
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "unit", unitId.ToString()));
             }
         }
 

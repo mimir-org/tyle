@@ -3,6 +3,7 @@ using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Attributes;
+using Tyle.Persistence.Common;
 
 namespace Tyle.Persistence.Attributes;
 
@@ -63,7 +64,7 @@ public class AttributeGroupRepository : IAttributeGroupRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid attribute id
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeId.ToString()));
             }
         }
 
@@ -113,7 +114,7 @@ public class AttributeGroupRepository : IAttributeGroupRepository
             }
             else
             {
-                // TODO: Handle the case where a request is sent with a non-valid attribute unit
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeId.ToString()));
             }
         }
 
