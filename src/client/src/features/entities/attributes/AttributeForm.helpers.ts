@@ -14,6 +14,7 @@ import { ConstraintType } from "common/types/attributes/constraintType";
 import { ValueObject } from "../types/valueObject";
 import { RdlUnit } from "common/types/attributes/rdlUnit";
 import { XsdDataType } from "common/types/attributes/xsdDataType";
+import { UnitRequirement } from "./UnitRequirement";
 
 export const useAttributeQuery = () => {
   const { id } = useParams();
@@ -30,7 +31,7 @@ export interface AttributeFormFields
   extends Omit<AttributeTypeRequest, "predicateId" | "unitIds" | "unitMinCount" | "unitMaxCount" | "valueConstraint"> {
   predicate?: RdlPredicate;
   units: RdlUnit[];
-  unitRequirement: UnitRequirements;
+  unitRequirement: UnitRequirement;
   valueConstraint: boolean;
   constraintType?: ConstraintType;
   dataType?: XsdDataType;
@@ -42,12 +43,6 @@ export interface AttributeFormFields
   maxValue?: string;
 }
 
-export enum UnitRequirements {
-  NoUnit = 0,
-  Optional = 1,
-  Required = 2,
-}
-
 export const toAttributeFormFields = (attribute: AttributeView): AttributeFormFields => ({
   name: attribute.name,
   description: attribute.description,
@@ -55,10 +50,10 @@ export const toAttributeFormFields = (attribute: AttributeView): AttributeFormFi
   units: attribute.units,
   unitRequirement:
     attribute.unitMinCount === 1
-      ? UnitRequirements.Required
+      ? UnitRequirement.Required
       : attribute.unitMaxCount === 1
-      ? UnitRequirements.Optional
-      : UnitRequirements.NoUnit,
+      ? UnitRequirement.Optional
+      : UnitRequirement.NoUnit,
   provenanceQualifier: attribute.provenanceQualifier,
   rangeQualifier: attribute.rangeQualifier,
   regularityQualifier: attribute.regularityQualifier,
@@ -79,8 +74,8 @@ export const toAttributeTypeRequest = (attributeFormFields: AttributeFormFields)
   description: attributeFormFields.description ? attributeFormFields.description : undefined,
   predicateId: attributeFormFields.predicate?.id,
   unitIds: attributeFormFields.units.map((x) => x.id),
-  unitMinCount: attributeFormFields.unitRequirement === UnitRequirements.Required ? 1 : 0,
-  unitMaxCount: attributeFormFields.unitRequirement === UnitRequirements.NoUnit ? 0 : 1,
+  unitMinCount: attributeFormFields.unitRequirement === UnitRequirement.Required ? 1 : 0,
+  unitMaxCount: attributeFormFields.unitRequirement === UnitRequirement.NoUnit ? 0 : 1,
   provenanceQualifier: attributeFormFields.provenanceQualifier,
   rangeQualifier: attributeFormFields.rangeQualifier,
   regularityQualifier: attributeFormFields.regularityQualifier,
@@ -113,7 +108,7 @@ export const toValueConstraintRequest = (
 export const defaultAttributeFormFields: AttributeFormFields = {
   name: "",
   units: [],
-  unitRequirement: UnitRequirements.NoUnit,
+  unitRequirement: UnitRequirement.NoUnit,
   valueConstraint: false,
   requireValue: false,
   valueList: [],

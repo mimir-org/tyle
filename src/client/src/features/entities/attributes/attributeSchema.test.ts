@@ -4,6 +4,7 @@ import { attributeSchema } from "./attributeSchema";
 import { vi } from "vitest";
 import { ConstraintType } from "common/types/attributes/constraintType";
 import { XsdDataType } from "common/types/attributes/xsdDataType";
+import { UnitRequirement } from "./UnitRequirement";
 
 describe("attributeSchema tests", () => {
   const t = vi.fn();
@@ -42,6 +43,32 @@ describe("attributeSchema tests", () => {
     await expect(attributeSchema(t).validateAt("description", attributeWithLongDescription)).rejects.toBeTruthy();
   });
 
+  it("should resolve with unit array", async () => {
+    const attributeWithUnitArray: Partial<AttributeFormFields> = {
+      units: [],
+    };
+    await expect(attributeSchema(t).validateAt("units", attributeWithUnitArray)).resolves.toBeTruthy();
+  });
+
+  it("should reject without unit array", async () => {
+    const attributeWithoutUnitArray: Partial<AttributeFormFields> = {};
+    await expect(attributeSchema(t).validateAt("units", attributeWithoutUnitArray)).rejects.toBeTruthy();
+  });
+
+  it("should resolve with unit requirement", async () => {
+    const attributeWithUnitRequirement: Partial<AttributeFormFields> = {
+      unitRequirement: UnitRequirement.Optional,
+    };
+    await expect(attributeSchema(t).validateAt("unitRequirement", attributeWithUnitRequirement)).resolves.toBeTruthy();
+  });
+
+  it("should reject without unit requirement", async () => {
+    const attributeWithoutUnitRequirement: Partial<AttributeFormFields> = {};
+    await expect(
+      attributeSchema(t).validateAt("unitRequirement", attributeWithoutUnitRequirement),
+    ).rejects.toBeTruthy();
+  });
+
   it("should reject when constraint type or data type is not set for a value constraint", async () => {
     const attributeWithConstraintMissingMandatoryFields: Partial<AttributeFormFields> = {
       valueConstraint: true,
@@ -70,6 +97,18 @@ describe("attributeSchema tests", () => {
       dataType: XsdDataType.AnyUri,
     };
     await expect(attributeSchema(t).validateAt("dataType", attributeWithConstraintAndDataType)).resolves.toBeTruthy();
+  });
+
+  it("should resolve with require value boolean", async () => {
+    const attributeWithRequireValue: Partial<AttributeFormFields> = {
+      requireValue: true,
+    };
+    await expect(attributeSchema(t).validateAt("requireValue", attributeWithRequireValue)).resolves.toBeTruthy();
+  });
+
+  it("should reject without require value boolean", async () => {
+    const attributeWithoutRequireValue: Partial<AttributeFormFields> = {};
+    await expect(attributeSchema(t).validateAt("requireValue", attributeWithoutRequireValue)).rejects.toBeTruthy();
   });
 
   it(`should resolve for valid input to ${ConstraintType[ConstraintType.HasSpecificValue]} constraint`, async () => {
