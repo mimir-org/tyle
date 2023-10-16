@@ -8,7 +8,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { approvalKeys, useGetApprovals } from "external/sources/approval/approval.queries";
 import { ApprovalDataCm, State } from "@mimirorg/typelibrary-types";
 import { usePatchBlockState } from "external/sources/block/block.queries";
-import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
 import { usePatchAttributeState } from "../../../external/sources/attribute/attribute.queries";
 import { usePatchRdsState } from "../../../external/sources/rds/rds.queries";
 import { usePatchQuantityDatumState } from "../../../external/sources/datum/quantityDatum.queries";
@@ -19,7 +18,7 @@ export const Approval = () => {
   const { t } = useTranslation("settings");
   const approvals = useGetApprovals();
   const patchMutationBlock = usePatchBlockState();
-  const patchMutationTerminal = usePatchTerminalState();
+  //const patchMutationTerminal = usePatchTerminalState();
   const patchMutationAttribute = usePatchAttributeState();
   const patchMutationQuantityDatum = usePatchQuantityDatumState();
   const patchMutationRds = usePatchRdsState();
@@ -47,7 +46,7 @@ export const Approval = () => {
         patchMutationBlock.mutateAsync(data);
         break;
       case "Terminal":
-        patchMutationTerminal.mutateAsync(data);
+        //patchMutationTerminal.mutateAsync(data);
         break;
       case "Attribute":
         patchMutationAttribute.mutateAsync(data);

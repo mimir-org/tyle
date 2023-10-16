@@ -1,6 +1,6 @@
-import { AttributeLibCm } from "@mimirorg/typelibrary-types";
+import { AttributeView } from "common/types/attributes/attributeView";
 
-export const prepareAttributes = (attributes?: AttributeLibCm[]) => {
+export const prepareAttributes = (attributes?: AttributeView[]) => {
   if (!attributes || attributes.length === 0) return [];
 
   return attributes.sort((a, b) => a.name.localeCompare(b.name));

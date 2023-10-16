@@ -96,7 +96,7 @@ export const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean]
 
   const mergedItems = [
     ...(blockQuery.data ?? []),
-    ...(terminalQuery.data ?? []),
+    //...(terminalQuery.data ?? []),
     //...(attributeQuery.data ?? []),
     ...(attributeGroupsQuery.data ?? []),
     //...(unitQuery.data ?? []),

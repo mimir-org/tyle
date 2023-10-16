@@ -32,6 +32,12 @@
       },
       "description": {
         "max": "The description can be at most {{length}} characters"
+      },
+      "notation": {
+        "max": "The notation can be at most {{length}} characters"
+      },
+      "symbol": {
+        "max": "The symbol can be at most {{length}} characters"
       }
     },
     "templates": {
@@ -265,10 +271,49 @@
     "color": "Color",
     "owner": "Owner",
     "description": "Description",
+    "classifiers": {
+      "title": "Add classifiers",
+      "dialog": {
+        "title": "Select classifier(s)",
+        "description": "Selecting classifiers to describe your terminal",
+        "search": "Search",
+        "add": "Add",
+        "open": "Open classifier selection dialog"
+      },
+      "remove": "Remove classifier"
+    },
+    "purpose": {
+      "title": "Purpose",
+      "dialog": {
+        "title": "Select purpose",
+        "description": "You can select at most one purpose",
+        "search": "Search",
+        "add": "Add",
+        "open": "Open purpose selection dialog"
+      },
+      "remove": "Remove purpose"
+    },
+    "notation": "Notation",
+    "symbol": "Symbol",
+    "aspect": "Aspect",
+    "medium": {
+      "title": "Medium",
+      "dialog": {
+        "title": "Select medium",
+        "description": "You can select at most one medium",
+        "search": "Search",
+        "add": "Add",
+        "open": "Open medium selection dialog"
+      },
+      "remove": "Remove medium"
+    },
+    "qualifier": "Qualifier",
     "placeholders": {
       "name": "Name",
       "color": "Select color",
-      "description": "Additional information about this terminal can be supplied here."
+      "description": "Additional information about this terminal can be supplied here.",
+      "notation": "Notation",
+      "symbol": "Symbol"
     },
     "processing": {
       "loading": "Submitting terminal",

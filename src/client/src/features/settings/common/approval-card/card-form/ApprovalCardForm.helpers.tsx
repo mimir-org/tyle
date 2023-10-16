@@ -6,7 +6,7 @@ import {
   mapFormApprovalToApiModel,
 } from "features/settings/common/approval-card/card-form/types/formApproval";
 import { Flexbox, Text, toast } from "@mimirorg/component-library";
-import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
+//import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
 import { usePatchBlockState } from "external/sources/block/block.queries";
 import { usePatchQuantityDatumState } from "../../../../../external/sources/datum/quantityDatum.queries";
 import { usePatchRdsState } from "../../../../../external/sources/rds/rds.queries";
@@ -21,7 +21,7 @@ export const useApprovalToasts = () => {
   const theme = useTheme();
   const { t } = useTranslation("settings");
   const patchMutationBlock = usePatchBlockState();
-  const patchMutationTerminal = usePatchTerminalState();
+  //const patchMutationTerminal = usePatchTerminalState();
   //const patchMutationUnit = usePatchUnitState();
   const patchMutationQuantityDatum = usePatchQuantityDatumState();
   const patchMutationRds = usePatchRdsState();
@@ -35,7 +35,7 @@ export const useApprovalToasts = () => {
         mutationPromise = patchMutationBlock.mutateAsync(mapFormApprovalToApiModel(submission));
         break;
       case "Terminal":
-        mutationPromise = patchMutationTerminal.mutateAsync(mapFormApprovalToApiModel(submission));
+        //mutationPromise = patchMutationTerminal.mutateAsync(mapFormApprovalToApiModel(submission));
         break;
       case "Unit":
         //mutationPromise = patchMutationUnit.mutateAsync(mapFormApprovalToApiModel(submission));
