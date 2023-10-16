@@ -1,6 +1,6 @@
 import { AttributeView } from "common/types/attributes/attributeView";
 import { AttributeTypeReferenceView } from "common/types/common/attributeTypeReferenceView";
-import { mapAttributeLibCmsToInfoItems } from "common/utils/mappers";
+import { mapAttributeViewsToInfoItems } from "common/utils/mappers";
 
 export const onAddAttributes = (
   selectedIds: string[],
@@ -28,5 +28,5 @@ export const resolveSelectedAndAvailableAttributes = (
     selectedSet.has(x.id) ? selected.push(x) : available.push(x);
   });
 
-  return [mapAttributeLibCmsToInfoItems(available), mapAttributeLibCmsToInfoItems(selected)];
+  return [mapAttributeViewsToInfoItems(available), mapAttributeViewsToInfoItems(selected)];
 };
