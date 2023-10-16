@@ -96,7 +96,7 @@ public class TerminalsController : ControllerBase
         }
         catch (KeyNotFoundException ex)
         {
-             return StatusCode(422,ex.Message);
+            return StatusCode(422, ex.Message);
         }
         catch (Exception)
         {
@@ -133,7 +133,7 @@ public class TerminalsController : ControllerBase
         }
         catch (KeyNotFoundException ex)
         {
-             return StatusCode(422,ex.Message);
+            return StatusCode(422, ex.Message);
         }
         catch (Exception)
         {

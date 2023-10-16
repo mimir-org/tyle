@@ -13,11 +13,11 @@ namespace Tyle.Persistence.Common
             Create, Add, Update, Remove
         }
 
-        public static string CreateExeptionMessage(TypeOfMessage action, string typeOfObject, string? id = null)
+        public static string CreateExceptionMessage(TypeOfMessage action, string typeOfObject, string? id = null)
         {
             var sb = new StringBuilder();
 
-            sb.Append($"Could not {(string)action.ToString().ToLower()} {typeOfObject}");
+            sb.Append($"Could not {(string) action.ToString().ToLower()} {typeOfObject}");
             if (id != null)
                 sb.Append($" with id {id}.");
             else sb.Append(".");

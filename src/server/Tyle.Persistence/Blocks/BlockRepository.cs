@@ -84,7 +84,7 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "classifier", classifierId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "classifier", classifierId.ToString()));
             }
         }
 
@@ -94,7 +94,7 @@ public class BlockRepository : IBlockRepository
         }
         else
         {
-            throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "purpose", request.PurposeId.ToString()));
+            throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "purpose", request.PurposeId.ToString()));
         }
 
         foreach (var terminalTypeReferenceRequest in request.Terminals)
@@ -112,7 +112,7 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "terminal", terminalTypeReferenceRequest.TerminalId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "terminal", terminalTypeReferenceRequest.TerminalId.ToString()));
             }
         }
 
@@ -130,7 +130,7 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeTypeReferenceRequest.AttributeId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeTypeReferenceRequest.AttributeId.ToString()));
             }
         }
 
@@ -183,7 +183,7 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "classifier", classifierId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "classifier", classifierId.ToString()));
             }
         }
 
@@ -195,7 +195,7 @@ public class BlockRepository : IBlockRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "purpose", request.PurposeId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "purpose", request.PurposeId.ToString()));
             }
         }
 
@@ -226,7 +226,7 @@ public class BlockRepository : IBlockRepository
 
             if (!await _context.Terminals.AnyAsync(x => x.Id == terminalTypeReferenceRequest.TerminalId))
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "terminal", terminalTypeReferenceRequest.TerminalId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "terminal", terminalTypeReferenceRequest.TerminalId.ToString()));
             }
 
             var blockTerminalToUpdate = block.Terminals.FirstOrDefault(x => x.TerminalId == terminalTypeReferenceRequest.TerminalId && x.Direction == terminalTypeReferenceRequest.Direction);
@@ -264,7 +264,7 @@ public class BlockRepository : IBlockRepository
 
             if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeTypeReferenceRequest.AttributeId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeTypeReferenceRequest.AttributeId.ToString()));
             }
 
             var blockAttributeToUpdate = block.Attributes.FirstOrDefault(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId);

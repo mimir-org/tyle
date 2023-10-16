@@ -69,7 +69,7 @@ public class AttributeRepository : IAttributeRepository
         }
         else
         {
-            throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "predicate", request.PredicateId.ToString()));
+            throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "predicate", request.PredicateId.ToString()));
         }
 
         foreach (var unitId in request.UnitIds)
@@ -84,7 +84,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", request.Name));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", request.Name));
             }
         }
 
@@ -96,8 +96,6 @@ public class AttributeRepository : IAttributeRepository
 
     public async Task<AttributeType?> Update(Guid id, AttributeTypeRequest request)
     {
-
-
         var attribute = await _dbSet.AsTracking()
             .Include(x => x.Units)
             .Include(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
@@ -125,7 +123,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "predicate", request.PredicateId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "predicate", request.PredicateId.ToString()));
             }
         }
 
@@ -149,7 +147,7 @@ public class AttributeRepository : IAttributeRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Remove, "attribute", unitId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "unit", unitId.ToString()));
             }
         }
 

@@ -64,7 +64,7 @@ public class AttributeGroupRepository : IAttributeGroupRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeId.ToString()));
             }
         }
 
@@ -114,7 +114,7 @@ public class AttributeGroupRepository : IAttributeGroupRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeId.ToString()));
             }
         }
 

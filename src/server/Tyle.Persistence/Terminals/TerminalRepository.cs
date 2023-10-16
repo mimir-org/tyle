@@ -75,7 +75,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "terminal classifier", classifierId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "classifier", classifierId.ToString()));
             }
         }
 
@@ -85,7 +85,7 @@ public class TerminalRepository : ITerminalRepository
         }
         else
         {
-            throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "terminal purpose", request.PurposeId.ToString()));
+            throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "purpose", request.PurposeId.ToString()));
         }
 
         if (request.MediumId == null || await _context.Purposes.AsNoTracking().AnyAsync(x => x.Id == request.MediumId))
@@ -94,7 +94,7 @@ public class TerminalRepository : ITerminalRepository
         }
         else
         {
-            throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "medium purpose", request.MediumId.ToString()));
+            throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "medium", request.MediumId.ToString()));
         }
 
         foreach (var attributeTypeReferenceRequest in request.Attributes)
@@ -111,7 +111,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeTypeReferenceRequest.AttributeId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeTypeReferenceRequest.AttributeId.ToString()));
             }
         }
 
@@ -162,7 +162,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Update, "classifier", classifierId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Update, "classifier", classifierId.ToString()));
             }
         }
 
@@ -174,7 +174,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Update, "purpose", request.PurposeId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Update, "purpose", request.PurposeId.ToString()));
             }
         }
 
@@ -190,7 +190,7 @@ public class TerminalRepository : ITerminalRepository
             }
             else
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Update, "medium", request.MediumId.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Update, "medium", request.MediumId.ToString()));
             }
         }
 
@@ -218,7 +218,7 @@ public class TerminalRepository : ITerminalRepository
 
             if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
             {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExeptionMessage(ExceptionMessage.TypeOfMessage.Update, "attribute", attributeTypeReferenceRequest.ToString()));
+                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Update, "attribute", attributeTypeReferenceRequest.ToString()));
             }
 
             var terminalAttributeToUpdate = terminal.Attributes.FirstOrDefault(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId);
