@@ -10,8 +10,7 @@ public class TerminalTypeReferenceRequest : IValidatableObject
 
     public int? MaxCount { get; set; }
 
-    [Required]
-    [EnumDataType(typeof(Direction))]
+    [Required, EnumDataType(typeof(Direction))]
     public Direction Direction { get; set; }
 
     [Required]

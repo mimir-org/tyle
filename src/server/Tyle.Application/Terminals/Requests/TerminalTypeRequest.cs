@@ -29,8 +29,7 @@ public class TerminalTypeRequest : IValidatableObject
 
     public int? MediumId { get; set; }
 
-    [Required]
-    [EnumDataType(typeof(Direction))]
+    [Required, EnumDataType(typeof(Direction))]
     public Direction Qualifier { get; set; }
 
     public ICollection<AttributeTypeReferenceRequest> Attributes { get; set; } = new List<AttributeTypeReferenceRequest>();

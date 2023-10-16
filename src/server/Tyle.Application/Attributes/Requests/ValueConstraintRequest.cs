@@ -8,12 +8,10 @@ namespace Tyle.Application.Attributes.Requests;
 
 public class ValueConstraintRequest : IValidatableObject
 {
-    [Required]
-    [EnumDataType(typeof(ConstraintType))]
+    [Required, EnumDataType(typeof(ConstraintType))]
     public ConstraintType ConstraintType { get; set; }
 
-    [Required]
-    [EnumDataType(typeof(XsdDataType))]
+    [Required, EnumDataType(typeof(XsdDataType))]
     public XsdDataType DataType { get; set; }
 
     [Range(0, int.MaxValue, ErrorMessage = "Min count must be null or a non-negative integer.")]
