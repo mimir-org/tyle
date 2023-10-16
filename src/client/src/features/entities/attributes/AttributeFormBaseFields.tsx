@@ -3,7 +3,7 @@ import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { ProvenanceQualifier } from "common/types/attributes/provenanceQualifier";
-import { AttributeFormFields, UnitRequirements, predicateInfoItem } from "./AttributeForm.helpers";
+import { AttributeFormFields, predicateInfoItem } from "./AttributeForm.helpers";
 import { RangeQualifier } from "common/types/attributes/rangeQualifier";
 import { RegularityQualifier } from "common/types/attributes/regularityQualifier";
 import { ScopeQualifier } from "common/types/attributes/scopeQualifier";
@@ -11,6 +11,7 @@ import { FormSection } from "../common/form-section/FormSection";
 import { SelectItemDialog } from "../common/select-item-dialog/SelectItemDialog";
 import { useGetPredicates } from "external/sources/predicate/predicate.queries";
 import { XCircle } from "@styled-icons/heroicons-outline";
+import { UnitRequirement } from "./UnitRequirement";
 
 interface AttributeFormBaseFieldsProps {
   limited?: boolean;
@@ -35,7 +36,7 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
   const predicateInfoItems = predicateQuery.data?.map((p) => predicateInfoItem(p)) ?? [];
   const chosenPredicate = useWatch({ control, name: "predicate" });
 
-  const unitRequirementsOptions = getOptionsFromEnum<UnitRequirements>(UnitRequirements);
+  const unitRequirementsOptions = getOptionsFromEnum<UnitRequirement>(UnitRequirement);
   const provenanceQualifierOptions = getOptionsFromEnum<ProvenanceQualifier>(ProvenanceQualifier);
   const rangeQualifierOptions = getOptionsFromEnum<RangeQualifier>(RangeQualifier);
   const regularityQualifierOptions = getOptionsFromEnum<RegularityQualifier>(RegularityQualifier);

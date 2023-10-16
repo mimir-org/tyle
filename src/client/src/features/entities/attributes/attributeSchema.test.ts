@@ -1,9 +1,10 @@
 import { DESCRIPTION_LENGTH, NAME_LENGTH } from "common/types/common/stringLengthConstants";
-import { AttributeFormFields, UnitRequirements } from "./AttributeForm.helpers";
+import { AttributeFormFields } from "./AttributeForm.helpers";
 import { attributeSchema } from "./attributeSchema";
 import { vi } from "vitest";
 import { ConstraintType } from "common/types/attributes/constraintType";
 import { XsdDataType } from "common/types/attributes/xsdDataType";
+import { UnitRequirement } from "./UnitRequirement";
 
 describe("attributeSchema tests", () => {
   const t = vi.fn();
@@ -54,17 +55,17 @@ describe("attributeSchema tests", () => {
     await expect(attributeSchema(t).validateAt("units", attributeWithoutUnitArray)).rejects.toBeTruthy();
   });
 
-  it("should resolve with unit requirements", async () => {
-    const attributeWithUnitRequirements: Partial<AttributeFormFields> = {
-      unitRequirement: UnitRequirements.Optional,
+  it("should resolve with unit requirement", async () => {
+    const attributeWithUnitRequirement: Partial<AttributeFormFields> = {
+      unitRequirement: UnitRequirement.Optional,
     };
-    await expect(attributeSchema(t).validateAt("unitRequirement", attributeWithUnitRequirements)).resolves.toBeTruthy();
+    await expect(attributeSchema(t).validateAt("unitRequirement", attributeWithUnitRequirement)).resolves.toBeTruthy();
   });
 
-  it("should reject without unit requirements", async () => {
-    const attributeWithoutUnitRequirements: Partial<AttributeFormFields> = {};
+  it("should reject without unit requirement", async () => {
+    const attributeWithoutUnitRequirement: Partial<AttributeFormFields> = {};
     await expect(
-      attributeSchema(t).validateAt("unitRequirement", attributeWithoutUnitRequirements),
+      attributeSchema(t).validateAt("unitRequirement", attributeWithoutUnitRequirement),
     ).rejects.toBeTruthy();
   });
 
