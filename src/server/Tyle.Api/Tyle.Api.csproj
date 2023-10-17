@@ -35,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Tyle.Export\Tyle.Export.csproj" />
     <ProjectReference Include="..\Tyle.Persistence\Tyle.Persistence.csproj" />
     <ProjectReference Include="..\Mimirorg.Authentication\Mimirorg.Authentication.csproj" />
   </ItemGroup>
