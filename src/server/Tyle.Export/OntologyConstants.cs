@@ -26,6 +26,8 @@ public static class OntologyConstants
     public static readonly Uri Pattern = new("http://www.w3.org/ns/shacl#pattern");
     public static readonly Uri MinInclusive = new("http://www.w3.org/ns/shacl#minInclusive");
     public static readonly Uri MaxInclusive = new("http://www.w3.org/ns/shacl#maxInclusive");
+    public static readonly Uri MinCount = new("http://www.w3.org/ns/shacl#minCount");
+    public static readonly Uri MaxCount = new("http://www.w3.org/ns/shacl#maxCount");
 
 
     public static readonly Uri ImfPredicate = new("http://ns.imfid.org/imf#predicate");
