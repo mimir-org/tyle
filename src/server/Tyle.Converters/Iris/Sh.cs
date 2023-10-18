@@ -15,4 +15,5 @@ public class Sh
     public static readonly Uri MinCount = new($"{NameSpace}minCount");
     public static readonly Uri MaxCount = new($"{NameSpace}maxCount");
     public static readonly Uri Node = new($"{NameSpace}node");
+    public static readonly Uri NodeShape = new($"{NameSpace}NodeShape");
 }

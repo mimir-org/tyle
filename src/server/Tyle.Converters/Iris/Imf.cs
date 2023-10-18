@@ -6,8 +6,11 @@ public class Imf
 
     // Classes
     public static readonly Uri Attribute = new($"{NameSpace}Attribute");
+    public static readonly Uri AttributeType = new($"{NameSpace}AttributeType");
     public static readonly Uri Block = new($"{NameSpace}Block");
+    public static readonly Uri BlockType = new($"{NameSpace}BlockType");
     public static readonly Uri Terminal = new($"{NameSpace}Terminal");
+    public static readonly Uri TerminalType = new($"{NameSpace}TerminalType");
 
     // Object Properties
     public static readonly Uri Classifier = new($"{NameSpace}classifier");
