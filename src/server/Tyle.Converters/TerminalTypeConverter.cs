@@ -101,7 +101,7 @@ public static class TerminalTypeConverter
                 terminalNode,
                 Imf.HasAttribute,
                 Sh.Node,
-                g.CreateUriNode($"http://tyle.imftools.com/attributes/{attribute.AttributeId}"),
+                g.CreateUriNode(new Uri($"http://tyle.imftools.com/attributes/{attribute.AttributeId}")),
                 out var propertyNode);
 
             g.Assert(new Triple(
