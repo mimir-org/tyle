@@ -82,7 +82,7 @@ public static class AttributeTypeConverter
                 attributeNode,
                 Imf.HasAttributeQualifier,
                 Sh.HasValue,
-                g.CreateUriNode(EnumToIriMappers.GetImfQualifier(attribute.ProvenanceQualifier)));
+                g.CreateUriNode(EnumToIriMappers.GetAttributeQualifier(attribute.ProvenanceQualifier)));
         }
 
         if (attribute.RangeQualifier != null)
@@ -91,7 +91,7 @@ public static class AttributeTypeConverter
                 attributeNode,
                 Imf.HasAttributeQualifier,
                 Sh.HasValue,
-                g.CreateUriNode(EnumToIriMappers.GetImfQualifier(attribute.RangeQualifier)));
+                g.CreateUriNode(EnumToIriMappers.GetAttributeQualifier(attribute.RangeQualifier)));
         }
 
         if (attribute.RegularityQualifier != null)
@@ -100,7 +100,7 @@ public static class AttributeTypeConverter
                 attributeNode,
                 Imf.HasAttributeQualifier,
                 Sh.HasValue,
-                g.CreateUriNode(EnumToIriMappers.GetImfQualifier(attribute.RegularityQualifier)));
+                g.CreateUriNode(EnumToIriMappers.GetAttributeQualifier(attribute.RegularityQualifier)));
         }
 
         if (attribute.ScopeQualifier != null)
@@ -109,7 +109,7 @@ public static class AttributeTypeConverter
                 attributeNode,
                 Imf.HasAttributeQualifier,
                 Sh.HasValue,
-                g.CreateUriNode(EnumToIriMappers.GetImfQualifier(attribute.ScopeQualifier)));
+                g.CreateUriNode(EnumToIriMappers.GetAttributeQualifier(attribute.ScopeQualifier)));
         }
 
         // Add value constraint
