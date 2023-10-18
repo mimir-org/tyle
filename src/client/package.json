@@ -23,7 +23,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.47.0",
     "react-hot-toast": "^2.4.0",
-    "react-i18next": "^13.2.2",
+    "react-i18next": "^13.3.0",
     "react-router-dom": "^6.17.0",
     "react-select": "^5.7.7",
     "rollup-plugin-node-builtins": "^2.1.2",
@@ -96,7 +96,7 @@
     "jsdom": "^22.1.0",
     "prettier": "^3.0.3",
     "typescript": "^5.1.6",
-    "vite": "^4.4.11",
+    "vite": "^4.5.0",
     "vite-plugin-babel-macros": "^1.0.6",
     "vite-plugin-svgr": "^3.2.0",
     "vitest": "^0.34.6"
