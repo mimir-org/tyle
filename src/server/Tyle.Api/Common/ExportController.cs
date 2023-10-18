@@ -35,7 +35,7 @@ public class ExportController : ControllerBase
                 return Ok("");
             }
 
-            return Ok(JsonLdExport.ConvertAttributeType(attribute));
+            return Ok(attribute.ToJsonLd());
         }
         catch (Exception)
         {

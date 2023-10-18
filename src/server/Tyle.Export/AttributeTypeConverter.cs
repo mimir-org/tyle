@@ -7,9 +7,9 @@ using VDS.RDF.Writing;
 
 namespace Tyle.Export;
 
-public static class JsonLdExport
+public static class AttributeTypeConverter
 {
-    public static JObject ConvertAttributeType(AttributeType attribute)
+    public static JObject ToJsonLd(this AttributeType attribute)
     {
         var g = new Graph();
 
@@ -219,70 +219,9 @@ public static class JsonLdExport
         var serializedGraph = jsonLdWriter.SerializeStore(store);
         var jsonString = $"{{ \"@graph\": {serializedGraph} }}";
 
-        const string context = """
-                               {
-                               "@context": [
-                                       "http://jsonld-context.dyreriket.xyz/rdfs.json",
-                                       "http://jsonld-context.dyreriket.xyz/sh.json",
-                                       "http://jsonld-context.dyreriket.xyz/pav.json",
-                                       "http://jsonld-context.dyreriket.xyz/dc.json",
-                                       "http://jsonld-context.dyreriket.xyz/skos.json",
-                                       "https://imf-lab.gitlab.io/imf-ontology/out/json/imf-context.json",
-                                       {
-                                           "@version": 1.1,
-                                           "dc": "http://purl.org/dc/elements/1.1/",
-                                           "ex": "http://example.com/example/",
-                                           "foaf": "http://xmlns.com/foaf/0.1/",
-                                           "imf": "http://ns.imfid.org/imf#",
-                                           "owl": "http://www.w3.org/2002/07/owl#",
-                                           "pav": "http://purl.org/pav/",
-                                           "pca-plm": "http://rds.posccaesar.org/ontology/plm/rdl/",
-                                           "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-                                           "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                                           "sh": "http://www.w3.org/ns/shacl#",
-                                           "skos": "http://www.w3.org/2004/02/skos/core#",
-                                           "vann": "http://purl.org/vocab/vann/",
-                                           "vs": "http://www.w3.org/2003/06/sw-vocab-status/ns#",
-                                           "xsd": "http://www.w3.org/2001/XMLSchema#"
-                                       }
-                               ]
-                               }
-                               """;
 
-        const string frame = """
-                             {
-                             "@context": [
-                                     "http://jsonld-context.dyreriket.xyz/rdfs.json",
-                                     "http://jsonld-context.dyreriket.xyz/sh.json",
-                                     "http://jsonld-context.dyreriket.xyz/pav.json",
-                                     "http://jsonld-context.dyreriket.xyz/dc.json",
-                                     "http://jsonld-context.dyreriket.xyz/skos.json",
-                                     "https://imf-lab.gitlab.io/imf-ontology/out/json/imf-context.json",
-                                     {
-                                         "@version": 1.1,
-                                         "dc": "http://purl.org/dc/elements/1.1/",
-                                         "ex": "http://example.com/example/",
-                                         "foaf": "http://xmlns.com/foaf/0.1/",
-                                         "imf": "http://ns.imfid.org/imf#",
-                                         "owl": "http://www.w3.org/2002/07/owl#",
-                                         "pav": "http://purl.org/pav/",
-                                         "pca-plm": "http://rds.posccaesar.org/ontology/plm/rdl/",
-                                         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-                                         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                                         "sh": "http://www.w3.org/ns/shacl#",
-                                         "skos": "http://www.w3.org/2004/02/skos/core#",
-                                         "vann": "http://purl.org/vocab/vann/",
-                                         "vs": "http://www.w3.org/2003/06/sw-vocab-status/ns#",
-                                         "xsd": "http://www.w3.org/2001/XMLSchema#"
-                                     }
-                             ],
-                             "sh:property": {}
-                             }
-                             """;
-
-
-        var flattened = JsonLdProcessor.Flatten(JToken.Parse(jsonString), JToken.Parse(context), new JsonLdProcessorOptions());
-        var result = JsonLdProcessor.Frame(flattened, JToken.Parse(frame), new JsonLdProcessorOptions());
+        var flattened = JsonLdProcessor.Flatten(JToken.Parse(jsonString), JToken.Parse(JsonLdConstants.Context), new JsonLdProcessorOptions());
+        var result = JsonLdProcessor.Frame(flattened, JToken.Parse(JsonLdConstants.Frame), new JsonLdProcessorOptions());
 
         return result;
     }
