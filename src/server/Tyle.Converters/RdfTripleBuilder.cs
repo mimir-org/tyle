@@ -1,7 +1,7 @@
-using Tyle.Export.Iris;
+using Tyle.Converters.Iris;
 using VDS.RDF;
 
-namespace Tyle.Export;
+namespace Tyle.Converters;
 
 public static class RdfTripleBuilder
 {

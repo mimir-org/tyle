@@ -1,11 +1,11 @@
 using Newtonsoft.Json.Linq;
+using Tyle.Converters.Iris;
 using Tyle.Core.Attributes;
-using Tyle.Export.Iris;
 using VDS.RDF;
 using VDS.RDF.JsonLd;
 using VDS.RDF.Writing;
 
-namespace Tyle.Export;
+namespace Tyle.Converters;
 
 public static class AttributeTypeConverter
 {

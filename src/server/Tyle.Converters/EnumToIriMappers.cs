@@ -1,7 +1,7 @@
+using Tyle.Converters.Iris;
 using Tyle.Core.Attributes;
-using Tyle.Export.Iris;
 
-namespace Tyle.Export;
+namespace Tyle.Converters;
 
 public static class EnumToIriMappers
 {

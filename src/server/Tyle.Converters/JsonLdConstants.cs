@@ -1,4 +1,4 @@
-namespace Tyle.Export;
+namespace Tyle.Converters;
 
 public class JsonLdConstants
 {
