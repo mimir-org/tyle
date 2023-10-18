@@ -9,7 +9,7 @@ export interface BlockTypeRequest {
   purposeId?: number;
   notation?: string;
   symbol?: string;
-  aspect?: Aspect;
+  aspect: Aspect;
   terminals: TerminalTypeReferenceRequest[];
   attributes: AttributeTypeReferenceRequest[];
 }

@@ -19,9 +19,8 @@ import { useGetPurposes } from "external/sources/purpose/purpose.queries";
 import { useGetAllRds } from "external/sources/rds/rds.queries";
 import { useGetSymbols } from "external/sources/symbol/symbol.queries";
 import { PlainLink } from "features/common/plain-link";
-import { resetSubform } from "features/entities/block/BlockForm.helpers";
+import { BlockFormFields, resetSubform } from "features/entities/block/BlockForm.helpers";
 import { BlockFormPreview } from "features/entities/entityPreviews/block/BlockFormPreview";
-import { FormBlockLib } from "features/entities/block/types/formBlockLib";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
@@ -44,7 +43,7 @@ interface BlockFormBaseFieldsProps {
 export const BlockFormBaseFields = ({ isFirstDraft, mode, state }: BlockFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
-  const { control, register, resetField, formState } = useFormContext<FormBlockLib>();
+  const { control, register, resetField, formState } = useFormContext<BlockFormFields>();
   const { errors } = formState;
 
   const rdsQuery = useGetAllRds();
@@ -62,7 +61,7 @@ export const BlockFormBaseFields = ({ isFirstDraft, mode, state }: BlockFormBase
         <FormField label={t("block.name")} error={errors.name}>
           <Input placeholder={t("block.placeholders.name")} {...register("name")} />
         </FormField>
-        <FormField label={t("block.purpose")} error={errors.purposeName}>
+        {/* <FormField label={t("block.purpose")} error={errors.purposeName}>
           <Controller
             control={control}
             name={"purposeName"}
@@ -80,8 +79,8 @@ export const BlockFormBaseFields = ({ isFirstDraft, mode, state }: BlockFormBase
               />
             )}
           />
-        </FormField>
-        <FormField label={t("block.aspect")} error={errors.aspect}>
+        </FormField> */}
+        {/*<FormField label={t("block.aspect")} error={errors.aspect}>
           <Controller
             control={control}
             name={"aspect"}
@@ -191,7 +190,7 @@ export const BlockFormBaseFields = ({ isFirstDraft, mode, state }: BlockFormBase
           <Button tabIndex={0} as={"span"} variant={"outlined"}>
             {t("common.cancel")}
           </Button>
-        </PlainLink>
+        </PlainLink>*/}
         <Button type={"submit"}>
           {mode === "edit"
             ? state === State.Approved
