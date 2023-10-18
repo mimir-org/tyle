@@ -1,8 +1,9 @@
+using Tyle.Export.Iris;
 using VDS.RDF;
 
 namespace Tyle.Export;
 
-public static class GraphExtensions
+public static class RdfTripleBuilder
 {
     public static void AddLiteralTriple(this IGraph g, INode rdfSubject, Uri rdfPredicate, string? rdfObject)
     {
@@ -13,7 +14,7 @@ public static class GraphExtensions
 
     public static void AddLiteralTriple(this IGraph g, INode rdfSubject, Uri rdfPredicate, DateTimeOffset rdfObject)
     {
-        g.AddLiteralTriple(rdfSubject, rdfPredicate, g.CreateLiteralNode(rdfObject.ToString(), OntologyConstants.DateTime));
+        g.AddLiteralTriple(rdfSubject, rdfPredicate, g.CreateLiteralNode(rdfObject.ToString(), Xsd.DateTime));
     }
 
     private static void AddLiteralTriple(this IGraph g, INode rdfSubject, Uri rdfPredicate, INode rdfObject)
@@ -31,13 +32,13 @@ public static class GraphExtensions
     {
         propertyNode = g.CreateBlankNode();
 
-        var pathTriple = new Triple(propertyNode, g.CreateUriNode(OntologyConstants.Path), g.CreateUriNode(path));
+        var pathTriple = new Triple(propertyNode, g.CreateUriNode(Sh.Path), g.CreateUriNode(path));
         g.Assert(pathTriple);
 
         var shaclTriple = new Triple(propertyNode, g.CreateUriNode(constraint), value);
         g.Assert(shaclTriple);
 
-        var rootTriple = new Triple(root, g.CreateUriNode(OntologyConstants.Property), propertyNode);
+        var rootTriple = new Triple(root, g.CreateUriNode(Sh.Property), propertyNode);
         g.Assert(rootTriple);
     }
 }

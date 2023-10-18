@@ -1,5 +1,6 @@
 using Newtonsoft.Json.Linq;
 using Tyle.Core.Attributes;
+using Tyle.Export.Iris;
 using VDS.RDF;
 using VDS.RDF.JsonLd;
 using VDS.RDF.Writing;
@@ -14,29 +15,35 @@ public static class JsonLdExport
 
         var attributeNode = g.CreateUriNode(new Uri($"http://tyle.imftools.com/attribute/{attribute.Id}"));
 
-        g.AddLiteralTriple(attributeNode, OntologyConstants.Label, attribute.Name);
-        g.AddLiteralTriple(attributeNode, OntologyConstants.Description, attribute.Description);
-        g.AddLiteralTriple(attributeNode, OntologyConstants.Version, attribute.Version);
-        g.AddLiteralTriple(attributeNode, OntologyConstants.Created, attribute.CreatedOn);
+        // Add metadata
+
+        g.AddLiteralTriple(attributeNode, Rdfs.Label, attribute.Name);
+        g.AddLiteralTriple(attributeNode, DcTerms.Description, attribute.Description);
+        g.AddLiteralTriple(attributeNode, Pav.Version, attribute.Version);
+        g.AddLiteralTriple(attributeNode, DcTerms.Created, attribute.CreatedOn);
 
         // TODO: Created by, contributed by, last update on
+
+        // Add predicate reference
 
         if (attribute.Predicate != null)
         {
             g.AddShaclPropertyTriple(
                 attributeNode,
-                OntologyConstants.ImfPredicate,
-                OntologyConstants.HasValue,
+                Imf.Predicate,
+                Sh.HasValue,
                 g.CreateUriNode(attribute.Predicate.Iri));
         }
+
+        // Add unit references
 
         if (attribute.UnitMaxCount == 0)
         {
             g.AddShaclPropertyTriple(
                 attributeNode,
-                OntologyConstants.ImfUom,
-                OntologyConstants.MaxCount,
-                g.CreateLiteralNode(attribute.UnitMaxCount.ToString(), OntologyConstants.Integer));
+                Imf.Uom,
+                Sh.MaxCount,
+                g.CreateLiteralNode(attribute.UnitMaxCount.ToString(), Xsd.Integer));
         }
         else
         {
@@ -44,69 +51,73 @@ public static class JsonLdExport
             {
                 g.AddShaclPropertyTriple(
                     attributeNode,
-                    OntologyConstants.ImfUom,
-                    OntologyConstants.HasValue,
+                    Imf.Uom,
+                    Sh.HasValue,
                     g.CreateUriNode(attribute.Units.First().Unit.Iri));
             }
             else if (attribute.Units.Count > 0)
             {
                 g.AddShaclPropertyTriple(
                     attributeNode,
-                    OntologyConstants.ImfUom,
-                    OntologyConstants.In,
+                    Imf.Uom,
+                    Sh.In,
                     g.AssertList(new List<INode>(attribute.Units.Select(x => g.CreateUriNode(x.Unit.Iri)))),
                     out var propertyNode);
 
                 g.Assert(new Triple(
                     propertyNode,
-                    g.CreateUriNode(OntologyConstants.MinCount),
-                    g.CreateLiteralNode(attribute.UnitMinCount.ToString(), OntologyConstants.Integer)));
+                    g.CreateUriNode(Sh.MinCount),
+                    g.CreateLiteralNode(attribute.UnitMinCount.ToString(), Xsd.Integer)));
             }
             else if (attribute.UnitMinCount == 1)
             {
                 g.AddShaclPropertyTriple(
                     attributeNode,
-                    OntologyConstants.ImfUom,
-                    OntologyConstants.MinCount,
-                    g.CreateLiteralNode(attribute.UnitMinCount.ToString(), OntologyConstants.Integer));
+                    Imf.Uom,
+                    Sh.MinCount,
+                    g.CreateLiteralNode(attribute.UnitMinCount.ToString(), Xsd.Integer));
             }
         }
+
+        // Add attribute qualifiers
 
         if (attribute.ProvenanceQualifier != null)
         {
             g.AddShaclPropertyTriple(
                 attributeNode,
-                OntologyConstants.ImfHasAttributeQualifier,
-                OntologyConstants.HasValue,
-                g.CreateUriNode(GetImfQualifier(attribute.ProvenanceQualifier)));
+                Imf.HasAttributeQualifier,
+                Sh.HasValue,
+                g.CreateUriNode(EnumToIriMappers.GetImfQualifier(attribute.ProvenanceQualifier)));
         }
 
         if (attribute.RangeQualifier != null)
         {
             g.AddShaclPropertyTriple(
                 attributeNode,
-                OntologyConstants.ImfHasAttributeQualifier,
-                OntologyConstants.HasValue,
-                g.CreateUriNode(GetImfQualifier(attribute.RangeQualifier)));
+                Imf.HasAttributeQualifier,
+                Sh.HasValue,
+                g.CreateUriNode(EnumToIriMappers.GetImfQualifier(attribute.RangeQualifier)));
         }
 
         if (attribute.RegularityQualifier != null)
         {
             g.AddShaclPropertyTriple(
                 attributeNode,
-                OntologyConstants.ImfHasAttributeQualifier,
-                OntologyConstants.HasValue,
-                g.CreateUriNode(GetImfQualifier(attribute.RegularityQualifier)));
+                Imf.HasAttributeQualifier,
+                Sh.HasValue,
+                g.CreateUriNode(EnumToIriMappers.GetImfQualifier(attribute.RegularityQualifier)));
         }
 
         if (attribute.ScopeQualifier != null)
         {
             g.AddShaclPropertyTriple(
                 attributeNode,
-                OntologyConstants.ImfHasAttributeQualifier,
-                OntologyConstants.HasValue,
-                g.CreateUriNode(GetImfQualifier(attribute.ScopeQualifier)));
+                Imf.HasAttributeQualifier,
+                Sh.HasValue,
+                g.CreateUriNode(EnumToIriMappers.GetImfQualifier(attribute.ScopeQualifier)));
         }
+
+        // Add value constraint
 
         if (attribute.ValueConstraint != null)
         {
@@ -116,9 +127,9 @@ public static class JsonLdExport
 
                     g.AddShaclPropertyTriple(
                         attributeNode,
-                        OntologyConstants.ImfValue,
-                        OntologyConstants.HasValue,
-                        g.CreateLiteralNode(attribute.ValueConstraint.Value, GetDataType(attribute.ValueConstraint.DataType)));
+                        Imf.Value,
+                        Sh.HasValue,
+                        g.CreateLiteralNode(attribute.ValueConstraint.Value, EnumToIriMappers.GetDataType(attribute.ValueConstraint.DataType)));
 
                     break;
 
@@ -126,17 +137,17 @@ public static class JsonLdExport
 
                     g.AddShaclPropertyTriple(
                         attributeNode,
-                        OntologyConstants.ImfValue,
-                        OntologyConstants.In,
+                        Imf.Value,
+                        Sh.In,
                         g.AssertList(new List<INode>(attribute.ValueConstraint.ValueList.Select(x =>
-                            g.CreateLiteralNode(x.EntryValue, GetDataType(attribute.ValueConstraint.DataType))))),
+                            g.CreateLiteralNode(x.EntryValue, EnumToIriMappers.GetDataType(attribute.ValueConstraint.DataType))))),
                         out var inPropertyNode);
 
 
                     g.Assert(new Triple(
                         inPropertyNode,
-                        g.CreateUriNode(OntologyConstants.MinCount),
-                        g.CreateLiteralNode(attribute.ValueConstraint.MinCount.ToString(), OntologyConstants.Integer)));
+                        g.CreateUriNode(Sh.MinCount),
+                        g.CreateLiteralNode(attribute.ValueConstraint.MinCount.ToString(), Xsd.Integer)));
 
                     break;
 
@@ -144,15 +155,15 @@ public static class JsonLdExport
 
                     g.AddShaclPropertyTriple(
                         attributeNode,
-                        OntologyConstants.ImfValue,
-                        OntologyConstants.DataType,
-                        g.CreateUriNode(GetDataType(attribute.ValueConstraint.DataType)),
+                        Imf.Value,
+                        Sh.DataType,
+                        g.CreateUriNode(EnumToIriMappers.GetDataType(attribute.ValueConstraint.DataType)),
                         out var dataTypePropertyNode);
 
                     g.Assert(new Triple(
                         dataTypePropertyNode,
-                        g.CreateUriNode(OntologyConstants.MinCount),
-                        g.CreateLiteralNode(attribute.ValueConstraint.MinCount.ToString(), OntologyConstants.Integer)));
+                        g.CreateUriNode(Sh.MinCount),
+                        g.CreateLiteralNode(attribute.ValueConstraint.MinCount.ToString(), Xsd.Integer)));
 
                     break;
 
@@ -160,15 +171,15 @@ public static class JsonLdExport
 
                     g.AddShaclPropertyTriple(
                         attributeNode,
-                        OntologyConstants.ImfValue,
-                        OntologyConstants.Pattern,
+                        Imf.Value,
+                        Sh.Pattern,
                         g.CreateUriNode(attribute.ValueConstraint.Pattern),
                         out var patternPropertyNode);
 
                     g.Assert(new Triple(
                         patternPropertyNode,
-                        g.CreateUriNode(OntologyConstants.MinCount),
-                        g.CreateLiteralNode(attribute.ValueConstraint.MinCount.ToString(), OntologyConstants.Integer)));
+                        g.CreateUriNode(Sh.MinCount),
+                        g.CreateLiteralNode(attribute.ValueConstraint.MinCount.ToString(), Xsd.Integer)));
 
                     break;
 
@@ -176,25 +187,25 @@ public static class JsonLdExport
 
                     g.AddShaclPropertyTriple(
                         attributeNode,
-                        OntologyConstants.ImfValue,
-                        OntologyConstants.MinCount,
-                        g.CreateLiteralNode(attribute.ValueConstraint.MinCount.ToString(), OntologyConstants.Integer),
+                        Imf.Value,
+                        Sh.MinCount,
+                        g.CreateLiteralNode(attribute.ValueConstraint.MinCount.ToString(), Xsd.Integer),
                         out var rangePropertyNode);
 
                     if (attribute.ValueConstraint.MinValue != null)
                     {
                         g.Assert(new Triple(
                             rangePropertyNode,
-                            g.CreateUriNode(OntologyConstants.MinInclusive),
-                            g.CreateLiteralNode(attribute.ValueConstraint.MinValue.ToString(), GetDataType(attribute.ValueConstraint.DataType))));
+                            g.CreateUriNode(Sh.MinInclusive),
+                            g.CreateLiteralNode(attribute.ValueConstraint.MinValue.ToString(), EnumToIriMappers.GetDataType(attribute.ValueConstraint.DataType))));
                     }
 
                     if (attribute.ValueConstraint.MaxValue != null)
                     {
                         g.Assert(new Triple(
                             rangePropertyNode,
-                            g.CreateUriNode(OntologyConstants.MaxInclusive),
-                            g.CreateLiteralNode(attribute.ValueConstraint.MaxValue.ToString(), GetDataType(attribute.ValueConstraint.DataType))));
+                            g.CreateUriNode(Sh.MaxInclusive),
+                            g.CreateLiteralNode(attribute.ValueConstraint.MaxValue.ToString(), EnumToIriMappers.GetDataType(attribute.ValueConstraint.DataType))));
                     }
 
                     break;
@@ -205,8 +216,8 @@ public static class JsonLdExport
         store.Add(g);
 
         var jsonLdWriter = new JsonLdWriter();
-        var test = jsonLdWriter.SerializeStore(store);
-        var jsonString = $"{{ \"@graph\": {test} }}";
+        var serializedGraph = jsonLdWriter.SerializeStore(store);
+        var jsonString = $"{{ \"@graph\": {serializedGraph} }}";
 
         const string context = """
                                {
@@ -275,40 +286,4 @@ public static class JsonLdExport
 
         return result;
     }
-
-    private static Uri GetImfQualifier(ProvenanceQualifier? qualifier) => qualifier switch
-    {
-        ProvenanceQualifier.CalculatedQualifier => OntologyConstants.ImfCalculatedQualifier,
-        ProvenanceQualifier.MeasuredQualifier => OntologyConstants.ImfMeasuredQualifier,
-        ProvenanceQualifier.SpecifiedQualifier => OntologyConstants.ImfSpecifiedQualifier
-    };
-
-    private static Uri GetImfQualifier(RangeQualifier? qualifier) => qualifier switch
-    {
-        RangeQualifier.AverageQualifier => OntologyConstants.ImfAverageQualifier,
-        RangeQualifier.MaximumQualifier => OntologyConstants.ImfMaximumQualifier,
-        RangeQualifier.MinimumQualifier => OntologyConstants.ImfMinimumQualifier,
-        RangeQualifier.NominalQualifier => OntologyConstants.ImfNominalQualifier,
-        RangeQualifier.NormalQualifier => OntologyConstants.ImfNormalQualifier
-    };
-
-    private static Uri GetImfQualifier(RegularityQualifier? qualifier) => qualifier switch
-    {
-        RegularityQualifier.AbsoluteQualifier => OntologyConstants.ImfAbsoluteQualifier,
-        RegularityQualifier.ContinuousQualifier => OntologyConstants.ImfContinuousQualifier
-    };
-
-    private static Uri GetImfQualifier(ScopeQualifier? qualifier) => qualifier switch
-    {
-        ScopeQualifier.DesignQualifier => OntologyConstants.ImfDesignQualifier,
-        ScopeQualifier.OperatingQualifier => OntologyConstants.ImfOperatingQualifier
-    };
-
-    private static Uri GetDataType(XsdDataType dataType) => dataType switch
-    {
-        XsdDataType.String => OntologyConstants.String,
-        XsdDataType.Decimal => OntologyConstants.Decimal,
-        XsdDataType.Integer => OntologyConstants.Integer,
-        XsdDataType.Boolean => OntologyConstants.Boolean
-    };
 }
