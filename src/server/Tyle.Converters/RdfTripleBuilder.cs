@@ -1,25 +1,19 @@
 using Tyle.Converters.Iris;
+using Tyle.Core.Common;
 using VDS.RDF;
 
 namespace Tyle.Converters;
 
 public static class RdfTripleBuilder
 {
-    public static void AddLiteralTriple(this IGraph g, INode rdfSubject, Uri rdfPredicate, string? rdfObject)
+    public static void AddMetadataTriples(this IGraph g, INode typeNode, ImfType type)
     {
-        if (rdfObject == null) return;
+        g.Assert(new Triple(typeNode, g.CreateUriNode(Rdfs.Label), g.CreateLiteralNode(type.Name)));
+        g.Assert(new Triple(typeNode, g.CreateUriNode(DcTerms.Description), g.CreateLiteralNode(type.Description)));
+        g.Assert(new Triple(typeNode, g.CreateUriNode(Pav.Version), g.CreateLiteralNode(type.Version)));
+        g.Assert(new Triple(typeNode, g.CreateUriNode(DcTerms.Created), g.CreateLiteralNode(type.CreatedOn.ToString(), Xsd.DateTime)));
 
-        g.AddLiteralTriple(rdfSubject, rdfPredicate, g.CreateLiteralNode(rdfObject));
-    }
-
-    public static void AddLiteralTriple(this IGraph g, INode rdfSubject, Uri rdfPredicate, DateTimeOffset rdfObject)
-    {
-        g.AddLiteralTriple(rdfSubject, rdfPredicate, g.CreateLiteralNode(rdfObject.ToString(), Xsd.DateTime));
-    }
-
-    private static void AddLiteralTriple(this IGraph g, INode rdfSubject, Uri rdfPredicate, INode rdfObject)
-    {
-        g.Assert(new Triple(rdfSubject, g.CreateUriNode(rdfPredicate), rdfObject));
+        // TODO: Created by, contributed by, last update on
     }
 
     public static void AddShaclPropertyTriple(this IGraph g, INode root, Uri path, Uri constraint, INode value)

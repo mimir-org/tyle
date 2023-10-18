@@ -13,16 +13,11 @@ public static class AttributeTypeConverter
     {
         var g = new Graph();
 
-        var attributeNode = g.CreateUriNode(new Uri($"http://tyle.imftools.com/attribute/{attribute.Id}"));
+        var attributeNode = g.CreateUriNode(new Uri($"http://tyle.imftools.com/attributes/{attribute.Id}"));
 
         // Add metadata
 
-        g.AddLiteralTriple(attributeNode, Rdfs.Label, attribute.Name);
-        g.AddLiteralTriple(attributeNode, DcTerms.Description, attribute.Description);
-        g.AddLiteralTriple(attributeNode, Pav.Version, attribute.Version);
-        g.AddLiteralTriple(attributeNode, DcTerms.Created, attribute.CreatedOn);
-
-        // TODO: Created by, contributed by, last update on
+        g.AddMetadataTriples(attributeNode, attribute);
 
         // Add predicate reference
 
