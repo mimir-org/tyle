@@ -50,24 +50,17 @@ public static class JsonLdExport
             }
             else if (attribute.Units.Count > 0)
             {
-                var unitPropertyNode = g.CreateBlankNode();
+                g.AddShaclPropertyTriple(
+                    attributeNode,
+                    OntologyConstants.ImfUom,
+                    OntologyConstants.In,
+                    g.AssertList(new List<INode>(attribute.Units.Select(x => g.CreateUriNode(x.Unit.Iri)))),
+                    out var propertyNode);
 
                 g.Assert(new Triple(
-                    unitPropertyNode, 
-                    g.CreateUriNode(OntologyConstants.Path),
-                    g.CreateUriNode(OntologyConstants.ImfUom)));
-
-                g.Assert(new Triple(
-                    unitPropertyNode,
+                    propertyNode,
                     g.CreateUriNode(OntologyConstants.MinCount),
                     g.CreateLiteralNode(attribute.UnitMinCount.ToString(), OntologyConstants.Integer)));
-
-                g.Assert(new Triple(
-                    unitPropertyNode,
-                    g.CreateUriNode(OntologyConstants.In),
-                    g.AssertList(new List<INode>(attribute.Units.Select(x => g.CreateUriNode(x.Unit.Iri))))));
-
-                g.Assert(new Triple(attributeNode, g.CreateUriNode(OntologyConstants.Property), unitPropertyNode));
             }
             else if (attribute.UnitMinCount == 1)
             {
@@ -120,51 +113,90 @@ public static class JsonLdExport
             switch (attribute.ValueConstraint.ConstraintType)
             {
                 case ConstraintType.HasValue:
+
                     g.AddShaclPropertyTriple(
                         attributeNode,
                         OntologyConstants.ImfValue,
                         OntologyConstants.HasValue,
                         g.CreateLiteralNode(attribute.ValueConstraint.Value, GetDataType(attribute.ValueConstraint.DataType)));
+
                     break;
+
                 case ConstraintType.In:
+
                     g.AddShaclPropertyTriple(
                         attributeNode,
                         OntologyConstants.ImfValue,
                         OntologyConstants.In,
                         g.AssertList(new List<INode>(attribute.ValueConstraint.ValueList.Select(x =>
-                            g.CreateLiteralNode(x.EntryValue, GetDataType(attribute.ValueConstraint.DataType))))));
+                            g.CreateLiteralNode(x.EntryValue, GetDataType(attribute.ValueConstraint.DataType))))),
+                        out var inPropertyNode);
+
+
+                    g.Assert(new Triple(
+                        inPropertyNode,
+                        g.CreateUriNode(OntologyConstants.MinCount),
+                        g.CreateLiteralNode(attribute.ValueConstraint.MinCount.ToString(), OntologyConstants.Integer)));
+
                     break;
+
                 case ConstraintType.DataType:
+
                     g.AddShaclPropertyTriple(
                         attributeNode,
                         OntologyConstants.ImfValue,
                         OntologyConstants.DataType,
-                        g.CreateUriNode(GetDataType(attribute.ValueConstraint.DataType)));
+                        g.CreateUriNode(GetDataType(attribute.ValueConstraint.DataType)),
+                        out var dataTypePropertyNode);
+
+                    g.Assert(new Triple(
+                        dataTypePropertyNode,
+                        g.CreateUriNode(OntologyConstants.MinCount),
+                        g.CreateLiteralNode(attribute.ValueConstraint.MinCount.ToString(), OntologyConstants.Integer)));
+
                     break;
+
                 case ConstraintType.Pattern:
+
                     g.AddShaclPropertyTriple(
                         attributeNode,
                         OntologyConstants.ImfValue,
                         OntologyConstants.Pattern,
-                        g.CreateUriNode(attribute.ValueConstraint.Pattern));
+                        g.CreateUriNode(attribute.ValueConstraint.Pattern),
+                        out var patternPropertyNode);
+
+                    g.Assert(new Triple(
+                        patternPropertyNode,
+                        g.CreateUriNode(OntologyConstants.MinCount),
+                        g.CreateLiteralNode(attribute.ValueConstraint.MinCount.ToString(), OntologyConstants.Integer)));
+
                     break;
+
                 case ConstraintType.Range:
+
+                    g.AddShaclPropertyTriple(
+                        attributeNode,
+                        OntologyConstants.ImfValue,
+                        OntologyConstants.MinCount,
+                        g.CreateLiteralNode(attribute.ValueConstraint.MinCount.ToString(), OntologyConstants.Integer),
+                        out var rangePropertyNode);
+
                     if (attribute.ValueConstraint.MinValue != null)
                     {
-                        g.AddShaclPropertyTriple(
-                            attributeNode,
-                            OntologyConstants.ImfValue,
-                            OntologyConstants.MinInclusive,
-                            g.CreateLiteralNode(attribute.ValueConstraint.MinValue.ToString(), GetDataType(attribute.ValueConstraint.DataType)));
+                        g.Assert(new Triple(
+                            rangePropertyNode,
+                            g.CreateUriNode(OntologyConstants.MinInclusive),
+                            g.CreateLiteralNode(attribute.ValueConstraint.MinValue.ToString(), GetDataType(attribute.ValueConstraint.DataType))));
                     }
+
                     if (attribute.ValueConstraint.MaxValue != null)
                     {
-                        g.AddShaclPropertyTriple(
-                            attributeNode,
-                            OntologyConstants.ImfValue,
-                            OntologyConstants.MaxInclusive,
-                            g.CreateLiteralNode(attribute.ValueConstraint.MaxValue.ToString(), GetDataType(attribute.ValueConstraint.DataType)));
+                        g.Assert(new Triple(
+                            rangePropertyNode,
+                            g.CreateUriNode(OntologyConstants.MaxInclusive),
+                            g.CreateLiteralNode(attribute.ValueConstraint.MaxValue.ToString(), GetDataType(attribute.ValueConstraint.DataType))));
                     }
+
                     break;
             }
         }

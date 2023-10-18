@@ -23,7 +23,13 @@ public static class GraphExtensions
 
     public static void AddShaclPropertyTriple(this IGraph g, INode root, Uri path, Uri constraint, INode value)
     {
-        var propertyNode = g.CreateBlankNode();
+
+        g.AddShaclPropertyTriple(root, path, constraint, value, out _);
+    }
+
+    public static void AddShaclPropertyTriple(this IGraph g, INode root, Uri path, Uri constraint, INode value, out INode propertyNode)
+    {
+        propertyNode = g.CreateBlankNode();
 
         var pathTriple = new Triple(propertyNode, g.CreateUriNode(OntologyConstants.Path), g.CreateUriNode(path));
         g.Assert(pathTriple);
