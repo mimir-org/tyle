@@ -13,16 +13,11 @@ public static class AttributeTypeConverter
     {
         var g = new Graph();
 
-        var attributeNode = g.CreateUriNode(new Uri($"http://tyle.imftools.com/attribute/{attribute.Id}"));
+        var attributeNode = g.CreateUriNode(new Uri($"http://tyle.imftools.com/attributes/{attribute.Id}"));
 
         // Add metadata
 
-        g.AddLiteralTriple(attributeNode, Rdfs.Label, attribute.Name);
-        g.AddLiteralTriple(attributeNode, DcTerms.Description, attribute.Description);
-        g.AddLiteralTriple(attributeNode, Pav.Version, attribute.Version);
-        g.AddLiteralTriple(attributeNode, DcTerms.Created, attribute.CreatedOn);
-
-        // TODO: Created by, contributed by, last update on
+        g.AddMetadataTriples(attributeNode, attribute);
 
         // Add predicate reference
 
@@ -87,7 +82,7 @@ public static class AttributeTypeConverter
                 attributeNode,
                 Imf.HasAttributeQualifier,
                 Sh.HasValue,
-                g.CreateUriNode(EnumToIriMappers.GetImfQualifier(attribute.ProvenanceQualifier)));
+                g.CreateUriNode(EnumToIriMappers.GetAttributeQualifier(attribute.ProvenanceQualifier)));
         }
 
         if (attribute.RangeQualifier != null)
@@ -96,7 +91,7 @@ public static class AttributeTypeConverter
                 attributeNode,
                 Imf.HasAttributeQualifier,
                 Sh.HasValue,
-                g.CreateUriNode(EnumToIriMappers.GetImfQualifier(attribute.RangeQualifier)));
+                g.CreateUriNode(EnumToIriMappers.GetAttributeQualifier(attribute.RangeQualifier)));
         }
 
         if (attribute.RegularityQualifier != null)
@@ -105,7 +100,7 @@ public static class AttributeTypeConverter
                 attributeNode,
                 Imf.HasAttributeQualifier,
                 Sh.HasValue,
-                g.CreateUriNode(EnumToIriMappers.GetImfQualifier(attribute.RegularityQualifier)));
+                g.CreateUriNode(EnumToIriMappers.GetAttributeQualifier(attribute.RegularityQualifier)));
         }
 
         if (attribute.ScopeQualifier != null)
@@ -114,7 +109,7 @@ public static class AttributeTypeConverter
                 attributeNode,
                 Imf.HasAttributeQualifier,
                 Sh.HasValue,
-                g.CreateUriNode(EnumToIriMappers.GetImfQualifier(attribute.ScopeQualifier)));
+                g.CreateUriNode(EnumToIriMappers.GetAttributeQualifier(attribute.ScopeQualifier)));
         }
 
         // Add value constraint
