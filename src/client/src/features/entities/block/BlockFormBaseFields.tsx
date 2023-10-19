@@ -1,4 +1,4 @@
-import { Aspect, MimirorgPermission, State } from "@mimirorg/typelibrary-types";
+import { MimirorgPermission, State } from "@mimirorg/typelibrary-types";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import {
@@ -18,18 +18,20 @@ import {
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
 import { useGetAllRds } from "external/sources/rds/rds.queries";
 import { useGetSymbols } from "external/sources/symbol/symbol.queries";
-import { PlainLink } from "features/common/plain-link";
-import { BlockFormFields, resetSubform } from "features/entities/block/BlockForm.helpers";
-import { BlockFormPreview } from "features/entities/entityPreviews/block/BlockFormPreview";
+//import { PlainLink } from "features/common/plain-link";
+import { BlockFormFields } from "features/entities/block/BlockForm.helpers";
+// import { BlockFormPreview } from "features/entities/entityPreviews/block/BlockFormPreview";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { FormMode } from "../types/formMode";
+import { Aspect } from "common/types/common/aspect";
+import { PlainLink } from "features/common/plain-link/PlainLink";
 
 interface BlockFormBaseFieldsProps {
-  isFirstDraft?: boolean;
   mode?: FormMode;
   state?: State;
+  limited?: boolean;
 }
 
 /**
@@ -38,12 +40,13 @@ interface BlockFormBaseFieldsProps {
  * @param isFirstDraft
  * @param mode
  * @param state
+ *  * @param limited
  * @constructor
  */
-export const BlockFormBaseFields = ({ isFirstDraft, mode, state }: BlockFormBaseFieldsProps) => {
+export const BlockFormBaseFields = ({ mode, limited }: BlockFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
-  const { control, register, resetField, formState } = useFormContext<BlockFormFields>();
+  const { control, register, formState } = useFormContext<BlockFormFields>();
   const { errors } = formState;
 
   const rdsQuery = useGetAllRds();
@@ -55,16 +58,16 @@ export const BlockFormBaseFields = ({ isFirstDraft, mode, state }: BlockFormBase
   return (
     <FormBaseFieldsContainer>
       <Text variant={"display-small"}>{t("block.title")}</Text>
-      <BlockFormPreview control={control} />
+      {/* <BlockFormPreview control={control} /> */}
 
       <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
         <FormField label={t("block.name")} error={errors.name}>
           <Input placeholder={t("block.placeholders.name")} {...register("name")} />
         </FormField>
-        {/* <FormField label={t("block.purpose")} error={errors.purposeName}>
+        <FormField label={t("block.purpose")} error={errors.purposeId}>
           <Controller
             control={control}
-            name={"purposeName"}
+            name={"purposeId"}
             render={({ field: { value, onChange, ref, ...rest } }) => (
               <Select
                 {...rest}
@@ -75,111 +78,35 @@ export const BlockFormBaseFields = ({ isFirstDraft, mode, state }: BlockFormBase
                 getOptionLabel={(x) => x.name}
                 getOptionValue={(x) => x.name}
                 onChange={(x) => onChange(x?.name)}
-                value={purposeQuery.data?.find((x) => x.name === value)}
+                value={purposeQuery.data?.find((x) => x.id === value)}
               />
             )}
           />
-        </FormField> */}
-        {/*<FormField label={t("block.aspect")} error={errors.aspect}>
+        </FormField>
+        <FormField label={t("block.aspect")} error={errors.aspect}>
           <Controller
             control={control}
             name={"aspect"}
             render={({ field: { value, onChange, ref, ...rest } }) => (
-              <ConditionalWrapper
-                condition={!isFirstDraft}
-                wrapper={(c) => (
-                  <Popover align={"start"} maxWidth={"225px"} content={t("block.disabled.aspect")}>
-                    <Box borderRadius={theme.mimirorg.border.radius.medium} tabIndex={0}>
-                      {c}
-                    </Box>
-                  </Popover>
-                )}
-              >
-                <Select
-                  {...rest}
-                  selectRef={ref}
-                  placeholder={t("common.templates.select", { object: t("block.aspect").toLowerCase() })}
-                  options={aspectOptions}
-                  getOptionLabel={(x) => x.label}
-                  onChange={(x) => {
-                    resetSubform(resetField, x?.value);
-                    onChange(x?.value);
-                  }}
-                  value={aspectOptions.find((x) => x.value === value)}
-                  isDisabled={!isFirstDraft}
-                />
-              </ConditionalWrapper>
-            )}
-          />
-        </FormField>
-        <FormField label={t("block.symbol")} error={errors.symbol}>
-          <Controller
-            control={control}
-            name={"symbol"}
-            render={({ field: { value, onChange, ref, ...rest } }) => (
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("block.symbol").toLowerCase() })}
-                options={symbolQuery.data}
-                isLoading={symbolQuery.isLoading}
-                getOptionLabel={(x) => x.name}
-                getOptionValue={(x) => x.data}
-                onChange={(x) => onChange(x?.data)}
-                value={symbolQuery.data?.find((x) => x.data === value)}
-                formatOptionLabel={(x) => (
-                  <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
-                    <Icon src={x.data} />
-                    <Text>{x.name}</Text>
-                  </Flexbox>
-                )}
-              />
-            )}
-          />
-        </FormField>
-        <Input type={"hidden"} {...register("rdsId")} />
-        <FormField label={t("block.rds")} error={errors.rdsId}>
-          <Controller
-            control={control}
-            name={"rdsId"}
-            render={({ field: { value, onChange, ref, ...rest } }) => (
-              <Select
-                {...rest}
-                selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("block.rds").toLowerCase() })}
-                options={rdsQuery.data}
-                isLoading={rdsQuery.isLoading}
-                getOptionLabel={(x) => `${x.rdsCode} - ${x.name}`}
-                getOptionValue={(x) => x.id}
-                value={rdsQuery.data?.find((x) => x.id === value)}
-                onChange={(rds) => {
-                  onChange(rds?.id);
-                }}
-              />
-            )}
-          />
-        </FormField>
-        <FormField label={t("block.owner")} error={errors.companyId}>
-          <Controller
-            control={control}
-            name={"companyId"}
-            render={({ field: { value, onChange, ref, ...rest } }) => (
-              <Select
-                {...rest}
-                selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("block.owner").toLowerCase() })}
-                options={companies}
-                getOptionLabel={(x) => x.name}
-                getOptionValue={(x) => x.id.toString()}
+                placeholder={t("common.templates.select", { object: t("block.aspect").toLowerCase() })}
+                options={aspectOptions}
+                getOptionLabel={(x) => x.label}
                 onChange={(x) => {
-                  onChange(x?.id);
+                  // resetSubform(resetField, x?.value);
+                  onChange(x?.value);
                 }}
-                isDisabled={!isFirstDraft}
-                value={companies.find((x) => x.id === value)}
+                value={aspectOptions.find((x) => x.value === value)}
               />
             )}
           />
         </FormField>
+        <FormField label={t("terminal.symbol")} error={errors.symbol}>
+          <Input placeholder={t("terminal.placeholders.symbol")} {...register("symbol")} disabled={limited} />
+        </FormField>
+
         <FormField label={t("block.description")} error={errors.description}>
           <Textarea placeholder={t("block.placeholders.description")} {...register("description")} />
         </FormField>
@@ -190,14 +117,8 @@ export const BlockFormBaseFields = ({ isFirstDraft, mode, state }: BlockFormBase
           <Button tabIndex={0} as={"span"} variant={"outlined"}>
             {t("common.cancel")}
           </Button>
-        </PlainLink>*/}
-        <Button type={"submit"}>
-          {mode === "edit"
-            ? state === State.Approved
-              ? t("block.createDraft")
-              : t("common.edit")
-            : t("common.submit")}
-        </Button>
+        </PlainLink>
+        <Button type={"submit"}>{mode === "edit" ? t("common.edit") : t("common.submit")}</Button>
       </Flexbox>
     </FormBaseFieldsContainer>
   );

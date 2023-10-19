@@ -6,7 +6,7 @@ import { PanelSection } from "features/explore/about/components/common/PanelSect
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { TerminalTable } from "./terminal-table/TerminalTable";
-import { BlockPreview } from "../../../../entities/entityPreviews/block/BlockPreview";
+// import { BlockPreview } from "../../../../entities/entityPreviews/block/BlockPreview";
 import { StateBadge } from "../../../../ui/badges/StateBadge";
 
 /**
@@ -37,7 +37,7 @@ export const BlockPanel = ({ name, description, img, color, tokens, terminals, a
       overflow={"hidden"}
       {...theme.mimirorg.animation.fade}
     >
-      <BlockPreview variant={"large"} name={name} color={color} img={img} terminals={terminals} />
+      {/* <BlockPreview variant={"large"} name={name} color={color} img={img} terminals={terminals} /> */}
 
       <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xl}>
         <Heading as={"h2"} variant={"title-large"} fontWeight={"500"} useEllipsis ellipsisMaxLines={2}>

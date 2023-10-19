@@ -1,4 +1,4 @@
-import { useDeleteBlock, usePatchBlockState } from "external/sources/block/block.queries";
+import { useDeleteBlock } from "external/sources/block/block.queries";
 import { ItemType } from "../../../entities/types/itemTypes";
 import { useDeleteTerminal } from "external/sources/terminal/terminal.queries";
 //import { useDeleteUnit } from "external/sources/unit/unit.queries";
@@ -50,7 +50,7 @@ export function getEditLink(item: ItemType) {
 }
 
 export function usePatchMutation(item: ItemType) {
-  const patchBlockMutation = usePatchBlockState();
+  //const patchBlockMutation = usePatchBlockState();
   const patchAttributeMutation = usePatchAttributeState();
   const patchQuantityDatumMutation = usePatchQuantityDatumState();
   const patchRdsMutation = usePatchRdsState();
@@ -59,8 +59,8 @@ export function usePatchMutation(item: ItemType) {
   //const patchAttributeGroup = usePatchUnitState();
 
   switch (item.kind) {
-    case "BlockItem":
-      return patchBlockMutation;
+    //case "BlockItem":
+    // return patchBlockMutation;
     case "AttributeItem":
       return patchAttributeMutation;
     //case "AttributeGroupItem":

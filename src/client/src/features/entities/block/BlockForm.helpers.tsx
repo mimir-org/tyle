@@ -1,12 +1,16 @@
 import { Aspect, BlockTerminalLibCm } from "@mimirorg/typelibrary-types";
 import { useCreateBlock, useGetBlock, useUpdateBlock } from "external/sources/block/block.queries";
-import { BlockFormPredefinedAttributes } from "features/entities/block/predefined-attributes/BlockFormPredefinedAttributes";
-import { BlockFormTerminals } from "features/entities/block/terminals/BlockFormTerminals";
+// import { BlockFormPredefinedAttributes } from "features/entities/block/predefined-attributes/BlockFormPredefinedAttributes";
+// import { BlockFormTerminals } from "features/entities/block/terminals/BlockFormTerminals";
 import { useParams } from "react-router-dom";
 import { FormMode } from "../types/formMode";
 // import { UseFormResetField } from "react-hook-form";
 import { BlockTypeRequest } from "common/types/blocks/blockTypeRequest";
 import { BlockView } from "common/types/blocks/blockView";
+//import { RdlClassifier } from "common/types/common/rdlClassifier";
+import { TerminalTypeReferenceView } from "common/types/blocks/terminalTypeReferenceView";
+import { AttributeTypeReferenceView } from "common/types/common/attributeTypeReferenceView";
+import { UseFormResetField } from "react-hook-form";
 // import { ValueObject } from "features/entities/types/valueObject";
 
 export const useBlockQuery = () => {
@@ -20,13 +24,16 @@ export const useBlockMutation = (id?: string, mode?: FormMode) => {
   return mode === "edit" ? blockUpdateMutation : blockCreateMutation;
 };
 
-export interface BlockFormFields extends BlockTypeRequest {}
+export interface BlockFormFields extends Omit<BlockTypeRequest, "terminals" | "attributes"> {
+  terminals: TerminalTypeReferenceView[];
+  attributes: AttributeTypeReferenceView[];
+}
 
-/**
- * Resets the part of block form which is dependent on initial choices, e.g. aspect
- *
- * @param resetField
- */
+// /**
+//  * Resets the part of block form which is dependent on initial choices, e.g. aspect
+//  *
+//  * @param resetField
+//  */
 // export const resetSubform = (resetField: UseFormResetField<BlockFormFields>, newAspect: Aspect | undefined) => {
 //   resetField("selectedAttributePredefined", { defaultValue: [] });
 //   if (newAspect !== Aspect.Function && newAspect !== Aspect.Product) {
@@ -34,51 +41,67 @@ export interface BlockFormFields extends BlockTypeRequest {}
 //   }
 // };
 
-export const getSubformForAspect = (aspect: Aspect, limitedTerminals?: BlockTerminalLibCm[]) => {
-  switch (aspect) {
-    case Aspect.Function:
-      return <BlockFormTerminals limitedTerminals={limitedTerminals} />;
-    case Aspect.Product:
-      return <BlockFormTerminals limitedTerminals={limitedTerminals} />;
-    case Aspect.Location:
-      return <BlockFormPredefinedAttributes aspects={[aspect]} />;
-    default:
-      return <></>;
-  }
-};
+// export const getSubformForAspect = (aspect: Aspect, limitedTerminals?: BlockTerminalLibCm[]) => {
+//   switch (aspect) {
+//     case Aspect.Function:
+//       return <BlockFormTerminals limitedTerminals={limitedTerminals} />;
+//     case Aspect.Product:
+//       return <BlockFormTerminals limitedTerminals={limitedTerminals} />;
+//     case Aspect.Location:
+//       return <BlockFormPredefinedAttributes aspects={[aspect]} />;
+//     default:
+//       return <></>;
+//   }
+// };
+
+export const toBlockFormFields = (block: BlockView): BlockFormFields => ({
+  name: block.name,
+  classifierIds: block.classifiers.map((x) => x.id),
+  aspect: block.aspect,
+  terminals: block.terminals,
+  attributes: block.attributes,
+});
 
 /**
  * Maps the client-only model back to the model expected by the backend api
  * @param formBlock client-only model
  */
-export const toApiModel = (formBlock: BlockFormFields): BlockTypeRequest => formBlock;
+// export const toApiModel = (formBlock: BlockFormFields): BlockTypeRequest => formBlock;
 
 export const toClientModel = (block: BlockView): BlockFormFields => ({
   ...block,
   classifierIds: block.classifiers.map((x) => x.id),
   terminals: block.terminals,
 });
+export const toBlockTypeRequest = (blockFormFields: BlockFormFields): BlockTypeRequest => ({
+  name: blockFormFields.name,
+  classifierIds: blockFormFields.classifierIds,
+  terminals: blockFormFields.terminals.map((x) => ({ ...x, terminalId: x.terminal.id })),
+  attributes: blockFormFields.attributes.map((x) => ({ ...x, attributeId: x.attribute.id })),
+});
 
-export const createEmptyFormBlockLib = (): BlockFormFields => ({
-  ...emptyBlockLibAm,
+export const createDefaultBlockFormFields = (): BlockFormFields => ({
+  name: "",
+  classifierIds: [],
+  terminals: [],
   attributes: [],
 });
 
-const emptyBlockLibAm: BlockTypeRequest = {
-  name: "",
-  rdsId: "",
-  purposeName: "",
-  aspect: Aspect.None,
-  companyId: 0,
-  attributes: [],
-  blockTerminals: [],
-  selectedAttributePredefined: [],
-  description: "",
-  symbol: "",
-  typeReference: "",
-  version: "1.0",
-  attributeGroups: [],
-};
+// const emptyBlockLibAm: BlockTypeRequest = {
+//   name: "",
+//   rdsId: "",
+//   purposeName: "",
+//   aspect: Aspect.None,
+//   companyId: 0,
+//   attributes: [],
+//   blockTerminals: [],
+//   selectedAttributePredefined: [],
+//   description: "",
+//   symbol: "",
+//   typeReference: "",
+//   version: "1.0",
+//   attributeGroups: [],
+// };
 
 // export interface FormAttributePredefinedLib extends Omit<SelectedAttributePredefinedLibAm, "values"> {
 //   values: ValueObject<string>[];
