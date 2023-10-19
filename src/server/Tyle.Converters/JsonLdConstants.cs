@@ -62,8 +62,9 @@ public class JsonLdConstants
                                     ],
                                     "@type": "sh:NodeShape",
                                     "sh:property": {
-                                        "@omitDefault": true,
+                                        "sh:path": {},
                                         "sh:node": {
+                                            "@omitDefault": true,
                                             "@embed": "@never"
                                         }
                                     }
