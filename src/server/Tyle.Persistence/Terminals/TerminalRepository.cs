@@ -88,7 +88,7 @@ public class TerminalRepository : ITerminalRepository
             throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "purpose", request.PurposeId.ToString()));
         }
 
-        if (request.MediumId == null || await _context.Purposes.AsNoTracking().AnyAsync(x => x.Id == request.MediumId))
+        if (request.MediumId == null || await _context.Media.AsNoTracking().AnyAsync(x => x.Id == request.MediumId))
         {
             terminal.MediumId = request.MediumId;
         }
