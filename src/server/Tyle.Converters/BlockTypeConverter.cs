@@ -1,19 +1,17 @@
 using Newtonsoft.Json.Linq;
-using System;
 using Tyle.Converters.Iris;
+using Tyle.Core.Attributes;
 using Tyle.Core.Blocks;
+using Tyle.Core.Terminals;
 using VDS.RDF;
 using VDS.RDF.JsonLd;
-using VDS.RDF.Writing;
 
 namespace Tyle.Converters;
 
 public static class BlockTypeConverter
 {
-    public static JObject ToJsonLd(this BlockType block)
+    public static void AddBlockType(this IGraph g, BlockType block)
     {
-        var g = new Graph();
-
         var blockNode = g.CreateUriNode(new Uri($"http://tyle.imftools.com/blocks/{block.Id}"));
 
         // Add metadata
@@ -120,18 +118,5 @@ public static class BlockTypeConverter
                     g.CreateLiteralNode(attribute.MaxCount.ToString(), Xsd.Integer)));
             }
         }
-
-        var store = new TripleStore();
-        store.Add(g);
-
-        var jsonLdWriter = new JsonLdWriter();
-        var serializedGraph = jsonLdWriter.SerializeStore(store);
-        var jsonString = $"{{ \"@graph\": {serializedGraph} }}";
-
-
-        var flattened = JsonLdProcessor.Flatten(JToken.Parse(jsonString), JToken.Parse(JsonLdConstants.Context), new JsonLdProcessorOptions());
-        var result = JsonLdProcessor.Frame(flattened, JToken.Parse(JsonLdConstants.Frame), new JsonLdProcessorOptions());
-
-        return result;
     }
 }

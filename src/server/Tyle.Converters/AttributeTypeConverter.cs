@@ -9,10 +9,8 @@ namespace Tyle.Converters;
 
 public static class AttributeTypeConverter
 {
-    public static JObject ToJsonLd(this AttributeType attribute)
+    public static void AddAttributeType(this IGraph g, AttributeType attribute)
     {
-        var g = new Graph();
-
         var attributeNode = g.CreateUriNode(new Uri($"http://tyle.imftools.com/attributes/{attribute.Id}"));
 
         // Add metadata
@@ -206,18 +204,5 @@ public static class AttributeTypeConverter
                     break;
             }
         }
-
-        var store = new TripleStore();
-        store.Add(g);
-
-        var jsonLdWriter = new JsonLdWriter();
-        var serializedGraph = jsonLdWriter.SerializeStore(store);
-        var jsonString = $"{{ \"@graph\": {serializedGraph} }}";
-
-
-        var flattened = JsonLdProcessor.Flatten(JToken.Parse(jsonString), JToken.Parse(JsonLdConstants.Context), new JsonLdProcessorOptions());
-        var result = JsonLdProcessor.Frame(flattened, JToken.Parse(JsonLdConstants.Frame), new JsonLdProcessorOptions());
-
-        return result;
     }
 }
