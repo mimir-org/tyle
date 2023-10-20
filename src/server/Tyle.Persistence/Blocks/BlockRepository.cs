@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System;
 using Tyle.Application.Blocks;
 using Tyle.Application.Blocks.Requests;
 using Tyle.Application.Common;
@@ -154,6 +155,11 @@ public class BlockRepository : IBlockRepository
         if (block == null)
         {
             return null;
+        }
+
+        if (block.State != State.Draft)
+        {
+            throw new InvalidOperationException($"Blocks with state '{block.State}' cannot be updated.");
         }
 
         block.Name = request.Name;

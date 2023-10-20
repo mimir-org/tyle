@@ -139,6 +139,10 @@ public class TerminalsController : ControllerBase
         {
             return StatusCode(422, ex.Message);
         }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
         catch (Exception)
         {
             return StatusCode(StatusCodes.Status500InternalServerError);

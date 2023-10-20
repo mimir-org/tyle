@@ -109,6 +109,11 @@ public class AttributeRepository : IAttributeRepository
             return null;
         }
 
+        if (attribute.State != State.Draft)
+        {
+            throw new InvalidOperationException($"Attributes with state '{attribute.State}' cannot be updated.");
+        }
+
         attribute.Name = request.Name;
         attribute.Description = request.Description;
         if (_userInformationService.GetUserId() != attribute.CreatedBy)

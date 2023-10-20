@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System;
 using Tyle.Application.Common;
 using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
@@ -134,6 +135,11 @@ public class TerminalRepository : ITerminalRepository
         if (terminal == null)
         {
             return null;
+        }
+
+        if (terminal.State != State.Draft)
+        {
+            throw new InvalidOperationException($"Terminals with state '{terminal.State}' cannot be updated.");
         }
 
         terminal.Name = request.Name;
