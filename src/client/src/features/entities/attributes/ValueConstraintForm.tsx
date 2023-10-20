@@ -69,6 +69,14 @@ export const ValueConstraintForm = () => {
     }
   };
 
+  const resetFieldsOnDataTypeChange = () => {
+    if (chosenConstraintType === ConstraintType.HasSpecificValue) {
+      setValue("value", undefined);
+    } else if (chosenConstraintType === ConstraintType.IsInListOfAllowedValues) {
+      setValue("valueList", []);
+    }
+  }
+
   const getDataTypeOptions = () => {
     if (chosenConstraintType === ConstraintType.IsInListOfAllowedValues) {
       return dataTypeOptions.filter((x) => x.value !== XsdDataType.Boolean);
@@ -140,6 +148,7 @@ export const ValueConstraintForm = () => {
                   options={getDataTypeOptions()}
                   getOptionLabel={(x) => x.label}
                   onChange={(x) => {
+                    resetFieldsOnDataTypeChange();
                     onChange(x?.value);
                   }}
                   value={dataTypeOptions.find((x) => x.value === value)}
