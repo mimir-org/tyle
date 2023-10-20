@@ -19,7 +19,12 @@ public static class RdfTripleBuilder
         g.Assert(new Triple(typeNode, g.CreateUriNode(Rdfs.SubClassOf), g.CreateUriNode(rdfsSubClassOf)));
 
         g.Assert(new Triple(typeNode, g.CreateUriNode(Rdfs.Label), g.CreateLiteralNode(type.Name)));
-        g.Assert(new Triple(typeNode, g.CreateUriNode(DcTerms.Description), g.CreateLiteralNode(type.Description)));
+
+        if (type.Description != null)
+        {
+            g.Assert(new Triple(typeNode, g.CreateUriNode(DcTerms.Description), g.CreateLiteralNode(type.Description)));
+        }
+
         g.Assert(new Triple(typeNode, g.CreateUriNode(Pav.Version), g.CreateLiteralNode(type.Version)));
         g.Assert(new Triple(typeNode, g.CreateUriNode(DcTerms.Created), g.CreateLiteralNode(type.CreatedOn.ToString(), Xsd.DateTime)));
 

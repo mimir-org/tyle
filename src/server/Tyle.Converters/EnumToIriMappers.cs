@@ -63,4 +63,12 @@ public static class EnumToIriMappers
         Direction.Output => Imf.OutputFlow,
         _ => throw new ArgumentException("Unknown or invalid direction.")
     };
+
+    public static Uri GetHasTerminalPredicate(Direction direction) => direction switch
+    {
+        Direction.Bidirectional => Imf.HasTerminal,
+        Direction.Input => Imf.HasInputTerminal,
+        Direction.Output => Imf.HasOutputTerminal,
+        _ => throw new ArgumentException("Unknown direction.")
+    };
 }

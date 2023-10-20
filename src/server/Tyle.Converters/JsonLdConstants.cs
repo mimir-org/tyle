@@ -60,7 +60,14 @@ public class JsonLdConstants
                                             "xsd": "http://www.w3.org/2001/XMLSchema#"
                                         }
                                     ],
-                                    "sh:property": {}
+                                    "@type": "sh:NodeShape",
+                                    "sh:property": {
+                                        "sh:path": {},
+                                        "sh:node": {
+                                            "@omitDefault": true,
+                                            "@embed": "@never"
+                                        }
+                                    }
                                 }
                                 """;
 }

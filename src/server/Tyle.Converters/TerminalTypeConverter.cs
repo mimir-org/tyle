@@ -9,10 +9,8 @@ namespace Tyle.Converters;
 
 public static class TerminalTypeConverter
 {
-    public static JObject ToJsonLd(this TerminalType terminal)
+    public static void AddTerminalType(this IGraph g, TerminalType terminal)
     {
-        var g = new Graph();
-
         var terminalNode = g.CreateUriNode(new Uri($"http://tyle.imftools.com/terminals/{terminal.Id}"));
 
         // Add metadata
@@ -117,18 +115,5 @@ public static class TerminalTypeConverter
                     g.CreateLiteralNode(attribute.MaxCount.ToString(), Xsd.Integer)));
             }
         }
-
-        var store = new TripleStore();
-        store.Add(g);
-
-        var jsonLdWriter = new JsonLdWriter();
-        var serializedGraph = jsonLdWriter.SerializeStore(store);
-        var jsonString = $"{{ \"@graph\": {serializedGraph} }}";
-
-
-        var flattened = JsonLdProcessor.Flatten(JToken.Parse(jsonString), JToken.Parse(JsonLdConstants.Context), new JsonLdProcessorOptions());
-        var result = JsonLdProcessor.Frame(flattened, JToken.Parse(JsonLdConstants.Frame), new JsonLdProcessorOptions());
-
-        return result;
     }
 }
