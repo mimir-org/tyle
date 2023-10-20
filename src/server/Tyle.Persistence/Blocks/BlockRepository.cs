@@ -301,4 +301,19 @@ public class BlockRepository : IBlockRepository
 
         return true;
     }
+
+    public async Task<bool> ChangeState(Guid id, State state)
+    {
+        var block = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+        if (block == null)
+        {
+            return false;
+        }
+
+        block.State = state;
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }

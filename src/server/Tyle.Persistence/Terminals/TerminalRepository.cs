@@ -255,4 +255,19 @@ public class TerminalRepository : ITerminalRepository
 
         return true;
     }
+
+    public async Task<bool> ChangeState(Guid id, State state)
+    {
+        var terminal = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+        if (terminal == null)
+        {
+            return false;
+        }
+
+        terminal.State = state;
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }

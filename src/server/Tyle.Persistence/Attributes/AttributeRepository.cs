@@ -197,4 +197,19 @@ public class AttributeRepository : IAttributeRepository
 
         return true;
     }
+
+    public async Task<bool> ChangeState(Guid id, State state)
+    {
+        var attribute = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+        if (attribute == null)
+        {
+            return false;
+        }
+
+        attribute.State = state;
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }
