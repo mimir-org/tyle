@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Models.Attributes;
 using Swashbuckle.AspNetCore.Annotations;
+using Tyle.Api.Common;
 using Tyle.Application.Blocks;
 using Tyle.Application.Blocks.Requests;
+using Tyle.Application.Common;
 
 namespace Tyle.Api.Blocks;
 
@@ -18,11 +20,13 @@ public class BlocksController : ControllerBase
 {
     private readonly IBlockRepository _blockRepository;
     private readonly IMapper _mapper;
+    private readonly IApprovalService _approvalService;
 
-    public BlocksController(IBlockRepository blockRepository, IMapper mapper)
+    public BlocksController(IBlockRepository blockRepository, IMapper mapper, IApprovalService approvalService)
     {
         _blockRepository = blockRepository;
         _mapper = mapper;
+        _approvalService = approvalService;
     }
 
     /// <summary>
@@ -134,6 +138,40 @@ public class BlocksController : ControllerBase
         catch (KeyNotFoundException ex)
         {
             return StatusCode(422, ex.Message);
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+    }
+    
+    /// <summary>
+    /// Change the state of a block.
+    /// </summary>
+    /// <param name="id">The id of the block that will change state.</param>
+    /// <param name="request">A request containing the wanted state.</param>
+    [HttpPatch("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
+    public async Task<IActionResult> ChangeState([FromRoute] Guid id, [FromBody] StateChangeRequest request)
+    {
+        try
+        {
+            // TODO: Handle authorization
+
+            var response = await _approvalService.ChangeBlockState(id, request.State);
+
+            return response switch
+            {
+                ApprovalResponse.Accepted => NoContent(),
+                ApprovalResponse.TypeNotFound => NotFound(),
+                ApprovalResponse.IllegalChange => BadRequest(),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
         catch (Exception)
         {

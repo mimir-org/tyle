@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Models.Attributes;
 using Swashbuckle.AspNetCore.Annotations;
+using Tyle.Api.Common;
+using Tyle.Application.Common;
 using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
 
@@ -18,11 +20,13 @@ public class TerminalsController : ControllerBase
 {
     private readonly IMapper _mapper;
     private readonly ITerminalRepository _terminalRepository;
+    private readonly IApprovalService _approvalService;
 
-    public TerminalsController(IMapper mapper, ITerminalRepository terminalRepository)
+    public TerminalsController(IMapper mapper, ITerminalRepository terminalRepository, IApprovalService approvalService)
     {
         _mapper = mapper;
         _terminalRepository = terminalRepository;
+        _approvalService = approvalService;
     }
 
     /// <summary>
@@ -134,6 +138,40 @@ public class TerminalsController : ControllerBase
         catch (KeyNotFoundException ex)
         {
             return StatusCode(422, ex.Message);
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+    }
+
+    /// <summary>
+    /// Change the state of a terminal.
+    /// </summary>
+    /// <param name="id">The id of the terminal that will change state.</param>
+    /// <param name="request">A request containing the wanted state.</param>
+    [HttpPatch("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
+    public async Task<IActionResult> ChangeState([FromRoute] Guid id, [FromBody] StateChangeRequest request)
+    {
+        try
+        {
+            // TODO: Handle authorization
+
+            var response = await _approvalService.ChangeTerminalState(id, request.State);
+
+            return response switch
+            {
+                ApprovalResponse.Accepted => NoContent(),
+                ApprovalResponse.TypeNotFound => NotFound(),
+                ApprovalResponse.IllegalChange => BadRequest(),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
         catch (Exception)
         {

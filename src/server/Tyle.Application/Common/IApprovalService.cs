@@ -1,12 +1,12 @@
-using Tyle.Application.Common.Requests;
+using Tyle.Core.Common;
 
 namespace Tyle.Application.Common;
 
 public interface IApprovalService
 {
-    Task<ApprovalResponse> ChangeAttributeState(Guid id, ApprovalRequest request);
+    Task<ApprovalResponse> ChangeAttributeState(Guid id, State state);
 
-    Task<ApprovalResponse> ChangeTerminalState(Guid id, ApprovalRequest request);
+    Task<ApprovalResponse> ChangeTerminalState(Guid id, State state);
 
-    Task<ApprovalResponse> ChangeBlockState(Guid id, ApprovalRequest request);
+    Task<ApprovalResponse> ChangeBlockState(Guid id, State state);
 }

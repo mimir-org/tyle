@@ -19,7 +19,7 @@ public class ApprovalService : IApprovalService
         _blockRepository = blockRepository;
     }
 
-    public async Task<ApprovalResponse> ChangeAttributeState(Guid id, ApprovalRequest request)
+    public async Task<ApprovalResponse> ChangeAttributeState(Guid id, State state)
     {
         var attribute = await _attributeRepository.Get(id);
 
@@ -28,15 +28,15 @@ public class ApprovalService : IApprovalService
             return ApprovalResponse.TypeNotFound;
         }
 
-        if ((attribute.State == State.Draft && request.State != State.Review) || attribute.State == State.Approved)
+        if ((attribute.State == State.Draft && state != State.Review) || attribute.State == State.Approved)
         {
             return ApprovalResponse.IllegalChange;
         }
 
-        return await _attributeRepository.ChangeState(id, request.State) ? ApprovalResponse.Accepted : ApprovalResponse.TypeNotFound;
+        return await _attributeRepository.ChangeState(id, state) ? ApprovalResponse.Accepted : ApprovalResponse.TypeNotFound;
     }
 
-    public async Task<ApprovalResponse> ChangeTerminalState(Guid id, ApprovalRequest request)
+    public async Task<ApprovalResponse> ChangeTerminalState(Guid id, State state)
     {
         var terminal = await _terminalRepository.Get(id);
 
@@ -45,15 +45,15 @@ public class ApprovalService : IApprovalService
             return ApprovalResponse.TypeNotFound;
         }
 
-        if ((terminal.State == State.Draft && request.State != State.Review) || terminal.State == State.Approved)
+        if ((terminal.State == State.Draft && state != State.Review) || terminal.State == State.Approved)
         {
             return ApprovalResponse.IllegalChange;
         }
 
-        return await _terminalRepository.ChangeState(id, request.State) ? ApprovalResponse.Accepted : ApprovalResponse.TypeNotFound;
+        return await _terminalRepository.ChangeState(id, state) ? ApprovalResponse.Accepted : ApprovalResponse.TypeNotFound;
     }
 
-    public async Task<ApprovalResponse> ChangeBlockState(Guid id, ApprovalRequest request)
+    public async Task<ApprovalResponse> ChangeBlockState(Guid id, State state)
     {
         var block = await _blockRepository.Get(id);
 
@@ -62,11 +62,11 @@ public class ApprovalService : IApprovalService
             return ApprovalResponse.TypeNotFound;
         }
 
-        if ((block.State == State.Draft && request.State != State.Review) || block.State == State.Approved)
+        if ((block.State == State.Draft && state != State.Review) || block.State == State.Approved)
         {
             return ApprovalResponse.IllegalChange;
         }
 
-        return await _blockRepository.ChangeState(id, request.State) ? ApprovalResponse.Accepted : ApprovalResponse.TypeNotFound;
+        return await _blockRepository.ChangeState(id, state) ? ApprovalResponse.Accepted : ApprovalResponse.TypeNotFound;
     }
 }
