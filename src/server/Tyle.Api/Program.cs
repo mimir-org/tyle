@@ -5,6 +5,7 @@ using Mimirorg.Authentication.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Tyle.Api;
+using Tyle.Application;
 using Tyle.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,6 +42,7 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddMimirorgAuthenticationModule(builder.Configuration);
 
 builder.Services
+    .AddApplicationServices()
     .AddDatabaseConfiguration(builder.Configuration)
     .AddRequestToDomainMapping()
     .AddRepositories()
