@@ -9,7 +9,6 @@ using Tyle.Api.Common;
 using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
-using Tyle.Application.Common.Requests;
 
 namespace Tyle.Api.Attributes;
 
