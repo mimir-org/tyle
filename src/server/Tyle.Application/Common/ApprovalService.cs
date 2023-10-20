@@ -47,4 +47,19 @@ public class ApprovalService : IApprovalService
     {
         return await _blockRepository.ChangeState(id, State.Approved);
     }
+
+    public async Task<bool> DenyApprovalForAttribute(Guid id)
+    {
+        return await _attributeRepository.ChangeState(id, State.Draft);
+    }
+
+    public async Task<bool> DenyApprovalForTerminal(Guid id)
+    {
+        return await _terminalRepository.ChangeState(id, State.Draft);
+    }
+
+    public async Task<bool> DenyApprovalForBlock(Guid id)
+    {
+        return await _terminalRepository.ChangeState(id, State.Draft);
+    }
 }

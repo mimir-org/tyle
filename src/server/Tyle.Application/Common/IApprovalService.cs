@@ -13,4 +13,10 @@ public interface IApprovalService
     Task<bool> ApproveTerminal(Guid id);
 
     Task<bool> ApproveBlock(Guid id);
+
+    Task<bool> DenyApprovalForAttribute(Guid id);
+
+    Task<bool> DenyApprovalForTerminal(Guid id);
+
+    Task<bool> DenyApprovalForBlock(Guid id);
 }
