@@ -144,13 +144,13 @@ public class BlocksController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
-    
+
     /// <summary>
     /// Change the state of a block.
     /// </summary>
     /// <param name="id">The id of the block that will change state.</param>
     /// <param name="request">A request containing the wanted state.</param>
-    [HttpPatch("{id}")]
+    [HttpPatch("{id}/state")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

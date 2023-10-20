@@ -150,7 +150,7 @@ public class TerminalsController : ControllerBase
     /// </summary>
     /// <param name="id">The id of the terminal that will change state.</param>
     /// <param name="request">A request containing the wanted state.</param>
-    [HttpPatch("{id}")]
+    [HttpPatch("{id}/state")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
