@@ -75,7 +75,7 @@ export const ValueConstraintForm = () => {
     } else if (chosenConstraintType === ConstraintType.IsInListOfAllowedValues) {
       setValue("valueList", []);
     }
-  }
+  };
 
   const getDataTypeOptions = () => {
     if (chosenConstraintType === ConstraintType.IsInListOfAllowedValues) {
