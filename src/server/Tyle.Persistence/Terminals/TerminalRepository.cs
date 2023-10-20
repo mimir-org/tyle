@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Tyle.Application.Common;
 using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
+using Tyle.Core.Common;
 using Tyle.Core.Terminals;
 using Tyle.Persistence.Common;
 
@@ -55,6 +56,7 @@ public class TerminalRepository : ITerminalRepository
             Version = "1.0",
             CreatedOn = DateTimeOffset.Now,
             CreatedBy = _userInformationService.GetUserId(),
+            State = State.Draft,
             Notation = request.Notation,
             Symbol = request.Symbol,
             Aspect = request.Aspect,

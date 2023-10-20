@@ -10,4 +10,5 @@ public abstract class ImfType
     public required string CreatedBy { get; init; }
     public ICollection<string> ContributedBy { get; } = new HashSet<string>();
     public DateTimeOffset LastUpdateOn { get; set; }
+    public State State { get; set; }
 }

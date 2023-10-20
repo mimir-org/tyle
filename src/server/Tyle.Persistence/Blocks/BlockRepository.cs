@@ -3,6 +3,7 @@ using Tyle.Application.Blocks;
 using Tyle.Application.Blocks.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Blocks;
+using Tyle.Core.Common;
 using Tyle.Persistence.Common;
 
 namespace Tyle.Persistence.Blocks;
@@ -65,6 +66,7 @@ public class BlockRepository : IBlockRepository
             Version = "1.0",
             CreatedOn = DateTimeOffset.Now,
             CreatedBy = _userInformationService.GetUserId(),
+            State = State.Draft,
             Notation = request.Notation,
             Symbol = request.Symbol,
             Aspect = request.Aspect

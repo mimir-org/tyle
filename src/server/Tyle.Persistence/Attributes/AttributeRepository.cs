@@ -4,6 +4,7 @@ using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Attributes;
+using Tyle.Core.Common;
 using Tyle.Persistence.Common;
 
 namespace Tyle.Persistence.Attributes;
@@ -52,6 +53,7 @@ public class AttributeRepository : IAttributeRepository
             Version = "1.0",
             CreatedOn = DateTimeOffset.Now,
             CreatedBy = _userInformationService.GetUserId(),
+            State = State.Draft,
             UnitMinCount = request.UnitMinCount,
             UnitMaxCount = request.UnitMaxCount,
             ProvenanceQualifier = request.ProvenanceQualifier,

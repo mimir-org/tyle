@@ -27,6 +27,7 @@ public class AttributeConfiguration : IEntityTypeConfiguration<AttributeType>
         builder.Property(x => x.Version).IsRequired().HasMaxLength(StringLengthConstants.VersionLength);
         builder.Property(x => x.CreatedBy).IsRequired().HasMaxLength(StringLengthConstants.CreatedByLength);
         builder.Property(x => x.ContributedBy).IsRequired().HasConversion(_valueConverter, _valueComparer).HasMaxLength(StringLengthConstants.ContributedByLength);
+        builder.Property(x => x.State).IsRequired().HasConversion<string>().HasMaxLength(StringLengthConstants.EnumLength);
 
         builder.Property(x => x.UnitMinCount).IsRequired();
         builder.Property(x => x.UnitMaxCount).IsRequired();
