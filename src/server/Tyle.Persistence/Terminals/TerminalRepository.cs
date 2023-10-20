@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using System;
 using Tyle.Application.Common;
 using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
+using Tyle.Core.Common;
 using Tyle.Core.Terminals;
 using Tyle.Persistence.Common;
 
@@ -55,6 +57,7 @@ public class TerminalRepository : ITerminalRepository
             Version = "1.0",
             CreatedOn = DateTimeOffset.Now,
             CreatedBy = _userInformationService.GetUserId(),
+            State = State.Draft,
             Notation = request.Notation,
             Symbol = request.Symbol,
             Aspect = request.Aspect,
@@ -132,6 +135,11 @@ public class TerminalRepository : ITerminalRepository
         if (terminal == null)
         {
             return null;
+        }
+
+        if (terminal.State != State.Draft)
+        {
+            throw new InvalidOperationException($"Terminals with state '{terminal.State}' cannot be updated.");
         }
 
         terminal.Name = request.Name;
@@ -249,6 +257,21 @@ public class TerminalRepository : ITerminalRepository
         }
 
         _dbSet.Remove(terminal);
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> ChangeState(Guid id, State state)
+    {
+        var terminal = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+        if (terminal == null)
+        {
+            return false;
+        }
+
+        terminal.State = state;
         await _context.SaveChangesAsync();
 
         return true;

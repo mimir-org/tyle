@@ -4,6 +4,7 @@ using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Attributes;
+using Tyle.Core.Common;
 using Tyle.Persistence.Common;
 
 namespace Tyle.Persistence.Attributes;
@@ -52,6 +53,7 @@ public class AttributeRepository : IAttributeRepository
             Version = "1.0",
             CreatedOn = DateTimeOffset.Now,
             CreatedBy = _userInformationService.GetUserId(),
+            State = State.Draft,
             UnitMinCount = request.UnitMinCount,
             UnitMaxCount = request.UnitMaxCount,
             ProvenanceQualifier = request.ProvenanceQualifier,
@@ -105,6 +107,11 @@ public class AttributeRepository : IAttributeRepository
         if (attribute == null)
         {
             return null;
+        }
+
+        if (attribute.State != State.Draft)
+        {
+            throw new InvalidOperationException($"Attributes with state '{attribute.State}' cannot be updated.");
         }
 
         attribute.Name = request.Name;
@@ -191,6 +198,21 @@ public class AttributeRepository : IAttributeRepository
         }
 
         _dbSet.Remove(attribute);
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> ChangeState(Guid id, State state)
+    {
+        var attribute = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+        if (attribute == null)
+        {
+            return false;
+        }
+
+        attribute.State = state;
         await _context.SaveChangesAsync();
 
         return true;

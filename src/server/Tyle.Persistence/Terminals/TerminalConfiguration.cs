@@ -27,6 +27,7 @@ public class TerminalConfiguration : IEntityTypeConfiguration<TerminalType>
         builder.Property(x => x.Version).IsRequired().HasMaxLength(StringLengthConstants.VersionLength);
         builder.Property(x => x.CreatedBy).IsRequired().HasMaxLength(StringLengthConstants.CreatedByLength);
         builder.Property(x => x.ContributedBy).IsRequired().HasConversion(_valueConverter, _valueComparer).HasMaxLength(StringLengthConstants.ContributedByLength);
+        builder.Property(x => x.State).IsRequired().HasConversion<string>().HasMaxLength(StringLengthConstants.EnumLength);
 
         builder.Property(x => x.Notation).HasMaxLength(StringLengthConstants.NotationLength);
         builder.Property(x => x.Symbol).HasMaxLength(StringLengthConstants.IriLength);

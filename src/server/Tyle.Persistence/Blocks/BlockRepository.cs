@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using System;
 using Tyle.Application.Blocks;
 using Tyle.Application.Blocks.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Blocks;
+using Tyle.Core.Common;
 using Tyle.Persistence.Common;
 
 namespace Tyle.Persistence.Blocks;
@@ -65,6 +67,7 @@ public class BlockRepository : IBlockRepository
             Version = "1.0",
             CreatedOn = DateTimeOffset.Now,
             CreatedBy = _userInformationService.GetUserId(),
+            State = State.Draft,
             Notation = request.Notation,
             Symbol = request.Symbol,
             Aspect = request.Aspect
@@ -152,6 +155,11 @@ public class BlockRepository : IBlockRepository
         if (block == null)
         {
             return null;
+        }
+
+        if (block.State != State.Draft)
+        {
+            throw new InvalidOperationException($"Blocks with state '{block.State}' cannot be updated.");
         }
 
         block.Name = request.Name;
@@ -295,6 +303,21 @@ public class BlockRepository : IBlockRepository
         }
 
         _dbSet.Remove(block);
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> ChangeState(Guid id, State state)
+    {
+        var block = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+        if (block == null)
+        {
+            return false;
+        }
+
+        block.State = state;
         await _context.SaveChangesAsync();
 
         return true;
