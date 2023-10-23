@@ -21,7 +21,6 @@ export const useGetLatestApprovedBlock = (id?: string, enable = true) =>
 
 export const useCreateBlock = () => {
   const queryClient = useQueryClient();
-
   return useMutation((item: BlockTypeRequest) => blockApi.postBlock(item), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });

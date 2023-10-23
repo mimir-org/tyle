@@ -77,6 +77,10 @@ export const BlockFormBaseFields = ({ mode, limited }: BlockFormBaseFieldsProps)
             )
           }
         >
+          <FormField label={t("terminal.name")} error={errors.symbol}>
+            <Input placeholder={t("terminal.placeholders.name")} {...register("name")} disabled={limited} />
+          </FormField>
+
           <Input {...register("purpose")} type="hidden" />
           {chosenPurpose && (
             <Token

@@ -114,27 +114,12 @@ export const FormTerminals = () => {
                     )}
                   />
                 </Box>
-                {terminal.qualifier == 0 ?? (
-                  <>
-                    <Button icon={<ArrowLeft />} iconOnly>
-                      Arrow left
-                    </Button>
-                    <Button icon={<ArrowRight />} iconOnly>
-                      Arrow right
-                    </Button>
-                  </>
-                )}
-
-                {terminal.qualifier == 1 ?? (
-                  <Button icon={<ArrowLeft />} iconOnly>
-                    Arrow left
-                  </Button>
-                )}
-                {terminal.qualifier == 2 ?? (
-                  <Button icon={<ArrowRight />} iconOnly>
-                    Arrow right
-                  </Button>
-                )}
+                <Button icon={<ArrowLeft />} iconOnly onClick={() => setValue(`terminals.${index}.direction`, 1)}>
+                  Arrow left
+                </Button>
+                <Button icon={<ArrowRight />} iconOnly onClick={() => setValue(`terminals.${index}.direction`, 2)}>
+                  Arrow right
+                </Button>
               </Flexbox>
             )
           );

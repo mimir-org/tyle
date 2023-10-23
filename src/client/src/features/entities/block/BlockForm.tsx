@@ -66,7 +66,7 @@ export const BlockForm = ({ defaultValues = createDefaultBlockFormFields(), mode
 
   const mutation = useBlockMutation(query.data?.id, mode);
 
-  useServerValidation(mutation.error, setError);
+  useServerValidation(console.log(mutation.error), setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
   const toast = useSubmissionToast(t("block.title"));
