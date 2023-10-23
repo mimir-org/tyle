@@ -22,7 +22,7 @@ export interface FormAttributeGroupsProps {
 }
 
 /**
- * Reusable form section for adding attributeGroups to models that support them
+ * Reusable form section for adding attributeGroups
  *
  * @param fields
  * @param append

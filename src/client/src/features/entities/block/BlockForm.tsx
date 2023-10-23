@@ -34,6 +34,8 @@ import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { BlockView } from "common/types/blocks/blockView";
 import { FormAttributes } from "../common/form-attributes/FormAttributes";
 import { BlockFormBaseFields } from "./BlockFormBaseFields";
+import { FormClassifiers } from "../terminal/TerminalFormClassifiers";
+import { FormTerminals } from "./FormTerminals.";
 //import { FormAttributeGroups } from "../common/form-attributeGroup/FormAttributeGroups";
 
 interface BlockFormProps {
@@ -81,29 +83,15 @@ export const BlockForm = ({ defaultValues = createDefaultBlockFormFields(), mode
           <>
             <BlockFormBaseFields limited={limited} mode={mode} />
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
+              <FormTerminals />
+            </Box>
+
+            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
+              <FormClassifiers />
+            </Box>
+            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
               <FormAttributes />
             </Box>
-            {/* <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
-              {getSubformForAspect(aspect, limited ? latestApprovedQuery.data?.blockTerminals : [])}
-            <FormAttributes
-                register={(index) => register(`attributes.${index}`)}
-                fields={attributeFields.fields}
-                append={attributeFields.append}
-                remove={attributeFields.remove}
-                preprocess={prepareAttributes}
-                limitedAttributes={limited ? latestApprovedQuery.data?.attributes : []}
-              />
-            </Box>
- 
-             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
-               <FormAttributeGroups
-                 register={() => register(`attributeGroups`)}
-                 fields={attributeGroupFields.fields}
-                 append={attributeGroupFields.append}
-                 remove={attributeGroupFields.remove}
-                 limitedAttributeGroups={limited ? latestApprovedQuery.data?.attributes : []}
-             />
-              </Box> */}
           </>
         )}
         <DevTool control={control} placement={"bottom-right"} />

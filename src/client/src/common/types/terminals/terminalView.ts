@@ -13,6 +13,8 @@ export interface TerminalView extends ImfType {
   symbol?: string;
   aspect?: Aspect;
   medium?: RdlMedium;
-  qualifier: Direction;
+  direction: Direction;
   attributes: AttributeTypeReferenceView[];
+  minCount: number;
+  maxCount?: number;
 }

@@ -10,7 +10,13 @@ import { BlockView } from "common/types/blocks/blockView";
 //import { RdlClassifier } from "common/types/common/rdlClassifier";
 import { TerminalTypeReferenceView } from "common/types/blocks/terminalTypeReferenceView";
 import { AttributeTypeReferenceView } from "common/types/common/attributeTypeReferenceView";
-import { UseFormResetField } from "react-hook-form";
+
+import { RdlPurpose } from "common/types/common/rdlPurpose";
+import { RdlClassifier } from "common/types/common/rdlClassifier";
+import { InfoItem } from "common/types/infoItem";
+import { TerminalView } from "common/types/terminals/terminalView";
+import { mapTerminalViewsToInfoItems } from "common/utils/mappers/mapTerminalViewsToInfoItems";
+import { Direction } from "common/types/terminals/direction";
 // import { ValueObject } from "features/entities/types/valueObject";
 
 export const useBlockQuery = () => {
@@ -24,42 +30,16 @@ export const useBlockMutation = (id?: string, mode?: FormMode) => {
   return mode === "edit" ? blockUpdateMutation : blockCreateMutation;
 };
 
-export interface BlockFormFields extends Omit<BlockTypeRequest, "terminals" | "attributes"> {
+export interface BlockFormFields
+  extends Omit<BlockTypeRequest, "purposeId" | "terminals" | "attributes" | "classifierIds"> {
+  purpose?: RdlPurpose;
   terminals: TerminalTypeReferenceView[];
   attributes: AttributeTypeReferenceView[];
+  classifiers: RdlClassifier[];
 }
 
-// /**
-//  * Resets the part of block form which is dependent on initial choices, e.g. aspect
-//  *
-//  * @param resetField
-//  */
-// export const resetSubform = (resetField: UseFormResetField<BlockFormFields>, newAspect: Aspect | undefined) => {
-//   resetField("selectedAttributePredefined", { defaultValue: [] });
-//   if (newAspect !== Aspect.Function && newAspect !== Aspect.Product) {
-//     resetField("blockTerminals", { defaultValue: [] });
-//   }
-// };
-
-// export const getSubformForAspect = (aspect: Aspect, limitedTerminals?: BlockTerminalLibCm[]) => {
-//   switch (aspect) {
-//     case Aspect.Function:
-//       return <BlockFormTerminals limitedTerminals={limitedTerminals} />;
-//     case Aspect.Product:
-//       return <BlockFormTerminals limitedTerminals={limitedTerminals} />;
-//     case Aspect.Location:
-//       return <BlockFormPredefinedAttributes aspects={[aspect]} />;
-//     default:
-//       return <></>;
-//   }
-// };
-
 export const toBlockFormFields = (block: BlockView): BlockFormFields => ({
-  name: block.name,
-  classifierIds: block.classifiers.map((x) => x.id),
-  aspect: block.aspect,
-  terminals: block.terminals,
-  attributes: block.attributes,
+  ...block,
 });
 
 /**
@@ -68,21 +48,21 @@ export const toBlockFormFields = (block: BlockView): BlockFormFields => ({
  */
 // export const toApiModel = (formBlock: BlockFormFields): BlockTypeRequest => formBlock;
 
-export const toClientModel = (block: BlockView): BlockFormFields => ({
-  ...block,
-  classifierIds: block.classifiers.map((x) => x.id),
-  terminals: block.terminals,
-});
+// export const toClientModel = (block: BlockView): BlockFormFields => ({
+//   ...block,
+//   classifierIds: block.classifiers.map((x) => x.id),
+//   terminals: block.terminals,
+// });
 export const toBlockTypeRequest = (blockFormFields: BlockFormFields): BlockTypeRequest => ({
   name: blockFormFields.name,
-  classifierIds: blockFormFields.classifierIds,
+  classifierIds: blockFormFields.classifiers.map((x) => x.id),
   terminals: blockFormFields.terminals.map((x) => ({ ...x, terminalId: x.terminal.id })),
   attributes: blockFormFields.attributes.map((x) => ({ ...x, attributeId: x.attribute.id })),
 });
 
 export const createDefaultBlockFormFields = (): BlockFormFields => ({
   name: "",
-  classifierIds: [],
+  classifiers: [],
   terminals: [],
   attributes: [],
 });
@@ -163,3 +143,38 @@ export const createDefaultBlockFormFields = (): BlockFormFields => ({
 //   maxQuantity: 0,
 //   connectorDirection: ConnectorDirection.Input,
 // };
+
+export const terminalInfoItem = (terminal: TerminalView): InfoItem => ({
+  name: terminal.name,
+  qualifier: terminal.direction,
+  id: terminal.id,
+});
+
+export const resolveSelectedAndAvailableTerminals = (
+  fieldTerminals: TerminalTypeReferenceView[],
+  allTerminals: TerminalView[],
+) => {
+  const selectedSet = new Set<string>();
+  fieldTerminals.forEach((x) => selectedSet.add(x.terminal.id));
+
+  const selected: TerminalView[] = [];
+  const available: TerminalView[] = [];
+  allTerminals.forEach((x) => {
+    selectedSet.has(x.id) ? selected.push(x) : available.push(x);
+  });
+
+  return [mapTerminalViewsToInfoItems(available), mapTerminalViewsToInfoItems(selected)];
+};
+
+export const onAddTerminals = (
+  selectedIds: string[],
+  allTerminals: TerminalView[],
+  append: (item: TerminalTypeReferenceView) => void,
+) => {
+  selectedIds.forEach((id) => {
+    const targetTerminal = allTerminals.find((x) => x.id === id);
+    if (targetTerminal) {
+      append({ terminal: targetTerminal, minCount: 1, direction: targetTerminal.direction });
+    }
+  });
+};

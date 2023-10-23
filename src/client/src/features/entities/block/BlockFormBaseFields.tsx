@@ -2,35 +2,33 @@ import { MimirorgPermission, State } from "@mimirorg/typelibrary-types";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import {
-  Box,
   Button,
-  ConditionalWrapper,
   Flexbox,
   FormBaseFieldsContainer,
   FormField,
-  Icon,
   Input,
-  Popover,
   Select,
   Text,
   Textarea,
+  Token,
 } from "@mimirorg/component-library";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
 import { useGetAllRds } from "external/sources/rds/rds.queries";
 import { useGetSymbols } from "external/sources/symbol/symbol.queries";
-//import { PlainLink } from "features/common/plain-link";
 import { BlockFormFields } from "features/entities/block/BlockForm.helpers";
-// import { BlockFormPreview } from "features/entities/entityPreviews/block/BlockFormPreview";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { FormMode } from "../types/formMode";
 import { Aspect } from "common/types/common/aspect";
 import { PlainLink } from "features/common/plain-link/PlainLink";
+import { FormSection } from "../common/form-section/FormSection";
+import { SelectItemDialog } from "../common/select-item-dialog/SelectItemDialog";
+import { XCircle } from "@styled-icons/heroicons-outline";
+import { purposeInfoItem } from "../terminal/TerminalForm.helpers"; //TODO should possibly be moved to own component?
 
 interface BlockFormBaseFieldsProps {
   mode?: FormMode;
-  state?: State;
   limited?: boolean;
 }
 
@@ -40,49 +38,60 @@ interface BlockFormBaseFieldsProps {
  * @param isFirstDraft
  * @param mode
  * @param state
- *  * @param limited
+ * @param limited
  * @constructor
  */
 export const BlockFormBaseFields = ({ mode, limited }: BlockFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
-  const { control, register, formState } = useFormContext<BlockFormFields>();
+  const { control, register, formState, setValue } = useFormContext<BlockFormFields>();
   const { errors } = formState;
 
-  const rdsQuery = useGetAllRds();
-  const symbolQuery = useGetSymbols();
   const purposeQuery = useGetPurposes();
+  const purposeInfoItems = purposeQuery.data?.map((p) => purposeInfoItem(p)) ?? [];
+  const chosenPurpose = useWatch({ control, name: "purpose" });
+
   const aspectOptions = getOptionsFromEnum<Aspect>(Aspect);
-  const companies = useGetFilteredCompanies(MimirorgPermission.Write);
 
   return (
     <FormBaseFieldsContainer>
       <Text variant={"display-small"}>{t("block.title")}</Text>
-      {/* <BlockFormPreview control={control} /> */}
 
       <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
-        <FormField label={t("block.name")} error={errors.name}>
-          <Input placeholder={t("block.placeholders.name")} {...register("name")} />
-        </FormField>
-        <FormField label={t("block.purpose")} error={errors.purposeId}>
-          <Controller
-            control={control}
-            name={"purposeId"}
-            render={({ field: { value, onChange, ref, ...rest } }) => (
-              <Select
-                {...rest}
-                selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("block.purpose").toLowerCase() })}
-                options={purposeQuery.data}
-                isLoading={purposeQuery.isLoading}
-                getOptionLabel={(x) => x.name}
-                getOptionValue={(x) => x.name}
-                onChange={(x) => onChange(x?.name)}
-                value={purposeQuery.data?.find((x) => x.id === value)}
+        <FormSection
+          title={t("terminal.purpose.title")} //TODO: change name to correct section in langu file.
+          action={
+            !chosenPurpose && (
+              <SelectItemDialog
+                title={t("terminal.purpose.dialog.title")}
+                description={t("terminal.purpose.dialog.description")}
+                searchFieldText={t("terminal.purpose.dialog.search")}
+                addItemsButtonText={t("terminal.purpose.dialog.add")}
+                openDialogButtonText={t("terminal.purpose.dialog.open")}
+                items={purposeInfoItems}
+                onAdd={(ids) => {
+                  setValue("purpose", purposeQuery.data?.find((x) => x.id === Number(ids[0])));
+                }}
+                isMultiSelect={false}
               />
-            )}
-          />
-        </FormField>
+            )
+          }
+        >
+          <Input {...register("purpose")} type="hidden" />
+          {chosenPurpose && (
+            <Token
+              variant={"secondary"}
+              actionable
+              actionIcon={<XCircle />}
+              actionText={t("terminal.purpose.remove")}
+              onAction={() => setValue("purpose", undefined)}
+              dangerousAction
+            >
+              {purposeInfoItems.find((x) => x.id === chosenPurpose.id.toString())?.name}
+            </Token>
+          )}
+        </FormSection>
+
         <FormField label={t("block.aspect")} error={errors.aspect}>
           <Controller
             control={control}
@@ -95,7 +104,6 @@ export const BlockFormBaseFields = ({ mode, limited }: BlockFormBaseFieldsProps)
                 options={aspectOptions}
                 getOptionLabel={(x) => x.label}
                 onChange={(x) => {
-                  // resetSubform(resetField, x?.value);
                   onChange(x?.value);
                 }}
                 value={aspectOptions.find((x) => x.value === value)}
