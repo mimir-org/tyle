@@ -1,11 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using System;
 using Tyle.Application.Common;
 using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
 using Tyle.Core.Common;
 using Tyle.Core.Terminals;
-using Tyle.Persistence.Common;
 
 namespace Tyle.Persistence.Terminals;
 
@@ -58,65 +56,19 @@ public class TerminalRepository : ITerminalRepository
             CreatedOn = DateTimeOffset.Now,
             CreatedBy = _userInformationService.GetUserId(),
             State = State.Draft,
+            PurposeId = request.PurposeId,
             Notation = request.Notation,
             Symbol = request.Symbol,
             Aspect = request.Aspect,
+            MediumId = request.MediumId,
             Qualifier = request.Qualifier
         };
 
         terminal.LastUpdateOn = terminal.CreatedOn;
 
-        foreach (var classifierId in request.ClassifierIds)
-        {
-            if (await _context.Classifiers.AsNoTracking().AnyAsync(x => x.Id == classifierId))
-            {
-                terminal.Classifiers.Add(new TerminalClassifierJoin
-                {
-                    TerminalId = terminal.Id,
-                    ClassifierId = classifierId
-                });
-            }
-            else
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "classifier", classifierId.ToString()));
-            }
-        }
-
-        if (request.PurposeId == null || await _context.Purposes.AsNoTracking().AnyAsync(x => x.Id == request.PurposeId))
-        {
-            terminal.PurposeId = request.PurposeId;
-        }
-        else
-        {
-            throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "purpose", request.PurposeId.ToString()));
-        }
-
-        if (request.MediumId == null || await _context.Media.AsNoTracking().AnyAsync(x => x.Id == request.MediumId))
-        {
-            terminal.MediumId = request.MediumId;
-        }
-        else
-        {
-            throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "medium", request.MediumId.ToString()));
-        }
-
-        foreach (var attributeTypeReferenceRequest in request.Attributes)
-        {
-            if (await _context.Attributes.AsNoTracking().AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
-            {
-                terminal.Attributes.Add(new TerminalAttributeTypeReference
-                {
-                    TerminalId = terminal.Id,
-                    AttributeId = attributeTypeReferenceRequest.AttributeId,
-                    MinCount = attributeTypeReferenceRequest.MinCount,
-                    MaxCount = attributeTypeReferenceRequest.MaxCount
-                });
-            }
-            else
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeTypeReferenceRequest.AttributeId.ToString()));
-            }
-        }
+        terminal.Classifiers = request.ClassifierIds.Select(classifierId => new TerminalClassifierJoin { TerminalId = terminal.Id, ClassifierId = classifierId }).ToList();
+        
+        terminal.Attributes = request.Attributes.Select(x => new TerminalAttributeTypeReference { TerminalId = terminal.Id, AttributeId = x.AttributeId, MinCount = x.MinCount, MaxCount = x.MaxCount }).ToList();
 
         _dbSet.Add(terminal);
         await _context.SaveChangesAsync();
@@ -160,48 +112,18 @@ public class TerminalRepository : ITerminalRepository
         {
             if (terminal.Classifiers.Any(x => x.ClassifierId == classifierId)) continue;
 
-            if (await _context.Classifiers.AsNoTracking().AnyAsync(x => x.Id == classifierId))
+            terminal.Classifiers.Add(new TerminalClassifierJoin
             {
-                terminal.Classifiers.Add(new TerminalClassifierJoin
-                {
-                    TerminalId = id,
-                    ClassifierId = classifierId
-                });
-            }
-            else
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Update, "classifier", classifierId.ToString()));
-            }
+                TerminalId = id,
+                ClassifierId = classifierId
+            });
         }
 
-        if (terminal.PurposeId != request.PurposeId)
-        {
-            if (request.PurposeId == null || await _context.Purposes.AsNoTracking().AnyAsync(x => x.Id == request.PurposeId))
-            {
-                terminal.PurposeId = request.PurposeId;
-            }
-            else
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Update, "purpose", request.PurposeId.ToString()));
-            }
-        }
-
+        terminal.PurposeId = request.PurposeId;
         terminal.Notation = request.Notation;
         terminal.Symbol = request.Symbol;
         terminal.Aspect = request.Aspect;
-
-        if (terminal.MediumId != request.MediumId)
-        {
-            if (request.MediumId == null || await _context.Media.AsNoTracking().AnyAsync(x => x.Id == request.MediumId))
-            {
-                terminal.MediumId = request.MediumId;
-            }
-            else
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Update, "medium", request.MediumId.ToString()));
-            }
-        }
-
+        terminal.MediumId = request.MediumId;
         terminal.Qualifier = request.Qualifier;
 
         var terminalAttributesToRemove = terminal.Attributes.Where(x => request.Attributes.All(y => y.AttributeId != x.AttributeId)).ToList();
@@ -223,11 +145,6 @@ public class TerminalRepository : ITerminalRepository
             };
 
             if (terminal.Attributes.Contains(terminalAttribute, terminalAttributeComparer)) continue;
-
-            if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Update, "attribute", attributeTypeReferenceRequest.ToString()));
-            }
 
             var terminalAttributeToUpdate = terminal.Attributes.FirstOrDefault(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId);
 

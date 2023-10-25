@@ -1,11 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using System;
 using Tyle.Application.Blocks;
 using Tyle.Application.Blocks.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Blocks;
 using Tyle.Core.Common;
-using Tyle.Persistence.Common;
 
 namespace Tyle.Persistence.Blocks;
 
@@ -68,6 +66,7 @@ public class BlockRepository : IBlockRepository
             CreatedOn = DateTimeOffset.Now,
             CreatedBy = _userInformationService.GetUserId(),
             State = State.Draft,
+            PurposeId = request.PurposeId,
             Notation = request.Notation,
             Symbol = request.Symbol,
             Aspect = request.Aspect
@@ -75,67 +74,11 @@ public class BlockRepository : IBlockRepository
 
         block.LastUpdateOn = block.CreatedOn;
 
-        foreach (var classifierId in request.ClassifierIds)
-        {
-            if (await _context.Classifiers.AsNoTracking().AnyAsync(x => x.Id == classifierId))
-            {
-                block.Classifiers.Add(new BlockClassifierJoin
-                {
-                    BlockId = block.Id,
-                    ClassifierId = classifierId
-                });
-            }
-            else
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "classifier", classifierId.ToString()));
-            }
-        }
+        block.Classifiers = request.ClassifierIds.Select(classifierId => new BlockClassifierJoin { BlockId = block.Id, ClassifierId = classifierId }).ToList();
 
-        if (request.PurposeId == null || await _context.Purposes.AsNoTracking().AnyAsync(x => x.Id == request.PurposeId))
-        {
-            block.PurposeId = request.PurposeId;
-        }
-        else
-        {
-            throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "purpose", request.PurposeId.ToString()));
-        }
+        block.Terminals = request.Terminals.Select(x => new BlockTerminalTypeReference {BlockId = block.Id, TerminalId = x.TerminalId, Direction = x.Direction, MinCount = x.MinCount, MaxCount = x.MaxCount}).ToList();
 
-        foreach (var terminalTypeReferenceRequest in request.Terminals)
-        {
-            if (await _context.Terminals.AsNoTracking().AnyAsync(x => x.Id == terminalTypeReferenceRequest.TerminalId))
-            {
-                block.Terminals.Add(new BlockTerminalTypeReference
-                {
-                    BlockId = block.Id,
-                    TerminalId = terminalTypeReferenceRequest.TerminalId,
-                    Direction = terminalTypeReferenceRequest.Direction,
-                    MinCount = terminalTypeReferenceRequest.MinCount,
-                    MaxCount = terminalTypeReferenceRequest.MaxCount
-                });
-            }
-            else
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "terminal", terminalTypeReferenceRequest.TerminalId.ToString()));
-            }
-        }
-
-        foreach (var attributeTypeReferenceRequest in request.Attributes)
-        {
-            if (await _context.Attributes.AsNoTracking().AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
-            {
-                block.Attributes.Add(new BlockAttributeTypeReference
-                {
-                    BlockId = block.Id,
-                    AttributeId = attributeTypeReferenceRequest.AttributeId,
-                    MinCount = attributeTypeReferenceRequest.MinCount,
-                    MaxCount = attributeTypeReferenceRequest.MaxCount
-                });
-            }
-            else
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeTypeReferenceRequest.AttributeId.ToString()));
-            }
-        }
+        block.Attributes = request.Attributes.Select(x => new BlockAttributeTypeReference { BlockId = block.Id, AttributeId = x.AttributeId, MinCount = x.MinCount, MaxCount = x.MaxCount }).ToList();
 
         _dbSet.Add(block);
         await _context.SaveChangesAsync();
@@ -181,32 +124,14 @@ public class BlockRepository : IBlockRepository
         {
             if (block.Classifiers.Any(x => x.ClassifierId == classifierId)) continue;
 
-            if (await _context.Classifiers.AsNoTracking().AnyAsync(x => x.Id == classifierId))
+            block.Classifiers.Add(new BlockClassifierJoin
             {
-                block.Classifiers.Add(new BlockClassifierJoin
-                {
-                    BlockId = id,
-                    ClassifierId = classifierId
-                });
-            }
-            else
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "classifier", classifierId.ToString()));
-            }
+                BlockId = id,
+                ClassifierId = classifierId
+            });
         }
 
-        if (block.PurposeId != request.PurposeId)
-        {
-            if (request.PurposeId == null || await _context.Purposes.AsNoTracking().AnyAsync(x => x.Id == request.PurposeId))
-            {
-                block.PurposeId = request.PurposeId;
-            }
-            else
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "purpose", request.PurposeId.ToString()));
-            }
-        }
-
+        block.PurposeId = request.PurposeId;
         block.Notation = request.Notation;
         block.Symbol = request.Symbol;
         block.Aspect = request.Aspect;
@@ -231,11 +156,6 @@ public class BlockRepository : IBlockRepository
             };
 
             if (block.Terminals.Contains(blockTerminal, blockTerminalComparer)) continue;
-
-            if (!await _context.Terminals.AnyAsync(x => x.Id == terminalTypeReferenceRequest.TerminalId))
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "terminal", terminalTypeReferenceRequest.TerminalId.ToString()));
-            }
 
             var blockTerminalToUpdate = block.Terminals.FirstOrDefault(x => x.TerminalId == terminalTypeReferenceRequest.TerminalId && x.Direction == terminalTypeReferenceRequest.Direction);
 
@@ -269,11 +189,6 @@ public class BlockRepository : IBlockRepository
             };
 
             if (block.Attributes.Contains(blockAttribute, blockAttributeComparer)) continue;
-
-            if (!await _context.Attributes.AnyAsync(x => x.Id == attributeTypeReferenceRequest.AttributeId))
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeTypeReferenceRequest.AttributeId.ToString()));
-            }
 
             var blockAttributeToUpdate = block.Attributes.FirstOrDefault(x => x.AttributeId == attributeTypeReferenceRequest.AttributeId);
 
