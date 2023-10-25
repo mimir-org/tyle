@@ -9,10 +9,13 @@ using Xunit;
 
 namespace Tyle.Test.Unit.Services.Blocks.Requests;
 
-public class BlockTypeRequestTests : UnitTest<MimirorgCommonFixture>
+public class BlockTypeRequestTests : UnitTest<RequestTestFixture>
 {
-    public BlockTypeRequestTests(MimirorgCommonFixture fixture) : base(fixture)
+    private readonly IServiceProvider _serviceProvider;
+
+    public BlockTypeRequestTests(RequestTestFixture fixture) : base(fixture)
     {
+        _serviceProvider = fixture.ServiceProvider.Object;
     }
 
     [Fact]
@@ -63,7 +66,7 @@ public class BlockTypeRequestTests : UnitTest<MimirorgCommonFixture>
                 }
         };
 
-        var validationContext = new ValidationContext(blockTypeRequest);
+        var validationContext = new ValidationContext(blockTypeRequest, _serviceProvider, null);
 
         var results = blockTypeRequest.Validate(validationContext);
 
@@ -97,7 +100,7 @@ public class BlockTypeRequestTests : UnitTest<MimirorgCommonFixture>
             }
         };
 
-        var validationContext = new ValidationContext(blockTypeRequest);
+        var validationContext = new ValidationContext(blockTypeRequest, _serviceProvider, null);
 
         var results = blockTypeRequest.Validate(validationContext);
 
@@ -133,7 +136,7 @@ public class BlockTypeRequestTests : UnitTest<MimirorgCommonFixture>
             }
         };
 
-        var validationContext = new ValidationContext(blockTypeRequest);
+        var validationContext = new ValidationContext(blockTypeRequest, _serviceProvider, null);
 
         var results = blockTypeRequest.Validate(validationContext);
 
@@ -174,7 +177,7 @@ public class BlockTypeRequestTests : UnitTest<MimirorgCommonFixture>
             }
         };
 
-        var validationContext = new ValidationContext(blockTypeRequest);
+        var validationContext = new ValidationContext(blockTypeRequest, _serviceProvider, null);
 
         var results = blockTypeRequest.Validate(validationContext);
 
@@ -215,7 +218,7 @@ public class BlockTypeRequestTests : UnitTest<MimirorgCommonFixture>
             }
         };
 
-        var validationContext = new ValidationContext(blockTypeRequest);
+        var validationContext = new ValidationContext(blockTypeRequest, _serviceProvider, null);
 
         var results = blockTypeRequest.Validate(validationContext);
 

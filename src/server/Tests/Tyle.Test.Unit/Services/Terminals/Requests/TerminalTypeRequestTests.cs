@@ -9,10 +9,13 @@ using Xunit;
 
 namespace Tyle.Test.Unit.Services.Terminals.Requests;
 
-public class TerminalTypeRequestTests : UnitTest<MimirorgCommonFixture>
+public class TerminalTypeRequestTests : UnitTest<RequestTestFixture>
 {
-    public TerminalTypeRequestTests(MimirorgCommonFixture fixture) : base(fixture)
+    private readonly IServiceProvider _serviceProvider;
+
+    public TerminalTypeRequestTests(RequestTestFixture fixture) : base(fixture)
     {
+        _serviceProvider = fixture.ServiceProvider.Object;
     }
 
     [Fact]
@@ -43,7 +46,7 @@ public class TerminalTypeRequestTests : UnitTest<MimirorgCommonFixture>
             }
         };
 
-        var validationContext = new ValidationContext(terminalTypeRequest);
+        var validationContext = new ValidationContext(terminalTypeRequest, _serviceProvider, null);
 
         var results = terminalTypeRequest.Validate(validationContext);
 
@@ -78,7 +81,7 @@ public class TerminalTypeRequestTests : UnitTest<MimirorgCommonFixture>
             }
         };
 
-        var validationContext = new ValidationContext(terminalTypeRequest);
+        var validationContext = new ValidationContext(terminalTypeRequest, _serviceProvider, null);
 
         var results = terminalTypeRequest.Validate(validationContext);
 
@@ -115,7 +118,7 @@ public class TerminalTypeRequestTests : UnitTest<MimirorgCommonFixture>
             }
         };
 
-        var validationContext = new ValidationContext(terminalTypeRequest);
+        var validationContext = new ValidationContext(terminalTypeRequest, _serviceProvider, null);
 
         var results = terminalTypeRequest.Validate(validationContext);
 

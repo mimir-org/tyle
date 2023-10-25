@@ -5,7 +5,6 @@ using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Attributes;
 using Tyle.Core.Common;
-using Tyle.Persistence.Common;
 
 namespace Tyle.Persistence.Attributes;
 
@@ -54,6 +53,7 @@ public class AttributeRepository : IAttributeRepository
             CreatedOn = DateTimeOffset.Now,
             CreatedBy = _userInformationService.GetUserId(),
             State = State.Draft,
+            PredicateId = request.PredicateId,
             UnitMinCount = request.UnitMinCount,
             UnitMaxCount = request.UnitMaxCount,
             ProvenanceQualifier = request.ProvenanceQualifier,
@@ -65,30 +65,7 @@ public class AttributeRepository : IAttributeRepository
 
         attribute.LastUpdateOn = attribute.CreatedOn;
 
-        if (request.PredicateId == null || await _context.Predicates.AsNoTracking().AnyAsync(x => x.Id == request.PredicateId))
-        {
-            attribute.PredicateId = request.PredicateId;
-        }
-        else
-        {
-            throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "predicate", request.PredicateId.ToString()));
-        }
-
-        foreach (var unitId in request.UnitIds)
-        {
-            if (await _context.Units.AsNoTracking().AnyAsync(x => x.Id == unitId))
-            {
-                attribute.Units.Add(new AttributeUnitJoin
-                {
-                    AttributeId = attribute.Id,
-                    UnitId = unitId
-                });
-            }
-            else
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "unit", unitId.ToString()));
-            }
-        }
+        attribute.Units = request.UnitIds.Select(unitId => new AttributeUnitJoin { AttributeId = attribute.Id, UnitId = unitId }).ToList();
 
         _dbSet.Add(attribute);
         await _context.SaveChangesAsync();
@@ -122,17 +99,7 @@ public class AttributeRepository : IAttributeRepository
         }
         attribute.LastUpdateOn = DateTimeOffset.Now;
 
-        if (attribute.PredicateId != request.PredicateId)
-        {
-            if (request.PredicateId == null || await _context.Predicates.AsNoTracking().AnyAsync(x => x.Id == request.PredicateId))
-            {
-                attribute.PredicateId = request.PredicateId;
-            }
-            else
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "predicate", request.PredicateId.ToString()));
-            }
-        }
+        attribute.PredicateId = request.PredicateId;
 
         var attributeUnitsToRemove = attribute.Units.Where(x => !request.UnitIds.Contains(x.UnitId)).ToList();
         foreach (var attributeUnit in attributeUnitsToRemove)
@@ -144,18 +111,11 @@ public class AttributeRepository : IAttributeRepository
         {
             if (attribute.Units.Any(x => x.UnitId == unitId)) continue;
 
-            if (await _context.Units.AsNoTracking().AnyAsync(x => x.Id == unitId))
+            attribute.Units.Add(new AttributeUnitJoin
             {
-                attribute.Units.Add(new AttributeUnitJoin
-                {
-                    AttributeId = id,
-                    UnitId = unitId
-                });
-            }
-            else
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "unit", unitId.ToString()));
-            }
+                AttributeId = id,
+                UnitId = unitId
+            });
         }
 
         attribute.UnitMinCount = request.UnitMinCount;

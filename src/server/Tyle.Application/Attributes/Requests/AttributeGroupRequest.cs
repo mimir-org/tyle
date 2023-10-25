@@ -16,6 +16,21 @@ public class AttributeGroupRequest : IValidatableObject
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        return UniqueCollectionValidator.Validate(AttributeIds, "Attribute type id");
+        foreach (var validationResult in UniqueCollectionValidator.Validate(AttributeIds, "Attribute type id"))
+        {
+            yield return validationResult;
+        }
+
+        var attributeRepository = (IAttributeRepository) validationContext.GetService(typeof(IAttributeRepository))!;
+
+        foreach (var attributeId in AttributeIds)
+        {
+            var attribute = attributeRepository.Get(attributeId).Result;
+
+            if (attribute == null)
+            {
+                yield return new ValidationResult($"Couldn't find an attribute with id {attributeId}.");
+            }
+        }
     }
 }

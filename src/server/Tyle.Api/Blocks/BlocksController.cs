@@ -88,7 +88,6 @@ public class BlocksController : ControllerBase
     [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] BlockTypeRequest request)
@@ -97,10 +96,6 @@ public class BlocksController : ControllerBase
         {
             var createdBlock = await _blockRepository.Create(request);
             return Created("dummy", _mapper.Map<BlockView>(createdBlock));
-        }
-        catch (KeyNotFoundException ex)
-        {
-            return StatusCode(422, ex.Message);
         }
         catch (Exception)
         {
@@ -119,7 +114,6 @@ public class BlocksController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] BlockTypeRequest request)
@@ -134,10 +128,6 @@ public class BlocksController : ControllerBase
             }
 
             return Ok(_mapper.Map<BlockView>(block));
-        }
-        catch (KeyNotFoundException ex)
-        {
-            return StatusCode(422, ex.Message);
         }
         catch (InvalidOperationException ex)
         {

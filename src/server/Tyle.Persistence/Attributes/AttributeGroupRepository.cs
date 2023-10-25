@@ -3,7 +3,6 @@ using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Attributes;
-using Tyle.Persistence.Common;
 
 namespace Tyle.Persistence.Attributes;
 
@@ -52,21 +51,7 @@ public class AttributeGroupRepository : IAttributeGroupRepository
 
         attributeGroup.LastUpdateOn = attributeGroup.CreatedOn;
 
-        foreach (var attributeId in request.AttributeIds)
-        {
-            if (await _context.Attributes.AsNoTracking().AnyAsync(x => x.Id == attributeId))
-            {
-                attributeGroup.Attributes.Add(new AttributeGroupAttributeJoin
-                {
-                    AttributeGroupId = attributeGroup.Id,
-                    AttributeId = attributeId
-                });
-            }
-            else
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeId.ToString()));
-            }
-        }
+        attributeGroup.Attributes = request.AttributeIds.Select(attributeId => new AttributeGroupAttributeJoin { AttributeGroupId = attributeGroup.Id, AttributeId = attributeId }).ToList();
 
         _dbSet.Add(attributeGroup);
         await _context.SaveChangesAsync();
@@ -104,18 +89,11 @@ public class AttributeGroupRepository : IAttributeGroupRepository
         {
             if (attributeGroup.Attributes.Any(x => x.AttributeId == attributeId)) continue;
 
-            if (await _context.Attributes.AsNoTracking().AnyAsync(x => x.Id == attributeId))
+            attributeGroup.Attributes.Add(new AttributeGroupAttributeJoin
             {
-                attributeGroup.Attributes.Add(new AttributeGroupAttributeJoin
-                {
-                    AttributeGroupId = id,
-                    AttributeId = attributeId
-                });
-            }
-            else
-            {
-                throw new KeyNotFoundException(ExceptionMessage.CreateExceptionMessage(ExceptionMessage.TypeOfMessage.Add, "attribute", attributeId.ToString()));
-            }
+                AttributeGroupId = id,
+                AttributeId = attributeId
+            });
         }
 
         await _context.SaveChangesAsync();

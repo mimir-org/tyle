@@ -7,10 +7,13 @@ using Xunit;
 
 namespace Tyle.Test.Unit.Services.Blocks.Requests;
 
-public class TerminalTypeReferenceRequestTests : UnitTest<MimirorgCommonFixture>
+public class TerminalTypeReferenceRequestTests : UnitTest<RequestTestFixture>
 {
-    public TerminalTypeReferenceRequestTests(MimirorgCommonFixture fixture) : base(fixture)
+    private readonly IServiceProvider _serviceProvider;
+
+    public TerminalTypeReferenceRequestTests(RequestTestFixture fixture) : base(fixture)
     {
+        _serviceProvider = fixture.ServiceProvider.Object;
     }
 
     [Theory]
@@ -29,7 +32,7 @@ public class TerminalTypeReferenceRequestTests : UnitTest<MimirorgCommonFixture>
             TerminalId = Guid.NewGuid()
         };
 
-        var validationContext = new ValidationContext(blockTerminalRequest);
+        var validationContext = new ValidationContext(blockTerminalRequest, _serviceProvider, null);
 
         var results = blockTerminalRequest.Validate(validationContext);
 
