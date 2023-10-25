@@ -67,7 +67,7 @@ public class TerminalRepository : ITerminalRepository
         terminal.LastUpdateOn = terminal.CreatedOn;
 
         terminal.Classifiers = request.ClassifierIds.Select(classifierId => new TerminalClassifierJoin { TerminalId = terminal.Id, ClassifierId = classifierId }).ToList();
-        
+
         terminal.Attributes = request.Attributes.Select(x => new TerminalAttributeTypeReference { TerminalId = terminal.Id, AttributeId = x.AttributeId, MinCount = x.MinCount, MaxCount = x.MaxCount }).ToList();
 
         _dbSet.Add(terminal);

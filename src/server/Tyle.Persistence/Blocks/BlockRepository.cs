@@ -76,7 +76,7 @@ public class BlockRepository : IBlockRepository
 
         block.Classifiers = request.ClassifierIds.Select(classifierId => new BlockClassifierJoin { BlockId = block.Id, ClassifierId = classifierId }).ToList();
 
-        block.Terminals = request.Terminals.Select(x => new BlockTerminalTypeReference {BlockId = block.Id, TerminalId = x.TerminalId, Direction = x.Direction, MinCount = x.MinCount, MaxCount = x.MaxCount}).ToList();
+        block.Terminals = request.Terminals.Select(x => new BlockTerminalTypeReference { BlockId = block.Id, TerminalId = x.TerminalId, Direction = x.Direction, MinCount = x.MinCount, MaxCount = x.MaxCount }).ToList();
 
         block.Attributes = request.Attributes.Select(x => new BlockAttributeTypeReference { BlockId = block.Id, AttributeId = x.AttributeId, MinCount = x.MinCount, MaxCount = x.MaxCount }).ToList();
 
