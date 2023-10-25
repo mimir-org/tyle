@@ -9,6 +9,9 @@ import { BlockFormFields, onAddTerminals, resolveSelectedAndAvailableTerminals }
 import { useTheme } from "styled-components";
 import { TerminalFormFields } from "../terminal/TerminalForm.helpers";
 import { prepareTerminals } from "../common/utils/prepareTerminals";
+import { FormField, Select } from "@mimirorg/component-library";
+import { Direction } from "common/types/terminals/direction";
+import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 // import { Direction } from "common/types/terminals/direction";
 
 /**
@@ -23,13 +26,16 @@ export const FormTerminals = () => {
 
   type BlockOrTerminalFormFields = BlockFormFields | TerminalFormFields;
 
-  const { control, register, setValue } = useFormContext<BlockOrTerminalFormFields>();
+  const { control, register, setValue, formState } = useFormContext<BlockOrTerminalFormFields>();
 
   const terminalFields = useFieldArray({ control, name: "terminals" });
   const terminalQuery = useGetTerminals();
   const terminals = prepareTerminals(terminalQuery.data) ?? [];
   const [available, selected] = resolveSelectedAndAvailableTerminals(terminalFields.fields, terminals);
   const terminalTypeRefs = useWatch({ control, name: "terminals" });
+  const { errors } = formState;
+
+  const directionOptions = getOptionsFromEnum<Direction>(Direction);
 
   return (
     <FormSection
@@ -114,12 +120,27 @@ export const FormTerminals = () => {
                     )}
                   />
                 </Box>
-                {/* <Button icon={<ArrowLeft />} iconOnly onClick={() => setValue(`terminals.${index}.direction`, 1)}>
-                  Arrow left
-                </Button>
-                <Button icon={<ArrowRight />} iconOnly onClick={() => setValue(`terminals.${index}.direction`, 2)}>
-                  Arrow right
-                </Button> */}
+
+                <FormField error={errors.aspect}>
+                  <Controller
+                    control={control}
+                    name={"terminal"}
+                    render={({ field: { value, onChange, ref, ...rest } }) => (
+                      <Select
+                        {...rest}
+                        selectRef={ref}
+                        placeholder={t("common.templates.select", { object: t("block.terminal.name").toLowerCase() })}
+                        options={directionOptions}
+                        getOptionLabel={(x) => x.label}
+                        onChange={(x) => {
+                          onChange(x?.value);
+                          console.log(x);
+                        }}
+                        value={directionOptions.find((x) => x.value === value?.direction)}
+                      />
+                    )}
+                  />
+                </FormField>
               </Flexbox>
             )
           );

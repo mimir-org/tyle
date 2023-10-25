@@ -31,11 +31,12 @@ export const useBlockMutation = (id?: string, mode?: FormMode) => {
 };
 
 export interface BlockFormFields
-  extends Omit<BlockTypeRequest, "purposeId" | "terminals" | "attributes" | "classifierIds"> {
+  extends Omit<BlockTypeRequest, "purposeId" | "terminals" | "attributes" | "classifierIds" | "terminal"> {
   purpose?: RdlPurpose;
   terminals: TerminalTypeReferenceView[];
   attributes: AttributeTypeReferenceView[];
   classifiers: RdlClassifier[];
+  terminal?: TerminalTypeReferenceView;
 }
 
 export const toBlockFormFields = (block: BlockView): BlockFormFields => ({
