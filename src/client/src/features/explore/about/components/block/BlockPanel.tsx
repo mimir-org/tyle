@@ -21,7 +21,14 @@ import { StateBadge } from "../../../../ui/badges/StateBadge";
  * @param attributes
  * @constructor
  */
-export const BlockPanel = ({ name, description, img, color, tokens, terminals, attributes }: BlockItem) => {
+export const BlockPanel = ({
+  name,
+  description,
+  // img, color,
+  tokens,
+  terminals,
+  attributes,
+}: BlockItem) => {
   const theme = useTheme();
   const { t } = useTranslation("explore");
   const showTerminals = terminals && terminals.length > 0;

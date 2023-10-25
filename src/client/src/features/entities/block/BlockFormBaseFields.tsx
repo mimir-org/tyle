@@ -1,5 +1,5 @@
-import { MimirorgPermission, State } from "@mimirorg/typelibrary-types";
-import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
+// import { MimirorgPermission, State } from "@mimirorg/typelibrary-types";
+// import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import {
   Button,
@@ -13,8 +13,8 @@ import {
   Token,
 } from "@mimirorg/component-library";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
-import { useGetAllRds } from "external/sources/rds/rds.queries";
-import { useGetSymbols } from "external/sources/symbol/symbol.queries";
+// import { useGetAllRds } from "external/sources/rds/rds.queries";
+// import { useGetSymbols } from "external/sources/symbol/symbol.queries";
 import { BlockFormFields } from "features/entities/block/BlockForm.helpers";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";

@@ -1,4 +1,4 @@
-import { Aspect, BlockTerminalLibCm } from "@mimirorg/typelibrary-types";
+// import { Aspect, BlockTerminalLibCm } from "@mimirorg/typelibrary-types";
 import { useCreateBlock, useGetBlock, useUpdateBlock } from "external/sources/block/block.queries";
 // import { BlockFormPredefinedAttributes } from "features/entities/block/predefined-attributes/BlockFormPredefinedAttributes";
 // import { BlockFormTerminals } from "features/entities/block/terminals/BlockFormTerminals";
@@ -16,7 +16,7 @@ import { RdlClassifier } from "common/types/common/rdlClassifier";
 import { InfoItem } from "common/types/infoItem";
 import { TerminalView } from "common/types/terminals/terminalView";
 import { mapTerminalViewsToInfoItems } from "common/utils/mappers/mapTerminalViewsToInfoItems";
-import { Direction } from "common/types/terminals/direction";
+// import { Direction } from "common/types/terminals/direction";
 // import { ValueObject } from "features/entities/types/valueObject";
 
 export const useBlockQuery = () => {

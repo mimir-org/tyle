@@ -25,12 +25,16 @@ import {
 //import { BlockFormBaseFields } from "features/entities/block/BlockFormBaseFields";
 //import { blockSchema } from "features/entities/block/blockSchema";
 
-import { FormProvider, useForm, useWatch } from "react-hook-form";
+import {
+  FormProvider,
+  useForm,
+  // useWatch
+} from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { FormMode } from "../types/formMode";
 //import { useGetLatestApprovedBlock } from "external/sources/block/block.queries";
-import { useGetCurrentUser } from "external/sources/user/user.queries";
+// import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { BlockView } from "common/types/blocks/blockView";
 import { FormAttributes } from "../common/form-attributes/FormAttributes";
 import { BlockFormBaseFields } from "./BlockFormBaseFields";
@@ -52,10 +56,10 @@ export const BlockForm = ({ defaultValues = createDefaultBlockFormFields(), mode
     //resolver: yupResolver(blockSchema(t)),
   });
 
-  const user = useGetCurrentUser();
+  // const user = useGetCurrentUser();
 
   const { handleSubmit, control, setError, reset } = formMethods;
-  const aspect = useWatch({ control, name: "aspect" });
+  // const aspect = useWatch({ control, name: "aspect" });
   //const attributeFields = useFieldArray({ control, name: "attributes" });
   //const attributeGroupFields = useFieldArray({ control, name: "attributeGroups" });
 

@@ -1,4 +1,3 @@
-import { ConnectorDirection } from "@mimirorg/typelibrary-types";
 import { blockSchema } from "features/entities/block/blockSchema";
 
 import { vi } from "vitest";

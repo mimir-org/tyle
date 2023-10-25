@@ -1,15 +1,15 @@
-import { Box, Button, Checkbox, Counter, Flexbox, Token } from "@mimirorg/component-library";
+import { Box, Checkbox, Counter, Flexbox, Token } from "@mimirorg/component-library";
 import { Controller, useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { FormSection } from "../common/form-section/FormSection";
-import { ArrowLeft, ArrowRight, ArrowsRightLeft, XCircle } from "@styled-icons/heroicons-outline";
+import { XCircle } from "@styled-icons/heroicons-outline";
 import { SelectItemDialog } from "../common/select-item-dialog/SelectItemDialog";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
 import { BlockFormFields, onAddTerminals, resolveSelectedAndAvailableTerminals } from "./BlockForm.helpers";
 import { useTheme } from "styled-components";
 import { TerminalFormFields } from "../terminal/TerminalForm.helpers";
 import { prepareTerminals } from "../common/utils/prepareTerminals";
-import { Direction } from "common/types/terminals/direction";
+// import { Direction } from "common/types/terminals/direction";
 
 /**
  * Component which contains all simple value fields of the terminal form.
@@ -114,12 +114,12 @@ export const FormTerminals = () => {
                     )}
                   />
                 </Box>
-                <Button icon={<ArrowLeft />} iconOnly onClick={() => setValue(`terminals.${index}.direction`, 1)}>
+                {/* <Button icon={<ArrowLeft />} iconOnly onClick={() => setValue(`terminals.${index}.direction`, 1)}>
                   Arrow left
                 </Button>
                 <Button icon={<ArrowRight />} iconOnly onClick={() => setValue(`terminals.${index}.direction`, 2)}>
                   Arrow right
-                </Button>
+                </Button> */}
               </Flexbox>
             )
           );
