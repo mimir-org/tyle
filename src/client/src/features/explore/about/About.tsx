@@ -1,9 +1,9 @@
-import { mapBlockLibCmToBlockItem /*, mapTerminalLibCmToTerminalItem*/ } from "common/utils/mappers";
+// import { mapBlockLibCmToBlockItem /*, mapTerminalLibCmToTerminalItem*/ } from "common/utils/mappers";
 import { useGetBlock } from "external/sources/block/block.queries";
 import { useGetTerminal } from "external/sources/terminal/terminal.queries";
 import { Loader } from "features/common/loader";
 import { AboutPlaceholder } from "features/explore/about/components/AboutPlaceholder";
-import { BlockPanel } from "features/explore/about/components/block/BlockPanel";
+// import { BlockPanel } from "features/explore/about/components/block/BlockPanel";
 //import { TerminalPanel } from "features/explore/about/components/terminal/TerminalPanel";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
@@ -50,7 +50,7 @@ export const About = ({ selected }: AboutProps) => {
   const showLoader = allQueries.some((x) => x.isFetching);
 
   const showPlaceHolder = !showLoader && selected?.type === undefined;
-  const showBlockPanel = !showLoader && selected?.type === "block" && blockQuery.isSuccess;
+  // const showBlockPanel = !showLoader && selected?.type === "block" && blockQuery.isSuccess;
   //const showTerminalPanel = !showLoader && selected?.type === "terminal" && terminalQuery.isSuccess;
   //const showAttributePanel = !showLoader && selected?.type === "attribute" && attributeQuery.isSuccess;
   const showAttributeGroupPanel = !showLoader && selected?.type === "attributeGroup" && attributeGroupQuery.isSuccess;
@@ -83,9 +83,9 @@ export const About = ({ selected }: AboutProps) => {
     <ExploreSection title={typeParser(selected?.type)}>
       {showLoader && <Loader />}
       {showPlaceHolder && <AboutPlaceholder text={t("about.placeholders.item")} />}
-      {showBlockPanel && (
-        <BlockPanel key={blockQuery.data.id + blockQuery.data.kind} {...mapBlockLibCmToBlockItem(blockQuery.data)} />
-      )}
+      {/* {showBlockPanel && (
+        <BlockPanel key={blockQuery.data.id + blockQuery.data.kind} {...mapBlockLibCmToBlockItem(blockQuery.data)} /> */}
+      {/* )} */}
       {/*showTerminalPanel && (
         <TerminalPanel
           key={terminalQuery.data.id + terminalQuery.data.kind}

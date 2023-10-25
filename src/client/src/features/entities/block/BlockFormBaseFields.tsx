@@ -1,36 +1,35 @@
-import { Aspect, MimirorgPermission, State } from "@mimirorg/typelibrary-types";
-import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
+// import { MimirorgPermission, State } from "@mimirorg/typelibrary-types";
+// import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import {
-  Box,
   Button,
-  ConditionalWrapper,
   Flexbox,
   FormBaseFieldsContainer,
   FormField,
-  Icon,
   Input,
-  Popover,
   Select,
   Text,
   Textarea,
+  Token,
 } from "@mimirorg/component-library";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
-import { useGetAllRds } from "external/sources/rds/rds.queries";
-import { useGetSymbols } from "external/sources/symbol/symbol.queries";
-import { PlainLink } from "features/common/plain-link";
-import { resetSubform } from "features/entities/block/BlockForm.helpers";
-import { BlockFormPreview } from "features/entities/entityPreviews/block/BlockFormPreview";
-import { FormBlockLib } from "features/entities/block/types/formBlockLib";
-import { Controller, useFormContext } from "react-hook-form";
+// import { useGetAllRds } from "external/sources/rds/rds.queries";
+// import { useGetSymbols } from "external/sources/symbol/symbol.queries";
+import { BlockFormFields } from "features/entities/block/BlockForm.helpers";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { FormMode } from "../types/formMode";
+import { Aspect } from "common/types/common/aspect";
+import { PlainLink } from "features/common/plain-link/PlainLink";
+import { FormSection } from "../common/form-section/FormSection";
+import { SelectItemDialog } from "../common/select-item-dialog/SelectItemDialog";
+import { XCircle } from "@styled-icons/heroicons-outline";
+import { purposeInfoItem } from "../terminal/TerminalForm.helpers"; //TODO should possibly be moved to own component?
 
 interface BlockFormBaseFieldsProps {
-  isFirstDraft?: boolean;
   mode?: FormMode;
-  state?: State;
+  limited?: boolean;
 }
 
 /**
@@ -39,148 +38,87 @@ interface BlockFormBaseFieldsProps {
  * @param isFirstDraft
  * @param mode
  * @param state
+ * @param limited
  * @constructor
  */
-export const BlockFormBaseFields = ({ isFirstDraft, mode, state }: BlockFormBaseFieldsProps) => {
+export const BlockFormBaseFields = ({ mode, limited }: BlockFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
-  const { control, register, resetField, formState } = useFormContext<FormBlockLib>();
+  const { control, register, formState, setValue } = useFormContext<BlockFormFields>();
   const { errors } = formState;
 
-  const rdsQuery = useGetAllRds();
-  const symbolQuery = useGetSymbols();
   const purposeQuery = useGetPurposes();
+  const purposeInfoItems = purposeQuery.data?.map((p) => purposeInfoItem(p)) ?? [];
+  const chosenPurpose = useWatch({ control, name: "purpose" });
+
   const aspectOptions = getOptionsFromEnum<Aspect>(Aspect);
-  const companies = useGetFilteredCompanies(MimirorgPermission.Write);
 
   return (
     <FormBaseFieldsContainer>
       <Text variant={"display-small"}>{t("block.title")}</Text>
-      <BlockFormPreview control={control} />
 
       <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
-        <FormField label={t("block.name")} error={errors.name}>
-          <Input placeholder={t("block.placeholders.name")} {...register("name")} />
-        </FormField>
-        <FormField label={t("block.purpose")} error={errors.purposeName}>
-          <Controller
-            control={control}
-            name={"purposeName"}
-            render={({ field: { value, onChange, ref, ...rest } }) => (
-              <Select
-                {...rest}
-                selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("block.purpose").toLowerCase() })}
-                options={purposeQuery.data}
-                isLoading={purposeQuery.isLoading}
-                getOptionLabel={(x) => x.name}
-                getOptionValue={(x) => x.name}
-                onChange={(x) => onChange(x?.name)}
-                value={purposeQuery.data?.find((x) => x.name === value)}
+        <FormSection
+          title={t("terminal.purpose.title")} //TODO: change name to correct section in langu file.
+          action={
+            !chosenPurpose && (
+              <SelectItemDialog
+                title={t("terminal.purpose.dialog.title")}
+                description={t("terminal.purpose.dialog.description")}
+                searchFieldText={t("terminal.purpose.dialog.search")}
+                addItemsButtonText={t("terminal.purpose.dialog.add")}
+                openDialogButtonText={t("terminal.purpose.dialog.open")}
+                items={purposeInfoItems}
+                onAdd={(ids) => {
+                  setValue("purpose", purposeQuery.data?.find((x) => x.id === Number(ids[0])));
+                }}
+                isMultiSelect={false}
               />
-            )}
-          />
-        </FormField>
+            )
+          }
+        >
+          <FormField label={t("terminal.name")} error={errors.symbol}>
+            <Input placeholder={t("terminal.placeholders.name")} {...register("name")} disabled={limited} />
+          </FormField>
+
+          <Input {...register("purpose")} type="hidden" />
+          {chosenPurpose && (
+            <Token
+              variant={"secondary"}
+              actionable
+              actionIcon={<XCircle />}
+              actionText={t("terminal.purpose.remove")}
+              onAction={() => setValue("purpose", undefined)}
+              dangerousAction
+            >
+              {purposeInfoItems.find((x) => x.id === chosenPurpose.id.toString())?.name}
+            </Token>
+          )}
+        </FormSection>
+
         <FormField label={t("block.aspect")} error={errors.aspect}>
           <Controller
             control={control}
             name={"aspect"}
             render={({ field: { value, onChange, ref, ...rest } }) => (
-              <ConditionalWrapper
-                condition={!isFirstDraft}
-                wrapper={(c) => (
-                  <Popover align={"start"} maxWidth={"225px"} content={t("block.disabled.aspect")}>
-                    <Box borderRadius={theme.mimirorg.border.radius.medium} tabIndex={0}>
-                      {c}
-                    </Box>
-                  </Popover>
-                )}
-              >
-                <Select
-                  {...rest}
-                  selectRef={ref}
-                  placeholder={t("common.templates.select", { object: t("block.aspect").toLowerCase() })}
-                  options={aspectOptions}
-                  getOptionLabel={(x) => x.label}
-                  onChange={(x) => {
-                    resetSubform(resetField, x?.value);
-                    onChange(x?.value);
-                  }}
-                  value={aspectOptions.find((x) => x.value === value)}
-                  isDisabled={!isFirstDraft}
-                />
-              </ConditionalWrapper>
-            )}
-          />
-        </FormField>
-        <FormField label={t("block.symbol")} error={errors.symbol}>
-          <Controller
-            control={control}
-            name={"symbol"}
-            render={({ field: { value, onChange, ref, ...rest } }) => (
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("block.symbol").toLowerCase() })}
-                options={symbolQuery.data}
-                isLoading={symbolQuery.isLoading}
-                getOptionLabel={(x) => x.name}
-                getOptionValue={(x) => x.data}
-                onChange={(x) => onChange(x?.data)}
-                value={symbolQuery.data?.find((x) => x.data === value)}
-                formatOptionLabel={(x) => (
-                  <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
-                    <Icon src={x.data} />
-                    <Text>{x.name}</Text>
-                  </Flexbox>
-                )}
-              />
-            )}
-          />
-        </FormField>
-        <Input type={"hidden"} {...register("rdsId")} />
-        <FormField label={t("block.rds")} error={errors.rdsId}>
-          <Controller
-            control={control}
-            name={"rdsId"}
-            render={({ field: { value, onChange, ref, ...rest } }) => (
-              <Select
-                {...rest}
-                selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("block.rds").toLowerCase() })}
-                options={rdsQuery.data}
-                isLoading={rdsQuery.isLoading}
-                getOptionLabel={(x) => `${x.rdsCode} - ${x.name}`}
-                getOptionValue={(x) => x.id}
-                value={rdsQuery.data?.find((x) => x.id === value)}
-                onChange={(rds) => {
-                  onChange(rds?.id);
-                }}
-              />
-            )}
-          />
-        </FormField>
-        <FormField label={t("block.owner")} error={errors.companyId}>
-          <Controller
-            control={control}
-            name={"companyId"}
-            render={({ field: { value, onChange, ref, ...rest } }) => (
-              <Select
-                {...rest}
-                selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("block.owner").toLowerCase() })}
-                options={companies}
-                getOptionLabel={(x) => x.name}
-                getOptionValue={(x) => x.id.toString()}
+                placeholder={t("common.templates.select", { object: t("block.aspect").toLowerCase() })}
+                options={aspectOptions}
+                getOptionLabel={(x) => x.label}
                 onChange={(x) => {
-                  onChange(x?.id);
+                  onChange(x?.value);
                 }}
-                isDisabled={!isFirstDraft}
-                value={companies.find((x) => x.id === value)}
+                value={aspectOptions.find((x) => x.value === value)}
               />
             )}
           />
         </FormField>
+        <FormField label={t("terminal.symbol")} error={errors.symbol}>
+          <Input placeholder={t("terminal.placeholders.symbol")} {...register("symbol")} disabled={limited} />
+        </FormField>
+
         <FormField label={t("block.description")} error={errors.description}>
           <Textarea placeholder={t("block.placeholders.description")} {...register("description")} />
         </FormField>
@@ -192,13 +130,7 @@ export const BlockFormBaseFields = ({ isFirstDraft, mode, state }: BlockFormBase
             {t("common.cancel")}
           </Button>
         </PlainLink>
-        <Button type={"submit"}>
-          {mode === "edit"
-            ? state === State.Approved
-              ? t("block.createDraft")
-              : t("common.edit")
-            : t("common.submit")}
-        </Button>
+        <Button type={"submit"}>{mode === "edit" ? t("common.edit") : t("common.submit")}</Button>
       </Flexbox>
     </FormBaseFieldsContainer>
   );

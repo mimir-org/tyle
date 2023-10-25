@@ -103,6 +103,13 @@
     },
     "terminals": {
       "title": "Terminals",
+      "dialog": {
+        "title": "Choose terminals",
+        "description": "Add as many terminals as needed",
+        "add": "Add terminal(s)",
+
+        "search": "Search"
+      },
       "name": "Name",
       "limit": "Limit",
       "amount": "Max amount",
@@ -111,6 +118,7 @@
       "attributes": "Attributes",
       "add": "Add terminal",
       "remove": "Remove terminal",
+      "open": "Open terminals selection dialog",
 
       "templates": {
         "terminal": "Terminal {{object}}"

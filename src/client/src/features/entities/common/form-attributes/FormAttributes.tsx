@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { TerminalFormFields } from "features/entities/terminal/TerminalForm.helpers";
 import { prepareAttributes } from "../utils/prepareAttributes";
+import { BlockFormFields } from "features/entities/block/BlockForm.helpers";
 
 /**
  * Reusable form section for adding attributes to models that support them
@@ -30,7 +31,9 @@ export const FormAttributes = () => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
-  const { control, register, setValue } = useFormContext<TerminalFormFields>();
+  type BlockOrTerminalFormFields = BlockFormFields | TerminalFormFields;
+
+  const { control, register, setValue } = useFormContext<BlockOrTerminalFormFields>();
 
   const attributeFields = useFieldArray({ control, name: "attributes" });
   const attributeQuery = useGetAttributes();

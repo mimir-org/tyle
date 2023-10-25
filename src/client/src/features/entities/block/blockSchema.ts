@@ -1,10 +1,10 @@
 import { YupShape } from "common/types/yupShape";
 import { TFunction } from "i18next";
 import * as yup from "yup";
-import { FormBlockLib } from "./types/formBlockLib";
+import { BlockFormFields } from "./BlockForm.helpers";
 
 export const blockSchema = (t: TFunction<"translation">) =>
-  yup.object<YupShape<FormBlockLib>>({
+  yup.object<YupShape<BlockFormFields>>({
     name: yup.string().max(120, t("common.validation.name.max")).required(t("common.validation.name.required")),
     typeReference: yup.string().max(255).nullable(),
     version: yup.string().max(7),

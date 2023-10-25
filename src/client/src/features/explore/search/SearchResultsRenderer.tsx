@@ -6,8 +6,6 @@ import { TerminalPreview } from "../../entities/entityPreviews/terminal/Terminal
 import { TerminalItem } from "../../../common/types/terminalItem";
 import { ItemDescription } from "./components/item/ItemDescription";
 import { SearchItemActions } from "./components/SearchItemActions";
-import { BlockItem } from "../../../common/types/blockItem";
-//import AttributePreview from "../../entities/entityPreviews/attribute/AttributePreview";
 import { AttributeGroupLibCm, UnitLibCm } from "@mimirorg/typelibrary-types";
 import UnitPreview from "../../entities/entityPreviews/unit/UnitPreview";
 import { FormUnitHelper } from "../../entities/units/types/FormUnitHelper";
@@ -15,7 +13,6 @@ import QuantityDatumPreview from "../../entities/entityPreviews/quantityDatum/Qu
 import { QuantityDatumItem } from "../../../common/types/quantityDatumItem";
 import { RdsItem } from "../../../common/types/rdsItem";
 import { RdsPreview } from "../../entities/entityPreviews/rds/RdsPreview";
-import { BlockPreview } from "../../entities/entityPreviews/block/BlockPreview";
 import AttributeGroupPreview from "features/entities/entityPreviews/attributeGroup/AttributeGroupPreview";
 import { toFormAttributeGroupLib } from "features/entities/attributeGroups/types/formAttributeGroupLib";
 
@@ -44,16 +41,16 @@ export function SearchResultsRenderer({
           actions={<SearchItemActions user={user} item={item} />}
         />
       );
-    case "BlockItem":
-      return (
-        <Item
-          isSelected={currentlySelected}
-          preview={<BlockPreview {...(item as BlockItem)} />}
-          onClick={() => setSelected({ id: item.id, type: "block" })}
-          description={<ItemDescription {...(item as BlockItem)} />}
-          actions={<SearchItemActions user={user} item={item} />}
-        />
-      );
+    // case "BlockItem":
+    //   return (
+    //     <Item
+    //       isSelected={currentlySelected}
+    //       preview={<BlockPreview {...(item as BlockItem)} />}
+    //       onClick={() => setSelected({ id: item.id, type: "block" })}
+    //       description={<ItemDescription {...(item as BlockItem)} />}
+    //       actions={<SearchItemActions user={user} item={item} />}
+    //     />
+    //   );
     /*case "AttributeItem":
       return (
         <Item

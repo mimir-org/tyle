@@ -6,6 +6,7 @@ import { XCircle } from "@styled-icons/heroicons-outline";
 import { SelectItemDialog } from "../common/select-item-dialog/SelectItemDialog";
 import { TerminalFormFields, classifierInfoItem } from "./TerminalForm.helpers";
 import { useGetClassifiers } from "external/sources/classifier/classifier.queries";
+import { BlockFormFields } from "../block/BlockForm.helpers";
 
 /**
  * Component which contains all simple value fields of the attribute form.
@@ -13,13 +14,16 @@ import { useGetClassifiers } from "external/sources/classifier/classifier.querie
  * @constructor
  */
 
-export const TerminalFormClassifiers = () => {
+export const FormClassifiers = () => {
   const { t } = useTranslation("entities");
+
+  type BlockOrTerminalFormFields = BlockFormFields | TerminalFormFields;
+
   const {
     control,
     register,
     formState: { errors },
-  } = useFormContext<TerminalFormFields>();
+  } = useFormContext<BlockOrTerminalFormFields>();
 
   const classifierFields = useFieldArray({ control, name: "classifiers" });
   const classifierQuery = useGetClassifiers();
