@@ -6,35 +6,8 @@ export const mapTerminalViewToInfoItem = (terminal: TerminalView): InfoItem => {
   const infoItem = {
     id: terminal.id,
     name: terminal.name,
-    descriptors: {
-      // Predicate: (
-      //   <Text
-      //     as={"a"}
-      //     href={terminal.predicate?.iri}
-      //     target={"_blank"}
-      //     rel={"noopener noreferrer"}
-      //     variant={"body-small"}
-      //     color={"inherit"}
-      //   >
-      //     // {terminal.predicate?.iri}
-      //   </Text>
-      // ),
-    },
+    descriptors: {},
   };
-
-  // const attributeHasUnits = terminal.units.length > 0;
-  // if (attributeHasUnits) {
-  //   return {
-  //     ...infoItem,
-  //     descriptors: {
-  //       ...infoItem.descriptors,
-  //       Units: terminal.units
-  //         .map((x) => x.name)
-  //         .sort((a, b) => a.localeCompare(b))
-  //         .join(", "),
-  //     },
-  //   };
-  // }
 
   return infoItem;
 };

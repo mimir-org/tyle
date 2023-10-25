@@ -146,7 +146,9 @@ export const createDefaultBlockFormFields = (): BlockFormFields => ({
 
 export const terminalInfoItem = (terminal: TerminalView): InfoItem => ({
   name: terminal.name,
-  qualifier: terminal.direction,
+  descriptors: {
+    Description: terminal.qualifier,
+  },
   id: terminal.id,
 });
 
@@ -174,7 +176,7 @@ export const onAddTerminals = (
   selectedIds.forEach((id) => {
     const targetTerminal = allTerminals.find((x) => x.id === id);
     if (targetTerminal) {
-      append({ terminal: targetTerminal, minCount: 1, direction: targetTerminal.direction });
+      append({ terminal: targetTerminal, minCount: 1, direction: targetTerminal.qualifier });
     }
   });
 };

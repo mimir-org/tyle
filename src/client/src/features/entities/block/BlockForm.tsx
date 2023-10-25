@@ -39,7 +39,7 @@ import { BlockView } from "common/types/blocks/blockView";
 import { FormAttributes } from "../common/form-attributes/FormAttributes";
 import { BlockFormBaseFields } from "./BlockFormBaseFields";
 import { FormClassifiers } from "../terminal/TerminalFormClassifiers";
-import { FormTerminals } from "./FormTerminals.";
+import { FormTerminals } from "./FormTerminals";
 //import { FormAttributeGroups } from "../common/form-attributeGroup/FormAttributeGroups";
 
 interface BlockFormProps {
@@ -70,7 +70,7 @@ export const BlockForm = ({ defaultValues = createDefaultBlockFormFields(), mode
 
   const mutation = useBlockMutation(query.data?.id, mode);
 
-  useServerValidation(console.log(mutation.error), setError);
+  useServerValidation("", setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
   const toast = useSubmissionToast(t("block.title"));

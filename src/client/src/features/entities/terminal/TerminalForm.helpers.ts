@@ -27,12 +27,10 @@ export interface TerminalFormFields
   purpose?: RdlPurpose;
   medium?: RdlMedium;
   attributes: AttributeTypeReferenceView[];
-  direction?: Direction;
 }
 
 export const toTerminalFormFields = (terminal: TerminalView): TerminalFormFields => ({
   ...terminal,
-  qualifier: terminal.direction,
 });
 
 export const toTerminalTypeRequest = (terminalFormFields: TerminalFormFields): TerminalTypeRequest => ({

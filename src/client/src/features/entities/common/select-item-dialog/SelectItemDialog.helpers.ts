@@ -8,7 +8,7 @@ import { InfoItem } from "common/types/infoItem";
  * @param query
  */
 export const filterInfoItem = (item: InfoItem, query: string) => {
-  const traitValueString = Object.values(!item.descriptors).join(" ");
+  const traitValueString = Object.values(item.descriptors).join(" ");
   const matchTarget = `${item.name} ${traitValueString}`.toLowerCase();
   const queryTokens = query.split(" ");
 
