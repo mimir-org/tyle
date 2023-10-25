@@ -7,10 +7,13 @@ using Xunit;
 
 namespace Tyle.Test.Unit.Services.Attributes.Requests;
 
-public class AttributeGroupRequestTests : UnitTest<MimirorgCommonFixture>
+public class AttributeGroupRequestTests : UnitTest<RequestTestFixture>
 {
-    public AttributeGroupRequestTests(MimirorgCommonFixture fixture) : base(fixture)
+    private readonly IServiceProvider _serviceProvider;
+
+    public AttributeGroupRequestTests(RequestTestFixture fixture) : base(fixture)
     {
+        _serviceProvider = fixture.ServiceProvider.Object;
     }
 
     [Fact]
@@ -22,7 +25,7 @@ public class AttributeGroupRequestTests : UnitTest<MimirorgCommonFixture>
             AttributeIds = new List<Guid> { Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid() }
         };
 
-        var validationContext = new ValidationContext(attributeGroupRequest);
+        var validationContext = new ValidationContext(attributeGroupRequest, _serviceProvider, null);
 
         var results = attributeGroupRequest.Validate(validationContext);
 
@@ -40,7 +43,7 @@ public class AttributeGroupRequestTests : UnitTest<MimirorgCommonFixture>
             AttributeIds = new List<Guid> { repeatedGuid, repeatedGuid, Guid.NewGuid() }
         };
 
-        var validationContext = new ValidationContext(attributeGroupRequest);
+        var validationContext = new ValidationContext(attributeGroupRequest, _serviceProvider, null);
 
         var results = attributeGroupRequest.Validate(validationContext);
 
