@@ -56,10 +56,12 @@
     "aspect": "Aspect",
     "symbol": "Symbol",
     "rds": "RDS",
+    "notation": "Notation",
     "owner": "Owner",
     "description": "Description",
     "placeholders": {
       "name": "Name",
+      "notation": "Add your notation here",
       "description": "Additional information about this block can be supplied here."
     },
     "disabled": {

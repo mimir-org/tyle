@@ -124,7 +124,7 @@ export const FormTerminals = () => {
                 <FormField error={errors.aspect}>
                   <Controller
                     control={control}
-                    name={"terminal"}
+                    name={`terminals.${index}.direction`}
                     render={({ field: { value, onChange, ref, ...rest } }) => (
                       <Select
                         {...rest}
@@ -136,7 +136,7 @@ export const FormTerminals = () => {
                           onChange(x?.value);
                           console.log(x);
                         }}
-                        value={directionOptions.find((x) => x.value === value?.direction)}
+                        value={directionOptions.find((x) => x.value)}
                       />
                     )}
                   />
