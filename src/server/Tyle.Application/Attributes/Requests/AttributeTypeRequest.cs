@@ -48,5 +48,34 @@ public class AttributeTypeRequest : IValidatableObject
         {
             yield return validationResult;
         }
+
+        if (PredicateId != null)
+        {
+            var predicateRepository = (IPredicateRepository) validationContext.GetService(typeof(IPredicateRepository))!;
+
+            var predicate = predicateRepository.Get((int) PredicateId).Result;
+
+            if (predicate == null)
+            {
+                yield return new ValidationResult($"Couldn't find a predicate with id {PredicateId}.");
+            }
+        }
+
+        if (!UnitIds.Any())
+        {
+            yield break;
+        }
+
+        var unitRepository = (IUnitRepository) validationContext.GetService(typeof(IUnitRepository))!;
+
+        foreach (var unitId in UnitIds)
+        {
+            var unit = unitRepository.Get(unitId).Result;
+
+            if (unit == null)
+            {
+                yield return new ValidationResult($"Couldn't find a unit with id {unitId}.");
+            }
+        }
     }
 }

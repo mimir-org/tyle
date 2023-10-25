@@ -46,5 +46,34 @@ public class BlockTypeRequest : IValidatableObject
         {
             yield return validationResult;
         }
+
+        if (PurposeId != null)
+        {
+            var purposeRepository = (IPurposeRepository) validationContext.GetService(typeof(IPurposeRepository))!;
+
+            var purpose = purposeRepository.Get((int) PurposeId).Result;
+
+            if (purpose == null)
+            {
+                yield return new ValidationResult($"Couldn't find a purpose with id {PurposeId}.");
+            }
+        }
+
+        if (!ClassifierIds.Any())
+        {
+            yield break;
+        }
+
+        var classifierRepository = (IClassifierRepository) validationContext.GetService(typeof(IClassifierRepository))!;
+
+        foreach (var classifierId in ClassifierIds)
+        {
+            var classifier = classifierRepository.Get(classifierId).Result;
+
+            if (classifier == null)
+            {
+                yield return new ValidationResult($"Couldn't find a classifier with id {classifierId}.");
+            }
+        }
     }
 }
