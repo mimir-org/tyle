@@ -5,9 +5,11 @@ import { ApprovalCardHeader } from "features/settings/common/approval-card/card-
 import { ApprovalCardForm } from "features/settings/common/approval-card/card-form/ApprovalCardForm";
 import { Divider, Flexbox, Text } from "@mimirorg/component-library";
 import { AttributeView } from "common/types/attributes/attributeView";
+import { TerminalView } from "common/types/terminals/terminalView";
 
 export type ApprovalCardProps = {
-  item: AttributeView;
+  item: AttributeView | TerminalView;
+  itemType: "attribute" | "terminal";
   selected?: string;
 };
 
@@ -19,7 +21,7 @@ export type ApprovalCardProps = {
  * @see PermissionCardFormProps
  * @constructor
  */
-export const ApprovalCard = ({ item, selected }: ApprovalCardProps) => {
+export const ApprovalCard = ({ item, itemType, selected }: ApprovalCardProps) => {
   const theme = useTheme();
   const cardRef = useRef(null);
 
@@ -33,7 +35,7 @@ export const ApprovalCard = ({ item, selected }: ApprovalCardProps) => {
       layout={"position"}
       {...theme.mimirorg.animation.selectHover}
     >
-      <Text variant={"title-medium"}>{"Attribute"}</Text>
+      <Text variant={"title-medium"}>{itemType}</Text>
       <Divider orientation={"horizontal"} color={"#2e2e2e"} />
       <ApprovalCardHeader objectType={"Attribute"}>
         <Text variant={"title-large"}>{item.name}</Text>
@@ -43,6 +45,7 @@ export const ApprovalCard = ({ item, selected }: ApprovalCardProps) => {
         <Divider orientation={"horizontal"} color={"#2e2e2e"} />
         <ApprovalCardForm
           item={item}
+          itemType={itemType}
         />
       </Flexbox>
     </MotionApprovalCardContainer>

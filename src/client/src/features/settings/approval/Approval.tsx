@@ -4,14 +4,17 @@ import { ApprovalCard } from "features/settings/common/approval-card/ApprovalCar
 import { SettingsSection } from "features/settings/common/settings-section/SettingsSection";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { useGetAttributesByState } from "../../../external/sources/attribute/attribute.queries";
 import { State } from "common/types/common/state";
+import { useGetTerminalsByState } from "external/sources/terminal/terminal.queries";
+import { useGetAttributesByState } from "external/sources/attribute/attribute.queries";
 
 export const Approval = () => {
   const theme = useTheme();
   const { t } = useTranslation("settings");
   const attributesInReview = useGetAttributesByState(State.Review);
-  const showPlaceholder = attributesInReview?.data && attributesInReview.data.length === 0;
+  const terminalsInReview = useGetTerminalsByState(State.Review);
+  const showPlaceholder = attributesInReview?.data && attributesInReview.data.length === 0
+  terminalsInReview?.data && terminalsInReview.data.length === 0;
 
   return (
     <SettingsSection title={t("approval.title")}>
@@ -21,7 +24,10 @@ export const Approval = () => {
       <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.mimirorg.spacing.xxxl}>
         {showPlaceholder && <ApprovalPlaceholder text={t("approval.placeholders.emptyApproval")} />}
         {attributesInReview.data?.map(x => (
-          <ApprovalCard key={`${x.id}`} item={x} />
+          <ApprovalCard key={`${x.id}`} item={x} itemType={"attribute"} />
+        ))}
+        {terminalsInReview.data?.map(x => (
+          <ApprovalCard key={`${x.id}`} item={x} itemType={"terminal"} />
         ))}
       </Flexbox>
     </SettingsSection>

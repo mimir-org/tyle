@@ -2,21 +2,24 @@ import { Button, Flexbox, Text } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { AttributeView } from "common/types/attributes/attributeView";
-import { usePatchAttributeState } from "external/sources/attribute/attribute.queries";
 import { State } from "common/types/common/state";
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
+import { TerminalView } from "common/types/terminals/terminalView";
+import { usePatchStateMutation } from "./ApprovalCardForm.helpers";
 
 export interface ApprovalCardFormProps {
-  item: AttributeView;
+  item: AttributeView | TerminalView;
+  itemType: "attribute" | "terminal";
 }
 
 export const ApprovalCardForm = ({
   item,
+  itemType
 }: ApprovalCardFormProps) => {
   const { t } = useTranslation(["settings"]);
   const theme = useTheme();
 
-  const patchMutationAttribute = usePatchAttributeState(item.id);
+  const patchStateMutation = usePatchStateMutation(item, itemType);
 
   const toast = useSubmissionToast(t("attribute.title"));
 
@@ -25,12 +28,12 @@ export const ApprovalCardForm = ({
         <Text variant={"body-large"}>{`Requesting to be approved.`}</Text>
         <Flexbox justifyContent={"center"} alignItems={"center"} flexFlow="row" gap={theme.mimirorg.spacing.base}>
           <Button dangerousAction type={"button"} onClick={() => 
-            toast(patchMutationAttribute.mutateAsync({ state: State.Draft }))
+            toast(patchStateMutation.mutateAsync({ state: State.Draft }))
           }>
                   {t("common.approval.reject")}
           </Button>
           <Button type={"button"} onClick={() =>
-            toast(patchMutationAttribute.mutateAsync({ state: State.Approved }))
+            toast(patchStateMutation.mutateAsync({ state: State.Approved }))
           }>{t("common.approval.submit")}</Button>
         </Flexbox>
       </Flexbox>

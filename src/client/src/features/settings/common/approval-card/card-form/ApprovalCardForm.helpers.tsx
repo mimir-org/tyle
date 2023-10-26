@@ -8,6 +8,21 @@ import { Flexbox, Text, toast } from "@mimirorg/component-library";
 import { usePatchAttributeState } from "../../../../../external/sources/attribute/attribute.queries";
 import { AxiosError } from "axios";
 import { AttributeView } from "common/types/attributes/attributeView";
+import { TerminalView } from "common/types/terminals/terminalView";
+import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
+
+export const usePatchStateMutation = (item: AttributeView | TerminalView, itemType: "attribute" | "terminal") => {
+  const patchAttributeStateMutation = usePatchAttributeState(item.id);
+  const patchTerminalStateMutation = usePatchTerminalState(item.id);
+
+  switch (itemType)
+  {
+    case "attribute":
+      return patchAttributeStateMutation;
+    case "terminal":
+      return patchTerminalStateMutation;
+  }
+}
 
 /**
  * Shows a toast while an approval is sent to server.

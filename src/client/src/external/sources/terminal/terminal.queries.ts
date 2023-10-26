@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient, UseQueryOptions } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { State } from "common/types/common/state";
 import { StateChangeRequest } from "common/types/common/stateChangeRequest";
 import { TerminalTypeRequest } from "common/types/terminals/terminalTypeRequest";
