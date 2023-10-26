@@ -4,7 +4,7 @@ import { AttributeTypeRequest } from "common/types/attributes/attributeTypeReque
 import { State } from "common/types/common/state";
 import { StateChangeRequest } from "common/types/common/stateChangeRequest";
 
-export const attributeKeys = {
+const attributeKeys = {
   all: ["attributes"] as const,
   lists: () => [...attributeKeys.all, "list"] as const,
   detail: (id: string) => [...attributeKeys.all, "detail", id] as const,
@@ -28,7 +28,7 @@ export const useCreateAttribute = () => {
 export const useUpdateAttribute = (id: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: AttributeTypeRequest) => attributeApi.putAttribute(item, id), {
+  return useMutation((item: AttributeTypeRequest) => attributeApi.putAttribute(id, item), {
     onSuccess: () => {
       queryClient.invalidateQueries(attributeKeys.lists());
       queryClient.invalidateQueries(attributeKeys.detail(id));
