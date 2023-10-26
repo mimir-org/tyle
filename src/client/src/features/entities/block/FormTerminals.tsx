@@ -35,7 +35,26 @@ export const FormTerminals = () => {
   const terminalTypeRefs = useWatch({ control, name: "terminals" });
   const { errors } = formState;
 
-  const directionOptions = getOptionsFromEnum<Direction>(Direction);
+  const connectorDirectionOptions = getOptionsFromEnum<Direction>(Direction);
+
+  const directionOptions = (terminalId: string | undefined) => {
+    if (!terminalId) return connectorDirectionOptions;
+
+    const terminal = terminals.find((x) => x.id === terminalId);
+
+    if (terminal?.qualifier !== Direction.Bidirectional) {
+      var option = connectorDirectionOptions.find((x) => x.value == terminal?.qualifier);
+      return option ? [option] : [];
+    }
+
+    return connectorDirectionOptions.filter(
+      (x) =>
+        !terminalTypeRefs
+          .filter((y) => y.terminal.id === terminalId)
+          .map((y) => y.direction)
+          .includes(x.value),
+    );
+  };
 
   return (
     <FormSection
@@ -82,7 +101,7 @@ export const FormTerminals = () => {
                         onChange={(value) => {
                           const currentMaxCount = terminalTypeRefs[index]?.maxCount;
                           if (currentMaxCount && currentMaxCount < value) {
-                            setValue(`terminals.${index}.maxCount`, value);
+                            setValue(`terminals.${index}.minCount`, value);
                           }
                           onChange(value);
                         }}
@@ -130,13 +149,12 @@ export const FormTerminals = () => {
                         {...rest}
                         selectRef={ref}
                         placeholder={t("common.templates.select", { object: t("block.terminal.name").toLowerCase() })}
-                        options={directionOptions}
+                        options={directionOptions(field.terminal.id)}
                         getOptionLabel={(x) => x.label}
                         onChange={(x) => {
                           onChange(x?.value);
-                          console.log(x);
                         }}
-                        value={directionOptions.find((x) => x.value)}
+                        value={connectorDirectionOptions.find((x) => x.value == value)}
                       />
                     )}
                   />

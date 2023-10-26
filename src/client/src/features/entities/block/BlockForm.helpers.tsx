@@ -16,6 +16,7 @@ import { RdlClassifier } from "common/types/common/rdlClassifier";
 import { InfoItem } from "common/types/infoItem";
 import { TerminalView } from "common/types/terminals/terminalView";
 import { mapTerminalViewsToInfoItems } from "common/utils/mappers/mapTerminalViewsToInfoItems";
+import { Direction } from "common/types/terminals/direction";
 // import { Direction } from "common/types/terminals/direction";
 // import { ValueObject } from "features/entities/types/valueObject";
 
@@ -163,7 +164,18 @@ export const resolveSelectedAndAvailableTerminals = (
   const selected: TerminalView[] = [];
   const available: TerminalView[] = [];
   allTerminals.forEach((x) => {
-    selectedSet.has(x.id) ? selected.push(x) : available.push(x);
+    if (selectedSet.has(x.id)) {
+      selected.push(x);
+    }
+
+    const numberOfEntries = fieldTerminals.filter((y) => y.terminal.id === x.id).length;
+
+    if (
+      (x.qualifier === Direction.Bidirectional && numberOfEntries < 3) ||
+      (x.qualifier !== Direction.Bidirectional && numberOfEntries < 1)
+    ) {
+      available.push(x);
+    }
   });
 
   return [mapTerminalViewsToInfoItems(available), mapTerminalViewsToInfoItems(selected)];
