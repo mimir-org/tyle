@@ -20,9 +20,9 @@ public class BlockRepository : IBlockRepository
         _userInformationService = userInformationService;
     }
 
-    public async Task<IEnumerable<BlockType>> GetAll()
+    public async Task<IEnumerable<BlockType>> GetAll(State? state = null)
     {
-        return await _dbSet.AsNoTracking()
+        var query = _dbSet.AsNoTracking()
             .Include(x => x.Classifiers).ThenInclude(x => x.Classifier)
             .Include(x => x.Purpose)
             .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Classifiers).ThenInclude(x => x.Classifier)
@@ -34,8 +34,14 @@ public class BlockRepository : IBlockRepository
             .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Predicate)
             .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Units).ThenInclude(x => x.Unit)
             .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
-            .AsSplitQuery()
-            .ToListAsync();
+            .AsSplitQuery();
+
+        if (state != null)
+        {
+            query = query.Where(x => x.State == state);
+        }
+
+        return await query.ToListAsync();
     }
 
     public async Task<BlockType?> Get(Guid id)

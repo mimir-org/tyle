@@ -9,6 +9,7 @@ using Tyle.Api.Common;
 using Tyle.Application.Blocks;
 using Tyle.Application.Blocks.Requests;
 using Tyle.Application.Common;
+using Tyle.Core.Common;
 
 namespace Tyle.Api.Blocks;
 
@@ -37,11 +38,11 @@ public class BlocksController : ControllerBase
     [ProducesResponseType(typeof(ICollection<BlockView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll(State? state = null)
     {
         try
         {
-            var blocks = await _blockRepository.GetAll();
+            var blocks = await _blockRepository.GetAll(state);
             return Ok(_mapper.Map<IEnumerable<BlockView>>(blocks));
         }
         catch (Exception)
