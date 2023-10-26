@@ -1,6 +1,5 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useExecuteOnCriteria } from "common/hooks/useExecuteOnCriteria";
 import {
@@ -26,6 +25,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useTheme } from "styled-components";
+import { MimirorgUserAmCorrectTypes } from "features/auth/common/types/mimirorgUserAm";
 
 interface RegisterDetailsProps {
   setUserEmail: (email: string) => void;
@@ -40,16 +40,20 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
   const companyQuery = useGetCompanies();
   const companiesAreAvailable = (companyQuery.data && companyQuery.data.length > 0) ?? false;
 
-  const formMethods = useForm<MimirorgUserAm>({
+  const formMethods = useForm({
     resolver: yupResolver(registerDetailsSchema(t, companiesAreAvailable)),
   });
 
   const { register, control, handleSubmit, setError, formState } = formMethods;
   const { errors } = formState;
 
-  const onSubmit = (data: MimirorgUserAm) => {
+  const onSubmit = (data: MimirorgUserAmCorrectTypes) => {
     setUserEmail(data.email);
-    mutation.mutate(data);
+    mutation.mutate({
+      ...data,
+      purpose: data.purpose ?? "",
+      companyId: data.companyId ?? 0,
+    });
   };
 
   useServerValidation(mutation.error, setError);

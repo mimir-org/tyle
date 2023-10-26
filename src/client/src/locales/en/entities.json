@@ -27,11 +27,17 @@
     },
     "validation": {
       "name": {
-        "max": "The name can be at most 120 characters",
+        "max": "The name can be at most {{length}} characters",
         "required": "Please enter a name"
       },
       "description": {
-        "max": "The description can be at most 500 characters"
+        "max": "The description can be at most {{length}} characters"
+      },
+      "notation": {
+        "max": "The notation can be at most {{length}} characters"
+      },
+      "symbol": {
+        "max": "The symbol can be at most {{length}} characters"
       }
     },
     "templates": {
@@ -97,6 +103,13 @@
     },
     "terminals": {
       "title": "Terminals",
+      "dialog": {
+        "title": "Choose terminals",
+        "description": "Add as many terminals as needed",
+        "add": "Add terminal(s)",
+
+        "search": "Search"
+      },
       "name": "Name",
       "limit": "Limit",
       "amount": "Max amount",
@@ -105,6 +118,7 @@
       "attributes": "Attributes",
       "add": "Add terminal",
       "remove": "Remove terminal",
+      "open": "Open terminals selection dialog",
 
       "templates": {
         "terminal": "Terminal {{object}}"
@@ -123,10 +137,81 @@
     "color": "Color",
     "owner": "Owner",
     "description": "Description",
+    "predicate": {
+      "title": "Predicate",
+      "dialog": {
+        "title": "Select predicate",
+        "description": "You can select at most one predicate",
+        "search": "Search",
+        "add": "Add",
+        "open": "Open predicate selection dialog"
+      },
+      "remove": "Remove predicate"
+    },
+    "units": {
+      "title": "Add units",
+      "dialog": {
+        "title": "Select unit(s)",
+        "description": "Selecting units will restrict the attribute to the units you select",
+        "search": "Search",
+        "add": "Add",
+        "open": "Open unit selection dialog"
+      },
+      "remove": "Remove unit"
+    },
+    "unitRequirement": "Unit requirement",
+    "provenanceQualifier": "Provenance qualifier",
+    "rangeQualifier": "Range qualifier",
+    "regularityQualifier": "Regularity qualifier",
+    "scopeQualifier": "Scope qualifier",
+    "valueConstraint": {
+      "title": "Add value constraint",
+      "constraintType": "Constraint type",
+      "dataType": "Data type",
+      "requireValue": "Require value to be set",
+      "value": "Value",
+      "pattern": "Regex pattern",
+      "minValue": "Lower bound (inclusive)",
+      "maxValue": "Upper bound (inclusive)",
+      "valueList": {
+        "title": "Allowed values",
+        "add": "Add value to allowed values",
+        "remove": "Remove value from allowed values"
+      }
+    },
     "placeholders": {
       "name": "Name",
       "color": "Select color",
-      "description": "Additional information about this attribute can be supplied here."
+      "description": "Additional information about this attribute can be supplied here.",
+      "valueConstraint": {
+        "value": "Enter attribute value",
+        "pattern": "Enter regex pattern",
+        "minValue": "Leave empty for no lower bound",
+        "maxValue": "Leave empty for no upper bound"
+      }
+    },
+    "validation": {
+      "constraintType": "Please select a constraint type",
+      "dataType": "Please select a data type",
+      "common": {
+        "string": "Please enter a value",
+        "decimal": "Please enter a valid decimal",
+        "integer": "Please enter a valid integer",
+        "iri": "Please enter a valid IRI"
+      },
+      "value": {
+        "boolean": "Please select a value",
+        "max": "The value can be at most {{length}} characters"
+      },
+      "valueList": {
+        "min": "The list of allowed values must contain at least two elements",
+        "unique": "The allowed value list contains duplicate values"
+      },
+      "pattern": "Please enter a regex pattern",
+      "range": {
+        "empty": "Please enter at least one upper or lower bound",
+        "invalid": "The upper bound must be larger than the lower bound"
+      }
     },
     "processing": {
       "loading": "Submitting attribute",
@@ -194,10 +279,49 @@
     "color": "Color",
     "owner": "Owner",
     "description": "Description",
+    "classifiers": {
+      "title": "Add classifiers",
+      "dialog": {
+        "title": "Select classifier(s)",
+        "description": "Selecting classifiers to describe your terminal",
+        "search": "Search",
+        "add": "Add",
+        "open": "Open classifier selection dialog"
+      },
+      "remove": "Remove classifier"
+    },
+    "purpose": {
+      "title": "Purpose",
+      "dialog": {
+        "title": "Select purpose",
+        "description": "You can select at most one purpose",
+        "search": "Search",
+        "add": "Add",
+        "open": "Open purpose selection dialog"
+      },
+      "remove": "Remove purpose"
+    },
+    "notation": "Notation",
+    "symbol": "Symbol",
+    "aspect": "Aspect",
+    "medium": {
+      "title": "Medium",
+      "dialog": {
+        "title": "Select medium",
+        "description": "You can select at most one medium",
+        "search": "Search",
+        "add": "Add",
+        "open": "Open medium selection dialog"
+      },
+      "remove": "Remove medium"
+    },
+    "qualifier": "Qualifier",
     "placeholders": {
       "name": "Name",
       "color": "Select color",
-      "description": "Additional information about this terminal can be supplied here."
+      "description": "Additional information about this terminal can be supplied here.",
+      "notation": "Notation",
+      "symbol": "Symbol"
     },
     "processing": {
       "loading": "Submitting terminal",

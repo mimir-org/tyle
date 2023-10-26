@@ -351,6 +351,7 @@ MigrationBackup/
 
 # Local config file
 src/server/TypeLibrary.Api/appsettings.local.json
+src/server/TypeLibrary.Api/appsettings.Development.json
 
 # Jetbrains
 .idea/

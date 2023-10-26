@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Http;
+using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Models.Constants;
-using Mimirorg.Common.Extensions;
-using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.Authentication.Extensions;
 

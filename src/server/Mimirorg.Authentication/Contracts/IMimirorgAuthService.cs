@@ -1,8 +1,8 @@
-using Mimirorg.Common.Enums;
-using Mimirorg.Common.Exceptions;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using System.Security.Authentication;
+using Mimirorg.Authentication.Enums;
+using Mimirorg.Authentication.Exceptions;
+using Mimirorg.Authentication.Models.Application;
+using Mimirorg.Authentication.Models.Client;
 
 namespace Mimirorg.Authentication.Contracts;
 

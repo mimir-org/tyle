@@ -7,15 +7,13 @@ using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models.Domain;
-using Mimirorg.Common.Enums;
-using Mimirorg.Common.Exceptions;
-using Mimirorg.Common.Extensions;
-using Mimirorg.Common.Models;
-using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using System.Security.Authentication;
 using System.Security.Claims;
+using Mimirorg.Authentication.Enums;
+using Mimirorg.Authentication.Exceptions;
+using Mimirorg.Authentication.Models;
+using Mimirorg.Authentication.Models.Application;
+using Mimirorg.Authentication.Models.Client;
 
 namespace Mimirorg.Authentication.Services;
 

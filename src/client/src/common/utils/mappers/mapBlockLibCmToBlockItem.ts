@@ -3,8 +3,8 @@ import { BlockItem } from "common/types/blockItem";
 import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { getColorFromAspect } from "common/utils/getColorFromAspect";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
-import { mapAttributeLibCmsToInfoItems } from "common/utils/mappers/mapAttributeLibCmToInfoItem";
-import { sortInfoItems } from "common/utils/sorters";
+//import { mapAttributeViewsToInfoItems } from "common/utils/mappers/mapAttributeLibCmToInfoItem";
+//import { sortInfoItems } from "common/utils/sorters";
 
 export const mapBlockLibCmToBlockItem = (block: BlockLibCm): BlockItem => {
   const states = getOptionsFromEnum(State);
@@ -18,7 +18,7 @@ export const mapBlockLibCmToBlockItem = (block: BlockLibCm): BlockItem => {
     color: getColorFromAspect(block.aspect),
     tokens: [block.version, block.companyName, currentStateLabel, block.rdsName, block.purposeName],
     terminals: sortBlockTerminals(mapBlockTerminalLibCmsToBlockTerminalItems(block.blockTerminals)),
-    attributes: sortInfoItems(mapAttributeLibCmsToInfoItems(block.attributes)),
+    attributes: [], //sortInfoItems(mapAttributeViewsToInfoItems(block.attributes)),
     kind: "BlockItem",
     state: block.state,
     companyId: block.companyId,
@@ -33,7 +33,7 @@ const mapBlockTerminalLibCmsToBlockTerminalItems = (terminals: BlockTerminalLibC
     color: x.terminal.color,
     maxQuantity: x.maxQuantity,
     direction: ConnectorDirection[x.connectorDirection] as keyof typeof ConnectorDirection,
-    attributes: sortInfoItems(mapAttributeLibCmsToInfoItems(x.terminal.attributes)),
+    attributes: [], //sortInfoItems(mapAttributeViewsToInfoItems(x.terminal.attributes)),
   }));
 
 const sortBlockTerminals = (terminals: BlockTerminalItem[]) =>

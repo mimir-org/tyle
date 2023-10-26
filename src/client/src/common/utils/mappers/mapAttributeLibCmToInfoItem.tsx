@@ -1,35 +1,35 @@
-import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { InfoItem } from "common/types/infoItem";
 import { Text } from "@mimirorg/component-library";
+import { AttributeView } from "common/types/attributes/attributeView";
 
-export const mapAttributeLibCmToInfoItem = (attribute: AttributeLibCm): InfoItem => {
+export const mapAttributeViewToInfoItem = (attribute: AttributeView): InfoItem => {
   const infoItem = {
     id: attribute.id,
     name: attribute.name,
     descriptors: {
-      IRI: (
+      Predicate: (
         <Text
           as={"a"}
-          href={attribute.iri}
+          href={attribute.predicate?.iri}
           target={"_blank"}
           rel={"noopener noreferrer"}
           variant={"body-small"}
           color={"inherit"}
         >
-          {attribute.iri}
+          {attribute.predicate?.iri}
         </Text>
       ),
     },
   };
 
-  const attributeHasUnits = attribute.attributeUnits && attribute.attributeUnits.length > 0;
+  const attributeHasUnits = attribute.units.length > 0;
   if (attributeHasUnits) {
     return {
       ...infoItem,
       descriptors: {
         ...infoItem.descriptors,
-        Units: attribute.attributeUnits
-          .map((x) => x.unit.name)
+        Units: attribute.units
+          .map((x) => x.name)
           .sort((a, b) => a.localeCompare(b))
           .join(", "),
       },
@@ -39,5 +39,5 @@ export const mapAttributeLibCmToInfoItem = (attribute: AttributeLibCm): InfoItem
   return infoItem;
 };
 
-export const mapAttributeLibCmsToInfoItems = (attributes: AttributeLibCm[]): InfoItem[] =>
-  attributes.map(mapAttributeLibCmToInfoItem);
+export const mapAttributeViewsToInfoItems = (attributes: AttributeView[]): InfoItem[] =>
+  attributes.map(mapAttributeViewToInfoItem);

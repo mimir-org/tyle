@@ -7,17 +7,15 @@ using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models.Constants;
 using Mimirorg.Authentication.Models.Domain;
-using Mimirorg.Common.Exceptions;
-using Mimirorg.Common.Extensions;
-using Mimirorg.Common.Models;
-using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Extensions;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
+using Mimirorg.Authentication.Enums;
+using Mimirorg.Authentication.Exceptions;
+using Mimirorg.Authentication.Models;
+using Mimirorg.Authentication.Models.Application;
+using Mimirorg.Authentication.Models.Client;
 
 namespace Mimirorg.Authentication.Services;
 
@@ -426,7 +424,7 @@ public class MimirorgUserService : IMimirorgUserService
         if (numberOfUsers != 1 || numberOfCompanies != 0)
             return;
         await _userManager.AddToRoleAsync(user, MimirorgDefaultRoles.Administrator);
-        var company = await _mimirorgCompanyService.CreateCompany(new MimirorgCompanyAm
+        await _mimirorgCompanyService.CreateCompany(new MimirorgCompanyAm
         {
             Name = "Mimirorg Company",
             Description = "Mimirorg is the open source community for Mimir and Tyle",

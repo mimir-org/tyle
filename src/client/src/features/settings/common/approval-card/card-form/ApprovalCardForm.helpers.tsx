@@ -6,9 +6,7 @@ import {
   mapFormApprovalToApiModel,
 } from "features/settings/common/approval-card/card-form/types/formApproval";
 import { Flexbox, Text, toast } from "@mimirorg/component-library";
-import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
-import { usePatchBlockState } from "external/sources/block/block.queries";
-import { usePatchUnitState } from "../../../../../external/sources/unit/unit.queries";
+//import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
 import { usePatchQuantityDatumState } from "../../../../../external/sources/datum/quantityDatum.queries";
 import { usePatchRdsState } from "../../../../../external/sources/rds/rds.queries";
 import { usePatchAttributeState } from "../../../../../external/sources/attribute/attribute.queries";
@@ -21,9 +19,9 @@ import { AxiosError } from "axios";
 export const useApprovalToasts = () => {
   const theme = useTheme();
   const { t } = useTranslation("settings");
-  const patchMutationBlock = usePatchBlockState();
-  const patchMutationTerminal = usePatchTerminalState();
-  const patchMutationUnit = usePatchUnitState();
+  // const patchMutationBlock = usePatchBlockState();
+  //const patchMutationTerminal = usePatchTerminalState();
+  //const patchMutationUnit = usePatchUnitState();
   const patchMutationQuantityDatum = usePatchQuantityDatumState();
   const patchMutationRds = usePatchRdsState();
   const patchMutationAttribute = usePatchAttributeState();
@@ -33,13 +31,13 @@ export const useApprovalToasts = () => {
   return async (id: string, submission: FormApproval) => {
     switch (submission.objectType) {
       case "Block":
-        mutationPromise = patchMutationBlock.mutateAsync(mapFormApprovalToApiModel(submission));
+        //  mutationPromise = patchMutationBlock.mutateAsync(mapFormApprovalToApiModel(submission));
         break;
       case "Terminal":
-        mutationPromise = patchMutationTerminal.mutateAsync(mapFormApprovalToApiModel(submission));
+        //mutationPromise = patchMutationTerminal.mutateAsync(mapFormApprovalToApiModel(submission));
         break;
       case "Unit":
-        mutationPromise = patchMutationUnit.mutateAsync(mapFormApprovalToApiModel(submission));
+        //mutationPromise = patchMutationUnit.mutateAsync(mapFormApprovalToApiModel(submission));
         break;
       case "Quantity datum":
         mutationPromise = patchMutationQuantityDatum.mutateAsync(mapFormApprovalToApiModel(submission));

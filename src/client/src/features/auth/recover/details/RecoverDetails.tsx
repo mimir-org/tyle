@@ -16,12 +16,10 @@ interface RecoverDetailsProps {
   complete?: Partial<Actionable>;
 }
 
-type RecoverModel = { email: string };
-
 export const RecoverDetails = ({ complete, setUserEmail }: RecoverDetailsProps) => {
   const { t } = useTranslation("auth");
 
-  const formMethods = useForm<RecoverModel>({
+  const formMethods = useForm({
     resolver: yupResolver(recoverDetailsSchema(t)),
   });
 

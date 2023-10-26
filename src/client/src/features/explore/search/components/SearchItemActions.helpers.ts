@@ -1,7 +1,7 @@
-import { useDeleteBlock, usePatchBlockState } from "external/sources/block/block.queries";
+import { useDeleteBlock } from "external/sources/block/block.queries";
 import { ItemType } from "../../../entities/types/itemTypes";
-import { useDeleteTerminal, usePatchTerminalState } from "external/sources/terminal/terminal.queries";
-import { useDeleteUnit, usePatchUnitState } from "external/sources/unit/unit.queries";
+import { useDeleteTerminal } from "external/sources/terminal/terminal.queries";
+//import { useDeleteUnit } from "external/sources/unit/unit.queries";
 import { useDeleteQuantityDatum, usePatchQuantityDatumState } from "external/sources/datum/quantityDatum.queries";
 import { useDeleteRds, usePatchRdsState } from "external/sources/rds/rds.queries";
 import { useDeleteAttribute, usePatchAttributeState } from "external/sources/attribute/attribute.queries";
@@ -50,29 +50,29 @@ export function getEditLink(item: ItemType) {
 }
 
 export function usePatchMutation(item: ItemType) {
-  const patchBlockMutation = usePatchBlockState();
+  //const patchBlockMutation = usePatchBlockState();
   const patchAttributeMutation = usePatchAttributeState();
   const patchQuantityDatumMutation = usePatchQuantityDatumState();
   const patchRdsMutation = usePatchRdsState();
-  const patchTerminalMutation = usePatchTerminalState();
-  const patchUnitMutation = usePatchUnitState();
-  const patchAttributeGroup = usePatchUnitState();
+  //const patchTerminalMutation = usePatchTerminalState();
+  //const patchUnitMutation = usePatchUnitState();
+  //const patchAttributeGroup = usePatchUnitState();
 
   switch (item.kind) {
-    case "BlockItem":
-      return patchBlockMutation;
+    //case "BlockItem":
+    // return patchBlockMutation;
     case "AttributeItem":
       return patchAttributeMutation;
-    case "AttributeGroupItem":
-      return patchAttributeGroup;
+    //case "AttributeGroupItem":
+    //return patchAttributeGroup;
     case "QuantityDatumItem":
       return patchQuantityDatumMutation;
     case "RdsItem":
       return patchRdsMutation;
-    case "TerminalItem":
-      return patchTerminalMutation;
-    case "UnitItem":
-      return patchUnitMutation;
+    //case "TerminalItem":
+    //return patchTerminalMutation;
+    //case "UnitItem":
+    //return patchUnitMutation;
     default:
       throw new Error("Unknown item kind");
   }
@@ -84,7 +84,7 @@ export function useDeleteMutation(item: ItemType) {
   const deleteQuantityDatumMutation = useDeleteQuantityDatum(item.id);
   const deleteRdsMutation = useDeleteRds(item.id);
   const deleteTerminalMutation = useDeleteTerminal(item.id);
-  const deleteUnitMutation = useDeleteUnit(item.id);
+  //const deleteUnitMutation = useDeleteUnit(item.id);
   const deleteAttributeGroupMutation = useDeleteAttributeGroup(item.id);
 
   switch (item.kind) {
@@ -100,8 +100,8 @@ export function useDeleteMutation(item: ItemType) {
       return deleteRdsMutation;
     case "TerminalItem":
       return deleteTerminalMutation;
-    case "UnitItem":
-      return deleteUnitMutation;
+    //case "UnitItem":
+    //return deleteUnitMutation;
     default:
       throw new Error("Unknown item kind");
   }

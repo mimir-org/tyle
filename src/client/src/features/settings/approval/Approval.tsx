@@ -7,24 +7,22 @@ import { useTheme } from "styled-components";
 import { useQueryClient } from "@tanstack/react-query";
 import { approvalKeys, useGetApprovals } from "external/sources/approval/approval.queries";
 import { ApprovalDataCm, State } from "@mimirorg/typelibrary-types";
-import { usePatchBlockState } from "external/sources/block/block.queries";
-import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
+
 import { usePatchAttributeState } from "../../../external/sources/attribute/attribute.queries";
 import { usePatchRdsState } from "../../../external/sources/rds/rds.queries";
 import { usePatchQuantityDatumState } from "../../../external/sources/datum/quantityDatum.queries";
-import { usePatchUnitState } from "../../../external/sources/unit/unit.queries";
 
 export const Approval = () => {
   const queryClient = useQueryClient();
   const theme = useTheme();
   const { t } = useTranslation("settings");
   const approvals = useGetApprovals();
-  const patchMutationBlock = usePatchBlockState();
-  const patchMutationTerminal = usePatchTerminalState();
+  //  const patchMutationBlock = usePatchBlockState();
+  //const patchMutationTerminal = usePatchTerminalState();
   const patchMutationAttribute = usePatchAttributeState();
   const patchMutationQuantityDatum = usePatchQuantityDatumState();
   const patchMutationRds = usePatchRdsState();
-  const patchMutationUnit = usePatchUnitState();
+  //const patchMutationUnit = usePatchUnitState();
   const showPlaceholder = approvals?.data && approvals.data.length === 0;
 
   const onSubmit = () => {
@@ -45,16 +43,16 @@ export const Approval = () => {
 
     switch (objectType) {
       case "Block":
-        patchMutationBlock.mutateAsync(data);
+        // patchMutationBlock.mutateAsync(data);
         break;
       case "Terminal":
-        patchMutationTerminal.mutateAsync(data);
+        //patchMutationTerminal.mutateAsync(data);
         break;
       case "Attribute":
         patchMutationAttribute.mutateAsync(data);
         break;
       case "Unit":
-        patchMutationUnit.mutateAsync(data);
+        //patchMutationUnit.mutateAsync(data);
         break;
       case "Quantity datum":
         patchMutationQuantityDatum.mutateAsync(data);

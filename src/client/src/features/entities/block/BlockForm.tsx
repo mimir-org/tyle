@@ -1,66 +1,71 @@
 import { DevTool } from "@hookform/devtools";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { BlockLibCm, MimirorgPermission, State } from "@mimirorg/typelibrary-types";
+//import { yupResolver } from "@hookform/resolvers/yup";
+//import { BlockLibCm, MimirorgPermission, State } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { Box, FormContainer } from "@mimirorg/component-library";
 import { Loader } from "features/common/loader";
-import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
+//import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
-import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
+//import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
 import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
-import { getSubformForAspect, useBlockMutation, useBlockQuery } from "features/entities/block/BlockForm.helpers";
-import { BlockFormBaseFields } from "features/entities/block/BlockFormBaseFields";
-import { blockSchema } from "features/entities/block/blockSchema";
 import {
-  createEmptyFormBlockLib,
-  FormBlockLib,
-  mapFormBlockLibToApiModel,
-  mapBlockLibCmToClientModel,
-} from "features/entities/block/types/formBlockLib";
-import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
+  BlockFormFields,
+  createDefaultBlockFormFields,
+  //getSubformForAspect,
+  // createEmptyFormBlockLib,
+  // getSubformForAspect,
+  // toApiModel,
+  toBlockFormFields,
+  toBlockTypeRequest,
+  useBlockMutation,
+  useBlockQuery,
+} from "features/entities/block/BlockForm.helpers";
+//import { BlockFormBaseFields } from "features/entities/block/BlockFormBaseFields";
+//import { blockSchema } from "features/entities/block/blockSchema";
+
+import {
+  FormProvider,
+  useForm,
+  // useWatch
+} from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { FormMode } from "../types/formMode";
-import { useGetLatestApprovedBlock } from "external/sources/block/block.queries";
-import { useGetCurrentUser } from "external/sources/user/user.queries";
-import { FormAttributeGroups } from "../common/form-attributeGroup/FormAttributeGroups";
+//import { useGetLatestApprovedBlock } from "external/sources/block/block.queries";
+// import { useGetCurrentUser } from "external/sources/user/user.queries";
+import { BlockView } from "common/types/blocks/blockView";
+import { FormAttributes } from "../common/form-attributes/FormAttributes";
+import { BlockFormBaseFields } from "./BlockFormBaseFields";
+import { FormClassifiers } from "../terminal/TerminalFormClassifiers";
+import { FormTerminals } from "./FormTerminals";
+//import { FormAttributeGroups } from "../common/form-attributeGroup/FormAttributeGroups";
 
 interface BlockFormProps {
-  defaultValues?: FormBlockLib;
+  defaultValues?: BlockFormFields;
   mode?: FormMode;
 }
 
-export const BlockForm = ({ defaultValues = createEmptyFormBlockLib(), mode }: BlockFormProps) => {
+export const BlockForm = ({ defaultValues = createDefaultBlockFormFields(), mode }: BlockFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
-  const formMethods = useForm<FormBlockLib>({
+  const formMethods = useForm<BlockFormFields>({
     defaultValues: defaultValues,
-    resolver: yupResolver(blockSchema(t)),
+    //resolver: yupResolver(blockSchema(t)),
   });
 
-  const user = useGetCurrentUser();
+  // const user = useGetCurrentUser();
 
-  const { register, handleSubmit, control, setError, reset } = formMethods;
-  const aspect = useWatch({ control, name: "aspect" });
-  const attributeFields = useFieldArray({ control, name: "attributes" });
-  const attributeGroupFields = useFieldArray({ control, name: "attributeGroups" });
+  const { handleSubmit, control, setError, reset } = formMethods;
+  // const aspect = useWatch({ control, name: "aspect" });
+  //const attributeFields = useFieldArray({ control, name: "attributes" });
+  //const attributeGroupFields = useFieldArray({ control, name: "attributeGroups" });
 
   const query = useBlockQuery();
-  const mapper = (source: BlockLibCm) => {
-    if (mode === "clone" && query.data?.companyId && user.data) {
-      const permissionForCompany = user.data.permissions[query.data.companyId];
-      if (!permissionForCompany || permissionForCompany < MimirorgPermission.Write) {
-        const writeCompanies = Object.keys(user.data.permissions)
-          .map((x) => Number(x))
-          .filter((x) => x !== 0 && user.data.permissions[x] >= MimirorgPermission.Write);
-        return mapBlockLibCmToClientModel(source, writeCompanies[0]);
-      }
-    }
-    return mapBlockLibCmToClientModel(source);
-  };
+  const mapper = (source: BlockView) => toBlockFormFields(source);
+
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useBlockMutation(query.data?.id, mode);
@@ -70,42 +75,26 @@ export const BlockForm = ({ defaultValues = createEmptyFormBlockLib(), mode }: B
 
   const toast = useSubmissionToast(t("block.title"));
 
-  const isFirstDraft =
-    mode !== "edit" || (query.data?.state === State.Draft && query.data?.id === query.data?.firstVersionId);
-  const limited = mode === "edit" && (query.data?.state === State.Approved || !isFirstDraft);
-
-  const latestApprovedQuery = useGetLatestApprovedBlock(query.data?.id, limited);
+  const limited = false;
 
   return (
     <FormProvider {...formMethods}>
       <FormContainer
-        onSubmit={handleSubmit((data) => onSubmitForm(mapFormBlockLibToApiModel(data), mutation.mutateAsync, toast))}
+        onSubmit={handleSubmit((data) => onSubmitForm(toBlockTypeRequest(data), mutation.mutateAsync, toast))}
       >
         {isLoading && <Loader />}
         {!isLoading && (
           <>
-            <BlockFormBaseFields isFirstDraft={isFirstDraft} mode={mode} state={query.data?.state} />
-
+            <BlockFormBaseFields limited={limited} mode={mode} />
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
-              {getSubformForAspect(aspect, limited ? latestApprovedQuery.data?.blockTerminals : [])}
-              <FormAttributes
-                register={(index) => register(`attributes.${index}`)}
-                fields={attributeFields.fields}
-                append={attributeFields.append}
-                remove={attributeFields.remove}
-                preprocess={prepareAttributes}
-                limitedAttributes={limited ? latestApprovedQuery.data?.attributes : []}
-              />
+              <FormTerminals />
             </Box>
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
-              <FormAttributeGroups
-                register={() => register(`attributeGroups`)}
-                fields={attributeGroupFields.fields}
-                append={attributeGroupFields.append}
-                remove={attributeGroupFields.remove}
-                limitedAttributeGroups={limited ? latestApprovedQuery.data?.attributes : []}
-              />
+              <FormClassifiers />
+            </Box>
+            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
+              <FormAttributes />
             </Box>
           </>
         )}

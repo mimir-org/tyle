@@ -95,11 +95,11 @@ export const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean]
     rdsQuery.isLoading;
 
   const mergedItems = [
-    ...(blockQuery.data ?? []),
-    ...(terminalQuery.data ?? []),
-    ...(attributeQuery.data ?? []),
+    // ...(blockQuery.data ?? []),
+    //...(terminalQuery.data ?? []),
+    //...(attributeQuery.data ?? []),
     ...(attributeGroupsQuery.data ?? []),
-    ...(unitQuery.data ?? []),
+    //...(unitQuery.data ?? []),
     ...(datumQuery.data ?? []),
     ...(rdsQuery.data ?? []),
   ];

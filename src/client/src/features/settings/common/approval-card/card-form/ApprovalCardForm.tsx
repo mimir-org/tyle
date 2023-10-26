@@ -1,4 +1,4 @@
-import { yupResolver } from "@hookform/resolvers/yup";
+//import { yupResolver } from "@hookform/resolvers/yup";
 import { ApprovalCm, State } from "@mimirorg/typelibrary-types";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { Button, Flexbox, Form, Input, Text } from "@mimirorg/component-library";
@@ -8,7 +8,7 @@ import {
   useApprovalToasts,
   findNextState,
 } from "features/settings/common/approval-card/card-form/ApprovalCardForm.helpers";
-import { approvalSchema } from "features/settings/common/approval-card/card-form/approvalSchema";
+//import { approvalSchema } from "features/settings/common/approval-card/card-form/approvalSchema";
 import { FormApproval } from "features/settings/common/approval-card/card-form/types/formApproval";
 import { useTheme } from "styled-components";
 
@@ -32,16 +32,16 @@ export const ApprovalCardForm = ({
 
   const stateOptions = getOptionsFromEnum<State>(State);
   const nextState = findNextState(item.state);
-  const currentState = stateOptions.find((x) => x.value === nextState);
+  //const currentState = stateOptions.find((x) => x.value === nextState);
 
   const { register, handleSubmit } = useForm<FormApproval>({
-    resolver: yupResolver(approvalSchema(t)),
+    /*resolver: yupResolver(approvalSchema(t)),
     defaultValues: {
       id: item.id,
       objectType: item.objectType,
       state: currentState ?? stateOptions[0],
       companyId: item.companyId,
-    },
+    },*/
   });
 
   const toast = useApprovalToasts();

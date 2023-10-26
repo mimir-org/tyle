@@ -1,5 +1,5 @@
-import { BlockLibAm, State } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { BlockTypeRequest } from "common/types/blocks/blockTypeRequest";
 import { blockApi } from "external/sources/block/block.api";
 
 const keys = {
@@ -21,8 +21,7 @@ export const useGetLatestApprovedBlock = (id?: string, enable = true) =>
 
 export const useCreateBlock = () => {
   const queryClient = useQueryClient();
-
-  return useMutation((item: BlockLibAm) => blockApi.postBlock(item), {
+  return useMutation((item: BlockTypeRequest) => blockApi.postBlock(item), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };
@@ -30,16 +29,8 @@ export const useCreateBlock = () => {
 export const useUpdateBlock = (id?: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: BlockLibAm) => blockApi.putBlock(item, id), {
+  return useMutation((item: BlockTypeRequest) => blockApi.putBlock(item, id), {
     onSuccess: (unit) => queryClient.invalidateQueries(keys.block(unit.id)),
-  });
-};
-
-export const usePatchBlockState = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation((item: { id: string; state: State }) => blockApi.patchBlockState(item.id, item.state), {
-    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };
 

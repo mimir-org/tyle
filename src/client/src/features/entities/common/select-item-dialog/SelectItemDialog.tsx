@@ -22,6 +22,7 @@ interface SelectItemDialogProps {
   openDialogButtonText: string;
   items: InfoItem[];
   onAdd: (ids: string[]) => void;
+  isMultiSelect?: boolean;
 }
 
 /**
@@ -44,6 +45,7 @@ export const SelectItemDialog = ({
   openDialogButtonText,
   items,
   onAdd,
+  isMultiSelect = true,
 }: SelectItemDialogProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
@@ -73,7 +75,7 @@ export const SelectItemDialog = ({
                 <InfoItemCheckbox
                   key={a?.id ?? i}
                   checked={selected.includes(a?.id ?? "")}
-                  onClick={() => onSelectionChange(a?.id ?? "", selected, setSelected)}
+                  onClick={() => onSelectionChange(a?.id ?? "", selected, setSelected, isMultiSelect)}
                   {...a}
                 />
               ))}

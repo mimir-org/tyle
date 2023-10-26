@@ -6,17 +6,13 @@ import { TerminalPreview } from "../../entities/entityPreviews/terminal/Terminal
 import { TerminalItem } from "../../../common/types/terminalItem";
 import { ItemDescription } from "./components/item/ItemDescription";
 import { SearchItemActions } from "./components/SearchItemActions";
-import { BlockItem } from "../../../common/types/blockItem";
-import AttributePreview from "../../entities/entityPreviews/attribute/AttributePreview";
-import { toFormAttributeLib } from "../../entities/attributes/types/formAttributeLib";
-import { AttributeGroupLibCm, AttributeLibCm, UnitLibCm } from "@mimirorg/typelibrary-types";
+import { AttributeGroupLibCm, UnitLibCm } from "@mimirorg/typelibrary-types";
 import UnitPreview from "../../entities/entityPreviews/unit/UnitPreview";
 import { FormUnitHelper } from "../../entities/units/types/FormUnitHelper";
 import QuantityDatumPreview from "../../entities/entityPreviews/quantityDatum/QuantityDatumPreview";
 import { QuantityDatumItem } from "../../../common/types/quantityDatumItem";
 import { RdsItem } from "../../../common/types/rdsItem";
 import { RdsPreview } from "../../entities/entityPreviews/rds/RdsPreview";
-import { BlockPreview } from "../../entities/entityPreviews/block/BlockPreview";
 import AttributeGroupPreview from "features/entities/entityPreviews/attributeGroup/AttributeGroupPreview";
 import { toFormAttributeGroupLib } from "features/entities/attributeGroups/types/formAttributeGroupLib";
 
@@ -45,26 +41,26 @@ export function SearchResultsRenderer({
           actions={<SearchItemActions user={user} item={item} />}
         />
       );
-    case "BlockItem":
-      return (
-        <Item
-          isSelected={currentlySelected}
-          preview={<BlockPreview {...(item as BlockItem)} />}
-          onClick={() => setSelected({ id: item.id, type: "block" })}
-          description={<ItemDescription {...(item as BlockItem)} />}
-          actions={<SearchItemActions user={user} item={item} />}
-        />
-      );
-    case "AttributeItem":
+    // case "BlockItem":
+    //   return (
+    //     <Item
+    //       isSelected={currentlySelected}
+    //       preview={<BlockPreview {...(item as BlockItem)} />}
+    //       onClick={() => setSelected({ id: item.id, type: "block" })}
+    //       description={<ItemDescription {...(item as BlockItem)} />}
+    //       actions={<SearchItemActions user={user} item={item} />}
+    //     />
+    //   );
+    /*case "AttributeItem":
       return (
         <Item
           isSelected={currentlySelected}
           onClick={() => setSelected({ id: item.id, type: "attribute" })}
-          preview={<AttributePreview small {...toFormAttributeLib(item as AttributeLibCm)} />}
+          preview={<AttributePreview small {...toAttributeFormFields(item as AttributeLibCm)} />}
           description={<ItemDescription {...(item as AttributeLibCm)} />}
           actions={<SearchItemActions user={user} item={item} />}
         />
-      );
+      );*/
     case "AttributeGroupItem":
       return (
         <Item
