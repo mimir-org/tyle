@@ -1,40 +1,41 @@
-import { ConnectorDirection, BlockLibCm, BlockTerminalLibCm, State } from "@mimirorg/typelibrary-types";
 import { BlockItem } from "common/types/blockItem";
 import { BlockTerminalItem } from "common/types/blockTerminalItem";
+import { BlockView } from "common/types/blocks/blockView";
+import { State } from "common/types/common/state";
 import { getColorFromAspect } from "common/utils/getColorFromAspect";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
-//import { mapAttributeViewsToInfoItems } from "common/utils/mappers/mapAttributeLibCmToInfoItem";
-//import { sortInfoItems } from "common/utils/sorters";
+import { sortInfoItems } from "../sorters";
+import { mapAttributeViewsToInfoItems } from "./mapAttributeLibCmToInfoItem";
+import { TerminalTypeReferenceView } from "common/types/blocks/terminalTypeReferenceView";
 
-export const mapBlockLibCmToBlockItem = (block: BlockLibCm): BlockItem => {
+export const toBlockItem = (block: BlockView): BlockItem => {
   const states = getOptionsFromEnum(State);
   const currentStateLabel = states[block.state].label;
 
   return {
     id: block.id,
     name: block.name,
-    img: block.symbol,
-    description: block.description,
+    img: block.symbol ?? "",
+    description: block.description ?? "",
     color: getColorFromAspect(block.aspect),
-    tokens: [block.version, block.companyName, currentStateLabel, block.rdsName, block.purposeName],
-    terminals: sortBlockTerminals(mapBlockTerminalLibCmsToBlockTerminalItems(block.blockTerminals)),
-    attributes: [], //sortInfoItems(mapAttributeViewsToInfoItems(block.attributes)),
+    tokens: [block.version, currentStateLabel],
+    terminals: sortBlockTerminals(mapBlockTerminalLibCmsToBlockTerminalItems(block.terminals)),
+    attributes: sortInfoItems(mapAttributeViewsToInfoItems(block.attributes.map(x => x.attribute))),
     kind: "BlockItem",
     state: block.state,
-    companyId: block.companyId,
     createdBy: block.createdBy,
   };
 };
 
-const mapBlockTerminalLibCmsToBlockTerminalItems = (terminals: BlockTerminalLibCm[]): BlockTerminalItem[] =>
+const mapBlockTerminalLibCmsToBlockTerminalItems = (terminals: TerminalTypeReferenceView[]): BlockTerminalItem[] =>
   terminals.map((x) => ({
     id: x.terminal.id,
     name: x.terminal.name,
-    color: x.terminal.color,
-    maxQuantity: x.maxQuantity,
-    direction: ConnectorDirection[x.connectorDirection] as keyof typeof ConnectorDirection,
-    attributes: [], //sortInfoItems(mapAttributeViewsToInfoItems(x.terminal.attributes)),
+    color: getColorFromAspect(x.terminal.aspect),
+    maxQuantity: x.maxCount,
+    direction: x.direction,
+    attributes: sortInfoItems(mapAttributeViewsToInfoItems(x.terminal.attributes.map(x => x.attribute))),
   }));
 
 const sortBlockTerminals = (terminals: BlockTerminalItem[]) =>
-  [...terminals].sort((a, b) => a.direction.localeCompare(b.direction) || a.name.localeCompare(b.name));
+  [...terminals].sort((a, b) => a.direction.toString().localeCompare(b.direction.toString()) || a.name.localeCompare(b.name));

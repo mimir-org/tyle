@@ -12,6 +12,5 @@ export interface BlockItem extends StateItem {
   terminals: BlockTerminalItem[];
   attributes: InfoItem[];
   kind: string;
-  companyId: number;
   createdBy: string;
 }
