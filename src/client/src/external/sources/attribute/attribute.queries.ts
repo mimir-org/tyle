@@ -50,7 +50,9 @@ export const usePatchAttributeState = (id: string) => {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries(attributeKeys.list(""));
       queryClient.invalidateQueries(attributeKeys.list(`state=${State.Review}`));
-      queryClient.invalidateQueries(attributeKeys.list(`state=${variables.state === State.Approved ? State.Approved : State.Draft}`));
+      queryClient.invalidateQueries(
+        attributeKeys.list(`state=${variables.state === State.Approved ? State.Approved : State.Draft}`),
+      );
       queryClient.invalidateQueries(attributeKeys.detail(id));
     },
   });

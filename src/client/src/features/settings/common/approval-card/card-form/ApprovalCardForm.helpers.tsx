@@ -10,16 +10,24 @@ import { AxiosError } from "axios";
 import { AttributeView } from "common/types/attributes/attributeView";
 import { TerminalView } from "common/types/terminals/terminalView";
 import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
+import { BlockView } from "common/types/blocks/blockView";
+import { usePatchBlockState } from "external/sources/block/block.queries";
 
-export const usePatchStateMutation = (item: AttributeView | TerminalView, itemType: "attribute" | "terminal") => {
+export const usePatchStateMutation = (
+  item: AttributeView | TerminalView | BlockView,
+  itemType: "attribute" | "terminal" | "block",
+) => {
   const patchAttributeStateMutation = usePatchAttributeState(item.id);
   const patchTerminalStateMutation = usePatchTerminalState(item.id);
+  const patchBlockStateMutation = usePatchBlockState(item.id);
 
   switch (itemType) {
     case "attribute":
       return patchAttributeStateMutation;
     case "terminal":
       return patchTerminalStateMutation;
+    case "block":
+      return patchBlockStateMutation;
   }
 };
 

@@ -50,7 +50,9 @@ export const usePatchTerminalState = (id: string) => {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries(terminalKeys.list(""));
       queryClient.invalidateQueries(terminalKeys.list(`state=${State.Review}`));
-      queryClient.invalidateQueries(terminalKeys.list(`state=${variables.state === State.Approved ? State.Approved : State.Draft}`));
+      queryClient.invalidateQueries(
+        terminalKeys.list(`state=${variables.state === State.Approved ? State.Approved : State.Draft}`),
+      );
       queryClient.invalidateQueries(terminalKeys.detail(id));
     },
   });

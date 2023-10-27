@@ -6,10 +6,11 @@ import { State } from "common/types/common/state";
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
 import { TerminalView } from "common/types/terminals/terminalView";
 import { usePatchStateMutation } from "./ApprovalCardForm.helpers";
+import { BlockView } from "common/types/blocks/blockView";
 
 export interface ApprovalCardFormProps {
-  item: AttributeView | TerminalView;
-  itemType: "attribute" | "terminal";
+  item: AttributeView | TerminalView | BlockView;
+  itemType: "attribute" | "terminal" | "block";
 }
 
 export const ApprovalCardForm = ({ item, itemType }: ApprovalCardFormProps) => {

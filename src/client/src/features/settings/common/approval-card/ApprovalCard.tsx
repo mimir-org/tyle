@@ -6,10 +6,11 @@ import { ApprovalCardForm } from "features/settings/common/approval-card/card-fo
 import { Divider, Flexbox, Text } from "@mimirorg/component-library";
 import { AttributeView } from "common/types/attributes/attributeView";
 import { TerminalView } from "common/types/terminals/terminalView";
+import { BlockView } from "common/types/blocks/blockView";
 
 export type ApprovalCardProps = {
-  item: AttributeView | TerminalView;
-  itemType: "attribute" | "terminal";
+  item: AttributeView | TerminalView | BlockView;
+  itemType: "attribute" | "terminal" | "block";
   selected?: string;
 };
 
@@ -24,8 +25,6 @@ export type ApprovalCardProps = {
 export const ApprovalCard = ({ item, itemType, selected }: ApprovalCardProps) => {
   const theme = useTheme();
   const cardRef = useRef(null);
-
-  if (item == null) return <></>;
 
   return (
     <MotionApprovalCardContainer
