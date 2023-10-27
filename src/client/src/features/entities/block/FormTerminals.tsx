@@ -101,7 +101,7 @@ export const FormTerminals = () => {
                         onChange={(value) => {
                           const currentMaxCount = terminalTypeRefs[index]?.maxCount;
                           if (currentMaxCount && currentMaxCount < value) {
-                            setValue(`terminals.${index}.minCount`, value);
+                            setValue(`terminals.${index}.maxCount`, value);
                           }
                           onChange(value);
                         }}
@@ -130,12 +130,7 @@ export const FormTerminals = () => {
                     control={control}
                     name={`terminals.${index}.maxCount`}
                     render={({ field: { value, ...rest } }) => (
-                      <Counter
-                        {...rest}
-                        min={Math.max(terminalTypeRefs[index]?.minCount, 1)}
-                        value={value ?? 0}
-                        disabled={!value}
-                      />
+                      <Counter {...rest} min={Math.max(field.minCount, 1)} value={value ?? 0} disabled={!value} />
                     )}
                   />
                 </Box>

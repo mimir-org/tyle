@@ -115,12 +115,7 @@ export const FormAttributes = () => {
                     control={control}
                     name={`attributes.${index}.maxCount`}
                     render={({ field: { value, ...rest } }) => (
-                      <Counter
-                        {...rest}
-                        min={Math.max(attributeTypeRefs[index]?.minCount, 1)}
-                        value={value ?? 0}
-                        disabled={!value}
-                      />
+                      <Counter {...rest} min={Math.max(field.minCount, 1)} value={value ?? 0} disabled={!value} />
                     )}
                   />
                 </Box>
