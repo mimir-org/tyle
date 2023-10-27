@@ -12,10 +12,7 @@ export interface ApprovalCardFormProps {
   itemType: "attribute" | "terminal";
 }
 
-export const ApprovalCardForm = ({
-  item,
-  itemType
-}: ApprovalCardFormProps) => {
+export const ApprovalCardForm = ({ item, itemType }: ApprovalCardFormProps) => {
   const { t } = useTranslation(["settings"]);
   const theme = useTheme();
 
@@ -25,17 +22,19 @@ export const ApprovalCardForm = ({
 
   return (
     <Flexbox flexFlow={"row"} justifyContent={"space-between"} style={{ marginTop: "8px" }}>
-        <Text variant={"body-large"}>{`Requesting to be approved.`}</Text>
-        <Flexbox justifyContent={"center"} alignItems={"center"} flexFlow="row" gap={theme.mimirorg.spacing.base}>
-          <Button dangerousAction type={"button"} onClick={() => 
-            toast(patchStateMutation.mutateAsync({ state: State.Draft }))
-          }>
-                  {t("common.approval.reject")}
-          </Button>
-          <Button type={"button"} onClick={() =>
-            toast(patchStateMutation.mutateAsync({ state: State.Approved }))
-          }>{t("common.approval.submit")}</Button>
-        </Flexbox>
+      <Text variant={"body-large"}>{`Requesting to be approved.`}</Text>
+      <Flexbox justifyContent={"center"} alignItems={"center"} flexFlow="row" gap={theme.mimirorg.spacing.base}>
+        <Button
+          dangerousAction
+          type={"button"}
+          onClick={() => toast(patchStateMutation.mutateAsync({ state: State.Draft }))}
+        >
+          {t("common.approval.reject")}
+        </Button>
+        <Button type={"button"} onClick={() => toast(patchStateMutation.mutateAsync({ state: State.Approved }))}>
+          {t("common.approval.submit")}
+        </Button>
       </Flexbox>
+    </Flexbox>
   );
 };

@@ -13,7 +13,7 @@ export const Approval = () => {
   const { t } = useTranslation("settings");
   const attributesInReview = useGetAttributesByState(State.Review);
   const terminalsInReview = useGetTerminalsByState(State.Review);
-  const showPlaceholder = attributesInReview?.data && attributesInReview.data.length === 0
+  const showPlaceholder = attributesInReview?.data && attributesInReview.data.length === 0;
   terminalsInReview?.data && terminalsInReview.data.length === 0;
 
   return (
@@ -23,12 +23,8 @@ export const Approval = () => {
       </Text>
       <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.mimirorg.spacing.xxxl}>
         {showPlaceholder && <ApprovalPlaceholder text={t("approval.placeholders.emptyApproval")} />}
-        {attributesInReview.data?.map(x => (
-          <ApprovalCard key={`${x.id}`} item={x} itemType={"attribute"} />
-        ))}
-        {terminalsInReview.data?.map(x => (
-          <ApprovalCard key={`${x.id}`} item={x} itemType={"terminal"} />
-        ))}
+        {attributesInReview.data?.map((x) => <ApprovalCard key={`${x.id}`} item={x} itemType={"attribute"} />)}
+        {terminalsInReview.data?.map((x) => <ApprovalCard key={`${x.id}`} item={x} itemType={"terminal"} />)}
       </Flexbox>
     </SettingsSection>
   );

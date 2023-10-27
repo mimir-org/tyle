@@ -43,10 +43,7 @@ export const ApprovalCard = ({ item, itemType, selected }: ApprovalCardProps) =>
       <Flexbox flexFlow={"column"} justifyContent={"space-between"} style={{ height: "100%" }}>
         <Text variant={"title-small"}>{item.description}</Text>
         <Divider orientation={"horizontal"} color={"#2e2e2e"} />
-        <ApprovalCardForm
-          item={item}
-          itemType={itemType}
-        />
+        <ApprovalCardForm item={item} itemType={itemType} />
       </Flexbox>
     </MotionApprovalCardContainer>
   );

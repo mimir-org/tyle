@@ -15,14 +15,13 @@ export const usePatchStateMutation = (item: AttributeView | TerminalView, itemTy
   const patchAttributeStateMutation = usePatchAttributeState(item.id);
   const patchTerminalStateMutation = usePatchTerminalState(item.id);
 
-  switch (itemType)
-  {
+  switch (itemType) {
     case "attribute":
       return patchAttributeStateMutation;
     case "terminal":
       return patchTerminalStateMutation;
   }
-}
+};
 
 /**
  * Shows a toast while an approval is sent to server.

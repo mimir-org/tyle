@@ -1,3 +1,5 @@
+import { State } from "./state";
+
 export interface ImfType {
   id: string;
   name: string;
@@ -7,4 +9,5 @@ export interface ImfType {
   createdBy: string;
   contributedBy: string[];
   lastUpdateOn: Date;
+  state: State;
 }
