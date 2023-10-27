@@ -67,7 +67,7 @@ export const FormTerminals = () => {
           addItemsButtonText={t("block.terminals.dialog.add")}
           openDialogButtonText={t("block.terminals.open")}
           items={available}
-          onAdd={(ids) => onAddTerminals(ids, terminals, terminalFields.append)}
+          onAdd={(ids) => onAddTerminals(ids, terminals, terminalFields.fields, terminalFields.append)}
         />
       }
     >

@@ -184,12 +184,30 @@ export const resolveSelectedAndAvailableTerminals = (
 export const onAddTerminals = (
   selectedIds: string[],
   allTerminals: TerminalView[],
+  allSelectedTerminals: TerminalTypeReferenceView[],
   append: (item: TerminalTypeReferenceView) => void,
 ) => {
+  const availableDirections = Object.values(Direction);
+
   selectedIds.forEach((id) => {
     const targetTerminal = allTerminals.find((x) => x.id === id);
-    if (targetTerminal) {
-      append({ terminal: targetTerminal, minCount: 1, direction: targetTerminal.qualifier });
+
+    if (targetTerminal === undefined) return;
+
+    let terminalSelectedBefore = false;
+    allSelectedTerminals.forEach((x) => {
+      if (x.terminal.id === id) {
+        terminalSelectedBefore = true;
+      }
+    });
+
+    if (terminalSelectedBefore) {
+      append({ terminal: targetTerminal, minCount: 1 });
+      console.log("Yes");
+    } else {
+      {
+        append({ terminal: targetTerminal, minCount: 1, direction: targetTerminal.qualifier });
+      }
     }
   });
 };
