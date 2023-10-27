@@ -8,11 +8,11 @@ import { FormMode } from "../types/formMode";
 
 export const useAttributeGroupQuery = () => {
   const { id } = useParams();
-  return useGetAttributeGroup(id);
+  return useGetAttributeGroup(id ?? "");
 };
 
 export const useAttributeGroupMutation = (id?: string, mode?: FormMode) => {
   const createMutation = useCreateAttributeGroup();
-  const updateMutation = useUpdateAttributeGroup(id);
+  const updateMutation = useUpdateAttributeGroup(id ?? "");
   return mode === "edit" ? updateMutation : createMutation;
 };

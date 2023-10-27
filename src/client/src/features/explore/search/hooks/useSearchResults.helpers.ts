@@ -63,11 +63,10 @@ export const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean]
   //const attributeQuery = useGetAttributes();
   //const attributeGroupsQuery = useGetAttributeGroups();
 
-  const isLoading =
-    blockQuery.isLoading; //||
-    //terminalQuery.isLoading ||
-    //attributeQuery.isLoading ||
-    //attributeGroupsQuery.isLoading;
+  const isLoading = blockQuery.isLoading; //||
+  //terminalQuery.isLoading ||
+  //attributeQuery.isLoading ||
+  //attributeGroupsQuery.isLoading;
 
   const mergedItems = [
     ...(blockQuery.data ?? []),

@@ -1,16 +1,16 @@
 import { ArrowSmallRight, ArrowsRightLeft } from "@styled-icons/heroicons-outline";
-import { BlockTerminalItemDirection } from "common/types/blockTerminalItem";
 import { Polymorphic } from "@mimirorg/component-library";
 import { EllipseIcon } from "features/common/terminal/assets";
 import { TerminalButtonContainer } from "features/common/terminal/TerminalButton.styled";
 import { ButtonHTMLAttributes, ElementType, forwardRef, ReactNode } from "react";
+import { Direction } from "common/types/terminals/direction";
 
 export type TerminalButtonVariant = "small" | "medium" | "large";
 
 export type TerminalButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   Polymorphic<ElementType> & {
     children?: ReactNode;
-    direction?: BlockTerminalItemDirection;
+    direction?: Direction;
     color: string;
     variant?: TerminalButtonVariant;
   };
@@ -25,8 +25,8 @@ export const TerminalButton = forwardRef<HTMLButtonElement, TerminalButtonProps>
   ({ children, direction, ...delegated }, ref) => (
     <TerminalButtonContainer ref={ref} {...delegated} direction={direction}>
       {children}
-      {(direction === "Input" || direction === "Output") && <ArrowSmallRight />}
-      {direction === "Bidirectional" && <ArrowsRightLeft />}
+      {(direction === Direction.Input || direction === Direction.Output) && <ArrowSmallRight />}
+      {direction === Direction.Bidirectional && <ArrowsRightLeft />}
       {!direction && <EllipseIcon color={"#FFF"} />}
     </TerminalButtonContainer>
   ),

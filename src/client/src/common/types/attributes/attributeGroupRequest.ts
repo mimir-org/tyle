@@ -1,5 +1,5 @@
 export interface AttributeGroupRequest {
-    name: string;
-    description?: string;
-    attributeIds: string[];
+  name: string;
+  description?: string;
+  attributeIds: string[];
 }

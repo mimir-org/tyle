@@ -20,7 +20,7 @@ export const toBlockItem = (block: BlockView): BlockItem => {
     color: getColorFromAspect(block.aspect),
     tokens: [block.version, currentStateLabel],
     terminals: sortBlockTerminals(mapBlockTerminalLibCmsToBlockTerminalItems(block.terminals)),
-    attributes: sortInfoItems(mapAttributeViewsToInfoItems(block.attributes.map(x => x.attribute))),
+    attributes: sortInfoItems(mapAttributeViewsToInfoItems(block.attributes.map((x) => x.attribute))),
     kind: "BlockItem",
     state: block.state,
     createdBy: block.createdBy,
@@ -34,8 +34,10 @@ const mapBlockTerminalLibCmsToBlockTerminalItems = (terminals: TerminalTypeRefer
     color: getColorFromAspect(x.terminal.aspect),
     maxQuantity: x.maxCount,
     direction: x.direction,
-    attributes: sortInfoItems(mapAttributeViewsToInfoItems(x.terminal.attributes.map(x => x.attribute))),
+    attributes: sortInfoItems(mapAttributeViewsToInfoItems(x.terminal.attributes.map((x) => x.attribute))),
   }));
 
 const sortBlockTerminals = (terminals: BlockTerminalItem[]) =>
-  [...terminals].sort((a, b) => a.direction.toString().localeCompare(b.direction.toString()) || a.name.localeCompare(b.name));
+  [...terminals].sort(
+    (a, b) => a.direction.toString().localeCompare(b.direction.toString()) || a.name.localeCompare(b.name),
+  );

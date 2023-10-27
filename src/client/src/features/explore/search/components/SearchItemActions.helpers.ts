@@ -1,8 +1,8 @@
 import { useDeleteBlock, usePatchBlockState } from "external/sources/block/block.queries";
 import { ItemType } from "../../../entities/types/itemTypes";
-import { useDeleteTerminal } from "external/sources/terminal/terminal.queries";
-import { useDeleteAttribute, usePatchAttributeState } from "external/sources/attribute/attribute.queries";
-import { useDeleteAttributeGroup } from "external/sources/attributeGroup/attributeGroup.queries";
+//import { useDeleteTerminal } from "external/sources/terminal/terminal.queries";
+//import { useDeleteAttribute, usePatchAttributeState } from "external/sources/attribute/attribute.queries";
+//import { useDeleteAttributeGroup } from "external/sources/attributeGroup/attributeGroup.queries";
 
 export function getCloneLink(item: ItemType) {
   switch (item.kind) {
@@ -44,7 +44,7 @@ export function usePatchMutation(item: ItemType) {
     case "BlockItem":
       return patchBlockMutation;
     //case "AttributeItem":
-      //return patchAttributeMutation;
+    //return patchAttributeMutation;
     //case "AttributeGroupItem":
     //return patchAttributeGroup;
     //case "TerminalItem":

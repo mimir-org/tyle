@@ -6,8 +6,4 @@ import { AttributeGroupView } from "common/types/attributes/attributeGroupView";
 
 export type SearchResult = ItemType;
 
-export type SearchResultRaw =
-  | BlockView
-  | TerminalView
-  | AttributeView
-  | AttributeGroupView;
+export type SearchResultRaw = BlockView | TerminalView | AttributeView | AttributeGroupView;

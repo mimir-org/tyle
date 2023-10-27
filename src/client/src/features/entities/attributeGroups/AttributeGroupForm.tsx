@@ -1,14 +1,13 @@
 import { DevTool } from "@hookform/devtools";
 //import { yupResolver } from "@hookform/resolvers/yup";
-import { AttributeGroupLibCm } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { Box, FormContainer } from "@mimirorg/component-library";
-import { Loader } from "features/common/loader";
+//import { Loader } from "features/common/loader";
 //import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
 //import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
-import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
+//import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -17,7 +16,6 @@ import { FormMode } from "../types/formMode";
 import {
   FormAttributeGroupLib,
   createEmptyFormAttributeGroupLib,
-  mapAttributeGroupLibCmToFormAttributeGroupLib,
   mapFormAttributeGroupLibToApiModel,
 } from "./types/formAttributeGroupLib";
 //import { attributeGroupSchema } from "./attributeGroupSchema";
@@ -41,13 +39,13 @@ export const AttributeGroupForm = ({
     //resolver: yupResolver(attributeGroupSchema(t)),
   });
 
-  const { handleSubmit, control, setError, reset } = formMethods;
+  const { handleSubmit, control, setError } = formMethods;
 
   //const attributeFields = useFieldArray({ control, name: "attributes" });
 
   const query = useAttributeGroupQuery();
-  const mapper = (source: AttributeGroupLibCm) => mapAttributeGroupLibCmToFormAttributeGroupLib(source);
-  const [_, isLoading] = usePrefilledForm(query, mapper, reset);
+  //const mapper = (source: AttributeGroupLibCm) => mapAttributeGroupLibCmToFormAttributeGroupLib(source);
+  //const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useAttributeGroupMutation(query.data?.id, mode);
   useServerValidation(mutation.error, setError);
@@ -62,9 +60,9 @@ export const AttributeGroupForm = ({
           onSubmitForm(mapFormAttributeGroupLibToApiModel(data), mutation.mutateAsync, toast),
         )}
       >
-        {isLoading && <Loader />}
-        {!isLoading && (
-          <>
+        {/*isLoading && <Loader />*/}
+        {
+          /*!isLoading && */ <>
             <AttributeGroupFormBaseFields mode={mode} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
@@ -77,7 +75,7 @@ export const AttributeGroupForm = ({
             />*/}
             </Box>
           </>
-        )}
+        }
         <DevTool control={control} placement={"bottom-right"} />
       </FormContainer>
     </FormProvider>

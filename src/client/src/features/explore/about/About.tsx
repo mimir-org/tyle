@@ -1,6 +1,6 @@
 // import { mapBlockLibCmToBlockItem /*, mapTerminalLibCmToTerminalItem*/ } from "common/utils/mappers";
 import { useGetBlock } from "external/sources/block/block.queries";
-import { useGetTerminal } from "external/sources/terminal/terminal.queries";
+//import { useGetTerminal } from "external/sources/terminal/terminal.queries";
 import { Loader } from "features/common/loader";
 import { AboutPlaceholder } from "features/explore/about/components/AboutPlaceholder";
 import { BlockPanel } from "features/explore/about/components/block/BlockPanel";
@@ -8,17 +8,14 @@ import { BlockPanel } from "features/explore/about/components/block/BlockPanel";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
 import { useTranslation } from "react-i18next";
-import { useGetAttribute } from "../../../external/sources/attribute/attribute.queries";
+//import { useGetAttribute } from "../../../external/sources/attribute/attribute.queries";
 //import AttributePreview from "../../entities/entityPreviews/attribute/AttributePreview";
 //import UnitPreview from "../../entities/entityPreviews/unit/UnitPreview";
-import QuantityDatumPreview from "../../entities/entityPreviews/quantityDatum/QuantityDatumPreview";
-import { RdsPreview } from "../../entities/entityPreviews/rds/RdsPreview";
 //import { toUnitLibAm } from "../../entities/units/types/formUnitLib";
 //import { useGetUnit } from "../../../external/sources/unit/unit.queries";
-import UnifiedPanel from "./components/common/UnifiedPanel";
-import { useGetAttributeGroup } from "external/sources/attributeGroup/attributeGroup.queries";
-import { AttributeGroupPanel } from "./components/attributeGroup/AttributeGroupPanel";
-import { State } from "@mimirorg/typelibrary-types";
+//import UnifiedPanel from "./components/common/UnifiedPanel";
+//import { useGetAttributeGroup } from "external/sources/attributeGroup/attributeGroup.queries";
+//import { AttributeGroupPanel } from "./components/attributeGroup/AttributeGroupPanel";
 import { toBlockItem } from "common/utils/mappers/mapBlockLibCmToBlockItem";
 
 interface AboutProps {
@@ -68,9 +65,7 @@ export const About = ({ selected }: AboutProps) => {
     <ExploreSection title={typeParser(selected?.type)}>
       {showLoader && <Loader />}
       {showPlaceHolder && <AboutPlaceholder text={t("about.placeholders.item")} />}
-      {showBlockPanel && (
-        <BlockPanel key={blockQuery.data.id} {...toBlockItem(blockQuery.data)} />
-      )}
+      {showBlockPanel && <BlockPanel key={blockQuery.data.id} {...toBlockItem(blockQuery.data)} />}
       {/*showTerminalPanel && (
         <TerminalPanel
           key={terminalQuery.data.id + terminalQuery.data.kind}

@@ -27,7 +27,7 @@ export const Sidebar = ({ title, groups }: SidebarProps) => {
 
   const reviewData = [attributesInReview, terminalsInReview, blocksInReview];
   let numberOfTypesInReview = 0;
-  
+
   for (const query of reviewData) {
     if (query.data) {
       numberOfTypesInReview += query.data.length;

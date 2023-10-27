@@ -34,14 +34,14 @@ export function SearchResultsRenderer({
       );*/
     case "BlockItem":
       return (
-         <Item
-           isSelected={currentlySelected}
-           preview={<BlockPreview {...(item as BlockItem)} />}
-           onClick={() => setSelected({ id: item.id, type: "block" })}
-           description={<ItemDescription {...(item as BlockItem)} />}
-           actions={<SearchItemActions user={user} item={item} />}
-         />
-       );
+        <Item
+          isSelected={currentlySelected}
+          preview={<BlockPreview {...(item as BlockItem)} />}
+          onClick={() => setSelected({ id: item.id, type: "block" })}
+          description={<ItemDescription {...(item as BlockItem)} />}
+          actions={<SearchItemActions user={user} item={item} />}
+        />
+      );
     /*case "AttributeItem":
       return (
         <Item
