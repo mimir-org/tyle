@@ -76,7 +76,7 @@ export const FormTerminals = () => {
           const terminal = selected.find((x) => x.id === field.terminal.id);
           return (
             terminal && (
-              <Flexbox alignItems={"center"} key={terminal.id}>
+              <Flexbox alignItems={"center"} key={field.id}>
                 <Box flex={1}>
                   <Token
                     variant={"secondary"}
