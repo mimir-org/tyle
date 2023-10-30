@@ -122,6 +122,9 @@ export const BlockFormBaseFields = ({ mode, limited }: BlockFormBaseFieldsProps)
         <FormField label={t("block.description")} error={errors.description}>
           <Textarea placeholder={t("block.placeholders.description")} {...register("description")} />
         </FormField>
+        <FormField label={t("block.notation")} error={errors.notation}>
+          <Textarea placeholder={t("block.placeholders.notation")} {...register("notation")} />
+        </FormField>
       </Flexbox>
 
       <Flexbox justifyContent={"center"} gap={theme.mimirorg.spacing.xl}>
