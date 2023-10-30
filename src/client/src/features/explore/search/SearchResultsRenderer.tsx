@@ -8,6 +8,8 @@ import { BlockPreview } from "features/entities/entityPreviews/block/BlockPrevie
 import { BlockItem } from "common/types/blockItem";
 import { TerminalPreview } from "features/entities/entityPreviews/terminal/TerminalPreview";
 import { TerminalItem } from "common/types/terminalItem";
+import { AttributeItem } from "common/types/attributeItem";
+import AttributePreview from "features/entities/entityPreviews/attribute/AttributePreview";
 
 interface SearchResultsRendererProps {
   item: SearchResult;
@@ -44,16 +46,16 @@ export function SearchResultsRenderer({
           actions={<SearchItemActions user={user} item={item} />}
         />
       );
-    /*case "AttributeItem":
+    case "AttributeItem":
       return (
         <Item
           isSelected={currentlySelected}
           onClick={() => setSelected({ id: item.id, type: "attribute" })}
-          preview={<AttributePreview small {...toAttributeFormFields(item as AttributeLibCm)} />}
-          description={<ItemDescription {...(item as AttributeLibCm)} />}
+          preview={<AttributePreview small {...(item as AttributeItem)} />}
+          description={<ItemDescription {...(item as AttributeItem)} />}
           actions={<SearchItemActions user={user} item={item} />}
         />
-      );*/
+      );
     /*case "AttributeGroupItem":
       return (
         <Item

@@ -1,6 +1,7 @@
 import { useDeleteBlock, usePatchBlockState } from "external/sources/block/block.queries";
 import { ItemType } from "../../../entities/types/itemTypes";
 import { useDeleteTerminal, usePatchTerminalState } from "external/sources/terminal/terminal.queries";
+import { useDeleteAttribute, usePatchAttributeState } from "external/sources/attribute/attribute.queries";
 
 export function getCloneLink(item: ItemType) {
   switch (item.kind) {
@@ -34,15 +35,15 @@ export function getEditLink(item: ItemType) {
 
 export function usePatchMutation(item: ItemType) {
   const patchBlockMutation = usePatchBlockState(item.id);
-  //const patchAttributeMutation = usePatchAttributeState();
+  const patchAttributeMutation = usePatchAttributeState(item.id);
   const patchTerminalMutation = usePatchTerminalState(item.id);
   //const patchAttributeGroup = usePatchUnitState();
 
   switch (item.kind) {
     case "BlockItem":
       return patchBlockMutation;
-    //case "AttributeItem":
-    //return patchAttributeMutation;
+    case "AttributeItem":
+      return patchAttributeMutation;
     //case "AttributeGroupItem":
     //return patchAttributeGroup;
     case "TerminalItem":
@@ -54,16 +55,16 @@ export function usePatchMutation(item: ItemType) {
 
 export function useDeleteMutation(item: ItemType) {
   const deleteBlockMutation = useDeleteBlock(item.id);
-  //const deleteAttributeMutation = useDeleteAttribute(item.id);
+  const deleteAttributeMutation = useDeleteAttribute(item.id);
   const deleteTerminalMutation = useDeleteTerminal(item.id);
   //const deleteAttributeGroupMutation = useDeleteAttributeGroup(item.id);
 
   switch (item.kind) {
     case "BlockItem":
       return deleteBlockMutation;
-    /*case "AttributeItem":
+    case "AttributeItem":
       return deleteAttributeMutation;
-    case "AttributeGroupItem":
+    /*case "AttributeGroupItem":
       return deleteAttributeGroupMutation;*/
     case "TerminalItem":
       return deleteTerminalMutation;

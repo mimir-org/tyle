@@ -4,8 +4,9 @@ import { SearchResult, SearchResultRaw } from "features/explore/search/types/sea
 import { toBlockItem } from "common/utils/mappers/mapBlockLibCmToBlockItem";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
 import { useGetAttributes } from "external/sources/attribute/attribute.queries";
-import { isBlockView, isTerminalView } from "../guards/isItemValidators";
+import { isAttributeView, isBlockView, isTerminalView } from "../guards/isItemValidators";
 import { toTerminalItem } from "common/utils/mappers";
+import { toAttributeItem } from "common/utils/mappers/mapAttributeLibCmToAttributeItem";
 
 /**
  * Filters items if there are any filters available, returns items sorted by date if not.
@@ -85,10 +86,9 @@ export const mapSearchResults = (items: SearchResultRaw[]) => {
   const mappedSearchResults: SearchResult[] = [];
 
   items.forEach((x) => {
-    //mappedSearchResults.push(toBlockItem(x as BlockView));
     if (isBlockView(x)) mappedSearchResults.push(toBlockItem(x));
     else if (isTerminalView(x)) mappedSearchResults.push(toTerminalItem(x));
-    //else if (isAttributeLibCm(x)) mappedSearchResults.push(toAttributeItem(x));
+    else if (isAttributeView(x)) mappedSearchResults.push(toAttributeItem(x));
     //else if (isAttributeGroupLibCm(x)) mappedSearchResults.push(toAttributeGroupItem(x));
   });
 
