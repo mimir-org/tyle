@@ -1,4 +1,4 @@
-import { Box, Checkbox, Counter, Flexbox, Token } from "@mimirorg/component-library";
+import { Box, Checkbox, Counter, Flexbox, Token, FormField, Select } from "@mimirorg/component-library";
 import { Controller, useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { FormSection } from "../common/form-section/FormSection";
@@ -7,8 +7,9 @@ import { SelectItemDialog } from "../common/select-item-dialog/SelectItemDialog"
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
 import { BlockFormFields, onAddTerminals, resolveSelectedAndAvailableTerminals } from "./BlockForm.helpers";
 import { useTheme } from "styled-components";
-import { TerminalFormFields } from "../terminal/TerminalForm.helpers";
 import { prepareTerminals } from "../common/utils/prepareTerminals";
+import { Direction } from "common/types/terminals/direction";
+import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 // import { Direction } from "common/types/terminals/direction";
 
 /**
@@ -21,15 +22,34 @@ export const FormTerminals = () => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
-  type BlockOrTerminalFormFields = BlockFormFields | TerminalFormFields;
-
-  const { control, register, setValue } = useFormContext<BlockOrTerminalFormFields>();
+  const { control, register, setValue } = useFormContext<BlockFormFields>();
 
   const terminalFields = useFieldArray({ control, name: "terminals" });
   const terminalQuery = useGetTerminals();
   const terminals = prepareTerminals(terminalQuery.data) ?? [];
   const [available, selected] = resolveSelectedAndAvailableTerminals(terminalFields.fields, terminals);
   const terminalTypeRefs = useWatch({ control, name: "terminals" });
+
+  const connectorDirectionOptions = getOptionsFromEnum<Direction>(Direction);
+
+  const directionOptions = (terminalId: string | undefined) => {
+    if (!terminalId) return connectorDirectionOptions;
+
+    const terminal = terminals.find((x) => x.id === terminalId);
+
+    if (terminal?.qualifier !== Direction.Bidirectional) {
+      const option = connectorDirectionOptions.find((x) => x.value === terminal?.qualifier);
+      return option ? [option] : [];
+    }
+
+    return connectorDirectionOptions.filter(
+      (x) =>
+        !terminalTypeRefs
+          .filter((y) => y.terminal.id === terminalId)
+          .map((y) => y.direction)
+          .includes(x.value),
+    );
+  };
 
   return (
     <FormSection
@@ -42,7 +62,7 @@ export const FormTerminals = () => {
           addItemsButtonText={t("block.terminals.dialog.add")}
           openDialogButtonText={t("block.terminals.open")}
           items={available}
-          onAdd={(ids) => onAddTerminals(ids, terminals, terminalFields.append)}
+          onAdd={(ids) => onAddTerminals(ids, terminals, terminalTypeRefs, terminalFields.append)}
         />
       }
     >
@@ -51,7 +71,7 @@ export const FormTerminals = () => {
           const terminal = selected.find((x) => x.id === field.terminal.id);
           return (
             terminal && (
-              <Flexbox alignItems={"center"} key={terminal.id}>
+              <Flexbox alignItems={"center"} key={field.id}>
                 <Box flex={1}>
                   <Token
                     variant={"secondary"}
@@ -105,21 +125,30 @@ export const FormTerminals = () => {
                     control={control}
                     name={`terminals.${index}.maxCount`}
                     render={({ field: { value, ...rest } }) => (
-                      <Counter
-                        {...rest}
-                        min={Math.max(terminalTypeRefs[index]?.minCount, 1)}
-                        value={value ?? 0}
-                        disabled={!value}
-                      />
+                      <Counter {...rest} min={Math.max(field.minCount, 1)} value={value ?? 0} disabled={!value} />
                     )}
                   />
                 </Box>
-                {/* <Button icon={<ArrowLeft />} iconOnly onClick={() => setValue(`terminals.${index}.direction`, 1)}>
-                  Arrow left
-                </Button>
-                <Button icon={<ArrowRight />} iconOnly onClick={() => setValue(`terminals.${index}.direction`, 2)}>
-                  Arrow right
-                </Button> */}
+
+                <FormField>
+                  <Controller
+                    control={control}
+                    name={`terminals.${index}.direction`}
+                    render={({ field: { value, onChange, ref, ...rest } }) => (
+                      <Select
+                        {...rest}
+                        selectRef={ref}
+                        placeholder={t("common.templates.select", { object: t("block.terminal.name").toLowerCase() })}
+                        options={directionOptions(field.terminal.id)}
+                        getOptionLabel={(x) => x.label}
+                        onChange={(x) => {
+                          onChange(x?.value);
+                        }}
+                        value={connectorDirectionOptions.find((x) => x.value === value)}
+                      />
+                    )}
+                  />
+                </FormField>
               </Flexbox>
             )
           );
