@@ -22,14 +22,13 @@ export const FormTerminals = () => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
-  const { control, register, setValue, formState } = useFormContext<BlockFormFields>();
+  const { control, register, setValue } = useFormContext<BlockFormFields>();
 
   const terminalFields = useFieldArray({ control, name: "terminals" });
   const terminalQuery = useGetTerminals();
   const terminals = prepareTerminals(terminalQuery.data) ?? [];
   const [available, selected] = resolveSelectedAndAvailableTerminals(terminalFields.fields, terminals);
   const terminalTypeRefs = useWatch({ control, name: "terminals" });
-  const { errors } = formState;
 
   const connectorDirectionOptions = getOptionsFromEnum<Direction>(Direction);
 
