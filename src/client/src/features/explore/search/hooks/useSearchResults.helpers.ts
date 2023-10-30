@@ -2,7 +2,10 @@ import { useGetBlocks } from "external/sources/block/block.queries";
 import { Filter } from "features/explore/search/types/filter";
 import { SearchResult, SearchResultRaw } from "features/explore/search/types/searchResult";
 import { toBlockItem } from "common/utils/mappers/mapBlockLibCmToBlockItem";
-import { BlockView } from "common/types/blocks/blockView";
+import { useGetTerminals } from "external/sources/terminal/terminal.queries";
+import { useGetAttributes } from "external/sources/attribute/attribute.queries";
+import { isBlockView, isTerminalView } from "../guards/isItemValidators";
+import { toTerminalItem } from "common/utils/mappers";
 
 /**
  * Filters items if there are any filters available, returns items sorted by date if not.
@@ -59,19 +62,19 @@ const sortItemsByDate = (items: SearchResultRaw[]) =>
 
 export const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean] => {
   const blockQuery = useGetBlocks();
-  //const terminalQuery = useGetTerminals();
-  //const attributeQuery = useGetAttributes();
+  const terminalQuery = useGetTerminals();
+  const attributeQuery = useGetAttributes();
   //const attributeGroupsQuery = useGetAttributeGroups();
 
-  const isLoading = blockQuery.isLoading; //||
-  //terminalQuery.isLoading ||
-  //attributeQuery.isLoading ||
+  const isLoading = blockQuery.isLoading ||
+  terminalQuery.isLoading ||
+  attributeQuery.isLoading; // ||
   //attributeGroupsQuery.isLoading;
 
   const mergedItems = [
     ...(blockQuery.data ?? []),
-    //...(terminalQuery.data ?? []),
-    //...(attributeQuery.data ?? []),
+    ...(terminalQuery.data ?? []),
+    ...(attributeQuery.data ?? []),
     //...(attributeGroupsQuery.data ?? []),
   ];
 
@@ -82,9 +85,9 @@ export const mapSearchResults = (items: SearchResultRaw[]) => {
   const mappedSearchResults: SearchResult[] = [];
 
   items.forEach((x) => {
-    mappedSearchResults.push(toBlockItem(x as BlockView));
-    //if (isBlockLibCm(x)) mappedSearchResults.push(mapBlockLibCmToBlockItem(x));
-    //else if (isTerminalLibCm(x)) mappedSearchResults.push(mapTerminalLibCmToTerminalItem(x));
+    //mappedSearchResults.push(toBlockItem(x as BlockView));
+    if (isBlockView(x)) mappedSearchResults.push(toBlockItem(x));
+    else if (isTerminalView(x)) mappedSearchResults.push(toTerminalItem(x));
     //else if (isAttributeLibCm(x)) mappedSearchResults.push(toAttributeItem(x));
     //else if (isAttributeGroupLibCm(x)) mappedSearchResults.push(toAttributeGroupItem(x));
   });

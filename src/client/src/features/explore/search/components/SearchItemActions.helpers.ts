@@ -1,8 +1,6 @@
 import { useDeleteBlock, usePatchBlockState } from "external/sources/block/block.queries";
 import { ItemType } from "../../../entities/types/itemTypes";
-//import { useDeleteTerminal } from "external/sources/terminal/terminal.queries";
-//import { useDeleteAttribute, usePatchAttributeState } from "external/sources/attribute/attribute.queries";
-//import { useDeleteAttributeGroup } from "external/sources/attributeGroup/attributeGroup.queries";
+import { useDeleteTerminal, usePatchTerminalState } from "external/sources/terminal/terminal.queries";
 
 export function getCloneLink(item: ItemType) {
   switch (item.kind) {
@@ -37,7 +35,7 @@ export function getEditLink(item: ItemType) {
 export function usePatchMutation(item: ItemType) {
   const patchBlockMutation = usePatchBlockState(item.id);
   //const patchAttributeMutation = usePatchAttributeState();
-  //const patchTerminalMutation = usePatchTerminalState();
+  const patchTerminalMutation = usePatchTerminalState(item.id);
   //const patchAttributeGroup = usePatchUnitState();
 
   switch (item.kind) {
@@ -47,8 +45,8 @@ export function usePatchMutation(item: ItemType) {
     //return patchAttributeMutation;
     //case "AttributeGroupItem":
     //return patchAttributeGroup;
-    //case "TerminalItem":
-    //return patchTerminalMutation;
+    case "TerminalItem":
+      return patchTerminalMutation;
     default:
       throw new Error("Unknown item kind");
   }
@@ -57,7 +55,7 @@ export function usePatchMutation(item: ItemType) {
 export function useDeleteMutation(item: ItemType) {
   const deleteBlockMutation = useDeleteBlock(item.id);
   //const deleteAttributeMutation = useDeleteAttribute(item.id);
-  //const deleteTerminalMutation = useDeleteTerminal(item.id);
+  const deleteTerminalMutation = useDeleteTerminal(item.id);
   //const deleteAttributeGroupMutation = useDeleteAttributeGroup(item.id);
 
   switch (item.kind) {
@@ -66,9 +64,9 @@ export function useDeleteMutation(item: ItemType) {
     /*case "AttributeItem":
       return deleteAttributeMutation;
     case "AttributeGroupItem":
-      return deleteAttributeGroupMutation;
+      return deleteAttributeGroupMutation;*/
     case "TerminalItem":
-      return deleteTerminalMutation;*/
+      return deleteTerminalMutation;
     default:
       throw new Error("Unknown item kind");
   }

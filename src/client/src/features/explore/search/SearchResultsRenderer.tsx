@@ -6,6 +6,8 @@ import { ItemDescription } from "./components/item/ItemDescription";
 import { SearchItemActions } from "./components/SearchItemActions";
 import { BlockPreview } from "features/entities/entityPreviews/block/BlockPreview";
 import { BlockItem } from "common/types/blockItem";
+import { TerminalPreview } from "features/entities/entityPreviews/terminal/TerminalPreview";
+import { TerminalItem } from "common/types/terminalItem";
 
 interface SearchResultsRendererProps {
   item: SearchResult;
@@ -22,7 +24,7 @@ export function SearchResultsRenderer({
 }: SearchResultsRendererProps): JSX.Element {
   const currentlySelected = item.id === selectedItemId;
   switch (item.kind) {
-    /*case "TerminalItem":
+    case "TerminalItem":
       return (
         <Item
           isSelected={currentlySelected}
@@ -31,7 +33,7 @@ export function SearchResultsRenderer({
           description={<ItemDescription {...(item as TerminalItem)} />}
           actions={<SearchItemActions user={user} item={item} />}
         />
-      );*/
+      );
     case "BlockItem":
       return (
         <Item
