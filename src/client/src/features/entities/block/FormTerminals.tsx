@@ -24,9 +24,7 @@ export const FormTerminals = () => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
-  type BlockOrTerminalFormFields = BlockFormFields | TerminalFormFields;
-
-  const { control, register, setValue, formState } = useFormContext<BlockOrTerminalFormFields>();
+  const { control, register, setValue, formState } = useFormContext<BlockFormFields>();
 
   const terminalFields = useFieldArray({ control, name: "terminals" });
   const terminalQuery = useGetTerminals();
@@ -67,7 +65,7 @@ export const FormTerminals = () => {
           addItemsButtonText={t("block.terminals.dialog.add")}
           openDialogButtonText={t("block.terminals.open")}
           items={available}
-          onAdd={(ids) => onAddTerminals(ids, terminals, terminalFields.fields, terminalFields.append)}
+          onAdd={(ids) => onAddTerminals(ids, terminals, terminalTypeRefs, terminalFields.append)}
         />
       }
     >

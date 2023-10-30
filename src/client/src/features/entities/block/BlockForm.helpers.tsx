@@ -187,27 +187,26 @@ export const onAddTerminals = (
   allSelectedTerminals: TerminalTypeReferenceView[],
   append: (item: TerminalTypeReferenceView) => void,
 ) => {
-  const availableDirections = Object.values(Direction);
+  let availableDirections = [Direction.Bidirectional, Direction.Input, Direction.Output];
 
   selectedIds.forEach((id) => {
     const targetTerminal = allTerminals.find((x) => x.id === id);
 
     if (targetTerminal === undefined) return;
 
-    let terminalSelectedBefore = false;
-    allSelectedTerminals.forEach((x) => {
-      if (x.terminal.id === id) {
-        terminalSelectedBefore = true;
-      }
-    });
+    let defaultDirection: Direction;
 
-    if (terminalSelectedBefore) {
-      append({ terminal: targetTerminal, minCount: 1 });
-      console.log("Yes");
-    } else {
-      {
-        append({ terminal: targetTerminal, minCount: 1, direction: targetTerminal.qualifier });
-      }
+    if (targetTerminal.qualifier !== Direction.Bidirectional) defaultDirection = targetTerminal.qualifier;
+    else {
+      allSelectedTerminals.forEach((x) => {
+        if (x.terminal.id === id) {
+          availableDirections = availableDirections.filter((y) => y !== x.direction);
+        }
+      });
+
+      defaultDirection = availableDirections[0];
     }
+
+    append({ terminal: targetTerminal, minCount: 1, direction: defaultDirection });
   });
 };
