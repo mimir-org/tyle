@@ -1,4 +1,4 @@
-import { Box, Checkbox, Counter, Flexbox, Token } from "@mimirorg/component-library";
+import { Box, Checkbox, Counter, Flexbox, Token, FormField, Select } from "@mimirorg/component-library";
 import { Controller, useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { FormSection } from "../common/form-section/FormSection";
@@ -7,9 +7,7 @@ import { SelectItemDialog } from "../common/select-item-dialog/SelectItemDialog"
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
 import { BlockFormFields, onAddTerminals, resolveSelectedAndAvailableTerminals } from "./BlockForm.helpers";
 import { useTheme } from "styled-components";
-import { TerminalFormFields } from "../terminal/TerminalForm.helpers";
 import { prepareTerminals } from "../common/utils/prepareTerminals";
-import { FormField, Select } from "@mimirorg/component-library";
 import { Direction } from "common/types/terminals/direction";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 // import { Direction } from "common/types/terminals/direction";
@@ -41,7 +39,7 @@ export const FormTerminals = () => {
     const terminal = terminals.find((x) => x.id === terminalId);
 
     if (terminal?.qualifier !== Direction.Bidirectional) {
-      var option = connectorDirectionOptions.find((x) => x.value == terminal?.qualifier);
+      const option = connectorDirectionOptions.find((x) => x.value === terminal?.qualifier);
       return option ? [option] : [];
     }
 
@@ -147,7 +145,7 @@ export const FormTerminals = () => {
                         onChange={(x) => {
                           onChange(x?.value);
                         }}
-                        value={connectorDirectionOptions.find((x) => x.value == value)}
+                        value={connectorDirectionOptions.find((x) => x.value === value)}
                       />
                     )}
                   />
