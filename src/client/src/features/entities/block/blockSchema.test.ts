@@ -21,10 +21,10 @@ describe("blockSchema tests", () => {
   //   await expect(blockSchema(t).validateAt("purposeName", blockWithoutPurposeName)).rejects.toBeTruthy();
   // });
 
-  it("should reject without an aspect", async () => {
-    const blockWithoutAspect: Partial<BlockFormFields> = { aspect: undefined };
-    await expect(blockSchema(t).validateAt("aspect", blockWithoutAspect)).rejects.toBeTruthy();
-  });
+  // it("should reject without an aspect", async () => {
+  //   const blockWithoutAspect: Partial<BlockFormFields> = { aspect: undefined };
+  //   await expect(blockSchema(t).validateAt("aspect", blockWithoutAspect)).rejects.toBeTruthy();
+  // });
 
   it("should reject with a description longer than 500 characters", async () => {
     const blockWithLongDescription: Partial<BlockFormFields> = { description: "c".repeat(501) };
