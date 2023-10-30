@@ -1,21 +1,22 @@
 import { AttributeGroupLibCm, AttributeLibCm } from "@mimirorg/typelibrary-types";
-import { XCircle } from "@styled-icons/heroicons-outline";
-import { Flexbox, Token } from "@mimirorg/component-library";
+//import { XCircle } from "@styled-icons/heroicons-outline";
+import { Flexbox } from "@mimirorg/component-library";
 import { FormSection } from "features/entities/common/form-section/FormSection";
 import { SelectItemDialog } from "features/entities/common/select-item-dialog/SelectItemDialog";
 import { ValueObject } from "features/entities/types/valueObject";
 import { UseFormRegisterReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { useGetAttributeGroups } from "external/sources/attributeGroup/attributeGroup.queries";
-import { onAddAttributeGroup, resolveSelectedAndAvailableAttributeGroups } from "./FormAttributeGroups.helpers";
+//import { useGetAttributeGroups } from "external/sources/attributeGroup/attributeGroup.queries";
+import { onAddAttributeGroup } from "./FormAttributeGroups.helpers";
+import { AttributeGroupView } from "common/types/attributes/attributeGroupView";
 
 export interface FormAttributeGroupsProps {
   fields: ValueObject<string>[];
   append: (item: ValueObject<string>) => void;
   remove: (index: number) => void;
   register: (index: number) => UseFormRegisterReturn;
-  preprocess?: (attributeGroups?: AttributeGroupLibCm[]) => AttributeGroupLibCm[];
+  preprocess?: (attributeGroups?: AttributeGroupView[]) => AttributeGroupLibCm[];
   canAddAttributeGroups?: boolean;
   canRemoveAttributeGroups?: boolean;
   limitedAttributeGroups?: AttributeLibCm[];
@@ -34,24 +35,15 @@ export interface FormAttributeGroupsProps {
  * @param limitedAttributeGroups attributeGroups that cannot be removed, even if removing attributeGroups is allowed
  * @constructor
  */
-export const FormAttributeGroups = ({
-  fields,
-  append,
-  remove,
-  register,
-  preprocess,
-  canAddAttributeGroups = true,
-  canRemoveAttributeGroups = true,
-  limitedAttributeGroups = [],
-}: FormAttributeGroupsProps) => {
+export const FormAttributeGroups = ({ append, canAddAttributeGroups = true }: FormAttributeGroupsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
-  const attributeQuery = useGetAttributeGroups();
+  //const attributeQuery = useGetAttributeGroups();
 
   //Add get attributes also for each group? If above is not sufficent ie name
-  const attributeGroups = preprocess ? preprocess(attributeQuery.data) : attributeQuery.data ?? [];
-  const [available, selected] = resolveSelectedAndAvailableAttributeGroups(fields, attributeGroups);
+  //const attributeGroups = preprocess ? preprocess(attributeQuery.data) : attributeQuery.data ?? [];
+  //const [available, selected] = resolveSelectedAndAvailableAttributeGroups(fields, attributeGroups);
 
   return (
     <FormSection
@@ -64,14 +56,14 @@ export const FormAttributeGroups = ({
             searchFieldText={t("attributeGroup.dialog.search")}
             addItemsButtonText={t("attributeGroup.dialog.add")}
             openDialogButtonText={t("attributeGroup.open")}
-            items={available}
-            onAdd={(ids) => onAddAttributeGroup(ids, attributeGroups, append)}
+            items={[]}
+            onAdd={(ids) => onAddAttributeGroup(ids, [], append)}
           />
         )
       }
     >
       <Flexbox flexWrap={"wrap"} gap={theme.mimirorg.spacing.xl}>
-        {fields.map((field, index) => {
+        {/*fields.map((field, index) => {
           const attributeGroup = selected.find((x) => x.id === field.value);
           return (
             attributeGroup && (
@@ -91,7 +83,7 @@ export const FormAttributeGroups = ({
               </Token>
             )
           );
-        })}
+        })*/}
       </Flexbox>
     </FormSection>
   );

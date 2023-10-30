@@ -18,12 +18,12 @@ import { UnitRequirement } from "./UnitRequirement";
 
 export const useAttributeQuery = () => {
   const { id } = useParams();
-  return useGetAttribute(id);
+  return useGetAttribute(id ?? "");
 };
 
 export const useAttributeMutation = (id?: string, mode?: FormMode) => {
   const createMutation = useCreateAttribute();
-  const updateMutation = useUpdateAttribute(id);
+  const updateMutation = useUpdateAttribute(id ?? "");
   return mode === "edit" ? updateMutation : createMutation;
 };
 

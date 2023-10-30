@@ -3,9 +3,6 @@ import { blockFormBasePath } from "features/entities/block/BlockFormRoutes";
 import { terminalFormBasePath } from "features/entities/terminal/TerminalFormRoutes";
 import { useTranslation } from "react-i18next";
 import { attributeFormBasePath } from "../../entities/attributes/AttributeFormRoutes";
-import { unitFormBasePath } from "../../entities/units/UnitFormRoutes";
-import { datumFormBasePath } from "../../entities/quantityDatum/QuantityDatumFormRoutes";
-import { rdsFormBasePath } from "../../entities/RDS/RdsFormRoutes";
 import { attributeGroupFormBasePath } from "features/entities/attributeGroups/AttributeGroupFormRoutes";
 
 export const useCreateMenuLinks = (): Link[] => {
@@ -27,18 +24,6 @@ export const useCreateMenuLinks = (): Link[] => {
     {
       name: t("search.create.attributeGroup"),
       path: attributeGroupFormBasePath,
-    },
-    {
-      name: t("search.create.unit"),
-      path: unitFormBasePath,
-    },
-    {
-      name: t("search.create.quantityDatum"),
-      path: datumFormBasePath,
-    },
-    {
-      name: t("search.create.rds"),
-      path: rdsFormBasePath,
     },
   ];
 };

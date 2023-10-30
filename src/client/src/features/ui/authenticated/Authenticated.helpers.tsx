@@ -7,9 +7,6 @@ import { ErrorMessage } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter } from "react-router-dom";
 import { attributeFormRoutes } from "../../entities/attributes/AttributeFormRoutes";
-import { unitFormRoutes } from "../../entities/units/UnitFormRoutes";
-import { quantityDatumFormRoutes } from "../../entities/quantityDatum/QuantityDatumFormRoutes";
-import { rdsFormRoutes } from "../../entities/RDS/RdsFormRoutes";
 import { attributeGroupFormRoutes } from "features/entities/attributeGroups/AttributeGroupFormRoutes";
 
 export const useAuthenticatedRouter = () => {
@@ -34,9 +31,6 @@ export const useAuthenticatedRouter = () => {
         ...terminalFormRoutes,
         ...attributeFormRoutes,
         ...attributeGroupFormRoutes,
-        ...unitFormRoutes,
-        ...quantityDatumFormRoutes,
-        ...rdsFormRoutes,
         settingsRoutes,
         {
           path: "*",

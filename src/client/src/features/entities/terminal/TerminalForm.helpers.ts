@@ -12,12 +12,12 @@ import { AttributeTypeReferenceView } from "common/types/common/attributeTypeRef
 
 export const useTerminalQuery = () => {
   const { id } = useParams();
-  return useGetTerminal(id);
+  return useGetTerminal(id ?? "");
 };
 
 export const useTerminalMutation = (id?: string, mode?: FormMode) => {
   const createMutation = useCreateTerminal();
-  const updateMutation = useUpdateTerminal(id);
+  const updateMutation = useUpdateTerminal(id ?? "");
   return mode === "edit" ? updateMutation : createMutation;
 };
 

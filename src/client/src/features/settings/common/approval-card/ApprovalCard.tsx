@@ -2,15 +2,15 @@ import { MotionApprovalCardContainer } from "features/settings/common/approval-c
 import { useRef } from "react";
 import { useTheme } from "styled-components";
 import { ApprovalCardHeader } from "features/settings/common/approval-card/card-header/ApprovalCardHeader";
-import {
-  ApprovalCardForm,
-  ApprovalCardFormProps,
-} from "features/settings/common/approval-card/card-form/ApprovalCardForm";
-import { ApprovalCm } from "@mimirorg/typelibrary-types";
+import { ApprovalCardForm } from "features/settings/common/approval-card/card-form/ApprovalCardForm";
 import { Divider, Flexbox, Text } from "@mimirorg/component-library";
+import { AttributeView } from "common/types/attributes/attributeView";
+import { TerminalView } from "common/types/terminals/terminalView";
+import { BlockView } from "common/types/blocks/blockView";
 
-export type ApprovalCardProps = ApprovalCardFormProps & {
-  item: ApprovalCm;
+export type ApprovalCardProps = {
+  item: AttributeView | TerminalView | BlockView;
+  itemType: "attribute" | "terminal" | "block";
   selected?: string;
 };
 
@@ -22,36 +22,27 @@ export type ApprovalCardProps = ApprovalCardFormProps & {
  * @see PermissionCardFormProps
  * @constructor
  */
-export const ApprovalCard = ({ item, selected, ...delegated }: ApprovalCardProps) => {
+export const ApprovalCard = ({ item, itemType, selected }: ApprovalCardProps) => {
   const theme = useTheme();
   const cardRef = useRef(null);
-  const { formId, onSubmit, onReject, showSubmitButton } = delegated;
-
-  if (item == null) return <></>;
 
   return (
     <MotionApprovalCardContainer
-      key={item.id + item.objectType}
+      key={item.id}
       ref={cardRef}
       variant={selected ? "selected" : "filled"}
       layout={"position"}
       {...theme.mimirorg.animation.selectHover}
     >
-      <Text variant={"title-medium"}>{item.objectType}</Text>
+      <Text variant={"title-medium"}>{itemType}</Text>
       <Divider orientation={"horizontal"} color={"#2e2e2e"} />
-      <ApprovalCardHeader objectType={item.objectType}>
+      <ApprovalCardHeader objectType={"Attribute"}>
         <Text variant={"title-large"}>{item.name}</Text>
       </ApprovalCardHeader>
       <Flexbox flexFlow={"column"} justifyContent={"space-between"} style={{ height: "100%" }}>
         <Text variant={"title-small"}>{item.description}</Text>
         <Divider orientation={"horizontal"} color={"#2e2e2e"} />
-        <ApprovalCardForm
-          item={item}
-          formId={formId}
-          onSubmit={onSubmit}
-          onReject={onReject}
-          showSubmitButton={showSubmitButton}
-        />
+        <ApprovalCardForm item={item} itemType={itemType} />
       </Flexbox>
     </MotionApprovalCardContainer>
   );

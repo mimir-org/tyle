@@ -9,6 +9,7 @@ using Tyle.Api.Common;
 using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
+using Tyle.Core.Common;
 
 namespace Tyle.Api.Attributes;
 
@@ -37,11 +38,11 @@ public class AttributesController : ControllerBase
     [ProducesResponseType(typeof(ICollection<AttributeView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] State? state = null)
     {
         try
         {
-            var attributes = await _attributeRepository.GetAll();
+            var attributes = await _attributeRepository.GetAll(state);
             return Ok(_mapper.Map<IEnumerable<AttributeView>>(attributes));
         }
         catch (Exception)

@@ -56,7 +56,8 @@ const allowEdit = (item: StateItem | null, user: UserItem | null): boolean => {
 
   let permissionForCompany: MimirorgPermission;
   if (isBlockItem(item)) {
-    permissionForCompany = user.permissions[item.companyId]?.value;
+    //permissionForCompany = user.permissions[item.companyId]?.value;
+    permissionForCompany = user.permissions[0].value;
   } else {
     permissionForCompany = user.permissions[0].value;
   }
@@ -74,7 +75,8 @@ const allowDelete = (item: ItemType | null, user: UserItem | null): boolean => {
 
   let permissionForCompany: MimirorgPermission;
   if (isBlockItem(item)) {
-    permissionForCompany = user.permissions[item.companyId]?.value;
+    //permissionForCompany = user.permissions[item.companyId]?.value;
+    permissionForCompany = user.permissions[0].value;
   } else {
     permissionForCompany = user.permissions[0].value;
   }
@@ -88,7 +90,8 @@ const allowStateChange = (item: StateItem | null, user: UserItem | null): boolea
 
   let permissionForCompany: MimirorgPermission;
   if (isBlockItem(item)) {
-    permissionForCompany = user.permissions[item.companyId]?.value;
+    //permissionForCompany = user.permissions[item.companyId]?.value;
+    permissionForCompany = user.permissions[0].value;
   } else {
     permissionForCompany = user.permissions[0].value;
   }

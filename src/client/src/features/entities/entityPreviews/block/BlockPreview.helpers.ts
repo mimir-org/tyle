@@ -1,11 +1,9 @@
-import { ConnectorDirection } from "@mimirorg/typelibrary-types";
-
-type Direction = keyof typeof ConnectorDirection;
+import { Direction } from "common/types/terminals/direction";
 
 export const meetsInputCriteria = (direction: Direction) => {
-  return direction === "Input" || direction === "Bidirectional";
+  return direction === Direction.Input || direction === Direction.Bidirectional;
 };
 
 export const meetsOutputCriteria = (direction: Direction) => {
-  return direction === "Output" || direction === "Bidirectional";
+  return direction === Direction.Output || direction === Direction.Bidirectional;
 };

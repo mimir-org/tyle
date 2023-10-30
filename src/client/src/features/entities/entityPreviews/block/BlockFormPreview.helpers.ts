@@ -1,10 +1,9 @@
-import { ConnectorDirection, BlockTerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
+import { BlockTerminalLibAm } from "@mimirorg/typelibrary-types";
 import { BlockTerminalItem } from "common/types/blockTerminalItem";
+import { TerminalView } from "common/types/terminals/terminalView";
+import { getColorFromAspect } from "common/utils/getColorFromAspect";
 
-export const getTerminalItemsFromFormData = (
-  formTerminals: BlockTerminalLibAm[],
-  sourceTerminals?: TerminalLibCm[],
-) => {
+export const getTerminalItemsFromFormData = (formTerminals: BlockTerminalLibAm[], sourceTerminals?: TerminalView[]) => {
   if (!sourceTerminals || sourceTerminals.length < 1) {
     return [];
   }
@@ -18,9 +17,9 @@ export const getTerminalItemsFromFormData = (
       terminalItems.push({
         id: sourceTerminal.id,
         name: sourceTerminal.name,
-        color: sourceTerminal.color,
+        color: getColorFromAspect(sourceTerminal.aspect),
         maxQuantity: formTerminal.maxQuantity,
-        direction: ConnectorDirection[formTerminal.connectorDirection] as keyof typeof ConnectorDirection,
+        direction: sourceTerminal.qualifier,
       });
   });
 

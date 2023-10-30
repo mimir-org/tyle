@@ -14,11 +14,11 @@ import { Direction } from "common/types/terminals/direction";
 
 export const useBlockQuery = () => {
   const { id } = useParams();
-  return useGetBlock(id);
+  return useGetBlock(id ?? "");
 };
 
 export const useBlockMutation = (id?: string, mode?: FormMode) => {
-  const blockUpdateMutation = useUpdateBlock(id);
+  const blockUpdateMutation = useUpdateBlock(id ?? "");
   const blockCreateMutation = useCreateBlock();
   return mode === "edit" ? blockUpdateMutation : blockCreateMutation;
 };

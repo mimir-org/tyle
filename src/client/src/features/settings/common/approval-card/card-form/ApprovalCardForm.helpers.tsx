@@ -1,4 +1,3 @@
-import { ApprovalDataCm, State } from "@mimirorg/typelibrary-types";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import {
@@ -6,27 +5,44 @@ import {
   mapFormApprovalToApiModel,
 } from "features/settings/common/approval-card/card-form/types/formApproval";
 import { Flexbox, Text, toast } from "@mimirorg/component-library";
-//import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
-import { usePatchQuantityDatumState } from "../../../../../external/sources/datum/quantityDatum.queries";
-import { usePatchRdsState } from "../../../../../external/sources/rds/rds.queries";
 import { usePatchAttributeState } from "../../../../../external/sources/attribute/attribute.queries";
 import { AxiosError } from "axios";
+import { AttributeView } from "common/types/attributes/attributeView";
+import { TerminalView } from "common/types/terminals/terminalView";
+import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
+import { BlockView } from "common/types/blocks/blockView";
+import { usePatchBlockState } from "external/sources/block/block.queries";
+
+export const usePatchStateMutation = (
+  item: AttributeView | TerminalView | BlockView,
+  itemType: "attribute" | "terminal" | "block",
+) => {
+  const patchAttributeStateMutation = usePatchAttributeState(item.id);
+  const patchTerminalStateMutation = usePatchTerminalState(item.id);
+  const patchBlockStateMutation = usePatchBlockState(item.id);
+
+  switch (itemType) {
+    case "attribute":
+      return patchAttributeStateMutation;
+    case "terminal":
+      return patchTerminalStateMutation;
+    case "block":
+      return patchBlockStateMutation;
+  }
+};
 
 /**
  * Shows a toast while an approval is sent to server.
  * Shows an undo action on the toast after the approval is sent.
  */
-export const useApprovalToasts = () => {
+export const useApprovalToasts = (id: string) => {
   const theme = useTheme();
   const { t } = useTranslation("settings");
   // const patchMutationBlock = usePatchBlockState();
   //const patchMutationTerminal = usePatchTerminalState();
-  //const patchMutationUnit = usePatchUnitState();
-  const patchMutationQuantityDatum = usePatchQuantityDatumState();
-  const patchMutationRds = usePatchRdsState();
-  const patchMutationAttribute = usePatchAttributeState();
+  const patchMutationAttribute = usePatchAttributeState(id);
 
-  let mutationPromise = {} as Promise<ApprovalDataCm>;
+  let mutationPromise = {} as Promise<AttributeView>;
 
   return async (id: string, submission: FormApproval) => {
     switch (submission.objectType) {
@@ -35,15 +51,6 @@ export const useApprovalToasts = () => {
         break;
       case "Terminal":
         //mutationPromise = patchMutationTerminal.mutateAsync(mapFormApprovalToApiModel(submission));
-        break;
-      case "Unit":
-        //mutationPromise = patchMutationUnit.mutateAsync(mapFormApprovalToApiModel(submission));
-        break;
-      case "Quantity datum":
-        mutationPromise = patchMutationQuantityDatum.mutateAsync(mapFormApprovalToApiModel(submission));
-        break;
-      case "Rds":
-        mutationPromise = patchMutationRds.mutateAsync(mapFormApprovalToApiModel(submission));
         break;
       case "Attribute":
         mutationPromise = patchMutationAttribute.mutateAsync(mapFormApprovalToApiModel(submission));
@@ -82,22 +89,4 @@ export const useApprovalToasts = () => {
       },
     );
   };
-};
-
-/**
- * Find the next state from current state.
- * If current state is not a valid state, return current state.
- * @param state current state
- * @returns next state
- * @example
- * findNextState(State.Review) // State.Approved
- * findNextState(State.Approved) // State.Approved
- */
-export const findNextState = (state: State): State => {
-  switch (state) {
-    case State.Review:
-      return State.Approved;
-    default:
-      return state;
-  }
 };

@@ -7,8 +7,9 @@ public interface ITypeRepository<T, TRequest>
     /// <summary>
     /// Gets all entities of a type.
     /// </summary>
+    /// <param name="state">If provided, the method will only return types with the given state.</param>
     /// <returns>An IEnumerable of all entities of the type.</returns>
-    Task<IEnumerable<T>> GetAll();
+    Task<IEnumerable<T>> GetAll(State? state = null);
 
     /// <summary>
     /// Gets the type with the given id.
