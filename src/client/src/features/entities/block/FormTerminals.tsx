@@ -131,7 +131,7 @@ export const FormTerminals = () => {
                   />
                 </Box>
 
-                <FormField error={errors.aspect}>
+                <FormField>
                   <Controller
                     control={control}
                     name={`terminals.${index}.direction`}

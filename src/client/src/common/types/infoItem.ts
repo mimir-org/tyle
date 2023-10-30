@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { Direction } from "./terminals/direction";
 
 /**
  * Interface used to describe generic items. Descriptors are usually shorts key value pairs uniquely describing the item in question.
@@ -26,5 +25,5 @@ import { Direction } from "./terminals/direction";
 export interface InfoItem {
   id?: string;
   name: string;
-  descriptors: { [key: string]: string | ReactNode | Direction };
+  descriptors: { [key: string]: string | ReactNode };
 }

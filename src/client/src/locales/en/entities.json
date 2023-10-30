@@ -51,7 +51,7 @@
     "createDraft": "Create new draft",
     "title": "Block",
     "name": "Name",
-    "terminal": { "label": "Direction", "name": "Direction" },
+    "terminal": { "name": "Direction" },
     "purpose": "Purpose",
     "aspect": "Aspect",
     "symbol": "Symbol",
