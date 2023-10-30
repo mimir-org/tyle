@@ -15,7 +15,7 @@ export const toTerminalItem = (terminal: TerminalView): TerminalItem => {
     name: terminal.name,
     description: terminal.description ?? "",
     color: getColorFromAspect(terminal.aspect),
-    attributes: sortInfoItems(mapAttributeViewsToInfoItems(terminal.attributes.map(x => x.attribute))),
+    attributes: sortInfoItems(mapAttributeViewsToInfoItems(terminal.attributes.map((x) => x.attribute))),
     tokens: [currentStateLabel],
     kind: "TerminalItem",
     state: terminal.state,
