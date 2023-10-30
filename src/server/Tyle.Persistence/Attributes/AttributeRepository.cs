@@ -23,14 +23,20 @@ public class AttributeRepository : IAttributeRepository
         _userInformationService = userInformationService;
     }
 
-    public async Task<IEnumerable<AttributeType>> GetAll()
+    public async Task<IEnumerable<AttributeType>> GetAll(State? state = null)
     {
-        return await _dbSet.AsNoTracking()
+        var query = _dbSet.AsNoTracking()
             .Include(x => x.Predicate)
             .Include(x => x.Units).ThenInclude(x => x.Unit)
             .Include(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
-            .AsSplitQuery()
-            .ToListAsync();
+            .AsSplitQuery();
+
+        if (state != null)
+        {
+            query = query.Where(x => x.State == state);
+        }
+
+        return await query.ToListAsync();
     }
 
     public async Task<AttributeType?> Get(Guid id)

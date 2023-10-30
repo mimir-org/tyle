@@ -6,6 +6,7 @@ using Mimirorg.Authentication.Models;
 using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Client;
 using Mimirorg.Authentication.Models.Domain;
+using Tyle.Core.Common;
 
 namespace Mimirorg.Authentication.Repositories;
 

@@ -1,12 +1,13 @@
 import { InfoItem } from "common/types/infoItem";
+import { Direction } from "./terminals/direction";
 
 export type BlockTerminalItemDirection = "Input" | "Output" | "Bidirectional";
 
 export interface BlockTerminalItem {
   id: string;
   name: string;
-  maxQuantity: number;
+  maxQuantity?: number;
   color: string;
-  direction: BlockTerminalItemDirection;
+  direction: Direction;
   attributes?: InfoItem[];
 }

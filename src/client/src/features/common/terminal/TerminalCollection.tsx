@@ -38,7 +38,7 @@ interface TerminalCollectionDescriptionProps {
 const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescriptionProps) => {
   const theme = useTheme();
   const { t } = useTranslation("common");
-  const totalTerminalAmount = terminals.reduce((sum, terminal) => sum + terminal.maxQuantity, 0);
+  const totalTerminalAmount = terminals.reduce((sum, terminal) => sum + (terminal.maxQuantity ?? 0), 0);
   const shownTerminalAmount =
     totalTerminalAmount >= MAXIMUM_TERMINAL_QUANTITY_VALUE ? t("terminal.infinite") : totalTerminalAmount;
 

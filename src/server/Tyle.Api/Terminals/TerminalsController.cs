@@ -9,6 +9,7 @@ using Tyle.Api.Common;
 using Tyle.Application.Common;
 using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
+using Tyle.Core.Common;
 
 namespace Tyle.Api.Terminals;
 
@@ -37,11 +38,11 @@ public class TerminalsController : ControllerBase
     [ProducesResponseType(typeof(ICollection<TerminalView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] State? state = null)
     {
         try
         {
-            var terminals = await _terminalRepository.GetAll();
+            var terminals = await _terminalRepository.GetAll(state);
             return Ok(_mapper.Map<IEnumerable<TerminalView>>(terminals));
         }
         catch (Exception)

@@ -20,17 +20,23 @@ public class TerminalRepository : ITerminalRepository
         _userInformationService = userInformationService;
     }
 
-    public async Task<IEnumerable<TerminalType>> GetAll()
+    public async Task<IEnumerable<TerminalType>> GetAll(State? state = null)
     {
-        return await _dbSet.AsNoTracking()
+        var query = _dbSet.AsNoTracking()
             .Include(x => x.Classifiers).ThenInclude(x => x.Classifier)
             .Include(x => x.Purpose)
             .Include(x => x.Medium)
             .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Predicate)
             .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Units).ThenInclude(x => x.Unit)
             .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
-            .AsSplitQuery()
-            .ToListAsync();
+            .AsSplitQuery();
+
+        if (state != null)
+        {
+            query = query.Where(x => x.State == state);
+        }
+
+        return await query.ToListAsync();
     }
 
     public async Task<TerminalType?> Get(Guid id)

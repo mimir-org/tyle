@@ -3,6 +3,7 @@ import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { Flexbox, Td } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { Direction } from "common/types/terminals/direction";
 
 export const TerminalTableDirection = ({ direction }: Pick<BlockTerminalItem, "direction">) => {
   const theme = useTheme();
@@ -12,9 +13,13 @@ export const TerminalTableDirection = ({ direction }: Pick<BlockTerminalItem, "d
   return (
     <Td data-label={t("about.terminals.templates.terminal", { object: t("about.terminals.direction").toLowerCase() })}>
       <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
-        {direction === "Input" && <ArrowRight color={theme.mimirorg.color.primary.base} size={directionIconSize} />}
-        {direction === "Output" && <ArrowLeft color={theme.mimirorg.color.primary.base} size={directionIconSize} />}
-        {direction === "Bidirectional" && (
+        {direction === Direction.Input && (
+          <ArrowRight color={theme.mimirorg.color.primary.base} size={directionIconSize} />
+        )}
+        {direction === Direction.Output && (
+          <ArrowLeft color={theme.mimirorg.color.primary.base} size={directionIconSize} />
+        )}
+        {direction === Direction.Bidirectional && (
           <ArrowsRightLeft color={theme.mimirorg.color.primary.base} size={directionIconSize} />
         )}
         {direction}

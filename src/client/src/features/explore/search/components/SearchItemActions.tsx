@@ -51,7 +51,7 @@ export const SearchItemActions = ({ user, item, children, isAttributeGroup = fal
   const approveAction = {
     name: t("search.item.approve"),
     onAction: () => {
-      const mutation = patchMutation.mutateAsync({ id: item.id, state: State.Review });
+      const mutation = patchMutation.mutateAsync({ state: State.Review });
       submitToast(mutation);
     },
   };

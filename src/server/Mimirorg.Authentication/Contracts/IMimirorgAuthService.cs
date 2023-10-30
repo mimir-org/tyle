@@ -3,6 +3,7 @@ using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Exceptions;
 using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Client;
+using Tyle.Core.Common;
 
 namespace Mimirorg.Authentication.Contracts;
 
