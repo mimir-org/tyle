@@ -1,4 +1,4 @@
-import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
+import { useServerValidation } from "hooks/server-validation/useServerValidation";
 //import { yupResolver } from "@hookform/resolvers/yup";
 import { MimirorgUserAm, MimirorgUserCm } from "@mimirorg/typelibrary-types";
 import { useForm } from "react-hook-form";
@@ -11,8 +11,8 @@ import {
   useUserQuery,
 } from "features/settings/usersettings/userSettingsForm.helpers";
 import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
-import { useUpdateUser } from "external/sources/user/user.queries";
-import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
+import { useUpdateUser } from "api/user.queries";
+import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
 import { DevTool } from "@hookform/devtools";
 import { Loader } from "features/common/loader";

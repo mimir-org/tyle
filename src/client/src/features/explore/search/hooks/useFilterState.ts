@@ -1,4 +1,4 @@
-import { useLocalStorage } from "common/hooks/useLocalStorage";
+import { useLocalStorage } from "hooks/useLocalStorage";
 import { Filter } from "features/explore/search/types/filter";
 
 export const useFilterState = (initial: Filter[]): [filters: Filter[], toggleFilter: (filter: Filter) => void] => {

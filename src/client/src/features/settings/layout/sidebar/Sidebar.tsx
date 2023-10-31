@@ -1,15 +1,15 @@
 import { LinkGroup } from "common/types/linkGroup";
 import { Divider, Flexbox, Heading } from "@mimirorg/component-library";
-import { useGetPendingUsers } from "external/sources/company/company.queries";
+import { useGetPendingUsers } from "api/company.queries";
 import { SidebarContainer, SidebarLink } from "features/settings/layout/sidebar/Sidebar.styled";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "styled-components";
-import { useGetAttributesByState } from "external/sources/attribute/attribute.queries";
+import { useGetAttributesByState } from "api/attribute.queries";
 import { State } from "common/types/common/state";
-import { useGetTerminalsByState } from "external/sources/terminal/terminal.queries";
-import { useGetBlocksByState } from "external/sources/block/block.queries";
+import { useGetTerminalsByState } from "api/terminal.queries";
+import { useGetBlocksByState } from "api/block.queries";
 
 interface SidebarProps {
   title: string;

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { FormSection } from "../common/form-section/FormSection";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { SelectItemDialog } from "../common/select-item-dialog/SelectItemDialog";
-import { useGetTerminals } from "external/sources/terminal/terminal.queries";
+import { useGetTerminals } from "api/terminal.queries";
 import { BlockFormFields, onAddTerminals, resolveSelectedAndAvailableTerminals } from "./BlockForm.helpers";
 import { useTheme } from "styled-components";
 import { prepareTerminals } from "../common/utils/prepareTerminals";

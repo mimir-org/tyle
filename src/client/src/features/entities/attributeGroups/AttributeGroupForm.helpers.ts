@@ -3,7 +3,7 @@ import {
   useCreateAttributeGroup,
   useGetAttributeGroup,
   useUpdateAttributeGroup,
-} from "../../../external/sources/attributeGroup/attributeGroup.queries";
+} from "../../../api/attributeGroup.queries";
 import { FormMode } from "../types/formMode";
 
 export const useAttributeGroupQuery = () => {

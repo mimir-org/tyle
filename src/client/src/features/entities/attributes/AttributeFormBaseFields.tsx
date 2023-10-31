@@ -9,7 +9,7 @@ import { RegularityQualifier } from "common/types/attributes/regularityQualifier
 import { ScopeQualifier } from "common/types/attributes/scopeQualifier";
 import { FormSection } from "../common/form-section/FormSection";
 import { SelectItemDialog } from "../common/select-item-dialog/SelectItemDialog";
-import { useGetPredicates } from "external/sources/predicate/predicate.queries";
+import { useGetPredicates } from "api/predicate.queries";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { UnitRequirement } from "./UnitRequirement";
 

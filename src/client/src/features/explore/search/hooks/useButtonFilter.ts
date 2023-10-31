@@ -3,7 +3,7 @@ import { UserItem } from "common/types/userItem";
 import { useEffect, useState } from "react";
 import { MimirorgPermission, State } from "@mimirorg/typelibrary-types";
 import { isBlockItem } from "../guards/isItemValidators";
-import { hasWriteAccess } from "../../../../common/hooks/useHasWriteAccess";
+import { hasWriteAccess } from "../../../../hooks/useHasWriteAccess";
 import { ItemType } from "features/entities/types/itemTypes";
 
 export interface ButtonState {

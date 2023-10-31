@@ -1,5 +1,5 @@
 import { FullPageSpinner } from "@mimirorg/component-library";
-import { useGetCurrentUser } from "external/sources/user/user.queries";
+import { useGetCurrentUser } from "api/user.queries";
 import { Authenticated } from "features/ui/authenticated/Authenticated";
 import { Unauthenticated } from "features/ui/unauthenticated/Unauthenticated";
 import { useTranslation } from "react-i18next";

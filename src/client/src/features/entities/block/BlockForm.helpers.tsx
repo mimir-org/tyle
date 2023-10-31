@@ -1,4 +1,4 @@
-import { useCreateBlock, useGetBlock, useUpdateBlock } from "external/sources/block/block.queries";
+import { useCreateBlock, useGetBlock, useUpdateBlock } from "api/block.queries";
 import { useParams } from "react-router-dom";
 import { FormMode } from "../types/formMode";
 import { BlockTypeRequest } from "common/types/blocks/blockTypeRequest";

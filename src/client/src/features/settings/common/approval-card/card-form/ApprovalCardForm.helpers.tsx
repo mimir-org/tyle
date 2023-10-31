@@ -5,13 +5,13 @@ import {
   mapFormApprovalToApiModel,
 } from "features/settings/common/approval-card/card-form/types/formApproval";
 import { Flexbox, Text, toast } from "@mimirorg/component-library";
-import { usePatchAttributeState } from "../../../../../external/sources/attribute/attribute.queries";
+import { usePatchAttributeState } from "../../../../../api/attribute.queries";
 import { AxiosError } from "axios";
 import { AttributeView } from "common/types/attributes/attributeView";
 import { TerminalView } from "common/types/terminals/terminalView";
-import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
+import { usePatchTerminalState } from "api/terminal.queries";
 import { BlockView } from "common/types/blocks/blockView";
-import { usePatchBlockState } from "external/sources/block/block.queries";
+import { usePatchBlockState } from "api/block.queries";
 
 export const usePatchStateMutation = (
   item: AttributeView | TerminalView | BlockView,

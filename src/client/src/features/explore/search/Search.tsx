@@ -1,8 +1,8 @@
 import { XCircle } from "@styled-icons/heroicons-outline";
-import { useDebounceState } from "common/hooks/useDebounceState";
+import { useDebounceState } from "hooks/useDebounceState";
 import { mapMimirorgUserCmToUserItem } from "common/utils/mappers/mapMimirorgUserCmToUserItem";
 import { Flexbox, MotionFlexbox, MotionText, Token } from "@mimirorg/component-library";
-import { useGetCurrentUser } from "external/sources/user/user.queries";
+import { useGetCurrentUser } from "api/user.queries";
 import { SearchField } from "features/common/search-field";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
@@ -20,7 +20,7 @@ import { SearchResultsRenderer } from "./SearchResultsRenderer";
 import { useSearchParams } from "react-router-dom";
 import { SearchNavigation } from "./SearchNavigation";
 import { useEffect } from "react";
-import { useHasWriteAccess } from "../../../common/hooks/useHasWriteAccess";
+import { useHasWriteAccess } from "../../../hooks/useHasWriteAccess";
 
 interface SearchProps {
   selected?: SelectedInfo;

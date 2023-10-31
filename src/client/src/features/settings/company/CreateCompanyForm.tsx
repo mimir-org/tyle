@@ -11,9 +11,9 @@ import {
 } from "features/settings/company/CompanyForm.helpers";
 //import { yupResolver } from "@hookform/resolvers/yup";
 //import { companySchema } from "features/settings/company/companySchema";
-import { useGetCurrentUser } from "external/sources/user/user.queries";
-import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
-import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
+import { useGetCurrentUser } from "api/user.queries";
+import { useServerValidation } from "hooks/server-validation/useServerValidation";
+import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
 import {
   Button,
@@ -31,7 +31,7 @@ import { useTheme } from "styled-components";
 import { useRef, useState } from "react";
 import { DocumentDuplicate, PaperClip } from "@styled-icons/heroicons-outline";
 import { isAxiosError } from "axios";
-import { useCreateCompany } from "external/sources/company/company.queries";
+import { useCreateCompany } from "api/company.queries";
 import { PlainLink } from "features/common/plain-link";
 import { settingsBasePath } from "../SettingsRoutes";
 

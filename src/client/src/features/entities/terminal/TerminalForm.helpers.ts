@@ -1,4 +1,4 @@
-import { useCreateTerminal, useGetTerminal, useUpdateTerminal } from "external/sources/terminal/terminal.queries";
+import { useCreateTerminal, useGetTerminal, useUpdateTerminal } from "api/terminal.queries";
 import { useParams } from "react-router-dom";
 import { FormMode } from "../types/formMode";
 import { TerminalTypeRequest } from "common/types/terminals/terminalTypeRequest";

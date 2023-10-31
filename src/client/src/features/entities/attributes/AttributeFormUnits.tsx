@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { AttributeFormFields, unitInfoItem } from "./AttributeForm.helpers";
 import { FormSection } from "../common/form-section/FormSection";
 import { XCircle } from "@styled-icons/heroicons-outline";
-import { useGetUnits } from "external/sources/unit/unit.queries";
+import { useGetUnits } from "api/unit.queries";
 import { SelectItemDialog } from "../common/select-item-dialog/SelectItemDialog";
 
 export interface AttributeFormUnitsProps {

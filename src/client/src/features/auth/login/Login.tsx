@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
+import { useServerValidation } from "hooks/server-validation/useServerValidation";
 import {
   Button,
   Input,
@@ -11,7 +11,7 @@ import {
   MotionText,
   Text,
 } from "@mimirorg/component-library";
-import { useLogin } from "external/sources/authenticate/authenticate.queries";
+import { useLogin } from "api/authenticate.queries";
 import { AuthContent } from "features/auth/common/auth-content/AuthContent";
 import { loginSchema } from "features/auth/login/loginSchema";
 import { recoverBasePath } from "features/auth/recover/RecoverRoutes";

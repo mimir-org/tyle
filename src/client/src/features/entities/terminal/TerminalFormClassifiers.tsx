@@ -5,7 +5,7 @@ import { FormSection } from "../common/form-section/FormSection";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { SelectItemDialog } from "../common/select-item-dialog/SelectItemDialog";
 import { TerminalFormFields, classifierInfoItem } from "./TerminalForm.helpers";
-import { useGetClassifiers } from "external/sources/classifier/classifier.queries";
+import { useGetClassifiers } from "api/classifier.queries";
 import { BlockFormFields } from "../block/BlockForm.helpers";
 
 /**

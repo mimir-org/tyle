@@ -1,8 +1,8 @@
 import { DevTool } from "@hookform/devtools";
 //import { yupResolver } from "@hookform/resolvers/yup";
 //import { BlockLibCm, MimirorgPermission, State } from "@mimirorg/typelibrary-types";
-import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
-import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
+import { useServerValidation } from "hooks/server-validation/useServerValidation";
+import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { Box, FormContainer } from "@mimirorg/component-library";
 import { Loader } from "features/common/loader";
 //import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";

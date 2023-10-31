@@ -1,9 +1,9 @@
-import { useGetBlocks } from "external/sources/block/block.queries";
+import { useGetBlocks } from "api/block.queries";
 import { Filter } from "features/explore/search/types/filter";
 import { SearchResult, SearchResultRaw } from "features/explore/search/types/searchResult";
 import { toBlockItem } from "common/utils/mappers/mapBlockLibCmToBlockItem";
-import { useGetTerminals } from "external/sources/terminal/terminal.queries";
-import { useGetAttributes } from "external/sources/attribute/attribute.queries";
+import { useGetTerminals } from "api/terminal.queries";
+import { useGetAttributes } from "api/attribute.queries";
 import { isAttributeView, isBlockView, isTerminalView } from "../guards/isItemValidators";
 import { toTerminalItem } from "common/utils/mappers";
 import { toAttributeItem } from "common/utils/mappers/mapAttributeLibCmToAttributeItem";

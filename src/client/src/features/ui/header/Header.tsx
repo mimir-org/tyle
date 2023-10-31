@@ -1,7 +1,7 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
+import { useGetFilteredCompanies } from "hooks/filter-companies/useGetFilteredCompanies";
 import { Flexbox, Text } from "@mimirorg/component-library";
-import { useGetCurrentUser } from "external/sources/user/user.queries";
+import { useGetCurrentUser } from "api/user.queries";
 import { ContactButton } from "features/ui/header/contact/ContactButton";
 import { mapPermissionDescriptions } from "features/ui/header/Header.helpers";
 import { HeaderContainer } from "features/ui/header/Header.styles";

@@ -1,8 +1,8 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Envelope } from "@styled-icons/heroicons-outline";
-import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
+import { useGetFilteredCompanies } from "hooks/filter-companies/useGetFilteredCompanies";
 import { Box, Dialog, Select, Text } from "@mimirorg/component-library";
-import { useGetCompany } from "external/sources/company/company.queries";
+import { useGetCompany } from "api/company.queries";
 import { ContactCard } from "features/ui/header/contact/ContactCard";
 import { UserMenuButton } from "features/ui/header/user-menu/UserMenuButton";
 import { useState } from "react";

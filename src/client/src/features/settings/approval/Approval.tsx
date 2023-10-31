@@ -5,9 +5,9 @@ import { SettingsSection } from "features/settings/common/settings-section/Setti
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { State } from "common/types/common/state";
-import { useGetTerminalsByState } from "external/sources/terminal/terminal.queries";
-import { useGetAttributesByState } from "external/sources/attribute/attribute.queries";
-import { useGetBlocksByState } from "external/sources/block/block.queries";
+import { useGetTerminalsByState } from "api/terminal.queries";
+import { useGetAttributesByState } from "api/attribute.queries";
+import { useGetBlocksByState } from "api/block.queries";
 
 export const Approval = () => {
   const theme = useTheme();

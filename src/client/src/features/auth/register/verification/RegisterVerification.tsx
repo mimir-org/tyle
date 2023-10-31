@@ -1,8 +1,8 @@
 import { DevTool } from "@hookform/devtools";
 import { MimirorgQrCodeCm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
-import { useExecuteOnCriteria } from "common/hooks/useExecuteOnCriteria";
+import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { Actionable, Button, Flexbox, Input, Text } from "@mimirorg/component-library";
-import { useGenerateMfa, useVerification } from "external/sources/user/user.queries";
+import { useGenerateMfa, useVerification } from "api/user.queries";
 import { AuthContent } from "features/auth/common/auth-content/AuthContent";
 import { Error } from "features/auth/common/error/Error";
 import { Processing } from "features/auth/common/processing/Processing";

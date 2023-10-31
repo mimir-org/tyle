@@ -1,6 +1,6 @@
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { Box, Checkbox, Counter, Flexbox, Token } from "@mimirorg/component-library";
-import { useGetAttributes } from "external/sources/attribute/attribute.queries";
+import { useGetAttributes } from "api/attribute.queries";
 import {
   onAddAttributes,
   resolveSelectedAndAvailableAttributes,

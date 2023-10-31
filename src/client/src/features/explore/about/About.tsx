@@ -1,5 +1,5 @@
 // import { mapBlockLibCmToBlockItem /*, mapTerminalLibCmToTerminalItem*/ } from "common/utils/mappers";
-import { useGetBlock } from "external/sources/block/block.queries";
+import { useGetBlock } from "api/block.queries";
 //import { useGetTerminal } from "external/sources/terminal/terminal.queries";
 import { Loader } from "features/common/loader";
 import { AboutPlaceholder } from "features/explore/about/components/AboutPlaceholder";

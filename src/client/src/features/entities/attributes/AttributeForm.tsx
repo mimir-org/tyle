@@ -1,6 +1,6 @@
 import { DevTool } from "@hookform/devtools";
-import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
-import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
+import { useServerValidation } from "hooks/server-validation/useServerValidation";
+import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { Loader } from "features/common/loader";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
 import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";

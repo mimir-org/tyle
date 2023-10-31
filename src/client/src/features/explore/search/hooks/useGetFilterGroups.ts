@@ -1,6 +1,6 @@
 import { Aspect, State } from "@mimirorg/typelibrary-types";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
-import { useGetPurposes } from "external/sources/purpose/purpose.queries";
+import { useGetPurposes } from "api/purpose.queries";
 import { FilterGroup } from "features/explore/search/types/filterGroup";
 
 export const useGetFilterGroups = (): FilterGroup[] => [

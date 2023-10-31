@@ -6,9 +6,9 @@ import { approvalBasePath } from "features/settings/approval/ApprovalRoutes";
 import { useTranslation } from "react-i18next";
 import { usersettingsBasePath } from "../usersettings/UserSettingsRoutes";
 import { createCompanyBasePath, updateCompanyBasePath } from "features/settings/company/CompanyRoutes";
-import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
+import { useGetFilteredCompanies } from "hooks/filter-companies/useGetFilteredCompanies";
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { useGetRoles } from "common/hooks/useGetRoles";
+import { useGetRoles } from "hooks/useGetRoles";
 
 export const useSettingsLinkGroups = (): LinkGroup[] => {
   const admLinks = useAdministerLinks();

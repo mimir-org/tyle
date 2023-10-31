@@ -1,7 +1,7 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Option } from "common/utils/getOptionsFromEnum";
 import { Button, Text, toast } from "@mimirorg/component-library";
-import { useAddUserPermission, useRemoveUserPermission } from "external/sources/authorize/authorize.queries";
+import { useAddUserPermission, useRemoveUserPermission } from "api/authorize.queries";
 import {
   FormUserPermission,
   mapFormUserPermissionToApiModel,

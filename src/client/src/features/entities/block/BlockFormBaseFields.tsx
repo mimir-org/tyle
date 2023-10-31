@@ -12,7 +12,7 @@ import {
   Textarea,
   Token,
 } from "@mimirorg/component-library";
-import { useGetPurposes } from "external/sources/purpose/purpose.queries";
+import { useGetPurposes } from "api/purpose.queries";
 // import { useGetAllRds } from "external/sources/rds/rds.queries";
 // import { useGetSymbols } from "external/sources/symbol/symbol.queries";
 import { BlockFormFields } from "features/entities/block/BlockForm.helpers";
