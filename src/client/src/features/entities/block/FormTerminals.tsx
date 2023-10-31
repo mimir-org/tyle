@@ -94,7 +94,7 @@ export const FormTerminals = () => {
                         {...rest}
                         min={0}
                         onChange={(value) => {
-                          const currentMaxCount = terminalTypeRefs[index]?.maxCount;
+                          const currentMaxCount = field.maxCount;
                           if (currentMaxCount && currentMaxCount < value) {
                             setValue(`terminals.${index}.maxCount`, value);
                           }
@@ -106,11 +106,10 @@ export const FormTerminals = () => {
                 </Box>
                 <Box>
                   <Checkbox
-                    checked={!!terminalTypeRefs[index]?.maxCount}
                     onCheckedChange={(checked) => {
                       if (checked) {
-                        if (terminalTypeRefs[index]?.minCount > 0) {
-                          setValue(`terminals.${index}.maxCount`, terminalTypeRefs[index]?.minCount);
+                        if (field.minCount > 0) {
+                          setValue(`terminals.${index}.maxCount`, field.minCount);
                         } else {
                           setValue(`terminals.${index}.maxCount`, 1);
                         }

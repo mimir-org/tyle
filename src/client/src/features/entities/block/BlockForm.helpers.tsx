@@ -41,7 +41,8 @@ export const toBlockFormFields = (block: BlockView): BlockFormFields => ({
  */
 
 export const toBlockTypeRequest = (blockFormFields: BlockFormFields): BlockTypeRequest => ({
-  name: blockFormFields.name,
+  ...blockFormFields,
+  purposeId: blockFormFields.purpose?.id,
   classifierIds: blockFormFields.classifiers.map((x) => x.id),
   terminals: blockFormFields.terminals.map((x) => ({ ...x, terminalId: x.terminal.id })),
   attributes: blockFormFields.attributes.map((x) => ({ ...x, attributeId: x.attribute.id })),
