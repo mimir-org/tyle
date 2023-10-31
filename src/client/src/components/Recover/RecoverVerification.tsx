@@ -3,15 +3,15 @@ import { MimirorgQrCodeCm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types"
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { Actionable, Button, Flexbox, Input, Text } from "@mimirorg/component-library";
 import { useGenerateMfa } from "api/user.queries";
-import { AuthContent } from "features/auth/common/auth-content/AuthContent";
-import { Error } from "features/auth/common/error/Error";
-import { Processing } from "features/auth/common/processing/Processing";
-import { MotionVerifyForm } from "features/auth/common/verification/Verification";
-import { onSubmitForm } from "features/auth/recover/verification/RecoverVerification.helpers";
+import { AuthContent } from "components/AuthContent/AuthContent";
+import { Error } from "components/Error/Error";
+import { Processing } from "components/Processing/Processing";
+import { MotionVerifyForm } from "components/MotionVerifyForm/Verification";
+import { onSubmitForm } from "components/Recover/RecoverVerification.helpers";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { Digits } from "features/auth/digits/Digits";
+import { Digits } from "components/Digits/Digits";
 
 type VerificationProps = Pick<MimirorgVerifyAm, "email"> & {
   setMfaInfo: (info: MimirorgQrCodeCm) => void;

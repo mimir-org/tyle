@@ -1,6 +1,6 @@
-import { loginRoutes } from "features/auth/login/LoginRoutes";
-import { recoverRoutes } from "features/auth/recover/RecoverRoutes";
-import { registerRoutes } from "features/auth/register/RegisterRoutes";
+import { loginRoutes } from "components/Login/LoginRoutes";
+import { recoverRoutes } from "components/Recover/RecoverRoutes";
+import { registerRoutes } from "components/Register/RegisterRoutes";
 import { ErrorMessage } from "@mimirorg/component-library";
 import { UnauthenticatedLayout } from "features/ui/unauthenticated/layout/UnauthenticatedLayout";
 import { useTranslation } from "react-i18next";

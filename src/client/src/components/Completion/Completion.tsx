@@ -1,5 +1,5 @@
 import { Actionable, Box, Button, Text } from "@mimirorg/component-library";
-import { AuthContent } from "features/auth/common/auth-content/AuthContent";
+import { AuthContent } from "components/AuthContent/AuthContent";
 import { useTheme } from "styled-components";
 
 type CompletionProps = Partial<Actionable> & {

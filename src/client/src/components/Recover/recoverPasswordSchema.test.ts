@@ -1,5 +1,5 @@
 import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
-import { recoverPasswordSchema } from "features/auth/recover/password/recoverPasswordSchema";
+import { recoverPasswordSchema } from "components/Recover/recoverPasswordSchema";
 import { vi } from "vitest";
 
 describe("recoverPasswordSchema tests", () => {

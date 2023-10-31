@@ -1,8 +1,8 @@
 import { MimirorgQrCodeCm } from "@mimirorg/typelibrary-types";
-import { Completion } from "features/auth/common/completion/Completion";
-import { MultiFactorAuthentication } from "features/auth/common/mfa/MultiFactorAuthentication";
-import { RegisterDetails } from "features/auth/register/details/RegisterDetails";
-import { RegisterVerification } from "features/auth/register/verification/RegisterVerification";
+import { Completion } from "components/Completion/Completion";
+import { MultiFactorAuthentication } from "components/MultiFactorAuthentication/MultiFactorAuthentication";
+import { RegisterDetails } from "components/Register/RegisterDetails";
+import { RegisterVerification } from "components/Register/RegisterVerification";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";

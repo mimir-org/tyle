@@ -1,5 +1,5 @@
 import { MimirorgAuthenticateAm } from "@mimirorg/typelibrary-types";
-import { loginSchema } from "features/auth/login/loginSchema";
+import { loginSchema } from "components/Login/loginSchema";
 import { vi } from "vitest";
 
 describe("loginSchema tests", () => {

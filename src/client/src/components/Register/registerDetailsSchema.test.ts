@@ -1,5 +1,5 @@
 import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
-import { registerDetailsSchema } from "features/auth/register/details/registerDetailsSchema";
+import { registerDetailsSchema } from "components/Register/registerDetailsSchema";
 import { vi } from "vitest";
 
 describe("registerDetailsSchema tests", () => {

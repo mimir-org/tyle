@@ -1,4 +1,4 @@
-import { Recover } from "features/auth/recover/Recover";
+import { Recover } from "components/Recover/Recover";
 import { RouteObject } from "react-router-dom";
 
 export const recoverBasePath = "/recover";

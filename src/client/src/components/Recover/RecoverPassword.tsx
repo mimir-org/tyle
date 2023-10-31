@@ -5,10 +5,10 @@ import { useServerValidation } from "hooks/server-validation/useServerValidation
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { Actionable, Button, Flexbox, Form, FormField, FormFieldset, Input, Text } from "@mimirorg/component-library";
 import { useChangePassword } from "api/user.queries";
-import { AuthContent } from "features/auth/common/auth-content/AuthContent";
-import { Error } from "features/auth/common/error/Error";
-import { Processing } from "features/auth/common/processing/Processing";
-import { recoverPasswordSchema } from "features/auth/recover/password/recoverPasswordSchema";
+import { AuthContent } from "components/AuthContent/AuthContent";
+import { Error } from "components/Error/Error";
+import { Processing } from "components/Processing/Processing";
+import { recoverPasswordSchema } from "components/Recover/recoverPasswordSchema";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";

@@ -17,15 +17,15 @@ import {
 } from "@mimirorg/component-library";
 import { useGetCompanies } from "api/company.queries";
 import { useCreateUser } from "api/user.queries";
-import { AuthContent } from "features/auth/common/auth-content/AuthContent";
-import { Error } from "features/auth/common/error/Error";
-import { Processing } from "features/auth/common/processing/Processing";
-import { registerDetailsSchema } from "features/auth/register/details/registerDetailsSchema";
+import { AuthContent } from "components/AuthContent/AuthContent";
+import { Error } from "components/Error/Error";
+import { Processing } from "components/Processing/Processing";
+import { registerDetailsSchema } from "components/Register/registerDetailsSchema";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useTheme } from "styled-components";
-import { MimirorgUserAmCorrectTypes } from "features/auth/common/types/mimirorgUserAm";
+import { MimirorgUserAmCorrectTypes } from "components/Register/mimirorgUserAm";
 
 interface RegisterDetailsProps {
   setUserEmail: (email: string) => void;

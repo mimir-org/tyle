@@ -1,5 +1,5 @@
 import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
-import { recoverDetailsSchema } from "features/auth/recover/details/recoverDetailsSchema";
+import { recoverDetailsSchema } from "components/Recover/recoverDetailsSchema";
 import { vi } from "vitest";
 
 describe("recoverDetailsSchema tests", () => {

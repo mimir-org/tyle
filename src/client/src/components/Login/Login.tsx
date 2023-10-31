@@ -12,10 +12,10 @@ import {
   Text,
 } from "@mimirorg/component-library";
 import { useLogin } from "api/authenticate.queries";
-import { AuthContent } from "features/auth/common/auth-content/AuthContent";
-import { loginSchema } from "features/auth/login/loginSchema";
-import { recoverBasePath } from "features/auth/recover/RecoverRoutes";
-import { registerBasePath } from "features/auth/register/RegisterRoutes";
+import { AuthContent } from "components/AuthContent/AuthContent";
+import { loginSchema } from "components/Login/loginSchema";
+import { recoverBasePath } from "components/Recover/RecoverRoutes";
+import { registerBasePath } from "components/Register/RegisterRoutes";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
