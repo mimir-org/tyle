@@ -6,14 +6,14 @@ import { toast } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
 
 export const onSubmitForm = <TAm, TCm>(
-    submittable: TAm,
-    mutate: (item: TAm) => Promise<TCm>,
-    toast: (promise: Promise<unknown>) => Promise<unknown>,
-  ) => {
-    const submissionPromise = mutate(submittable);
-    toast(submissionPromise);
-    return submissionPromise;
-  };
+  submittable: TAm,
+  mutate: (item: TAm) => Promise<TCm>,
+  toast: (promise: Promise<unknown>) => Promise<unknown>,
+) => {
+  const submissionPromise = mutate(submittable);
+  toast(submissionPromise);
+  return submissionPromise;
+};
 
 /**
  * Hook ties together data from react query and react hook form binding

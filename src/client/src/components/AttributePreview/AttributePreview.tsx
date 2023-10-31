@@ -42,7 +42,7 @@ export default function AttributePreview({ name, description, small }: Attribute
   return (
     <StyledDiv small={small}>
       {small ? (
-        AttributeSmallPreview(/*defaultUnit?.name ?? */"Attribute")
+        AttributeSmallPreview(/*defaultUnit?.name ?? */ "Attribute")
       ) : (
         <>
           <Flexbox justifyContent={"space-between"}>

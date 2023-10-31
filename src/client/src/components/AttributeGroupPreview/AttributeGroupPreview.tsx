@@ -46,7 +46,7 @@ export default function AttributeGroupPreview({
   return (
     <StyledDiv small={small}>
       {small ? (
-        AttributeGroupSmallPreview(/*defaultUnit?.name ?? */"AttributeGroup")
+        AttributeGroupSmallPreview(/*defaultUnit?.name ?? */ "AttributeGroup")
       ) : (
         <>
           <Flexbox justifyContent={"space-between"}>

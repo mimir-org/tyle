@@ -4,14 +4,8 @@ import { InfoItem } from "common/types/infoItem";
 import { Button, Dialog } from "@mimirorg/component-library";
 import { InfoItemCheckbox } from "components/InfoItemCheckbox/InfoItemCheckbox";
 import { SearchField } from "components/SearchField";
-import {
-  filterInfoItem,
-  onSelectionChange,
-} from "components/SelectItemDialog/SelectItemDialog.helpers";
-import {
-  SelectContainer,
-  SelectItemsContainer,
-} from "components/SelectItemDialog/SelectItemDialog.styled";
+import { filterInfoItem, onSelectionChange } from "components/SelectItemDialog/SelectItemDialog.helpers";
+import { SelectContainer, SelectItemsContainer } from "components/SelectItemDialog/SelectItemDialog.styled";
 import { useState } from "react";
 
 interface SelectItemDialogProps {
