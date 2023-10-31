@@ -4,62 +4,169 @@ public class JsonLdConstants
 {
     public const string Context = """
                                   {
-                                    "@context": [
-                                        "http://jsonld-context.dyreriket.xyz/rdfs.json",
-                                        "http://jsonld-context.dyreriket.xyz/sh.json",
-                                        "http://jsonld-context.dyreriket.xyz/pav.json",
-                                        "http://jsonld-context.dyreriket.xyz/dc.json",
-                                        "http://jsonld-context.dyreriket.xyz/skos.json",
-                                        "https://imf-lab.gitlab.io/imf-ontology/out/json/imf-context.json",
-                                        {
-                                            "@version": 1.1,
-                                            "dc": "http://purl.org/dc/elements/1.1/",
-                                            "ex": "http://example.com/example/",
-                                            "foaf": "http://xmlns.com/foaf/0.1/",
-                                            "imf": "http://ns.imfid.org/imf#",
-                                            "owl": "http://www.w3.org/2002/07/owl#",
-                                            "pav": "http://purl.org/pav/",
-                                            "pca-plm": "http://rds.posccaesar.org/ontology/plm/rdl/",
-                                            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-                                            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                                            "sh": "http://www.w3.org/ns/shacl#",
-                                            "skos": "http://www.w3.org/2004/02/skos/core#",
-                                            "vann": "http://purl.org/vocab/vann/",
-                                            "vs": "http://www.w3.org/2003/06/sw-vocab-status/ns#",
-                                            "xsd": "http://www.w3.org/2001/XMLSchema#"
+                                    "@context": {
+                                        "@version": 1.1,
+                                        "dcterms": "http://purl.org/dc/terms/",
+                                        "foaf": "http://xmlns.com/foaf/0.1/",
+                                        "imf": "http://ns.imfid.org/imf#",
+                                        "pav": "http://purl.org/pav/",
+                                        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+                                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                                        "sh": "http://www.w3.org/ns/shacl#",
+                                        "skos": "http://www.w3.org/2004/02/skos/core#",
+                                        "xsd": "http://www.w3.org/2001/XMLSchema#",
+                                          
+                                        "rdfs:subClassOf": {
+                                            "@type": "@id"
+                                        },
+                                         
+                                        "sh:datatype": {
+                                            "@type": "@id"
+                                        },
+                                        "sh:in": {
+                                            "@container": "@list"
+                                        },
+                                        "sh:maxCount": {
+                                            "@type": "xsd:integer"
+                                        },
+                                        "sh:minCount": {
+                                           "@type": "xsd:integer"
+                                        },
+                                        "sh:node": {
+                                            "@type": "@id"
+                                        },
+                                        "sh:path": {
+                                            "@type": "@id"
+                                        },
+                                        "sh:pattern": {
+                                            "@type": "xsd:string"
+                                        },
+                                        
+                                        "pav:version": {
+                                            "@type": "xsd:string"
+                                        },
+                                        
+                                        "imf:classifier": {
+                                            "@type": "@id"
+                                        },
+                                        "imf:hasAspect": {
+                                            "@type": "@id"
+                                        },
+                                        "imf:hasAttribute": {
+                                            "@type": "@id"
+                                        },
+                                        "imf:hasAttributeQualifier": {
+                                            "@type": "@id"
+                                        },
+                                        "imf:hasInputTerminal": {
+                                            "@type": "@id"
+                                        },
+                                        "imf:hasOutputTerminal": {
+                                            "@type": "@id"
+                                        },
+                                        "imf:hasTerminal": {
+                                            "@type": "@id"
+                                        },
+                                        "imf:hasTerminalQualifier": {
+                                            "@type": "@id"
+                                        },
+                                        "imf:medium": {
+                                            "@type": "@id"
+                                        },
+                                        "imf:predicate": {
+                                            "@type": "@id"
+                                        },
+                                        "imf:purpose": {
+                                            "@type": "@id"
+                                        },
+                                        "imf:uom": {
+                                            "@type": "@id"
                                         }
-                                    ]
+                                    }
                                   }
-
                                   """;
 
     public const string Frame = """
                                 {
-                                    "@context": [
-                                        "http://jsonld-context.dyreriket.xyz/rdfs.json",
-                                        "http://jsonld-context.dyreriket.xyz/sh.json",
-                                        "http://jsonld-context.dyreriket.xyz/pav.json",
-                                        "http://jsonld-context.dyreriket.xyz/dc.json",
-                                        "http://jsonld-context.dyreriket.xyz/skos.json",
-                                        "https://imf-lab.gitlab.io/imf-ontology/out/json/imf-context.json",
-                                        {
-                                            "@version": 1.1,
-                                            "dc": "http://purl.org/dc/elements/1.1/",
-                                            "ex": "http://example.com/example/",
-                                            "foaf": "http://xmlns.com/foaf/0.1/",
-                                            "imf": "http://ns.imfid.org/imf#",
-                                            "owl": "http://www.w3.org/2002/07/owl#",
-                                            "pav": "http://purl.org/pav/",
-                                            "pca-plm": "http://rds.posccaesar.org/ontology/plm/rdl/",
-                                            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-                                            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                                            "sh": "http://www.w3.org/ns/shacl#",
-                                            "skos": "http://www.w3.org/2004/02/skos/core#",
-                                            "vann": "http://purl.org/vocab/vann/",
-                                            "vs": "http://www.w3.org/2003/06/sw-vocab-status/ns#",
-                                            "xsd": "http://www.w3.org/2001/XMLSchema#"
-                                        }
-                                    ],
+                                    "@context": {
+                                    "@version": 1.1,
+                                "dcterms": "http://purl.org/dc/terms/",
+                                    "foaf": "http://xmlns.com/foaf/0.1/",
+                                    "imf": "http://ns.imfid.org/imf#",
+                                    "pav": "http://purl.org/pav/",
+                                    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+                                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                                    "sh": "http://www.w3.org/ns/shacl#",
+                                    "skos": "http://www.w3.org/2004/02/skos/core#",
+                                    "xsd": "http://www.w3.org/2001/XMLSchema#",
+                                      
+                                    "rdfs:subClassOf": {
+                                        "@type": "@id"
+                                    },
+                                     
+                                    "sh:datatype": {
+                                        "@type": "@id"
+                                    },
+                                    "sh:in": {
+                                        "@container": "@list"
+                                    },
+                                    "sh:maxCount": {
+                                        "@type": "xsd:integer"
+                                    },
+                                    "sh:minCount": {
+                                       "@type": "xsd:integer"
+                                    },
+                                    "sh:node": {
+                                        "@type": "@id"
+                                    },
+                                    "sh:path": {
+                                        "@type": "@id"
+                                    },
+                                    "sh:pattern": {
+                                        "@type": "xsd:string"
+                                    },
+                                    
+                                    "pav:version": {
+                                        "@type": "xsd:string"
+                                    },
+                                    
+                                    "imf:classifier": {
+                                        "@type": "@id"
+                                    },
+                                    "imf:hasAspect": {
+                                        "@type": "@id"
+                                    },
+                                    "imf:hasAttribute": {
+                                        "@type": "@id"
+                                    },
+                                    "imf:hasAttributeQualifier": {
+                                        "@type": "@id"
+                                    },
+                                    "imf:hasInputTerminal": {
+                                        "@type": "@id"
+                                    },
+                                    "imf:hasOutputTerminal": {
+                                        "@type": "@id"
+                                    },
+                                    "imf:hasTerminal": {
+                                        "@type": "@id"
+                                    },
+                                    "imf:hasTerminalQualifier": {
+                                        "@type": "@id"
+                                    },
+                                    "imf:medium": {
+                                        "@type": "@id"
+                                    },
+                                    "imf:predicate": {
+                                        "@type": "@id"
+                                    },
+                                    "imf:purpose": {
+                                        "@type": "@id"
+                                    },
+                                    "imf:uom": {
+                                        "@type": "@id"
+                                    }
+                                },
                                     "@type": "sh:NodeShape",
                                     "sh:property": {
                                         "sh:path": {},

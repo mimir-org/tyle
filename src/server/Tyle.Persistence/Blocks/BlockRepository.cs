@@ -97,7 +97,7 @@ public class BlockRepository : IBlockRepository
         var block = await _dbSet.AsTracking()
             .Include(x => x.Classifiers)
             .Include(x => x.Terminals)
-            .Include(x => x.Terminals)
+            .Include(x => x.Attributes)
             .AsSplitQuery()
             .FirstOrDefaultAsync(x => x.Id == id);
 
