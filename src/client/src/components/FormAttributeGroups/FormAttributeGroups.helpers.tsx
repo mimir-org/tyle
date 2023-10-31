@@ -1,5 +1,5 @@
 import { AttributeGroupLibCm } from "@mimirorg/typelibrary-types";
-import { mapAttributeGroupLibCmsToInfoItems } from "common/utils/mappers/mapAttributeGroupLibCmToInfoItem";
+import { mapAttributeGroupLibCmsToInfoItems } from "components/FormAttributeGroups/mapAttributeGroupLibCmToInfoItem";
 import { ValueObject } from "common/types/valueObject";
 
 export const onAddAttributeGroup = (

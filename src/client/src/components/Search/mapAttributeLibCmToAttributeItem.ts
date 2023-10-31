@@ -1,4 +1,4 @@
-import { AttributeItem } from "../../types/attributeItem";
+import { AttributeItem } from "../../common/types/attributeItem";
 import { AttributeView } from "common/types/attributes/attributeView";
 
 export const toAttributeItem = (attribute: AttributeView): AttributeItem => {

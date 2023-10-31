@@ -5,8 +5,8 @@ import { toBlockItem } from "common/utils/mappers/mapBlockLibCmToBlockItem";
 import { useGetTerminals } from "api/terminal.queries";
 import { useGetAttributes } from "api/attribute.queries";
 import { isAttributeView, isBlockView, isTerminalView } from "./isItemValidators";
-import { toTerminalItem } from "common/utils/mappers";
-import { toAttributeItem } from "common/utils/mappers/mapAttributeLibCmToAttributeItem";
+import { toAttributeItem } from "components/Search/mapAttributeLibCmToAttributeItem";
+import { toTerminalItem } from "common/utils/mappers/mapTerminalLibCmToTerminalItem";
 
 /**
  * Filters items if there are any filters available, returns items sorted by date if not.

@@ -9,7 +9,7 @@ import { RdlPurpose } from "common/types/common/rdlPurpose";
 import { RdlClassifier } from "common/types/common/rdlClassifier";
 import { InfoItem } from "common/types/infoItem";
 import { TerminalView } from "common/types/terminals/terminalView";
-import { mapTerminalViewsToInfoItems } from "common/utils/mappers/mapTerminalViewsToInfoItems";
+import { mapTerminalViewsToInfoItems } from "components/BlockForm/mapTerminalViewsToInfoItems";
 import { Direction } from "common/types/terminals/direction";
 
 export const useBlockQuery = () => {
