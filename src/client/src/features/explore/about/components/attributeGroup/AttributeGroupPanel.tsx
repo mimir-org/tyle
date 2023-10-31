@@ -5,7 +5,7 @@ import { PanelSection } from "features/explore/about/components/common/PanelSect
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { AttributeGroupItem } from "common/types/attributeGroupItem";
-import AttributeGroupPreview from "features/entities/entityPreviews/attributeGroup/AttributeGroupPreview";
+import AttributeGroupPreview from "components/AttributeGroupPreview/AttributeGroupPreview";
 
 /**
  * Component that displays information about a given AttributeGroup.

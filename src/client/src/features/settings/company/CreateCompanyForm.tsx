@@ -14,7 +14,7 @@ import {
 import { useGetCurrentUser } from "api/user.queries";
 import { useServerValidation } from "hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
-import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
+import { onSubmitForm } from "helpers/form.helpers";
 import {
   Button,
   FileInfo,

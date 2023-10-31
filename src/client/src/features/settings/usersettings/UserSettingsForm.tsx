@@ -10,10 +10,9 @@ import {
   useUpdatingToast,
   useUserQuery,
 } from "features/settings/usersettings/userSettingsForm.helpers";
-import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
 import { useUpdateUser } from "api/user.queries";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
-import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
+import { onSubmitForm, usePrefilledForm } from "helpers/form.helpers";
 import { DevTool } from "@hookform/devtools";
 import { Loader } from "components/Loader";
 import { Button, Form, FormField, Input } from "@mimirorg/component-library";

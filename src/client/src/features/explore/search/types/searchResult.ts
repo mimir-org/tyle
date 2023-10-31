@@ -1,4 +1,4 @@
-import { ItemType } from "../../../entities/types/itemTypes";
+import { ItemType } from "../../../../common/types/itemTypes";
 import { BlockView } from "common/types/blocks/blockView";
 import { TerminalView } from "common/types/terminals/terminalView";
 import { AttributeView } from "common/types/attributes/attributeView";

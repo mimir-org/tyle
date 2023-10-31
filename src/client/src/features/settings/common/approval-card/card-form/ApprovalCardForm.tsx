@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { AttributeView } from "common/types/attributes/attributeView";
 import { State } from "common/types/common/state";
-import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
+import { useSubmissionToast } from "helpers/form.helpers";
 import { TerminalView } from "common/types/terminals/terminalView";
 import { usePatchStateMutation } from "./ApprovalCardForm.helpers";
 import { BlockView } from "common/types/blocks/blockView";

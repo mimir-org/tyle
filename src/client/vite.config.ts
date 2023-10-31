@@ -30,6 +30,7 @@ export default defineConfig({
       common: path.resolve("src/common"),
       components: path.resolve("src/components"),
       features: path.resolve("src/features"),
+      helpers: path.resolve("src/helpers"),
       hooks: path.resolve("src/hooks"),
       locales: path.resolve("src/locales"),
     },

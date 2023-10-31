@@ -4,12 +4,12 @@ import { UserItem } from "../../../common/types/userItem";
 import { Item } from "./components/item/Item";
 import { ItemDescription } from "./components/item/ItemDescription";
 import { SearchItemActions } from "./components/SearchItemActions";
-import { BlockPreview } from "features/entities/entityPreviews/block/BlockPreview";
+import { BlockPreview } from "components/BlockPreview/BlockPreview";
 import { BlockItem } from "common/types/blockItem";
-import { TerminalPreview } from "features/entities/entityPreviews/terminal/TerminalPreview";
+import { TerminalPreview } from "components/TerminalPreview/TerminalPreview";
 import { TerminalItem } from "common/types/terminalItem";
 import { AttributeItem } from "common/types/attributeItem";
-import AttributePreview from "features/entities/entityPreviews/attribute/AttributePreview";
+import AttributePreview from "components/AttributePreview/AttributePreview";
 
 interface SearchResultsRendererProps {
   item: SearchResult;

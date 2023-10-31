@@ -1,5 +1,5 @@
 import { useDeleteBlock, usePatchBlockState } from "api/block.queries";
-import { ItemType } from "../../../entities/types/itemTypes";
+import { ItemType } from "../../../../common/types/itemTypes";
 import { useDeleteTerminal, usePatchTerminalState } from "api/terminal.queries";
 import { useDeleteAttribute, usePatchAttributeState } from "api/attribute.queries";
 

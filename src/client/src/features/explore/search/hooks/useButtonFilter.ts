@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { MimirorgPermission, State } from "@mimirorg/typelibrary-types";
 import { isBlockItem } from "../guards/isItemValidators";
 import { hasWriteAccess } from "../../../../hooks/useHasWriteAccess";
-import { ItemType } from "features/entities/types/itemTypes";
+import { ItemType } from "common/types/itemTypes";
 
 export interface ButtonState {
   clone: boolean;

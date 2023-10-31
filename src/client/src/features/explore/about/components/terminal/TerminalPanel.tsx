@@ -1,7 +1,7 @@
 import { TerminalItem } from "common/types/terminalItem";
 import { Flexbox, Heading, MotionBox, Text } from "@mimirorg/component-library";
 import { InfoItemButton } from "components/InfoItemButton/InfoItemButton";
-import { TerminalPreview } from "features/entities/entityPreviews/terminal/TerminalPreview";
+import { TerminalPreview } from "components/TerminalPreview/TerminalPreview";
 import { PanelPropertiesContainer } from "features/explore/about/components/common/PanelPropertiesContainer";
 import { PanelSection } from "features/explore/about/components/common/PanelSection";
 import { useTranslation } from "react-i18next";
