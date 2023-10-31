@@ -4,7 +4,7 @@ import { TerminalView } from "common/types/terminals/terminalView";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { getColorFromAspect } from "../getColorFromAspect";
 import { mapAttributeViewsToInfoItems } from "common/utils/mappers/mapAttributeLibCmToInfoItem";
-import { sortInfoItems } from "common/utils/sorters";
+import { sortInfoItems } from "./sortInfoItems";
 
 export const toTerminalItem = (terminal: TerminalView): TerminalItem => {
   const states = getOptionsFromEnum(State);

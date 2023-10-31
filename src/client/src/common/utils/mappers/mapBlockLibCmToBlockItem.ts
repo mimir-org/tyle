@@ -4,9 +4,9 @@ import { BlockView } from "common/types/blocks/blockView";
 import { State } from "common/types/common/state";
 import { getColorFromAspect } from "common/utils/getColorFromAspect";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
-import { sortInfoItems } from "../sorters";
 import { mapAttributeViewsToInfoItems } from "./mapAttributeLibCmToInfoItem";
 import { TerminalTypeReferenceView } from "common/types/blocks/terminalTypeReferenceView";
+import { sortInfoItems } from "./sortInfoItems";
 
 export const toBlockItem = (block: BlockView): BlockItem => {
   const states = getOptionsFromEnum(State);
