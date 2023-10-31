@@ -1,12 +1,9 @@
 import { Box, Flexbox, Text, Tooltip } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
-import TerminalIcon from "../../../../icons/TerminalIcon";
-import BlockIcon from "../../../../icons/BlockIcon";
-import AttributeIcon from "../../../../icons/AttributeIcon";
-import RdsIcon from "../../../../icons/RdsIcon";
-import UnitIcon from "../../../../icons/UnitIcon";
+import TerminalIcon from "../../../../../components/TerminalIcon/TerminalIcon";
+import BlockIcon from "../../../../../components/BlockIcon/BlockIcon";
+import AttributeIcon from "../../../../../components/AttributeIcon/AttributeIcon";
 import { ReactNode } from "react";
-import QuantityDatumIcon from "../../../../icons/QuantityDatumIcon";
 
 interface ApprovalCardHeaderProps {
   children?: ReactNode;
@@ -22,12 +19,6 @@ export const ApprovalCardHeader = ({ children, objectType }: ApprovalCardHeaderP
         return <BlockIcon size={1} />;
       case "Attribute":
         return <AttributeIcon size={1} />;
-      case "Rds":
-        return <RdsIcon size={1} />;
-      case "Unit":
-        return <UnitIcon size={1} />;
-      default:
-        return <QuantityDatumIcon size={1} />;
     }
   }
 

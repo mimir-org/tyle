@@ -1,7 +1,7 @@
 import styled from "styled-components/macro";
 import { useTheme } from "styled-components";
 import { Flexbox, Text } from "@mimirorg/component-library";
-import AttributeGroupIcon from "../../features/icons/AttributeIcon"; //TODO to be updated wtih correct icon
+import AttributeGroupIcon from "../AttributeIcon/AttributeIcon"; //TODO to be updated wtih correct icon
 
 interface StyledDivProps {
   small?: boolean;
