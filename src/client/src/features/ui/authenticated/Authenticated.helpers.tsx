@@ -1,7 +1,7 @@
 import { blockFormRoutes } from "components/BlockForm/BlockFormRoutes";
 import { terminalFormRoutes } from "components/TerminalForm/TerminalFormRoutes";
 import { exploreRoutes } from "components/Explore/ExploreRoutes";
-import { settingsRoutes } from "features/settings/SettingsRoutes";
+import { settingsRoutes } from "components/Settings/SettingsRoutes";
 import { AuthenticatedLayout } from "features/ui/authenticated/layout/AuthenticatedLayout";
 import { ErrorMessage } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
