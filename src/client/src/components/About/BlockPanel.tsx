@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { TerminalTable } from "./TerminalTable";
 // import { BlockPreview } from "../../../../entities/entityPreviews/block/BlockPreview";
-import { StateBadge } from "../../features/ui/badges/StateBadge";
+import { StateBadge } from "../StateBadge/StateBadge";
 
 /**
  * Component that displays information about a given block.

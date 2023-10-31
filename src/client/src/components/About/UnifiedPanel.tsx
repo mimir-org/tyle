@@ -1,7 +1,7 @@
 import { Heading, Flexbox, MotionBox, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 import { State } from "@mimirorg/typelibrary-types";
-import { StateBadge } from "../../features/ui/badges/StateBadge";
+import { StateBadge } from "../StateBadge/StateBadge";
 
 interface UnifiedPanelProps {
   name: string;

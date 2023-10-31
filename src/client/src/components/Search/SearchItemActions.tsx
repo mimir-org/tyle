@@ -8,7 +8,7 @@ import { UserItem } from "../../common/types/userItem";
 import { getCloneLink, getEditLink, useDeleteMutation, usePatchMutation } from "./SearchItemActions.helpers";
 import { ItemType } from "../../common/types/itemTypes";
 import { AlertDialog, Button, Text, toast, Tooltip } from "@mimirorg/component-library";
-import { StateBadge } from "../../features/ui/badges/StateBadge";
+import { StateBadge } from "../StateBadge/StateBadge";
 import { AxiosError } from "axios";
 import { useState } from "react";
 

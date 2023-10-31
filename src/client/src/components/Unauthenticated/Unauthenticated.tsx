@@ -1,4 +1,4 @@
-import { useUnauthenticatedRouter } from "features/ui/unauthenticated/Unauthenticated.helpers";
+import { useUnauthenticatedRouter } from "components/Unauthenticated/Unauthenticated.helpers";
 import { RouterProvider } from "react-router-dom";
 
 export const Unauthenticated = () => {

@@ -1,5 +1,5 @@
 import { State } from "@mimirorg/typelibrary-types";
-import Badge from "../../ui/badges/Badge";
+import Badge from "./Badge";
 import { Text } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
 

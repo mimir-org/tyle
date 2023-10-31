@@ -1,4 +1,4 @@
-import { Root } from "features/Root";
+import { Root } from "components/Root/Root";
 import { createRoot } from "react-dom/client";
 import "./i18n";
 

@@ -3,8 +3,8 @@ import { Envelope } from "@styled-icons/heroicons-outline";
 import { useGetFilteredCompanies } from "hooks/filter-companies/useGetFilteredCompanies";
 import { Box, Dialog, Select, Text } from "@mimirorg/component-library";
 import { useGetCompany } from "api/company.queries";
-import { ContactCard } from "features/ui/header/contact/ContactCard";
-import { UserMenuButton } from "features/ui/header/user-menu/UserMenuButton";
+import { ContactCard } from "components/Header/ContactCard";
+import { UserMenuButton } from "components/Header/UserMenuButton";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 

@@ -6,7 +6,7 @@ import { PanelPropertiesContainer } from "components/About/PanelPropertiesContai
 import { PanelSection } from "components/About/PanelSection";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { StateBadge } from "features/ui/badges/StateBadge";
+import { StateBadge } from "components/StateBadge/StateBadge";
 
 /**
  * Component that displays information about a given terminal.

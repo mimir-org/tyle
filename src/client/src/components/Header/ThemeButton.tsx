@@ -1,7 +1,7 @@
 import { Moon, Sun } from "@styled-icons/heroicons-outline";
 import { usePrefersTheme } from "@mimirorg/component-library";
-import { toggleDarkTheme } from "features/ui/header/theme-button/ThemeButton.helpers";
-import { UserMenuButton } from "features/ui/header/user-menu/UserMenuButton";
+import { toggleDarkTheme } from "components/Header/ThemeButton.helpers";
+import { UserMenuButton } from "components/Header/UserMenuButton";
 import { useTranslation } from "react-i18next";
 
 export const ThemeButton = () => {

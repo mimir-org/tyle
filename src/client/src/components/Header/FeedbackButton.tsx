@@ -1,5 +1,5 @@
 import { ArrowTopRightOnSquare } from "@styled-icons/heroicons-outline";
-import { UserMenuButton } from "features/ui/header/user-menu/UserMenuButton";
+import { UserMenuButton } from "components/Header/UserMenuButton";
 import { useTranslation } from "react-i18next";
 
 export const FeedbackButton = () => {
