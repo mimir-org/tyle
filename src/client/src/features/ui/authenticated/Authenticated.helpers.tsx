@@ -1,6 +1,6 @@
 import { blockFormRoutes } from "components/BlockForm/BlockFormRoutes";
 import { terminalFormRoutes } from "components/TerminalForm/TerminalFormRoutes";
-import { exploreRoutes } from "features/explore/ExploreRoutes";
+import { exploreRoutes } from "components/Explore/ExploreRoutes";
 import { settingsRoutes } from "features/settings/SettingsRoutes";
 import { AuthenticatedLayout } from "features/ui/authenticated/layout/AuthenticatedLayout";
 import { ErrorMessage } from "@mimirorg/component-library";
