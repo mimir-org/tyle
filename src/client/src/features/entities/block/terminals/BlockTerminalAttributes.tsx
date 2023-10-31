@@ -1,5 +1,5 @@
 import { Box, FormField } from "@mimirorg/component-library";
-import { InfoItemButton } from "features/common/info-item";
+import { InfoItemButton } from "components/InfoItemButton/InfoItemButton";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { mapAttributeViewToInfoItem } from "common/utils/mappers/mapAttributeLibCmToInfoItem";

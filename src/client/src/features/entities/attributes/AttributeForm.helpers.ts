@@ -1,9 +1,5 @@
 import { useParams } from "react-router-dom";
-import {
-  useCreateAttribute,
-  useGetAttribute,
-  useUpdateAttribute,
-} from "../../../api/attribute.queries";
+import { useCreateAttribute, useGetAttribute, useUpdateAttribute } from "../../../api/attribute.queries";
 import { FormMode } from "../types/formMode";
 import { AttributeView } from "common/types/attributes/attributeView";
 import { ValueConstraintRequest } from "common/types/attributes/valueConstraintRequest";

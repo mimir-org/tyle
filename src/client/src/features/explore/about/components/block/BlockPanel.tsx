@@ -1,6 +1,6 @@
 import { BlockItem } from "common/types/blockItem";
 import { Heading, Flexbox, MotionBox, Text } from "@mimirorg/component-library";
-import { InfoItemButton } from "features/common/info-item";
+import { InfoItemButton } from "components/InfoItemButton/InfoItemButton";
 import { PanelPropertiesContainer } from "features/explore/about/components/common/PanelPropertiesContainer";
 import { PanelSection } from "features/explore/about/components/common/PanelSection";
 import { useTranslation } from "react-i18next";

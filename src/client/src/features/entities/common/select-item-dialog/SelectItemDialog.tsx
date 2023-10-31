@@ -2,7 +2,7 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { PlusSmall } from "@styled-icons/heroicons-outline";
 import { InfoItem } from "common/types/infoItem";
 import { Button, Dialog } from "@mimirorg/component-library";
-import { InfoItemCheckbox } from "features/common/info-item";
+import { InfoItemCheckbox } from "components/InfoItemCheckbox/InfoItemCheckbox";
 import { SearchField } from "components/SearchField";
 import {
   filterInfoItem,

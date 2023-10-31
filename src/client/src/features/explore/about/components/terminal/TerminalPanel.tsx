@@ -1,6 +1,6 @@
 import { TerminalItem } from "common/types/terminalItem";
 import { Flexbox, Heading, MotionBox, Text } from "@mimirorg/component-library";
-import { InfoItemButton } from "features/common/info-item";
+import { InfoItemButton } from "components/InfoItemButton/InfoItemButton";
 import { TerminalPreview } from "features/entities/entityPreviews/terminal/TerminalPreview";
 import { PanelPropertiesContainer } from "features/explore/about/components/common/PanelPropertiesContainer";
 import { PanelSection } from "features/explore/about/components/common/PanelSection";

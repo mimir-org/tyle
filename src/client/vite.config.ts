@@ -26,9 +26,11 @@ export default defineConfig({
   resolve: {
     alias: {
       fs: require.resolve("rollup-plugin-node-builtins"),
+      api: path.resolve("src/api"),
       common: path.resolve("src/common"),
-      external: path.resolve("src/external"),
+      components: path.resolve("src/components"),
       features: path.resolve("src/features"),
+      hooks: path.resolve("src/hooks"),
       locales: path.resolve("src/locales"),
     },
   },
