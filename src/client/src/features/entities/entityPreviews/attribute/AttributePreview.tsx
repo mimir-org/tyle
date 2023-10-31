@@ -1,7 +1,5 @@
 import styled from "styled-components/macro";
 import { useTheme } from "styled-components";
-import { FormUnitHelper } from "../../units/types/FormUnitHelper";
-import UnitPreview from "../unit/UnitPreview";
 import { Flexbox, Text } from "@mimirorg/component-library";
 import AttributeIcon from "../../../icons/AttributeIcon";
 import { State } from "@mimirorg/typelibrary-types";
@@ -31,20 +29,20 @@ const StyledDiv = styled.div<StyledDivProps>`
 interface AttributePreviewProps {
   name: string;
   description: string;
-  units?: FormUnitHelper[];
-  defaultUnit?: FormUnitHelper | null;
+  //units?: FormUnitHelper[];
+  //defaultUnit?: FormUnitHelper | null;
   small?: boolean;
   state?: State;
 }
 
-export default function AttributePreview({ name, description, units, defaultUnit, small }: AttributePreviewProps) {
+export default function AttributePreview({ name, description, small }: AttributePreviewProps) {
   const theme = useTheme();
-  units && units.sort((a) => (a.unitId === defaultUnit?.unitId ? -1 : 1));
+  //units && units.sort((a) => (a.unitId === defaultUnit?.unitId ? -1 : 1));
 
   return (
     <StyledDiv small={small}>
       {small ? (
-        AttributeSmallPreview(defaultUnit?.name ?? "Attribute")
+        AttributeSmallPreview(/*defaultUnit?.name ?? */"Attribute")
       ) : (
         <>
           <Flexbox justifyContent={"space-between"}>
@@ -57,7 +55,7 @@ export default function AttributePreview({ name, description, units, defaultUnit
             </Text>
           </Flexbox>
           {!small && <Text color={theme.mimirorg.color.pure.base}>{description}</Text>}
-          {units &&
+          {/*units &&
             (small
               ? units
                   .filter((unit) => unit.unitId === defaultUnit?.unitId)
@@ -70,7 +68,7 @@ export default function AttributePreview({ name, description, units, defaultUnit
                     state={unit.state}
                     stateBadge
                   />
-                )))}
+              )))*/}
         </>
       )}
     </StyledDiv>

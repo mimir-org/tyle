@@ -1,7 +1,5 @@
 import styled from "styled-components/macro";
 import { useTheme } from "styled-components";
-import { FormUnitHelper } from "../../units/types/FormUnitHelper";
-import UnitPreview from "../unit/UnitPreview";
 import { Flexbox, Text } from "@mimirorg/component-library";
 import AttributeGroupIcon from "../../../icons/AttributeIcon"; //TODO to be updated wtih correct icon
 
@@ -30,25 +28,25 @@ const StyledDiv = styled.div<StyledDivProps>`
 interface AttributeGroupPreviewProps {
   name: string;
   description: string;
-  units?: FormUnitHelper[];
-  defaultUnit?: FormUnitHelper | null;
+  //units?: FormUnitHelper[];
+  //defaultUnit?: FormUnitHelper | null;
   small?: boolean;
 }
 
 export default function AttributeGroupPreview({
   name,
   description,
-  units,
-  defaultUnit,
+  //units,
+  //defaultUnit,
   small,
 }: AttributeGroupPreviewProps) {
   const theme = useTheme();
-  units && units.sort((a) => (a.unitId === defaultUnit?.unitId ? -1 : 1));
+  //units && units.sort((a) => (a.unitId === defaultUnit?.unitId ? -1 : 1));
 
   return (
     <StyledDiv small={small}>
       {small ? (
-        AttributeGroupSmallPreview(defaultUnit?.name ?? "AttributeGroup")
+        AttributeGroupSmallPreview(/*defaultUnit?.name ?? */"AttributeGroup")
       ) : (
         <>
           <Flexbox justifyContent={"space-between"}>
@@ -61,7 +59,7 @@ export default function AttributeGroupPreview({
             </Text>
           </Flexbox>
           {!small && <Text color={theme.mimirorg.color.pure.base}>{description}</Text>}
-          {units &&
+          {/*units &&
             (small
               ? units
                   .filter((unit) => unit.unitId === defaultUnit?.unitId)
@@ -74,7 +72,7 @@ export default function AttributeGroupPreview({
                     state={unit.state}
                     stateBadge
                   />
-                )))}
+              )))*/}
         </>
       )}
     </StyledDiv>
