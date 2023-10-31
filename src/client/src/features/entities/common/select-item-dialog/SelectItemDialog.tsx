@@ -3,7 +3,7 @@ import { PlusSmall } from "@styled-icons/heroicons-outline";
 import { InfoItem } from "common/types/infoItem";
 import { Button, Dialog } from "@mimirorg/component-library";
 import { InfoItemCheckbox } from "features/common/info-item";
-import { SearchField } from "features/common/search-field";
+import { SearchField } from "components/SearchField";
 import {
   filterInfoItem,
   onSelectionChange,

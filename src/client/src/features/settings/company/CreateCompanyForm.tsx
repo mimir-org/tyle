@@ -32,7 +32,7 @@ import { useRef, useState } from "react";
 import { DocumentDuplicate, PaperClip } from "@styled-icons/heroicons-outline";
 import { isAxiosError } from "axios";
 import { useCreateCompany } from "api/company.queries";
-import { PlainLink } from "features/common/plain-link";
+import { PlainLink } from "components/PlainLink";
 import { settingsBasePath } from "../SettingsRoutes";
 
 export const CreateCompanyForm = () => {

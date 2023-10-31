@@ -17,7 +17,7 @@ import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-l
 import { useTheme } from "styled-components";
 //import { yupResolver } from "@hookform/resolvers/yup";
 //import { unitSchema } from "./unitSchema";
-import { PlainLink } from "features/common/plain-link";
+import { PlainLink } from "components/PlainLink";
 
 interface UnitFormProps {
   defaultValues?: UnitLibAm;

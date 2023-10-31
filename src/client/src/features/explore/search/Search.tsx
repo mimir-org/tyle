@@ -3,7 +3,7 @@ import { useDebounceState } from "hooks/useDebounceState";
 import { mapMimirorgUserCmToUserItem } from "common/utils/mappers/mapMimirorgUserCmToUserItem";
 import { Flexbox, MotionFlexbox, MotionText, Token } from "@mimirorg/component-library";
 import { useGetCurrentUser } from "api/user.queries";
-import { SearchField } from "features/common/search-field";
+import { SearchField } from "components/SearchField";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
 import { FilterMenu } from "features/explore/search/components/filter/FilterMenu";

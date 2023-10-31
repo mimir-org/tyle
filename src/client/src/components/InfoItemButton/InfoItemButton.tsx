@@ -1,5 +1,5 @@
 import { Popover, TokenButton, TokenButtonProps } from "@mimirorg/component-library";
-import { InfoItemDescription, InfoItemDescriptionProps } from "features/common/info-item/InfoItemDescription";
+import { InfoItemDescription, InfoItemDescriptionProps } from "components/InfoItemDescription/InfoItemDescription";
 import { ForwardedRef, forwardRef, useState } from "react";
 
 export type InfoItemButtonProps = TokenButtonProps & InfoItemDescriptionProps;

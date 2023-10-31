@@ -21,7 +21,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { FormMode } from "../types/formMode";
 import { Aspect } from "common/types/common/aspect";
-import { PlainLink } from "features/common/plain-link/PlainLink";
+import { PlainLink } from "components/PlainLink/PlainLink";
 import { FormSection } from "../common/form-section/FormSection";
 import { SelectItemDialog } from "../common/select-item-dialog/SelectItemDialog";
 import { XCircle } from "@styled-icons/heroicons-outline";

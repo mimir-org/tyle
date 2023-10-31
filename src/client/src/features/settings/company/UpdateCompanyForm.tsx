@@ -36,7 +36,7 @@ import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Option } from "common/utils/getOptionsFromEnum";
 import { RadioFilters } from "../common/radio-filters/RadioFilters";
 import { useUpdateCompany } from "api/company.queries";
-import { PlainLink } from "features/common/plain-link";
+import { PlainLink } from "components/PlainLink";
 import { settingsBasePath } from "../SettingsRoutes";
 
 export const UpdateCompanyForm = () => {

@@ -1,7 +1,7 @@
 import { DevTool } from "@hookform/devtools";
 import { useServerValidation } from "hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
-import { Loader } from "features/common/loader";
+import { Loader } from "components/Loader";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
 import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
@@ -21,7 +21,7 @@ import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-l
 import { useTheme } from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { attributeSchema } from "./attributeSchema";
-import { PlainLink } from "features/common/plain-link";
+import { PlainLink } from "components/PlainLink";
 import { AttributeView } from "common/types/attributes/attributeView";
 import { ValueConstraintForm } from "./ValueConstraintForm";
 import { AttributeFormUnits } from "./AttributeFormUnits";

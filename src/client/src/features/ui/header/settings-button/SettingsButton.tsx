@@ -1,6 +1,6 @@
 import { PopoverClose } from "@radix-ui/react-popover";
 import { Cog } from "@styled-icons/heroicons-outline";
-import { PlainLink } from "features/common/plain-link";
+import { PlainLink } from "components/PlainLink";
 import { settingsBasePath } from "features/settings/SettingsRoutes";
 import { UserMenuButton } from "features/ui/header/user-menu/UserMenuButton";
 import { useTranslation } from "react-i18next";

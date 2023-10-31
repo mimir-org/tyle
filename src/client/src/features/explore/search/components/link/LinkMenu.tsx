@@ -1,7 +1,7 @@
 import { ArrowSmallRight } from "@styled-icons/heroicons-outline";
 import { Link } from "common/types/link";
 import { Box, Button, Popover } from "@mimirorg/component-library";
-import { PlainLink } from "features/common/plain-link";
+import { PlainLink } from "components/PlainLink";
 import { useTheme } from "styled-components";
 
 interface LinkMenuProps {

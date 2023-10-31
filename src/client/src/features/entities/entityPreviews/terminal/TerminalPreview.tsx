@@ -1,5 +1,5 @@
 import { Text, TextTypes } from "@mimirorg/component-library";
-import { TerminalButton } from "features/common/terminal/TerminalButton";
+import { TerminalButton } from "components/Terminal/TerminalButton";
 import {
   TerminalPreviewContainer,
   TerminalPreviewVariant,

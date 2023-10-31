@@ -7,7 +7,7 @@ import {
   Textarea,
   Text,
 } from "@mimirorg/component-library";
-import { PlainLink } from "features/common/plain-link";
+import { PlainLink } from "components/PlainLink";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";

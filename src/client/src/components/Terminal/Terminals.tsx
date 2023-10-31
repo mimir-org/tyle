@@ -1,8 +1,8 @@
 import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { Box } from "@mimirorg/component-library";
-import { TerminalButtonProps } from "features/common/terminal/TerminalButton";
-import { TerminalCollection } from "features/common/terminal/TerminalCollection";
-import { TerminalSingle } from "features/common/terminal/TerminalSingle";
+import { TerminalButtonProps } from "components/Terminal/TerminalButton";
+import { TerminalCollection } from "components/Terminal/TerminalCollection";
+import { TerminalSingle } from "components/Terminal/TerminalSingle";
 import { useTheme } from "styled-components";
 
 export type TerminalsProps = Pick<TerminalButtonProps, "variant"> & {

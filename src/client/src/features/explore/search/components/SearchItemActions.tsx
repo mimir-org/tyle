@@ -2,7 +2,7 @@ import { useTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { useButtonStateFilter } from "../hooks/useButtonFilter";
 import { State } from "@mimirorg/typelibrary-types";
-import { PlainLink } from "../../../common/plain-link";
+import { PlainLink } from "../../../../components/PlainLink";
 import { Check, DocumentDuplicate, PencilSquare, Trash } from "@styled-icons/heroicons-outline";
 import { UserItem } from "../../../../common/types/userItem";
 import { getCloneLink, getEditLink, useDeleteMutation, usePatchMutation } from "./SearchItemActions.helpers";

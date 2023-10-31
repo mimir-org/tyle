@@ -15,7 +15,7 @@ import { useUpdateUser } from "api/user.queries";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
 import { DevTool } from "@hookform/devtools";
-import { Loader } from "features/common/loader";
+import { Loader } from "components/Loader";
 import { Button, Form, FormField, Input } from "@mimirorg/component-library";
 
 interface UserSettingsFormProps {

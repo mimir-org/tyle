@@ -4,7 +4,7 @@ import { DevTool } from "@hookform/devtools";
 import { useServerValidation } from "hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { Box, FormContainer } from "@mimirorg/component-library";
-import { Loader } from "features/common/loader";
+import { Loader } from "components/Loader";
 //import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
 //import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";

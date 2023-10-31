@@ -1,6 +1,6 @@
 import { AdjustmentsHorizontal } from "@styled-icons/heroicons-outline";
 import { Accordion, Box, Button, Popover } from "@mimirorg/component-library";
-import { SearchField } from "features/common/search-field";
+import { SearchField } from "components/SearchField";
 import { filterAvailableFilters } from "features/explore/search/components/filter/FilterMenu.helpers";
 import { FilterMenuGroup, FilterMenuGroupProps } from "features/explore/search/components/filter/FilterMenuGroup";
 import { FilterGroup } from "features/explore/search/types/filterGroup";

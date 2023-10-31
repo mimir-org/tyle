@@ -1,9 +1,9 @@
 import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { Box } from "@mimirorg/component-library";
-import { Block } from "features/common/block/Block";
-import { BlockVariant } from "features/common/block/Block.styled";
+import { Block } from "components/Block/Block";
+import { BlockVariant } from "components/Block/Block.styled";
 import { meetsInputCriteria, meetsOutputCriteria } from "features/entities/entityPreviews/block/BlockPreview.helpers";
-import { TerminalButtonVariant, Terminals } from "features/common/terminal";
+import { TerminalButtonVariant, Terminals } from "components/Terminal";
 
 export interface BlockPreviewProps {
   name: string;

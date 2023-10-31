@@ -1,6 +1,6 @@
 import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { Flexbox, Td } from "@mimirorg/component-library";
-import { TerminalButton } from "features/common/terminal/TerminalButton";
+import { TerminalButton } from "components/Terminal/TerminalButton";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 

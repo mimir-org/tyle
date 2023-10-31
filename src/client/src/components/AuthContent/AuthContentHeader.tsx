@@ -1,5 +1,5 @@
 import { Box, Heading, MotionFlexbox, Text } from "@mimirorg/component-library";
-import { MotionLogo } from "features/common/logo/Logo";
+import { MotionLogo } from "components/Logo/Logo";
 import { useTheme } from "styled-components";
 
 export interface AuthContentHeaderProps {

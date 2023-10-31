@@ -1,9 +1,9 @@
 import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { Flexbox, Text, Tooltip } from "@mimirorg/component-library";
-import { TerminalButton, TerminalButtonProps } from "features/common/terminal/TerminalButton";
+import { TerminalButton, TerminalButtonProps } from "components/Terminal/TerminalButton";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "../../../common/utils/blockTerminalQuantityRestrictions";
+import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "../../common/utils/blockTerminalQuantityRestrictions";
 
 /**
  * Component which shows a single terminal for a given block in addition to its name and amount in a tooltip.
