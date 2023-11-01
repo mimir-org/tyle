@@ -1,1 +1,2 @@
-export { Recover } from "components/Recover/Recover";
+export * from "./Recover";
+export { default } from "./Recover";

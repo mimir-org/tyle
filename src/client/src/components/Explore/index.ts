@@ -1,1 +1,2 @@
-export { Explore } from "components/Explore/Explore";
+export * from "./Explore";
+export { default } from "./Explore";

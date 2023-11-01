@@ -8,7 +8,7 @@ type CompletionProps = Partial<Actionable> & {
   complete?: Partial<Actionable>;
 };
 
-export const Completion = ({ title, infoText, complete }: CompletionProps) => {
+const Completion = ({ title, infoText, complete }: CompletionProps) => {
   const theme = useTheme();
 
   return (
@@ -30,3 +30,5 @@ export const Completion = ({ title, infoText, complete }: CompletionProps) => {
     />
   );
 };
+
+export default Completion;

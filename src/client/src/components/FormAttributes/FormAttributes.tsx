@@ -27,7 +27,7 @@ import { BlockFormFields } from "components/BlockForm/BlockForm.helpers";
  * @param limitedAttributes attributes that cannot be removed, even if removing attributes is allowed
  * @constructor
  */
-export const FormAttributes = () => {
+const FormAttributes = () => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
@@ -125,3 +125,5 @@ export const FormAttributes = () => {
     </FormSection>
   );
 };
+
+export default FormAttributes;

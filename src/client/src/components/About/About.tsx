@@ -28,7 +28,7 @@ interface AboutProps {
  * @param selected the currently selected item
  * @constructor
  */
-export const About = ({ selected }: AboutProps) => {
+const About = ({ selected }: AboutProps) => {
   const { t } = useTranslation("explore");
   const { t: typeName } = useTranslation("entities");
 
@@ -94,3 +94,5 @@ export const About = ({ selected }: AboutProps) => {
     </ExploreSection>
   );
 };
+
+export default About;

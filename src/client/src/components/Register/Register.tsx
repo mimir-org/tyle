@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 export type RegisterSteps = "DETAILS" | "VERIFY" | "MFA" | "COMPLETE";
 
-export const Register = () => {
+const Register = () => {
   const { t } = useTranslation("auth");
   const [stage, setStage] = useState<RegisterSteps>("DETAILS");
   const [email, setEmail] = useState("");
@@ -78,3 +78,5 @@ export const Register = () => {
     </>
   );
 };
+
+export default Register;

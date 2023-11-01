@@ -29,7 +29,7 @@ interface AttributeFormProps {
   mode?: FormMode;
 }
 
-export const AttributeForm = ({ defaultValues = defaultAttributeFormFields, mode }: AttributeFormProps) => {
+const AttributeForm = ({ defaultValues = defaultAttributeFormFields, mode }: AttributeFormProps) => {
   const { t } = useTranslation("entities");
   const theme = useTheme();
 
@@ -84,3 +84,5 @@ export const AttributeForm = ({ defaultValues = defaultAttributeFormFields, mode
     </FormProvider>
   );
 };
+
+export default AttributeForm;

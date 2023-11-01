@@ -14,7 +14,7 @@ interface MultiFactorAuthenticationProps {
   complete?: Partial<Actionable>;
 }
 
-export const MultiFactorAuthentication = (props: MultiFactorAuthenticationProps) => {
+const MultiFactorAuthentication = (props: MultiFactorAuthenticationProps) => {
   const theme = useTheme();
   const { title, infoText } = props;
   const { codeTitle, manualCodeTitle, manualCodeDescription } = props;
@@ -66,3 +66,5 @@ export const MultiFactorAuthentication = (props: MultiFactorAuthenticationProps)
     />
   );
 };
+
+export default MultiFactorAuthentication;

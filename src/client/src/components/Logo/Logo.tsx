@@ -1,5 +1,5 @@
 import { Icon, IconProps, usePrefersTheme } from "@mimirorg/component-library";
-import { TyleLogoDarkRedIcon, TyleLogoWhiteIcon } from "components/Logo/assets";
+import { TyleLogoDarkRedIcon, TyleLogoWhiteIcon } from "components/Logo/logos";
 import { motion } from "framer-motion";
 import { ForwardedRef, forwardRef } from "react";
 
@@ -14,7 +14,7 @@ type LogoProps = Omit<IconProps, "src"> & {
  * @param delegated receives all props available to Icon components (IconProps)
  * @constructor
  */
-export const Logo = forwardRef((props: LogoProps, ref: ForwardedRef<HTMLImageElement>) => {
+const Logo = forwardRef((props: LogoProps, ref: ForwardedRef<HTMLImageElement>) => {
   let [theme] = usePrefersTheme("tyleLight");
   const { inverse, ...delegated } = props;
 
@@ -27,6 +27,8 @@ export const Logo = forwardRef((props: LogoProps, ref: ForwardedRef<HTMLImageEle
     <Icon ref={ref} src={TyleLogoWhiteIcon} {...delegated} />
   );
 });
+
+export default Logo;
 
 Logo.displayName = "Logo";
 

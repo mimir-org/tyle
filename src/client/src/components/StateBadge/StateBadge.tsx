@@ -17,7 +17,7 @@ function getStateString(state: State | string) {
  * @constructor
  */
 
-export const StateBadge = ({ state }: StateBadgeProps) => {
+const StateBadge = ({ state }: StateBadgeProps) => {
   const { t } = useTranslation("explore");
   const stateString = getStateString(state);
 
@@ -48,3 +48,5 @@ export const StateBadge = ({ state }: StateBadgeProps) => {
       );
   }
 };
+
+export default StateBadge;

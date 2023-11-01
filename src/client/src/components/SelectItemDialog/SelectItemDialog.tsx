@@ -31,7 +31,7 @@ interface SelectItemDialogProps {
  * @param onAdd actions to take when user pressed the add button
  * @constructor
  */
-export const SelectItemDialog = ({
+const SelectItemDialog = ({
   title,
   description,
   searchFieldText,
@@ -88,3 +88,5 @@ export const SelectItemDialog = ({
     </Dialog>
   );
 };
+
+export default SelectItemDialog;

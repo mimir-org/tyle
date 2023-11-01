@@ -1,1 +1,2 @@
-export { SearchField } from "components/SearchField/SearchField";
+export * from "./SearchField";
+export { default } from "./SearchField";

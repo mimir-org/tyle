@@ -37,7 +37,7 @@ import { Option } from "common/utils/getOptionsFromEnum";
 import { RadioFilters } from "../RadioFilters/RadioFilters";
 import { useUpdateCompany } from "api/company.queries";
 import { PlainLink } from "components/PlainLink";
-import { settingsBasePath } from "../Settings/SettingsRoutes";
+import { settingsBasePath } from "../SettingsLayout/SettingsRoutes";
 
 export const UpdateCompanyForm = () => {
   const companies = useGetFilteredCompanies(MimirorgPermission.Manage);

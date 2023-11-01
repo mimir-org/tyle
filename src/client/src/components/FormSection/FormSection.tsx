@@ -18,7 +18,7 @@ interface FormSectionProps {
  * @param error error message for section that appears below title and action button
  * @constructor
  */
-export const FormSection = ({ title, action, children, error }: FormSectionProps) => {
+const FormSection = ({ title, action, children, error }: FormSectionProps) => {
   const theme = useTheme();
 
   return (
@@ -53,3 +53,5 @@ export const FormSection = ({ title, action, children, error }: FormSectionProps
     </MotionBox>
   );
 };
+
+export default FormSection;

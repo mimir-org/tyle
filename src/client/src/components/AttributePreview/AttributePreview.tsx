@@ -35,7 +35,7 @@ interface AttributePreviewProps {
   state?: State;
 }
 
-export default function AttributePreview({ name, description, small }: AttributePreviewProps) {
+const AttributePreview = ({ name, description, small }: AttributePreviewProps) => {
   const theme = useTheme();
   //units && units.sort((a) => (a.unitId === defaultUnit?.unitId ? -1 : 1));
 
@@ -74,6 +74,8 @@ export default function AttributePreview({ name, description, small }: Attribute
     </StyledDiv>
   );
 }
+
+export default AttributePreview;
 
 const AttributeSmallPreview = (defaultAttributeSymbol: string) => {
   const theme = useTheme();

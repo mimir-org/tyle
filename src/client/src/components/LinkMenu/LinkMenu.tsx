@@ -54,3 +54,5 @@ export const LinkMenu = ({ name, links, justifyContent, disabled }: LinkMenuProp
     </Popover>
   );
 };
+
+export default LinkMenu;

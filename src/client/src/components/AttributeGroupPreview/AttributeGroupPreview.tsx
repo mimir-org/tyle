@@ -33,13 +33,13 @@ interface AttributeGroupPreviewProps {
   small?: boolean;
 }
 
-export default function AttributeGroupPreview({
+const AttributeGroupPreview = ({
   name,
   description,
   //units,
   //defaultUnit,
   small,
-}: AttributeGroupPreviewProps) {
+}: AttributeGroupPreviewProps) => {
   const theme = useTheme();
   //units && units.sort((a) => (a.unitId === defaultUnit?.unitId ? -1 : 1));
 
@@ -78,6 +78,8 @@ export default function AttributeGroupPreview({
     </StyledDiv>
   );
 }
+
+export default AttributeGroupPreview;
 
 const AttributeGroupSmallPreview = (defaultAttributeGroupSymbol: string) => {
   const theme = useTheme();

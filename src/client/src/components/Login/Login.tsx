@@ -21,7 +21,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "styled-components";
 
-export const Login = () => {
+const Login = () => {
   const theme = useTheme();
   const { t } = useTranslation("auth");
   const navigate = useNavigate();
@@ -91,3 +91,5 @@ export const Login = () => {
     />
   );
 };
+
+export default Login;

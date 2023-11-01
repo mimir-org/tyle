@@ -45,7 +45,7 @@ interface BlockFormProps {
   mode?: FormMode;
 }
 
-export const BlockForm = ({ defaultValues = createDefaultBlockFormFields(), mode }: BlockFormProps) => {
+const BlockForm = ({ defaultValues = createDefaultBlockFormFields(), mode }: BlockFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
@@ -101,3 +101,5 @@ export const BlockForm = ({ defaultValues = createDefaultBlockFormFields(), mode
     </FormProvider>
   );
 };
+
+export default BlockForm;

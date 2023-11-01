@@ -7,7 +7,7 @@ import { SettingsSection } from "components/SettingsSection/SettingsSection";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 
-export const Access = () => {
+const Access = () => {
   const theme = useTheme();
   const { t } = useTranslation("settings");
   const pendingUsersQuery = useGetPendingUsers();
@@ -29,3 +29,5 @@ export const Access = () => {
     </SettingsSection>
   );
 };
+
+export default Access;

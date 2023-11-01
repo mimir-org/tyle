@@ -8,7 +8,7 @@ export type CompanyProps = {
   update?: boolean;
 };
 
-export const Company = ({ update }: CompanyProps) => {
+const Company = ({ update }: CompanyProps) => {
   const { t } = useTranslation("settings");
 
   return (
@@ -19,3 +19,5 @@ export const Company = ({ update }: CompanyProps) => {
     </Box>
   );
 };
+
+export default Company;

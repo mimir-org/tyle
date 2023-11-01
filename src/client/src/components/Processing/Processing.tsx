@@ -5,7 +5,7 @@ interface RegisterProcessingProps {
   children?: string;
 }
 
-export const Processing = ({ children }: RegisterProcessingProps) => {
+const Processing = ({ children }: RegisterProcessingProps) => {
   const theme = useTheme();
 
   return (
@@ -21,3 +21,5 @@ export const Processing = ({ children }: RegisterProcessingProps) => {
     </Flexbox>
   );
 };
+
+export default Processing;

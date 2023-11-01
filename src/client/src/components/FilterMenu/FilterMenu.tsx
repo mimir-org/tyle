@@ -20,7 +20,7 @@ export type FilterMenuProps = Omit<FilterMenuGroupProps, "name" | "filters"> & {
  * @param delegated receives props for FilterGroup
  * @constructor
  */
-export const FilterMenu = ({ name, filterGroups, ...delegated }: FilterMenuProps) => {
+const FilterMenu = ({ name, filterGroups, ...delegated }: FilterMenuProps) => {
   const theme = useTheme();
   const [filterQuery, setFilterQuery] = useState("");
 
@@ -51,3 +51,5 @@ export const FilterMenu = ({ name, filterGroups, ...delegated }: FilterMenuProps
     </Popover>
   );
 };
+
+export default FilterMenu;

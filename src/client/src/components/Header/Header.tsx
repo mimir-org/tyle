@@ -15,7 +15,7 @@ import { UserMenu } from "components/Header/UserMenu";
 import { useTheme } from "styled-components";
 import config from "../../common/utils/config";
 
-export const Header = () => {
+const Header = () => {
   const theme = useTheme();
   const userQuery = useGetCurrentUser();
 
@@ -49,3 +49,5 @@ export const Header = () => {
     </HeaderContainer>
   );
 };
+
+export default Header;

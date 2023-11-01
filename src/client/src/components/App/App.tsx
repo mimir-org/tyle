@@ -4,7 +4,7 @@ import { Authenticated } from "../Authenticated/Authenticated";
 import { Unauthenticated } from "../Unauthenticated/Unauthenticated";
 import { useTranslation } from "react-i18next";
 
-export const App = () => {
+const App = () => {
   const { t } = useTranslation("ui");
   const { data: user, isSuccess, isLoading } = useGetCurrentUser();
   const isLoggedIn = isSuccess && user;
@@ -15,3 +15,5 @@ export const App = () => {
 
   return isLoggedIn ? <Authenticated /> : <Unauthenticated />;
 };
+
+export default App;

@@ -6,7 +6,7 @@ import { queryClient } from "api/clients/queryClient";
 import { App } from "../App/App";
 import { StrictMode } from "react";
 
-export const Root = () => (
+const Root = () => (
   <QueryClientProvider client={queryClient}>
     <MimirorgThemeProvider theme={"tyleLight"}>
       <StrictMode>
@@ -16,3 +16,5 @@ export const Root = () => (
     {!isProduction && <ReactQueryDevtools />}
   </QueryClientProvider>
 );
+
+export default Root;

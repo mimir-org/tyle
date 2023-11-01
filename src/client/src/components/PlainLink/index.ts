@@ -1,1 +1,2 @@
-export { PlainLink } from "components/PlainLink/PlainLink";
+export * from "./PlainLink";
+export { default } from "./PlainLink";

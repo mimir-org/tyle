@@ -26,7 +26,7 @@ interface AttributeGroupFormProps {
   mode?: FormMode;
 }
 
-export const AttributeGroupForm = ({
+const AttributeGroupForm = ({
   defaultValues = createEmptyFormAttributeGroupLib(),
   mode,
 }: AttributeGroupFormProps) => {
@@ -80,3 +80,5 @@ export const AttributeGroupForm = ({
     </FormProvider>
   );
 };
+
+export default AttributeGroupForm;

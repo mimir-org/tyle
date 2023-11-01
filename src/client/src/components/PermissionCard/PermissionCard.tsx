@@ -21,7 +21,7 @@ export type AccessCardProps = PermissionCardFormProps & {
  * @see PermissionCardFormProps
  * @constructor
  */
-export const PermissionCard = ({ user, selected, ...delegated }: AccessCardProps) => {
+const PermissionCard = ({ user, selected, ...delegated }: AccessCardProps) => {
   const theme = useTheme();
   const cardRef = useRef(null);
   const userDescriptors = useUserDescriptors(user);
@@ -42,3 +42,5 @@ export const PermissionCard = ({ user, selected, ...delegated }: AccessCardProps
     </MotionPermissionCardContainer>
   );
 };
+
+export default PermissionCard;

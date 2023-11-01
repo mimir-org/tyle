@@ -1,7 +1,7 @@
 import { LinkGroup } from "common/types/linkGroup";
 import { Divider, Flexbox, Heading } from "@mimirorg/component-library";
 import { useGetPendingUsers } from "api/company.queries";
-import { SidebarContainer, SidebarLink } from "components/Settings/Sidebar.styled";
+import { SidebarContainer, SidebarLink } from "components/SettingsLayout/Sidebar.styled";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";

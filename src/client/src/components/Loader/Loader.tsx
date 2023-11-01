@@ -6,7 +6,7 @@ import { useTheme } from "styled-components";
  *
  * @constructor
  */
-export const Loader = () => {
+const Loader = () => {
   const theme = useTheme();
 
   return (
@@ -15,3 +15,5 @@ export const Loader = () => {
     </MotionFlexbox>
   );
 };
+
+export default Loader;

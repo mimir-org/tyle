@@ -9,7 +9,7 @@ import { useGetTerminalsByState } from "api/terminal.queries";
 import { useGetAttributesByState } from "api/attribute.queries";
 import { useGetBlocksByState } from "api/block.queries";
 
-export const Approval = () => {
+const Approval = () => {
   const theme = useTheme();
   const { t } = useTranslation("settings");
   const attributesInReview = useGetAttributesByState(State.Review);
@@ -37,3 +37,5 @@ export const Approval = () => {
     </SettingsSection>
   );
 };
+
+export default Approval;

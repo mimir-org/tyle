@@ -36,7 +36,7 @@ interface SearchProps {
  * @param pageLimit how many items to show per "page" (defaults to 20)
  * @constructor
  */
-export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
+const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
   const theme = useTheme();
   const { t } = useTranslation("explore");
   const createMenuLinks = useCreateMenuLinks();
@@ -139,3 +139,5 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
     </ExploreSection>
   );
 };
+
+export default Search;

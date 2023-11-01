@@ -35,7 +35,7 @@ export interface FormAttributeGroupsProps {
  * @param limitedAttributeGroups attributeGroups that cannot be removed, even if removing attributeGroups is allowed
  * @constructor
  */
-export const FormAttributeGroups = ({ append, canAddAttributeGroups = true }: FormAttributeGroupsProps) => {
+const FormAttributeGroups = ({ append, canAddAttributeGroups = true }: FormAttributeGroupsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
@@ -88,3 +88,5 @@ export const FormAttributeGroups = ({ append, canAddAttributeGroups = true }: Fo
     </FormSection>
   );
 };
+
+export default FormAttributeGroups;

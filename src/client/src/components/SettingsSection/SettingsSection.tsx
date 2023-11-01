@@ -14,7 +14,7 @@ interface SettingsSectionProps {
  * @param children elements which are wrapped by this layout component
  * @constructor
  */
-export const SettingsSection = ({ title, children }: SettingsSectionProps) => {
+const SettingsSection = ({ title, children }: SettingsSectionProps) => {
   const theme = useTheme();
 
   return (
@@ -26,3 +26,5 @@ export const SettingsSection = ({ title, children }: SettingsSectionProps) => {
     </MotionBox>
   );
 };
+
+export default SettingsSection;

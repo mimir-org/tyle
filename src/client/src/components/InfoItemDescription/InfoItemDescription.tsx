@@ -16,7 +16,7 @@ export type InfoItemDescriptionProps = Omit<InfoItem, "id"> & Partial<Actionable
  * @param onAction called when clicking action button
  * @constructor
  */
-export const InfoItemDescription = ({
+const InfoItemDescription = ({
   name,
   descriptors,
   actionable,
@@ -67,3 +67,5 @@ export const InfoItemDescription = ({
     </Box>
   );
 };
+
+export default InfoItemDescription;

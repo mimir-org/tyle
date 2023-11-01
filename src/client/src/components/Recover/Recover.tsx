@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 export type RecoverySteps = "DETAILS" | "VERIFY" | "PASSWORD" | "MFA" | "COMPLETE";
 
-export const Recover = () => {
+const Recover = () => {
   const { t } = useTranslation("auth");
   const [stage, setStage] = useState<RecoverySteps>("DETAILS");
   const [email, setEmail] = useState("");
@@ -96,3 +96,5 @@ export const Recover = () => {
     </>
   );
 };
+
+export default Recover;

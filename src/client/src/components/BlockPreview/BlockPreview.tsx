@@ -24,7 +24,7 @@ export interface BlockPreviewProps {
  * @param variant
  * @constructor
  */
-export const BlockPreview = ({ name, color, img, terminals, variant = "small" }: BlockPreviewProps) => {
+const BlockPreview = ({ name, color, img, terminals, variant = "small" }: BlockPreviewProps) => {
   const inputSideTerminals = terminals.filter((t) => meetsInputCriteria(t.direction));
   const outputSideTerminals = terminals.filter((t) => meetsOutputCriteria(t.direction));
   const variantSpecs = BlockPreviewVariantSpec[variant];
@@ -45,6 +45,8 @@ export const BlockPreview = ({ name, color, img, terminals, variant = "small" }:
     </Box>
   );
 };
+
+export default BlockPreview;
 
 const BlockPreviewVariantSpec = {
   small: {

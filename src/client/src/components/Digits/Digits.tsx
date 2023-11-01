@@ -15,7 +15,7 @@ interface DigitsProps {
  * @param onChange called when field changes
  * @constructor
  */
-export const Digits = ({ length = 6, value = "", onChange }: DigitsProps) => {
+const Digits = ({ length = 6, value = "", onChange }: DigitsProps) => {
   const digits = useDigitInput({
     acceptedCharacters: /^[0-9]$/,
     length: length,
@@ -31,3 +31,5 @@ export const Digits = ({ length = 6, value = "", onChange }: DigitsProps) => {
     </DigitsInputContainer>
   );
 };
+
+export default Digits;

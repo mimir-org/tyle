@@ -4,7 +4,7 @@ import { ExploreContainer } from "components/Explore/Explore.styled";
 import { Search } from "components/Search/Search";
 import { useState } from "react";
 
-export const Explore = () => {
+const Explore = () => {
   const [selected, setSelected] = useState<SelectedInfo>({ id: undefined });
 
   return (
@@ -14,3 +14,5 @@ export const Explore = () => {
     </ExploreContainer>
   );
 };
+
+export default Explore;

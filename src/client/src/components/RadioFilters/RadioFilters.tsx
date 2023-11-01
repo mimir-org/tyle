@@ -19,7 +19,7 @@ interface RadioFiltersProps {
  * @param value allows for controlled-mode of the input
  * @constructor
  */
-export const RadioFilters = ({ title, filters, onChange, value }: RadioFiltersProps) => {
+const RadioFilters = ({ title, filters, onChange, value }: RadioFiltersProps) => {
   const theme = useTheme();
   const inputIsControlled = !!value;
 
@@ -48,3 +48,5 @@ export const RadioFilters = ({ title, filters, onChange, value }: RadioFiltersPr
     </Flexbox>
   );
 };
+
+export default RadioFilters;

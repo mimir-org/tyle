@@ -33,7 +33,7 @@ import { DocumentDuplicate, PaperClip } from "@styled-icons/heroicons-outline";
 import { isAxiosError } from "axios";
 import { useCreateCompany } from "api/company.queries";
 import { PlainLink } from "components/PlainLink";
-import { settingsBasePath } from "../Settings/SettingsRoutes";
+import { settingsBasePath } from "../SettingsLayout/SettingsRoutes";
 
 export const CreateCompanyForm = () => {
   const [secret, _] = useState<string>(createSecret(50));

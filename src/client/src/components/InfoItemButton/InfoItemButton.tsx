@@ -17,7 +17,7 @@ export type InfoItemButtonProps = TokenButtonProps & InfoItemDescriptionProps;
  * @param delegated receives all properties which AttributeButtonProps define
  * @constructor
  */
-export const InfoItemButton = forwardRef((props: InfoItemButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
+const InfoItemButton = forwardRef((props: InfoItemButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
   const { name, descriptors, actionable, actionIcon, actionText, onAction } = props;
   const [isSelected, setIsSelected] = useState(false);
 
@@ -44,3 +44,5 @@ export const InfoItemButton = forwardRef((props: InfoItemButtonProps, ref: Forwa
 });
 
 InfoItemButton.displayName = "AttributeInfoButton";
+
+export default InfoItemButton;

@@ -1,1 +1,2 @@
-export { Login } from "components/Login/Login";
+export * from "./Login";
+export { default } from "./Login";

@@ -28,7 +28,7 @@ interface TerminalFormProps {
   mode?: FormMode;
 }
 
-export const TerminalForm = ({ defaultValues = createDefaultTerminalFormFields(), mode }: TerminalFormProps) => {
+const TerminalForm = ({ defaultValues = createDefaultTerminalFormFields(), mode }: TerminalFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
@@ -75,3 +75,5 @@ export const TerminalForm = ({ defaultValues = createDefaultTerminalFormFields()
     </FormProvider>
   );
 };
+
+export default TerminalForm;

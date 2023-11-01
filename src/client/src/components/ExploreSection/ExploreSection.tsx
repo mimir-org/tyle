@@ -14,7 +14,7 @@ interface ExploreSectionProps {
  * @param children elements which are wrapped by this layout component
  * @constructor
  */
-export const ExploreSection = ({ title, children }: ExploreSectionProps) => {
+const ExploreSection = ({ title, children }: ExploreSectionProps) => {
   const theme = useTheme();
 
   return (
@@ -26,3 +26,5 @@ export const ExploreSection = ({ title, children }: ExploreSectionProps) => {
     </Box>
   );
 };
+
+export default ExploreSection;

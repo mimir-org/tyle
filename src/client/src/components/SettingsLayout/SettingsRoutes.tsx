@@ -1,6 +1,6 @@
 import { accessRoutes } from "components/Access/AccessRoutes";
 import { approvalRoutes } from "components/Approval/ApprovalRoutes";
-import { SettingsLayout } from "components/Settings/SettingsLayout";
+import { SettingsLayout } from "components/SettingsLayout/SettingsLayout";
 import { permissionsRoutes } from "components/Permissions/PermissionsRoutes";
 import { Navigate, RouteObject } from "react-router-dom";
 import { companyRoutes } from "components/Company/CompanyRoutes";

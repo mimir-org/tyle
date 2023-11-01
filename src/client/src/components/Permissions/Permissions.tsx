@@ -15,7 +15,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 
-export const Permissions = () => {
+const Permissions = () => {
   const theme = useTheme();
   const { t } = useTranslation("settings");
 
@@ -57,3 +57,5 @@ export const Permissions = () => {
     </SettingsSection>
   );
 };
+
+export default Permissions;

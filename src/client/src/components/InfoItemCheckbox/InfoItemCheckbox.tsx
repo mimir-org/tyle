@@ -13,8 +13,10 @@ type InfoItemCheckboxProps = TokenCheckboxProps & Omit<InfoItem, "id">;
  * @param delegated
  * @constructor
  */
-export const InfoItemCheckbox = ({ name, descriptors, ...delegated }: InfoItemCheckboxProps) => (
+const InfoItemCheckbox = ({ name, descriptors, ...delegated }: InfoItemCheckboxProps) => (
   <Tooltip content={<InfoItemDescription name={name} descriptors={descriptors} />}>
     <TokenCheckbox {...delegated}>{name}</TokenCheckbox>
   </Tooltip>
 );
+
+export default InfoItemCheckbox;

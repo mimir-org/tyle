@@ -13,7 +13,7 @@ export type AuthContentProps = AuthContentHeaderProps & {
  * @param props
  * @constructor
  */
-export const AuthContent = (props: AuthContentProps) => {
+const AuthContent = (props: AuthContentProps) => {
   const { title, subtitle, firstRow, secondRow } = props;
   const showHeader = title || subtitle;
 
@@ -25,3 +25,5 @@ export const AuthContent = (props: AuthContentProps) => {
     </AuthContentContainer>
   );
 };
+
+export default AuthContent;

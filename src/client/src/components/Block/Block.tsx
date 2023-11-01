@@ -16,7 +16,7 @@ export type BlockProps = BlockContainerProps & {
  * @param variant
  * @constructor
  */
-export const Block = ({ name, img, color, variant = "small" }: BlockProps) => {
+const Block = ({ name, img, color, variant = "small" }: BlockProps) => {
   const theme = useTheme();
   const variantSpecs = BlockVariantSpecs[variant];
 
@@ -29,6 +29,8 @@ export const Block = ({ name, img, color, variant = "small" }: BlockProps) => {
     </BlockContainer>
   );
 };
+
+export default Block;
 
 const BlockVariantSpecs = {
   small: {

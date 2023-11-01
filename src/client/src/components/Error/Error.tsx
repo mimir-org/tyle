@@ -13,7 +13,7 @@ interface ErrorProps {
  * @param children
  * @constructor
  */
-export const Error = ({ children }: ErrorProps) => {
+const Error = ({ children }: ErrorProps) => {
   const theme = useTheme();
   const { t } = useTranslation("auth");
 
@@ -26,3 +26,5 @@ export const Error = ({ children }: ErrorProps) => {
     </FormErrorBanner>
   );
 };
+
+export default Error;

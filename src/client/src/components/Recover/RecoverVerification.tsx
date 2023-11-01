@@ -6,7 +6,7 @@ import { useGenerateMfa } from "api/user.queries";
 import { AuthContent } from "components/AuthContent/AuthContent";
 import { Error } from "components/Error/Error";
 import { Processing } from "components/Processing/Processing";
-import { MotionVerifyForm } from "components/MotionVerifyForm/Verification";
+import { MotionVerifyForm } from "components/MotionVerifyForm/MotionVerifyForm";
 import { onSubmitForm } from "components/Recover/RecoverVerification.helpers";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";

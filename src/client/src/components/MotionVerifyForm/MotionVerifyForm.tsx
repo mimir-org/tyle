@@ -10,4 +10,6 @@ const VerifyForm = styled.form`
   gap: ${(props) => props.theme.mimirorg.spacing.xxxl};
 `;
 
-export const MotionVerifyForm = motion(VerifyForm);
+const MotionVerifyForm = motion(VerifyForm);
+
+export default MotionVerifyForm;
