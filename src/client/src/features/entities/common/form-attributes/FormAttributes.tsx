@@ -7,7 +7,7 @@ import {
 } from "features/entities/common/form-attributes/FormAttributes.helpers";
 import { FormSection } from "features/entities/common/form-section/FormSection";
 import { SelectItemDialog } from "features/entities/common/select-item-dialog/SelectItemDialog";
-import { Controller, useFieldArray, useFormContext, useWatch } from "react-hook-form";
+import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { TerminalFormFields } from "features/entities/terminal/TerminalForm.helpers";
@@ -39,7 +39,6 @@ export const FormAttributes = () => {
   const attributeQuery = useGetAttributes();
   const attributes = prepareAttributes(attributeQuery.data) ?? [];
   const [available, selected] = resolveSelectedAndAvailableAttributes(attributeFields.fields, attributes);
-  const attributeTypeRefs = useWatch({ control, name: "attributes" });
 
   return (
     <FormSection
@@ -84,7 +83,7 @@ export const FormAttributes = () => {
                         {...rest}
                         min={0}
                         onChange={(value) => {
-                          const currentMaxCount = attributeTypeRefs[index]?.maxCount;
+                          const currentMaxCount = field.maxCount;
                           if (currentMaxCount && currentMaxCount < value) {
                             setValue(`attributes.${index}.maxCount`, value);
                           }
@@ -96,11 +95,10 @@ export const FormAttributes = () => {
                 </Box>
                 <Box>
                   <Checkbox
-                    checked={!!attributeTypeRefs[index]?.maxCount}
                     onCheckedChange={(checked) => {
                       if (checked) {
-                        if (attributeTypeRefs[index]?.minCount > 0) {
-                          setValue(`attributes.${index}.maxCount`, attributeTypeRefs[index]?.minCount);
+                        if (field.minCount > 0) {
+                          setValue(`attributes.${index}.maxCount`, field.minCount);
                         } else {
                           setValue(`attributes.${index}.maxCount`, 1);
                         }
