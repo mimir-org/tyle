@@ -1,5 +1,5 @@
 import { Text } from "@mimirorg/component-library";
-import { ItemDescriptionContainer } from "components/Search/ItemDescription.styled";
+import ItemDescriptionContainer from "./ItemDescription.styled";
 
 export interface ItemDescriptionProps {
   name: string;
@@ -15,7 +15,7 @@ export interface ItemDescriptionProps {
  * @param onClick function that is triggered when clicking on the description itself
  * @constructor
  */
-export const ItemDescription = ({ name, description, onClick }: ItemDescriptionProps) => {
+const ItemDescription = ({ name, description, onClick }: ItemDescriptionProps) => {
   return (
     <ItemDescriptionContainer onClick={onClick}>
       <Text as={"span"} variant={"title-medium"} useEllipsis ellipsisMaxLines={1}>
@@ -27,3 +27,5 @@ export const ItemDescription = ({ name, description, onClick }: ItemDescriptionP
     </ItemDescriptionContainer>
   );
 };
+
+export default ItemDescription;

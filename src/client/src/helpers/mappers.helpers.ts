@@ -1,17 +1,18 @@
 import { MimirorgPermission, MimirorgUserCm } from "@mimirorg/typelibrary-types";
-import { AttributeView } from "common/types/attributes/attributeView";
-import { BlockItem } from "common/types/blockItem";
-import { BlockTerminalItem } from "common/types/blockTerminalItem";
-import { BlockView } from "common/types/blocks/blockView";
-import { TerminalTypeReferenceView } from "common/types/blocks/terminalTypeReferenceView";
-import { RdlPurpose } from "common/types/common/rdlPurpose";
-import { State } from "common/types/common/state";
-import { InfoItem } from "common/types/infoItem";
-import { TerminalItem } from "common/types/terminalItem";
-import { TerminalView } from "common/types/terminals/terminalView";
-import { UserItem } from "common/types/userItem";
-import { getColorFromAspect } from "common/utils/getColorFromAspect";
+import { AttributeItem } from "types/attributeItem";
+import { AttributeView } from "types/attributes/attributeView";
+import { BlockItem } from "types/blockItem";
+import { BlockTerminalItem } from "types/blockTerminalItem";
+import { BlockView } from "types/blocks/blockView";
+import { TerminalTypeReferenceView } from "types/blocks/terminalTypeReferenceView";
+import { RdlPurpose } from "types/common/rdlPurpose";
+import { State } from "types/common/state";
+import { InfoItem } from "types/infoItem";
+import { TerminalItem } from "types/terminalItem";
+import { TerminalView } from "types/terminals/terminalView";
+import { UserItem } from "types/userItem";
 import { Option, getOptionsFromEnum } from "utils";
+import { getColorFromAspect } from "./aspect.helper";
 
 export const purposeInfoItem = (purpose: RdlPurpose): InfoItem => ({
   id: purpose.id.toString(),
@@ -129,3 +130,19 @@ export const mapAttributeViewsToInfoItems = (attributes: AttributeView[]): InfoI
   attributes.map(mapAttributeViewToInfoItem);
 
 export const sortInfoItems = (descriptors: InfoItem[]) => [...descriptors].sort((a, b) => a.name.localeCompare(b.name));
+
+export const toAttributeItem = (attribute: AttributeView): AttributeItem => {
+  return {
+    attributeUnits: attribute.units,
+    created: attribute.createdOn,
+    createdBy: attribute.createdBy,
+    id: attribute.id,
+    name: attribute.name,
+    description: attribute.description ?? "",
+    kind: "AttributeItem",
+    state: attribute.state,
+    symbol: "",
+    unitId: "",
+    isDefault: false,
+  };
+};

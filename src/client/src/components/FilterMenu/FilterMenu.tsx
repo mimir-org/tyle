@@ -1,11 +1,11 @@
-import { AdjustmentsHorizontal } from "@styled-icons/heroicons-outline";
 import { Accordion, Box, Button, Popover } from "@mimirorg/component-library";
-import { SearchField } from "components/SearchField";
-import { filterAvailableFilters } from "components/FilterMenu/FilterMenu.helpers";
-import { FilterMenuGroup, FilterMenuGroupProps } from "components/FilterMenu/FilterMenuGroup";
-import { FilterGroup } from "common/types/filterGroup";
+import { AdjustmentsHorizontal } from "@styled-icons/heroicons-outline";
+import SearchField from "components/SearchField";
 import { useState } from "react";
 import { useTheme } from "styled-components";
+import { FilterGroup } from "types/filterGroup";
+import { filterAvailableFilters } from "./FilterMenu.helpers";
+import FilterMenuGroup, { FilterMenuGroupProps } from "./FilterMenuGroup";
 
 export type FilterMenuProps = Omit<FilterMenuGroupProps, "name" | "filters"> & {
   name: string;

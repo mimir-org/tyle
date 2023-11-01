@@ -1,8 +1,8 @@
-import { BlockTypeRequest } from "common/types/blocks/blockTypeRequest";
-import { BlockView } from "common/types/blocks/blockView";
-import { State } from "common/types/common/state";
-import { StateChangeRequest } from "common/types/common/stateChangeRequest";
 import { apiClient } from "api/clients/apiClient";
+import { BlockTypeRequest } from "types/blocks/blockTypeRequest";
+import { BlockView } from "types/blocks/blockView";
+import { State } from "types/common/state";
+import { StateChangeRequest } from "types/common/stateChangeRequest";
 
 const _basePath = "blocks";
 

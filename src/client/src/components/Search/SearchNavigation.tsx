@@ -1,5 +1,5 @@
-import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight } from "@styled-icons/heroicons-outline";
 import { Button, Flexbox } from "@mimirorg/component-library";
+import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight } from "@styled-icons/heroicons-outline";
 import { useSearchParams } from "react-router-dom";
 import { useTheme } from "styled-components";
 
@@ -27,7 +27,7 @@ const getPaginationRange = (pageNum: number, numPages: number, range: number) =>
   return { start, end };
 };
 
-export const SearchNavigation = ({ numPages }: SearchNavigationProps) => {
+const SearchNavigation = ({ numPages }: SearchNavigationProps) => {
   const theme = useTheme();
   const [searchParams, setSearchParams] = useSearchParams();
   const pageNum = Number(searchParams.get("page"));
@@ -93,3 +93,5 @@ export const SearchNavigation = ({ numPages }: SearchNavigationProps) => {
     </Flexbox>
   );
 };
+
+export default SearchNavigation;

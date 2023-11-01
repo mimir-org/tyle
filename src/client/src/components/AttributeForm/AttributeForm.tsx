@@ -1,16 +1,16 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
-import { AttributeView } from "common/types/attributes/attributeView";
+import Loader from "components/Loader";
+import PlainLink from "components/PlainLink";
 import { onSubmitForm, usePrefilledForm, useSubmissionToast } from "helpers/form.helpers";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { FormMode } from "../../common/types/formMode";
-import Loader from "../Loader";
-import PlainLink from "../PlainLink";
+import { AttributeView } from "types/attributes/attributeView";
+import { FormMode } from "types/formMode";
 import {
   AttributeFormFields,
   defaultAttributeFormFields,

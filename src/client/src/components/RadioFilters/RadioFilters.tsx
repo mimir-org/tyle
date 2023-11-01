@@ -1,6 +1,6 @@
-import { Option } from "common/utils/getOptionsFromEnum";
 import { Flexbox, Text, TokenRadioGroup, TokenRadioGroupItem } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
+import { Option } from "utils";
 
 interface RadioFiltersProps {
   title?: string;

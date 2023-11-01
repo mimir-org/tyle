@@ -1,6 +1,6 @@
-import { useGetCurrentUser } from "../api/user.queries";
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { UserItem } from "../common/types/userItem";
+import { useGetCurrentUser } from "api/user.queries";
+import { UserItem } from "types/userItem";
 
 /**
  * Returns true if the current user has write access

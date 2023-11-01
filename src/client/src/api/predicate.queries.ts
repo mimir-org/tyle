@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { RdlPredicateRequest } from "types/attributes/rdlPredicateRequest";
 import { predicateApi } from "./predicate.api";
-import { RdlPredicateRequest } from "common/types/attributes/rdlPredicateRequest";
 
 const keys = {
   allPredicates: ["predicates"] as const,

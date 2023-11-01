@@ -1,5 +1,5 @@
-import { UserItem } from "common/types/userItem";
 import { useTranslation } from "react-i18next";
+import { UserItem } from "types/userItem";
 
 export const useUserDescriptors = (user: UserItem): { [key: string]: string } => {
   const { t } = useTranslation("settings");

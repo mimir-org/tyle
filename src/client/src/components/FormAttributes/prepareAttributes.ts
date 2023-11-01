@@ -1,4 +1,4 @@
-import { AttributeView } from "common/types/attributes/attributeView";
+import { AttributeView } from "types/attributes/attributeView";
 
 export const prepareAttributes = (attributes?: AttributeView[]) => {
   if (!attributes || attributes.length === 0) return [];

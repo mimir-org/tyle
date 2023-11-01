@@ -1,27 +1,25 @@
-import { useServerValidation } from "hooks/useServerValidation";
-//import { yupResolver } from "@hookform/resolvers/yup";
-import { MimirorgUserAm, MimirorgUserCm } from "@mimirorg/typelibrary-types";
-import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-//import { userSchema } from "features/settings/usersettings/userSchema";
 import { DevTool } from "@hookform/devtools";
 import { Button, Form, FormField, Input } from "@mimirorg/component-library";
+import { MimirorgUserAm, MimirorgUserCm } from "@mimirorg/typelibrary-types";
 import { useUpdateUser } from "api/user.queries";
-import { Loader } from "components/Loader";
+import Loader from "components/Loader";
+import { onSubmitForm, usePrefilledForm } from "helpers/form.helpers";
+import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
+import { useServerValidation } from "hooks/useServerValidation";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import {
   addDummyPasswordToUserAm,
   mapMimirorgUserCmToAm,
   useUpdatingToast,
   useUserQuery,
-} from "components/UserSettings/userSettingsForm.helpers";
-import { onSubmitForm, usePrefilledForm } from "helpers/form.helpers";
-import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
+} from "./userSettingsForm.helpers";
 
 interface UserSettingsFormProps {
   defaultValues?: MimirorgUserAm;
 }
 
-export const UserSettingsForm = ({ defaultValues }: UserSettingsFormProps) => {
+const UserSettingsForm = ({ defaultValues }: UserSettingsFormProps) => {
   const { t } = useTranslation("settings");
 
   const formMethods = useForm<MimirorgUserAm>({
@@ -67,3 +65,5 @@ export const UserSettingsForm = ({ defaultValues }: UserSettingsFormProps) => {
     </Form>
   );
 };
+
+export default UserSettingsForm;

@@ -1,9 +1,9 @@
 import { Flexbox, Td } from "@mimirorg/component-library";
 import { ArrowLeft, ArrowRight, ArrowsRightLeft } from "@styled-icons/heroicons-outline";
-import { BlockTerminalItem } from "common/types/blockTerminalItem";
-import { Direction } from "common/types/terminals/direction";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { BlockTerminalItem } from "types/blockTerminalItem";
+import { Direction } from "types/terminals/direction";
 
 const TerminalTableDirection = ({ direction }: Pick<BlockTerminalItem, "direction">) => {
   const theme = useTheme();

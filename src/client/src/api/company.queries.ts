@@ -1,7 +1,7 @@
 import { MimirorgCompanyAm } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { companyApi } from "api/company.api";
-import { userKeys } from "api/user.queries";
+import { companyApi } from "./company.api";
+import { userKeys } from "./user.queries";
 
 export const companyKeys = {
   all: ["companies"] as const,

@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { RdlPurposeRequest } from "types/common/rdlPurposeRequest";
 import { purposeApi } from "./purpose.api";
-import { RdlPurposeRequest } from "common/types/common/rdlPurposeRequest";
 
 const keys = {
   allPurposes: ["purposes"] as const,

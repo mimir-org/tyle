@@ -1,11 +1,11 @@
-import { Dd, Dl, Dt } from "components/PermissionCard/PermissionCardDetails.styled";
 import { Fragment } from "react";
+import { Dd, Dl, Dt } from "./PermissionCardDetails.styled";
 
 interface PermissionCardDetailsProps {
   descriptors: { [key: string]: string };
 }
 
-export const PermissionCardDetails = ({ descriptors }: PermissionCardDetailsProps) => (
+const PermissionCardDetails = ({ descriptors }: PermissionCardDetailsProps) => (
   <Dl>
     {descriptors &&
       Object.keys(descriptors).map((k, i) => (
@@ -16,3 +16,5 @@ export const PermissionCardDetails = ({ descriptors }: PermissionCardDetailsProp
       ))}
   </Dl>
 );
+
+export default PermissionCardDetails;

@@ -1,6 +1,6 @@
-import { largeBlock } from "components/Block/largeBlock";
-import { smallBlock } from "components/Block/smallBlock";
 import styled, { css } from "styled-components/macro";
+import { largeBlock } from "./largeBlock";
+import { smallBlock } from "./smallBlock";
 
 export type BlockVariant = "small" | "large";
 

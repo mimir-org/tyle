@@ -1,10 +1,10 @@
+import { ErrorMessage } from "@mimirorg/component-library";
 import { loginRoutes } from "components/Login/LoginRoutes";
 import { recoverRoutes } from "components/Recover/RecoverRoutes";
 import { registerRoutes } from "components/Register/RegisterRoutes";
-import { ErrorMessage } from "@mimirorg/component-library";
-import { UnauthenticatedLayout } from "components/Unauthenticated/UnauthenticatedLayout";
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import UnauthenticatedLayout from "./UnauthenticatedLayout";
 
 export const useUnauthenticatedRouter = () => {
   const { t } = useTranslation("ui");

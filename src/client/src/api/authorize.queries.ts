@@ -1,7 +1,7 @@
 import { MimirorgUserPermissionAm, MimirorgUserRoleAm } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { authorizeApi } from "api/authorize.api";
-import { companyKeys } from "api/company.queries";
+import { authorizeApi } from "./authorize.api";
+import { companyKeys } from "./company.queries";
 
 const keys = {
   all: ["authorize"] as const,

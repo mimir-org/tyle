@@ -1,5 +1,5 @@
 import { MimirorgCompanyCm, MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
+import { getOptionsFromEnum } from "utils";
 
 /**
  * Creates descriptions of user permissions by mapping the permissions

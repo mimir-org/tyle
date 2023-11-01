@@ -1,8 +1,8 @@
-import { Logo } from "components/Logo";
-import { PlainLink } from "components/PlainLink";
+import Logo from "components/Logo";
+import PlainLink from "components/PlainLink";
 import { useTranslation } from "react-i18next";
 
-export const HeaderHomeLink = () => {
+const HeaderHomeLink = () => {
   const { t } = useTranslation("ui");
 
   return (
@@ -11,3 +11,5 @@ export const HeaderHomeLink = () => {
     </PlainLink>
   );
 };
+
+export default HeaderHomeLink;

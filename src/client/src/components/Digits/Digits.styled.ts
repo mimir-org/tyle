@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { focus, getTextRole } from "@mimirorg/component-library";
+import styled from "styled-components";
 
 export const DigitsInputContainer = styled.div`
   display: flex;

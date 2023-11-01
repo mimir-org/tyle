@@ -1,10 +1,10 @@
-import { StateItem } from "common/types/stateItem";
-import { UserItem } from "common/types/userItem";
-import { useEffect, useState } from "react";
 import { MimirorgPermission, State } from "@mimirorg/typelibrary-types";
+import { hasWriteAccess } from "hooks/useHasWriteAccess";
+import { useEffect, useState } from "react";
+import { ItemType } from "types/itemTypes";
+import { StateItem } from "types/stateItem";
+import { UserItem } from "types/userItem";
 import { isBlockItem } from "./isItemValidators";
-import { hasWriteAccess } from "../../hooks/useHasWriteAccess";
-import { ItemType } from "common/types/itemTypes";
 
 export interface ButtonState {
   clone: boolean;

@@ -3,15 +3,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Actionable, Button, Flexbox, Form, FormField, FormFieldset, Input, Text } from "@mimirorg/component-library";
 import { MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
 import { useChangePassword } from "api/user.queries";
-import { AuthContent } from "components/AuthContent/AuthContent";
-import { Error } from "components/Error/Error";
-import { Processing } from "components/Processing/Processing";
-import { recoverPasswordSchema } from "components/Recover/recoverPasswordSchema";
+import AuthContent from "components/AuthContent";
+import Error from "components/Error";
+import Processing from "components/Processing";
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { recoverPasswordSchema } from "./recoverPasswordSchema";
 
 interface RecoverPasswordProps {
   verificationInfo: MimirorgVerifyAm;
@@ -19,7 +19,7 @@ interface RecoverPasswordProps {
   complete?: Partial<Actionable>;
 }
 
-export const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverPasswordProps) => {
+const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverPasswordProps) => {
   const theme = useTheme();
   const { t } = useTranslation("auth");
 
@@ -91,3 +91,5 @@ export const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverP
     />
   );
 };
+
+export default RecoverPassword;

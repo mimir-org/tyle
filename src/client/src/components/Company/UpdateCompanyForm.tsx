@@ -1,16 +1,3 @@
-import {
-  FormMimirorgCompany,
-  copySecret,
-  createSecret,
-  encodeFile,
-  mapCompanyCmToFormCompany,
-  mapFormCompanyToCompanyAm,
-  useUpdateToast,
-} from "components/Company/CompanyForm.helpers";
-import { FormProvider, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-//import { yupResolver } from "@hookform/resolvers/yup";
-//import { companySchema } from "features/settings/company/companySchema";
 import { DevTool } from "@hookform/devtools";
 import {
   Button,
@@ -28,18 +15,29 @@ import { DocumentDuplicate, PaperClip } from "@styled-icons/heroicons-outline";
 import { useUpdateCompany } from "api/company.queries";
 import { useGetCurrentUser } from "api/user.queries";
 import { isAxiosError } from "axios";
-import { Option } from "common/utils/getOptionsFromEnum";
-import { PlainLink } from "components/PlainLink";
+import PlainLink from "components/PlainLink";
+import RadioFilters from "components/RadioFilters";
+import { settingsBasePath } from "components/SettingsLayout/SettingsRoutes";
 import { onSubmitForm } from "helpers/form.helpers";
 import { useGetFilteredCompanies } from "hooks/useGetFilteredCompanies";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useRef, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { RadioFilters } from "../RadioFilters/RadioFilters";
-import { settingsBasePath } from "../SettingsLayout/SettingsRoutes";
+import { Option } from "utils";
+import {
+  FormMimirorgCompany,
+  copySecret,
+  createSecret,
+  encodeFile,
+  mapCompanyCmToFormCompany,
+  mapFormCompanyToCompanyAm,
+  useUpdateToast,
+} from "./CompanyForm.helpers";
 
-export const UpdateCompanyForm = () => {
+const UpdateCompanyForm = () => {
   const companies = useGetFilteredCompanies(MimirorgPermission.Manage);
   const companyOptions = companies.map((x) => ({ value: String(x.id), label: x.displayName })) as Option<string>[];
   const [selectedCompany, setSelectedCompany] = useState(companyOptions[0]?.value);
@@ -211,3 +209,5 @@ export const UpdateCompanyForm = () => {
     </Flexbox>
   );
 };
+
+export default UpdateCompanyForm;

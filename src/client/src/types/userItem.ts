@@ -1,5 +1,5 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { Option } from "common/utils/getOptionsFromEnum";
+import { Option } from "utils";
 
 export interface UserItem {
   id: string;

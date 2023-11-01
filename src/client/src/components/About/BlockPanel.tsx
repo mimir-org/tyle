@@ -1,9 +1,9 @@
 import { Flexbox, Heading, MotionBox, Text } from "@mimirorg/component-library";
-import { BlockItem } from "common/types/blockItem";
+import InfoItemButton from "components/InfoItemButton";
+import StateBadge from "components/StateBadge";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import InfoItemButton from "../InfoItemButton";
-import StateBadge from "../StateBadge";
+import { BlockItem } from "types/blockItem";
 import PanelPropertiesContainer from "./PanelPropertiesContainer";
 import PanelSection from "./PanelSection";
 import TerminalTable from "./TerminalTable";

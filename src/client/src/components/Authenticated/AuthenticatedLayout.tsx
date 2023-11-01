@@ -1,5 +1,5 @@
+import Header from "components/Header";
 import { Outlet } from "react-router-dom";
-import Header from "../Header";
 import { AuthenticatedContainer, AuthenticatedContentContainer } from "./AuthenticatedLayout.styled";
 
 const AuthenticatedLayout = () => (

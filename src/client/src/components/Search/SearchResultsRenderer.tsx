@@ -1,15 +1,15 @@
+import AttributePreview from "components/AttributePreview";
+import BlockPreview from "components/BlockPreview";
+import TerminalPreview from "components/TerminalPreview";
+import { AttributeItem } from "types/attributeItem";
+import { BlockItem } from "types/blockItem";
+import { SelectedInfo } from "types/selectedInfo";
+import { TerminalItem } from "types/terminalItem";
+import { UserItem } from "types/userItem";
+import Item from "./Item";
+import ItemDescription from "./ItemDescription";
+import SearchItemActions from "./SearchItemActions";
 import { SearchResult } from "./searchResult";
-import { SelectedInfo } from "../../common/types/selectedInfo";
-import { UserItem } from "../../common/types/userItem";
-import { Item } from "./Item";
-import { ItemDescription } from "./ItemDescription";
-import { SearchItemActions } from "./SearchItemActions";
-import { BlockPreview } from "components/BlockPreview/BlockPreview";
-import { BlockItem } from "common/types/blockItem";
-import { TerminalPreview } from "components/TerminalPreview/TerminalPreview";
-import { TerminalItem } from "common/types/terminalItem";
-import { AttributeItem } from "common/types/attributeItem";
-import AttributePreview from "components/AttributePreview/AttributePreview";
 
 interface SearchResultsRendererProps {
   item: SearchResult;
@@ -18,12 +18,12 @@ interface SearchResultsRendererProps {
   user: UserItem;
 }
 
-export function SearchResultsRenderer({
+const SearchResultsRenderer = ({
   item,
   selectedItemId,
   setSelected,
   user,
-}: SearchResultsRendererProps): JSX.Element {
+}: SearchResultsRendererProps): JSX.Element => {
   const currentlySelected = item.id === selectedItemId;
   switch (item.kind) {
     case "TerminalItem":
@@ -73,4 +73,6 @@ export function SearchResultsRenderer({
         </div>
       );
   }
-}
+};
+
+export default SearchResultsRenderer;

@@ -1,7 +1,7 @@
-import { BlockView } from "common/types/blocks/blockView";
-import { BlockItem } from "../../common/types/blockItem";
-import { TerminalView } from "common/types/terminals/terminalView";
-import { AttributeView } from "common/types/attributes/attributeView";
+import { AttributeView } from "types/attributes/attributeView";
+import { BlockItem } from "types/blockItem";
+import { BlockView } from "types/blocks/blockView";
+import { TerminalView } from "types/terminals/terminalView";
 
 export const isBlockItem = (item: unknown): item is BlockItem => (<BlockItem>item).kind === "BlockItem";
 

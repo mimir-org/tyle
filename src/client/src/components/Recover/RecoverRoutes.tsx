@@ -1,5 +1,5 @@
-import { Recover } from "components/Recover/Recover";
 import { RouteObject } from "react-router-dom";
+import Recover from "./Recover";
 
 export const recoverBasePath = "/recover";
 

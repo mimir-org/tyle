@@ -1,10 +1,10 @@
-import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { Option } from "common/utils/getOptionsFromEnum";
 import { Button, Text, toast } from "@mimirorg/component-library";
+import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { useAddUserPermission, useRemoveUserPermission } from "api/authorize.queries";
-import { FormUserPermission, mapFormUserPermissionToApiModel } from "components/PermissionCard/formUserPermission";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { Option } from "utils";
+import { FormUserPermission, mapFormUserPermissionToApiModel } from "./formUserPermission";
 
 /**
  * Shows a toast while a permission is being granted to the user.

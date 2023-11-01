@@ -1,8 +1,8 @@
-import { ArrowSmallRight } from "@styled-icons/heroicons-outline";
-import { Link } from "common/types/link";
 import { Box, Button, Popover } from "@mimirorg/component-library";
-import { PlainLink } from "components/PlainLink";
+import { ArrowSmallRight } from "@styled-icons/heroicons-outline";
+import PlainLink from "components/PlainLink";
 import { useTheme } from "styled-components";
+import { Link } from "types/link";
 
 interface LinkMenuProps {
   name: string;
@@ -20,7 +20,7 @@ interface LinkMenuProps {
  * @param justifyContent how to arrange the button text and icons in the list
  * @constructor
  */
-export const LinkMenu = ({ name, links, justifyContent, disabled }: LinkMenuProps) => {
+const LinkMenu = ({ name, links, justifyContent, disabled }: LinkMenuProps) => {
   const theme = useTheme();
 
   return (

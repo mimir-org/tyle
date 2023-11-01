@@ -1,6 +1,6 @@
-import { RdlPredicate } from "common/types/attributes/rdlPredicate";
-import { RdlPredicateRequest } from "common/types/attributes/rdlPredicateRequest";
 import { apiClient } from "api/clients/apiClient";
+import { RdlPredicate } from "types/attributes/rdlPredicate";
+import { RdlPredicateRequest } from "types/attributes/rdlPredicateRequest";
 
 const _basePath = "predicates";
 

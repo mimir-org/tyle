@@ -1,16 +1,16 @@
 import { DevTool } from "@hookform/devtools";
 import { Box, FormContainer } from "@mimirorg/component-library";
-import { BlockView } from "common/types/blocks/blockView";
-import { FormMode } from "common/types/formMode";
+import FormAttributes from "components/FormAttributes";
+import FormClassifiers from "components/FormClassifiers";
+import Loader from "components/Loader";
 import { onSubmitForm, usePrefilledForm, useSubmissionToast } from "helpers/form.helpers";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import FormAttributes from "../FormAttributes";
-import FormClassifiers from "../FormClassifiers";
-import Loader from "../Loader";
+import { BlockView } from "types/blocks/blockView";
+import { FormMode } from "types/formMode";
 import {
   BlockFormFields,
   createDefaultBlockFormFields,

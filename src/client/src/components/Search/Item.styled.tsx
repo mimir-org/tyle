@@ -1,6 +1,6 @@
 import styled from "styled-components/macro";
 
-export const ItemActionContainer = styled.div`
+const ItemActionContainer = styled.div`
   position: absolute;
   top: -36px;
   right: 8px;
@@ -8,3 +8,5 @@ export const ItemActionContainer = styled.div`
   gap: ${(props) => props.theme.mimirorg.spacing.l};
   margin-left: auto;
 `;
+
+export default ItemActionContainer;

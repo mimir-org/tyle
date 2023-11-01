@@ -1,15 +1,15 @@
 import { useCreateAttribute, useGetAttribute, useUpdateAttribute } from "api/attribute.queries";
-import { AttributeTypeRequest } from "common/types/attributes/attributeTypeRequest";
-import { AttributeView } from "common/types/attributes/attributeView";
-import { ConstraintType } from "common/types/attributes/constraintType";
-import { RdlPredicate } from "common/types/attributes/rdlPredicate";
-import { RdlUnit } from "common/types/attributes/rdlUnit";
-import { ValueConstraintRequest } from "common/types/attributes/valueConstraintRequest";
-import { XsdDataType } from "common/types/attributes/xsdDataType";
-import { FormMode } from "common/types/formMode";
-import { InfoItem } from "common/types/infoItem";
-import { ValueObject } from "common/types/valueObject";
 import { useParams } from "react-router-dom";
+import { AttributeTypeRequest } from "types/attributes/attributeTypeRequest";
+import { AttributeView } from "types/attributes/attributeView";
+import { ConstraintType } from "types/attributes/constraintType";
+import { RdlPredicate } from "types/attributes/rdlPredicate";
+import { RdlUnit } from "types/attributes/rdlUnit";
+import { ValueConstraintRequest } from "types/attributes/valueConstraintRequest";
+import { XsdDataType } from "types/attributes/xsdDataType";
+import { FormMode } from "types/formMode";
+import { InfoItem } from "types/infoItem";
+import { ValueObject } from "types/valueObject";
 import { UnitRequirement } from "./UnitRequirement";
 
 export const useAttributeQuery = () => {

@@ -2,21 +2,21 @@ import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Actionable, Button, Form, FormField, Input, Text } from "@mimirorg/component-library";
 import { useGenerateChangePasswordSecret } from "api/user.queries";
-import { AuthContent } from "components/AuthContent/AuthContent";
-import { Error } from "components/Error/Error";
-import { Processing } from "components/Processing/Processing";
-import { recoverDetailsSchema } from "components/Recover/recoverDetailsSchema";
+import AuthContent from "components/AuthContent";
+import Error from "components/Error";
+import Processing from "components/Processing";
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { recoverDetailsSchema } from "./recoverDetailsSchema";
 
 interface RecoverDetailsProps {
   setUserEmail: (email: string) => void;
   complete?: Partial<Actionable>;
 }
 
-export const RecoverDetails = ({ complete, setUserEmail }: RecoverDetailsProps) => {
+const RecoverDetails = ({ complete, setUserEmail }: RecoverDetailsProps) => {
   const { t } = useTranslation("auth");
 
   const formMethods = useForm({
@@ -70,3 +70,5 @@ export const RecoverDetails = ({ complete, setUserEmail }: RecoverDetailsProps) 
     />
   );
 };
+
+export default RecoverDetails;

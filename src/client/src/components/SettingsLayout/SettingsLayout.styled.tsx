@@ -1,6 +1,6 @@
 import styled from "styled-components/macro";
 
-export const SettingsContainer = styled.div`
+const SettingsContainer = styled.div`
   flex: 1;
   display: flex;
   flex-wrap: no-wrap;
@@ -15,3 +15,5 @@ export const SettingsContainer = styled.div`
     flex-wrap: wrap;
   }
 `;
+
+export default SettingsContainer;

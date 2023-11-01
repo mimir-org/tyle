@@ -1,15 +1,15 @@
 import { FormBaseFieldsContainer, FormField, Input, Select, Textarea, Token } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useGetPredicates } from "api/predicate.queries";
-import { ProvenanceQualifier } from "common/types/attributes/provenanceQualifier";
-import { RangeQualifier } from "common/types/attributes/rangeQualifier";
-import { RegularityQualifier } from "common/types/attributes/regularityQualifier";
-import { ScopeQualifier } from "common/types/attributes/scopeQualifier";
-import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
+import FormSection from "components/FormSection";
+import SelectItemDialog from "components/SelectItemDialog";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import FormSection from "../FormSection";
-import SelectItemDialog from "../SelectItemDialog";
+import { ProvenanceQualifier } from "types/attributes/provenanceQualifier";
+import { RangeQualifier } from "types/attributes/rangeQualifier";
+import { RegularityQualifier } from "types/attributes/regularityQualifier";
+import { ScopeQualifier } from "types/attributes/scopeQualifier";
+import { getOptionsFromEnum } from "utils";
 import { AttributeFormFields, predicateInfoItem } from "./AttributeForm.helpers";
 import { UnitRequirement } from "./UnitRequirement";
 

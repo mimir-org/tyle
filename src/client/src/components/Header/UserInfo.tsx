@@ -7,7 +7,7 @@ interface UserInfoProps {
   permissions?: string[];
 }
 
-export const UserInfo = ({ name, roles, permissions }: UserInfoProps) => {
+const UserInfo = ({ name, roles, permissions }: UserInfoProps) => {
   const theme = useTheme();
 
   return (
@@ -34,3 +34,5 @@ export const UserInfo = ({ name, roles, permissions }: UserInfoProps) => {
     </Flexbox>
   );
 };
+
+export default UserInfo;

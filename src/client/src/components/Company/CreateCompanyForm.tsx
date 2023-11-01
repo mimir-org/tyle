@@ -1,16 +1,3 @@
-import {
-  FormMimirorgCompany,
-  copySecret,
-  createEmptyFormMimirorgCompany,
-  createSecret,
-  encodeFile,
-  mapFormCompanyToCompanyAm,
-  useCreatingToast,
-} from "components/Company/CompanyForm.helpers";
-import { FormProvider, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-//import { yupResolver } from "@hookform/resolvers/yup";
-//import { companySchema } from "features/settings/company/companySchema";
 import { DevTool } from "@hookform/devtools";
 import {
   Button,
@@ -27,15 +14,26 @@ import { DocumentDuplicate, PaperClip } from "@styled-icons/heroicons-outline";
 import { useCreateCompany } from "api/company.queries";
 import { useGetCurrentUser } from "api/user.queries";
 import { isAxiosError } from "axios";
-import { PlainLink } from "components/PlainLink";
+import PlainLink from "components/PlainLink";
+import { settingsBasePath } from "components/SettingsLayout/SettingsRoutes";
 import { onSubmitForm } from "helpers/form.helpers";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useRef, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { settingsBasePath } from "../SettingsLayout/SettingsRoutes";
+import {
+  FormMimirorgCompany,
+  copySecret,
+  createEmptyFormMimirorgCompany,
+  createSecret,
+  encodeFile,
+  mapFormCompanyToCompanyAm,
+  useCreatingToast,
+} from "./CompanyForm.helpers";
 
-export const CreateCompanyForm = () => {
+const CreateCompanyForm = () => {
   const [secret, _] = useState<string>(createSecret(50));
   const [previewLogo, setPreviewLogo] = useState<FileInfo | null>(null);
 
@@ -175,3 +173,5 @@ export const CreateCompanyForm = () => {
     </Flexbox>
   );
 };
+
+export default CreateCompanyForm;

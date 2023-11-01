@@ -1,5 +1,5 @@
-import { User } from "@styled-icons/heroicons-outline";
 import { Box, MotionBox, Text } from "@mimirorg/component-library";
+import { User } from "@styled-icons/heroicons-outline";
 import { useTheme } from "styled-components";
 
 interface ContactCardProps {
@@ -14,7 +14,7 @@ interface ContactCardProps {
  * @param email
  * @constructor
  */
-export const ContactCard = ({ name, email }: ContactCardProps) => {
+const ContactCard = ({ name, email }: ContactCardProps) => {
   const theme = useTheme();
 
   return (
@@ -35,3 +35,5 @@ export const ContactCard = ({ name, email }: ContactCardProps) => {
     </MotionBox>
   );
 };
+
+export default ContactCard;

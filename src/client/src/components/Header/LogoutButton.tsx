@@ -1,9 +1,9 @@
 import { ArrowLeftOnRectangle } from "@styled-icons/heroicons-outline";
 import { useLogout } from "api/authenticate.queries";
-import { UserMenuButton } from "components/Header/UserMenuButton";
 import { useTranslation } from "react-i18next";
+import UserMenuButton from "./UserMenuButton";
 
-export const LogoutButton = () => {
+const LogoutButton = () => {
   const { t } = useTranslation("ui");
   const mutation = useLogout();
 
@@ -13,3 +13,5 @@ export const LogoutButton = () => {
     </UserMenuButton>
   );
 };
+
+export default LogoutButton;

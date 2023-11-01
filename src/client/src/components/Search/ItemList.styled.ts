@@ -26,4 +26,6 @@ const ItemListContainer = styled.div`
   ${hideScrollbar};
 `;
 
-export const MotionItemListContainer = motion(ItemListContainer);
+const MotionItemListContainer = motion(ItemListContainer);
+
+export default MotionItemListContainer;

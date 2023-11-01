@@ -1,10 +1,10 @@
-import { DESCRIPTION_LENGTH, NAME_LENGTH } from "common/types/common/stringLengthConstants";
-import { AttributeFormFields } from "./AttributeForm.helpers";
-import { attributeSchema } from "./attributeSchema";
+import { ConstraintType } from "types/attributes/constraintType";
+import { XsdDataType } from "types/attributes/xsdDataType";
+import { DESCRIPTION_LENGTH, NAME_LENGTH } from "types/common/stringLengthConstants";
 import { vi } from "vitest";
-import { ConstraintType } from "common/types/attributes/constraintType";
-import { XsdDataType } from "common/types/attributes/xsdDataType";
+import { AttributeFormFields } from "./AttributeForm.helpers";
 import { UnitRequirement } from "./UnitRequirement";
+import { attributeSchema } from "./attributeSchema";
 
 describe("attributeSchema tests", () => {
   const t = vi.fn();

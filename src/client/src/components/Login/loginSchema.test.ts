@@ -1,6 +1,6 @@
 import { MimirorgAuthenticateAm } from "@mimirorg/typelibrary-types";
-import { loginSchema } from "components/Login/loginSchema";
 import { vi } from "vitest";
+import { loginSchema } from "./loginSchema";
 
 describe("loginSchema tests", () => {
   const t = vi.fn();

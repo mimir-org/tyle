@@ -1,9 +1,9 @@
 import { Divider, Flexbox, Text } from "@mimirorg/component-library";
-import { AttributeView } from "common/types/attributes/attributeView";
-import { BlockView } from "common/types/blocks/blockView";
-import { TerminalView } from "common/types/terminals/terminalView";
 import { useRef } from "react";
 import { useTheme } from "styled-components";
+import { AttributeView } from "types/attributes/attributeView";
+import { BlockView } from "types/blocks/blockView";
+import { TerminalView } from "types/terminals/terminalView";
 import MotionApprovalCardContainer from "./ApprovalCard.styled";
 import ApprovalCardForm from "./ApprovalCardForm";
 import ApprovalCardHeader from "./ApprovalCardHeader";

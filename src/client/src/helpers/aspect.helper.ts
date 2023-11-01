@@ -1,4 +1,4 @@
-import { Aspect } from "common/types/common/aspect";
+import { Aspect } from "types/common/aspect";
 
 export const getColorFromAspect = (aspect?: Aspect) => {
   switch (aspect) {

@@ -2,10 +2,10 @@ import { Flexbox, Text } from "@mimirorg/component-library";
 import { useGetAttributesByState } from "api/attribute.queries";
 import { useGetBlocksByState } from "api/block.queries";
 import { useGetTerminalsByState } from "api/terminal.queries";
-import { State } from "common/types/common/state";
+import SettingsSection from "components/SettingsSection";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import SettingsSection from "../SettingsSection";
+import { State } from "types/common/state";
 import ApprovalCard from "./ApprovalCard";
 import ApprovalPlaceholder from "./ApprovalPlaceholder";
 

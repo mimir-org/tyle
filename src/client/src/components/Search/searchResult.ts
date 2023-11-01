@@ -1,8 +1,8 @@
-import { ItemType } from "../../common/types/itemTypes";
-import { BlockView } from "common/types/blocks/blockView";
-import { TerminalView } from "common/types/terminals/terminalView";
-import { AttributeView } from "common/types/attributes/attributeView";
-import { AttributeGroupView } from "common/types/attributes/attributeGroupView";
+import { AttributeGroupView } from "types/attributes/attributeGroupView";
+import { AttributeView } from "types/attributes/attributeView";
+import { BlockView } from "types/blocks/blockView";
+import { ItemType } from "types/itemTypes";
+import { TerminalView } from "types/terminals/terminalView";
 
 export type SearchResult = ItemType;
 

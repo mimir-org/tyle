@@ -1,6 +1,6 @@
-import { InfoItem } from "common/types/infoItem";
-import { BlockTerminalItem } from "common/types/blockTerminalItem";
-import { StateItem } from "common/types/stateItem";
+import { BlockTerminalItem } from "types/blockTerminalItem";
+import { InfoItem } from "types/infoItem";
+import { StateItem } from "types/stateItem";
 
 export interface BlockItem extends StateItem {
   id: string;

@@ -1,7 +1,7 @@
 import { Box, MotionCard } from "@mimirorg/component-library";
-import { ItemActionContainer } from "components/Search/Item.styled";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
+import ItemActionContainer from "./Item.styled";
 
 export interface ItemProps {
   isSelected?: boolean;
@@ -22,7 +22,7 @@ export interface ItemProps {
  * @param onClick callback for when the item is clicked
  * @constructor
  */
-export const Item = ({ isSelected, preview, description, actions, onClick }: ItemProps) => {
+const Item = ({ isSelected, preview, description, actions, onClick }: ItemProps) => {
   const theme = useTheme();
 
   return (
@@ -47,3 +47,5 @@ export const Item = ({ isSelected, preview, description, actions, onClick }: Ite
     </MotionCard>
   );
 };
+
+export default Item;

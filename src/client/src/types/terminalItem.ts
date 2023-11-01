@@ -1,5 +1,5 @@
-import { InfoItem } from "common/types/infoItem";
-import { StateItem } from "common/types/stateItem";
+import { InfoItem } from "types/infoItem";
+import { StateItem } from "types/stateItem";
 
 export interface TerminalItem extends StateItem {
   id: string;

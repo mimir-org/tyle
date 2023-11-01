@@ -2,11 +2,11 @@ import { Box, Dialog, Select, Text } from "@mimirorg/component-library";
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Envelope } from "@styled-icons/heroicons-outline";
 import { useGetCompany } from "api/company.queries";
-import { ContactCard } from "components/Header/ContactCard";
-import { UserMenuButton } from "components/Header/UserMenuButton";
 import { useGetFilteredCompanies } from "hooks/useGetFilteredCompanies";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import ContactCard from "./ContactCard";
+import UserMenuButton from "./UserMenuButton";
 
 /**
  * Component that displays a button with a dialog for finding contact information about
@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
  *
  * @constructor
  */
-export const ContactButton = () => {
+const ContactButton = () => {
   const { t } = useTranslation("ui");
   const [selected, setSelected] = useState<number>();
 
@@ -56,3 +56,5 @@ export const ContactButton = () => {
     </Dialog>
   );
 };
+
+export default ContactButton;

@@ -1,8 +1,10 @@
-import { UnauthenticatedLayoutContainer } from "components/Unauthenticated/UnauthenticatedLayout.styled";
 import { Outlet } from "react-router-dom";
+import UnauthenticatedLayoutContainer from "./UnauthenticatedLayout.styled";
 
-export const UnauthenticatedLayout = () => (
+const UnauthenticatedLayout = () => (
   <UnauthenticatedLayoutContainer>
     <Outlet />
   </UnauthenticatedLayoutContainer>
 );
+
+export default UnauthenticatedLayout;

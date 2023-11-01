@@ -1,14 +1,14 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { Link } from "common/types/link";
-import { LinkGroup } from "common/types/linkGroup";
 import { accessBasePath } from "components/Access/AccessRoutes";
 import { approvalBasePath } from "components/Approval/ApprovalRoutes";
 import { createCompanyBasePath, updateCompanyBasePath } from "components/Company/CompanyRoutes";
 import { permissionsBasePath } from "components/Permissions/PermissionsRoutes";
+import { usersettingsBasePath } from "components/UserSettings/UserSettingsRoutes";
 import { useGetFilteredCompanies } from "hooks/useGetFilteredCompanies";
 import { useGetRoles } from "hooks/useGetRoles";
 import { useTranslation } from "react-i18next";
-import { usersettingsBasePath } from "../UserSettings/UserSettingsRoutes";
+import { Link } from "types/link";
+import { LinkGroup } from "types/linkGroup";
 
 export const useSettingsLinkGroups = (): LinkGroup[] => {
   const admLinks = useAdministerLinks();

@@ -1,11 +1,11 @@
-import { UserItem } from "common/types/userItem";
-import { PermissionCardDetails } from "components/PermissionCard/PermissionCardDetails";
-import { PermissionCardForm, PermissionCardFormProps } from "components/PermissionCard/PermissionCardForm";
-import { PermissionCardHeader } from "./PermissionCardHeader";
-import { useUserDescriptors } from "components/PermissionCard/PermissionCard.helpers";
-import { MotionPermissionCardContainer } from "components/PermissionCard/PermissionCard.styled";
 import { useRef } from "react";
 import { useTheme } from "styled-components";
+import { UserItem } from "types/userItem";
+import { useUserDescriptors } from "./PermissionCard.helpers";
+import MotionPermissionCardContainer from "./PermissionCard.styled";
+import PermissionCardDetails from "./PermissionCardDetails";
+import PermissionCardForm, { PermissionCardFormProps } from "./PermissionCardForm";
+import PermissionCardHeader from "./PermissionCardHeader";
 
 export type AccessCardProps = PermissionCardFormProps & {
   user: UserItem;

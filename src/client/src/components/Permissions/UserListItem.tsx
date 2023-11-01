@@ -1,5 +1,5 @@
-import { UserCircle } from "@styled-icons/heroicons-outline";
 import { Flexbox, MotionBox, Text } from "@mimirorg/component-library";
+import { UserCircle } from "@styled-icons/heroicons-outline";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
 
@@ -9,7 +9,7 @@ export interface UserListItemProps {
   action?: ReactNode;
 }
 
-export const UserListItem = ({ name, trait, action }: UserListItemProps) => {
+const UserListItem = ({ name, trait, action }: UserListItemProps) => {
   const theme = useTheme();
 
   return (
@@ -25,3 +25,5 @@ export const UserListItem = ({ name, trait, action }: UserListItemProps) => {
     </MotionBox>
   );
 };
+
+export default UserListItem;

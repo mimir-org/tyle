@@ -1,6 +1,6 @@
-import { RdlClassifier } from "common/types/common/rdlClassifier";
-import { RdlClassifierRequest } from "common/types/common/rdlClassifierRequest";
 import { apiClient } from "api/clients/apiClient";
+import { RdlClassifier } from "types/common/rdlClassifier";
+import { RdlClassifierRequest } from "types/common/rdlClassifierRequest";
 
 const _basePath = "classifiers";
 

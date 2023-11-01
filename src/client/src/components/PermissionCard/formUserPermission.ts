@@ -1,5 +1,5 @@
 import { MimirorgPermission, MimirorgUserPermissionAm } from "@mimirorg/typelibrary-types";
-import { Option } from "common/utils/getOptionsFromEnum";
+import { Option } from "utils";
 
 /**
  * This type functions as a layer between client needs and the backend model.

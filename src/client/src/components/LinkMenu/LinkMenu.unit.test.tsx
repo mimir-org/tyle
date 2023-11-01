@@ -1,9 +1,9 @@
 import { MimirorgThemeProvider } from "@mimirorg/component-library";
-import { LinkMenu } from "./LinkMenu";
-import { cleanup, render, screen } from "@testing-library/react";
-import { afterEach, describe, expect } from "vitest";
-import { Link } from "common/types/link";
 import "@testing-library/jest-dom";
+import { cleanup, render, screen } from "@testing-library/react";
+import { Link } from "types/link";
+import { afterEach, describe, expect } from "vitest";
+import LinkMenu from "./LinkMenu";
 
 const menuLinksMock: Link[] = [
   {

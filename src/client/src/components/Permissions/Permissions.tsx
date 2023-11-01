@@ -1,19 +1,19 @@
 import { Flexbox } from "@mimirorg/component-library";
-import { RadioFilters } from "components/RadioFilters/RadioFilters";
-import { SettingsSection } from "components/SettingsSection/SettingsSection";
-import { PermissionDialog } from "components/Permissions/PermissionDialog";
+import RadioFilters from "components/RadioFilters";
+import SettingsSection from "components/SettingsSection";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "styled-components";
+import PermissionDialog from "./PermissionDialog";
 import {
   getPermissionOptions,
   useCompanyOptions,
   useDefaultCompanyOptions,
   useFilteredUsers,
-} from "components/Permissions/Permissions.helpers";
-import { UserItemPermission } from "components/Permissions/userItemPermission";
-import { UserList } from "components/Permissions/UserList";
-import { UserListItem } from "components/Permissions/UserListItem";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components";
+} from "./Permissions.helpers";
+import UserList from "./UserList";
+import UserListItem from "./UserListItem";
+import { UserItemPermission } from "./userItemPermission";
 
 const Permissions = () => {
   const theme = useTheme();

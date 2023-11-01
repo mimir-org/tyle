@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { unitApi } from "api/unit.api";
-import { RdlUnitRequest } from "common/types/attributes/rdlUnitRequest";
+import { RdlUnitRequest } from "types/attributes/rdlUnitRequest";
+import { unitApi } from "./unit.api";
 
 const keys = {
   allUnits: ["units"] as const,

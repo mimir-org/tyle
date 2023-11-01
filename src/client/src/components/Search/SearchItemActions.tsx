@@ -1,16 +1,16 @@
-import { useTheme } from "styled-components";
-import { useTranslation } from "react-i18next";
-import { useButtonStateFilter } from "./useButtonFilter";
+import { AlertDialog, Button, Text, Tooltip, toast } from "@mimirorg/component-library";
 import { State } from "@mimirorg/typelibrary-types";
-import { PlainLink } from "../PlainLink";
 import { Check, DocumentDuplicate, PencilSquare, Trash } from "@styled-icons/heroicons-outline";
-import { UserItem } from "../../common/types/userItem";
-import { getCloneLink, getEditLink, useDeleteMutation, usePatchMutation } from "./SearchItemActions.helpers";
-import { ItemType } from "../../common/types/itemTypes";
-import { AlertDialog, Button, Text, toast, Tooltip } from "@mimirorg/component-library";
-import { StateBadge } from "../StateBadge/StateBadge";
 import { AxiosError } from "axios";
+import PlainLink from "components/PlainLink";
+import StateBadge from "components/StateBadge";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "styled-components";
+import { ItemType } from "types/itemTypes";
+import { UserItem } from "types/userItem";
+import { getCloneLink, getEditLink, useDeleteMutation, usePatchMutation } from "./SearchItemActions.helpers";
+import { useButtonStateFilter } from "./useButtonFilter";
 
 type SearchItemProps = {
   user: UserItem | null;
@@ -19,7 +19,7 @@ type SearchItemProps = {
   isAttributeGroup?: boolean;
 };
 
-export const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: SearchItemProps) => {
+const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: SearchItemProps) => {
   const [isApprovalOpen, setIsApprovalOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const theme = useTheme();
@@ -144,3 +144,5 @@ export const SearchItemActions = ({ user, item, children, isAttributeGroup = fal
     </>
   );
 };
+
+export default SearchItemActions;

@@ -1,6 +1,6 @@
-import { RdlUnit } from "common/types/attributes/rdlUnit";
-import { RdlUnitRequest } from "common/types/attributes/rdlUnitRequest";
 import { apiClient } from "api/clients/apiClient";
+import { RdlUnit } from "types/attributes/rdlUnit";
+import { RdlUnitRequest } from "types/attributes/rdlUnitRequest";
 
 const _basePath = "units";
 

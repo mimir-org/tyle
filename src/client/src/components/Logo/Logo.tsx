@@ -1,7 +1,7 @@
 import { Icon, IconProps, usePrefersTheme } from "@mimirorg/component-library";
-import { TyleLogoDarkRedIcon, TyleLogoWhiteIcon } from "components/Logo/logos";
 import { motion } from "framer-motion";
 import { ForwardedRef, forwardRef } from "react";
+import { TyleLogoDarkRedIcon, TyleLogoWhiteIcon } from "./logos";
 
 type LogoProps = Omit<IconProps, "src"> & {
   inverse?: boolean;

@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { RdlMediumRequest } from "types/terminals/rdlMediumRequest";
 import { mediumApi } from "./medium.api";
-import { RdlMediumRequest } from "common/types/terminals/rdlMediumRequest";
 
 const keys = {
   allMedia: ["media"] as const,

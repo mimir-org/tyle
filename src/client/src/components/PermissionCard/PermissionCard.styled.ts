@@ -11,4 +11,6 @@ const PermissionCardContainer = styled(Card).attrs(() => ({
   max-width: 350px;
 `;
 
-export const MotionPermissionCardContainer = motion(PermissionCardContainer);
+const MotionPermissionCardContainer = motion(PermissionCardContainer);
+
+export default MotionPermissionCardContainer;

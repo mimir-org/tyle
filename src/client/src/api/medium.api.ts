@@ -1,6 +1,6 @@
-import { RdlMedium } from "common/types/terminals/rdlMedium";
-import { RdlMediumRequest } from "common/types/terminals/rdlMediumRequest";
 import { apiClient } from "api/clients/apiClient";
+import { RdlMedium } from "types/terminals/rdlMedium";
+import { RdlMediumRequest } from "types/terminals/rdlMediumRequest";
 
 const _basePath = "media";
 

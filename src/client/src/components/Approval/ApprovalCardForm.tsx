@@ -1,11 +1,11 @@
 import { Button, Flexbox, Text } from "@mimirorg/component-library";
-import { AttributeView } from "common/types/attributes/attributeView";
-import { BlockView } from "common/types/blocks/blockView";
-import { State } from "common/types/common/state";
-import { TerminalView } from "common/types/terminals/terminalView";
 import { useSubmissionToast } from "helpers/form.helpers";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { AttributeView } from "types/attributes/attributeView";
+import { BlockView } from "types/blocks/blockView";
+import { State } from "types/common/state";
+import { TerminalView } from "types/terminals/terminalView";
 import { usePatchStateMutation } from "./ApprovalCardForm.helpers";
 
 export interface ApprovalCardFormProps {

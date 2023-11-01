@@ -6,7 +6,7 @@ export interface TerminalPreviewContainerProps {
   variant?: TerminalPreviewVariant;
 }
 
-export const TerminalPreviewContainer = styled.div<TerminalPreviewContainerProps>`
+const TerminalPreviewContainer = styled.div<TerminalPreviewContainerProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,3 +35,5 @@ export const TerminalPreviewContainer = styled.div<TerminalPreviewContainerProps
     }
   }};
 `;
+
+export default TerminalPreviewContainer;

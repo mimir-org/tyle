@@ -1,12 +1,10 @@
 import { useGetAttributes } from "api/attribute.queries";
 import { useGetBlocks } from "api/block.queries";
 import { useGetTerminals } from "api/terminal.queries";
-import { Filter } from "common/types/filter";
-import { toBlockItem } from "common/utils/mappers/mapBlockLibCmToBlockItem";
-import { toAttributeItem } from "components/Search/mapAttributeLibCmToAttributeItem";
-import { toTerminalItem } from "components/Search/mapTerminalLibCmToTerminalItem";
-import { SearchResult, SearchResultRaw } from "components/Search/searchResult";
+import { toAttributeItem, toBlockItem, toTerminalItem } from "helpers/mappers.helpers";
+import { Filter } from "types/filter";
 import { isAttributeView, isBlockView, isTerminalView } from "./isItemValidators";
+import { SearchResult, SearchResultRaw } from "./searchResult";
 
 /**
  * Filters items if there are any filters available, returns items sorted by date if not.

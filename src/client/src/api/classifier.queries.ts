@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { RdlClassifierRequest } from "types/common/rdlClassifierRequest";
 import { classifierApi } from "./classifier.api";
-import { RdlClassifierRequest } from "common/types/common/rdlClassifierRequest";
 
 const keys = {
   allClassifiers: ["classifiers"] as const,

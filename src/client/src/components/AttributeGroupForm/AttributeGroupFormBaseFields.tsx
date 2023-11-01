@@ -7,12 +7,13 @@ import {
   Text,
   Textarea,
 } from "@mimirorg/component-library";
-import { FormMode } from "common/types/formMode";
+import PlainLink from "components/PlainLink";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import PlainLink from "../PlainLink";
+import { FormMode } from "types/formMode";
 import { FormAttributeGroupLib } from "./formAttributeGroupLib";
+
 interface AttributeGroupFormBaseFieldsProps {
   mode?: FormMode;
   limited?: boolean;

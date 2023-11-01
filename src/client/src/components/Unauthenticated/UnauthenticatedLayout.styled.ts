@@ -1,6 +1,6 @@
 import styled from "styled-components/macro";
 
-export const UnauthenticatedLayoutContainer = styled.div`
+const UnauthenticatedLayoutContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,3 +22,5 @@ export const UnauthenticatedLayoutContainer = styled.div`
     hsl(318deg 29% 64%) 100%
   );
 `;
+
+export default UnauthenticatedLayoutContainer;

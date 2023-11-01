@@ -1,6 +1,6 @@
 import styled from "styled-components/macro";
 
-export const HeaderContainer = styled.header`
+const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -10,3 +10,5 @@ export const HeaderContainer = styled.header`
   color: ${(props) => props.theme.mimirorg.color.primary.on};
   box-shadow: ${(props) => props.theme.mimirorg.shadow.small};
 `;
+
+export default HeaderContainer;

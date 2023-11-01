@@ -1,7 +1,7 @@
 import { focus } from "@mimirorg/component-library";
 import styled from "styled-components/macro";
 
-export const ItemDescriptionContainer = styled.button`
+const ItemDescriptionContainer = styled.button`
   border: 0;
   border-radius: ${(props) => props.theme.mimirorg.border.radius.medium};
   background-color: transparent;
@@ -25,3 +25,5 @@ export const ItemDescriptionContainer = styled.button`
 
   ${focus};
 `;
+
+export default ItemDescriptionContainer;

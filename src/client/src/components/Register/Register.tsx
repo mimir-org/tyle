@@ -1,11 +1,11 @@
 import { MimirorgQrCodeCm } from "@mimirorg/typelibrary-types";
-import { Completion } from "components/Completion/Completion";
-import { MultiFactorAuthentication } from "components/MultiFactorAuthentication/MultiFactorAuthentication";
-import { RegisterDetails } from "components/Register/RegisterDetails";
-import { RegisterVerification } from "components/Register/RegisterVerification";
+import Completion from "components/Completion";
+import MultiFactorAuthentication from "components/MultiFactorAuthentication";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import RegisterDetails from "./RegisterDetails";
+import RegisterVerification from "./RegisterVerification";
 
 export type RegisterSteps = "DETAILS" | "VERIFY" | "MFA" | "COMPLETE";
 

@@ -1,13 +1,11 @@
-//import { yupResolver } from "@hookform/resolvers/yup";
-import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { UserItem } from "common/types/userItem";
-import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { Button, Form, FormField, Input, Select } from "@mimirorg/component-library";
-import { usePermissionToasts } from "components/PermissionCard/PermissionCardForm.helpers";
-//import { permissionSchema } from "features/settings/common/permission-card/card-form/permissionSchema";
-import { FormUserPermission } from "components/PermissionCard/formUserPermission";
+import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { UserItem } from "types/userItem";
+import { getOptionsFromEnum } from "utils";
+import { usePermissionToasts } from "./PermissionCardForm.helpers";
+import { FormUserPermission } from "./formUserPermission";
 
 export interface PermissionCardFormProps {
   user: UserItem;
@@ -16,7 +14,7 @@ export interface PermissionCardFormProps {
   showSubmitButton?: boolean;
 }
 
-export const PermissionCardForm = ({ user, formId, onSubmit, showSubmitButton = true }: PermissionCardFormProps) => {
+const PermissionCardForm = ({ user, formId, onSubmit, showSubmitButton = true }: PermissionCardFormProps) => {
   const { t } = useTranslation(["settings"]);
 
   const permissionOptions = getOptionsFromEnum<MimirorgPermission>(MimirorgPermission);
@@ -60,3 +58,5 @@ export const PermissionCardForm = ({ user, formId, onSubmit, showSubmitButton = 
     </Form>
   );
 };
+
+export default PermissionCardForm;

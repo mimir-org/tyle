@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { BlockTypeRequest } from "common/types/blocks/blockTypeRequest";
-import { State } from "common/types/common/state";
-import { StateChangeRequest } from "common/types/common/stateChangeRequest";
-import { blockApi } from "api/block.api";
+import { BlockTypeRequest } from "types/blocks/blockTypeRequest";
+import { State } from "types/common/state";
+import { StateChangeRequest } from "types/common/stateChangeRequest";
+import { blockApi } from "./block.api";
 
 const blockKeys = {
   all: ["blocks"] as const,

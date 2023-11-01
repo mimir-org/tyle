@@ -1,6 +1,5 @@
-import { InfoItem } from "common/types/infoItem";
-
-import { TerminalView } from "common/types/terminals/terminalView";
+import { InfoItem } from "types/infoItem";
+import { TerminalView } from "types/terminals/terminalView";
 
 export const mapTerminalViewToInfoItem = (terminal: TerminalView): InfoItem => {
   const infoItem = {

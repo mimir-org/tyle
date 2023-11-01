@@ -9,12 +9,12 @@ import {
   VisuallyHidden,
 } from "@mimirorg/component-library";
 import { PlusSmall, Trash } from "@styled-icons/heroicons-outline";
-import { ConstraintType } from "common/types/attributes/constraintType";
-import { XsdDataType } from "common/types/attributes/xsdDataType";
-import { Option, getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
+import FormSection from "components/FormSection";
 import { Controller, useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import FormSection from "../FormSection";
+import { ConstraintType } from "types/attributes/constraintType";
+import { XsdDataType } from "types/attributes/xsdDataType";
+import { Option, getOptionsFromEnum } from "utils";
 import { AttributeFormFields } from "./AttributeForm.helpers";
 
 /**

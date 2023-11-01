@@ -1,4 +1,4 @@
-import { TerminalView } from "common/types/terminals/terminalView";
+import { TerminalView } from "types/terminals/terminalView";
 
 export const prepareTerminals = (terminals?: TerminalView[]) => {
   if (!terminals || terminals.length === 0) return [];

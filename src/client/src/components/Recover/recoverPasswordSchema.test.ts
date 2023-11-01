@@ -1,6 +1,6 @@
 import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
-import { recoverPasswordSchema } from "components/Recover/recoverPasswordSchema";
 import { vi } from "vitest";
+import { recoverPasswordSchema } from "./recoverPasswordSchema";
 
 describe("recoverPasswordSchema tests", () => {
   const t = vi.fn();

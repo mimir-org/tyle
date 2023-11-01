@@ -1,9 +1,17 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, FormContainer } from "@mimirorg/component-library";
-import { TerminalView } from "common/types/terminals/terminalView";
-import { FormAttributes } from "components/FormAttributes/FormAttributes";
-import { Loader } from "components/Loader";
+import FormAttributes from "components/FormAttributes";
+import FormClassifiers from "components/FormClassifiers";
+import Loader from "components/Loader";
+import { onSubmitForm, usePrefilledForm, useSubmissionToast } from "helpers/form.helpers";
+import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
+import { useServerValidation } from "hooks/useServerValidation";
+import { FormProvider, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "styled-components";
+import { FormMode } from "types/formMode";
+import { TerminalView } from "types/terminals/terminalView";
 import {
   TerminalFormFields,
   createDefaultTerminalFormFields,
@@ -11,17 +19,9 @@ import {
   toTerminalTypeRequest,
   useTerminalMutation,
   useTerminalQuery,
-} from "components/TerminalForm/TerminalForm.helpers";
-import { TerminalFormBaseFields } from "components/TerminalForm/TerminalFormBaseFields";
-import { terminalSchema } from "components/TerminalForm/terminalSchema";
-import { onSubmitForm, usePrefilledForm, useSubmissionToast } from "helpers/form.helpers";
-import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
-import { useServerValidation } from "hooks/useServerValidation";
-import { FormProvider, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components";
-import { FormMode } from "../../common/types/formMode";
-import { FormClassifiers } from "../FormClassifiers/FormClassifiers";
+} from "./TerminalForm.helpers";
+import TerminalFormBaseFields from "./TerminalFormBaseFields";
+import { terminalSchema } from "./terminalSchema";
 
 interface TerminalFormProps {
   defaultValues?: TerminalFormFields;

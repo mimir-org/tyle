@@ -3,12 +3,12 @@ import { usePatchAttributeState } from "api/attribute.queries";
 import { usePatchBlockState } from "api/block.queries";
 import { usePatchTerminalState } from "api/terminal.queries";
 import { AxiosError } from "axios";
-import { AttributeView } from "common/types/attributes/attributeView";
-import { BlockView } from "common/types/blocks/blockView";
-import { TerminalView } from "common/types/terminals/terminalView";
-import { FormApproval, mapFormApprovalToApiModel } from "components/Approval/formApproval";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { AttributeView } from "types/attributes/attributeView";
+import { BlockView } from "types/blocks/blockView";
+import { TerminalView } from "types/terminals/terminalView";
+import { FormApproval, mapFormApprovalToApiModel } from "./formApproval";
 
 export const usePatchStateMutation = (
   item: AttributeView | TerminalView | BlockView,

@@ -1,12 +1,13 @@
 import { Token } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useGetClassifiers } from "api/classifier.queries";
+import { BlockFormFields } from "components/BlockForm/BlockForm.helpers";
+import FormSection from "components/FormSection";
+import SelectItemDialog from "components/SelectItemDialog";
+import { TerminalFormFields } from "components/TerminalForm/TerminalForm.helpers";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { BlockFormFields } from "../BlockForm/BlockForm.helpers";
-import { FormSection } from "../FormSection/FormSection";
-import { SelectItemDialog } from "../SelectItemDialog/SelectItemDialog";
-import { TerminalFormFields, classifierInfoItem } from "../TerminalForm/TerminalForm.helpers";
+import { classifierInfoItem } from "./FormClassifiers.helpers";
 
 /**
  * Component which contains all simple value fields of the attribute form.

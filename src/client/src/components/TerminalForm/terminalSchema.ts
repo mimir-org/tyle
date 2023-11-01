@@ -1,10 +1,5 @@
-import {
-  DESCRIPTION_LENGTH,
-  IRI_LENGTH,
-  NAME_LENGTH,
-  NOTATION_LENGTH,
-} from "common/types/common/stringLengthConstants";
 import { TFunction } from "i18next";
+import { DESCRIPTION_LENGTH, IRI_LENGTH, NAME_LENGTH, NOTATION_LENGTH } from "types/common/stringLengthConstants";
 import * as yup from "yup";
 
 export const terminalSchema = (t: TFunction<"translation">) =>

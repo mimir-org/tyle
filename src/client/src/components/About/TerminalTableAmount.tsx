@@ -1,7 +1,7 @@
 import { Td } from "@mimirorg/component-library";
-import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "components/BlockPreview/blockTerminalQuantityRestrictions";
 import { useTranslation } from "react-i18next";
+import { BlockTerminalItem } from "types/blockTerminalItem";
 import { useMediaQuery } from "usehooks-ts";
 
 const TerminalTableAmount = ({ maxQuantity }: Pick<BlockTerminalItem, "maxQuantity">) => {

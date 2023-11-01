@@ -1,9 +1,9 @@
-import { Link } from "common/types/link";
+import { attributeFormBasePath } from "components/AttributeForm/AttributeFormRoutes";
+import { attributeGroupFormBasePath } from "components/AttributeGroupForm/AttributeGroupFormRoutes";
 import { blockFormBasePath } from "components/BlockForm/BlockFormRoutes";
 import { terminalFormBasePath } from "components/TerminalForm/TerminalFormRoutes";
 import { useTranslation } from "react-i18next";
-import { attributeFormBasePath } from "../AttributeForm/AttributeFormRoutes";
-import { attributeGroupFormBasePath } from "components/AttributeGroupForm/AttributeGroupFormRoutes";
+import { Link } from "types/link";
 
 export const useCreateMenuLinks = (): Link[] => {
   const { t } = useTranslation("explore");

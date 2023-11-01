@@ -1,6 +1,6 @@
 import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
-import { recoverDetailsSchema } from "components/Recover/recoverDetailsSchema";
 import { vi } from "vitest";
+import { recoverDetailsSchema } from "./recoverDetailsSchema";
 
 describe("recoverDetailsSchema tests", () => {
   const t = vi.fn();

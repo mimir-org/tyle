@@ -1,8 +1,8 @@
-import { State } from "common/types/common/state";
-import { StateChangeRequest } from "common/types/common/stateChangeRequest";
-import { TerminalTypeRequest } from "common/types/terminals/terminalTypeRequest";
-import { TerminalView } from "common/types/terminals/terminalView";
 import { apiClient } from "api/clients/apiClient";
+import { State } from "types/common/state";
+import { StateChangeRequest } from "types/common/stateChangeRequest";
+import { TerminalTypeRequest } from "types/terminals/terminalTypeRequest";
+import { TerminalView } from "types/terminals/terminalView";
 
 const _basePath = "terminals";
 

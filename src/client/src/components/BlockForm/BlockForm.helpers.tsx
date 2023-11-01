@@ -1,15 +1,15 @@
 import { useCreateBlock, useGetBlock, useUpdateBlock } from "api/block.queries";
-import { BlockTypeRequest } from "common/types/blocks/blockTypeRequest";
-import { BlockView } from "common/types/blocks/blockView";
-import { TerminalTypeReferenceView } from "common/types/blocks/terminalTypeReferenceView";
-import { AttributeTypeReferenceView } from "common/types/common/attributeTypeReferenceView";
-import { RdlClassifier } from "common/types/common/rdlClassifier";
-import { RdlPurpose } from "common/types/common/rdlPurpose";
-import { FormMode } from "common/types/formMode";
-import { InfoItem } from "common/types/infoItem";
-import { Direction } from "common/types/terminals/direction";
-import { TerminalView } from "common/types/terminals/terminalView";
 import { useParams } from "react-router-dom";
+import { BlockTypeRequest } from "types/blocks/blockTypeRequest";
+import { BlockView } from "types/blocks/blockView";
+import { TerminalTypeReferenceView } from "types/blocks/terminalTypeReferenceView";
+import { AttributeTypeReferenceView } from "types/common/attributeTypeReferenceView";
+import { RdlClassifier } from "types/common/rdlClassifier";
+import { RdlPurpose } from "types/common/rdlPurpose";
+import { FormMode } from "types/formMode";
+import { InfoItem } from "types/infoItem";
+import { Direction } from "types/terminals/direction";
+import { TerminalView } from "types/terminals/terminalView";
 import { mapTerminalViewsToInfoItems } from "./mapTerminalViewsToInfoItems";
 
 export const useBlockQuery = () => {

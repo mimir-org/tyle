@@ -1,6 +1,6 @@
 import { Tooltip } from "@mimirorg/component-library";
-import { BlockTerminalItem } from "common/types/blockTerminalItem";
-import TerminalButton, { TerminalButtonProps } from "../TerminalButton";
+import TerminalButton, { TerminalButtonProps } from "components/TerminalButton";
+import { BlockTerminalItem } from "types/blockTerminalItem";
 import TerminalDescription from "./TerminalDescription";
 
 /**

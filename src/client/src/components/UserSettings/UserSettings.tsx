@@ -1,6 +1,6 @@
-import { SettingsSection } from "../SettingsSection/SettingsSection";
+import SettingsSection from "components/SettingsSection";
 import { useTranslation } from "react-i18next";
-import { UserSettingsForm } from "components/UserSettings/UserSettingsForm";
+import UserSettingsForm from "./UserSettingsForm";
 
 const UserSettings = () => {
   const { t } = useTranslation("settings");

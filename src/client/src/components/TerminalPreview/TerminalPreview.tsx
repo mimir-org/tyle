@@ -1,6 +1,6 @@
 import { Text, TextTypes } from "@mimirorg/component-library";
-import { TerminalButton } from "components/TerminalButton/TerminalButton";
-import { TerminalPreviewContainer, TerminalPreviewVariant } from "components/TerminalPreview/TerminalPreview.styled";
+import TerminalButton from "components/TerminalButton";
+import TerminalPreviewContainer, { TerminalPreviewVariant } from "./TerminalPreview.styled";
 
 interface AttributePreviewProps {
   name: string;

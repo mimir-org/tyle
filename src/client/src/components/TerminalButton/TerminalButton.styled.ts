@@ -1,7 +1,7 @@
 import { focus, layer, translucify } from "@mimirorg/component-library";
-import { TerminalButtonProps } from "components/TerminalButton/TerminalButton";
 import { meetsContrastGuidelines } from "polished";
 import styled, { css } from "styled-components/macro";
+import { TerminalButtonProps } from "./TerminalButton";
 
 export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
   flex-shrink: 0;

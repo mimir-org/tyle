@@ -1,11 +1,11 @@
 import { useGetBlock } from "api/block.queries";
-import Loader from "../Loader";
+import ExploreSection from "components/ExploreSection";
+import Loader from "components/Loader";
+import { toBlockItem } from "helpers/mappers.helpers";
+import { useTranslation } from "react-i18next";
+import { SelectedInfo } from "types/selectedInfo";
 import AboutPlaceholder from "./AboutPlaceholder";
 import BlockPanel from "./BlockPanel";
-import ExploreSection from "../ExploreSection";
-import { SelectedInfo } from "common/types/selectedInfo";
-import { useTranslation } from "react-i18next";
-import { toBlockItem } from "common/utils/mappers/mapBlockLibCmToBlockItem";
 
 interface AboutProps {
   selected?: SelectedInfo;

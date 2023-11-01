@@ -15,7 +15,7 @@ interface SearchPlaceholderProps {
  * @param tips
  * @constructor
  */
-export const SearchPlaceholder = ({ title, subtitle, tips }: SearchPlaceholderProps) => {
+const SearchPlaceholder = ({ title, subtitle, tips }: SearchPlaceholderProps) => {
   const theme = useTheme();
 
   return (
@@ -34,3 +34,5 @@ export const SearchPlaceholder = ({ title, subtitle, tips }: SearchPlaceholderPr
     </MotionFlexbox>
   );
 };
+
+export default SearchPlaceholder;

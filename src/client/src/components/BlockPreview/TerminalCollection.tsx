@@ -1,8 +1,8 @@
 import { Box, Divider, Flexbox, Popover, Text, VisuallyHidden } from "@mimirorg/component-library";
-import { BlockTerminalItem } from "common/types/blockTerminalItem";
+import TerminalButton from "components/TerminalButton";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import TerminalButton from "../TerminalButton";
+import { BlockTerminalItem } from "types/blockTerminalItem";
 import TerminalDescription from "./TerminalDescription";
 import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "./blockTerminalQuantityRestrictions";
 

@@ -1,14 +1,14 @@
 import { useCreateTerminal, useGetTerminal, useUpdateTerminal } from "api/terminal.queries";
-import { AttributeTypeReferenceView } from "common/types/common/attributeTypeReferenceView";
-import { RdlClassifier } from "common/types/common/rdlClassifier";
-import { RdlPurpose } from "common/types/common/rdlPurpose";
-import { InfoItem } from "common/types/infoItem";
-import { Direction } from "common/types/terminals/direction";
-import { RdlMedium } from "common/types/terminals/rdlMedium";
-import { TerminalTypeRequest } from "common/types/terminals/terminalTypeRequest";
-import { TerminalView } from "common/types/terminals/terminalView";
 import { useParams } from "react-router-dom";
-import { FormMode } from "../../common/types/formMode";
+import { AttributeTypeReferenceView } from "types/common/attributeTypeReferenceView";
+import { RdlClassifier } from "types/common/rdlClassifier";
+import { RdlPurpose } from "types/common/rdlPurpose";
+import { FormMode } from "types/formMode";
+import { InfoItem } from "types/infoItem";
+import { Direction } from "types/terminals/direction";
+import { RdlMedium } from "types/terminals/rdlMedium";
+import { TerminalTypeRequest } from "types/terminals/terminalTypeRequest";
+import { TerminalView } from "types/terminals/terminalView";
 
 export const useTerminalQuery = () => {
   const { id } = useParams();
@@ -57,14 +57,5 @@ export const mediumInfoItem = (medium: RdlMedium): InfoItem => ({
   descriptors: {
     Description: medium.description,
     IRI: medium.iri,
-  },
-});
-
-export const classifierInfoItem = (classifier: RdlClassifier): InfoItem => ({
-  id: classifier.id.toString(),
-  name: classifier.name,
-  descriptors: {
-    Description: classifier.description,
-    IRI: classifier.iri,
   },
 });

@@ -1,6 +1,6 @@
-import { AttributeGroupLibCm } from "@mimirorg/typelibrary-types";
-import { InfoItem } from "common/types/infoItem";
 import { Text } from "@mimirorg/component-library";
+import { AttributeGroupLibCm } from "@mimirorg/typelibrary-types";
+import { InfoItem } from "types/infoItem";
 
 export const mapAttributeGroupLibCmToInfoItem = (attributeGroup: AttributeGroupLibCm): InfoItem => {
   const attributes = attributeGroup.attributes.map((x) => x.name);

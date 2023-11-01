@@ -1,8 +1,8 @@
 import { FullPageSpinner } from "@mimirorg/component-library";
 import { useGetCurrentUser } from "api/user.queries";
+import Authenticated from "components/Authenticated";
+import Unauthenticated from "components/Unauthenticated";
 import { useTranslation } from "react-i18next";
-import Authenticated from "../Authenticated";
-import Unauthenticated from "../Unauthenticated";
 
 const App = () => {
   const { t } = useTranslation("ui");

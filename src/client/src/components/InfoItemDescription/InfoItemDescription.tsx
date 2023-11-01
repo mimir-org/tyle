@@ -1,6 +1,6 @@
-import { InfoItem } from "common/types/infoItem";
 import { Actionable, Box, Button, Divider, Flexbox, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
+import { InfoItem } from "types/infoItem";
 
 export type InfoItemDescriptionProps = Omit<InfoItem, "id"> & Partial<Actionable>;
 

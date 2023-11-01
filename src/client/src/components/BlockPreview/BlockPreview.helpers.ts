@@ -1,4 +1,4 @@
-import { Direction } from "common/types/terminals/direction";
+import { Direction } from "types/terminals/direction";
 
 export const meetsInputCriteria = (direction: Direction) => {
   return direction === Direction.Input || direction === Direction.Bidirectional;

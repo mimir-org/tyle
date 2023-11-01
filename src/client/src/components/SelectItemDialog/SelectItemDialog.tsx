@@ -1,12 +1,12 @@
+import { Button, Dialog } from "@mimirorg/component-library";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { PlusSmall } from "@styled-icons/heroicons-outline";
-import { InfoItem } from "common/types/infoItem";
-import { Button, Dialog } from "@mimirorg/component-library";
-import { InfoItemCheckbox } from "components/InfoItemCheckbox/InfoItemCheckbox";
-import { SearchField } from "components/SearchField";
-import { filterInfoItem, onSelectionChange } from "components/SelectItemDialog/SelectItemDialog.helpers";
-import { SelectContainer, SelectItemsContainer } from "components/SelectItemDialog/SelectItemDialog.styled";
+import InfoItemCheckbox from "components/InfoItemCheckbox";
+import SearchField from "components/SearchField";
 import { useState } from "react";
+import { InfoItem } from "types/infoItem";
+import { filterInfoItem, onSelectionChange } from "./SelectItemDialog.helpers";
+import { SelectContainer, SelectItemsContainer } from "./SelectItemDialog.styled";
 
 interface SelectItemDialogProps {
   title: string;

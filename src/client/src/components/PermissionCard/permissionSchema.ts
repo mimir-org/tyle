@@ -1,7 +1,7 @@
-import { YupShape } from "common/types/yupShape";
-import { FormUserPermission } from "components/PermissionCard/formUserPermission";
 import { TFunction } from "i18next";
+import { YupShape } from "types/yupShape";
 import * as yup from "yup";
+import { FormUserPermission } from "./formUserPermission";
 
 export const permissionSchema = (t: TFunction<"translation">) =>
   yup.object<YupShape<FormUserPermission>>({

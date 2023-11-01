@@ -1,9 +1,9 @@
 import { MotionBox } from "@mimirorg/component-library";
-import { AttributeGroupItem } from "common/types/attributeGroupItem";
+import AttributeGroupPreview from "components/AttributeGroupPreview";
+import InfoItemButton from "components/InfoItemButton";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import AttributeGroupPreview from "../AttributeGroupPreview";
-import InfoItemButton from "../InfoItemButton";
+import { AttributeGroupItem } from "types/attributeGroupItem";
 import PanelPropertiesContainer from "./PanelPropertiesContainer";
 import PanelSection from "./PanelSection";
 

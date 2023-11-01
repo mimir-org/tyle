@@ -1,15 +1,13 @@
-import { AttributeGroupLibCm, AttributeLibCm } from "@mimirorg/typelibrary-types";
-//import { XCircle } from "@styled-icons/heroicons-outline";
 import { Flexbox } from "@mimirorg/component-library";
-import { FormSection } from "components/FormSection/FormSection";
-import { SelectItemDialog } from "components/SelectItemDialog/SelectItemDialog";
-import { ValueObject } from "common/types/valueObject";
+import { AttributeGroupLibCm, AttributeLibCm } from "@mimirorg/typelibrary-types";
+import FormSection from "components/FormSection";
+import SelectItemDialog from "components/SelectItemDialog";
 import { UseFormRegisterReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-//import { useGetAttributeGroups } from "external/sources/attributeGroup/attributeGroup.queries";
+import { AttributeGroupView } from "types/attributes/attributeGroupView";
+import { ValueObject } from "types/valueObject";
 import { onAddAttributeGroup } from "./FormAttributeGroups.helpers";
-import { AttributeGroupView } from "common/types/attributes/attributeGroupView";
 
 export interface FormAttributeGroupsProps {
   fields: ValueObject<string>[];

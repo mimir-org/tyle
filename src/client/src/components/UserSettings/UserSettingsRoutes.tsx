@@ -1,5 +1,5 @@
-import { UserSettings } from "components/UserSettings/UserSettings";
 import { RouteObject } from "react-router-dom";
+import UserSettings from "./UserSettings";
 
 export const usersettingsBasePath = "usersettings";
 

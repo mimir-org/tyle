@@ -1,8 +1,8 @@
 import { ArrowTopRightOnSquare } from "@styled-icons/heroicons-outline";
-import { UserMenuButton } from "components/Header/UserMenuButton";
 import { useTranslation } from "react-i18next";
+import UserMenuButton from "./UserMenuButton";
 
-export const FeedbackButton = () => {
+const FeedbackButton = () => {
   const { t } = useTranslation("ui");
 
   return (
@@ -16,3 +16,5 @@ export const FeedbackButton = () => {
     </UserMenuButton>
   );
 };
+
+export default FeedbackButton;

@@ -1,6 +1,6 @@
 import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
-import { YupShape } from "common/types/yupShape";
 import { TFunction } from "i18next";
+import { YupShape } from "types/yupShape";
 import * as yup from "yup";
 
 export const userSchema = (t: TFunction<"translation">) =>

@@ -1,5 +1,5 @@
-import { Register } from "components/Register/Register";
 import { RouteObject } from "react-router-dom";
+import Register from "./Register";
 
 export const registerBasePath = "/register";
 

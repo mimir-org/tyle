@@ -1,6 +1,6 @@
 import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
-import { registerDetailsSchema } from "components/Register/registerDetailsSchema";
 import { vi } from "vitest";
+import { registerDetailsSchema } from "./registerDetailsSchema";
 
 describe("registerDetailsSchema tests", () => {
   const t = vi.fn();

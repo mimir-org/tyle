@@ -1,9 +1,9 @@
-import { PencilSquare } from "@styled-icons/heroicons-outline";
-import { UserItem } from "common/types/userItem";
 import { AlertDialog, AlertDialogActionItem, AlertDialogCancelItem, Button } from "@mimirorg/component-library";
-import { PermissionCard } from "components/PermissionCard/PermissionCard";
+import { PencilSquare } from "@styled-icons/heroicons-outline";
+import PermissionCard from "components/PermissionCard";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { UserItem } from "types/userItem";
 
 interface PermissionDialogProps {
   user: UserItem;
@@ -18,7 +18,7 @@ interface PermissionDialogProps {
  * @param user
  * @constructor
  */
-export const PermissionDialog = ({ user }: PermissionDialogProps) => {
+const PermissionDialog = ({ user }: PermissionDialogProps) => {
   const { t } = useTranslation("settings");
   const [open, setOpen] = useState(false);
   const formId = "changeUserPermission";
@@ -51,3 +51,5 @@ export const PermissionDialog = ({ user }: PermissionDialogProps) => {
     </AlertDialog>
   );
 };
+
+export default PermissionDialog;

@@ -1,4 +1,4 @@
-import { StateItem } from "common/types/stateItem";
+import { StateItem } from "types/stateItem";
 import { RdlUnit } from "./attributes/rdlUnit";
 
 export interface AttributeItem extends StateItem {

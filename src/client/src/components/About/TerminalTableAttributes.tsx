@@ -1,8 +1,8 @@
 import { Box, Td } from "@mimirorg/component-library";
-import { BlockTerminalItem } from "common/types/blockTerminalItem";
+import InfoItemButton from "components/InfoItemButton";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import InfoItemButton from "../InfoItemButton";
+import { BlockTerminalItem } from "types/blockTerminalItem";
 
 const TerminalTableAttributes = ({ attributes }: Pick<BlockTerminalItem, "attributes">) => {
   const theme = useTheme();

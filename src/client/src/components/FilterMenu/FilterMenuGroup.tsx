@@ -1,7 +1,7 @@
 import { AccordionContent, AccordionItem, AccordionTrigger, Box, Checkbox, Text } from "@mimirorg/component-library";
-import { FilterMenuGroupLabel } from "components/FilterMenu/FilterMenuGroup.styled";
-import { Filter } from "common/types/filter";
 import { useTheme } from "styled-components";
+import { Filter } from "types/filter";
+import FilterMenuGroupLabel from "./FilterMenuGroup.styled";
 
 export interface FilterMenuGroupProps {
   name: string;
@@ -19,7 +19,7 @@ export interface FilterMenuGroupProps {
  * @param toggleFilter function of toggling a single filter on or off
  * @constructor
  */
-export const FilterMenuGroup = ({ name, filters, activeFilters, toggleFilter }: FilterMenuGroupProps) => {
+const FilterMenuGroup = ({ name, filters, activeFilters, toggleFilter }: FilterMenuGroupProps) => {
   const theme = useTheme();
 
   return (
@@ -46,3 +46,5 @@ export const FilterMenuGroup = ({ name, filters, activeFilters, toggleFilter }: 
     </AccordionItem>
   );
 };
+
+export default FilterMenuGroup;

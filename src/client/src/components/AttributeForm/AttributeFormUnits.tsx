@@ -1,10 +1,10 @@
 import { Token } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useGetUnits } from "api/unit.queries";
+import FormSection from "components/FormSection";
+import SelectItemDialog from "components/SelectItemDialog";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import FormSection from "../FormSection";
-import SelectItemDialog from "../SelectItemDialog";
 import { AttributeFormFields, unitInfoItem } from "./AttributeForm.helpers";
 
 export interface AttributeFormUnitsProps {

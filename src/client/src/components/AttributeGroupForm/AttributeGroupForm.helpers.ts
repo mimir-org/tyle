@@ -1,10 +1,6 @@
+import { useCreateAttributeGroup, useGetAttributeGroup, useUpdateAttributeGroup } from "api/attributeGroup.queries";
 import { useParams } from "react-router-dom";
-import {
-  useCreateAttributeGroup,
-  useGetAttributeGroup,
-  useUpdateAttributeGroup,
-} from "../../api/attributeGroup.queries";
-import { FormMode } from "../../common/types/formMode";
+import { FormMode } from "types/formMode";
 
 export const useAttributeGroupQuery = () => {
   const { id } = useParams();

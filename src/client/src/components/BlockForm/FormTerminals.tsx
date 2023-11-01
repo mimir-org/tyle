@@ -1,13 +1,13 @@
 import { Box, Checkbox, Counter, Flexbox, FormField, Select, Token } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useGetTerminals } from "api/terminal.queries";
-import { Direction } from "common/types/terminals/direction";
-import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
+import FormSection from "components/FormSection";
+import SelectItemDialog from "components/SelectItemDialog";
 import { Controller, useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import FormSection from "../FormSection";
-import SelectItemDialog from "../SelectItemDialog";
+import { Direction } from "types/terminals/direction";
+import { getOptionsFromEnum } from "utils";
 import { BlockFormFields, onAddTerminals, resolveSelectedAndAvailableTerminals } from "./BlockForm.helpers";
 import { prepareTerminals } from "./prepareTerminals";
 

@@ -1,11 +1,11 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { useGetAuthCompanyUsers } from "api/company.queries";
-import { UserItem } from "common/types/userItem";
-import { getOptionsFromEnum, Option } from "common/utils/getOptionsFromEnum";
-import { mapMimirorgUserCmToUserItem } from "common/utils/mappers/mapMimirorgUserCmToUserItem";
-import { MimirorgPermissionExtended, UserItemPermission } from "components/Permissions/userItemPermission";
+import { mapMimirorgUserCmToUserItem } from "helpers/mappers.helpers";
 import { useGetFilteredCompanies } from "hooks/useGetFilteredCompanies";
 import { useEffect } from "react";
+import { UserItem } from "types/userItem";
+import { Option, getOptionsFromEnum } from "utils";
+import { MimirorgPermissionExtended, UserItemPermission } from "./userItemPermission";
 
 export const useCompanyOptions = (): Option<string>[] => {
   const companies = useGetFilteredCompanies(MimirorgPermission.Manage);

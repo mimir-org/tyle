@@ -11,8 +11,7 @@ import {
   Text,
 } from "@mimirorg/component-library";
 import { useLogin } from "api/authenticate.queries";
-import { AuthContent } from "components/AuthContent/AuthContent";
-import { loginSchema } from "components/Login/loginSchema";
+import AuthContent from "components/AuthContent";
 import { recoverBasePath } from "components/Recover/RecoverRoutes";
 import { registerBasePath } from "components/Register/RegisterRoutes";
 import { useServerValidation } from "hooks/useServerValidation";
@@ -20,6 +19,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "styled-components";
+import { loginSchema } from "./loginSchema";
 
 const Login = () => {
   const theme = useTheme();

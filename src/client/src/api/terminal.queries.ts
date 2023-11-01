@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { State } from "common/types/common/state";
-import { StateChangeRequest } from "common/types/common/stateChangeRequest";
-import { TerminalTypeRequest } from "common/types/terminals/terminalTypeRequest";
-import { terminalApi } from "api/terminal.api";
+import { State } from "types/common/state";
+import { StateChangeRequest } from "types/common/stateChangeRequest";
+import { TerminalTypeRequest } from "types/terminals/terminalTypeRequest";
+import { terminalApi } from "./terminal.api";
 
 const terminalKeys = {
   all: ["terminals"] as const,

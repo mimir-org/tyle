@@ -1,8 +1,8 @@
 import { Flexbox, Td } from "@mimirorg/component-library";
-import { BlockTerminalItem } from "common/types/blockTerminalItem";
+import TerminalButton from "components/TerminalButton";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import TerminalButton from "../TerminalButton";
+import { BlockTerminalItem } from "types/blockTerminalItem";
 
 const TerminalTableIdentifier = ({
   name,

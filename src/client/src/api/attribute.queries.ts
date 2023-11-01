@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { AttributeTypeRequest } from "types/attributes/attributeTypeRequest";
+import { State } from "types/common/state";
+import { StateChangeRequest } from "types/common/stateChangeRequest";
 import { attributeApi } from "./attribute.api";
-import { AttributeTypeRequest } from "common/types/attributes/attributeTypeRequest";
-import { State } from "common/types/common/state";
-import { StateChangeRequest } from "common/types/common/stateChangeRequest";
 
 const attributeKeys = {
   all: ["attributes"] as const,

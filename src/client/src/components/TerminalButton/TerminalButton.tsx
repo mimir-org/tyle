@@ -1,9 +1,9 @@
 import { Polymorphic } from "@mimirorg/component-library";
 import { ArrowSmallRight, ArrowsRightLeft } from "@styled-icons/heroicons-outline";
-import { Direction } from "common/types/terminals/direction";
-import { EllipseIcon } from "components/TerminalButton/EllipseIcon";
-import { TerminalButtonContainer } from "components/TerminalButton/TerminalButton.styled";
 import { ButtonHTMLAttributes, ElementType, ReactNode, forwardRef } from "react";
+import { Direction } from "types/terminals/direction";
+import { EllipseIcon } from "./EllipseIcon";
+import { TerminalButtonContainer } from "./TerminalButton.styled";
 
 export type TerminalButtonVariant = "small" | "medium" | "large";
 

@@ -1,10 +1,11 @@
 /// <reference types="vitest" />
-import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+// eslint-disable-next-line import/no-unresolved
+import path from "path";
 // eslint-disable-next-line import/no-unresolved
 import macrosPlugin from "vite-plugin-babel-macros";
 import svgrPlugin from "vite-plugin-svgr";
-import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -27,11 +28,13 @@ export default defineConfig({
     alias: {
       fs: require.resolve("rollup-plugin-node-builtins"),
       api: path.resolve("src/api"),
-      common: path.resolve("src/common"),
       components: path.resolve("src/components"),
+      config: path.resolve("src/config.ts"),
       helpers: path.resolve("src/helpers"),
       hooks: path.resolve("src/hooks"),
       locales: path.resolve("src/locales"),
+      types: path.resolve("src/types"),
+      utils: path.resolve("src/utils.js"),
     },
   },
   server: {

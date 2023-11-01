@@ -1,18 +1,15 @@
-import { XCircle } from "@styled-icons/heroicons-outline";
 import { Box, Checkbox, Counter, Flexbox, Token } from "@mimirorg/component-library";
+import { XCircle } from "@styled-icons/heroicons-outline";
 import { useGetAttributes } from "api/attribute.queries";
-import {
-  onAddAttributes,
-  resolveSelectedAndAvailableAttributes,
-} from "components/FormAttributes/FormAttributes.helpers";
-import { FormSection } from "components/FormSection/FormSection";
-import { SelectItemDialog } from "components/SelectItemDialog/SelectItemDialog";
+import { BlockFormFields } from "components/BlockForm/BlockForm.helpers";
+import FormSection from "components/FormSection";
+import SelectItemDialog from "components/SelectItemDialog";
+import { TerminalFormFields } from "components/TerminalForm/TerminalForm.helpers";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { TerminalFormFields } from "components/TerminalForm/TerminalForm.helpers";
+import { onAddAttributes, resolveSelectedAndAvailableAttributes } from "./FormAttributes.helpers";
 import { prepareAttributes } from "./prepareAttributes";
-import { BlockFormFields } from "components/BlockForm/BlockForm.helpers";
 
 /**
  * Reusable form section for adding attributes to models that support them

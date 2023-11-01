@@ -1,7 +1,7 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { permissionSchema } from "components/PermissionCard/permissionSchema";
-import { FormUserPermission } from "components/PermissionCard/formUserPermission";
 import { vi } from "vitest";
+import { FormUserPermission } from "./formUserPermission";
+import { permissionSchema } from "./permissionSchema";
 
 describe("accessSchema tests", () => {
   const t = vi.fn();

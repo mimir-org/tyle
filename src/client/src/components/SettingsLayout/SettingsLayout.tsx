@@ -1,8 +1,8 @@
-import { useSettingsLinkGroups } from "components/SettingsLayout/SettingsLayout.helpers";
-import { SettingsContainer } from "components/SettingsLayout/SettingsLayout.styled";
-import { Sidebar } from "components/SettingsLayout/Sidebar";
 import { useTranslation } from "react-i18next";
 import { Outlet } from "react-router-dom";
+import { useSettingsLinkGroups } from "./SettingsLayout.helpers";
+import SettingsContainer from "./SettingsLayout.styled";
+import Sidebar from "./Sidebar";
 
 const SettingsLayout = () => {
   const { t } = useTranslation("settings");

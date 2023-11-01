@@ -1,12 +1,12 @@
-import { UserCircle } from "@styled-icons/heroicons-outline";
 import { Box, Text } from "@mimirorg/component-library";
+import { UserCircle } from "@styled-icons/heroicons-outline";
 import { useTheme } from "styled-components";
 
 interface PermissionCardHeaderProps {
   children?: string;
 }
 
-export const PermissionCardHeader = ({ children }: PermissionCardHeaderProps) => {
+const PermissionCardHeader = ({ children }: PermissionCardHeaderProps) => {
   const theme = useTheme();
 
   return (
@@ -16,3 +16,5 @@ export const PermissionCardHeader = ({ children }: PermissionCardHeaderProps) =>
     </Box>
   );
 };
+
+export default PermissionCardHeader;

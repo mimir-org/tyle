@@ -1,5 +1,5 @@
-import { Company } from "components/Company/Company";
 import { RouteObject } from "react-router-dom";
+import Company from "./Company";
 
 export const createCompanyBasePath = "company/create";
 export const updateCompanyBasePath = "company/update";

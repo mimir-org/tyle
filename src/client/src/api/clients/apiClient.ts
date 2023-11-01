@@ -1,7 +1,7 @@
-import { injectBearerToken } from "api/clients/injectBearerToken";
-import { refreshExpiredToken } from "api/clients/refreshExpiredToken";
 import axios from "axios";
 import config from "config";
+import { injectBearerToken } from "./injectBearerToken";
+import { refreshExpiredToken } from "./refreshExpiredToken";
 
 export const apiClient = axios.create({
   baseURL: config.API_BASE_URL,

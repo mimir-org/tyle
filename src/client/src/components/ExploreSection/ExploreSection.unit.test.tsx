@@ -1,8 +1,8 @@
-import { afterEach, describe, expect } from "vitest";
-import { ExploreSection } from "./ExploreSection";
-import { cleanup, render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import { MimirorgThemeProvider } from "@mimirorg/component-library";
+import "@testing-library/jest-dom";
+import { cleanup, render, screen } from "@testing-library/react";
+import { afterEach, describe, expect } from "vitest";
+import ExploreSection from "./ExploreSection";
 
 const setup = () => {
   const testComponent = render(

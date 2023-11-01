@@ -1,6 +1,6 @@
-import { RdlPurpose } from "common/types/common/rdlPurpose";
-import { RdlPurposeRequest } from "common/types/common/rdlPurposeRequest";
 import { apiClient } from "api/clients/apiClient";
+import { RdlPurpose } from "types/common/rdlPurpose";
+import { RdlPurposeRequest } from "types/common/rdlPurposeRequest";
 
 const _basePath = "purposes";
 

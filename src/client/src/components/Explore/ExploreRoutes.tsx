@@ -1,5 +1,5 @@
-import { Explore } from "components/Explore/Explore";
 import { RouteObject } from "react-router-dom";
+import Explore from "./Explore";
 
 export const exploreRoutes: RouteObject[] = [
   {

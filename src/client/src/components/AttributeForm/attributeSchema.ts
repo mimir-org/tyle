@@ -1,8 +1,8 @@
 import { TFunction } from "i18next";
+import { ConstraintType } from "types/attributes/constraintType";
+import { XsdDataType } from "types/attributes/xsdDataType";
+import { DESCRIPTION_LENGTH, NAME_LENGTH, VALUE_LENGTH } from "types/common/stringLengthConstants";
 import * as yup from "yup";
-import { DESCRIPTION_LENGTH, NAME_LENGTH, VALUE_LENGTH } from "common/types/common/stringLengthConstants";
-import { ConstraintType } from "common/types/attributes/constraintType";
-import { XsdDataType } from "common/types/attributes/xsdDataType";
 
 const stringValueObject = (t: TFunction<"translation">) =>
   yup.object({

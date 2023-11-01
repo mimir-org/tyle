@@ -1,5 +1,5 @@
-import { YupShape } from "common/types/yupShape";
 import { TFunction } from "i18next";
+import { YupShape } from "types/yupShape";
 import * as yup from "yup";
 import { BlockFormFields } from "./BlockForm.helpers";
 

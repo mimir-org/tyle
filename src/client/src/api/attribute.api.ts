@@ -1,8 +1,8 @@
-import { AttributeTypeRequest } from "common/types/attributes/attributeTypeRequest";
-import { AttributeView } from "common/types/attributes/attributeView";
-import { State } from "common/types/common/state";
-import { StateChangeRequest } from "common/types/common/stateChangeRequest";
 import { apiClient } from "api/clients/apiClient";
+import { AttributeTypeRequest } from "types/attributes/attributeTypeRequest";
+import { AttributeView } from "types/attributes/attributeView";
+import { State } from "types/common/state";
+import { StateChangeRequest } from "types/common/stateChangeRequest";
 
 const _basePath = "attributes";
 

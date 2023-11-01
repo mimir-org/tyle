@@ -1,13 +1,8 @@
-import { terminalSchema } from "components/TerminalForm/terminalSchema";
-import { TerminalFormFields } from "./TerminalForm.helpers";
+import { DESCRIPTION_LENGTH, IRI_LENGTH, NAME_LENGTH, NOTATION_LENGTH } from "types/common/stringLengthConstants";
+import { Direction } from "types/terminals/direction";
 import { vi } from "vitest";
-import {
-  DESCRIPTION_LENGTH,
-  IRI_LENGTH,
-  NAME_LENGTH,
-  NOTATION_LENGTH,
-} from "common/types/common/stringLengthConstants";
-import { Direction } from "common/types/terminals/direction";
+import { TerminalFormFields } from "./TerminalForm.helpers";
+import { terminalSchema } from "./terminalSchema";
 
 describe("terminalSchema tests", () => {
   const t = vi.fn();

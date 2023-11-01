@@ -1,12 +1,12 @@
 import { DevTool } from "@hookform/devtools";
 import { Box, FormContainer } from "@mimirorg/component-library";
-import { FormMode } from "common/types/formMode";
 import { onSubmitForm, useSubmissionToast } from "helpers/form.helpers";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { FormMode } from "types/formMode";
 import { useAttributeGroupMutation, useAttributeGroupQuery } from "./AttributeGroupForm.helpers";
 import AttributeGroupFormBaseFields from "./AttributeGroupFormBaseFields";
 import {

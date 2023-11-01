@@ -1,5 +1,5 @@
-import { State, ApprovalCm } from "@mimirorg/typelibrary-types";
-import { Option } from "common/utils/getOptionsFromEnum";
+import { ApprovalCm, State } from "@mimirorg/typelibrary-types";
+import { Option } from "utils";
 
 /**
  * This type functions as a layer between client needs and the backend model.

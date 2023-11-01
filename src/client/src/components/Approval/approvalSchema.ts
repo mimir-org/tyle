@@ -1,7 +1,7 @@
-import { YupShape } from "common/types/yupShape";
 import { TFunction } from "i18next";
+import { YupShape } from "types/yupShape";
 import * as yup from "yup";
-import { FormApproval } from "components/Approval/formApproval";
+import { FormApproval } from "./formApproval";
 
 export const approvalSchema = (t: TFunction<"translation">) =>
   yup.object<YupShape<FormApproval>>({

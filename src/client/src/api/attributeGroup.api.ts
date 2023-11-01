@@ -1,6 +1,6 @@
-import { AttributeGroupRequest } from "common/types/attributes/attributeGroupRequest";
-import { AttributeGroupView } from "common/types/attributes/attributeGroupView";
 import { apiClient } from "api/clients/apiClient";
+import { AttributeGroupRequest } from "types/attributes/attributeGroupRequest";
+import { AttributeGroupView } from "types/attributes/attributeGroupView";
 
 const _basePath = "attributegroups";
 

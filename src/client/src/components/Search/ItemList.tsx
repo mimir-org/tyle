@@ -1,7 +1,7 @@
-import { MotionItemListContainer } from "components/Search/ItemList.styled";
 import { AnimatePresence } from "framer-motion";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
+import MotionItemListContainer from "./ItemList.styled";
 
 export interface ItemListProps {
   children: ReactNode;
@@ -13,7 +13,7 @@ export interface ItemListProps {
  * @param children
  * @constructor
  */
-export const ItemList = ({ children }: ItemListProps) => {
+const ItemList = ({ children }: ItemListProps) => {
   const theme = useTheme();
 
   return (
@@ -22,3 +22,5 @@ export const ItemList = ({ children }: ItemListProps) => {
     </MotionItemListContainer>
   );
 };
+
+export default ItemList;

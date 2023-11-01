@@ -11,16 +11,16 @@ import {
 } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useGetPurposes } from "api/purpose.queries";
-import { Aspect } from "common/types/common/aspect";
-import { FormMode } from "common/types/formMode";
-import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
+import FormSection from "components/FormSection";
+import PlainLink from "components/PlainLink";
+import SelectItemDialog from "components/SelectItemDialog";
 import { purposeInfoItem } from "helpers/mappers.helpers";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import FormSection from "../FormSection";
-import PlainLink from "../PlainLink";
-import SelectItemDialog from "../SelectItemDialog";
+import { Aspect } from "types/common/aspect";
+import { FormMode } from "types/formMode";
+import { getOptionsFromEnum } from "utils";
 import { BlockFormFields } from "./BlockForm.helpers";
 
 interface BlockFormBaseFieldsProps {

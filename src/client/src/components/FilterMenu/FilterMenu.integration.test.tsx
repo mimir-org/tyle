@@ -1,9 +1,9 @@
-import { afterEach, describe, expect, test } from "vitest";
-import { FilterMenu } from "./FilterMenu";
-import { cleanup, render, screen } from "@testing-library/react";
 import { MimirorgThemeProvider } from "@mimirorg/component-library";
 import "@testing-library/jest-dom";
+import { cleanup, render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
+import { afterEach, describe, expect, test } from "vitest";
+import FilterMenu from "./FilterMenu";
 
 const filterGroupsMock = [
   {

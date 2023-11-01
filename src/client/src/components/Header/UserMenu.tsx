@@ -1,5 +1,5 @@
-import { UserCircle } from "@styled-icons/heroicons-outline";
 import { Box, Button, Popover } from "@mimirorg/component-library";
+import { UserCircle } from "@styled-icons/heroicons-outline";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
 
@@ -15,7 +15,7 @@ interface UserMenuProps {
  * @param children
  * @constructor
  */
-export const UserMenu = ({ name, children }: UserMenuProps) => {
+const UserMenu = ({ name, children }: UserMenuProps) => {
   const theme = useTheme();
 
   return (
@@ -41,3 +41,5 @@ export const UserMenu = ({ name, children }: UserMenuProps) => {
     </Popover>
   );
 };
+
+export default UserMenu;

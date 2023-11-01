@@ -1,6 +1,6 @@
-import { InfoItem } from "common/types/infoItem";
 import { Text } from "@mimirorg/component-library";
-import { AttributeView } from "common/types/attributes/attributeView";
+import { AttributeView } from "types/attributes/attributeView";
+import { InfoItem } from "types/infoItem";
 
 export const mapAttributeViewToInfoItem = (attribute: AttributeView): InfoItem => {
   const infoItem = {

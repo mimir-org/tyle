@@ -1,17 +1,17 @@
 import { DevTool } from "@hookform/devtools";
-import { MimirorgQrCodeCm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
-import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { Actionable, Button, Flexbox, Input, Text } from "@mimirorg/component-library";
+import { MimirorgQrCodeCm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
 import { useGenerateMfa, useVerification } from "api/user.queries";
-import { AuthContent } from "components/AuthContent/AuthContent";
-import { Error } from "components/Error/Error";
-import { Processing } from "components/Processing/Processing";
-import { MotionVerifyForm } from "components/MotionVerifyForm/MotionVerifyForm";
-import { onSubmitForm } from "components/Register/RegisterVerification.helpers";
+import AuthContent from "components/AuthContent";
+import Digits from "components/Digits";
+import Error from "components/Error";
+import MotionVerifyForm from "components/MotionVerifyForm";
+import Processing from "components/Processing";
+import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { Digits } from "components/Digits/Digits";
+import { onSubmitForm } from "./RegisterVerification.helpers";
 
 type VerificationProps = Pick<MimirorgVerifyAm, "email"> & {
   setMfaInfo: (info: MimirorgQrCodeCm) => void;
@@ -19,7 +19,7 @@ type VerificationProps = Pick<MimirorgVerifyAm, "email"> & {
   complete?: Partial<Actionable>;
 };
 
-export const RegisterVerification = ({ email, setMfaInfo, cancel, complete }: VerificationProps) => {
+const RegisterVerification = ({ email, setMfaInfo, cancel, complete }: VerificationProps) => {
   const theme = useTheme();
   const { t } = useTranslation("auth");
   const { control, register, handleSubmit } = useForm<MimirorgVerifyAm>();
@@ -79,3 +79,5 @@ export const RegisterVerification = ({ email, setMfaInfo, cancel, complete }: Ve
     />
   );
 };
+
+export default RegisterVerification;

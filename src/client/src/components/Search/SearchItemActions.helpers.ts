@@ -1,7 +1,7 @@
-import { useDeleteBlock, usePatchBlockState } from "api/block.queries";
-import { ItemType } from "../../common/types/itemTypes";
-import { useDeleteTerminal, usePatchTerminalState } from "api/terminal.queries";
 import { useDeleteAttribute, usePatchAttributeState } from "api/attribute.queries";
+import { useDeleteBlock, usePatchBlockState } from "api/block.queries";
+import { useDeleteTerminal, usePatchTerminalState } from "api/terminal.queries";
+import { ItemType } from "types/itemTypes";
 
 export function getCloneLink(item: ItemType) {
   switch (item.kind) {

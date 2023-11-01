@@ -1,7 +1,7 @@
 import { BlockTerminalLibAm } from "@mimirorg/typelibrary-types";
-import { BlockTerminalItem } from "common/types/blockTerminalItem";
-import { TerminalView } from "common/types/terminals/terminalView";
-import { getColorFromAspect } from "common/utils/getColorFromAspect";
+import { getColorFromAspect } from "helpers/aspect.helper";
+import { BlockTerminalItem } from "types/blockTerminalItem";
+import { TerminalView } from "types/terminals/terminalView";
 
 export const getTerminalItemsFromFormData = (formTerminals: BlockTerminalLibAm[], sourceTerminals?: TerminalView[]) => {
   if (!sourceTerminals || sourceTerminals.length < 1) {

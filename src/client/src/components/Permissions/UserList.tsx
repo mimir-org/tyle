@@ -6,7 +6,7 @@ interface UsersProps {
   title: string;
 }
 
-export const UserList = ({ title, children }: PropsWithChildren<UsersProps>) => {
+const UserList = ({ title, children }: PropsWithChildren<UsersProps>) => {
   const theme = useTheme();
 
   return (
@@ -18,3 +18,5 @@ export const UserList = ({ title, children }: PropsWithChildren<UsersProps>) => 
     </MotionFlexbox>
   );
 };
+
+export default UserList;

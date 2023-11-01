@@ -1,7 +1,7 @@
-import { useFuse } from "components/Search/useFuse";
-import { filterSearchResults, mapSearchResults, useSearchItems } from "components/Search/useSearchResults.helpers";
-import { Filter } from "common/types/filter";
-import { SearchResult } from "components/Search/searchResult";
+import { Filter } from "types/filter";
+import { SearchResult } from "./searchResult";
+import { useFuse } from "./useFuse";
+import { filterSearchResults, mapSearchResults, useSearchItems } from "./useSearchResults.helpers";
 
 /**
  * Indexed fields that the fuzzy-search will try to match a query against

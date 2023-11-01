@@ -1,11 +1,11 @@
 import { PopoverClose } from "@radix-ui/react-popover";
 import { Cog } from "@styled-icons/heroicons-outline";
-import { PlainLink } from "components/PlainLink";
+import PlainLink from "components/PlainLink";
 import { settingsBasePath } from "components/SettingsLayout/SettingsRoutes";
-import { UserMenuButton } from "components/Header/UserMenuButton";
 import { useTranslation } from "react-i18next";
+import UserMenuButton from "./UserMenuButton";
 
-export const SettingsButton = () => {
+const SettingsButton = () => {
   const { t } = useTranslation("ui");
 
   return (
@@ -18,3 +18,5 @@ export const SettingsButton = () => {
     </PopoverClose>
   );
 };
+
+export default SettingsButton;

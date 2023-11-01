@@ -1,22 +1,22 @@
-import { LinkGroup } from "common/types/linkGroup";
 import { Divider, Flexbox, Heading } from "@mimirorg/component-library";
+import { useGetAttributesByState } from "api/attribute.queries";
+import { useGetBlocksByState } from "api/block.queries";
 import { useGetPendingUsers } from "api/company.queries";
-import { SidebarContainer, SidebarLink } from "components/SettingsLayout/Sidebar.styled";
+import { useGetTerminalsByState } from "api/terminal.queries";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "styled-components";
-import { useGetAttributesByState } from "api/attribute.queries";
-import { State } from "common/types/common/state";
-import { useGetTerminalsByState } from "api/terminal.queries";
-import { useGetBlocksByState } from "api/block.queries";
+import { State } from "types/common/state";
+import { LinkGroup } from "types/linkGroup";
+import { SidebarContainer, SidebarLink } from "./Sidebar.styled";
 
 interface SidebarProps {
   title: string;
   groups: LinkGroup[];
 }
 
-export const Sidebar = ({ title, groups }: SidebarProps) => {
+const Sidebar = ({ title, groups }: SidebarProps) => {
   const { t } = useTranslation("settings");
   const theme = useTheme();
   const location = useLocation();
@@ -67,3 +67,5 @@ export const Sidebar = ({ title, groups }: SidebarProps) => {
     </SidebarContainer>
   );
 };
+
+export default Sidebar;

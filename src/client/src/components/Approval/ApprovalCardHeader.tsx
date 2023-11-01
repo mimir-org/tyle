@@ -1,9 +1,9 @@
 import { Box, Flexbox, Text, Tooltip } from "@mimirorg/component-library";
+import AttributeIcon from "components/AttributeIcon";
+import BlockIcon from "components/BlockIcon";
+import TerminalIcon from "components/TerminalIcon";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
-import AttributeIcon from "../AttributeIcon";
-import BlockIcon from "../BlockIcon";
-import TerminalIcon from "../TerminalIcon";
 
 interface ApprovalCardHeaderProps {
   children?: ReactNode;

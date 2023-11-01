@@ -4,25 +4,26 @@ import {
   FormBaseFieldsContainer,
   FormField,
   Input,
-  Textarea,
-  Text,
-  Token,
   Select,
+  Text,
+  Textarea,
+  Token,
 } from "@mimirorg/component-library";
-import { PlainLink } from "components/PlainLink";
+import { XCircle } from "@styled-icons/heroicons-outline";
+import { useGetMedia } from "api/medium.queries";
+import { useGetPurposes } from "api/purpose.queries";
+import FormSection from "components/FormSection";
+import PlainLink from "components/PlainLink";
+import SelectItemDialog from "components/SelectItemDialog";
+import { purposeInfoItem } from "helpers/mappers.helpers";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { FormMode } from "../../common/types/formMode";
-import { TerminalFormFields, mediumInfoItem, purposeInfoItem } from "./TerminalForm.helpers";
-import { FormSection } from "../FormSection/FormSection";
-import { useGetPurposes } from "api/purpose.queries";
-import { SelectItemDialog } from "../SelectItemDialog/SelectItemDialog";
-import { XCircle } from "@styled-icons/heroicons-outline";
-import { useGetMedia } from "api/medium.queries";
-import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
-import { Aspect } from "common/types/common/aspect";
-import { Direction } from "common/types/terminals/direction";
+import { Aspect } from "types/common/aspect";
+import { FormMode } from "types/formMode";
+import { Direction } from "types/terminals/direction";
+import { getOptionsFromEnum } from "utils";
+import { TerminalFormFields, mediumInfoItem } from "./TerminalForm.helpers";
 interface TerminalFormBaseFieldsProps {
   mode?: FormMode;
   limited?: boolean;
@@ -35,7 +36,7 @@ interface TerminalFormBaseFieldsProps {
  * @param limited
  * @constructor
  */
-export const TerminalFormBaseFields = ({ mode, limited }: TerminalFormBaseFieldsProps) => {
+const TerminalFormBaseFields = ({ mode, limited }: TerminalFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
   const { control, register, formState, setValue } = useFormContext<TerminalFormFields>();
@@ -193,3 +194,5 @@ export const TerminalFormBaseFields = ({ mode, limited }: TerminalFormBaseFields
     </FormBaseFieldsContainer>
   );
 };
+
+export default TerminalFormBaseFields;
