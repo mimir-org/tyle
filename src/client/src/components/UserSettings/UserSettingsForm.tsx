@@ -1,21 +1,21 @@
-import { useServerValidation } from "hooks/server-validation/useServerValidation";
+import { useServerValidation } from "hooks/useServerValidation";
 //import { yupResolver } from "@hookform/resolvers/yup";
 import { MimirorgUserAm, MimirorgUserCm } from "@mimirorg/typelibrary-types";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 //import { userSchema } from "features/settings/usersettings/userSchema";
+import { DevTool } from "@hookform/devtools";
+import { Button, Form, FormField, Input } from "@mimirorg/component-library";
+import { useUpdateUser } from "api/user.queries";
+import { Loader } from "components/Loader";
 import {
   addDummyPasswordToUserAm,
   mapMimirorgUserCmToAm,
   useUpdatingToast,
   useUserQuery,
 } from "components/UserSettings/userSettingsForm.helpers";
-import { useUpdateUser } from "api/user.queries";
-import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { onSubmitForm, usePrefilledForm } from "helpers/form.helpers";
-import { DevTool } from "@hookform/devtools";
-import { Loader } from "components/Loader";
-import { Button, Form, FormField, Input } from "@mimirorg/component-library";
+import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 
 interface UserSettingsFormProps {
   defaultValues?: MimirorgUserAm;

@@ -1,13 +1,12 @@
+import { Flexbox, Heading, MotionBox, Text } from "@mimirorg/component-library";
 import { BlockItem } from "common/types/blockItem";
-import { Heading, Flexbox, MotionBox, Text } from "@mimirorg/component-library";
-import { InfoItemButton } from "components/InfoItemButton/InfoItemButton";
-import { PanelPropertiesContainer } from "components/About/PanelPropertiesContainer";
-import { PanelSection } from "components/About/PanelSection";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { TerminalTable } from "./TerminalTable";
-// import { BlockPreview } from "../../../../entities/entityPreviews/block/BlockPreview";
-import { StateBadge } from "../StateBadge/StateBadge";
+import InfoItemButton from "../InfoItemButton";
+import StateBadge from "../StateBadge";
+import PanelPropertiesContainer from "./PanelPropertiesContainer";
+import PanelSection from "./PanelSection";
+import TerminalTable from "./TerminalTable";
 
 /**
  * Component that displays information about a given block.
@@ -21,7 +20,7 @@ import { StateBadge } from "../StateBadge/StateBadge";
  * @param attributes
  * @constructor
  */
-export const BlockPanel = ({
+const BlockPanel = ({
   name,
   description,
   // img, color,
@@ -75,3 +74,5 @@ export const BlockPanel = ({
     </MotionBox>
   );
 };
+
+export default BlockPanel;

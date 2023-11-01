@@ -1,11 +1,9 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useServerValidation } from "hooks/server-validation/useServerValidation";
-import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { Box, FormContainer } from "@mimirorg/component-library";
-import { Loader } from "components/Loader";
+import { TerminalView } from "common/types/terminals/terminalView";
 import { FormAttributes } from "components/FormAttributes/FormAttributes";
-import { onSubmitForm, usePrefilledForm, useSubmissionToast } from "helpers/form.helpers";
+import { Loader } from "components/Loader";
 import {
   TerminalFormFields,
   createDefaultTerminalFormFields,
@@ -16,12 +14,14 @@ import {
 } from "components/TerminalForm/TerminalForm.helpers";
 import { TerminalFormBaseFields } from "components/TerminalForm/TerminalFormBaseFields";
 import { terminalSchema } from "components/TerminalForm/terminalSchema";
+import { onSubmitForm, usePrefilledForm, useSubmissionToast } from "helpers/form.helpers";
+import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
+import { useServerValidation } from "hooks/useServerValidation";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { FormMode } from "../../common/types/formMode";
-import { TerminalView } from "common/types/terminals/terminalView";
-import { FormClassifiers } from "./TerminalFormClassifiers";
+import { FormClassifiers } from "../FormClassifiers/FormClassifiers";
 
 interface TerminalFormProps {
   defaultValues?: TerminalFormFields;

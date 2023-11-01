@@ -1,10 +1,16 @@
 import { DevTool } from "@hookform/devtools";
-import { useServerValidation } from "hooks/server-validation/useServerValidation";
-import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
-import { Loader } from "components/Loader";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
+import { AttributeView } from "common/types/attributes/attributeView";
 import { onSubmitForm, usePrefilledForm, useSubmissionToast } from "helpers/form.helpers";
+import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
+import { useServerValidation } from "hooks/useServerValidation";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "styled-components";
+import { FormMode } from "../../common/types/formMode";
+import Loader from "../Loader";
+import PlainLink from "../PlainLink";
 import {
   AttributeFormFields,
   defaultAttributeFormFields,
@@ -13,16 +19,10 @@ import {
   useAttributeMutation,
   useAttributeQuery,
 } from "./AttributeForm.helpers";
-import { AttributeFormBaseFields } from "./AttributeFormBaseFields";
-import { FormMode } from "../../common/types/formMode";
-import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
-import { useTheme } from "styled-components";
-import { yupResolver } from "@hookform/resolvers/yup";
+import AttributeFormBaseFields from "./AttributeFormBaseFields";
+import AttributeFormUnits from "./AttributeFormUnits";
+import ValueConstraintForm from "./ValueConstraintForm";
 import { attributeSchema } from "./attributeSchema";
-import { PlainLink } from "components/PlainLink";
-import { AttributeView } from "common/types/attributes/attributeView";
-import { ValueConstraintForm } from "./ValueConstraintForm";
-import { AttributeFormUnits } from "./AttributeFormUnits";
 
 interface AttributeFormProps {
   defaultValues?: AttributeFormFields;

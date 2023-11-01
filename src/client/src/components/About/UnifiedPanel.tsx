@@ -1,7 +1,7 @@
-import { Heading, Flexbox, MotionBox, Text } from "@mimirorg/component-library";
-import { useTheme } from "styled-components";
+import { Flexbox, Heading, MotionBox, Text } from "@mimirorg/component-library";
 import { State } from "@mimirorg/typelibrary-types";
-import { StateBadge } from "../StateBadge/StateBadge";
+import { useTheme } from "styled-components";
+import StateBadge from "../StateBadge";
 
 interface UnifiedPanelProps {
   name: string;
@@ -18,14 +18,7 @@ interface UnifiedPanelProps {
  * @param props receives all properties of a TerminalItem
  * @constructor
  */
-export default function UnifiedPanel({
-  name,
-  description,
-  state,
-  children,
-  showName,
-  showDescription,
-}: UnifiedPanelProps) {
+const UnifiedPanel = ({ name, description, state, children, showName, showDescription }: UnifiedPanelProps) => {
   const theme = useTheme();
 
   return (
@@ -55,4 +48,6 @@ export default function UnifiedPanel({
       </Flexbox>
     </MotionBox>
   );
-}
+};
+
+export default UnifiedPanel;

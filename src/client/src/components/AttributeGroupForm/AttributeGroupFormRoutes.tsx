@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import { AttributeGroupForm } from "./AttributeGroupForm";
+import AttributeGroupForm from "./AttributeGroupForm";
 
 export const attributeGroupFormBasePath = "form/attributegroup";
 

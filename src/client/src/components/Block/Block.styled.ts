@@ -9,7 +9,7 @@ export interface BlockContainerProps {
   variant?: BlockVariant;
 }
 
-export const BlockContainer = styled.div<BlockContainerProps>`
+const BlockContainer = styled.div<BlockContainerProps>`
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -30,3 +30,5 @@ export const BlockContainer = styled.div<BlockContainerProps>`
     }
   }};
 `;
+
+export default BlockContainer;

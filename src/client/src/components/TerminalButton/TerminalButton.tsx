@@ -1,9 +1,9 @@
-import { ArrowSmallRight, ArrowsRightLeft } from "@styled-icons/heroicons-outline";
 import { Polymorphic } from "@mimirorg/component-library";
-import { EllipseIcon } from "components/Terminal/assets";
-import { TerminalButtonContainer } from "components/Terminal/TerminalButton.styled";
-import { ButtonHTMLAttributes, ElementType, forwardRef, ReactNode } from "react";
+import { ArrowSmallRight, ArrowsRightLeft } from "@styled-icons/heroicons-outline";
 import { Direction } from "common/types/terminals/direction";
+import { EllipseIcon } from "components/TerminalButton/EllipseIcon";
+import { TerminalButtonContainer } from "components/TerminalButton/TerminalButton.styled";
+import { ButtonHTMLAttributes, ElementType, ReactNode, forwardRef } from "react";
 
 export type TerminalButtonVariant = "small" | "medium" | "large";
 
@@ -21,7 +21,7 @@ export type TerminalButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
  * @param as polymorphic parameter for changing base element (defaults to <button>)
  * @param variant decides which button icon is used
  */
-export const TerminalButton = forwardRef<HTMLButtonElement, TerminalButtonProps>(
+const TerminalButton = forwardRef<HTMLButtonElement, TerminalButtonProps>(
   ({ children, direction, ...delegated }, ref) => (
     <TerminalButtonContainer ref={ref} {...delegated} direction={direction}>
       {children}
@@ -37,3 +37,5 @@ TerminalButton.defaultProps = {
   type: "button",
   variant: "medium",
 };
+
+export default TerminalButton;

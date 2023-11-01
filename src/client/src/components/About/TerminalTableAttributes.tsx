@@ -1,10 +1,10 @@
-import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { Box, Td } from "@mimirorg/component-library";
-import { InfoItemButton } from "components/InfoItemButton/InfoItemButton";
+import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import InfoItemButton from "../InfoItemButton";
 
-export const TerminalTableAttributes = ({ attributes }: Pick<BlockTerminalItem, "attributes">) => {
+const TerminalTableAttributes = ({ attributes }: Pick<BlockTerminalItem, "attributes">) => {
   const theme = useTheme();
   const { t } = useTranslation("explore");
 
@@ -16,3 +16,5 @@ export const TerminalTableAttributes = ({ attributes }: Pick<BlockTerminalItem, 
     </Td>
   );
 };
+
+export default TerminalTableAttributes;

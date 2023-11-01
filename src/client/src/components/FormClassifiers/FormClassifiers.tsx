@@ -1,12 +1,12 @@
 import { Token } from "@mimirorg/component-library";
+import { XCircle } from "@styled-icons/heroicons-outline";
+import { useGetClassifiers } from "api/classifier.queries";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { FormSection } from "../FormSection/FormSection";
-import { XCircle } from "@styled-icons/heroicons-outline";
-import { SelectItemDialog } from "../SelectItemDialog/SelectItemDialog";
-import { TerminalFormFields, classifierInfoItem } from "./TerminalForm.helpers";
-import { useGetClassifiers } from "api/classifier.queries";
 import { BlockFormFields } from "../BlockForm/BlockForm.helpers";
+import { FormSection } from "../FormSection/FormSection";
+import { SelectItemDialog } from "../SelectItemDialog/SelectItemDialog";
+import { TerminalFormFields, classifierInfoItem } from "../TerminalForm/TerminalForm.helpers";
 
 /**
  * Component which contains all simple value fields of the attribute form.
@@ -14,7 +14,7 @@ import { BlockFormFields } from "../BlockForm/BlockForm.helpers";
  * @constructor
  */
 
-export const FormClassifiers = () => {
+const FormClassifiers = () => {
   const { t } = useTranslation("entities");
 
   type BlockOrTerminalFormFields = BlockFormFields | TerminalFormFields;
@@ -67,3 +67,5 @@ export const FormClassifiers = () => {
     </FormSection>
   );
 };
+
+export default FormClassifiers;

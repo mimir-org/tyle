@@ -1,10 +1,10 @@
-import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { Flexbox, Td } from "@mimirorg/component-library";
-import { TerminalButton } from "components/Terminal/TerminalButton";
+import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import TerminalButton from "../TerminalButton";
 
-export const TerminalTableIdentifier = ({
+const TerminalTableIdentifier = ({
   name,
   color,
   direction,
@@ -21,3 +21,5 @@ export const TerminalTableIdentifier = ({
     </Td>
   );
 };
+
+export default TerminalTableIdentifier;

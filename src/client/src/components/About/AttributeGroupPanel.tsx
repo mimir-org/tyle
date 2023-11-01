@@ -1,11 +1,11 @@
 import { MotionBox } from "@mimirorg/component-library";
-import { InfoItemButton } from "components/InfoItemButton/InfoItemButton";
-import { PanelPropertiesContainer } from "components/About/PanelPropertiesContainer";
-import { PanelSection } from "components/About/PanelSection";
+import { AttributeGroupItem } from "common/types/attributeGroupItem";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { AttributeGroupItem } from "common/types/attributeGroupItem";
-import AttributeGroupPreview from "components/AttributeGroupPreview/AttributeGroupPreview";
+import AttributeGroupPreview from "../AttributeGroupPreview";
+import InfoItemButton from "../InfoItemButton";
+import PanelPropertiesContainer from "./PanelPropertiesContainer";
+import PanelSection from "./PanelSection";
 
 /**
  * Component that displays information about a given AttributeGroup.

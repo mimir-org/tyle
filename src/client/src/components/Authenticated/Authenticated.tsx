@@ -1,5 +1,5 @@
-import { useAuthenticatedRouter } from "components/Authenticated/Authenticated.helpers";
 import { RouterProvider } from "react-router-dom";
+import { useAuthenticatedRouter } from "./Authenticated.helpers";
 
 const Authenticated = () => {
   const router = useAuthenticatedRouter();

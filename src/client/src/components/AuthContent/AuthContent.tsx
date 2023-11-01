@@ -1,6 +1,6 @@
-import { AuthContentContainer, AuthContentSection } from "components/AuthContent/AuthContent.styled";
-import { AuthContentHeader, AuthContentHeaderProps } from "components/AuthContent/AuthContentHeader";
 import { ReactNode } from "react";
+import { AuthContentContainer, AuthContentSection } from "./AuthContent.styled";
+import AuthContentHeader, { AuthContentHeaderProps } from "./AuthContentHeader";
 
 export type AuthContentProps = AuthContentHeaderProps & {
   firstRow: ReactNode;

@@ -1,16 +1,15 @@
-import { Box, Checkbox, Counter, Flexbox, Token, FormField, Select } from "@mimirorg/component-library";
-import { Controller, useFieldArray, useFormContext, useWatch } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { FormSection } from "../FormSection/FormSection";
+import { Box, Checkbox, Counter, Flexbox, FormField, Select, Token } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
-import { SelectItemDialog } from "../SelectItemDialog/SelectItemDialog";
 import { useGetTerminals } from "api/terminal.queries";
-import { BlockFormFields, onAddTerminals, resolveSelectedAndAvailableTerminals } from "./BlockForm.helpers";
-import { useTheme } from "styled-components";
-import { prepareTerminals } from "./prepareTerminals";
 import { Direction } from "common/types/terminals/direction";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
-// import { Direction } from "common/types/terminals/direction";
+import { Controller, useFieldArray, useFormContext, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "styled-components";
+import FormSection from "../FormSection";
+import SelectItemDialog from "../SelectItemDialog";
+import { BlockFormFields, onAddTerminals, resolveSelectedAndAvailableTerminals } from "./BlockForm.helpers";
+import { prepareTerminals } from "./prepareTerminals";
 
 /**
  * Component which contains all simple value fields of the terminal form.
@@ -18,7 +17,7 @@ import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
  * @constructor
  */
 
-export const FormTerminals = () => {
+const FormTerminals = () => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
@@ -156,3 +155,5 @@ export const FormTerminals = () => {
     </FormSection>
   );
 };
+
+export default FormTerminals;

@@ -1,13 +1,13 @@
-import { blockFormRoutes } from "components/BlockForm/BlockFormRoutes";
-import { terminalFormRoutes } from "components/TerminalForm/TerminalFormRoutes";
-import { exploreRoutes } from "components/Explore/ExploreRoutes";
-import { settingsRoutes } from "components/SettingsLayout/SettingsRoutes";
-import { AuthenticatedLayout } from "components/Authenticated/AuthenticatedLayout";
 import { ErrorMessage } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter } from "react-router-dom";
 import { attributeFormRoutes } from "../AttributeForm/AttributeFormRoutes";
-import { attributeGroupFormRoutes } from "components/AttributeGroupForm/AttributeGroupFormRoutes";
+import { attributeGroupFormRoutes } from "../AttributeGroupForm/AttributeGroupFormRoutes";
+import { blockFormRoutes } from "../BlockForm/BlockFormRoutes";
+import { exploreRoutes } from "../Explore/ExploreRoutes";
+import { settingsRoutes } from "../SettingsLayout/SettingsRoutes";
+import { terminalFormRoutes } from "../TerminalForm/TerminalFormRoutes";
+import AuthenticatedLayout from "./AuthenticatedLayout";
 
 export const useAuthenticatedRouter = () => {
   const { t } = useTranslation("ui");

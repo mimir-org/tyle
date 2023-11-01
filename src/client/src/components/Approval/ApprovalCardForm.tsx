@@ -1,19 +1,19 @@
 import { Button, Flexbox, Text } from "@mimirorg/component-library";
+import { AttributeView } from "common/types/attributes/attributeView";
+import { BlockView } from "common/types/blocks/blockView";
+import { State } from "common/types/common/state";
+import { TerminalView } from "common/types/terminals/terminalView";
+import { useSubmissionToast } from "helpers/form.helpers";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { AttributeView } from "common/types/attributes/attributeView";
-import { State } from "common/types/common/state";
-import { useSubmissionToast } from "helpers/form.helpers";
-import { TerminalView } from "common/types/terminals/terminalView";
 import { usePatchStateMutation } from "./ApprovalCardForm.helpers";
-import { BlockView } from "common/types/blocks/blockView";
 
 export interface ApprovalCardFormProps {
   item: AttributeView | TerminalView | BlockView;
   itemType: "attribute" | "terminal" | "block";
 }
 
-export const ApprovalCardForm = ({ item, itemType }: ApprovalCardFormProps) => {
+const ApprovalCardForm = ({ item, itemType }: ApprovalCardFormProps) => {
   const { t } = useTranslation(["settings"]);
   const theme = useTheme();
 
@@ -39,3 +39,5 @@ export const ApprovalCardForm = ({ item, itemType }: ApprovalCardFormProps) => {
     </Flexbox>
   );
 };
+
+export default ApprovalCardForm;

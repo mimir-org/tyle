@@ -1,13 +1,13 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useServerValidation } from "hooks/server-validation/useServerValidation";
-import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { Actionable, Button, Form, FormField, Input, Text } from "@mimirorg/component-library";
 import { useGenerateChangePasswordSecret } from "api/user.queries";
 import { AuthContent } from "components/AuthContent/AuthContent";
 import { Error } from "components/Error/Error";
 import { Processing } from "components/Processing/Processing";
 import { recoverDetailsSchema } from "components/Recover/recoverDetailsSchema";
+import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
+import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 

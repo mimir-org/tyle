@@ -7,7 +7,7 @@ import { useTheme } from "styled-components";
  * @param text
  * @constructor
  */
-export const AboutPlaceholder = ({ text }: { text: string }) => {
+const AboutPlaceholder = ({ text }: { text: string }) => {
   const theme = useTheme();
 
   return (
@@ -18,3 +18,5 @@ export const AboutPlaceholder = ({ text }: { text: string }) => {
     </MotionFlexbox>
   );
 };
+
+export default AboutPlaceholder;

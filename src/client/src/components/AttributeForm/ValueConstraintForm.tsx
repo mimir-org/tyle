@@ -8,13 +8,13 @@ import {
   Select,
   VisuallyHidden,
 } from "@mimirorg/component-library";
+import { PlusSmall, Trash } from "@styled-icons/heroicons-outline";
+import { ConstraintType } from "common/types/attributes/constraintType";
+import { XsdDataType } from "common/types/attributes/xsdDataType";
+import { Option, getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { Controller, useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { ConstraintType } from "common/types/attributes/constraintType";
-import { getOptionsFromEnum, Option } from "common/utils/getOptionsFromEnum";
-import { XsdDataType } from "common/types/attributes/xsdDataType";
-import { FormSection } from "../FormSection/FormSection";
-import { PlusSmall, Trash } from "@styled-icons/heroicons-outline";
+import FormSection from "../FormSection";
 import { AttributeFormFields } from "./AttributeForm.helpers";
 
 /**
@@ -23,7 +23,7 @@ import { AttributeFormFields } from "./AttributeForm.helpers";
  * @constructor
  */
 
-export const ValueConstraintForm = () => {
+const ValueConstraintForm = () => {
   const { t } = useTranslation("entities");
   const {
     control,
@@ -258,3 +258,5 @@ export const ValueConstraintForm = () => {
     </FormBaseFieldsContainer>
   );
 };
+
+export default ValueConstraintForm;

@@ -1,9 +1,9 @@
-import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { Box } from "@mimirorg/component-library";
-import { TerminalButtonProps } from "components/Terminal/TerminalButton";
-import { TerminalCollection } from "components/Terminal/TerminalCollection";
-import { TerminalSingle } from "components/Terminal/TerminalSingle";
+import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { useTheme } from "styled-components";
+import { TerminalButtonProps } from "../TerminalButton";
+import TerminalCollection from "./TerminalCollection";
+import TerminalSingle from "./TerminalSingle";
 
 export type TerminalsProps = Pick<TerminalButtonProps, "variant"> & {
   terminals: BlockTerminalItem[];
@@ -21,7 +21,7 @@ export type TerminalsProps = Pick<TerminalButtonProps, "variant"> & {
  * @param showCollectionLimit threshold for switching to summary mode
  * @constructor
  */
-export const Terminals = ({ terminals, placement, variant, showCollectionLimit = 5 }: TerminalsProps) => {
+const Terminals = ({ terminals, placement, variant, showCollectionLimit = 5 }: TerminalsProps) => {
   const theme = useTheme();
   const useSummary = terminals.length > showCollectionLimit;
   const alignment = placement === "right" ? "start" : "end";
@@ -42,3 +42,5 @@ export const Terminals = ({ terminals, placement, variant, showCollectionLimit =
     </Box>
   );
 };
+
+export default Terminals;

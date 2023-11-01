@@ -1,7 +1,5 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useServerValidation } from "hooks/server-validation/useServerValidation";
-import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import {
   Actionable,
   Button,
@@ -20,12 +18,14 @@ import { useCreateUser } from "api/user.queries";
 import { AuthContent } from "components/AuthContent/AuthContent";
 import { Error } from "components/Error/Error";
 import { Processing } from "components/Processing/Processing";
+import { MimirorgUserAmCorrectTypes } from "components/Register/mimirorgUserAm";
 import { registerDetailsSchema } from "components/Register/registerDetailsSchema";
+import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
+import { useServerValidation } from "hooks/useServerValidation";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useTheme } from "styled-components";
-import { MimirorgUserAmCorrectTypes } from "components/Register/mimirorgUserAm";
 
 interface RegisterDetailsProps {
   setUserEmail: (email: string) => void;

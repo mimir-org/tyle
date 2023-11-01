@@ -1,13 +1,13 @@
 import { Flexbox, Text } from "@mimirorg/component-library";
-import { ApprovalPlaceholder } from "components/Approval/ApprovalPlaceholder";
-import { ApprovalCard } from "components/Approval/ApprovalCard";
-import { SettingsSection } from "components/SettingsSection/SettingsSection";
-import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components";
-import { State } from "common/types/common/state";
-import { useGetTerminalsByState } from "api/terminal.queries";
 import { useGetAttributesByState } from "api/attribute.queries";
 import { useGetBlocksByState } from "api/block.queries";
+import { useGetTerminalsByState } from "api/terminal.queries";
+import { State } from "common/types/common/state";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "styled-components";
+import SettingsSection from "../SettingsSection";
+import ApprovalCard from "./ApprovalCard";
+import ApprovalPlaceholder from "./ApprovalPlaceholder";
 
 const Approval = () => {
   const theme = useTheme();

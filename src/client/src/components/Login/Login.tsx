@@ -1,12 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useServerValidation } from "hooks/server-validation/useServerValidation";
 import {
   Button,
-  Input,
   Form,
   FormErrorBanner,
   FormField,
   FormFieldset,
+  Input,
   MotionFlexbox,
   MotionText,
   Text,
@@ -16,6 +15,7 @@ import { AuthContent } from "components/AuthContent/AuthContent";
 import { loginSchema } from "components/Login/loginSchema";
 import { recoverBasePath } from "components/Recover/RecoverRoutes";
 import { registerBasePath } from "components/Register/RegisterRoutes";
+import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";

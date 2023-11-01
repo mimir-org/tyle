@@ -1,21 +1,10 @@
-// import { mapBlockLibCmToBlockItem /*, mapTerminalLibCmToTerminalItem*/ } from "common/utils/mappers";
 import { useGetBlock } from "api/block.queries";
-//import { useGetTerminal } from "external/sources/terminal/terminal.queries";
-import { Loader } from "components/Loader";
-import { AboutPlaceholder } from "components/About/AboutPlaceholder";
-import { BlockPanel } from "components/About/BlockPanel";
-//import { TerminalPanel } from "features/explore/about/components/terminal/TerminalPanel";
-import { ExploreSection } from "components/ExploreSection/ExploreSection";
-import { SelectedInfo } from "components/ExploreSection/selectedInfo";
+import Loader from "../Loader";
+import AboutPlaceholder from "./AboutPlaceholder";
+import BlockPanel from "./BlockPanel";
+import ExploreSection from "../ExploreSection";
+import { SelectedInfo } from "common/types/selectedInfo";
 import { useTranslation } from "react-i18next";
-//import { useGetAttribute } from "../../../external/sources/attribute/attribute.queries";
-//import AttributePreview from "../../entities/entityPreviews/attribute/AttributePreview";
-//import UnitPreview from "../../entities/entityPreviews/unit/UnitPreview";
-//import { toUnitLibAm } from "../../entities/units/types/formUnitLib";
-//import { useGetUnit } from "../../../external/sources/unit/unit.queries";
-//import UnifiedPanel from "./components/common/UnifiedPanel";
-//import { useGetAttributeGroup } from "external/sources/attributeGroup/attributeGroup.queries";
-//import { AttributeGroupPanel } from "./components/attributeGroup/AttributeGroupPanel";
 import { toBlockItem } from "common/utils/mappers/mapBlockLibCmToBlockItem";
 
 interface AboutProps {

@@ -1,11 +1,11 @@
 import { Token } from "@mimirorg/component-library";
-import { useFieldArray, useFormContext } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { AttributeFormFields, unitInfoItem } from "./AttributeForm.helpers";
-import { FormSection } from "../FormSection/FormSection";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useGetUnits } from "api/unit.queries";
-import { SelectItemDialog } from "../SelectItemDialog/SelectItemDialog";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import FormSection from "../FormSection";
+import SelectItemDialog from "../SelectItemDialog";
+import { AttributeFormFields, unitInfoItem } from "./AttributeForm.helpers";
 
 export interface AttributeFormUnitsProps {
   canAddUnits?: boolean;
@@ -17,7 +17,7 @@ export interface AttributeFormUnitsProps {
  * @constructor
  */
 
-export const AttributeFormUnits = ({ canAddUnits = true }: AttributeFormUnitsProps) => {
+const AttributeFormUnits = ({ canAddUnits = true }: AttributeFormUnitsProps) => {
   const { t } = useTranslation("entities");
   const {
     control,
@@ -69,3 +69,5 @@ export const AttributeFormUnits = ({ canAddUnits = true }: AttributeFormUnitsPro
     </FormSection>
   );
 };
+
+export default AttributeFormUnits;

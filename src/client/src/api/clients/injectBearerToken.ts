@@ -1,5 +1,5 @@
+import { getToken } from "api/token";
 import { InternalAxiosRequestConfig } from "axios";
-import { getToken } from "common/utils/token";
 
 /**
  * This middleware checks if there's an access token available in localstorage,

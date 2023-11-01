@@ -1,7 +1,7 @@
 import { MimirorgTokenCm } from "@mimirorg/typelibrary-types";
-import { InternalAxiosRequestConfig } from "axios";
-import { getToken, setToken } from "common/utils/token";
 import { authenticateApi } from "api/authenticate.api";
+import { getToken, setToken } from "api/token";
+import { InternalAxiosRequestConfig } from "axios";
 
 let expiredTokenRequest: Promise<MimirorgTokenCm> | null;
 const resetExpiredTokenRequest = () => (expiredTokenRequest = null);

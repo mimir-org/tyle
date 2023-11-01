@@ -1,7 +1,7 @@
 import { MotionText } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 
-export const ApprovalPlaceholder = ({ text }: { text: string }) => {
+const ApprovalPlaceholder = ({ text }: { text: string }) => {
   const theme = useTheme();
 
   return (
@@ -14,3 +14,5 @@ export const ApprovalPlaceholder = ({ text }: { text: string }) => {
     </MotionText>
   );
 };
+
+export default ApprovalPlaceholder;

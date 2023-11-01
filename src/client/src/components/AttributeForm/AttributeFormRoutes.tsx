@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import { AttributeForm } from "./AttributeForm";
+import AttributeForm from "./AttributeForm";
 
 export const attributeFormBasePath = "form/attribute";
 

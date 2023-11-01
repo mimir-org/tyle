@@ -5,7 +5,7 @@ import { Flexbox, MotionFlexbox, MotionText, Token } from "@mimirorg/component-l
 import { useGetCurrentUser } from "api/user.queries";
 import { SearchField } from "components/SearchField";
 import { ExploreSection } from "components/ExploreSection/ExploreSection";
-import { SelectedInfo } from "components/ExploreSection/selectedInfo";
+import { SelectedInfo } from "common/types/selectedInfo";
 import { FilterMenu } from "components/FilterMenu/FilterMenu";
 import { ItemList } from "components/Search/ItemList";
 import { LinkMenu } from "components/LinkMenu/LinkMenu";

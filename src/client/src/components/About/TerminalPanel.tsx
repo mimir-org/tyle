@@ -1,12 +1,12 @@
-import { TerminalItem } from "common/types/terminalItem";
 import { Flexbox, Heading, MotionBox, Text } from "@mimirorg/component-library";
-import { InfoItemButton } from "components/InfoItemButton/InfoItemButton";
-import { TerminalPreview } from "components/TerminalPreview/TerminalPreview";
-import { PanelPropertiesContainer } from "components/About/PanelPropertiesContainer";
-import { PanelSection } from "components/About/PanelSection";
+import { TerminalItem } from "common/types/terminalItem";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { StateBadge } from "components/StateBadge/StateBadge";
+import InfoItemButton from "../InfoItemButton";
+import StateBadge from "../StateBadge";
+import TerminalPreview from "../TerminalPreview";
+import PanelPropertiesContainer from "./PanelPropertiesContainer";
+import PanelSection from "./PanelSection";
 
 /**
  * Component that displays information about a given terminal.

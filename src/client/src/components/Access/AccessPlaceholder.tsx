@@ -1,7 +1,7 @@
 import { MotionText } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 
-export const AccessPlaceholder = ({ text }: { text: string }) => {
+const AccessPlaceholder = ({ text }: { text: string }) => {
   const theme = useTheme();
 
   return (
@@ -14,3 +14,5 @@ export const AccessPlaceholder = ({ text }: { text: string }) => {
     </MotionText>
   );
 };
+
+export default AccessPlaceholder;

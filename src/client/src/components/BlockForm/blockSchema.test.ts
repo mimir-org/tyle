@@ -1,4 +1,4 @@
-import { blockSchema } from "components/BlockForm/blockSchema";
+import { blockSchema } from "./blockSchema";
 
 import { vi } from "vitest";
 import { BlockFormFields } from "./BlockForm.helpers";

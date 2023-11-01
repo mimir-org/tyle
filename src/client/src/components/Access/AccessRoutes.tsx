@@ -1,5 +1,5 @@
-import { Access } from "components/Access/Access";
 import { RouteObject } from "react-router-dom";
+import Access from "./Access";
 
 export const accessBasePath = "access";
 

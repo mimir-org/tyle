@@ -7,7 +7,7 @@ export interface AuthContentHeaderProps {
   subtitle?: string;
 }
 
-export const AuthContentHeader = ({ title, subtitle }: AuthContentHeaderProps) => {
+const AuthContentHeader = ({ title, subtitle }: AuthContentHeaderProps) => {
   const theme = useTheme();
 
   return (
@@ -24,3 +24,5 @@ export const AuthContentHeader = ({ title, subtitle }: AuthContentHeaderProps) =
     </MotionFlexbox>
   );
 };
+
+export default AuthContentHeader;

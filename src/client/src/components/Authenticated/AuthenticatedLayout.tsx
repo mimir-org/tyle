@@ -1,11 +1,8 @@
-import {
-  AuthenticatedContainer,
-  AuthenticatedContentContainer,
-} from "components/Authenticated/AuthenticatedLayout.styled";
-import { Header } from "components/Header/Header";
 import { Outlet } from "react-router-dom";
+import Header from "../Header";
+import { AuthenticatedContainer, AuthenticatedContentContainer } from "./AuthenticatedLayout.styled";
 
-export const AuthenticatedLayout = () => (
+const AuthenticatedLayout = () => (
   <AuthenticatedContainer>
     <Header />
     <AuthenticatedContentContainer>
@@ -13,3 +10,5 @@ export const AuthenticatedLayout = () => (
     </AuthenticatedContentContainer>
   </AuthenticatedContainer>
 );
+
+export default AuthenticatedLayout;

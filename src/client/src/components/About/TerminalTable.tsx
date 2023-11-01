@@ -1,10 +1,10 @@
-import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { Table, Tbody, Thead, Tr } from "@mimirorg/component-library";
-import { TerminalTableAmount } from "components/About/TerminalTableAmount";
-import { TerminalTableAttributes } from "components/About/TerminalTableAttributes";
-import { TerminalTableDirection } from "components/About/TerminalTableDirection";
-import { TerminalTableHeader } from "components/About/TerminalTableHeader";
-import { TerminalTableIdentifier } from "components/About/TerminalTableIdentifier";
+import { BlockTerminalItem } from "common/types/blockTerminalItem";
+import TerminalTableAmount from "./TerminalTableAmount";
+import TerminalTableAttributes from "./TerminalTableAttributes";
+import TerminalTableDirection from "./TerminalTableDirection";
+import TerminalTableHeader from "./TerminalTableHeader";
+import TerminalTableIdentifier from "./TerminalTableIdentifier";
 
 /**
  * Components which lists terminals in a table and presents their most important features.
@@ -12,7 +12,7 @@ import { TerminalTableIdentifier } from "components/About/TerminalTableIdentifie
  * @param terminals to show inside the table
  * @constructor
  */
-export const TerminalTable = ({ terminals }: { terminals: BlockTerminalItem[] }) => (
+const TerminalTable = ({ terminals }: { terminals: BlockTerminalItem[] }) => (
   <Table borders width={"100%"}>
     <Thead>
       <TerminalTableHeader />
@@ -29,3 +29,5 @@ export const TerminalTable = ({ terminals }: { terminals: BlockTerminalItem[] })
     </Tbody>
   </Table>
 );
+
+export default TerminalTable;

@@ -1,5 +1,5 @@
 import { About } from "components/About/About";
-import { SelectedInfo } from "components/ExploreSection/selectedInfo";
+import { SelectedInfo } from "common/types/selectedInfo";
 import { ExploreContainer } from "components/Explore/Explore.styled";
 import { Search } from "components/Search/Search";
 import { useState } from "react";

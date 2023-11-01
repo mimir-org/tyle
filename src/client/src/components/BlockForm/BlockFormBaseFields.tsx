@@ -1,6 +1,3 @@
-// import { MimirorgPermission, State } from "@mimirorg/typelibrary-types";
-// import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
-import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import {
   Button,
   Flexbox,
@@ -12,20 +9,19 @@ import {
   Textarea,
   Token,
 } from "@mimirorg/component-library";
+import { XCircle } from "@styled-icons/heroicons-outline";
 import { useGetPurposes } from "api/purpose.queries";
-// import { useGetAllRds } from "external/sources/rds/rds.queries";
-// import { useGetSymbols } from "external/sources/symbol/symbol.queries";
-import { BlockFormFields } from "components/BlockForm/BlockForm.helpers";
+import { Aspect } from "common/types/common/aspect";
+import { FormMode } from "common/types/formMode";
+import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
+import { purposeInfoItem } from "helpers/mappers.helpers";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { FormMode } from "../../common/types/formMode";
-import { Aspect } from "common/types/common/aspect";
-import { PlainLink } from "components/PlainLink/PlainLink";
-import { FormSection } from "../FormSection/FormSection";
-import { SelectItemDialog } from "../SelectItemDialog/SelectItemDialog";
-import { XCircle } from "@styled-icons/heroicons-outline";
-import { purposeInfoItem } from "../TerminalForm/TerminalForm.helpers"; //TODO should possibly be moved to own component?
+import FormSection from "../FormSection";
+import PlainLink from "../PlainLink";
+import SelectItemDialog from "../SelectItemDialog";
+import { BlockFormFields } from "./BlockForm.helpers";
 
 interface BlockFormBaseFieldsProps {
   mode?: FormMode;
@@ -41,7 +37,7 @@ interface BlockFormBaseFieldsProps {
  * @param limited
  * @constructor
  */
-export const BlockFormBaseFields = ({ mode, limited }: BlockFormBaseFieldsProps) => {
+const BlockFormBaseFields = ({ mode, limited }: BlockFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
   const { control, register, formState, setValue } = useFormContext<BlockFormFields>();
@@ -138,3 +134,5 @@ export const BlockFormBaseFields = ({ mode, limited }: BlockFormBaseFieldsProps)
     </FormBaseFieldsContainer>
   );
 };
+
+export default BlockFormBaseFields;

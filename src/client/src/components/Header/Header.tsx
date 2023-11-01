@@ -1,19 +1,19 @@
-import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { useGetFilteredCompanies } from "hooks/filter-companies/useGetFilteredCompanies";
 import { Flexbox, Text } from "@mimirorg/component-library";
+import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { useGetCurrentUser } from "api/user.queries";
 import { ContactButton } from "components/Header/ContactButton";
+import { FeedbackButton } from "components/Header/FeedbackButton";
 import { mapPermissionDescriptions } from "components/Header/Header.helpers";
 import { HeaderContainer } from "components/Header/Header.styles";
 import { HeaderHomeLink } from "components/Header/HeaderHomeLink";
 import { LogoutButton } from "components/Header/LogoutButton";
-import { FeedbackButton } from "components/Header/FeedbackButton";
 import { SettingsButton } from "components/Header/SettingsButton";
 import { ThemeButton } from "components/Header/ThemeButton";
 import { UserInfo } from "components/Header/UserInfo";
 import { UserMenu } from "components/Header/UserMenu";
+import { useGetFilteredCompanies } from "hooks/useGetFilteredCompanies";
 import { useTheme } from "styled-components";
-import config from "../../common/utils/config";
+import config from "../../config";
 
 const Header = () => {
   const theme = useTheme();

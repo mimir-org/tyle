@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { useMediaQuery } from "usehooks-ts";
 
-export const TerminalTableHeader = () => {
+const TerminalTableHeader = () => {
   const theme = useTheme();
   const { t } = useTranslation("explore", { keyPrefix: "about.terminals" });
   const adjustAmountAlignment = useMediaQuery("screen and (min-width: 1500px)");
@@ -34,3 +34,5 @@ export const TerminalTableHeader = () => {
     </Tr>
   );
 };
+
+export default TerminalTableHeader;

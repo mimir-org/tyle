@@ -1,6 +1,6 @@
 import { AttributeView } from "common/types/attributes/attributeView";
 import { AttributeTypeReferenceView } from "common/types/common/attributeTypeReferenceView";
-import { mapAttributeViewsToInfoItems } from "common/utils/mappers/mapAttributeLibCmToInfoItem";
+import { mapAttributeViewsToInfoItems } from "components/FormAttributes/mapAttributeLibCmToInfoItem";
 
 export const onAddAttributes = (
   selectedIds: string[],

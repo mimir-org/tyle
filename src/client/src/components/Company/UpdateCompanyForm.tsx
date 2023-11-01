@@ -1,42 +1,42 @@
-import { FormProvider, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import {
+  FormMimirorgCompany,
   copySecret,
   createSecret,
   encodeFile,
-  FormMimirorgCompany,
   mapCompanyCmToFormCompany,
   mapFormCompanyToCompanyAm,
   useUpdateToast,
 } from "components/Company/CompanyForm.helpers";
+import { FormProvider, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 //import { yupResolver } from "@hookform/resolvers/yup";
 //import { companySchema } from "features/settings/company/companySchema";
-import { useGetCurrentUser } from "api/user.queries";
-import { useServerValidation } from "hooks/server-validation/useServerValidation";
-import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
-import { onSubmitForm } from "helpers/form.helpers";
+import { DevTool } from "@hookform/devtools";
 import {
   Button,
-  Flexbox,
-  FileItemComponent,
   FileInfo,
+  FileItemComponent,
+  Flexbox,
   Form,
   FormField,
   Input,
   Textarea,
   toast,
 } from "@mimirorg/component-library";
-import { DevTool } from "@hookform/devtools";
-import { useTheme } from "styled-components";
-import { useRef, useState } from "react";
-import { DocumentDuplicate, PaperClip } from "@styled-icons/heroicons-outline";
-import { isAxiosError } from "axios";
-import { useGetFilteredCompanies } from "hooks/filter-companies/useGetFilteredCompanies";
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { Option } from "common/utils/getOptionsFromEnum";
-import { RadioFilters } from "../RadioFilters/RadioFilters";
+import { DocumentDuplicate, PaperClip } from "@styled-icons/heroicons-outline";
 import { useUpdateCompany } from "api/company.queries";
+import { useGetCurrentUser } from "api/user.queries";
+import { isAxiosError } from "axios";
+import { Option } from "common/utils/getOptionsFromEnum";
 import { PlainLink } from "components/PlainLink";
+import { onSubmitForm } from "helpers/form.helpers";
+import { useGetFilteredCompanies } from "hooks/useGetFilteredCompanies";
+import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
+import { useServerValidation } from "hooks/useServerValidation";
+import { useRef, useState } from "react";
+import { useTheme } from "styled-components";
+import { RadioFilters } from "../RadioFilters/RadioFilters";
 import { settingsBasePath } from "../SettingsLayout/SettingsRoutes";
 
 export const UpdateCompanyForm = () => {

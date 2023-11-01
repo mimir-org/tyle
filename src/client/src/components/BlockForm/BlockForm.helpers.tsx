@@ -1,16 +1,16 @@
 import { useCreateBlock, useGetBlock, useUpdateBlock } from "api/block.queries";
-import { useParams } from "react-router-dom";
-import { FormMode } from "../../common/types/formMode";
 import { BlockTypeRequest } from "common/types/blocks/blockTypeRequest";
 import { BlockView } from "common/types/blocks/blockView";
 import { TerminalTypeReferenceView } from "common/types/blocks/terminalTypeReferenceView";
 import { AttributeTypeReferenceView } from "common/types/common/attributeTypeReferenceView";
-import { RdlPurpose } from "common/types/common/rdlPurpose";
 import { RdlClassifier } from "common/types/common/rdlClassifier";
+import { RdlPurpose } from "common/types/common/rdlPurpose";
+import { FormMode } from "common/types/formMode";
 import { InfoItem } from "common/types/infoItem";
-import { TerminalView } from "common/types/terminals/terminalView";
-import { mapTerminalViewsToInfoItems } from "components/BlockForm/mapTerminalViewsToInfoItems";
 import { Direction } from "common/types/terminals/direction";
+import { TerminalView } from "common/types/terminals/terminalView";
+import { useParams } from "react-router-dom";
+import { mapTerminalViewsToInfoItems } from "./mapTerminalViewsToInfoItems";
 
 export const useBlockQuery = () => {
   const { id } = useParams();

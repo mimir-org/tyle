@@ -1,6 +1,31 @@
 import { MimirorgCompanyCm, MimirorgPermission, MimirorgUserCm } from "@mimirorg/typelibrary-types";
-import { filterCompanyList, hasAccess } from "hooks/filter-companies/hasAccess";
-import { createEmptyMimirorgCompanyCm, createEmptyMimirorgUserCm } from "hooks/filter-companies/hasAccess.test.helpers";
+import { filterCompanyList, hasAccess } from "./access.helpers";
+
+const createEmptyMimirorgCompanyCm = (): MimirorgCompanyCm => ({
+  id: 0,
+  name: "",
+  displayName: "",
+  description: "",
+  manager: createEmptyMimirorgUserCm(),
+  secret: "",
+  domain: "",
+  logo: "",
+  logoUrl: "",
+  homePage: "",
+});
+
+const createEmptyMimirorgUserCm = (): MimirorgUserCm => ({
+  id: "",
+  email: "",
+  firstName: "",
+  lastName: "",
+  companyId: 0,
+  manageCompanies: [],
+  companyName: "",
+  purpose: "",
+  permissions: {},
+  roles: [],
+});
 
 describe("hasAccess tests", () => {
   test("undefined user returns false", () => {

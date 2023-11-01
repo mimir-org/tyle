@@ -1,14 +1,14 @@
-import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components";
-import { FormApproval, mapFormApprovalToApiModel } from "components/Approval/formApproval";
 import { Flexbox, Text, toast } from "@mimirorg/component-library";
-import { usePatchAttributeState } from "../../api/attribute.queries";
+import { usePatchAttributeState } from "api/attribute.queries";
+import { usePatchBlockState } from "api/block.queries";
+import { usePatchTerminalState } from "api/terminal.queries";
 import { AxiosError } from "axios";
 import { AttributeView } from "common/types/attributes/attributeView";
-import { TerminalView } from "common/types/terminals/terminalView";
-import { usePatchTerminalState } from "api/terminal.queries";
 import { BlockView } from "common/types/blocks/blockView";
-import { usePatchBlockState } from "api/block.queries";
+import { TerminalView } from "common/types/terminals/terminalView";
+import { FormApproval, mapFormApprovalToApiModel } from "components/Approval/formApproval";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "styled-components";
 
 export const usePatchStateMutation = (
   item: AttributeView | TerminalView | BlockView,

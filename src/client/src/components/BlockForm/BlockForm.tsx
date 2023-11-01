@@ -1,44 +1,26 @@
 import { DevTool } from "@hookform/devtools";
-//import { yupResolver } from "@hookform/resolvers/yup";
-//import { BlockLibCm, MimirorgPermission, State } from "@mimirorg/typelibrary-types";
-import { useServerValidation } from "hooks/server-validation/useServerValidation";
-import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { Box, FormContainer } from "@mimirorg/component-library";
-import { Loader } from "components/Loader";
-//import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
+import { BlockView } from "common/types/blocks/blockView";
+import { FormMode } from "common/types/formMode";
 import { onSubmitForm, usePrefilledForm, useSubmissionToast } from "helpers/form.helpers";
-//import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
+import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
+import { useServerValidation } from "hooks/useServerValidation";
+import { FormProvider, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "styled-components/macro";
+import FormAttributes from "../FormAttributes";
+import FormClassifiers from "../FormClassifiers";
+import Loader from "../Loader";
 import {
   BlockFormFields,
   createDefaultBlockFormFields,
-  //getSubformForAspect,
-  // createEmptyFormBlockLib,
-  // getSubformForAspect,
-  // toApiModel,
   toBlockFormFields,
   toBlockTypeRequest,
   useBlockMutation,
   useBlockQuery,
-} from "components/BlockForm/BlockForm.helpers";
-//import { BlockFormBaseFields } from "features/entities/block/BlockFormBaseFields";
-//import { blockSchema } from "features/entities/block/blockSchema";
-
-import {
-  FormProvider,
-  useForm,
-  // useWatch
-} from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components/macro";
-import { FormMode } from "../../common/types/formMode";
-//import { useGetLatestApprovedBlock } from "external/sources/block/block.queries";
-// import { useGetCurrentUser } from "external/sources/user/user.queries";
-import { BlockView } from "common/types/blocks/blockView";
-import { FormAttributes } from "../FormAttributes/FormAttributes";
-import { BlockFormBaseFields } from "./BlockFormBaseFields";
-import { FormClassifiers } from "../TerminalForm/TerminalFormClassifiers";
-import { FormTerminals } from "./FormTerminals";
-//import { FormAttributeGroups } from "../common/form-attributeGroup/FormAttributeGroups";
+} from "./BlockForm.helpers";
+import BlockFormBaseFields from "./BlockFormBaseFields";
+import FormTerminals from "./FormTerminals";
 
 interface BlockFormProps {
   defaultValues?: BlockFormFields;

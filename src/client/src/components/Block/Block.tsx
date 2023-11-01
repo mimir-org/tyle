@@ -1,6 +1,6 @@
 import { Icon, Text } from "@mimirorg/component-library";
-import { BlockContainer, BlockContainerProps } from "components/Block/Block.styled";
 import { useTheme } from "styled-components";
+import BlockContainer, { BlockContainerProps } from "./Block.styled";
 
 export type BlockProps = BlockContainerProps & {
   name: string;

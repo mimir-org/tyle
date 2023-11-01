@@ -1,11 +1,11 @@
-import { Dd, Dl, Dt } from "./ApprovalCardDetails.styled";
 import { Fragment } from "react";
+import { Dd, Dl, Dt } from "./ApprovalCardDetails.styled";
 
 interface ApprovalCardDetailsProps {
   descriptors: { [key: string]: string };
 }
 
-export const ApprovalCardDetails = ({ descriptors }: ApprovalCardDetailsProps) => (
+const ApprovalCardDetails = ({ descriptors }: ApprovalCardDetailsProps) => (
   <Dl>
     {descriptors &&
       Object.keys(descriptors).map((k, i) => (
@@ -16,3 +16,5 @@ export const ApprovalCardDetails = ({ descriptors }: ApprovalCardDetailsProps) =
       ))}
   </Dl>
 );
+
+export default ApprovalCardDetails;

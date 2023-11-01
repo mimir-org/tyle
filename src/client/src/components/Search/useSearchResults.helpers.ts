@@ -1,12 +1,12 @@
-import { useGetBlocks } from "api/block.queries";
-import { Filter } from "common/types/filter";
-import { SearchResult, SearchResultRaw } from "components/Search/searchResult";
-import { toBlockItem } from "common/utils/mappers/mapBlockLibCmToBlockItem";
-import { useGetTerminals } from "api/terminal.queries";
 import { useGetAttributes } from "api/attribute.queries";
-import { isAttributeView, isBlockView, isTerminalView } from "./isItemValidators";
+import { useGetBlocks } from "api/block.queries";
+import { useGetTerminals } from "api/terminal.queries";
+import { Filter } from "common/types/filter";
+import { toBlockItem } from "common/utils/mappers/mapBlockLibCmToBlockItem";
 import { toAttributeItem } from "components/Search/mapAttributeLibCmToAttributeItem";
-import { toTerminalItem } from "common/utils/mappers/mapTerminalLibCmToTerminalItem";
+import { toTerminalItem } from "components/Search/mapTerminalLibCmToTerminalItem";
+import { SearchResult, SearchResultRaw } from "components/Search/searchResult";
+import { isAttributeView, isBlockView, isTerminalView } from "./isItemValidators";
 
 /**
  * Filters items if there are any filters available, returns items sorted by date if not.

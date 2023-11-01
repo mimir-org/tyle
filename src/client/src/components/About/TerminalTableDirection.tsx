@@ -1,11 +1,11 @@
+import { Flexbox, Td } from "@mimirorg/component-library";
 import { ArrowLeft, ArrowRight, ArrowsRightLeft } from "@styled-icons/heroicons-outline";
 import { BlockTerminalItem } from "common/types/blockTerminalItem";
-import { Flexbox, Td } from "@mimirorg/component-library";
+import { Direction } from "common/types/terminals/direction";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { Direction } from "common/types/terminals/direction";
 
-export const TerminalTableDirection = ({ direction }: Pick<BlockTerminalItem, "direction">) => {
+const TerminalTableDirection = ({ direction }: Pick<BlockTerminalItem, "direction">) => {
   const theme = useTheme();
   const { t } = useTranslation("explore");
   const directionIconSize = 20;
@@ -27,3 +27,5 @@ export const TerminalTableDirection = ({ direction }: Pick<BlockTerminalItem, "d
     </Td>
   );
 };
+
+export default TerminalTableDirection;

@@ -1,16 +1,16 @@
 import { Box, Flexbox, Text, Tooltip } from "@mimirorg/component-library";
-import { useTheme } from "styled-components";
-import TerminalIcon from "../TerminalIcon/TerminalIcon";
-import BlockIcon from "../BlockIcon/BlockIcon";
-import AttributeIcon from "../AttributeIcon/AttributeIcon";
 import { ReactNode } from "react";
+import { useTheme } from "styled-components";
+import AttributeIcon from "../AttributeIcon";
+import BlockIcon from "../BlockIcon";
+import TerminalIcon from "../TerminalIcon";
 
 interface ApprovalCardHeaderProps {
   children?: ReactNode;
   objectType?: string;
 }
 
-export const ApprovalCardHeader = ({ children, objectType }: ApprovalCardHeaderProps) => {
+const ApprovalCardHeader = ({ children, objectType }: ApprovalCardHeaderProps) => {
   function getIcon(type: string) {
     switch (type) {
       case "Terminal":
@@ -35,3 +35,5 @@ export const ApprovalCardHeader = ({ children, objectType }: ApprovalCardHeaderP
     </Box>
   );
 };
+
+export default ApprovalCardHeader;

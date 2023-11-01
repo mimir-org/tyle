@@ -1,5 +1,5 @@
-import { BlockForm } from "components/BlockForm/BlockForm";
 import { RouteObject } from "react-router-dom";
+import BlockForm from "./BlockForm";
 
 export const blockFormBasePath = "form/block";
 

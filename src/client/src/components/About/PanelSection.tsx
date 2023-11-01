@@ -16,7 +16,7 @@ interface PanelSectionProps {
  *   <MyComponent />
  * </PanelSection>
  */
-export const PanelSection = ({ title, children }: PanelSectionProps) => {
+const PanelSection = ({ title, children }: PanelSectionProps) => {
   const theme = useTheme();
 
   return (
@@ -30,3 +30,5 @@ export const PanelSection = ({ title, children }: PanelSectionProps) => {
     </>
   );
 };
+
+export default PanelSection;

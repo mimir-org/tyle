@@ -1,5 +1,5 @@
-import { Approval } from "components/Approval/Approval";
 import { RouteObject } from "react-router-dom";
+import Approval from "./Approval";
 
 export const approvalBasePath = "approval";
 

@@ -1,20 +1,17 @@
-import { FormProvider, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import {
+  FormMimirorgCompany,
   copySecret,
   createEmptyFormMimirorgCompany,
   createSecret,
   encodeFile,
-  FormMimirorgCompany,
   mapFormCompanyToCompanyAm,
   useCreatingToast,
 } from "components/Company/CompanyForm.helpers";
+import { FormProvider, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 //import { yupResolver } from "@hookform/resolvers/yup";
 //import { companySchema } from "features/settings/company/companySchema";
-import { useGetCurrentUser } from "api/user.queries";
-import { useServerValidation } from "hooks/server-validation/useServerValidation";
-import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
-import { onSubmitForm } from "helpers/form.helpers";
+import { DevTool } from "@hookform/devtools";
 import {
   Button,
   FileInfo,
@@ -26,13 +23,16 @@ import {
   Textarea,
   toast,
 } from "@mimirorg/component-library";
-import { DevTool } from "@hookform/devtools";
-import { useTheme } from "styled-components";
-import { useRef, useState } from "react";
 import { DocumentDuplicate, PaperClip } from "@styled-icons/heroicons-outline";
-import { isAxiosError } from "axios";
 import { useCreateCompany } from "api/company.queries";
+import { useGetCurrentUser } from "api/user.queries";
+import { isAxiosError } from "axios";
 import { PlainLink } from "components/PlainLink";
+import { onSubmitForm } from "helpers/form.helpers";
+import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
+import { useServerValidation } from "hooks/useServerValidation";
+import { useRef, useState } from "react";
+import { useTheme } from "styled-components";
 import { settingsBasePath } from "../SettingsLayout/SettingsRoutes";
 
 export const CreateCompanyForm = () => {

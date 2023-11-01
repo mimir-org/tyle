@@ -1,16 +1,16 @@
 import { FormBaseFieldsContainer, FormField, Input, Select, Textarea, Token } from "@mimirorg/component-library";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
+import { XCircle } from "@styled-icons/heroicons-outline";
+import { useGetPredicates } from "api/predicate.queries";
 import { ProvenanceQualifier } from "common/types/attributes/provenanceQualifier";
-import { AttributeFormFields, predicateInfoItem } from "./AttributeForm.helpers";
 import { RangeQualifier } from "common/types/attributes/rangeQualifier";
 import { RegularityQualifier } from "common/types/attributes/regularityQualifier";
 import { ScopeQualifier } from "common/types/attributes/scopeQualifier";
-import { FormSection } from "../FormSection/FormSection";
-import { SelectItemDialog } from "../SelectItemDialog/SelectItemDialog";
-import { useGetPredicates } from "api/predicate.queries";
-import { XCircle } from "@styled-icons/heroicons-outline";
+import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import FormSection from "../FormSection";
+import SelectItemDialog from "../SelectItemDialog";
+import { AttributeFormFields, predicateInfoItem } from "./AttributeForm.helpers";
 import { UnitRequirement } from "./UnitRequirement";
 
 interface AttributeFormBaseFieldsProps {
@@ -23,7 +23,7 @@ interface AttributeFormBaseFieldsProps {
  * @constructor
  */
 
-export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProps) => {
+const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProps) => {
   const { t } = useTranslation("entities");
   const {
     control,
@@ -192,3 +192,5 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
     </FormBaseFieldsContainer>
   );
 };
+
+export default AttributeFormBaseFields;

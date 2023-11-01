@@ -12,4 +12,6 @@ const ApprovalCardContainer = styled(Card).attrs(() => ({
   min-width: 300px;
 `;
 
-export const MotionApprovalCardContainer = motion(ApprovalCardContainer);
+const MotionApprovalCardContainer = motion(ApprovalCardContainer);
+
+export default MotionApprovalCardContainer;

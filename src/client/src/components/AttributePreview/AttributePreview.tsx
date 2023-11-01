@@ -1,8 +1,8 @@
-import styled from "styled-components/macro";
-import { useTheme } from "styled-components";
 import { Flexbox, Text } from "@mimirorg/component-library";
-import AttributeIcon from "../AttributeIcon/AttributeIcon";
 import { State } from "@mimirorg/typelibrary-types";
+import { useTheme } from "styled-components";
+import styled from "styled-components/macro";
+import AttributeIcon from "../AttributeIcon";
 
 interface StyledDivProps {
   small?: boolean;
@@ -73,7 +73,7 @@ const AttributePreview = ({ name, description, small }: AttributePreviewProps) =
       )}
     </StyledDiv>
   );
-}
+};
 
 export default AttributePreview;
 

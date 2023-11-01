@@ -4,14 +4,14 @@ import {
   FormBaseFieldsContainer,
   FormField,
   Input,
-  Textarea,
   Text,
+  Textarea,
 } from "@mimirorg/component-library";
-import { PlainLink } from "components/PlainLink";
+import { FormMode } from "common/types/formMode";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { FormMode } from "../../common/types/formMode";
+import PlainLink from "../PlainLink";
 import { FormAttributeGroupLib } from "./formAttributeGroupLib";
 interface AttributeGroupFormBaseFieldsProps {
   mode?: FormMode;
@@ -25,7 +25,7 @@ interface AttributeGroupFormBaseFieldsProps {
  * @param limited
  * @constructor
  */
-export const AttributeGroupFormBaseFields = ({ mode, limited }: AttributeGroupFormBaseFieldsProps) => {
+const AttributeGroupFormBaseFields = ({ mode, limited }: AttributeGroupFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
   const { register, formState } = useFormContext<FormAttributeGroupLib>();
@@ -55,3 +55,5 @@ export const AttributeGroupFormBaseFields = ({ mode, limited }: AttributeGroupFo
     </FormBaseFieldsContainer>
   );
 };
+
+export default AttributeGroupFormBaseFields;

@@ -1,10 +1,10 @@
-import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { Box, Divider, Flexbox, Popover, Text, VisuallyHidden } from "@mimirorg/component-library";
-import { TerminalButton } from "components/Terminal/TerminalButton";
-import { TerminalDescription } from "components/Terminal/TerminalSingle";
+import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "../../common/utils/blockTerminalQuantityRestrictions";
+import TerminalButton from "../TerminalButton";
+import TerminalDescription from "./TerminalDescription";
+import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "./blockTerminalQuantityRestrictions";
 
 interface TerminalCollectionProps {
   terminals: BlockTerminalItem[];
@@ -18,7 +18,7 @@ interface TerminalCollectionProps {
  * @param variant decides which side the popover should appear
  * @constructor
  */
-export const TerminalCollection = ({ terminals, placement }: TerminalCollectionProps) => {
+const TerminalCollection = ({ terminals, placement }: TerminalCollectionProps) => {
   const theme = useTheme();
   const { t } = useTranslation("common");
 
@@ -30,6 +30,8 @@ export const TerminalCollection = ({ terminals, placement }: TerminalCollectionP
     </Popover>
   );
 };
+
+export default TerminalCollection;
 
 interface TerminalCollectionDescriptionProps {
   terminals: BlockTerminalItem[];

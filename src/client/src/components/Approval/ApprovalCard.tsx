@@ -1,12 +1,12 @@
-import { MotionApprovalCardContainer } from "components/Approval/ApprovalCard.styled";
-import { useRef } from "react";
-import { useTheme } from "styled-components";
-import { ApprovalCardHeader } from "components/Approval/ApprovalCardHeader";
-import { ApprovalCardForm } from "components/Approval/ApprovalCardForm";
 import { Divider, Flexbox, Text } from "@mimirorg/component-library";
 import { AttributeView } from "common/types/attributes/attributeView";
-import { TerminalView } from "common/types/terminals/terminalView";
 import { BlockView } from "common/types/blocks/blockView";
+import { TerminalView } from "common/types/terminals/terminalView";
+import { useRef } from "react";
+import { useTheme } from "styled-components";
+import MotionApprovalCardContainer from "./ApprovalCard.styled";
+import ApprovalCardForm from "./ApprovalCardForm";
+import ApprovalCardHeader from "./ApprovalCardHeader";
 
 export type ApprovalCardProps = {
   item: AttributeView | TerminalView | BlockView;
@@ -22,7 +22,7 @@ export type ApprovalCardProps = {
  * @see PermissionCardFormProps
  * @constructor
  */
-export const ApprovalCard = ({ item, itemType, selected }: ApprovalCardProps) => {
+const ApprovalCard = ({ item, itemType, selected }: ApprovalCardProps) => {
   const theme = useTheme();
   const cardRef = useRef(null);
 
@@ -47,3 +47,5 @@ export const ApprovalCard = ({ item, itemType, selected }: ApprovalCardProps) =>
     </MotionApprovalCardContainer>
   );
 };
+
+export default ApprovalCard;

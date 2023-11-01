@@ -1,5 +1,5 @@
 import { SearchResult } from "./searchResult";
-import { SelectedInfo } from "../ExploreSection/selectedInfo";
+import { SelectedInfo } from "../../common/types/selectedInfo";
 import { UserItem } from "../../common/types/userItem";
 import { Item } from "./Item";
 import { ItemDescription } from "./ItemDescription";

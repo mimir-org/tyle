@@ -1,35 +1,26 @@
 import { DevTool } from "@hookform/devtools";
-//import { yupResolver } from "@hookform/resolvers/yup";
-import { useServerValidation } from "hooks/server-validation/useServerValidation";
-import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { Box, FormContainer } from "@mimirorg/component-library";
-//import { Loader } from "features/common/loader";
-//import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
+import { FormMode } from "common/types/formMode";
 import { onSubmitForm, useSubmissionToast } from "helpers/form.helpers";
-//import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
-//import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
+import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
+import { useServerValidation } from "hooks/useServerValidation";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { FormMode } from "../../common/types/formMode";
+import { useAttributeGroupMutation, useAttributeGroupQuery } from "./AttributeGroupForm.helpers";
+import AttributeGroupFormBaseFields from "./AttributeGroupFormBaseFields";
 import {
   FormAttributeGroupLib,
   createEmptyFormAttributeGroupLib,
   mapFormAttributeGroupLibToApiModel,
 } from "./formAttributeGroupLib";
-//import { attributeGroupSchema } from "./attributeGroupSchema";
-import { useAttributeGroupMutation, useAttributeGroupQuery } from "./AttributeGroupForm.helpers";
-import { AttributeGroupFormBaseFields } from "./AttributeGroupFormBaseFields";
 
 interface AttributeGroupFormProps {
   defaultValues?: FormAttributeGroupLib;
   mode?: FormMode;
 }
 
-const AttributeGroupForm = ({
-  defaultValues = createEmptyFormAttributeGroupLib(),
-  mode,
-}: AttributeGroupFormProps) => {
+const AttributeGroupForm = ({ defaultValues = createEmptyFormAttributeGroupLib(), mode }: AttributeGroupFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 

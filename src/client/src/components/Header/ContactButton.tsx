@@ -1,10 +1,10 @@
+import { Box, Dialog, Select, Text } from "@mimirorg/component-library";
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Envelope } from "@styled-icons/heroicons-outline";
-import { useGetFilteredCompanies } from "hooks/filter-companies/useGetFilteredCompanies";
-import { Box, Dialog, Select, Text } from "@mimirorg/component-library";
 import { useGetCompany } from "api/company.queries";
 import { ContactCard } from "components/Header/ContactCard";
 import { UserMenuButton } from "components/Header/UserMenuButton";
+import { useGetFilteredCompanies } from "hooks/useGetFilteredCompanies";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 

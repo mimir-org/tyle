@@ -1,11 +1,11 @@
-import { mapMimirorgUserCmToUserItem } from "common/utils/mappers/mapMimirorgUserCmToUserItem";
 import { Flexbox, Text } from "@mimirorg/component-library";
 import { useGetPendingUsers } from "api/company.queries";
-import { AccessPlaceholder } from "components/Access/AccessPlaceholder";
-import { PermissionCard } from "components/PermissionCard/PermissionCard";
-import { SettingsSection } from "components/SettingsSection/SettingsSection";
+import { mapMimirorgUserCmToUserItem } from "common/utils/mappers/mapMimirorgUserCmToUserItem";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import PermissionCard from "../PermissionCard";
+import SettingsSection from "../SettingsSection";
+import AccessPlaceholder from "./AccessPlaceholder";
 
 const Access = () => {
   const theme = useTheme();

@@ -1,7 +1,7 @@
 import { hideScrollbar } from "@mimirorg/component-library";
 import styled from "styled-components/macro";
 
-export const PanelPropertiesContainer = styled.div`
+const PanelPropertiesContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -13,3 +13,5 @@ export const PanelPropertiesContainer = styled.div`
   // Fade bottom of container
   mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
 `;
+
+export default PanelPropertiesContainer;
