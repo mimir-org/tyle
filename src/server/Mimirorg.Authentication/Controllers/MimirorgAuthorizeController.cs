@@ -6,6 +6,7 @@ using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Exceptions;
 using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Client;
+using Mimirorg.Authentication.Models.Constants;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Mimirorg.Authentication.Controllers;
@@ -55,7 +56,7 @@ public class MimirorgAuthorizeController : ControllerBase
     /// </summary>
     /// <param name="userRole">MimirorgUserRoleAm</param>
     /// <returns>bool</returns>
-    [MimirorgAuthorize(MimirorgPermission.Manage)]
+    [Authorize(Roles = MimirorgDefaultRoles.Administrator)]
     [HttpPost]
     [Route("role/add")]
     [ProducesResponseType(typeof(bool), 200)]
@@ -99,7 +100,7 @@ public class MimirorgAuthorizeController : ControllerBase
     /// </summary>
     /// <param name="userRole">MimirorgUserRoleAm</param>
     /// <returns>bool</returns>
-    [MimirorgAuthorize(MimirorgPermission.Manage)]
+    [Authorize(Roles = MimirorgDefaultRoles.Administrator)]
     [HttpPost]
     [Route("role/remove")]
     [ProducesResponseType(typeof(bool), 200)]
