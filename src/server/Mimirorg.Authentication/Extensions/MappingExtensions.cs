@@ -1,4 +1,3 @@
-using Mimirorg.Authentication.Models;
 using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Client;
 using Mimirorg.Authentication.Models.Domain;
@@ -7,60 +6,6 @@ namespace Mimirorg.Authentication.Extensions;
 
 public static class MappingExtensions
 {
-    public static MimirorgCompany ToDomainModel(this MimirorgCompanyAm company)
-    {
-        return new MimirorgCompany
-        {
-            Name = company.Name,
-            DisplayName = company.DisplayName,
-            Description = company.Description,
-            ManagerId = company.ManagerId,
-            Secret = company.Secret,
-            Domain = company.Domain,
-            Logo = company.Logo,
-            HomePage = company.HomePage
-        };
-    }
-
-    public static MimirorgCompanyCm ToContentModel(this MimirorgCompany company, ApplicationSettings applicationSettings)
-    {
-        return new MimirorgCompanyCm
-        {
-            Id = company.Id,
-            Name = company.Name,
-            DisplayName = company.DisplayName,
-            Description = company.Description,
-            Manager = company.Manager?.ToContentModel(),
-            Secret = company.Secret,
-            Domain = company.Domain,
-            Logo = company.Logo,
-            LogoUrl = $"{applicationSettings.ApplicationUrl}/logo/{company.Id}.svg",
-            HomePage = company.HomePage
-        };
-    }
-
-    public static MimirorgHook ToDomainModel(this MimirorgHookAm hook)
-    {
-        return new MimirorgHook
-        {
-            CompanyId = hook.CompanyId,
-            Key = hook.Key,
-            Iri = hook.Iri
-        };
-    }
-
-    public static MimirorgHookCm ToContentModel(this MimirorgHook hook, ApplicationSettings applicationSettings)
-    {
-        return new MimirorgHookCm
-        {
-            Id = hook.Id,
-            CompanyId = hook.CompanyId,
-            Company = hook.Company?.ToContentModel(applicationSettings),
-            Key = hook.Key,
-            Iri = hook.Iri
-        };
-    }
-
     public static MimirorgUser ToDomainModel(this MimirorgUserAm user)
     {
         return new MimirorgUser

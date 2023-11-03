@@ -102,30 +102,4 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
             HtmlContent = $@"<div><h1>Tyle has a new user</h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> just created an account.</p><p>The user needs an appropriate access level. This can be set in Tyle under <i>Settings</i> and <i>Access</i>.</p></div>"
         });
     }
-
-    public Task<MimirorgMailAm> CreateUserPermissionEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser, MimirorgPermission permission, string companyName, bool isPermissionRemoval)
-    {
-        if (_authSettings == null || string.IsNullOrEmpty(_authSettings.Email))
-            throw new MimirorgConfigurationException("Missing configuration for email");
-
-        if (sendToUser == null || fromUser == null)
-            return Task.FromResult(new MimirorgMailAm());
-
-        var subject = "Your permission level in Tyle has changed";
-
-        var htmlContent = isPermissionRemoval
-            ? $@"<div><h1>Tyle <i>{permission.ToString().ToLower()}</i> permission removed for <i>{companyName}</i></h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> has removed your <i>{permission.ToString().ToLower()}</i> permission for <i>{companyName}</i>.</p></div>"
-            : $@"<div><h1>Tyle <i>{permission.ToString().ToLower()}</i> permission granted for <i>{companyName}</i></h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> has granted you <i>{permission.ToString().ToLower()}</i> permission for <i>{companyName}</i>.</p></div>";
-
-
-        return Task.FromResult(new MimirorgMailAm
-        {
-            FromEmail = _authSettings.Email,
-            FromName = _authSettings.ApplicationName,
-            ToEmail = sendToUser.Email,
-            ToName = $"{sendToUser.FirstName} {sendToUser.LastName}",
-            Subject = subject,
-            HtmlContent = htmlContent
-        });
-    }
 }

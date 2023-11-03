@@ -30,9 +30,6 @@ public class MimirorgUserAm
     [Required(ErrorMessage = "{0} is required")]
     public string LastName { get; set; }
 
-    [Display(Name = "CompanyId")]
-    public int CompanyId { get; set; }
-
     [Display(Name = "Purpose")]
     public string Purpose { get; set; }
 }

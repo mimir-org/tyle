@@ -26,17 +26,15 @@ public class MimirorgUserService : IMimirorgUserService
     private readonly IMimirorgTokenRepository _tokenRepository;
     private readonly IMimirorgEmailRepository _emailRepository;
     private readonly IMimirorgTemplateRepository _templateRepository;
-    private readonly IMimirorgCompanyService _mimirorgCompanyService;
     private readonly IMimirorgAuthService _mimirorgAuthService;
 
-    public MimirorgUserService(UserManager<MimirorgUser> userManager, IOptions<MimirorgAuthSettings> authSettings, IMimirorgTokenRepository tokenRepository, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IMimirorgCompanyService mimirorgCompanyService, IMimirorgAuthService mimirorgAuthService)
+    public MimirorgUserService(UserManager<MimirorgUser> userManager, IOptions<MimirorgAuthSettings> authSettings, IMimirorgTokenRepository tokenRepository, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IMimirorgAuthService mimirorgAuthService)
     {
         _userManager = userManager;
         _tokenRepository = tokenRepository;
         _emailRepository = emailRepository;
         _templateRepository = templateRepository;
         _authSettings = authSettings?.Value;
-        _mimirorgCompanyService = mimirorgCompanyService;
         _mimirorgAuthService = mimirorgAuthService;
     }
 
@@ -137,25 +135,6 @@ public class MimirorgUserService : IMimirorgUserService
             throw new MimirorgInvalidOperationException($"Couldn't update user with username {user.UserName}. Error: {result.Errors.ConvertToString()}");
 
         return user.ToContentModel();
-    }
-
-    /// <summary>
-    /// Gets all companies that the principal can access given a specific permission level
-    /// </summary>
-    /// <param name="principal"></param>
-    /// <param name="permission"></param>
-    /// <returns>A collection of company ids</returns>
-    /// <exception cref="MimirorgNotFoundException"></exception>
-    public async Task<ICollection<int>> GetCompaniesForUser(IPrincipal principal, MimirorgPermission permission)
-    {
-        if (principal?.Identity?.Name == null)
-            throw new MimirorgNotFoundException("Couldn't find current user");
-
-        var user = await GetUser(principal);
-        var userPermissions = user.Permissions.Where(x => x.Value == permission);
-        var userCompanies = userPermissions.Select(x => x.Key);
-
-        return userCompanies.ToList();
     }
 
     /// <summary>

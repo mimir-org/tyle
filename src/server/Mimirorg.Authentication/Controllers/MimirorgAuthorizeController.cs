@@ -3,10 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
-using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Exceptions;
 using Mimirorg.Authentication.Models.Application;
-using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.Authentication.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -26,8 +24,6 @@ public class MimirorgAuthorizeController : ControllerBase
         _logger = logger;
         _authService = authService;
     }
-
-    #region Roles
 
     /// <summary>
     /// Get all roles
@@ -141,124 +137,4 @@ public class MimirorgAuthorizeController : ControllerBase
             return StatusCode(500, "Internal Server Error");
         }
     }
-
-
-    #endregion
-
-    #region Permissions
-
-    /// <summary>
-    /// Get all permissions
-    /// </summary>
-    /// <returns>ICollection&lt;MimirorgRoleCm&gt;</returns>
-    [AllowAnonymous]
-    [HttpGet]
-    [Route("permission")]
-    [ProducesResponseType(typeof(ICollection<MimirorgRoleCm>), 200)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [SwaggerOperation("Get all permissions")]
-    public async Task<IActionResult> GetPermissions()
-    {
-        try
-        {
-            var data = await _authService.GetAllPermissions();
-            return Ok(data);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"An error occurred while trying to get all roles. Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
-
-    /// <summary>
-    /// Set user permission for given company
-    /// </summary>
-    /// <returns>No content</returns>
-    /// <remarks>Authenticate</remarks>
-    [MimirorgAuthorize(MimirorgPermission.Manage, "userPermission", "CompanyId")]
-    [HttpPost]
-    [Route("permission/add")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [SwaggerOperation("Set user permissions for given company and user")]
-    public async Task<IActionResult> SetUserPermission(MimirorgUserPermissionAm userPermission)
-    {
-        try
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            await _authService.SetPermission(userPermission);
-            return NoContent();
-        }
-        catch (MimirorgNotFoundException)
-        {
-            return NotFound();
-        }
-        catch (MimirorgBadRequestException e)
-        {
-            foreach (var error in e.Errors().ToList())
-            {
-                ModelState.Remove(error.Key);
-                ModelState.TryAddModelError(error.Key, error.Error);
-            }
-
-            return BadRequest(ModelState);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"An error occurred while trying to get all roles. Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
-
-    /// <summary>
-    /// Remove user permission for given company
-    /// </summary>
-    /// <returns>No content</returns>
-    /// <remarks>Authenticate</remarks>
-    [MimirorgAuthorize(MimirorgPermission.Manage, "userPermission", "CompanyId")]
-    [HttpPost]
-    [Route("permission/remove")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [SwaggerOperation("Set user permissions for given company and user")]
-    public async Task<IActionResult> RemoveUserPermission(MimirorgUserPermissionAm userPermission)
-    {
-        try
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            await _authService.RemovePermission(userPermission);
-            return NoContent();
-        }
-        catch (MimirorgNotFoundException)
-        {
-            return NotFound();
-        }
-        catch (MimirorgBadRequestException e)
-        {
-            foreach (var error in e.Errors().ToList())
-            {
-                ModelState.Remove(error.Key);
-                ModelState.TryAddModelError(error.Key, error.Error);
-            }
-
-            return BadRequest(ModelState);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"An error occurred while trying to get all roles. Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
-
-    #endregion
 }

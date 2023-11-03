@@ -24,19 +24,17 @@ public class MimirorgAuthService : IMimirorgAuthService
     private readonly UserManager<MimirorgUser> _userManager;
     private readonly SignInManager<MimirorgUser> _signInManager;
     private readonly IMimirorgTokenRepository _tokenRepository;
-    private readonly IMimirorgCompanyService _mimirorgCompanyService;
     private readonly IActionContextAccessor _actionContextAccessor;
     private readonly MimirorgAuthSettings _authSettings;
     private readonly IMimirorgEmailRepository _emailRepository;
     private readonly IMimirorgTemplateRepository _templateRepository;
     private readonly IHttpContextAccessor _contextAccessor;
 
-    public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IMimirorgCompanyService mimirorgCompanyService, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IHttpContextAccessor contextAccessor)
+    public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IHttpContextAccessor contextAccessor)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _tokenRepository = tokenRepository;
-        _mimirorgCompanyService = mimirorgCompanyService;
         _actionContextAccessor = actionContextAccessor;
         _emailRepository = emailRepository;
         _templateRepository = templateRepository;

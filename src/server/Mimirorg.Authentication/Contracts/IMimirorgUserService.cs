@@ -51,15 +51,6 @@ public interface IMimirorgUserService
     Task<MimirorgUserCm> UpdateUser(MimirorgUserAm userAm);
 
     /// <summary>
-    /// Gets all companies that the principal can access given a specific permission level
-    /// </summary>
-    /// <param name="principal"></param>
-    /// <param name="permission"></param>
-    /// <returns>A collection of company ids</returns>
-    /// <exception cref="MimirorgNotFoundException"></exception>
-    Task<ICollection<int>> GetCompaniesForUser(IPrincipal principal, MimirorgPermission permission);
-
-    /// <summary>
     /// Setup two factor 
     /// </summary>
     /// <param name="verifyEmail"></param>
