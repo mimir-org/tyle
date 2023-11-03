@@ -63,47 +63,5 @@ public interface IMimirorgAuthService
     /// <exception cref="MimirorgNotFoundException"></exception>
     Task<bool> RemoveUserFromRole(MimirorgUserRoleAm userRole);
 
-    /// <summary>
-    /// Get all permissions
-    /// </summary>
-    /// <returns>ICollection&lt;MimirorgPermissionCm&gt;</returns>
-    Task<ICollection<MimirorgPermissionCm>> GetAllPermissions();
-
-    /// <summary>
-    /// Set user permission for a specific company.
-    /// </summary>
-    /// <param name="userPermission">MimirorgUserPermissionAm</param>
-    /// <returns>Completed task</returns>
-    /// <exception cref="MimirorgBadRequestException"></exception>
-    /// <exception cref="MimirorgNotFoundException"></exception>
-    Task SetPermission(MimirorgUserPermissionAm userPermission);
-
-    /// <summary>
-    /// Remove user permission for a specific company.
-    /// </summary>
-    /// <param name="userPermission">MimirorgUserPermissionAm</param>
-    /// <returns>Completed task</returns>
-    /// <exception cref="MimirorgBadRequestException"></exception>
-    /// <exception cref="MimirorgNotFoundException"></exception>
-    Task RemovePermission(MimirorgUserPermissionAm userPermission);
-
-    /// <summary>
-    /// Check if user has permission to change the state for a given company
-    /// </summary>
-    /// <param name="companyId">The id of the company</param>
-    /// <param name="newState">The state to check for permission</param>
-    /// <returns>True if has access, otherwise it returns false</returns>
-    /// <exception cref="ArgumentOutOfRangeException">If not a valid state</exception>
-    Task<bool> HasAccess(int companyId, State newState);
-
-    /// <summary>
-    /// Check if user has permission to delete an item
-    /// </summary>
-    /// <param name="state">The state of the item</param>
-    /// <param name="createdById">The id of the person who created the item</param>
-    /// <param name="companyId">The id of the item company</param>
-    /// <returns>True if the user can delete the item</returns>
-    Task<bool> CanDelete(State state, string createdById, int companyId);
-
     #endregion
 }
