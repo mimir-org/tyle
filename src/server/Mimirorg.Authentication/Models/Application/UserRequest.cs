@@ -31,6 +31,6 @@ public class UserRequest
     public required string LastName { get; set; }
 
     [Display(Name = "Purpose")]
-    [Required(ErrorMessage= "{0} is required")]
+    [Required(ErrorMessage = "{0} is required")]
     public required string Purpose { get; set; }
 }
