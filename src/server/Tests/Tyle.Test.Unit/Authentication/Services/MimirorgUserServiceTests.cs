@@ -306,6 +306,6 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
         userManagerMock.Setup(x => x.Users).Returns(users.AsQueryable());
         tokenRepositoryMock.Setup(x => x.GetAll(true)).Returns(tokens.AsQueryable);
 
-        return new MimirorgUserService(userManagerMock.Object, null, tokenRepositoryMock.Object, null, null, null, null);
+        return new MimirorgUserService(userManagerMock.Object, null, tokenRepositoryMock.Object, null, null, null);
     }
 }
