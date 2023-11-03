@@ -14,7 +14,6 @@ public static class MappingExtensions
             Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            CompanyId = user.CompanyId,
             Purpose = user.Purpose
         };
     }
@@ -23,7 +22,6 @@ public static class MappingExtensions
     {
         self.FirstName = update.FirstName;
         self.LastName = update.LastName;
-        self.CompanyId = update.CompanyId;
         self.Purpose = update.Purpose;
         return self;
     }
@@ -36,8 +34,6 @@ public static class MappingExtensions
             Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            CompanyId = user.CompanyId,
-            CompanyName = user.CompanyName,
             Purpose = user.Purpose
         };
     }

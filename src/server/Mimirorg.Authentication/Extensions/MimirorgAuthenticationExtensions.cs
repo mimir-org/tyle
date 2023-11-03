@@ -10,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Mimirorg.Authentication.Abstract;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Factories;
 using Mimirorg.Authentication.Models;
@@ -25,16 +24,10 @@ public static class MimirorgAuthenticationExtensions
     public static IServiceCollection AddMimirorgAuthenticationModule(this IServiceCollection serviceCollection, IConfiguration config)
     {
         // Dependency injection
-        serviceCollection.AddInjectableHostedService<ITimedHookService, TimedHookService>();
-
         serviceCollection.AddScoped<IMimirorgTokenRepository, MimirorgTokenRepository>();
-        serviceCollection.AddScoped<IMimirorgCompanyRepository, MimirorgCompanyRepository>();
-        serviceCollection.AddScoped<IMimirorgHookRepository, MimirorgHookRepository>();
-        serviceCollection.AddScoped<IDynamicLogoDataProvider, MimirorgCompanyRepository>();
 
         serviceCollection.AddScoped<IMimirorgAuthService, MimirorgAuthService>();
         serviceCollection.AddScoped<IMimirorgUserService, MimirorgUserService>();
-        serviceCollection.AddScoped<IMimirorgCompanyService, MimirorgCompanyService>();
 
         serviceCollection.AddScoped<IMimirorgTemplateRepository, MimirorgTemplateRepository>();
         serviceCollection.AddSingleton<IMimirorgAuthFactory, MimirorgAuthFactory>();
@@ -50,15 +43,6 @@ public static class MimirorgAuthenticationExtensions
             serviceCollection.AddScoped<IMimirorgEmailRepository, SendLocalRepository>();
         else
             serviceCollection.AddScoped<IMimirorgEmailRepository, SendGridRepository>();
-
-        // Configuration files
-        //var builder = new ConfigurationBuilder()
-        //    .SetBasePath(Directory.GetCurrentDirectory())
-        //    .AddJsonFile("appsettings.json", true)
-        //    .AddJsonFile($"appsettings.{environment}.json", true)
-        //    .AddJsonFile("appsettings.local.json", true)
-        //    .AddEnvironmentVariables();
-        //var config = builder.Build();
 
         // Authentication settings
         var authSettings = new MimirorgAuthSettings();
@@ -124,85 +108,12 @@ public static class MimirorgAuthenticationExtensions
                 });
         }
 
-        // Swagger configurations
-        //var swaggerConfigurationSection = config.GetSection(nameof(SwaggerConfiguration));
-        //var swaggerConfiguration = new SwaggerConfiguration();
-        //swaggerConfigurationSection.Bind(swaggerConfiguration);
-        //serviceCollection.Configure<SwaggerConfiguration>(swaggerConfigurationSection.Bind);
-
-        //serviceCollection.AddSwaggerGen(c =>
-        //{
-        //    var provider = serviceCollection.BuildServiceProvider();
-        //    var service = provider.GetRequiredService<IApiVersionDescriptionProvider>();
-
-        //    foreach (var description in service.ApiVersionDescriptions)
-        //    {
-        //        c.SwaggerDoc(description.GroupName,
-        //            new OpenApiInfo
-        //            {
-        //                Title = swaggerConfiguration.Title,
-        //                Version = description.ApiVersion.ToString(),
-        //                Description = swaggerConfiguration.Description,
-        //                Contact = new OpenApiContact { Name = swaggerConfiguration.Contact?.Name, Email = swaggerConfiguration.Contact?.Email }
-        //            });
-        //    }
-
-        //    var xmlPath = Path.Combine(AppContext.BaseDirectory, "swagger.xml");
-
-        //    c.IncludeXmlComments(xmlPath, true);
-        //    c.CustomSchemaIds(x => x.FullName);
-        //    c.EnableAnnotations();
-
-        //    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-        //    {
-        //        Name = "Authorization",
-        //        Type = SecuritySchemeType.ApiKey,
-        //        Scheme = "Bearer",
-        //        BearerFormat = "JWT",
-        //        In = ParameterLocation.Header,
-        //        Description = "JWT Authorization header using the Bearer scheme."
-        //    });
-
-        //    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-        //    {
-        //        {
-        //            new OpenApiSecurityScheme
-        //            {
-        //                Reference = new OpenApiReference
-        //                {
-        //                    Type = ReferenceType.SecurityScheme,
-        //                    Id = "Bearer"
-        //                }
-        //            },
-        //            Array.Empty<string>()
-        //        }
-        //    });
-        //});
-        //serviceCollection.AddSwaggerGenNewtonsoftSupport();
-
         return serviceCollection;
     }
 
     public static void UseMimirorgAuthenticationModule(this IApplicationBuilder app)
     {
-        //app.UseSwagger(c => { c.RouteTemplate = "/swagger/{documentName}/swagger.json"; });
-
         using var serviceScope = app.ApplicationServices.CreateScope();
-
-        //Use swagger
-        //var service = serviceScope.ServiceProvider.GetRequiredService<IApiVersionDescriptionProvider>();
-        //app.UseSwaggerUI(c =>
-        //{
-        //    foreach (var description in service.ApiVersionDescriptions)
-        //    {
-        //        c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
-        //    }
-
-        //    c.ConfigObject.AdditionalItems.Add("syntaxHighlight", false);
-        //    c.DisplayOperationId();
-        //    c.DisplayRequestDuration();
-        //    c.RoutePrefix = string.Empty;
-        //});
 
         app.UseAuthentication();
         app.UseAuthorization();
@@ -213,8 +124,5 @@ public static class MimirorgAuthenticationExtensions
         {
             context.Database.Migrate();
         }
-
-        var timedHookService = serviceScope.ServiceProvider.GetRequiredService<ITimedHookService>();
-        timedHookService.IsMigrationFinished = true;
     }
 }
