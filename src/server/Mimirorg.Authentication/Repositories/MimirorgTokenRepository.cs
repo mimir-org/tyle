@@ -73,7 +73,7 @@ public class MimirorgTokenRepository : GenericRepository<MimirorgAuthenticationC
             ClientId = user.Id,
             ValidTo = token.ValidTo,
             Secret = accessToken,
-            TokenType = MimirorgTokenType.AccessToken
+            TokenType = TokenType.AccessToken
         };
     }
 
@@ -97,10 +97,10 @@ public class MimirorgTokenRepository : GenericRepository<MimirorgAuthenticationC
             Email = user.Email,
             Secret = refreshToken,
             ValidTo = expires,
-            TokenType = MimirorgTokenType.RefreshToken
+            TokenType = TokenType.RefreshToken
         };
 
-        var oldTokens = FindBy(x => x.ClientId == user.Id, false).Where(x => x.TokenType == MimirorgTokenType.RefreshToken).ToList();
+        var oldTokens = FindBy(x => x.ClientId == user.Id, false).Where(x => x.TokenType == TokenType.RefreshToken).ToList();
         foreach (var oldToken in oldTokens)
         {
             Attach(oldToken, EntityState.Deleted);

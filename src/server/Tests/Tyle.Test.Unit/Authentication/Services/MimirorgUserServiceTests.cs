@@ -40,7 +40,7 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = 1,
                 ClientId = "User_Confirmed_1",
-                TokenType = MimirorgTokenType.VerifyEmail,
+                TokenType = TokenType.VerifyEmail,
                 ValidTo = DateTime.UtcNow.AddDays(1),
                 Email = "UserConfirmed@test.com",
                 Secret = "232323"
@@ -49,7 +49,7 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = 2,
                 ClientId = "User_Confirmed_1",
-                TokenType = MimirorgTokenType.VerifyEmail,
+                TokenType = TokenType.VerifyEmail,
                 ValidTo = DateTime.UtcNow.AddDays(-1),
                 Email = "UserConfirmed@test.com",
                 Secret = "232323"
@@ -84,7 +84,7 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = 2,
                 ClientId = "User_Confirmed_1",
-                TokenType = MimirorgTokenType.VerifyEmail,
+                TokenType = TokenType.VerifyEmail,
                 ValidTo = DateTime.UtcNow.AddDays(-1),
                 Email = "UserConfirmed@test.com",
                 Secret = "232323"
@@ -119,7 +119,7 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = 1,
                 ClientId = "User_Confirmed_1",
-                TokenType = MimirorgTokenType.VerifyEmail,
+                TokenType = TokenType.VerifyEmail,
                 ValidTo = DateTime.UtcNow.AddDays(1),
                 Email = "UserConfirmed@test.com",
                 Secret = "232323"
@@ -128,7 +128,7 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = 2,
                 ClientId = "User_Confirmed_1",
-                TokenType = MimirorgTokenType.VerifyEmail,
+                TokenType = TokenType.VerifyEmail,
                 ValidTo = DateTime.UtcNow.AddDays(-1),
                 Email = "UserConfirmed@test.com",
                 Secret = "232323"
@@ -163,7 +163,7 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = 1,
                 ClientId = "User_Confirmed_1",
-                TokenType = MimirorgTokenType.VerifyEmail,
+                TokenType = TokenType.VerifyEmail,
                 ValidTo = DateTime.UtcNow.AddDays(-1),
                 Email = "UserConfirmed@test.com",
                 Secret = "232323"
@@ -172,7 +172,7 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = 2,
                 ClientId = "User_Confirmed_1",
-                TokenType = MimirorgTokenType.VerifyEmail,
+                TokenType = TokenType.VerifyEmail,
                 ValidTo = DateTime.UtcNow.AddDays(-1),
                 Email = "UserConfirmed@test.com",
                 Secret = "232323"
@@ -216,7 +216,7 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = 1,
                 ClientId = "User_Confirmed_1",
-                TokenType = MimirorgTokenType.VerifyEmail,
+                TokenType = TokenType.VerifyEmail,
                 ValidTo = DateTime.UtcNow.AddDays(-1),
                 Email = "UserConfirmed@test.com",
                 Secret = "232323"
@@ -225,7 +225,7 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = 2,
                 ClientId = "User_Confirmed_1",
-                TokenType = MimirorgTokenType.VerifyEmail,
+                TokenType = TokenType.VerifyEmail,
                 ValidTo = DateTime.UtcNow.AddDays(-1),
                 Email = "UserConfirmed@test.com",
                 Secret = "232323"
@@ -234,7 +234,7 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = 3,
                 ClientId = "User_Confirmed_1",
-                TokenType = MimirorgTokenType.ChangePassword,
+                TokenType = TokenType.ChangePassword,
                 ValidTo = DateTime.UtcNow.AddDays(-1),
                 Email = "UserConfirmed@test.com",
                 Secret = "232323"
@@ -243,7 +243,7 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = 4,
                 ClientId = "User_Confirmed_2",
-                TokenType = MimirorgTokenType.AccessToken,
+                TokenType = TokenType.AccessToken,
                 ValidTo = DateTime.UtcNow.AddDays(-1),
                 Email = "UserConfirmed@test.com",
                 Secret = "232323"
@@ -252,7 +252,7 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = 5,
                 ClientId = "User_Confirmed_1",
-                TokenType = MimirorgTokenType.ChangeTwoFactor,
+                TokenType = TokenType.ChangeTwoFactor,
                 ValidTo = DateTime.UtcNow.AddDays(-1),
                 Email = "UserConfirmed@test.com",
                 Secret = "232323"
@@ -261,7 +261,7 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = 6,
                 ClientId = "User_Confirmed_1",
-                TokenType = MimirorgTokenType.RefreshToken,
+                TokenType = TokenType.RefreshToken,
                 ValidTo = DateTime.UtcNow.AddDays(-1),
                 Email = "UserConfirmed@test.com",
                 Secret = "232323"
@@ -296,7 +296,7 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = 1,
                 ClientId = "User_Confirmed_1",
-                TokenType = MimirorgTokenType.VerifyEmail,
+                TokenType = TokenType.VerifyEmail,
                 ValidTo = DateTime.UtcNow.AddDays(-1),
                 Email = "UserConfirmed@test.com",
                 Secret = "232323"
@@ -305,7 +305,7 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = 2,
                 ClientId = "User_Confirmed_1",
-                TokenType = MimirorgTokenType.ChangeTwoFactor,
+                TokenType = TokenType.ChangeTwoFactor,
                 ValidTo = DateTime.UtcNow.AddDays(1),
                 Email = "UserConfirmed@test.com",
                 Secret = "232323"

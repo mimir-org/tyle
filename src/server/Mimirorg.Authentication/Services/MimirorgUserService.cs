@@ -159,7 +159,7 @@ public class MimirorgUserService : IMimirorgUserService
         if (_authSettings == null)
             throw new MimirorgConfigurationException("Missing configuration for auth settings");
 
-        var regToken = await _tokenRepository.FindBy(x => x.Secret == verifyEmail.Code && x.Email == verifyEmail.Email).FirstOrDefaultAsync(x => x.TokenType == MimirorgTokenType.ChangeTwoFactor);
+        var regToken = await _tokenRepository.FindBy(x => x.Secret == verifyEmail.Code && x.Email == verifyEmail.Email).FirstOrDefaultAsync(x => x.TokenType == TokenType.ChangeTwoFactor);
 
         if (regToken == null)
             throw new MimirorgNotFoundException("Could not verify account");
@@ -199,12 +199,12 @@ public class MimirorgUserService : IMimirorgUserService
         if (user == null)
             throw new MimirorgInvalidOperationException($"Couldn't generate secret for user with email: {email}");
 
-        var alreadyExistToken = await _tokenRepository.Exist(x => x.TokenType == MimirorgTokenType.ChangePassword);
+        var alreadyExistToken = await _tokenRepository.Exist(x => x.TokenType == TokenType.ChangePassword);
 
         if (alreadyExistToken)
             throw new MimirorgInvalidOperationException($"You can't create multiple change password secrets with same email: {email}");
 
-        var secret = await CreateUserToken(user, new List<MimirorgTokenType> { MimirorgTokenType.ChangePassword, MimirorgTokenType.ChangeTwoFactor });
+        var secret = await CreateUserToken(user, new List<TokenType> { TokenType.ChangePassword, TokenType.ChangeTwoFactor });
         var emailTemplate = await _templateRepository.CreateCodeVerificationMail(user, secret);
         await _emailRepository.SendEmail(emailTemplate);
     }
@@ -220,7 +220,7 @@ public class MimirorgUserService : IMimirorgUserService
         var regToken = await _tokenRepository.FindBy(x =>
                 x.Secret == changePassword.Code &&
                 x.Email == changePassword.Email)
-            .FirstOrDefaultAsync(x => x.TokenType == MimirorgTokenType.ChangePassword);
+            .FirstOrDefaultAsync(x => x.TokenType == TokenType.ChangePassword);
 
         if (regToken == null)
             throw new MimirorgNotFoundException("Could not verify account");
@@ -250,7 +250,7 @@ public class MimirorgUserService : IMimirorgUserService
     {
         var allTokens = _tokenRepository.GetAll().ToList();
         var allNotConfirmedUsers = _userManager.Users.Where(x => !x.EmailConfirmed).ToList();
-        var allNotConfirmedUsersWithValidToken = allNotConfirmedUsers.Where(x => allTokens.Any(y => y.ClientId == x.Id && y.ValidTo > DateTime.UtcNow && y.TokenType == MimirorgTokenType.VerifyEmail)).ToList();
+        var allNotConfirmedUsersWithValidToken = allNotConfirmedUsers.Where(x => allTokens.Any(y => y.ClientId == x.Id && y.ValidTo > DateTime.UtcNow && y.TokenType == TokenType.VerifyEmail)).ToList();
 
         // This users should be deleted
         var deleteUsers = allNotConfirmedUsers.Where(x => allNotConfirmedUsersWithValidToken.All(y => x.Id != y.Id)).ToList();
@@ -279,7 +279,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// <exception cref="MimirorgNotFoundException"></exception>
     public async Task<bool> VerifyAccount(VerifyRequest verifyEmail)
     {
-        var regToken = await _tokenRepository.FindBy(x => x.Secret == verifyEmail.Code && x.Email == verifyEmail.Email).FirstOrDefaultAsync(x => x.TokenType == MimirorgTokenType.VerifyEmail);
+        var regToken = await _tokenRepository.FindBy(x => x.Secret == verifyEmail.Code && x.Email == verifyEmail.Email).FirstOrDefaultAsync(x => x.TokenType == TokenType.VerifyEmail);
 
         if (regToken == null)
             throw new MimirorgNotFoundException("Could not verify account");
@@ -309,7 +309,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// <param name="tokenTypes">Token type</param>
     /// <returns>Token string</returns>
     /// <remarks>Generates a 6 long digit for verification code token</remarks>
-    private async Task<string> CreateUserToken(MimirorgUser user, IEnumerable<MimirorgTokenType> tokenTypes)
+    private async Task<string> CreateUserToken(MimirorgUser user, IEnumerable<TokenType> tokenTypes)
     {
 
         var generator = new Random();
@@ -409,7 +409,7 @@ public class MimirorgUserService : IMimirorgUserService
             throw new MimirorgInvalidOperationException($"Couldn't update user password: {userRequest.Email}. Error: {result.Errors.ConvertToString()}");
 
         // Create an email verification token and send email to user
-        await CreateAndSendUserTokens(existingUser, new List<MimirorgTokenType> { MimirorgTokenType.VerifyEmail, MimirorgTokenType.ChangeTwoFactor });
+        await CreateAndSendUserTokens(existingUser, new List<TokenType> { TokenType.VerifyEmail, TokenType.ChangeTwoFactor });
         return existingUser.ToContentModel();
     }
 
@@ -432,7 +432,7 @@ public class MimirorgUserService : IMimirorgUserService
             throw new MimirorgInvalidOperationException($"Couldn't register: {userRequest.Email}. Error: {result.Errors.ConvertToString()}");
 
         // Create an email verification token and send email to user
-        await CreateAndSendUserTokens(user, new List<MimirorgTokenType> { MimirorgTokenType.VerifyEmail, MimirorgTokenType.ChangeTwoFactor });
+        await CreateAndSendUserTokens(user, new List<TokenType> { TokenType.VerifyEmail, TokenType.ChangeTwoFactor });
 
         // If this is the first registered user and environment is Development, create a dummy organization
         await CreateDefaultUserData(user);
@@ -448,7 +448,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// <param name="user">Current user</param>
     /// <param name="types">A collection of types</param>
     /// <returns>Completed task</returns>
-    private async Task CreateAndSendUserTokens(MimirorgUser user, IEnumerable<MimirorgTokenType> types)
+    private async Task CreateAndSendUserTokens(MimirorgUser user, IEnumerable<TokenType> types)
     {
         // Create an email verification token and send email to user
         if (!_authSettings.RequireConfirmedAccount)

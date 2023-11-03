@@ -9,5 +9,5 @@ public class MimirorgToken
     public required string Email { get; set; }
     public required string Secret { get; set; }
     public DateTime ValidTo { get; set; }
-    public MimirorgTokenType TokenType { get; set; }
+    public TokenType TokenType { get; set; }
 }

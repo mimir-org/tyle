@@ -125,7 +125,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         if (string.IsNullOrWhiteSpace(secret))
             return;
 
-        var refreshToken = await _tokenRepository.FindBy((x) => x.Secret == secret && x.TokenType == MimirorgTokenType.RefreshToken).FirstOrDefaultAsync();
+        var refreshToken = await _tokenRepository.FindBy((x) => x.Secret == secret && x.TokenType == TokenType.RefreshToken).FirstOrDefaultAsync();
 
         if (refreshToken == null)
             return;
@@ -161,11 +161,11 @@ public class MimirorgAuthService : IMimirorgAuthService
     {
         var validation = userRole.ValidateObject();
         if (!validation.IsValid)
-            throw new MimirorgBadRequestException($"Couldn't add user to role: {userRole?.UserId} - {userRole?.MimirorgRoleId}", validation);
+            throw new MimirorgBadRequestException($"Couldn't add user to role: {userRole?.UserId} - {userRole?.RoleId}", validation);
 
-        var currentRole = await _roleManager.FindByIdAsync(userRole.MimirorgRoleId);
+        var currentRole = await _roleManager.FindByIdAsync(userRole.RoleId);
         if (currentRole == null)
-            throw new MimirorgNotFoundException($"Couldn't find any role with id: {userRole.MimirorgRoleId}");
+            throw new MimirorgNotFoundException($"Couldn't find any role with id: {userRole.RoleId}");
 
         var user = await _userManager.FindByIdAsync(userRole.UserId);
         if (user == null)
@@ -190,11 +190,11 @@ public class MimirorgAuthService : IMimirorgAuthService
     {
         var validation = userRole.ValidateObject();
         if (!validation.IsValid)
-            throw new MimirorgBadRequestException($"Couldn't remove user from role: {userRole?.UserId} - {userRole?.MimirorgRoleId}", validation);
+            throw new MimirorgBadRequestException($"Couldn't remove user from role: {userRole?.UserId} - {userRole?.RoleId}", validation);
 
-        var currentRole = await _roleManager.FindByIdAsync(userRole.MimirorgRoleId);
+        var currentRole = await _roleManager.FindByIdAsync(userRole.RoleId);
         if (currentRole == null)
-            throw new MimirorgNotFoundException($"Couldn't find any role with id: {userRole.MimirorgRoleId}");
+            throw new MimirorgNotFoundException($"Couldn't find any role with id: {userRole.RoleId}");
 
         var user = await _userManager.FindByIdAsync(userRole.UserId);
         if (user == null)

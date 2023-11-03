@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mimirorg.Authentication.Enums;
 
-public enum MimirorgTokenType
+public enum TokenType
 {
     [Display(Name = "Access Token")]
     AccessToken = 0,
@@ -14,8 +14,8 @@ public enum MimirorgTokenType
     VerifyEmail = 2,
 
     [Display(Name = "Change password")]
-    ChangePassword = 4,
+    ChangePassword = 3,
 
     [Display(Name = "Change two factor")]
-    ChangeTwoFactor = 5
+    ChangeTwoFactor = 4
 }
