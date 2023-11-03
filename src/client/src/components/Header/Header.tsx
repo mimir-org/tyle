@@ -1,12 +1,9 @@
 import { Flexbox, Text } from "@mimirorg/component-library";
-import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { useGetCurrentUser } from "api/user.queries";
 import config from "config";
-import { useGetFilteredCompanies } from "hooks/useGetFilteredCompanies";
 import { useTheme } from "styled-components";
 import ContactButton from "./ContactButton";
 import FeedbackButton from "./FeedbackButton";
-import { mapPermissionDescriptions } from "./Header.helpers";
 import HeaderContainer from "./Header.styles";
 import HeaderHomeLink from "./HeaderHomeLink";
 import LogoutButton from "./LogoutButton";
@@ -19,8 +16,8 @@ const Header = () => {
   const theme = useTheme();
   const userQuery = useGetCurrentUser();
 
-  const companies = useGetFilteredCompanies(MimirorgPermission.Read);
-  const permissions = mapPermissionDescriptions(userQuery.data?.permissions ?? [], companies);
+  //const companies = useGetFilteredCompanies(MimirorgPermission.Read);
+  //const permissions = mapPermissionDescriptions(userQuery.data?.permissions ?? [], companies);
 
   const userInitials = `${userQuery.data?.firstName?.[0]}${userQuery.data?.lastName?.[0]}`;
   const userFullName = `${userQuery.data?.firstName} ${userQuery.data?.lastName}`;
@@ -32,7 +29,7 @@ const Header = () => {
       {!userQuery.isLoading && (
         <UserMenu name={userInitials}>
           <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.base}>
-            <UserInfo name={userFullName} permissions={permissions} roles={userRoles} />
+            <UserInfo name={userFullName} roles={userRoles} />
             <ThemeButton />
             <ContactButton />
             <FeedbackButton />

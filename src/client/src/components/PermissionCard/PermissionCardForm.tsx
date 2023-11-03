@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { UserItem } from "types/userItem";
 import { getOptionsFromEnum } from "utils";
-import { usePermissionToasts } from "./PermissionCardForm.helpers";
+//import { usePermissionToasts } from "./PermissionCardForm.helpers";
 import { FormUserPermission } from "./formUserPermission";
 
 export interface PermissionCardFormProps {
@@ -14,11 +14,11 @@ export interface PermissionCardFormProps {
   showSubmitButton?: boolean;
 }
 
-const PermissionCardForm = ({ user, formId, onSubmit, showSubmitButton = true }: PermissionCardFormProps) => {
+const PermissionCardForm = ({ user, formId, showSubmitButton = true }: PermissionCardFormProps) => {
   const { t } = useTranslation(["settings"]);
 
   const permissionOptions = getOptionsFromEnum<MimirorgPermission>(MimirorgPermission);
-  const currentPermission = permissionOptions.find((x) => x.value === user.permissions[user.company.id]?.value);
+  //const currentPermission = permissionOptions.find((x) => x.value === user.permissions[user.company.id]?.value);
 
   const { register, control, handleSubmit, formState } = useForm<FormUserPermission>({
     /*resolver: yupResolver(permissionSchema(t)),
@@ -29,13 +29,15 @@ const PermissionCardForm = ({ user, formId, onSubmit, showSubmitButton = true }:
     },*/
   });
 
-  const toast = usePermissionToasts(currentPermission);
+  //const toast = usePermissionToasts(currentPermission);
 
   return (
     <Form
       id={formId}
       alignItems={"center"}
-      onSubmit={handleSubmit((data) => toast(user.name, data).then(() => onSubmit && onSubmit()))}
+      onSubmit={handleSubmit((data) => {
+        console.log(data);
+      })} //toast(user.name, data).then(() => onSubmit && onSubmit()))}
     >
       <Input type={"hidden"} value={user.id} {...register("userId")} />
       <Input type={"hidden"} value={user.company?.id} {...register("companyId")} />

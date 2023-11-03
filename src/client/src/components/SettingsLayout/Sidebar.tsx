@@ -1,7 +1,6 @@
 import { Divider, Flexbox, Heading } from "@mimirorg/component-library";
 import { useGetAttributesByState } from "api/attribute.queries";
 import { useGetBlocksByState } from "api/block.queries";
-import { useGetPendingUsers } from "api/company.queries";
 import { useGetTerminalsByState } from "api/terminal.queries";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
@@ -34,7 +33,7 @@ const Sidebar = ({ title, groups }: SidebarProps) => {
     }
   }
 
-  const pendingUsers = useGetPendingUsers();
+  //const pendingUsers = useGetPendingUsers();
 
   const linkText = (name: string) => {
     switch (name) {
@@ -42,7 +41,7 @@ const Sidebar = ({ title, groups }: SidebarProps) => {
         return name + (numberOfTypesInReview ? ` (${numberOfTypesInReview})` : "");
       }
       case t("access.title"): {
-        return name + (pendingUsers.data?.length ? ` (${pendingUsers.data.length})` : "");
+        return name; // + (pendingUsers.data?.length ? ` (${pendingUsers.data.length})` : "");
       }
       default:
         return name;
