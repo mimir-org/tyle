@@ -27,7 +27,10 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = "User_Confirmed_1",
                 Email = "UserConfirmed@test.com",
-                EmailConfirmed = true
+                FirstName = "Confirmed",
+                LastName = "User",
+                EmailConfirmed = true,
+                Purpose="Purpose"
             }
         };
 
@@ -68,7 +71,10 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = "User_Confirmed_1",
                 Email = "UserConfirmed@test.com",
-                EmailConfirmed = false
+                FirstName = "Confirmed",
+                LastName = "User",
+                EmailConfirmed = false,
+                Purpose="Purpose"
             }
         };
 
@@ -100,7 +106,10 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = "User_Confirmed_1",
                 Email = "UserConfirmed@test.com",
-                EmailConfirmed = false
+                FirstName = "Confirmed",
+                LastName = "User",
+                EmailConfirmed = false,
+                Purpose="Purpose"
             }
         };
 
@@ -141,7 +150,10 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = "User_Confirmed_1",
                 Email = "UserConfirmed@test.com",
-                EmailConfirmed = true
+                FirstName = "Confirmed",
+                LastName = "User",
+                EmailConfirmed = true,
+                Purpose="Purpose"
             }
         };
 
@@ -182,13 +194,19 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = "User_Confirmed_1",
                 Email = "UserConfirmed@test.com",
-                EmailConfirmed = false
+                FirstName = "Confirmed",
+                LastName = "User",
+                EmailConfirmed = false,
+                Purpose="Purpose"
             },
             new()
             {
                 Id = "User_Confirmed_2",
                 Email = "UserConfirmed@test.com",
-                EmailConfirmed = false
+                FirstName = "Confirmed",
+                LastName = "User",
+                EmailConfirmed = false,
+                Purpose="Purpose"
             }
         };
 
@@ -265,7 +283,10 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
             {
                 Id = "User_Confirmed_1",
                 Email = "UserConfirmed@test.com",
-                EmailConfirmed = false
+                FirstName = "Confirmed",
+                LastName = "User",
+                EmailConfirmed = false,
+                Purpose="Purpose"
             }
         };
 

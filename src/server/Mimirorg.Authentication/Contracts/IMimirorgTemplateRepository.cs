@@ -9,6 +9,6 @@ namespace Mimirorg.Authentication.Contracts;
 public interface IMimirorgTemplateRepository
 {
     Task<MimirorgMailAm> CreateCodeVerificationMail(MimirorgUser user, string secret);
-    Task<MimirorgMailAm> CreateObjectStateEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser, State state, string objectName, string objectTypeName);
-    Task<MimirorgMailAm> CreateUserRegistrationEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser);
+    Task<MimirorgMailAm> CreateObjectStateEmail(UserView sendToUser, UserView fromUser, State state, string objectName, string objectTypeName);
+    Task<MimirorgMailAm> CreateUserRegistrationEmail(UserView sendToUser, UserView fromUser);
 }

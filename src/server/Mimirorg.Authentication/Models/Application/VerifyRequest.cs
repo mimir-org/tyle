@@ -3,14 +3,14 @@ using Mimirorg.Authentication.Attributes;
 
 namespace Mimirorg.Authentication.Models.Application;
 
-public class MimirorgVerifyAm
+public class VerifyRequest
 {
     [Display(Name = "Email")]
     [Required(ErrorMessage = "{0} is required")]
-    public string Email { get; set; }
+    public required string Email { get; set; }
 
     [Display(Name = "Code")]
     [Required(ErrorMessage = "{0} is required")]
     [Digit]
-    public string Code { get; set; }
+    public required string Code { get; set; }
 }

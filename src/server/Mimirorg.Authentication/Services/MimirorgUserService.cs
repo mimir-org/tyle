@@ -43,7 +43,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// <param name="principal"></param>
     /// <returns></returns>
     /// <exception cref="MimirorgNotFoundException"></exception>
-    public async Task<MimirorgUserCm> GetUser(IPrincipal principal)
+    public async Task<UserView> GetUser(IPrincipal principal)
     {
         if (principal?.Identity?.Name == null)
             throw new MimirorgNotFoundException("Couldn't find current user");
@@ -66,7 +66,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// <param name="id"></param>
     /// <returns>UserCm</returns>
     /// <exception cref="MimirorgNotFoundException"></exception>
-    public async Task<MimirorgUserCm> GetUser(string id)
+    public async Task<UserView> GetUser(string id)
     {
         var user = await _userManager.FindByIdAsync(id);
 
@@ -80,9 +80,9 @@ public class MimirorgUserService : IMimirorgUserService
     }
 
     /// <inheritdoc />
-    public async Task<List<MimirorgUserCm>> GetUsers()
+    public async Task<List<UserView>> GetUsers()
     {
-        var userCms = new List<MimirorgUserCm>();
+        var userCms = new List<UserView>();
 
         foreach (var user in _userManager.Users.ToList())
         {
@@ -97,19 +97,19 @@ public class MimirorgUserService : IMimirorgUserService
     /// <summary>
     /// Update user
     /// </summary>
-    /// <param name="userAm">New last name</param>
+    /// <param name="userRequest">New last name</param>
     /// <returns>UserCm</returns>
     /// <exception cref="MimirorgNotFoundException"></exception>
     /// <exception cref="MimirorgInvalidOperationException"></exception>
-    public async Task<MimirorgUserCm> UpdateUser(MimirorgUserAm userAm)
+    public async Task<UserView> UpdateUser(UserRequest userRequest)
     {
-        var user = await _userManager.FindByEmailAsync(userAm.Email);
+        var user = await _userManager.FindByEmailAsync(userRequest.Email);
 
         if (user == null)
             throw new MimirorgNotFoundException("The user was not found");
 
-        user.FirstName = userAm.FirstName;
-        user.LastName = userAm.LastName;
+        user.FirstName = userRequest.FirstName;
+        user.LastName = userRequest.LastName;
 
         var result = await _userManager.UpdateAsync(user);
 
@@ -122,26 +122,26 @@ public class MimirorgUserService : IMimirorgUserService
     /// <summary>
     /// Register an user
     /// </summary>
-    /// <param name="userAm"></param>
+    /// <param name="userRequest"></param>
     /// <returns></returns>
     /// <exception cref="MimirorgConfigurationException"></exception>
     /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="MimirorgInvalidOperationException"></exception>
     /// <exception cref="MimirorgDuplicateException"></exception>
-    public async Task<MimirorgUserCm> CreateUser(MimirorgUserAm userAm)
+    public async Task<UserView> CreateUser(UserRequest userRequest)
     {
         if (_authSettings == null)
             throw new MimirorgConfigurationException("Missing configuration for auth settings");
 
-        var existingUser = await _userManager.FindByEmailAsync(userAm.Email);
+        var existingUser = await _userManager.FindByEmailAsync(userRequest.Email);
         if (existingUser == null)
-            return await CreateNewUser(userAm);
+            return await CreateNewUser(userRequest);
 
         if (!existingUser.EmailConfirmed)
         {
-            return await UpdateTempUser(userAm, existingUser);
+            return await UpdateTempUser(userRequest, existingUser);
         }
-        throw new MimirorgDuplicateException($"Couldn't register: {userAm.Email}. There is already an user with same username");
+        throw new MimirorgDuplicateException($"Couldn't register: {userRequest.Email}. There is already an user with same username");
     }
 
     /// <summary>
@@ -154,7 +154,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="MimirorgNotFoundException"></exception>
     /// <exception cref="MimirorgInvalidOperationException"></exception>
-    public async Task<MimirorgQrCodeCm> GenerateTwoFactor(MimirorgVerifyAm verifyEmail)
+    public async Task<QrCodeView> GenerateTwoFactor(VerifyRequest verifyEmail)
     {
         if (_authSettings == null)
             throw new MimirorgConfigurationException("Missing configuration for auth settings");
@@ -180,7 +180,7 @@ public class MimirorgUserService : IMimirorgUserService
         _tokenRepository.Attach(regToken, EntityState.Deleted);
         await _tokenRepository.SaveAsync();
 
-        return new MimirorgQrCodeCm
+        return new QrCodeView
         {
             Code = totpSetup.QrCodeImage,
             ManualCode = totpSetup.ManualSetupKey
@@ -215,7 +215,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// <param name="changePassword">Object information for resetting password</param>
     /// <returns>A completed task</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if user or token not exist</exception>
-    public async Task<bool> ChangePassword(MimirorgChangePasswordAm changePassword)
+    public async Task<bool> ChangePassword(ChangePasswordRequest changePassword)
     {
         var regToken = await _tokenRepository.FindBy(x =>
                 x.Secret == changePassword.Code &&
@@ -277,7 +277,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// <returns>bool</returns>
     /// <exception cref="MimirorgInvalidOperationException"></exception>
     /// <exception cref="MimirorgNotFoundException"></exception>
-    public async Task<bool> VerifyAccount(MimirorgVerifyAm verifyEmail)
+    public async Task<bool> VerifyAccount(VerifyRequest verifyEmail)
     {
         var regToken = await _tokenRepository.FindBy(x => x.Secret == verifyEmail.Code && x.Email == verifyEmail.Email).FirstOrDefaultAsync(x => x.TokenType == MimirorgTokenType.VerifyEmail);
 
@@ -389,24 +389,24 @@ public class MimirorgUserService : IMimirorgUserService
     /// <summary>
     /// Update temporary created user
     /// </summary>
-    /// <param name="userAm">User data</param>
+    /// <param name="userRequest">User data</param>
     /// <param name="existingUser">Existing user</param>
     /// <returns>The updated user</returns>
     /// <exception cref="MimirorgInvalidOperationException">Throws if user could not be updated or password could be changed</exception>
     /// <remarks>This is the workflow for register new user, if the user did not fulfilled the registration the first time</remarks>
-    private async Task<MimirorgUserCm> UpdateTempUser(MimirorgUserAm userAm, MimirorgUser existingUser)
+    private async Task<UserView> UpdateTempUser(UserRequest userRequest, MimirorgUser existingUser)
     {
-        existingUser.UpdateDomainModel(userAm);
+        existingUser.UpdateDomainModel(userRequest);
         var result = await _userManager.UpdateAsync(existingUser);
 
         if (!result.Succeeded)
-            throw new MimirorgInvalidOperationException($"Couldn't update user: {userAm.Email}. Error: {result.Errors.ConvertToString()}");
+            throw new MimirorgInvalidOperationException($"Couldn't update user: {userRequest.Email}. Error: {result.Errors.ConvertToString()}");
 
         var resetToken = await _userManager.GeneratePasswordResetTokenAsync(existingUser);
-        result = await _userManager.ResetPasswordAsync(existingUser, resetToken, userAm.Password);
+        result = await _userManager.ResetPasswordAsync(existingUser, resetToken, userRequest.Password);
 
         if (!result.Succeeded)
-            throw new MimirorgInvalidOperationException($"Couldn't update user password: {userAm.Email}. Error: {result.Errors.ConvertToString()}");
+            throw new MimirorgInvalidOperationException($"Couldn't update user password: {userRequest.Email}. Error: {result.Errors.ConvertToString()}");
 
         // Create an email verification token and send email to user
         await CreateAndSendUserTokens(existingUser, new List<MimirorgTokenType> { MimirorgTokenType.VerifyEmail, MimirorgTokenType.ChangeTwoFactor });
@@ -416,20 +416,20 @@ public class MimirorgUserService : IMimirorgUserService
     /// <summary>
     /// Create a new user
     /// </summary>
-    /// <param name="userAm">User data</param>
+    /// <param name="userRequest">User data</param>
     /// <returns>The created user</returns>
     /// <exception cref="MimirorgInvalidOperationException">Throws if user could not be created</exception>
     /// <remarks>This is the workflow for register new user, if the user did not fulfilled the registration the first time</remarks>
-    private async Task<MimirorgUserCm> CreateNewUser(MimirorgUserAm userAm)
+    private async Task<UserView> CreateNewUser(UserRequest userRequest)
     {
-        var user = userAm.ToDomainModel();
+        var user = userRequest.ToDomainModel();
 
         user.EmailConfirmed = !_authSettings.RequireConfirmedAccount;
         user.TwoFactorEnabled = !_authSettings.RequireConfirmedAccount;
 
-        var result = await _userManager.CreateAsync(user, userAm.Password);
+        var result = await _userManager.CreateAsync(user, userRequest.Password);
         if (!result.Succeeded)
-            throw new MimirorgInvalidOperationException($"Couldn't register: {userAm.Email}. Error: {result.Errors.ConvertToString()}");
+            throw new MimirorgInvalidOperationException($"Couldn't register: {userRequest.Email}. Error: {result.Errors.ConvertToString()}");
 
         // Create an email verification token and send email to user
         await CreateAndSendUserTokens(user, new List<MimirorgTokenType> { MimirorgTokenType.VerifyEmail, MimirorgTokenType.ChangeTwoFactor });

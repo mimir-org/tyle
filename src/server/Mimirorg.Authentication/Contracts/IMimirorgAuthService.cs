@@ -18,7 +18,7 @@ public interface IMimirorgAuthService
     /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
     /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="AuthenticationException"></exception>
-    Task<ICollection<MimirorgTokenCm>> Authenticate(MimirorgAuthenticateAm authenticate);
+    Task<ICollection<TokenView>> Authenticate(AuthenticateRequest authenticate);
 
     /// <summary>
     /// Create a token from refresh token
@@ -26,7 +26,7 @@ public interface IMimirorgAuthService
     /// <param name="secret">string</param>
     /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
     /// <exception cref="AuthenticationException"></exception>
-    Task<ICollection<MimirorgTokenCm>> Authenticate(string secret);
+    Task<ICollection<TokenView>> Authenticate(string secret);
 
     /// <summary>
     /// Remove the current user's authentication tokens
@@ -43,7 +43,7 @@ public interface IMimirorgAuthService
     /// Get all roles
     /// </summary>
     /// <returns>ICollection&lt;MimirorgRoleCm&gt;</returns>
-    Task<ICollection<MimirorgRoleCm>> GetAllRoles();
+    Task<ICollection<RoleView>> GetAllRoles();
 
     /// <summary>
     /// Add an user to a role
@@ -52,7 +52,7 @@ public interface IMimirorgAuthService
     /// <returns>bool</returns>
     /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="MimirorgNotFoundException"></exception>
-    Task<bool> AddUserToRole(MimirorgUserRoleAm userRole);
+    Task<bool> AddUserToRole(UserRoleRequest userRole);
 
     /// <summary>
     /// Remove user from a role
@@ -61,7 +61,7 @@ public interface IMimirorgAuthService
     /// <returns>bool</returns>
     /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="MimirorgNotFoundException"></exception>
-    Task<bool> RemoveUserFromRole(MimirorgUserRoleAm userRole);
+    Task<bool> RemoveUserFromRole(UserRoleRequest userRole);
 
     #endregion
 }

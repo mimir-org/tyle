@@ -33,7 +33,7 @@ public class MimirorgAuthorizeController : ControllerBase
     [AllowAnonymous]
     [HttpGet]
     [Route("role")]
-    [ProducesResponseType(typeof(ICollection<MimirorgRoleCm>), 200)]
+    [ProducesResponseType(typeof(ICollection<RoleView>), 200)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [SwaggerOperation("Get all roles")]
@@ -64,7 +64,7 @@ public class MimirorgAuthorizeController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("Add user to role")]
-    public async Task<IActionResult> AddUserToRole(MimirorgUserRoleAm userRole)
+    public async Task<IActionResult> AddUserToRole(UserRoleRequest userRole)
     {
         try
         {
@@ -108,7 +108,7 @@ public class MimirorgAuthorizeController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("Remove user from a role")]
-    public async Task<IActionResult> RemoveUserFromRole(MimirorgUserRoleAm userRole)
+    public async Task<IActionResult> RemoveUserFromRole(UserRoleRequest userRole)
     {
         try
         {

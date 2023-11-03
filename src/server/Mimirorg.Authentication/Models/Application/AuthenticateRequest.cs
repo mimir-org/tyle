@@ -2,16 +2,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mimirorg.Authentication.Models.Application;
 
-public class MimirorgAuthenticateAm
+public class AuthenticateRequest
 {
     [Display(Name = "Email")]
     [Required(ErrorMessage = "{0} is required")]
-    public string Email { get; set; }
+    public required string Email { get; set; }
 
     [Display(Name = "Password")]
     [Required(ErrorMessage = "{0} is required")]
-    public string Password { get; set; }
+    public required string Password { get; set; }
 
     [Display(Name = "Code")]
-    public string Code { get; set; }
+    public required string Code { get; set; }
 }

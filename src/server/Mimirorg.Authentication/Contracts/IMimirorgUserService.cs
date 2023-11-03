@@ -11,13 +11,13 @@ public interface IMimirorgUserService
     /// <summary>
     /// Register an user
     /// </summary>
-    /// <param name="userAm"></param>
+    /// <param name="userRequest"></param>
     /// <returns></returns>
     /// <exception cref="MimirorgConfigurationException"></exception>
     /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="MimirorgInvalidOperationException"></exception>
     /// <exception cref="MimirorgDuplicateException"></exception>
-    Task<MimirorgUserCm> CreateUser(MimirorgUserAm userAm);
+    Task<UserView> CreateUser(UserRequest userRequest);
 
     /// <summary>
     /// Get user from principal
@@ -25,7 +25,7 @@ public interface IMimirorgUserService
     /// <param name="principal"></param>
     /// <returns></returns>
     /// <exception cref="MimirorgNotFoundException"></exception>
-    Task<MimirorgUserCm> GetUser(IPrincipal principal);
+    Task<UserView> GetUser(IPrincipal principal);
 
     /// <summary>
     /// Get user from id
@@ -33,22 +33,22 @@ public interface IMimirorgUserService
     /// <param name="id"></param>
     /// <returns>MimirorgUserCm</returns>
     /// <exception cref="MimirorgNotFoundException"></exception>
-    Task<MimirorgUserCm> GetUser(string id);
+    Task<UserView> GetUser(string id);
 
     /// <summary>
     /// Get all users
     /// </summary>
     /// <returns>IEnumerable(MimirorgUserCm)</returns>
-    Task<List<MimirorgUserCm>> GetUsers();
+    Task<List<UserView>> GetUsers();
 
     /// <summary>
     /// Update user
     /// </summary>
-    /// <param name="userAm">New user information</param>
+    /// <param name="userRequest">New user information</param>
     /// <returns>UserCm</returns>
     /// <exception cref="MimirorgNotFoundException"></exception>
     /// <exception cref="MimirorgInvalidOperationException"></exception>
-    Task<MimirorgUserCm> UpdateUser(MimirorgUserAm userAm);
+    Task<UserView> UpdateUser(UserRequest userRequest);
 
     /// <summary>
     /// Setup two factor 
@@ -60,7 +60,7 @@ public interface IMimirorgUserService
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="MimirorgNotFoundException"></exception>
     /// <exception cref="MimirorgInvalidOperationException"></exception>
-    Task<MimirorgQrCodeCm> GenerateTwoFactor(MimirorgVerifyAm verifyEmail);
+    Task<QrCodeView> GenerateTwoFactor(VerifyRequest verifyEmail);
 
     /// <summary>
     /// A method that generates a login code and sending the generated code to user as mail.
@@ -76,7 +76,7 @@ public interface IMimirorgUserService
     /// <param name="changePassword">Object information for resetting password</param>
     /// <returns>A completed task</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if user or token not exist</exception>
-    Task<bool> ChangePassword(MimirorgChangePasswordAm changePassword);
+    Task<bool> ChangePassword(ChangePasswordRequest changePassword);
 
     /// <summary>
     /// Cleanup tokens and not confirmed users
@@ -93,5 +93,5 @@ public interface IMimirorgUserService
     /// <returns>bool</returns>
     /// <exception cref="MimirorgInvalidOperationException"></exception>
     /// <exception cref="MimirorgNotFoundException"></exception>
-    Task<bool> VerifyAccount(MimirorgVerifyAm verifyEmail);
+    Task<bool> VerifyAccount(VerifyRequest verifyEmail);
 }

@@ -36,11 +36,11 @@ public class MimirorgAuthenticateController : ControllerBase
     [AllowAnonymous]
     [HttpPost]
     [Route("")]
-    [ProducesResponseType(typeof(MimirorgTokenCm), 200)]
+    [ProducesResponseType(typeof(TokenView), 200)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("Login with username and password")]
-    public async Task<IActionResult> Login([FromBody] MimirorgAuthenticateAm authenticate)
+    public async Task<IActionResult> Login([FromBody] AuthenticateRequest authenticate)
     {
         try
         {
@@ -113,7 +113,7 @@ public class MimirorgAuthenticateController : ControllerBase
     [AllowAnonymous]
     [HttpPost]
     [Route("secret")]
-    [ProducesResponseType(typeof(MimirorgTokenCm), 200)]
+    [ProducesResponseType(typeof(TokenView), 200)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("Login with secret")]
@@ -146,7 +146,7 @@ public class MimirorgAuthenticateController : ControllerBase
 
     #region Private methods
 
-    private Task AddRefreshTokenCookie(HttpRequest request, HttpResponse response, MimirorgTokenCm token)
+    private Task AddRefreshTokenCookie(HttpRequest request, HttpResponse response, TokenView token)
     {
         if (response == null || token == null || request == null)
             return Task.CompletedTask;

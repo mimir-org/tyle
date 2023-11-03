@@ -52,7 +52,7 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
     /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="AuthenticationException"></exception>
-    public async Task<ICollection<MimirorgTokenCm>> Authenticate(MimirorgAuthenticateAm authenticate)
+    public async Task<ICollection<TokenView>> Authenticate(AuthenticateRequest authenticate)
     {
         var validation = authenticate.ValidateObject();
         if (!validation.IsValid)
@@ -75,7 +75,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         var now = DateTime.UtcNow;
         var accessToken = await _tokenRepository.CreateAccessToken(user, now);
         var refreshToken = await _tokenRepository.CreateRefreshToken(user, now);
-        return new List<MimirorgTokenCm> { accessToken, refreshToken };
+        return new List<TokenView> { accessToken, refreshToken };
     }
 
     /// <summary>
@@ -84,7 +84,7 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// <param name="secret">string</param>
     /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
     /// <exception cref="AuthenticationException"></exception>
-    public async Task<ICollection<MimirorgTokenCm>> Authenticate(string secret)
+    public async Task<ICollection<TokenView>> Authenticate(string secret)
     {
         var token = await _tokenRepository.FindBy(x => x.Secret == secret).FirstOrDefaultAsync();
 
@@ -112,7 +112,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         var accessToken = await _tokenRepository.CreateAccessToken(user, now);
         var refreshToken = await _tokenRepository.CreateRefreshToken(user, now);
 
-        return new List<MimirorgTokenCm> { accessToken, refreshToken };
+        return new List<TokenView> { accessToken, refreshToken };
     }
 
     /// <summary>
@@ -144,9 +144,9 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// Get all roles
     /// </summary>
     /// <returns>ICollection&lt;MimirorgRoleCm&gt;</returns>
-    public async Task<ICollection<MimirorgRoleCm>> GetAllRoles()
+    public async Task<ICollection<RoleView>> GetAllRoles()
     {
-        var roles = _roleManager.Roles.Select(x => new MimirorgRoleCm { Id = x.Id, Name = x.Name });
+        var roles = _roleManager.Roles.Select(x => new RoleView { Id = x.Id, Name = x.Name });
         return await Task.FromResult(roles.ToList());
     }
 
@@ -157,7 +157,7 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// <returns>bool</returns>
     /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="MimirorgNotFoundException"></exception>
-    public async Task<bool> AddUserToRole(MimirorgUserRoleAm userRole)
+    public async Task<bool> AddUserToRole(UserRoleRequest userRole)
     {
         var validation = userRole.ValidateObject();
         if (!validation.IsValid)
@@ -186,7 +186,7 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// <returns>bool</returns>
     /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="MimirorgNotFoundException"></exception>
-    public async Task<bool> RemoveUserFromRole(MimirorgUserRoleAm userRole)
+    public async Task<bool> RemoveUserFromRole(UserRoleRequest userRole)
     {
         var validation = userRole.ValidateObject();
         if (!validation.IsValid)

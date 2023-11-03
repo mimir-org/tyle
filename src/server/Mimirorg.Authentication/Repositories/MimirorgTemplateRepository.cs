@@ -1,6 +1,5 @@
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
-using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Exceptions;
 using Mimirorg.Authentication.Models;
 using Mimirorg.Authentication.Models.Application;
@@ -16,16 +15,13 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
 
     public MimirorgTemplateRepository(IOptions<MimirorgAuthSettings> authSettings)
     {
-        _authSettings = authSettings?.Value;
+        _authSettings = authSettings.Value;
     }
 
     public Task<MimirorgMailAm> CreateCodeVerificationMail(MimirorgUser user, string secret)
     {
         if (_authSettings == null || string.IsNullOrEmpty(_authSettings.Email))
             throw new MimirorgConfigurationException("Missing configuration for email");
-
-        if (user == null)
-            return Task.FromResult(new MimirorgMailAm());
 
         var mail = new MimirorgMailAm
         {
@@ -40,13 +36,10 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
         return Task.FromResult(mail);
     }
 
-    public Task<MimirorgMailAm> CreateObjectStateEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser, State state, string objectName, string objectTypeName)
+    public Task<MimirorgMailAm> CreateObjectStateEmail(UserView sendToUser, UserView fromUser, State state, string objectName, string objectTypeName)
     {
         if (_authSettings == null || string.IsNullOrEmpty(_authSettings.Email))
             throw new MimirorgConfigurationException("Missing configuration for email");
-
-        if (sendToUser == null || fromUser == null)
-            return Task.FromResult(new MimirorgMailAm());
 
         string subject;
         string content;
@@ -84,13 +77,10 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
         });
     }
 
-    public Task<MimirorgMailAm> CreateUserRegistrationEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser)
+    public Task<MimirorgMailAm> CreateUserRegistrationEmail(UserView sendToUser, UserView fromUser)
     {
         if (_authSettings == null || string.IsNullOrEmpty(_authSettings.Email))
             throw new MimirorgConfigurationException("Missing configuration for email");
-
-        if (sendToUser == null || fromUser == null)
-            return Task.FromResult(new MimirorgMailAm());
 
         return Task.FromResult(new MimirorgMailAm
         {

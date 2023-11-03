@@ -6,7 +6,7 @@ namespace Mimirorg.Authentication.Extensions;
 
 public static class MappingExtensions
 {
-    public static MimirorgUser ToDomainModel(this MimirorgUserAm user)
+    public static MimirorgUser ToDomainModel(this UserRequest user)
     {
         return new MimirorgUser
         {
@@ -18,7 +18,7 @@ public static class MappingExtensions
         };
     }
 
-    public static MimirorgUser UpdateDomainModel(this MimirorgUser self, MimirorgUserAm update)
+    public static MimirorgUser UpdateDomainModel(this MimirorgUser self, UserRequest update)
     {
         self.FirstName = update.FirstName;
         self.LastName = update.LastName;
@@ -26,9 +26,9 @@ public static class MappingExtensions
         return self;
     }
 
-    public static MimirorgUserCm ToContentModel(this MimirorgUser user)
+    public static UserView ToContentModel(this MimirorgUser user)
     {
-        return new MimirorgUserCm
+        return new UserView
         {
             Id = user.Id,
             Email = user.Email,
@@ -38,9 +38,9 @@ public static class MappingExtensions
         };
     }
 
-    public static MimirorgTokenCm ToContentModel(this MimirorgToken token)
+    public static TokenView ToContentModel(this MimirorgToken token)
     {
-        return new MimirorgTokenCm
+        return new TokenView
         {
             ClientId = token.ClientId,
             Secret = token.Secret,

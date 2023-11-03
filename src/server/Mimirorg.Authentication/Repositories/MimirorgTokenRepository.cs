@@ -36,7 +36,7 @@ public class MimirorgTokenRepository : GenericRepository<MimirorgAuthenticationC
     /// <param name="current"></param>
     /// <returns></returns>
     /// <exception cref="MimirorgConfigurationException"></exception>
-    public async Task<MimirorgTokenCm> CreateAccessToken(MimirorgUser user, DateTime current)
+    public async Task<TokenView> CreateAccessToken(MimirorgUser user, DateTime current)
     {
         if (_authSettings == null)
             throw new MimirorgConfigurationException("Missing configuration for auth settings");
@@ -68,7 +68,7 @@ public class MimirorgTokenRepository : GenericRepository<MimirorgAuthenticationC
 
         var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
 
-        return new MimirorgTokenCm
+        return new TokenView
         {
             ClientId = user.Id,
             ValidTo = token.ValidTo,
@@ -84,7 +84,7 @@ public class MimirorgTokenRepository : GenericRepository<MimirorgAuthenticationC
     /// <param name="current"></param>
     /// <returns></returns>
     /// <exception cref="MimirorgConfigurationException"></exception>
-    public async Task<MimirorgTokenCm> CreateRefreshToken(MimirorgUser user, DateTime current)
+    public async Task<TokenView> CreateRefreshToken(MimirorgUser user, DateTime current)
     {
         if (_authSettings == null)
             throw new MimirorgConfigurationException("Missing configuration for auth settings");
