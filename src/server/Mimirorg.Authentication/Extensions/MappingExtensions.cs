@@ -26,7 +26,7 @@ public static class MappingExtensions
         return self;
     }
 
-    public static UserView ToContentModel(this MimirorgUser user)
+    public static UserView ToContentModel(this MimirorgUser user, ICollection<string> roles)
     {
         return new UserView
         {
@@ -34,6 +34,7 @@ public static class MappingExtensions
             Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
+            Roles = roles,
             Purpose = user.Purpose
         };
     }

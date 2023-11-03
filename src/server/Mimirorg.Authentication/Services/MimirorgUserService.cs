@@ -52,10 +52,9 @@ public class MimirorgUserService : IMimirorgUserService
         if (user == null)
             throw new MimirorgNotFoundException("Couldn't find current user");
 
-        var userCm = user.ToContentModel();
-
         var roles = await _userManager.GetRolesAsync(user);
-        var claims = await _userManager.GetClaimsAsync(user);
+
+        var userCm = user.ToContentModel(roles);
 
         return userCm;
     }
@@ -74,9 +73,8 @@ public class MimirorgUserService : IMimirorgUserService
             throw new MimirorgNotFoundException($"Couldn't find user with id {id}");
 
         var roles = await _userManager.GetRolesAsync(user);
-        var claims = await _userManager.GetClaimsAsync(user);
 
-        return user.ToContentModel();
+        return user.ToContentModel(roles);
     }
 
     /// <inheritdoc />
@@ -87,8 +85,7 @@ public class MimirorgUserService : IMimirorgUserService
         foreach (var user in _userManager.Users.ToList())
         {
             var roles = await _userManager.GetRolesAsync(user);
-            var claims = await _userManager.GetClaimsAsync(user);
-            userCms.Add(user.ToContentModel());
+            userCms.Add(user.ToContentModel(roles));
         }
 
         return userCms;
@@ -116,7 +113,9 @@ public class MimirorgUserService : IMimirorgUserService
         if (!result.Succeeded)
             throw new MimirorgInvalidOperationException($"Couldn't update user with username {user.UserName}. Error: {result.Errors.ConvertToString()}");
 
-        return user.ToContentModel();
+        var roles = await _userManager.GetRolesAsync(user);
+
+        return user.ToContentModel(roles);
     }
 
     /// <summary>
@@ -410,7 +409,7 @@ public class MimirorgUserService : IMimirorgUserService
 
         // Create an email verification token and send email to user
         await CreateAndSendUserTokens(existingUser, new List<TokenType> { TokenType.VerifyEmail, TokenType.ChangeTwoFactor });
-        return existingUser.ToContentModel();
+        return existingUser.ToContentModel(new List<string>());
     }
 
     /// <summary>
@@ -437,7 +436,7 @@ public class MimirorgUserService : IMimirorgUserService
         // If this is the first registered user and environment is Development, create a dummy organization
         await CreateDefaultUserData(user);
 
-        var userCm = user.ToContentModel();
+        var userCm = user.ToContentModel(new List<string>());
 
         return userCm;
     }
