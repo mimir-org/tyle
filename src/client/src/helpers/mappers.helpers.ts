@@ -1,4 +1,3 @@
-import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { AttributeItem } from "types/attributeItem";
 import { AttributeView } from "types/attributes/attributeView";
 import { UserView } from "types/authentication/userView";
@@ -12,7 +11,7 @@ import { InfoItem } from "types/infoItem";
 import { TerminalItem } from "types/terminalItem";
 import { TerminalView } from "types/terminals/terminalView";
 import { UserItem } from "types/userItem";
-import { Option, getOptionsFromEnum } from "utils";
+import { getOptionsFromEnum } from "utils";
 import { getColorFromAspect } from "./aspect.helper";
 
 export const purposeInfoItem = (purpose: RdlPurpose): InfoItem => ({
@@ -76,14 +75,11 @@ const sortBlockTerminals = (terminals: BlockTerminalItem[]) =>
   );
 
 export const mapMimirorgUserCmToUserItem = (user: UserView): UserItem => {
-  const permissionsMap: { [key: string]: Option<MimirorgPermission> } = {};
-
   return {
     id: user.id,
     name: `${user.firstName} ${user.lastName}`,
     email: user.email,
     purpose: user.purpose,
-    permissions: permissionsMap,
   };
 };
 

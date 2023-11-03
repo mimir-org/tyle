@@ -1,9 +1,8 @@
-import { MimirorgPermission, State } from "@mimirorg/typelibrary-types";
+import { State } from "@mimirorg/typelibrary-types";
 import { useEffect, useState } from "react";
 import { ItemType } from "types/itemTypes";
 import { StateItem } from "types/stateItem";
 import { UserItem } from "types/userItem";
-import { isBlockItem } from "./isItemValidators";
 
 export interface ButtonState {
   clone: boolean;
@@ -53,15 +52,6 @@ const allowClone = (item: StateItem | null, user: UserItem | null): boolean => {
 const allowEdit = (item: StateItem | null, user: UserItem | null): boolean => {
   if (item == null || user == null) return false;
 
-  let permissionForCompany: MimirorgPermission;
-  if (isBlockItem(item)) {
-    //permissionForCompany = user.permissions[item.companyId]?.value;
-    permissionForCompany = user.permissions[0].value;
-  } else {
-    permissionForCompany = user.permissions[0].value;
-  }
-  if (permissionForCompany == null) return false;
-
   return true; //hasWriteAccess(user) && item.state !== State.Review;
 };
 
@@ -72,30 +62,11 @@ const allowDelete = (item: ItemType | null, user: UserItem | null): boolean => {
 
   if (item.createdBy === user.id) return true; // && hasWriteAccess(user)) return true;
 
-  let permissionForCompany: MimirorgPermission;
-  if (isBlockItem(item)) {
-    //permissionForCompany = user.permissions[item.companyId]?.value;
-    permissionForCompany = user.permissions[0].value;
-  } else {
-    permissionForCompany = user.permissions[0].value;
-  }
-  if (permissionForCompany == null) return false;
-
-  return (permissionForCompany & MimirorgPermission.Approve) === MimirorgPermission.Approve;
+  return true;
 };
 
 const allowStateChange = (item: StateItem | null, user: UserItem | null): boolean => {
   if (item == null || user == null) return false;
 
-  let permissionForCompany: MimirorgPermission;
-  if (isBlockItem(item)) {
-    //permissionForCompany = user.permissions[item.companyId]?.value;
-    permissionForCompany = user.permissions[0].value;
-  } else {
-    permissionForCompany = user.permissions[0].value;
-  }
-  if (permissionForCompany == null) return false;
-
-  const hasMinimumWrite = (permissionForCompany & MimirorgPermission.Write) === MimirorgPermission.Write;
-  return hasMinimumWrite && item.state === State.Draft;
+  return true;
 };
