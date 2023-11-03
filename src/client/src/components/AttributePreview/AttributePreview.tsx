@@ -1,8 +1,8 @@
 import { Flexbox, Text } from "@mimirorg/component-library";
-import { State } from "@mimirorg/typelibrary-types";
 import AttributeIcon from "components/AttributeIcon";
 import { useTheme } from "styled-components";
 import styled from "styled-components/macro";
+import { State } from "types/common/state";
 
 interface StyledDivProps {
   small?: boolean;

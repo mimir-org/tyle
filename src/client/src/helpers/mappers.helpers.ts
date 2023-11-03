@@ -1,6 +1,7 @@
-import { MimirorgPermission, MimirorgUserCm } from "@mimirorg/typelibrary-types";
+import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { AttributeItem } from "types/attributeItem";
 import { AttributeView } from "types/attributes/attributeView";
+import { UserView } from "types/authentication/userView";
 import { BlockItem } from "types/blockItem";
 import { BlockTerminalItem } from "types/blockTerminalItem";
 import { BlockView } from "types/blocks/blockView";
@@ -74,18 +75,8 @@ const sortBlockTerminals = (terminals: BlockTerminalItem[]) =>
     (a, b) => a.direction.toString().localeCompare(b.direction.toString()) || a.name.localeCompare(b.name),
   );
 
-export const mapMimirorgUserCmToUserItem = (user: MimirorgUserCm): UserItem => {
-  const permissionOptions = getOptionsFromEnum<MimirorgPermission>(MimirorgPermission);
+export const mapMimirorgUserCmToUserItem = (user: UserView): UserItem => {
   const permissionsMap: { [key: string]: Option<MimirorgPermission> } = {};
-
-  Object.keys(user.permissions).forEach((companyId) => {
-    const permissionForCompany = user.permissions[Number(companyId)];
-    const permissionLabel = permissionOptions.find((x) => x.value === permissionForCompany)?.label;
-
-    if (permissionLabel) {
-      permissionsMap[companyId] = { value: permissionForCompany, label: permissionLabel };
-    }
-  });
 
   return {
     id: user.id,
@@ -93,10 +84,6 @@ export const mapMimirorgUserCmToUserItem = (user: MimirorgUserCm): UserItem => {
     email: user.email,
     purpose: user.purpose,
     permissions: permissionsMap,
-    company: {
-      id: user.companyId,
-      name: user.companyName,
-    },
   };
 };
 

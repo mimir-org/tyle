@@ -1,5 +1,4 @@
 import { AlertDialog, Button, Text, Tooltip, toast } from "@mimirorg/component-library";
-import { State } from "@mimirorg/typelibrary-types";
 import { Check, DocumentDuplicate, PencilSquare, Trash } from "@styled-icons/heroicons-outline";
 import { AxiosError } from "axios";
 import PlainLink from "components/PlainLink";
@@ -7,6 +6,7 @@ import StateBadge from "components/StateBadge";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { State } from "types/common/state";
 import { ItemType } from "types/itemTypes";
 import { UserItem } from "types/userItem";
 import { getCloneLink, getEditLink, useDeleteMutation, usePatchMutation } from "./SearchItemActions.helpers";

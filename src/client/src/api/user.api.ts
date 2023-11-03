@@ -1,31 +1,29 @@
-import {
-  MimirorgChangePasswordAm,
-  MimirorgQrCodeCm,
-  MimirorgUserAm,
-  MimirorgUserCm,
-  MimirorgVerifyAm,
-} from "@mimirorg/typelibrary-types";
 import { apiClient } from "api/clients/apiClient";
+import { ChangePasswordRequest } from "types/authentication/changePasswordRequest";
+import { QrCodeView } from "types/authentication/qrCodeView";
+import { UserRequest } from "types/authentication/userRequest";
+import { UserView } from "types/authentication/userView";
+import { VerifyRequest } from "types/authentication/verifyRequest";
 
 const _basePath = "mimirorguser";
 
 export const userApi = {
   getCurrentUser() {
-    return apiClient.get<MimirorgUserCm>(_basePath).then((r) => r.data);
+    return apiClient.get<UserView>(_basePath).then((r) => r.data);
   },
-  postUser(item: MimirorgUserAm) {
-    return apiClient.post<MimirorgQrCodeCm>(_basePath, item).then((r) => r.data);
+  postUser(item: UserRequest) {
+    return apiClient.post<QrCodeView>(_basePath, item).then((r) => r.data);
   },
-  patchUser(item: MimirorgUserAm) {
-    return apiClient.patch<MimirorgUserCm>(_basePath, item).then((r) => r.data);
+  patchUser(item: UserRequest) {
+    return apiClient.patch<UserView>(_basePath, item).then((r) => r.data);
   },
-  postVerification(item: MimirorgVerifyAm) {
+  postVerification(item: VerifyRequest) {
     return apiClient.post<boolean>(`${_basePath}/verify`, item).then((r) => r.data);
   },
-  postGenerateMfa(item: MimirorgVerifyAm) {
-    return apiClient.post<MimirorgQrCodeCm>(`${_basePath}/2fa`, item).then((r) => r.data);
+  postGenerateMfa(item: VerifyRequest) {
+    return apiClient.post<QrCodeView>(`${_basePath}/2fa`, item).then((r) => r.data);
   },
-  postChangePassword(item: MimirorgChangePasswordAm) {
+  postChangePassword(item: ChangePasswordRequest) {
     return apiClient.post<boolean>(`${_basePath}/password`, item).then((r) => r.data);
   },
   postGenerateChangePasswordSecret(email: string) {

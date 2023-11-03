@@ -1,5 +1,4 @@
 import { MimirorgPermission, State } from "@mimirorg/typelibrary-types";
-import { hasWriteAccess } from "hooks/useHasWriteAccess";
 import { useEffect, useState } from "react";
 import { ItemType } from "types/itemTypes";
 import { StateItem } from "types/stateItem";
@@ -48,7 +47,7 @@ export const useButtonStateFilter = (item: ItemType | null, user: UserItem | nul
 const allowClone = (item: StateItem | null, user: UserItem | null): boolean => {
   if (item == null || user == null) return false;
 
-  return hasWriteAccess(user);
+  return true; //hasWriteAccess(user);
 };
 
 const allowEdit = (item: StateItem | null, user: UserItem | null): boolean => {
@@ -63,7 +62,7 @@ const allowEdit = (item: StateItem | null, user: UserItem | null): boolean => {
   }
   if (permissionForCompany == null) return false;
 
-  return hasWriteAccess(user) && item.state !== State.Review;
+  return true; //hasWriteAccess(user) && item.state !== State.Review;
 };
 
 const allowDelete = (item: ItemType | null, user: UserItem | null): boolean => {
@@ -71,7 +70,7 @@ const allowDelete = (item: ItemType | null, user: UserItem | null): boolean => {
 
   if (item.state === State.Approved) return false;
 
-  if (item.createdBy === user.id && hasWriteAccess(user)) return true;
+  if (item.createdBy === user.id) return true; // && hasWriteAccess(user)) return true;
 
   let permissionForCompany: MimirorgPermission;
   if (isBlockItem(item)) {

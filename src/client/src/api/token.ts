@@ -1,15 +1,15 @@
-import { MimirorgTokenCm } from "@mimirorg/typelibrary-types";
+import { TokenView } from "types/authentication/tokenView";
 
 const localStorageKey = "tyleToken";
 
 const getToken = () => {
   const token = window.localStorage.getItem(localStorageKey);
-  if (token) return JSON.parse(token) as MimirorgTokenCm;
+  if (token) return JSON.parse(token) as TokenView;
   return null;
 };
 
-const setToken = (token: MimirorgTokenCm) => window.localStorage.setItem(localStorageKey, JSON.stringify(token));
+const setToken = (token: TokenView) => window.localStorage.setItem(localStorageKey, JSON.stringify(token));
 
 const removeToken = () => window.localStorage.removeItem(localStorageKey);
 
-export { getToken, setToken, removeToken };
+export { getToken, removeToken, setToken };

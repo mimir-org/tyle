@@ -1,5 +1,5 @@
-import { MimirorgUserRoleAm } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { UserRoleRequest } from "types/authentication/userRoleRequest";
 import { authorizeApi } from "./authorize.api";
 
 const keys = {
@@ -9,7 +9,7 @@ const keys = {
 
 export const useGetRoles = () => useQuery(keys.lists(), authorizeApi.getRoles);
 
-export const useAddUserToRole = () => useMutation((item: MimirorgUserRoleAm) => authorizeApi.postAddUserRole(item));
+export const useAddUserToRole = () => useMutation((item: UserRoleRequest) => authorizeApi.postAddUserRole(item));
 
 export const useRemoveUserFromRole = () =>
-  useMutation((item: MimirorgUserRoleAm) => authorizeApi.postRemoveUserRole(item));
+  useMutation((item: UserRoleRequest) => authorizeApi.postRemoveUserRole(item));

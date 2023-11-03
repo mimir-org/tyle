@@ -1,6 +1,5 @@
 import { DevTool } from "@hookform/devtools";
 import { Button, Form, FormField, Input } from "@mimirorg/component-library";
-import { MimirorgUserAm, MimirorgUserCm } from "@mimirorg/typelibrary-types";
 import { useUpdateUser } from "api/user.queries";
 import Loader from "components/Loader";
 import { onSubmitForm, usePrefilledForm } from "helpers/form.helpers";
@@ -8,21 +7,23 @@ import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { UserRequest } from "types/authentication/userRequest";
+import { UserView } from "types/authentication/userView";
 import {
   addDummyPasswordToUserAm,
-  mapMimirorgUserCmToAm,
+  mapUserViewToRequest,
   useUpdatingToast,
   useUserQuery,
 } from "./userSettingsForm.helpers";
 
 interface UserSettingsFormProps {
-  defaultValues?: MimirorgUserAm;
+  defaultValues?: UserRequest;
 }
 
 const UserSettingsForm = ({ defaultValues }: UserSettingsFormProps) => {
   const { t } = useTranslation("settings");
 
-  const formMethods = useForm<MimirorgUserAm>({
+  const formMethods = useForm<UserRequest>({
     defaultValues: defaultValues,
     //resolver: yupResolver(userSchema(t)),
   });
@@ -30,7 +31,7 @@ const UserSettingsForm = ({ defaultValues }: UserSettingsFormProps) => {
   const { register, handleSubmit, control, setError, reset, formState } = formMethods;
 
   const query = useUserQuery();
-  const mapper = (userCm: MimirorgUserCm) => mapMimirorgUserCmToAm(userCm);
+  const mapper = (userCm: UserView) => mapUserViewToRequest(userCm);
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useUpdateUser();

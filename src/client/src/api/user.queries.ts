@@ -1,5 +1,7 @@
-import { MimirorgChangePasswordAm, MimirorgUserAm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { ChangePasswordRequest } from "types/authentication/changePasswordRequest";
+import { UserRequest } from "types/authentication/userRequest";
+import { VerifyRequest } from "types/authentication/verifyRequest";
 import { userApi } from "./user.api";
 
 export const userKeys = {
@@ -12,16 +14,15 @@ export const useGetCurrentUser = () =>
     refetchOnWindowFocus: false,
   });
 
-export const useCreateUser = () => useMutation((item: MimirorgUserAm) => userApi.postUser(item), {});
+export const useCreateUser = () => useMutation((item: UserRequest) => userApi.postUser(item), {});
 
-export const useUpdateUser = () => useMutation((item: MimirorgUserAm) => userApi.patchUser(item));
+export const useUpdateUser = () => useMutation((item: UserRequest) => userApi.patchUser(item));
 
-export const useVerification = () => useMutation((item: MimirorgVerifyAm) => userApi.postVerification(item));
+export const useVerification = () => useMutation((item: VerifyRequest) => userApi.postVerification(item));
 
-export const useGenerateMfa = () => useMutation((item: MimirorgVerifyAm) => userApi.postGenerateMfa(item));
+export const useGenerateMfa = () => useMutation((item: VerifyRequest) => userApi.postGenerateMfa(item));
 
-export const useChangePassword = () =>
-  useMutation((item: MimirorgChangePasswordAm) => userApi.postChangePassword(item));
+export const useChangePassword = () => useMutation((item: ChangePasswordRequest) => userApi.postChangePassword(item));
 
 export const useGenerateChangePasswordSecret = () =>
   useMutation((email: string) => userApi.postGenerateChangePasswordSecret(email));

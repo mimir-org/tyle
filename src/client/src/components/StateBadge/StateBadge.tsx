@@ -1,6 +1,6 @@
 import { Text } from "@mimirorg/component-library";
-import { State } from "@mimirorg/typelibrary-types";
 import { useTranslation } from "react-i18next";
+import { State } from "types/common/state";
 import Badge from "./Badge";
 
 interface StateBadgeProps {

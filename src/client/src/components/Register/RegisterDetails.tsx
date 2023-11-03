@@ -48,7 +48,6 @@ const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
     mutation.mutate({
       ...data,
       purpose: data.purpose ?? "",
-      companyId: data.companyId ?? 0,
     });
   };
 

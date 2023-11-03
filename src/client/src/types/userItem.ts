@@ -7,8 +7,4 @@ export interface UserItem {
   email: string;
   purpose: string;
   permissions: { [key: string]: Option<MimirorgPermission> };
-  company: {
-    id: number;
-    name: string;
-  };
 }

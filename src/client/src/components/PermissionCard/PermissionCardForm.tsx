@@ -40,7 +40,6 @@ const PermissionCardForm = ({ user, formId, showSubmitButton = true }: Permissio
       })} //toast(user.name, data).then(() => onSubmit && onSubmit()))}
     >
       <Input type={"hidden"} value={user.id} {...register("userId")} />
-      <Input type={"hidden"} value={user.company?.id} {...register("companyId")} />
       <Controller
         control={control}
         name={"permission"}

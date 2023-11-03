@@ -1,7 +1,6 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Actionable, Button, Flexbox, Form, FormField, FormFieldset, Input, Text } from "@mimirorg/component-library";
-import { MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
 import { useChangePassword } from "api/user.queries";
 import AuthContent from "components/AuthContent";
 import Error from "components/Error";
@@ -11,10 +10,11 @@ import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { VerifyRequest } from "types/authentication/verifyRequest";
 import { recoverPasswordSchema } from "./recoverPasswordSchema";
 
 interface RecoverPasswordProps {
-  verificationInfo: MimirorgVerifyAm;
+  verificationInfo: VerifyRequest;
   cancel?: Partial<Actionable>;
   complete?: Partial<Actionable>;
 }

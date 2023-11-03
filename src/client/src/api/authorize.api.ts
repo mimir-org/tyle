@@ -1,16 +1,17 @@
-import { MimirorgRoleCm, MimirorgUserRoleAm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "api/clients/apiClient";
+import { RoleView } from "types/authentication/roleView";
+import { UserRoleRequest } from "types/authentication/userRoleRequest";
 
 const _basePath = "mimirorgauthorize";
 
 export const authorizeApi = {
   getRoles() {
-    return apiClient.get<MimirorgRoleCm[]>(`${_basePath}/role`).then((r) => r.data);
+    return apiClient.get<RoleView[]>(`${_basePath}/role`).then((r) => r.data);
   },
-  postAddUserRole(item: MimirorgUserRoleAm) {
+  postAddUserRole(item: UserRoleRequest) {
     return apiClient.post<boolean>(`${_basePath}/role/add`, item).then((r) => r.data);
   },
-  postRemoveUserRole(item: MimirorgUserRoleAm) {
+  postRemoveUserRole(item: UserRoleRequest) {
     return apiClient.post<boolean>(`${_basePath}/role/remove`, item).then((r) => r.data);
   },
 };
