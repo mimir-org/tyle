@@ -2,8 +2,7 @@ using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Mimirorg.Authentication.Enums;
-using Mimirorg.Authentication.Models.Attributes;
+using Mimirorg.Authentication.Models.Constants;
 using Swashbuckle.AspNetCore.Annotations;
 using Tyle.Api.Common;
 using Tyle.Application.Attributes;
@@ -35,9 +34,9 @@ public class AttributesController : ControllerBase
     /// </summary>
     /// <returns>A collection of attributes</returns>
     [HttpGet]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(ICollection<AttributeView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [AllowAnonymous]
     public async Task<IActionResult> GetAll([FromQuery] State? state = null)
     {
         try
@@ -57,10 +56,10 @@ public class AttributesController : ControllerBase
     /// <param name="id">The id of the attribute to get</param>
     /// <returns>The requested attribute</returns>
     [HttpGet("{id}")]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(AttributeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [AllowAnonymous]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
         try
@@ -85,11 +84,11 @@ public class AttributesController : ControllerBase
     /// <param name="request">The attribute that should be created</param>
     /// <returns>The created attribute</returns>
     [HttpPost]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}")]
     [ProducesResponseType(typeof(AttributeView), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] AttributeTypeRequest request)
     {
         try
@@ -111,12 +110,12 @@ public class AttributesController : ControllerBase
     /// <param name="request">The new values of the attribute</param>
     /// <returns>The updated attribute</returns>
     [HttpPut("{id}")]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}")]
     [ProducesResponseType(typeof(AttributeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Update(Guid id, [FromBody] AttributeTypeRequest request)
     {
         try
@@ -146,12 +145,12 @@ public class AttributesController : ControllerBase
     /// <param name="id">The id of the attribute that will change state.</param>
     /// <param name="request">A request containing the wanted state.</param>
     [HttpPatch("{id}/state")]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> ChangeState([FromRoute] Guid id, [FromBody] StateChangeRequest request)
     {
         try
@@ -179,11 +178,11 @@ public class AttributesController : ControllerBase
     /// </summary>
     /// <param name="id">The id of the attribute to delete</param>
     [HttpDelete("{id}")]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [Authorize]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         try
