@@ -13,7 +13,7 @@ export const terminalApi = {
   getTerminalsByState(state: State) {
     return apiClient.get<TerminalView[]>(`${_basePath}?state=${state}`).then((r) => r.data);
   },
-  getTerminal(id: string) {
+  getTerminal(id?: string) {
     return apiClient.get<TerminalView>(`${_basePath}/${id}`).then((r) => r.data);
   },
   postTerminal(item: TerminalTypeRequest) {

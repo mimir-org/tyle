@@ -26,14 +26,14 @@ export const useAttributeMutation = (id?: string, mode?: FormMode) => {
 export interface AttributeFormFields
   extends Omit<AttributeTypeRequest, "predicateId" | "unitIds" | "unitMinCount" | "unitMaxCount" | "valueConstraint"> {
   predicate?: RdlPredicate;
-  units: RdlUnit[];
+  units?: RdlUnit[];
   unitRequirement: UnitRequirement;
   valueConstraint: boolean;
   constraintType?: ConstraintType;
   dataType?: XsdDataType;
   requireValue: boolean;
   value?: string;
-  valueList: ValueObject<string>[];
+  valueList?: ValueObject<string>[];
   pattern?: string;
   minValue?: string;
   maxValue?: string;
@@ -43,7 +43,7 @@ export const toAttributeFormFields = (attribute: AttributeView): AttributeFormFi
   name: attribute.name,
   description: attribute.description,
   predicate: attribute.predicate,
-  units: attribute.units,
+  units: attribute.units.length === 0 ? undefined : attribute.units,
   unitRequirement:
     attribute.unitMinCount === 1
       ? UnitRequirement.Required
@@ -59,7 +59,7 @@ export const toAttributeFormFields = (attribute: AttributeView): AttributeFormFi
   dataType: attribute.valueConstraint?.dataType,
   requireValue: attribute.valueConstraint?.minCount ? attribute.valueConstraint.minCount > 0 : false,
   value: attribute.valueConstraint?.value?.toString(),
-  valueList: attribute.valueConstraint?.valueList?.map((x) => ({ value: x.toString() })) ?? [],
+  valueList: attribute.valueConstraint?.valueList?.map((x) => ({ value: x.toString() })),
   pattern: attribute.valueConstraint?.pattern,
   minValue: attribute.valueConstraint?.minValue?.toString(),
   maxValue: attribute.valueConstraint?.maxValue?.toString(),
@@ -69,7 +69,7 @@ export const toAttributeTypeRequest = (attributeFormFields: AttributeFormFields)
   name: attributeFormFields.name,
   description: attributeFormFields.description ? attributeFormFields.description : undefined,
   predicateId: attributeFormFields.predicate?.id,
-  unitIds: attributeFormFields.units.map((x) => x.id),
+  unitIds: attributeFormFields.units ? attributeFormFields.units.map((x) => x.id) : [],
   unitMinCount: attributeFormFields.unitRequirement === UnitRequirement.Required ? 1 : 0,
   unitMaxCount: attributeFormFields.unitRequirement === UnitRequirement.NoUnit ? 0 : 1,
   provenanceQualifier: attributeFormFields.provenanceQualifier,
@@ -94,21 +94,19 @@ export const toValueConstraintRequest = (
       : 0,
     maxCount: undefined,
     value: attributeFormFields.value,
-    valueList: attributeFormFields.valueList.map((x) => x.value),
+    valueList: attributeFormFields.valueList ? attributeFormFields.valueList.map((x) => x.value) : [],
     pattern: attributeFormFields.pattern,
     minValue: attributeFormFields.minValue ? Number(attributeFormFields.minValue) : undefined,
     maxValue: attributeFormFields.maxValue ? Number(attributeFormFields.maxValue) : undefined,
   };
 };
 
-export const defaultAttributeFormFields: AttributeFormFields = {
+export const createDefaultAttributeFormFields = (): AttributeFormFields => ({
   name: "",
-  units: [],
   unitRequirement: UnitRequirement.NoUnit,
   valueConstraint: false,
   requireValue: false,
-  valueList: [],
-};
+});
 
 export const predicateInfoItem = (predicate: RdlPredicate): InfoItem => ({
   id: predicate.id.toString(),

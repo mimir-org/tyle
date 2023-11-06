@@ -9,7 +9,7 @@ const attributeKeys = {
   lists: () => [...attributeKeys.all, "list"] as const,
   list: (filters: string) => [...attributeKeys.lists(), { filters }] as const,
   details: () => [...attributeKeys.all, "detail"] as const,
-  detail: (id: string) => [...attributeKeys.details(), id] as const,
+  detail: (id?: string) => [...attributeKeys.details(), id] as const,
 };
 
 export const useGetAttributes = () => useQuery(attributeKeys.list(""), attributeApi.getAttributes);
@@ -17,8 +17,8 @@ export const useGetAttributes = () => useQuery(attributeKeys.list(""), attribute
 export const useGetAttributesByState = (state: State) =>
   useQuery(attributeKeys.list(`state=${state}`), () => attributeApi.getAttributesByState(state));
 
-export const useGetAttribute = (id: string) =>
-  useQuery(attributeKeys.detail(id), () => attributeApi.getAttribute(id), { retry: false });
+export const useGetAttribute = (id?: string) =>
+  useQuery(attributeKeys.detail(id), () => attributeApi.getAttribute(id), { enabled: !!id, retry: false });
 
 export const useCreateAttribute = () => {
   const queryClient = useQueryClient();

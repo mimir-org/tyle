@@ -9,7 +9,7 @@ const blockKeys = {
   lists: () => [...blockKeys.all, "list"] as const,
   list: (filters: string) => [...blockKeys.lists(), { filters }] as const,
   details: () => [...blockKeys.all, "detail"] as const,
-  detail: (id: string) => [...blockKeys.details(), id] as const,
+  detail: (id?: string) => [...blockKeys.details(), id] as const,
 };
 
 export const useGetBlocks = () => useQuery(blockKeys.list(""), blockApi.getBlocks);
@@ -17,8 +17,8 @@ export const useGetBlocks = () => useQuery(blockKeys.list(""), blockApi.getBlock
 export const useGetBlocksByState = (state: State) =>
   useQuery(blockKeys.list(`state=${state}`), () => blockApi.getBlocksByState(state));
 
-export const useGetBlock = (id: string) =>
-  useQuery(blockKeys.detail(id), () => blockApi.getBlock(id), { retry: false });
+export const useGetBlock = (id?: string) =>
+  useQuery(blockKeys.detail(id), () => blockApi.getBlock(id), { enabled: !!id, retry: false });
 
 export const useCreateBlock = () => {
   const queryClient = useQueryClient();

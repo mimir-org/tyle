@@ -13,7 +13,7 @@ export const blockApi = {
   getBlocksByState(state: State) {
     return apiClient.get<BlockView[]>(`${_basePath}?state=${state}`).then((r) => r.data);
   },
-  getBlock(id: string) {
+  getBlock(id?: string) {
     return apiClient.get<BlockView>(`${_basePath}/${id}`).then((r) => r.data);
   },
   postBlock(item: BlockTypeRequest) {

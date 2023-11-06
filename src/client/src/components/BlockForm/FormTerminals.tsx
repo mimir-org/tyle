@@ -41,12 +41,13 @@ const FormTerminals = () => {
       return option ? [option] : [];
     }
 
-    return connectorDirectionOptions.filter(
-      (x) =>
-        !terminalTypeRefs
-          .filter((y) => y.terminal.id === terminalId)
-          .map((y) => y.direction)
-          .includes(x.value),
+    return connectorDirectionOptions.filter((x) =>
+      terminalTypeRefs === undefined
+        ? true
+        : !terminalTypeRefs
+            .filter((y) => y.terminal.id === terminalId)
+            .map((y) => y.direction)
+            .includes(x.value),
     );
   };
 
@@ -61,7 +62,7 @@ const FormTerminals = () => {
           addItemsButtonText={t("block.terminals.dialog.add")}
           openDialogButtonText={t("block.terminals.open")}
           items={available}
-          onAdd={(ids) => onAddTerminals(ids, terminals, terminalTypeRefs, terminalFields.append)}
+          onAdd={(ids) => onAddTerminals(ids, terminals, terminalFields.append, terminalTypeRefs)}
         />
       }
     >
