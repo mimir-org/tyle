@@ -61,7 +61,7 @@ const FormAttributes = () => {
               name={`attributes.${index}`}
               render={({ field: { value, onChange } }) => (
                 <AttributeRow
-                  attribute={field.attribute}
+                  field={field}
                   remove={() => attributeFields.remove(index)}
                   value={value}
                   onChange={onChange}

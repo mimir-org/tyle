@@ -1,21 +1,27 @@
-import { Box, Checkbox, Flexbox, Input, Token } from "@mimirorg/component-library";
+import { Box, Checkbox, Flexbox, Input, Select, Token } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { AttributeTypeReferenceView } from "types/common/attributeTypeReferenceView";
+import { TerminalTypeReferenceView } from "types/blocks/terminalTypeReferenceView";
+import { Direction } from "types/terminals/direction";
+import { Option } from "utils";
 
-interface AttributeRowProps {
-  field: AttributeTypeReferenceView;
+interface TerminalRowProps {
+  field: TerminalTypeReferenceView;
   remove: () => void;
-  value: AttributeTypeReferenceView;
-  onChange: (attributeTypeReference: AttributeTypeReferenceView) => void;
+  value: TerminalTypeReferenceView;
+  onChange: (terminalTypeReference: TerminalTypeReferenceView) => void;
+  directionOptions: Option<Direction>[];
 }
 
-const AttributeRow = ({ field, remove, value, onChange }: AttributeRowProps) => {
+const TerminalRow = ({ field, remove, value, onChange, directionOptions }: TerminalRowProps) => {
   const { t } = useTranslation("entities");
 
   const [minCount, setMinCount] = useState(field.minCount);
   const [maxCount, setMaxCount] = useState<number | null>(field.maxCount ?? null);
+  const [direction, setDirection] = useState<Option<Direction>>(
+    directionOptions.find((x) => x.value === field.direction) ?? directionOptions[0],
+  );
 
   const handleMinCountChange = (nextMinCount: number) => {
     let nextMaxCount = null;
@@ -44,6 +50,13 @@ const AttributeRow = ({ field, remove, value, onChange }: AttributeRowProps) => 
     onChange({ ...value, maxCount: nextMaxCount });
   };
 
+  const handleDirectionChange = (nextDirection: Option<Direction> | null) => {
+    if (nextDirection === null) return;
+
+    setDirection(nextDirection);
+    onChange({ ...value, direction: nextDirection.value });
+  };
+
   return (
     <Flexbox alignItems={"center"}>
       <Box flex={1}>
@@ -51,11 +64,11 @@ const AttributeRow = ({ field, remove, value, onChange }: AttributeRowProps) => 
           variant={"secondary"}
           actionable
           actionIcon={<XCircle />}
-          actionText={t("common.attributes.remove")}
+          actionText={t("block.terminals.remove")}
           onAction={remove}
           dangerousAction
         >
-          {field.attribute.name}
+          {field.terminal.name}
         </Token>
       </Box>
       <Box>
@@ -78,8 +91,18 @@ const AttributeRow = ({ field, remove, value, onChange }: AttributeRowProps) => 
           onChange={(event) => handleMaxCountChange(Number(event.target.value))}
         />
       </Box>
+
+      <Box>
+        <Select
+          placeholder={t("common.templates.select", { object: t("block.terminal.name").toLowerCase() })}
+          options={directionOptions}
+          getOptionLabel={(x) => x.label}
+          value={direction}
+          onChange={handleDirectionChange}
+        />
+      </Box>
     </Flexbox>
   );
 };
 
-export default AttributeRow;
+export default TerminalRow;
