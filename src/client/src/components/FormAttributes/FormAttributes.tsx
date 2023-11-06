@@ -1,5 +1,4 @@
-import { Box, Checkbox, Counter, Flexbox, Token } from "@mimirorg/component-library";
-import { XCircle } from "@styled-icons/heroicons-outline";
+import { Flexbox } from "@mimirorg/component-library";
 import { useGetAttributes } from "api/attribute.queries";
 import { BlockFormFields } from "components/BlockForm/BlockForm.helpers";
 import FormSection from "components/FormSection";
@@ -8,6 +7,7 @@ import { TerminalFormFields } from "components/TerminalForm/TerminalForm.helpers
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
+import AttributeRow from "./AttributeRow";
 import { onAddAttributes, resolveSelectedAndAvailableAttributes } from "./FormAttributes.helpers";
 import { prepareAttributes } from "./prepareAttributes";
 
@@ -30,12 +30,12 @@ const FormAttributes = () => {
 
   type BlockOrTerminalFormFields = BlockFormFields | TerminalFormFields;
 
-  const { control, register, setValue } = useFormContext<BlockOrTerminalFormFields>();
+  const { control } = useFormContext<BlockOrTerminalFormFields>();
 
   const attributeFields = useFieldArray({ control, name: "attributes" });
   const attributeQuery = useGetAttributes();
   const attributes = prepareAttributes(attributeQuery.data) ?? [];
-  const [available, selected] = resolveSelectedAndAvailableAttributes(attributeFields.fields, attributes);
+  const [available, _] = resolveSelectedAndAvailableAttributes(attributeFields.fields, attributes);
 
   return (
     <FormSection
@@ -54,68 +54,20 @@ const FormAttributes = () => {
     >
       <Flexbox flexDirection="column" gap={theme.mimirorg.spacing.xl}>
         {attributeFields.fields.map((field, index) => {
-          const attribute = selected.find((x) => x.id === field.attribute.id);
           return (
-            attribute && (
-              <Flexbox alignItems={"center"} key={attribute.id}>
-                <Box flex={1}>
-                  <Token
-                    variant={"secondary"}
-                    {...register(`attributes.${index}`)}
-                    actionable
-                    actionIcon={<XCircle />}
-                    actionText={t("common.attributes.remove")}
-                    onAction={() => attributeFields.remove(index)}
-                    dangerousAction
-                  >
-                    {attribute.name}
-                  </Token>
-                </Box>
-                <Box>
-                  <Controller
-                    control={control}
-                    name={`attributes.${index}.minCount`}
-                    render={({ field: { onChange, ...rest } }) => (
-                      <Counter
-                        {...rest}
-                        min={0}
-                        onChange={(value) => {
-                          const currentMaxCount = field.maxCount;
-                          if (currentMaxCount && currentMaxCount < value) {
-                            setValue(`attributes.${index}.maxCount`, value);
-                          }
-                          onChange(value);
-                        }}
-                      />
-                    )}
-                  />
-                </Box>
-                <Box>
-                  <Checkbox
-                    onCheckedChange={(checked) => {
-                      if (checked) {
-                        if (field.minCount > 0) {
-                          setValue(`attributes.${index}.maxCount`, field.minCount);
-                        } else {
-                          setValue(`attributes.${index}.maxCount`, 1);
-                        }
-                      } else {
-                        setValue(`attributes.${index}.maxCount`, undefined);
-                      }
-                    }}
-                  />
-                </Box>
-                <Box>
-                  <Controller
-                    control={control}
-                    name={`attributes.${index}.maxCount`}
-                    render={({ field: { value, ...rest } }) => (
-                      <Counter {...rest} min={Math.max(field.minCount, 1)} value={value ?? 0} disabled={!value} />
-                    )}
-                  />
-                </Box>
-              </Flexbox>
-            )
+            <Controller
+              key={field.id}
+              control={control}
+              name={`attributes.${index}`}
+              render={({ field: { value, onChange } }) => (
+                <AttributeRow
+                  attribute={field.attribute}
+                  remove={() => attributeFields.remove(index)}
+                  value={value}
+                  onChange={onChange}
+                />
+              )}
+            />
           );
         })}
       </Flexbox>
