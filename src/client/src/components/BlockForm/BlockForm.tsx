@@ -1,4 +1,5 @@
 import { DevTool } from "@hookform/devtools";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, FormContainer } from "@mimirorg/component-library";
 import FormAttributes from "components/FormAttributes";
 import FormClassifiers from "components/FormClassifiers";
@@ -21,6 +22,7 @@ import {
 } from "./BlockForm.helpers";
 import BlockFormBaseFields from "./BlockFormBaseFields";
 import FormTerminals from "./FormTerminals";
+import { blockSchema } from "./blockSchema";
 
 interface BlockFormProps {
   defaultValues?: BlockFormFields;
@@ -33,15 +35,10 @@ const BlockForm = ({ defaultValues = createDefaultBlockFormFields(), mode }: Blo
 
   const formMethods = useForm<BlockFormFields>({
     defaultValues: defaultValues,
-    //resolver: yupResolver(blockSchema(t)),
+    resolver: yupResolver(blockSchema(t)),
   });
 
-  // const user = useGetCurrentUser();
-
   const { handleSubmit, control, setError, reset } = formMethods;
-  // const aspect = useWatch({ control, name: "aspect" });
-  //const attributeFields = useFieldArray({ control, name: "attributes" });
-  //const attributeGroupFields = useFieldArray({ control, name: "attributeGroups" });
 
   const query = useBlockQuery();
   const mapper = (source: BlockView) => toBlockFormFields(source);

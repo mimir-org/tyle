@@ -8,8 +8,8 @@ describe("terminalSchema tests", () => {
   const t = vi.fn();
 
   it("should resolve with a name", async () => {
-    const terminalWithoutName: Partial<TerminalFormFields> = { name: "Test name" };
-    await expect(terminalSchema(t).validateAt("name", terminalWithoutName)).resolves.toBeTruthy();
+    const terminalWithName: Partial<TerminalFormFields> = { name: "Test name" };
+    await expect(terminalSchema(t).validateAt("name", terminalWithName)).resolves.toBeTruthy();
   });
 
   it("should reject without a name", async () => {

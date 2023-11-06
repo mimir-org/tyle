@@ -1,87 +1,106 @@
-import { blockSchema } from "./blockSchema";
-
+import { DESCRIPTION_LENGTH, IRI_LENGTH, NAME_LENGTH, NOTATION_LENGTH } from "types/common/stringLengthConstants";
 import { vi } from "vitest";
 import { BlockFormFields } from "./BlockForm.helpers";
+import { blockSchema } from "./blockSchema";
 
 describe("blockSchema tests", () => {
   const t = vi.fn();
 
-  it("should reject without a name", async () => {
-    const blockWithoutAName: Partial<BlockFormFields> = { name: "" };
-    await expect(blockSchema(t).validateAt("name", blockWithoutAName)).rejects.toBeTruthy();
+  it("should resolve with a name", async () => {
+    const blockWithName: Partial<BlockFormFields> = { name: "Test name" };
+    await expect(blockSchema(t).validateAt("name", blockWithName)).resolves.toBeTruthy();
   });
 
-  it("should reject with a name longer than 120 characters", async () => {
-    const blockWithLongName: Partial<BlockFormFields> = { name: "c".repeat(121) };
+  it("should reject without a name", async () => {
+    const blockWithoutName: Partial<BlockFormFields> = { name: "" };
+    await expect(blockSchema(t).validateAt("name", blockWithoutName)).rejects.toBeTruthy();
+  });
+
+  it("should resolve with a name with the limit length", async () => {
+    const blockWithLongName: Partial<BlockFormFields> = { name: "c".repeat(NAME_LENGTH) };
+    await expect(blockSchema(t).validateAt("name", blockWithLongName)).resolves.toBeTruthy();
+  });
+
+  it("should reject with a name longer than the limit", async () => {
+    const blockWithLongName: Partial<BlockFormFields> = { name: "c".repeat(NAME_LENGTH + 1) };
     await expect(blockSchema(t).validateAt("name", blockWithLongName)).rejects.toBeTruthy();
   });
 
-  // it("should reject without a purpose name", async () => {
-  //   const blockWithoutPurposeName: Partial<BlockFormFields> = { purposeName: "" };
-  //   await expect(blockSchema(t).validateAt("purposeName", blockWithoutPurposeName)).rejects.toBeTruthy();
-  // });
+  it("should resolve with a description with the limit length", async () => {
+    const blockWithLongDescription: Partial<BlockFormFields> = {
+      description: "c".repeat(DESCRIPTION_LENGTH),
+    };
+    await expect(blockSchema(t).validateAt("description", blockWithLongDescription)).resolves.toBeTruthy();
+  });
 
-  // it("should reject without an aspect", async () => {
-  //   const blockWithoutAspect: Partial<BlockFormFields> = { aspect: undefined };
-  //   await expect(blockSchema(t).validateAt("aspect", blockWithoutAspect)).rejects.toBeTruthy();
-  // });
-
-  it("should reject with a description longer than 500 characters", async () => {
-    const blockWithLongDescription: Partial<BlockFormFields> = { description: "c".repeat(501) };
+  it("should reject with a description longer than the limit", async () => {
+    const blockWithLongDescription: Partial<BlockFormFields> = {
+      description: "c".repeat(DESCRIPTION_LENGTH + 1),
+    };
     await expect(blockSchema(t).validateAt("description", blockWithLongDescription)).rejects.toBeTruthy();
   });
 
-  // it("should reject if there are any terminals with a negative minQuantity", async () => {
-  //   const blockWithNegativeTerminalMinQuantity: Partial<BlockFormFields> = {
-  //     blockTerminals: [
-  //       {
-  //         terminalId: "",
-  //         hasMaxQuantity: false,
-  //         minQuantity: -1,
-  //         maxQuantity: 1,
-  //         connectorDirection: ConnectorDirection.Input,
-  //       },
-  //     ],
-  //   };
-
-  //   await expect(
-  //     blockSchema(t).validateAt("blockTerminals.minQuantity", blockWithNegativeTerminalMinQuantity),
-  //   ).rejects.toBeTruthy();
-  // });
-
-  // it("should reject if there are any terminals with a negative maxQuantity", async () => {
-  //   const blockWithNegativeTerminalMinQuantity: Partial<BlockFormFields> = {
-  //     blockTerminals: [
-  //       {
-  //         terminalId: "",
-  //         hasMaxQuantity: true,
-  //         minQuantity: 1,
-  //         maxQuantity: -1,
-  //         connectorDirection: ConnectorDirection.Input,
-  //       },
-  //     ],
-  //   };
-
-  //   await expect(
-  //     blockSchema(t).validateAt("blockTerminals.maxQuantity", blockWithNegativeTerminalMinQuantity),
-  //   ).rejects.toBeTruthy();
-  // });
-
-  // TODO: When nullable ints are implemented this test can be uncommented.
-  /*
-  it("should reject if there are any terminals without an id", async () => {
-    const blockWithEmptyTerminals: Partial<FormBlockLib> = {
-      blockTerminals: [
-        {
-          terminalId: null,
-          minQuantity: 1,
-          maxQuantity: 10,
-          connectorDirection: ConnectorDirection.Input,
-          hasMaxQuantity: true,
-        },
-      ],
+  it("should resolve with classifiers array", async () => {
+    const blockWithClassifiersArray: Partial<BlockFormFields> = {
+      classifiers: [],
     };
-    await expect(blockSchema(t).validateAt("blockTerminals", blockWithEmptyTerminals)).rejects.toBeTruthy();
+    await expect(blockSchema(t).validateAt("classifiers", blockWithClassifiersArray)).resolves.toBeTruthy();
   });
-  */
+
+  it("should reject without classifiers array", async () => {
+    const blockWithoutClassifiersArray: Partial<BlockFormFields> = {};
+    await expect(blockSchema(t).validateAt("classifiers", blockWithoutClassifiersArray)).rejects.toBeTruthy();
+  });
+
+  it("should resolve with a notation with the limit length", async () => {
+    const blockWithLongNotation: Partial<BlockFormFields> = {
+      notation: "c".repeat(NOTATION_LENGTH),
+    };
+    await expect(blockSchema(t).validateAt("notation", blockWithLongNotation)).resolves.toBeTruthy();
+  });
+
+  it("should reject with a notation longer than the limit", async () => {
+    const blockWithLongNotation: Partial<BlockFormFields> = {
+      notation: "c".repeat(NOTATION_LENGTH + 1),
+    };
+    await expect(blockSchema(t).validateAt("notation", blockWithLongNotation)).rejects.toBeTruthy();
+  });
+
+  it("should resolve with a symbol with the limit length", async () => {
+    const blockWithLongSymbol: Partial<BlockFormFields> = {
+      symbol: "c".repeat(IRI_LENGTH),
+    };
+    await expect(blockSchema(t).validateAt("symbol", blockWithLongSymbol)).resolves.toBeTruthy();
+  });
+
+  it("should reject with a symbol longer than the limit", async () => {
+    const blockWithLongSymbol: Partial<BlockFormFields> = {
+      symbol: "c".repeat(IRI_LENGTH + 1),
+    };
+    await expect(blockSchema(t).validateAt("symbol", blockWithLongSymbol)).rejects.toBeTruthy();
+  });
+
+  it("should resolve with terminals array", async () => {
+    const blockWithTerminalsArray: Partial<BlockFormFields> = {
+      terminals: [],
+    };
+    await expect(blockSchema(t).validateAt("terminals", blockWithTerminalsArray)).resolves.toBeTruthy();
+  });
+
+  it("should reject without attributes array", async () => {
+    const blockWithoutTerminalsArray: Partial<BlockFormFields> = {};
+    await expect(blockSchema(t).validateAt("terminals", blockWithoutTerminalsArray)).rejects.toBeTruthy();
+  });
+
+  it("should resolve with attributes array", async () => {
+    const blockWithAttributesArray: Partial<BlockFormFields> = {
+      attributes: [],
+    };
+    await expect(blockSchema(t).validateAt("attributes", blockWithAttributesArray)).resolves.toBeTruthy();
+  });
+
+  it("should reject without attributes array", async () => {
+    const blockWithoutAttributesArray: Partial<BlockFormFields> = {};
+    await expect(blockSchema(t).validateAt("attributes", blockWithoutAttributesArray)).rejects.toBeTruthy();
+  });
 });

@@ -54,6 +54,14 @@ const BlockFormBaseFields = ({ mode, limited }: BlockFormBaseFieldsProps) => {
       <Text variant={"display-small"}>{t("block.title")}</Text>
 
       <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
+        <FormField label={t("terminal.name")} error={errors.name}>
+          <Input placeholder={t("terminal.placeholders.name")} {...register("name")} disabled={limited} />
+        </FormField>
+
+        <FormField label={t("block.description")} error={errors.description}>
+          <Textarea placeholder={t("block.placeholders.description")} {...register("description")} />
+        </FormField>
+
         <FormSection
           title={t("terminal.purpose.title")} //TODO: change name to correct section in langu file.
           action={
@@ -73,10 +81,6 @@ const BlockFormBaseFields = ({ mode, limited }: BlockFormBaseFieldsProps) => {
             )
           }
         >
-          <FormField label={t("terminal.name")} error={errors.symbol}>
-            <Input placeholder={t("terminal.placeholders.name")} {...register("name")} disabled={limited} />
-          </FormField>
-
           <Input {...register("purpose")} type="hidden" />
           {chosenPurpose && (
             <Token
@@ -91,6 +95,14 @@ const BlockFormBaseFields = ({ mode, limited }: BlockFormBaseFieldsProps) => {
             </Token>
           )}
         </FormSection>
+
+        <FormField label={t("terminal.notation")} error={errors.notation}>
+          <Input placeholder={t("terminal.placeholders.notation")} {...register("notation")} disabled={limited} />
+        </FormField>
+
+        <FormField label={t("terminal.symbol")} error={errors.symbol}>
+          <Input placeholder={t("terminal.placeholders.symbol")} {...register("symbol")} disabled={limited} />
+        </FormField>
 
         <FormField label={t("block.aspect")} error={errors.aspect}>
           <Controller
@@ -110,16 +122,6 @@ const BlockFormBaseFields = ({ mode, limited }: BlockFormBaseFieldsProps) => {
               />
             )}
           />
-        </FormField>
-        <FormField label={t("terminal.symbol")} error={errors.symbol}>
-          <Input placeholder={t("terminal.placeholders.symbol")} {...register("symbol")} disabled={limited} />
-        </FormField>
-
-        <FormField label={t("block.description")} error={errors.description}>
-          <Textarea placeholder={t("block.placeholders.description")} {...register("description")} />
-        </FormField>
-        <FormField label={t("block.notation")} error={errors.notation}>
-          <Textarea placeholder={t("block.placeholders.notation")} {...register("notation")} />
         </FormField>
       </Flexbox>
 
