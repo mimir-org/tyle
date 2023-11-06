@@ -1,6 +1,6 @@
-import { MimirorgPermission, MimirorgUserCm } from "@mimirorg/typelibrary-types";
 import { AttributeItem } from "types/attributeItem";
 import { AttributeView } from "types/attributes/attributeView";
+import { UserView } from "types/authentication/userView";
 import { BlockItem } from "types/blockItem";
 import { BlockTerminalItem } from "types/blockTerminalItem";
 import { BlockView } from "types/blocks/blockView";
@@ -11,7 +11,7 @@ import { InfoItem } from "types/infoItem";
 import { TerminalItem } from "types/terminalItem";
 import { TerminalView } from "types/terminals/terminalView";
 import { UserItem } from "types/userItem";
-import { Option, getOptionsFromEnum } from "utils";
+import { getOptionsFromEnum } from "utils";
 import { getColorFromAspect } from "./aspect.helper";
 
 export const purposeInfoItem = (purpose: RdlPurpose): InfoItem => ({
@@ -74,29 +74,12 @@ const sortBlockTerminals = (terminals: BlockTerminalItem[]) =>
     (a, b) => a.direction.toString().localeCompare(b.direction.toString()) || a.name.localeCompare(b.name),
   );
 
-export const mapMimirorgUserCmToUserItem = (user: MimirorgUserCm): UserItem => {
-  const permissionOptions = getOptionsFromEnum<MimirorgPermission>(MimirorgPermission);
-  const permissionsMap: { [key: string]: Option<MimirorgPermission> } = {};
-
-  Object.keys(user.permissions).forEach((companyId) => {
-    const permissionForCompany = user.permissions[Number(companyId)];
-    const permissionLabel = permissionOptions.find((x) => x.value === permissionForCompany)?.label;
-
-    if (permissionLabel) {
-      permissionsMap[companyId] = { value: permissionForCompany, label: permissionLabel };
-    }
-  });
-
+export const mapMimirorgUserCmToUserItem = (user: UserView): UserItem => {
   return {
     id: user.id,
     name: `${user.firstName} ${user.lastName}`,
     email: user.email,
     purpose: user.purpose,
-    permissions: permissionsMap,
-    company: {
-      id: user.companyId,
-      name: user.companyName,
-    },
   };
 };
 

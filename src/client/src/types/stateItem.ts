@@ -1,4 +1,4 @@
-import { State } from "@mimirorg/typelibrary-types";
+import { State } from "./common/state";
 
 export interface StateItem {
   state: State;

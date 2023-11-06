@@ -12,7 +12,7 @@ public class RequiredOneAttribute : ValidationAttribute
         _dependent = dependent;
     }
 
-    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+    protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
     {
         var dependentValue = validationContext.ObjectInstance.GetType().GetProperty(_dependent)?.GetValue(validationContext.ObjectInstance, null);
 

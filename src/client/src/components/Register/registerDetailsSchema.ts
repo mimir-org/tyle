@@ -1,7 +1,7 @@
 import { TFunction } from "i18next";
 import * as yup from "yup";
 
-export const registerDetailsSchema = (t: TFunction<"translation">, companiesAreAvailable = false) => {
+export const registerDetailsSchema = (t: TFunction<"translation">) => {
   const schema = yup.object({
     email: yup
       .string()
@@ -18,17 +18,7 @@ export const registerDetailsSchema = (t: TFunction<"translation">, companiesAreA
     firstName: yup.string().required(t("register.details.validation.firstName.required")),
     lastName: yup.string().required(t("register.details.validation.lastName.required")),
     purpose: yup.string().nullable().notRequired(),
-    companyId: yup.number().nullable().notRequired(),
   });
-
-  if (companiesAreAvailable) {
-    return schema.shape({
-      companyId: yup
-        .number()
-        .min(1, t("register.details.validation.companyId.min"))
-        .required(t("register.details.validation.companyId.required")),
-    });
-  }
 
   return schema;
 };

@@ -31,7 +31,7 @@ public class MimirorgUserController : ControllerBase
     /// <returns>User</returns>
     [HttpGet]
     [Route("")]
-    [ProducesResponseType(typeof(MimirorgUserCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(UserView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -63,11 +63,11 @@ public class MimirorgUserController : ControllerBase
     [AllowAnonymous]
     [HttpPost]
     [Route("")]
-    [ProducesResponseType(typeof(MimirorgUserCm), 200)]
+    [ProducesResponseType(typeof(UserView), 200)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("Create a new user")]
-    public async Task<IActionResult> CreateUser([FromBody] MimirorgUserAm user)
+    public async Task<IActionResult> CreateUser([FromBody] UserRequest user)
     {
         try
         {
@@ -111,12 +111,12 @@ public class MimirorgUserController : ControllerBase
 
     [HttpPatch]
     [Route("")]
-    [ProducesResponseType(typeof(MimirorgUserCm), 200)]
+    [ProducesResponseType(typeof(UserView), 200)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [SwaggerOperation("Update a user")]
     [Authorize]
-    public async Task<IActionResult> UpdateUser([FromBody] MimirorgUserAm user)
+    public async Task<IActionResult> UpdateUser([FromBody] UserRequest user)
     {
         try
         {
@@ -156,7 +156,7 @@ public class MimirorgUserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("VerifyAccount")]
-    public async Task<IActionResult> VerifyAccount([FromBody] MimirorgVerifyAm verifyEmail)
+    public async Task<IActionResult> VerifyAccount([FromBody] VerifyRequest verifyEmail)
     {
         try
         {
@@ -196,11 +196,11 @@ public class MimirorgUserController : ControllerBase
     [AllowAnonymous]
     [HttpPost]
     [Route("2fa")]
-    [ProducesResponseType(typeof(MimirorgQrCodeCm), 200)]
+    [ProducesResponseType(typeof(QrCodeView), 200)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("VerifyTwoFactor")]
-    public async Task<IActionResult> VerifyTwoFactor([FromBody] MimirorgVerifyAm data)
+    public async Task<IActionResult> VerifyTwoFactor([FromBody] VerifyRequest data)
     {
         try
         {
@@ -273,7 +273,7 @@ public class MimirorgUserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("Change password")]
-    public async Task<IActionResult> ChangePassword([FromBody] MimirorgChangePasswordAm changePassword)
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest changePassword)
     {
         try
         {

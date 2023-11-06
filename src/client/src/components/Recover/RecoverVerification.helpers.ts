@@ -1,10 +1,11 @@
-import { MimirorgQrCodeCm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
+import { QrCodeView } from "types/authentication/qrCodeView";
+import { VerifyRequest } from "types/authentication/verifyRequest";
 
 export const onSubmitForm = async (
-  data: MimirorgVerifyAm,
-  generateMfaAsync: (data: MimirorgVerifyAm) => Promise<MimirorgQrCodeCm>,
-  setMfaInfo: (data: MimirorgQrCodeCm) => void,
-  setVerificationInfo?: (data: MimirorgVerifyAm) => void,
+  data: VerifyRequest,
+  generateMfaAsync: (data: VerifyRequest) => Promise<QrCodeView>,
+  setMfaInfo: (data: QrCodeView) => void,
+  setVerificationInfo?: (data: VerifyRequest) => void,
 ) => {
   const mfaInfo = await generateMfaAsync(data);
   mfaInfo && setMfaInfo(mfaInfo);

@@ -1,19 +1,19 @@
-import { MimirorgUserAm, MimirorgUserCm } from "@mimirorg/typelibrary-types";
 import { toast } from "@mimirorg/component-library";
 import { useGetCurrentUser } from "api/user.queries";
 import { useTranslation } from "react-i18next";
+import { UserRequest } from "types/authentication/userRequest";
+import { UserView } from "types/authentication/userView";
 
 export const useUserQuery = () => {
   return useGetCurrentUser();
 };
 
-export const mapMimirorgUserCmToAm = (user: MimirorgUserCm): MimirorgUserAm => ({
+export const mapUserViewToRequest = (user: UserView): UserRequest => ({
   email: user.email,
   password: "",
   confirmPassword: "",
   firstName: user.firstName,
   lastName: user.lastName,
-  companyId: user.companyId,
   purpose: user.purpose,
 });
 
@@ -28,7 +28,7 @@ export const useUpdatingToast = () => {
     });
 };
 
-export const addDummyPasswordToUserAm = (user: MimirorgUserAm): MimirorgUserAm => ({
+export const addDummyPasswordToUserAm = (user: UserRequest): UserRequest => ({
   ...user,
   password: "DummyPassword1234",
   confirmPassword: "DummyPassword1234",

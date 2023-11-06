@@ -1,19 +1,15 @@
 import { Flexbox, Text } from "@mimirorg/component-library";
-import { useGetPendingUsers } from "api/company.queries";
-import PermissionCard from "components/PermissionCard";
 import SettingsSection from "components/SettingsSection";
-import { mapMimirorgUserCmToUserItem } from "helpers/mappers.helpers";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import AccessPlaceholder from "./AccessPlaceholder";
 
 const Access = () => {
   const theme = useTheme();
   const { t } = useTranslation("settings");
-  const pendingUsersQuery = useGetPendingUsers();
+  //const pendingUsersQuery = useGetPendingUsers();
 
-  const users = pendingUsersQuery.data?.sort((a, b) => a.firstName.localeCompare(b.firstName)) ?? [];
-  const showPlaceholder = users && users.length === 0;
+  //const users = pendingUsersQuery.data?.sort((a, b) => a.firstName.localeCompare(b.firstName)) ?? [];
+  //const showPlaceholder = users && users.length === 0;
 
   return (
     <SettingsSection title={t("access.title")}>
@@ -21,10 +17,10 @@ const Access = () => {
         {t("access.users")}
       </Text>
       <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xxxl}>
-        {showPlaceholder && <AccessPlaceholder text={t("access.placeholders.users")} />}
-        {users.map((user) => (
+        {/*showPlaceholder && <AccessPlaceholder text={t("access.placeholders.users")} />*/}
+        {/*users.map((user) => (
           <PermissionCard key={user.id} user={mapMimirorgUserCmToUserItem(user)} />
-        ))}
+        ))*/}
       </Flexbox>
     </SettingsSection>
   );

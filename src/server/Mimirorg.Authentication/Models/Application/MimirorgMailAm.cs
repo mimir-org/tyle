@@ -8,31 +8,31 @@ public class MimirorgMailAm
 {
     [Display(Name = "Subject")]
     [Required(ErrorMessage = "{0} is required")]
-    public string Subject { get; set; }
+    public required string Subject { get; set; }
 
     [Display(Name = "FromName")]
     [Required(ErrorMessage = "{0} is required")]
-    public string FromName { get; set; }
+    public required string FromName { get; set; }
 
     [Display(Name = "FromEmail")]
     [Required(ErrorMessage = "{0} is required")]
-    public string FromEmail { get; set; }
+    public required string FromEmail { get; set; }
 
     [Display(Name = "ToName")]
     [Required(ErrorMessage = "{0} is required")]
-    public string ToName { get; set; }
+    public required string ToName { get; set; }
 
     [Display(Name = "ToEmail")]
     [Required(ErrorMessage = "{0} is required")]
-    public string ToEmail { get; set; }
+    public required string ToEmail { get; set; }
 
     [Display(Name = "PlainTextContent")]
     [RequiredOne("HtmlContent")]
-    public string PlainTextContent { get; set; }
+    public string? PlainTextContent { get; set; }
 
     [Display(Name = "HtmlContent")]
     [RequiredOne("PlainTextContent")]
-    public string HtmlContent { get; set; }
+    public string? HtmlContent { get; set; }
 
     public override string ToString()
     {

@@ -9,18 +9,16 @@ import {
   Input,
   MotionFlexbox,
   MotionText,
-  Select,
   Text,
   Textarea,
 } from "@mimirorg/component-library";
-import { useGetCompanies } from "api/company.queries";
 import { useCreateUser } from "api/user.queries";
 import AuthContent from "components/AuthContent";
 import Error from "components/Error";
 import Processing from "components/Processing";
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useTheme } from "styled-components";
@@ -37,11 +35,9 @@ const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
   const { t } = useTranslation("auth");
 
   const mutation = useCreateUser();
-  const companyQuery = useGetCompanies();
-  const companiesAreAvailable = (companyQuery.data && companyQuery.data.length > 0) ?? false;
 
   const formMethods = useForm({
-    resolver: yupResolver(registerDetailsSchema(t, companiesAreAvailable)),
+    resolver: yupResolver(registerDetailsSchema(t)),
   });
 
   const { register, control, handleSubmit, setError, formState } = formMethods;
@@ -52,7 +48,6 @@ const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
     mutation.mutate({
       ...data,
       purpose: data.purpose ?? "",
-      companyId: data.companyId ?? 0,
     });
   };
 
@@ -70,27 +65,6 @@ const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
             <Form id={"details-form"} onSubmit={handleSubmit((data) => onSubmit(data))}>
               {mutation.isError && <Error>{t("register.details.error")}</Error>}
               <FormFieldset>
-                <FormField label={`${t("register.details.company")} *`} error={errors.companyId}>
-                  <Controller
-                    control={control}
-                    name={"companyId"}
-                    render={({ field: { value, onChange, ref, ...rest } }) => (
-                      <Select
-                        {...rest}
-                        selectRef={ref}
-                        placeholder={t("register.details.placeholders.company")}
-                        options={companyQuery?.data}
-                        getOptionLabel={(x) => x.name}
-                        getOptionValue={(x) => x.id.toString()}
-                        onChange={(x) => {
-                          onChange(x?.id);
-                        }}
-                        value={companyQuery.data?.find((x) => x.id === value)}
-                      />
-                    )}
-                  />
-                </FormField>
-
                 <FormField label={`${t("register.details.email")} *`} error={formState.errors.email}>
                   <Input
                     id="email"

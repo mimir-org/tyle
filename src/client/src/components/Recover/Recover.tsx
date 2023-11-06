@@ -1,9 +1,10 @@
-import { MimirorgQrCodeCm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
 import Completion from "components/Completion";
 import MultiFactorAuthentication from "components/MultiFactorAuthentication";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { QrCodeView } from "types/authentication/qrCodeView";
+import { VerifyRequest } from "types/authentication/verifyRequest";
 import RecoverDetails from "./RecoverDetails";
 import RecoverPassword from "./RecoverPassword";
 import RecoverVerification from "./RecoverVerification";
@@ -14,8 +15,8 @@ const Recover = () => {
   const { t } = useTranslation("auth");
   const [stage, setStage] = useState<RecoverySteps>("DETAILS");
   const [email, setEmail] = useState("");
-  const [mfaInfo, setMfaInfo] = useState<MimirorgQrCodeCm>({ code: "", manualCode: "" });
-  const [verificationInfo, setVerificationInfo] = useState<MimirorgVerifyAm>({ email: "", code: "" });
+  const [mfaInfo, setMfaInfo] = useState<QrCodeView>({ code: "", manualCode: "" });
+  const [verificationInfo, setVerificationInfo] = useState<VerifyRequest>({ email: "", code: "" });
   const navigate = useNavigate();
 
   return (

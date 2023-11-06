@@ -7,7 +7,6 @@ import LinkMenu from "components/LinkMenu";
 import SearchField from "components/SearchField";
 import { mapMimirorgUserCmToUserItem } from "helpers/mappers.helpers";
 import { useDebounceState } from "hooks/useDebounceState";
-import { useHasWriteAccess } from "hooks/useHasWriteAccess";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
@@ -47,7 +46,6 @@ const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
   const userQuery = useGetCurrentUser();
   const user = userQuery?.data != null ? mapMimirorgUserCmToUserItem(userQuery.data) : undefined;
   const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit, Number(pageParam));
-  const hasWriteAccess = useHasWriteAccess();
 
   useEffect(() => {
     if (!isPositiveInt(pageParam) || (!isLoading && Number(pageParam) > Math.ceil(totalHits / pageLimit))) {
@@ -82,7 +80,7 @@ const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
           name={t("search.create.title")}
           links={createMenuLinks}
           justifyContent={"space-between"}
-          disabled={!hasWriteAccess}
+          //disabled={!hasWriteAccess}
         />
       </Flexbox>
 

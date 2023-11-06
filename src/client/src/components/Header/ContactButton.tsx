@@ -1,12 +1,5 @@
-import { Box, Dialog, Select, Text } from "@mimirorg/component-library";
-import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { Envelope } from "@styled-icons/heroicons-outline";
-import { useGetCompany } from "api/company.queries";
-import { useGetFilteredCompanies } from "hooks/useGetFilteredCompanies";
-import { useState } from "react";
+import { Box, Dialog, Select } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
-import ContactCard from "./ContactCard";
-import UserMenuButton from "./UserMenuButton";
 
 /**
  * Component that displays a button with a dialog for finding contact information about
@@ -16,17 +9,17 @@ import UserMenuButton from "./UserMenuButton";
  */
 const ContactButton = () => {
   const { t } = useTranslation("ui");
-  const [selected, setSelected] = useState<number>();
+  //const [selected, setSelected] = useState<number>();
 
-  const companies = useGetFilteredCompanies(MimirorgPermission.Read);
-  const { data: company } = useGetCompany(selected);
+  //const companies = useGetFilteredCompanies(MimirorgPermission.Read);
+  //const { data: company } = useGetCompany(selected);
 
-  const manager = company?.manager;
-  const managerName = `${company?.manager?.firstName} ${company?.manager?.lastName}`;
-  const managerEmail = company?.manager?.email;
+  //const manager = company?.manager;
+  //const managerName = `${company?.manager?.firstName} ${company?.manager?.lastName}`;
+  //const managerEmail = company?.manager?.email;
 
-  const showManager = company && manager;
-  const showNotFound = company && !manager;
+  //const showManager = company && manager;
+  //const showNotFound = company && !manager;
 
   return (
     <Dialog
@@ -37,22 +30,22 @@ const ContactButton = () => {
         <>
           <Select
             placeholder={t("header.menu.contact.select")}
-            options={companies}
-            getOptionLabel={(x) => x.name}
-            onChange={(x) => setSelected(x?.id)}
-            value={companies.find((x) => x.id === selected)}
+            //options={companies}
+            //getOptionLabel={(x) => x.name}
+            //onChange={(x) => setSelected(x?.id)}
+            //value={companies.find((x) => x.id === selected)}
           />
 
           <Box display={"flex"} alignItems={"center"} minHeight={"70px"}>
-            {showManager && <ContactCard name={managerName} email={managerEmail} />}
-            {showNotFound && <Text>{t("header.menu.contact.notFound")}</Text>}
+            {/*showManager && <ContactCard name={managerName} email={managerEmail} />*/}
+            {/*showNotFound && <Text>{t("header.menu.contact.notFound")}</Text>*/}
           </Box>
         </>
       }
     >
-      {companies.length > 0 && (
+      {/*companies.length > 0 && (
         <UserMenuButton icon={<Envelope size={24} />}>{t("header.menu.contact.title")}</UserMenuButton>
-      )}
+      )*/}
     </Dialog>
   );
 };

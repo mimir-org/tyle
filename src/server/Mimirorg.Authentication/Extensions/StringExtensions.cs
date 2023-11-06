@@ -25,16 +25,4 @@ public static class StringExtensions
         }
         return sb.ToString();
     }
-
-    public static string ResolveNormalizedName(this string name)
-    {
-        if (string.IsNullOrEmpty(name))
-            return null;
-
-        if (string.IsNullOrWhiteSpace(name))
-            return string.Empty;
-
-        var withOutSpecialCharacters = new string(name.Where(c => char.IsLetterOrDigit(c) && !(char.IsWhiteSpace(c) || c is '-')).ToArray());
-        return withOutSpecialCharacters.ToUpper();
-    }
 }

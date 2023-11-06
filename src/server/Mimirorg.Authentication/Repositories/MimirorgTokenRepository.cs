@@ -36,7 +36,7 @@ public class MimirorgTokenRepository : GenericRepository<MimirorgAuthenticationC
     /// <param name="current"></param>
     /// <returns></returns>
     /// <exception cref="MimirorgConfigurationException"></exception>
-    public async Task<MimirorgTokenCm> CreateAccessToken(MimirorgUser user, DateTime current)
+    public async Task<TokenView> CreateAccessToken(MimirorgUser user, DateTime current)
     {
         if (_authSettings == null)
             throw new MimirorgConfigurationException("Missing configuration for auth settings");
@@ -51,8 +51,7 @@ public class MimirorgTokenRepository : GenericRepository<MimirorgAuthenticationC
             new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
             new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim("name", $"{user.FirstName} {user.LastName}"),
-            new Claim("0", GetHighestCompanyPermission(userClaims))
+            new Claim("name", $"{user.FirstName} {user.LastName}")
         }.Union(userClaims);
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authSettings.JwtKey));
@@ -69,25 +68,13 @@ public class MimirorgTokenRepository : GenericRepository<MimirorgAuthenticationC
 
         var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
 
-        return new MimirorgTokenCm
+        return new TokenView
         {
             ClientId = user.Id,
             ValidTo = token.ValidTo,
             Secret = accessToken,
-            TokenType = MimirorgTokenType.AccessToken
+            TokenType = TokenType.AccessToken
         };
-    }
-
-    private string GetHighestCompanyPermission(List<Claim> userClaims)
-    {
-        var claimsPermissions = new List<MimirorgPermission>();
-        foreach (var claim in userClaims)
-        {
-            if (int.TryParse(claim.Type, out _) && Enum.TryParse(claim.Value, out MimirorgPermission p))
-                claimsPermissions.Add(p);
-        }
-
-        return claimsPermissions.ConvertToFlag().ToString();
     }
 
     /// <summary>
@@ -97,7 +84,7 @@ public class MimirorgTokenRepository : GenericRepository<MimirorgAuthenticationC
     /// <param name="current"></param>
     /// <returns></returns>
     /// <exception cref="MimirorgConfigurationException"></exception>
-    public async Task<MimirorgTokenCm> CreateRefreshToken(MimirorgUser user, DateTime current)
+    public async Task<TokenView> CreateRefreshToken(MimirorgUser user, DateTime current)
     {
         if (_authSettings == null)
             throw new MimirorgConfigurationException("Missing configuration for auth settings");
@@ -110,10 +97,10 @@ public class MimirorgTokenRepository : GenericRepository<MimirorgAuthenticationC
             Email = user.Email,
             Secret = refreshToken,
             ValidTo = expires,
-            TokenType = MimirorgTokenType.RefreshToken
+            TokenType = TokenType.RefreshToken
         };
 
-        var oldTokens = FindBy(x => x.ClientId == user.Id, false).Where(x => x.TokenType == MimirorgTokenType.RefreshToken).ToList();
+        var oldTokens = FindBy(x => x.ClientId == user.Id, false).Where(x => x.TokenType == TokenType.RefreshToken).ToList();
         foreach (var oldToken in oldTokens)
         {
             Attach(oldToken, EntityState.Deleted);

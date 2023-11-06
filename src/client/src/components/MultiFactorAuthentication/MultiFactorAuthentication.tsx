@@ -1,10 +1,10 @@
 import { Actionable, Box, Button, Flexbox, Icon, Popover, Text } from "@mimirorg/component-library";
-import { MimirorgQrCodeCm } from "@mimirorg/typelibrary-types";
 import AuthContent from "components/AuthContent";
 import { useTheme } from "styled-components";
+import { QrCodeView } from "types/authentication/qrCodeView";
 
 interface MultiFactorAuthenticationProps {
-  mfaInfo: MimirorgQrCodeCm;
+  mfaInfo: QrCodeView;
   title?: string;
   infoText?: string;
   codeTitle?: string;

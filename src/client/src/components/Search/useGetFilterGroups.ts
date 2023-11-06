@@ -1,5 +1,6 @@
-import { Aspect, State } from "@mimirorg/typelibrary-types";
 import { useGetPurposes } from "api/purpose.queries";
+import { Aspect } from "types/common/aspect";
+import { State } from "types/common/state";
 import { FilterGroup } from "types/filterGroup";
 import { getOptionsFromEnum } from "utils";
 

@@ -5,7 +5,7 @@ namespace Mimirorg.Authentication.Attributes;
 [AttributeUsage(AttributeTargets.Property)]
 public class DigitAttribute : ValidationAttribute
 {
-    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+    protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
     {
         if (value is not string s)
             return new ValidationResult("This validation attribute could only be used on a string object");

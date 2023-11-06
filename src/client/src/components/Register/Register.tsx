@@ -1,9 +1,9 @@
-import { MimirorgQrCodeCm } from "@mimirorg/typelibrary-types";
 import Completion from "components/Completion";
 import MultiFactorAuthentication from "components/MultiFactorAuthentication";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { QrCodeView } from "types/authentication/qrCodeView";
 import RegisterDetails from "./RegisterDetails";
 import RegisterVerification from "./RegisterVerification";
 
@@ -13,7 +13,7 @@ const Register = () => {
   const { t } = useTranslation("auth");
   const [stage, setStage] = useState<RegisterSteps>("DETAILS");
   const [email, setEmail] = useState("");
-  const [mfaInfo, setMfaInfo] = useState<MimirorgQrCodeCm>({ code: "", manualCode: "" });
+  const [mfaInfo, setMfaInfo] = useState<QrCodeView>({ code: "", manualCode: "" });
   const navigate = useNavigate();
 
   return (
