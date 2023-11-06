@@ -81,7 +81,7 @@ const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProps) => {
             onAction={() => setValue("predicate", undefined)}
             dangerousAction
           >
-            {predicateInfoItems.find((x) => x.id === chosenPredicate.toString())?.name}
+            {predicateInfoItems.find((x) => x.id === chosenPredicate.id.toString())?.name}
           </Token>
         )}
       </FormSection>
