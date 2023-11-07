@@ -12,7 +12,7 @@ import { TerminalView } from "types/terminals/terminalView";
 
 export const useTerminalQuery = () => {
   const { id } = useParams();
-  return useGetTerminal(id ?? "");
+  return useGetTerminal(id);
 };
 
 export const useTerminalMutation = (id?: string, mode?: FormMode) => {
@@ -23,32 +23,34 @@ export const useTerminalMutation = (id?: string, mode?: FormMode) => {
 
 export interface TerminalFormFields
   extends Omit<TerminalTypeRequest, "classifierIds" | "purposeId" | "mediumId" | "attributes"> {
-  classifiers: RdlClassifier[];
+  classifiers?: RdlClassifier[];
   purpose?: RdlPurpose;
   medium?: RdlMedium;
-  attributes: AttributeTypeReferenceView[];
+  attributes?: AttributeTypeReferenceView[];
 }
 
 export const toTerminalFormFields = (terminal: TerminalView): TerminalFormFields => ({
   ...terminal,
+  classifiers: terminal.classifiers.length === 0 ? undefined : terminal.classifiers,
+  attributes: terminal.attributes.length === 0 ? undefined : terminal.attributes,
 });
 
 export const toTerminalTypeRequest = (terminalFormFields: TerminalFormFields): TerminalTypeRequest => ({
   ...terminalFormFields,
   description: terminalFormFields.description ? terminalFormFields.description : undefined,
-  classifierIds: terminalFormFields.classifiers.map((x) => x.id),
+  classifierIds: terminalFormFields.classifiers ? terminalFormFields.classifiers.map((x) => x.id) : [],
   purposeId: terminalFormFields.purpose?.id,
   notation: terminalFormFields.notation ? terminalFormFields.notation : undefined,
   symbol: terminalFormFields.symbol ? terminalFormFields.symbol : undefined,
   mediumId: terminalFormFields.medium?.id,
-  attributes: terminalFormFields.attributes.map((x) => ({ ...x, attributeId: x.attribute.id })),
+  attributes: terminalFormFields.attributes
+    ? terminalFormFields.attributes.map((x) => ({ ...x, attributeId: x.attribute.id }))
+    : [],
 });
 
 export const createDefaultTerminalFormFields = (): TerminalFormFields => ({
   name: "",
-  classifiers: [],
   qualifier: Direction.Bidirectional,
-  attributes: [],
 });
 
 export const mediumInfoItem = (medium: RdlMedium): InfoItem => ({

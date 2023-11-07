@@ -43,18 +43,6 @@ describe("attributeSchema tests", () => {
     await expect(attributeSchema(t).validateAt("description", attributeWithLongDescription)).rejects.toBeTruthy();
   });
 
-  it("should resolve with unit array", async () => {
-    const attributeWithUnitArray: Partial<AttributeFormFields> = {
-      units: [],
-    };
-    await expect(attributeSchema(t).validateAt("units", attributeWithUnitArray)).resolves.toBeTruthy();
-  });
-
-  it("should reject without unit array", async () => {
-    const attributeWithoutUnitArray: Partial<AttributeFormFields> = {};
-    await expect(attributeSchema(t).validateAt("units", attributeWithoutUnitArray)).rejects.toBeTruthy();
-  });
-
   it("should resolve with unit requirement", async () => {
     const attributeWithUnitRequirement: Partial<AttributeFormFields> = {
       unitRequirement: UnitRequirement.Optional,

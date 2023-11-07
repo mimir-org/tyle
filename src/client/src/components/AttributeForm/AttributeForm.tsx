@@ -13,7 +13,7 @@ import { AttributeView } from "types/attributes/attributeView";
 import { FormMode } from "types/formMode";
 import {
   AttributeFormFields,
-  defaultAttributeFormFields,
+  createDefaultAttributeFormFields,
   toAttributeFormFields,
   toAttributeTypeRequest,
   useAttributeMutation,
@@ -29,7 +29,7 @@ interface AttributeFormProps {
   mode?: FormMode;
 }
 
-const AttributeForm = ({ defaultValues = defaultAttributeFormFields, mode }: AttributeFormProps) => {
+const AttributeForm = ({ defaultValues = createDefaultAttributeFormFields(), mode }: AttributeFormProps) => {
   const { t } = useTranslation("entities");
   const theme = useTheme();
 
