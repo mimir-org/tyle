@@ -167,7 +167,7 @@ public static class AttributeTypeConverter
                         attributeNode,
                         Imf.Value,
                         Sh.Pattern,
-                        g.CreateUriNode(attribute.ValueConstraint.Pattern),
+                        g.CreateLiteralNode(attribute.ValueConstraint.Pattern),
                         out var patternPropertyNode);
 
                     g.Assert(new Triple(
