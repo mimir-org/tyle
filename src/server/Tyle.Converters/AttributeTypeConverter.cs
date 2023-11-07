@@ -1,3 +1,4 @@
+using System.Globalization;
 using Newtonsoft.Json.Linq;
 using Tyle.Converters.Iris;
 using Tyle.Core.Attributes;
@@ -190,7 +191,7 @@ public static class AttributeTypeConverter
                         g.Assert(new Triple(
                             rangePropertyNode,
                             g.CreateUriNode(Sh.MinInclusive),
-                            g.CreateLiteralNode(attribute.ValueConstraint.MinValue.ToString(), EnumToIriMappers.GetDataType(attribute.ValueConstraint.DataType))));
+                            g.CreateLiteralNode(((decimal) attribute.ValueConstraint.MinValue).ToString(CultureInfo.InvariantCulture), EnumToIriMappers.GetDataType(attribute.ValueConstraint.DataType))));
                     }
 
                     if (attribute.ValueConstraint.MaxValue != null)
@@ -198,7 +199,7 @@ public static class AttributeTypeConverter
                         g.Assert(new Triple(
                             rangePropertyNode,
                             g.CreateUriNode(Sh.MaxInclusive),
-                            g.CreateLiteralNode(attribute.ValueConstraint.MaxValue.ToString(), EnumToIriMappers.GetDataType(attribute.ValueConstraint.DataType))));
+                            g.CreateLiteralNode(((decimal) attribute.ValueConstraint.MaxValue).ToString(CultureInfo.InvariantCulture), EnumToIriMappers.GetDataType(attribute.ValueConstraint.DataType))));
                     }
 
                     break;

@@ -26,7 +26,7 @@ public static class RdfTripleBuilder
         }
 
         g.Assert(new Triple(typeNode, g.CreateUriNode(Pav.Version), g.CreateLiteralNode(type.Version)));
-        g.Assert(new Triple(typeNode, g.CreateUriNode(DcTerms.Created), g.CreateLiteralNode(type.CreatedOn.ToString(), Xsd.DateTime)));
+        g.Assert(new Triple(typeNode, g.CreateUriNode(DcTerms.Created), g.CreateLiteralNode(type.CreatedOn.ToString("o"), Xsd.DateTime)));
 
         // TODO: Created by, contributed by, last update on
     }
