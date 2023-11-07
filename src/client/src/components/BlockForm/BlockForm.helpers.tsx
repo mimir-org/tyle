@@ -14,7 +14,7 @@ import { mapTerminalViewsToInfoItems } from "./mapTerminalViewsToInfoItems";
 
 export const useBlockQuery = () => {
   const { id } = useParams();
-  return useGetBlock(id ?? "");
+  return useGetBlock(id);
 };
 
 export const useBlockMutation = (id?: string, mode?: FormMode) => {
@@ -26,13 +26,16 @@ export const useBlockMutation = (id?: string, mode?: FormMode) => {
 export interface BlockFormFields
   extends Omit<BlockTypeRequest, "purposeId" | "terminals" | "attributes" | "classifierIds"> {
   purpose?: RdlPurpose;
-  terminals: TerminalTypeReferenceView[];
-  attributes: AttributeTypeReferenceView[];
-  classifiers: RdlClassifier[];
+  classifiers?: RdlClassifier[];
+  terminals?: TerminalTypeReferenceView[];
+  attributes?: AttributeTypeReferenceView[];
 }
 
 export const toBlockFormFields = (block: BlockView): BlockFormFields => ({
   ...block,
+  classifiers: block.classifiers.length === 0 ? undefined : block.classifiers,
+  terminals: block.terminals.length === 0 ? undefined : block.terminals,
+  attributes: block.attributes.length === 0 ? undefined : block.attributes,
 });
 
 /**
@@ -43,16 +46,17 @@ export const toBlockFormFields = (block: BlockView): BlockFormFields => ({
 export const toBlockTypeRequest = (blockFormFields: BlockFormFields): BlockTypeRequest => ({
   ...blockFormFields,
   purposeId: blockFormFields.purpose?.id,
-  classifierIds: blockFormFields.classifiers.map((x) => x.id),
-  terminals: blockFormFields.terminals.map((x) => ({ ...x, terminalId: x.terminal.id })),
-  attributes: blockFormFields.attributes.map((x) => ({ ...x, attributeId: x.attribute.id })),
+  classifierIds: blockFormFields.classifiers ? blockFormFields.classifiers.map((x) => x.id) : [],
+  terminals: blockFormFields.terminals
+    ? blockFormFields.terminals.map((x) => ({ ...x, terminalId: x.terminal.id }))
+    : [],
+  attributes: blockFormFields.attributes
+    ? blockFormFields.attributes.map((x) => ({ ...x, attributeId: x.attribute.id }))
+    : [],
 });
 
 export const createDefaultBlockFormFields = (): BlockFormFields => ({
   name: "",
-  classifiers: [],
-  terminals: [],
-  attributes: [],
 });
 
 export const terminalInfoItem = (terminal: TerminalView): InfoItem => ({
@@ -93,8 +97,8 @@ export const resolveSelectedAndAvailableTerminals = (
 export const onAddTerminals = (
   selectedIds: string[],
   allTerminals: TerminalView[],
-  allSelectedTerminals: TerminalTypeReferenceView[],
   append: (item: TerminalTypeReferenceView) => void,
+  allSelectedTerminals?: TerminalTypeReferenceView[],
 ) => {
   let availableDirections = [Direction.Bidirectional, Direction.Input, Direction.Output];
 
@@ -107,7 +111,7 @@ export const onAddTerminals = (
 
     if (targetTerminal.qualifier !== Direction.Bidirectional) defaultDirection = targetTerminal.qualifier;
     else {
-      allSelectedTerminals.forEach((x) => {
+      (allSelectedTerminals ?? []).forEach((x) => {
         if (x.terminal.id === id) {
           availableDirections = availableDirections.filter((y) => y !== x.direction);
         }

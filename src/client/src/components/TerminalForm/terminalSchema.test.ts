@@ -41,18 +41,6 @@ describe("terminalSchema tests", () => {
     await expect(terminalSchema(t).validateAt("description", terminalWithLongDescription)).rejects.toBeTruthy();
   });
 
-  it("should resolve with classifiers array", async () => {
-    const terminalWithClassifiersArray: Partial<TerminalFormFields> = {
-      classifiers: [],
-    };
-    await expect(terminalSchema(t).validateAt("classifiers", terminalWithClassifiersArray)).resolves.toBeTruthy();
-  });
-
-  it("should reject without classifiers array", async () => {
-    const terminalWithoutClassifiersArray: Partial<TerminalFormFields> = {};
-    await expect(terminalSchema(t).validateAt("classifiers", terminalWithoutClassifiersArray)).rejects.toBeTruthy();
-  });
-
   it("should resolve with a notation with the limit length", async () => {
     const terminalWithLongNotation: Partial<TerminalFormFields> = {
       notation: "c".repeat(NOTATION_LENGTH),
@@ -91,17 +79,5 @@ describe("terminalSchema tests", () => {
   it("should reject without qualifier", async () => {
     const terminalWithQualifier: Partial<TerminalFormFields> = {};
     await expect(terminalSchema(t).validateAt("qualifier", terminalWithQualifier)).rejects.toBeTruthy();
-  });
-
-  it("should resolve with attributes array", async () => {
-    const terminalWithAttributesArray: Partial<TerminalFormFields> = {
-      attributes: [],
-    };
-    await expect(terminalSchema(t).validateAt("attributes", terminalWithAttributesArray)).resolves.toBeTruthy();
-  });
-
-  it("should reject without attributes array", async () => {
-    const terminalWithoutAttributesArray: Partial<TerminalFormFields> = {};
-    await expect(terminalSchema(t).validateAt("attributes", terminalWithoutAttributesArray)).rejects.toBeTruthy();
   });
 });

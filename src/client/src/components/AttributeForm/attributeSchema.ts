@@ -48,8 +48,6 @@ export const attributeSchema = (t: TFunction<"translation">) =>
       .string()
       .max(DESCRIPTION_LENGTH, t("common.validation.description.max", { length: DESCRIPTION_LENGTH })),
 
-    units: yup.array().required(),
-
     unitRequirement: yup.number().required(),
 
     valueConstraint: yup.boolean().required(),
@@ -105,7 +103,6 @@ export const attributeSchema = (t: TFunction<"translation">) =>
 
     valueList: yup
       .array()
-      .required()
       .when("constraintType", {
         is: ConstraintType.IsInListOfAllowedValues,
         then: (schema) => schema.min(2, t("attribute.validation.valueList.min")),

@@ -9,7 +9,7 @@ const terminalKeys = {
   lists: () => [...terminalKeys.all, "list"] as const,
   list: (filters: string) => [...terminalKeys.lists(), { filters }] as const,
   details: () => [...terminalKeys.all, "detail"] as const,
-  detail: (id: string) => [...terminalKeys.details(), id] as const,
+  detail: (id?: string) => [...terminalKeys.details(), id] as const,
 };
 
 export const useGetTerminals = () => useQuery(terminalKeys.list(""), terminalApi.getTerminals);
@@ -17,8 +17,8 @@ export const useGetTerminals = () => useQuery(terminalKeys.list(""), terminalApi
 export const useGetTerminalsByState = (state: State) =>
   useQuery(terminalKeys.list(`state=${state}`), () => terminalApi.getTerminalsByState(state));
 
-export const useGetTerminal = (id: string) =>
-  useQuery(terminalKeys.detail(id), () => terminalApi.getTerminal(id), { retry: false });
+export const useGetTerminal = (id?: string) =>
+  useQuery(terminalKeys.detail(id), () => terminalApi.getTerminal(id), { enabled: !!id, retry: false });
 
 export const useCreateTerminal = () => {
   const queryClient = useQueryClient();

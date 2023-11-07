@@ -13,13 +13,9 @@ export const terminalSchema = (t: TFunction<"translation">) =>
       .string()
       .max(DESCRIPTION_LENGTH, t("common.validation.description.max", { length: DESCRIPTION_LENGTH })),
 
-    classifiers: yup.array().required(),
-
     notation: yup.string().max(NOTATION_LENGTH, t("common.validation.notation.max", { length: NOTATION_LENGTH })),
 
     symbol: yup.string().max(IRI_LENGTH, t("common.validation.symbol.max", { length: IRI_LENGTH })),
 
     qualifier: yup.number().required(),
-
-    attributes: yup.array().required(),
   });

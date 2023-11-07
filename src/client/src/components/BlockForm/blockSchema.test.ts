@@ -40,18 +40,6 @@ describe("blockSchema tests", () => {
     await expect(blockSchema(t).validateAt("description", blockWithLongDescription)).rejects.toBeTruthy();
   });
 
-  it("should resolve with classifiers array", async () => {
-    const blockWithClassifiersArray: Partial<BlockFormFields> = {
-      classifiers: [],
-    };
-    await expect(blockSchema(t).validateAt("classifiers", blockWithClassifiersArray)).resolves.toBeTruthy();
-  });
-
-  it("should reject without classifiers array", async () => {
-    const blockWithoutClassifiersArray: Partial<BlockFormFields> = {};
-    await expect(blockSchema(t).validateAt("classifiers", blockWithoutClassifiersArray)).rejects.toBeTruthy();
-  });
-
   it("should resolve with a notation with the limit length", async () => {
     const blockWithLongNotation: Partial<BlockFormFields> = {
       notation: "c".repeat(NOTATION_LENGTH),
@@ -78,29 +66,5 @@ describe("blockSchema tests", () => {
       symbol: "c".repeat(IRI_LENGTH + 1),
     };
     await expect(blockSchema(t).validateAt("symbol", blockWithLongSymbol)).rejects.toBeTruthy();
-  });
-
-  it("should resolve with terminals array", async () => {
-    const blockWithTerminalsArray: Partial<BlockFormFields> = {
-      terminals: [],
-    };
-    await expect(blockSchema(t).validateAt("terminals", blockWithTerminalsArray)).resolves.toBeTruthy();
-  });
-
-  it("should reject without attributes array", async () => {
-    const blockWithoutTerminalsArray: Partial<BlockFormFields> = {};
-    await expect(blockSchema(t).validateAt("terminals", blockWithoutTerminalsArray)).rejects.toBeTruthy();
-  });
-
-  it("should resolve with attributes array", async () => {
-    const blockWithAttributesArray: Partial<BlockFormFields> = {
-      attributes: [],
-    };
-    await expect(blockSchema(t).validateAt("attributes", blockWithAttributesArray)).resolves.toBeTruthy();
-  });
-
-  it("should reject without attributes array", async () => {
-    const blockWithoutAttributesArray: Partial<BlockFormFields> = {};
-    await expect(blockSchema(t).validateAt("attributes", blockWithoutAttributesArray)).rejects.toBeTruthy();
   });
 });

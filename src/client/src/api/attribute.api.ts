@@ -13,7 +13,7 @@ export const attributeApi = {
   getAttributesByState(state: State) {
     return apiClient.get<AttributeView[]>(`${_basePath}?state=${state}`).then((r) => r.data);
   },
-  getAttribute(id: string) {
+  getAttribute(id?: string) {
     return apiClient.get<AttributeView>(`${_basePath}/${id}`).then((r) => r.data);
   },
   postAttribute(item: AttributeTypeRequest) {

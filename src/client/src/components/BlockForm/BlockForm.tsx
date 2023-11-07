@@ -63,14 +63,12 @@ const BlockForm = ({ defaultValues = createDefaultBlockFormFields(), mode }: Blo
         {!isLoading && (
           <>
             <BlockFormBaseFields limited={limited} mode={mode} />
-            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
-              <FormTerminals />
-            </Box>
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
               <FormClassifiers />
             </Box>
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
+              <FormTerminals />
               <FormAttributes />
             </Box>
           </>
