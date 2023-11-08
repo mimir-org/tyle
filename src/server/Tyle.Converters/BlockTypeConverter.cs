@@ -57,7 +57,7 @@ public static class BlockTypeConverter
                 blockNode,
                 Imf.Symbol,
                 Sh.HasValue,
-                g.CreateLiteralNode(block.Symbol));
+                g.CreateUriNode(block.Symbol.Iri));
         }
 
         // Add aspect

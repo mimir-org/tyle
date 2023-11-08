@@ -20,8 +20,7 @@ public class BlockTypeRequest : IValidatableObject
     [MaxLength(StringLengthConstants.NotationLength)]
     public string? Notation { get; set; }
 
-    [MaxLength(StringLengthConstants.IriLength)]
-    public string? Symbol { get; set; }
+    public int? SymbolId { get; set; }
 
     [EnumDataType(typeof(Aspect))]
     public Aspect? Aspect { get; set; }
