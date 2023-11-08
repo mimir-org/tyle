@@ -74,12 +74,13 @@ const sortBlockTerminals = (terminals: BlockTerminalItem[]) =>
     (a, b) => a.direction.toString().localeCompare(b.direction.toString()) || a.name.localeCompare(b.name),
   );
 
-export const mapMimirorgUserCmToUserItem = (user: UserView): UserItem => {
+export const mapUserViewToUserItem = (user: UserView): UserItem => {
   return {
     id: user.id,
     name: `${user.firstName} ${user.lastName}`,
     email: user.email,
     purpose: user.purpose,
+    roles: user.roles,
   };
 };
 

@@ -5,7 +5,7 @@ import ExploreSection from "components/ExploreSection";
 import FilterMenu from "components/FilterMenu";
 import LinkMenu from "components/LinkMenu";
 import SearchField from "components/SearchField";
-import { mapMimirorgUserCmToUserItem } from "helpers/mappers.helpers";
+import { mapUserViewToUserItem } from "helpers/mappers.helpers";
 import { useDebounceState } from "hooks/useDebounceState";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -44,7 +44,7 @@ const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const pageParam = searchParams.get("page");
   const userQuery = useGetCurrentUser();
-  const user = userQuery?.data != null ? mapMimirorgUserCmToUserItem(userQuery.data) : undefined;
+  const user = userQuery?.data != null ? mapUserViewToUserItem(userQuery.data) : undefined;
   const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit, Number(pageParam));
 
   useEffect(() => {
@@ -80,7 +80,9 @@ const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
           name={t("search.create.title")}
           links={createMenuLinks}
           justifyContent={"space-between"}
-          //disabled={!hasWriteAccess}
+          disabled={
+            user?.roles.filter((x) => x === "Administrator" || x === "Reviewer" || x === "Contributor").length === 0
+          }
         />
       </Flexbox>
 
