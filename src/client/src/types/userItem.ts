@@ -3,4 +3,5 @@ export interface UserItem {
   name: string;
   email: string;
   purpose: string;
+  roles: string[];
 }

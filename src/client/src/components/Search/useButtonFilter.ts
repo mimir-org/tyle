@@ -33,7 +33,7 @@ export const useButtonStateFilter = (item: ItemType | null, user: UserItem | nul
       clone: allowClone(item ?? null, user),
       edit: allowEdit(item ?? null, user),
       delete: allowDelete(item ?? null, user),
-      review: allowStateChange(item ?? null, user),
+      review: allowRequestReview(item ?? null, user),
       approved: item?.state === State.Approved,
     };
 
@@ -46,13 +46,23 @@ export const useButtonStateFilter = (item: ItemType | null, user: UserItem | nul
 const allowClone = (item: StateItem | null, user: UserItem | null): boolean => {
   if (item == null || user == null) return false;
 
-  return true; //hasWriteAccess(user);
+  if (user.roles.filter((x) => x === "Administrator" || x === "Reviewer" || x === "Contributor").length === 0) {
+    return false;
+  }
+
+  return true;
 };
 
 const allowEdit = (item: StateItem | null, user: UserItem | null): boolean => {
   if (item == null || user == null) return false;
 
-  return true; //hasWriteAccess(user) && item.state !== State.Review;
+  if (item.state !== State.Draft) return false;
+
+  if (user.roles.filter((x) => x === "Administrator" || x === "Reviewer" || x === "Contributor").length === 0) {
+    return false;
+  }
+
+  return true;
 };
 
 const allowDelete = (item: ItemType | null, user: UserItem | null): boolean => {
@@ -60,13 +70,21 @@ const allowDelete = (item: ItemType | null, user: UserItem | null): boolean => {
 
   if (item.state === State.Approved) return false;
 
-  if (item.createdBy === user.id) return true; // && hasWriteAccess(user)) return true;
+  if (user.roles.filter((x) => x === "Administrator" || x === "Reviewer").length === 0) {
+    return false;
+  }
 
   return true;
 };
 
-const allowStateChange = (item: StateItem | null, user: UserItem | null): boolean => {
+const allowRequestReview = (item: StateItem | null, user: UserItem | null): boolean => {
   if (item == null || user == null) return false;
+
+  if (item.state !== State.Draft) return false;
+
+  if (user.roles.filter((x) => x === "Administrator" || x === "Reviewer").length === 0) {
+    return false;
+  }
 
   return true;
 };
