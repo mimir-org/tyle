@@ -16,7 +16,7 @@ public class SymbolConfiguration : IEntityTypeConfiguration<Symbol>
         builder.Property(x => x.Label).IsRequired().HasMaxLength(StringLengthConstants.NameLength);
         builder.Property(x => x.Iri).IsRequired().HasConversion<string>().HasMaxLength(StringLengthConstants.IriLength);
         builder.Property(x => x.Description).HasMaxLength(StringLengthConstants.DescriptionLength);
-        builder.Property(x => x.SvgString).IsRequired();
+        builder.Property(x => x.Path).IsRequired();
 
         builder
             .HasMany(e => e.ConnectionPoints)
