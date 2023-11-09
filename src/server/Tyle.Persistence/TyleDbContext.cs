@@ -32,6 +32,8 @@ public class TyleDbContext : DbContext
     public DbSet<TerminalType> Terminals { get; set; }
 
     public DbSet<BlockType> Blocks { get; set; }
+    public DbSet<EngineeringSymbol> EngineeringSymbols { get; set; }
+    public DbSet<ConnectionPoint> ConnectionPoints { get; set; }
     public DbSet<BlockAttributeTypeReference> BlockAttributes { get; set; }
     public DbSet<BlockClassifierJoin> BlockClassifiers { get; set; }
     public DbSet<BlockTerminalTypeReference> BlockTerminals { get; set; }
@@ -71,6 +73,8 @@ public class TyleDbContext : DbContext
         modelBuilder.ApplyConfiguration(new TerminalConfiguration(userListValueConverter, userListValueComparer));
 
         modelBuilder.ApplyConfiguration(new BlockConfiguration(userListValueConverter, userListValueComparer));
+        modelBuilder.ApplyConfiguration(new SymbolConfiguration());
+        modelBuilder.ApplyConfiguration(new ConnectionPointConfiguration());
         modelBuilder.ApplyConfiguration(new BlockAttributeConfiguration());
         modelBuilder.ApplyConfiguration(new BlockClassifierConfiguration());
         modelBuilder.ApplyConfiguration(new BlockTerminalConfiguration());

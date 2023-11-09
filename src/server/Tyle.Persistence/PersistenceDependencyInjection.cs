@@ -60,6 +60,7 @@ public static class PersistenceDependencyInjection
         services.AddScoped<IUnitRepository, UnitRepository>();
 
         services.AddScoped<IAttributeGroupRepository, AttributeGroupRepository>();
+        services.AddScoped<ISymbolRepository, SymbolRepository>();
 
         return services;
     }

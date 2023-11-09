@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tyle.Persistence;
 
@@ -11,9 +12,11 @@ using Tyle.Persistence;
 namespace TypeLibrary.Data.Migrations
 {
     [DbContext(typeof(TyleDbContext))]
-    partial class TyleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231108111051_AddIndexes")]
+    partial class AddIndexes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -478,9 +481,6 @@ namespace TypeLibrary.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("Height")
-                        .HasColumnType("int");
-
                     b.Property<string>("Iri")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -491,12 +491,9 @@ namespace TypeLibrary.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Path")
+                    b.Property<string>("SvgString")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Width")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -17,4 +17,6 @@ public static class StringLengthConstants
     public const int VersionLength = 10;
     public const int CreatedByLength = 100;
     public const int ContributedByLength = 2000;
+
+    public const int IdentifierLength = 50;
 }

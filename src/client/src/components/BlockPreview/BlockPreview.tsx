@@ -3,13 +3,14 @@ import Block from "components/Block";
 import { BlockVariant } from "components/Block/Block.styled";
 import { TerminalButtonVariant } from "components/TerminalButton";
 import { BlockTerminalItem } from "types/blockTerminalItem";
+import { EngineeringSymbol } from "types/blocks/engineeringSymbol";
 import { meetsInputCriteria, meetsOutputCriteria } from "./BlockPreview.helpers";
 import Terminals from "./Terminals";
 
 export interface BlockPreviewProps {
   name: string;
   color: string;
-  img: string;
+  symbol?: EngineeringSymbol;
   terminals: BlockTerminalItem[];
   variant?: "small" | "large";
 }
@@ -25,7 +26,7 @@ export interface BlockPreviewProps {
  * @param variant
  * @constructor
  */
-const BlockPreview = ({ name, color, img, terminals, variant = "small" }: BlockPreviewProps) => {
+const BlockPreview = ({ name, color, symbol, terminals, variant = "small" }: BlockPreviewProps) => {
   const inputSideTerminals = terminals.filter((t) => meetsInputCriteria(t.direction));
   const outputSideTerminals = terminals.filter((t) => meetsOutputCriteria(t.direction));
   const variantSpecs = BlockPreviewVariantSpec[variant];
@@ -37,7 +38,7 @@ const BlockPreview = ({ name, color, img, terminals, variant = "small" }: BlockP
         placement={"left"}
         variant={variantSpecs.terminals.variant as TerminalButtonVariant}
       />
-      <Block name={name} color={color} img={img} variant={variantSpecs.block.variant as BlockVariant} />
+      <Block name={name} color={color} symbol={symbol} variant={variantSpecs.block.variant as BlockVariant} />
       <Terminals
         terminals={outputSideTerminals}
         placement={"right"}

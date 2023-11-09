@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tyle.Persistence;
 
@@ -11,9 +12,11 @@ using Tyle.Persistence;
 namespace TypeLibrary.Data.Migrations
 {
     [DbContext(typeof(TyleDbContext))]
-    partial class TyleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231108110347_AddSymbols")]
+    partial class AddSymbols
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,8 +146,6 @@ namespace TypeLibrary.Data.Migrations
 
                     b.HasIndex("PredicateId");
 
-                    b.HasIndex("State");
-
                     b.ToTable("Attribute", (string)null);
                 });
 
@@ -192,9 +193,6 @@ namespace TypeLibrary.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Iri")
-                        .IsUnique();
-
                     b.ToTable("Predicate", (string)null);
                 });
 
@@ -230,9 +228,6 @@ namespace TypeLibrary.Data.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Iri")
-                        .IsUnique();
 
                     b.ToTable("Unit", (string)null);
                 });
@@ -427,8 +422,6 @@ namespace TypeLibrary.Data.Migrations
 
                     b.HasIndex("PurposeId");
 
-                    b.HasIndex("State");
-
                     b.HasIndex("SymbolId");
 
                     b.ToTable("Block", (string)null);
@@ -478,9 +471,6 @@ namespace TypeLibrary.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("Height")
-                        .HasColumnType("int");
-
                     b.Property<string>("Iri")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -491,17 +481,11 @@ namespace TypeLibrary.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Path")
+                    b.Property<string>("SvgString")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Width")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("Iri")
-                        .IsUnique();
 
                     b.ToTable("Symbol", (string)null);
                 });
@@ -535,9 +519,6 @@ namespace TypeLibrary.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Iri")
-                        .IsUnique();
-
                     b.ToTable("Classifier", (string)null);
                 });
 
@@ -570,9 +551,6 @@ namespace TypeLibrary.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Iri")
-                        .IsUnique();
-
                     b.ToTable("Purpose", (string)null);
                 });
 
@@ -604,9 +582,6 @@ namespace TypeLibrary.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Iri")
-                        .IsUnique();
 
                     b.ToTable("Medium", (string)null);
                 });
@@ -721,8 +696,6 @@ namespace TypeLibrary.Data.Migrations
                     b.HasIndex("MediumId");
 
                     b.HasIndex("PurposeId");
-
-                    b.HasIndex("State");
 
                     b.ToTable("Terminal", (string)null);
                 });
