@@ -32,7 +32,7 @@ public class TyleDbContext : DbContext
     public DbSet<TerminalType> Terminals { get; set; }
 
     public DbSet<BlockType> Blocks { get; set; }
-    public DbSet<Symbol> Symbols { get; set; }
+    public DbSet<EngineeringSymbol> EngineeringSymbols { get; set; }
     public DbSet<ConnectionPoint> ConnectionPoints { get; set; }
     public DbSet<BlockAttributeTypeReference> BlockAttributes { get; set; }
     public DbSet<BlockClassifierJoin> BlockClassifiers { get; set; }

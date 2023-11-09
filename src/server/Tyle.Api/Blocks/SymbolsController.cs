@@ -27,7 +27,7 @@ public class SymbolsController : ControllerBase
     /// <returns>A collection of symbols</returns>
     [HttpGet]
     [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
-    [ProducesResponseType(typeof(ICollection<Symbol>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<EngineeringSymbol>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAll()
     {
@@ -44,7 +44,7 @@ public class SymbolsController : ControllerBase
 
     [HttpGet("{id}")]
     [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
-    [ProducesResponseType(typeof(ICollection<Symbol>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<EngineeringSymbol>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Get([FromRoute] int id)

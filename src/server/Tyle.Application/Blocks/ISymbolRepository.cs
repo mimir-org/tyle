@@ -8,12 +8,12 @@ public interface ISymbolRepository
     /// Gets all symbols.
     /// </summary>
     /// <returns>An IEnumerable of all symbols.</returns>
-    Task<IEnumerable<Symbol>> GetAll();
+    Task<IEnumerable<EngineeringSymbol>> GetAll();
 
     /// <summary>
     /// Gets the symbol with the given id.
     /// </summary>
     /// <param name="id">The id of the symbol.</param>
     /// <returns>The symbol, or null if no symbol was found.</returns>
-    Task<Symbol?> Get(int id);
+    Task<EngineeringSymbol?> Get(int id);
 }

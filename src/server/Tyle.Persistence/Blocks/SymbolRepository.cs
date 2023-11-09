@@ -7,15 +7,15 @@ namespace Tyle.Persistence.Blocks;
 public class SymbolRepository : ISymbolRepository
 {
     private readonly TyleDbContext _context;
-    private readonly DbSet<Symbol> _dbSet;
+    private readonly DbSet<EngineeringSymbol> _dbSet;
 
     public SymbolRepository(TyleDbContext context)
     {
         _context = context;
-        _dbSet = context.Symbols;
+        _dbSet = context.EngineeringSymbols;
     }
 
-    public async Task<IEnumerable<Symbol>> GetAll()
+    public async Task<IEnumerable<EngineeringSymbol>> GetAll()
     {
         return await _dbSet.AsNoTracking()
             .Include(x => x.ConnectionPoints)
@@ -23,7 +23,7 @@ public class SymbolRepository : ISymbolRepository
             .ToListAsync();
     }
 
-    public async Task<Symbol?> Get(int id)
+    public async Task<EngineeringSymbol?> Get(int id)
     {
         return await _dbSet.AsNoTracking()
             .Include(x => x.ConnectionPoints)

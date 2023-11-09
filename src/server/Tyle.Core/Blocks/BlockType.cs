@@ -9,7 +9,7 @@ public class BlockType : ImfType
     public RdlPurpose? Purpose { get; set; }
     public string? Notation { get; set; }
     public int? SymbolId { get; set; }
-    public Symbol? Symbol { get; set; }
+    public EngineeringSymbol? Symbol { get; set; }
     public Aspect? Aspect { get; set; }
     public ICollection<BlockTerminalTypeReference> Terminals { get; set; } = new List<BlockTerminalTypeReference>();
     public ICollection<BlockAttributeTypeReference> Attributes { get; set; } = new List<BlockAttributeTypeReference>();

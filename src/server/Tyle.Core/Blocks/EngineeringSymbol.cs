@@ -1,6 +1,6 @@
 namespace Tyle.Core.Blocks;
 
-public class Symbol
+public class EngineeringSymbol
 {
     public int Id { get; set; }
     public required string Label { get; set; }

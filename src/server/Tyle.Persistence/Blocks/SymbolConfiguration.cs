@@ -5,9 +5,9 @@ using Tyle.Core.Blocks;
 
 namespace Tyle.Persistence.Blocks;
 
-public class SymbolConfiguration : IEntityTypeConfiguration<Symbol>
+public class SymbolConfiguration : IEntityTypeConfiguration<EngineeringSymbol>
 {
-    public void Configure(EntityTypeBuilder<Symbol> builder)
+    public void Configure(EntityTypeBuilder<EngineeringSymbol> builder)
     {
         builder.ToTable("Symbol");
 
