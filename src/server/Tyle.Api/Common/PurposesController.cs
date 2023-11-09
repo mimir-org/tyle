@@ -1,8 +1,7 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Mimirorg.Authentication.Enums;
-using Mimirorg.Authentication.Models.Attributes;
+using Mimirorg.Authentication.Models.Constants;
 using Swashbuckle.AspNetCore.Annotations;
 using Tyle.Application.Common;
 using Tyle.Application.Common.Requests;
@@ -25,9 +24,9 @@ public class PurposesController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(IEnumerable<RdlPurpose>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [AllowAnonymous]
     public async Task<IActionResult> GetAll()
     {
         try
@@ -41,10 +40,10 @@ public class PurposesController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(RdlPurpose), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [AllowAnonymous]
     public async Task<IActionResult> Get([FromRoute] int id)
     {
         try
@@ -62,11 +61,11 @@ public class PurposesController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}")]
     [ProducesResponseType(typeof(RdlPurpose), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] RdlPurposeRequest request)
     {
         try
@@ -81,11 +80,11 @@ public class PurposesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [Authorize]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
         try

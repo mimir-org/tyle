@@ -22,6 +22,8 @@ public class TerminalConfiguration : IEntityTypeConfiguration<TerminalType>
     {
         builder.ToTable("Terminal");
 
+        builder.HasIndex(x => x.State);
+
         builder.Property(x => x.Name).IsRequired().HasMaxLength(StringLengthConstants.NameLength);
         builder.Property(x => x.Description).HasMaxLength(StringLengthConstants.DescriptionLength);
         builder.Property(x => x.Version).IsRequired().HasMaxLength(StringLengthConstants.VersionLength);

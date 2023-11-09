@@ -2,8 +2,7 @@ using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Mimirorg.Authentication.Enums;
-using Mimirorg.Authentication.Models.Attributes;
+using Mimirorg.Authentication.Models.Constants;
 using Swashbuckle.AspNetCore.Annotations;
 using Tyle.Api.Common;
 using Tyle.Application.Blocks;
@@ -35,9 +34,9 @@ public class BlocksController : ControllerBase
     /// </summary>
     /// <returns>A collection of blocks</returns>
     [HttpGet]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(ICollection<BlockView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [AllowAnonymous]
     public async Task<IActionResult> GetAll(State? state = null)
     {
         try
@@ -57,10 +56,10 @@ public class BlocksController : ControllerBase
     /// <param name="id">The id of the block to get</param>
     /// <returns>The requested block</returns>
     [HttpGet("{id}")]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [AllowAnonymous]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
         try
@@ -86,11 +85,11 @@ public class BlocksController : ControllerBase
     /// <param name="request">The block that should be created</param>
     /// <returns>The created block</returns>
     [HttpPost]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}")]
     [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] BlockTypeRequest request)
     {
         try
@@ -111,12 +110,12 @@ public class BlocksController : ControllerBase
     /// <param name="request">The new values of the block</param>
     /// <returns>The updated block</returns>
     [HttpPut("{id}")]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}")]
     [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] BlockTypeRequest request)
     {
         try
@@ -146,12 +145,12 @@ public class BlocksController : ControllerBase
     /// <param name="id">The id of the block that will change state.</param>
     /// <param name="request">A request containing the wanted state.</param>
     [HttpPatch("{id}/state")]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "request", "CompanyId")]
     public async Task<IActionResult> ChangeState([FromRoute] Guid id, [FromBody] StateChangeRequest request)
     {
         try
@@ -179,11 +178,11 @@ public class BlocksController : ControllerBase
     /// </summary>
     /// <param name="id">The id of the block to delete</param>
     [HttpDelete("{id}")]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [Authorize]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         try

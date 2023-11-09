@@ -17,7 +17,7 @@ namespace TypeLibrary.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.12")
+                .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -143,6 +143,8 @@ namespace TypeLibrary.Data.Migrations
 
                     b.HasIndex("PredicateId");
 
+                    b.HasIndex("State");
+
                     b.ToTable("Attribute", (string)null);
                 });
 
@@ -190,6 +192,9 @@ namespace TypeLibrary.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Iri")
+                        .IsUnique();
+
                     b.ToTable("Predicate", (string)null);
                 });
 
@@ -225,6 +230,9 @@ namespace TypeLibrary.Data.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Iri")
+                        .IsUnique();
 
                     b.ToTable("Unit", (string)null);
                 });
@@ -407,9 +415,8 @@ namespace TypeLibrary.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Symbol")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                    b.Property<int?>("SymbolId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Version")
                         .IsRequired()
@@ -420,7 +427,83 @@ namespace TypeLibrary.Data.Migrations
 
                     b.HasIndex("PurposeId");
 
+                    b.HasIndex("State");
+
+                    b.HasIndex("SymbolId");
+
                     b.ToTable("Block", (string)null);
+                });
+
+            modelBuilder.Entity("Tyle.Core.Blocks.ConnectionPoint", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ConnectorDirection")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Identifier")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("PositionX")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PositionY")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SymbolId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SymbolId");
+
+                    b.ToTable("ConnectionPoint", (string)null);
+                });
+
+            modelBuilder.Entity("Tyle.Core.Blocks.Symbol", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("Height")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Iri")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Width")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Iri")
+                        .IsUnique();
+
+                    b.ToTable("Symbol", (string)null);
                 });
 
             modelBuilder.Entity("Tyle.Core.Common.RdlClassifier", b =>
@@ -451,6 +534,9 @@ namespace TypeLibrary.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Iri")
+                        .IsUnique();
 
                     b.ToTable("Classifier", (string)null);
                 });
@@ -484,6 +570,9 @@ namespace TypeLibrary.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Iri")
+                        .IsUnique();
+
                     b.ToTable("Purpose", (string)null);
                 });
 
@@ -515,6 +604,9 @@ namespace TypeLibrary.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Iri")
+                        .IsUnique();
 
                     b.ToTable("Medium", (string)null);
                 });
@@ -629,6 +721,8 @@ namespace TypeLibrary.Data.Migrations
                     b.HasIndex("MediumId");
 
                     b.HasIndex("PurposeId");
+
+                    b.HasIndex("State");
 
                     b.ToTable("Terminal", (string)null);
                 });
@@ -773,7 +867,25 @@ namespace TypeLibrary.Data.Migrations
                         .HasForeignKey("PurposeId")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("Tyle.Core.Blocks.Symbol", "Symbol")
+                        .WithMany()
+                        .HasForeignKey("SymbolId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.Navigation("Purpose");
+
+                    b.Navigation("Symbol");
+                });
+
+            modelBuilder.Entity("Tyle.Core.Blocks.ConnectionPoint", b =>
+                {
+                    b.HasOne("Tyle.Core.Blocks.Symbol", "Symbol")
+                        .WithMany("ConnectionPoints")
+                        .HasForeignKey("SymbolId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Symbol");
                 });
 
             modelBuilder.Entity("Tyle.Core.Terminals.TerminalAttributeTypeReference", b =>
@@ -862,6 +974,11 @@ namespace TypeLibrary.Data.Migrations
                     b.Navigation("Classifiers");
 
                     b.Navigation("Terminals");
+                });
+
+            modelBuilder.Entity("Tyle.Core.Blocks.Symbol", b =>
+                {
+                    b.Navigation("ConnectionPoints");
                 });
 
             modelBuilder.Entity("Tyle.Core.Terminals.TerminalType", b =>

@@ -22,6 +22,8 @@ public class BlockConfiguration : IEntityTypeConfiguration<BlockType>
     {
         builder.ToTable("Block");
 
+        builder.HasIndex(x => x.State);
+
         builder.Property(x => x.Name).IsRequired().HasMaxLength(StringLengthConstants.NameLength);
         builder.Property(x => x.Description).HasMaxLength(StringLengthConstants.DescriptionLength);
         builder.Property(x => x.Version).IsRequired().HasMaxLength(StringLengthConstants.VersionLength);
@@ -30,13 +32,18 @@ public class BlockConfiguration : IEntityTypeConfiguration<BlockType>
         builder.Property(x => x.State).IsRequired().HasConversion<string>().HasMaxLength(StringLengthConstants.EnumLength);
 
         builder.Property(x => x.Notation).HasMaxLength(StringLengthConstants.NotationLength);
-        builder.Property(x => x.Symbol).HasMaxLength(StringLengthConstants.IriLength);
         builder.Property(x => x.Aspect).HasConversion<string>().HasMaxLength(StringLengthConstants.EnumLength);
 
         builder
             .HasOne(e => e.Purpose)
             .WithMany()
             .HasForeignKey(e => e.PurposeId)
+            .OnDelete(DeleteBehavior.SetNull)
+            .IsRequired(false);
+
+        builder.HasOne(e => e.Symbol)
+            .WithMany()
+            .HasForeignKey(e => e.SymbolId)
             .OnDelete(DeleteBehavior.SetNull)
             .IsRequired(false);
     }

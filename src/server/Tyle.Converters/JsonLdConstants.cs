@@ -122,13 +122,6 @@ public class JsonLdConstants
                                     "sh:path": {
                                         "@type": "@id"
                                     },
-                                    "sh:pattern": {
-                                        "@type": "xsd:string"
-                                    },
-                                    
-                                    "pav:version": {
-                                        "@type": "xsd:string"
-                                    },
                                     
                                     "imf:classifier": {
                                         "@type": "@id"

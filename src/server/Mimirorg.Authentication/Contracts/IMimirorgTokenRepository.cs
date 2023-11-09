@@ -6,6 +6,6 @@ namespace Mimirorg.Authentication.Contracts;
 
 public interface IMimirorgTokenRepository : IGenericRepository<MimirorgAuthenticationContext, MimirorgToken>
 {
-    Task<MimirorgTokenCm> CreateAccessToken(MimirorgUser user, DateTime current);
-    Task<MimirorgTokenCm> CreateRefreshToken(MimirorgUser user, DateTime current);
+    Task<TokenView> CreateAccessToken(MimirorgUser user, DateTime current);
+    Task<TokenView> CreateRefreshToken(MimirorgUser user, DateTime current);
 }

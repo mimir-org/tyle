@@ -25,6 +25,7 @@ public class BlockRepository : IBlockRepository
         var query = _dbSet.AsNoTracking()
             .Include(x => x.Classifiers).ThenInclude(x => x.Classifier)
             .Include(x => x.Purpose)
+            .Include(x => x.Symbol)
             .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Classifiers).ThenInclude(x => x.Classifier)
             .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Purpose)
             .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Medium)
@@ -49,6 +50,7 @@ public class BlockRepository : IBlockRepository
         return await _dbSet.AsNoTracking()
             .Include(x => x.Classifiers).ThenInclude(x => x.Classifier)
             .Include(x => x.Purpose)
+            .Include(x => x.Symbol)
             .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Classifiers).ThenInclude(x => x.Classifier)
             .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Purpose)
             .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Medium)
@@ -74,7 +76,7 @@ public class BlockRepository : IBlockRepository
             State = State.Draft,
             PurposeId = request.PurposeId,
             Notation = request.Notation,
-            Symbol = request.Symbol,
+            SymbolId = request.SymbolId,
             Aspect = request.Aspect
         };
 
@@ -139,7 +141,7 @@ public class BlockRepository : IBlockRepository
 
         block.PurposeId = request.PurposeId;
         block.Notation = request.Notation;
-        block.Symbol = request.Symbol;
+        block.SymbolId = request.SymbolId;
         block.Aspect = request.Aspect;
 
         var blockTerminalToRemove = block.Terminals.Where(x => !request.Terminals.Any(y => y.TerminalId == x.TerminalId && y.Direction == x.Direction)).ToList();

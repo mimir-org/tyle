@@ -36,11 +36,11 @@ public class MimirorgAuthenticateController : ControllerBase
     [AllowAnonymous]
     [HttpPost]
     [Route("")]
-    [ProducesResponseType(typeof(MimirorgTokenCm), 200)]
+    [ProducesResponseType(typeof(TokenView), 200)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("Login with username and password")]
-    public async Task<IActionResult> Login([FromBody] MimirorgAuthenticateAm authenticate)
+    public async Task<IActionResult> Login([FromBody] AuthenticateRequest authenticate)
     {
         try
         {
@@ -48,8 +48,8 @@ public class MimirorgAuthenticateController : ControllerBase
                 return BadRequest(ModelState);
 
             var data = await _authService.Authenticate(authenticate);
-            var accessToken = data.FirstOrDefault(x => x.TokenType == MimirorgTokenType.AccessToken);
-            var refreshToken = data.FirstOrDefault(x => x.TokenType == MimirorgTokenType.RefreshToken);
+            var accessToken = data.FirstOrDefault(x => x.TokenType == TokenType.AccessToken);
+            var refreshToken = data.FirstOrDefault(x => x.TokenType == TokenType.RefreshToken);
 
             await AddRefreshTokenCookie(HttpContext.Request, HttpContext.Response, refreshToken);
 
@@ -113,7 +113,7 @@ public class MimirorgAuthenticateController : ControllerBase
     [AllowAnonymous]
     [HttpPost]
     [Route("secret")]
-    [ProducesResponseType(typeof(MimirorgTokenCm), 200)]
+    [ProducesResponseType(typeof(TokenView), 200)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("Login with secret")]
@@ -125,8 +125,8 @@ public class MimirorgAuthenticateController : ControllerBase
                 throw new AuthenticationException("Refresh token is missing");
 
             var data = await _authService.Authenticate(token);
-            var accessToken = data.FirstOrDefault(x => x.TokenType == MimirorgTokenType.AccessToken);
-            var refreshToken = data.FirstOrDefault(x => x.TokenType == MimirorgTokenType.RefreshToken);
+            var accessToken = data.FirstOrDefault(x => x.TokenType == TokenType.AccessToken);
+            var refreshToken = data.FirstOrDefault(x => x.TokenType == TokenType.RefreshToken);
 
             await AddRefreshTokenCookie(HttpContext.Request, HttpContext.Response, refreshToken);
             return Ok(accessToken);
@@ -146,12 +146,12 @@ public class MimirorgAuthenticateController : ControllerBase
 
     #region Private methods
 
-    private Task AddRefreshTokenCookie(HttpRequest request, HttpResponse response, MimirorgTokenCm token)
+    private Task AddRefreshTokenCookie(HttpRequest request, HttpResponse response, TokenView token)
     {
         if (response == null || token == null || request == null)
             return Task.CompletedTask;
 
-        if (token.TokenType != MimirorgTokenType.RefreshToken)
+        if (token.TokenType != TokenType.RefreshToken)
             return Task.CompletedTask;
 
         if (request.Cookies.ContainsKey(RefreshTokenCookie))

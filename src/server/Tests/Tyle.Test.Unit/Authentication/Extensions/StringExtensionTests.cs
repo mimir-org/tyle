@@ -13,14 +13,6 @@ public class StringExtensionTests : UnitTest<MimirorgCommonFixture>
     {
     }
 
-    [Fact]
-    public void ResolveNormalizedName_GivenUnNormalizedName_GivesNormalizedName()
-    {
-        const string name = "Account_Manager % - _123";
-        var result = name.ResolveNormalizedName();
-        Assert.Equal("ACCOUNTMANAGER123", result);
-    }
-
     [Theory]
     [InlineData("99b212bf-013b-4b47-8ee7-192ba76ef5bd")]
     public void CreateSha512_Returns_Correct_Value(string value)
