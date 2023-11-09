@@ -11,10 +11,12 @@ import {
 } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useGetPurposes } from "api/purpose.queries";
+import { useGetSymbols } from "api/symbol.queries";
+import EngineeringSymbolSvg from "components/EngineeringSymbolSvg";
 import FormSection from "components/FormSection";
 import PlainLink from "components/PlainLink";
 import SelectItemDialog from "components/SelectItemDialog";
-import { purposeInfoItem } from "helpers/mappers.helpers";
+import { purposeInfoItem, symbolInfoItem } from "helpers/mappers.helpers";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
@@ -47,11 +49,36 @@ const BlockFormBaseFields = ({ mode, limited }: BlockFormBaseFieldsProps) => {
   const purposeInfoItems = purposeQuery.data?.map((p) => purposeInfoItem(p)) ?? [];
   const chosenPurpose = useWatch({ control, name: "purpose" });
 
+  const symbolQuery = useGetSymbols();
+  const symbolInfoItems = symbolQuery.data?.map((s) => symbolInfoItem(s)) ?? [];
+  const chosenSymbol = useWatch({ control, name: "symbol" });
+
   const aspectOptions = getOptionsFromEnum<Aspect>(Aspect);
 
   return (
     <FormBaseFieldsContainer>
       <Text variant={"display-small"}>{t("block.title")}</Text>
+
+      <FormSection
+        title={"Symbol"}
+        action={
+          <SelectItemDialog
+            title={"Select symbol"}
+            description={"You can select at most one symbol"}
+            searchFieldText={"Search"}
+            addItemsButtonText={"Add"}
+            openDialogButtonText={"Open symbol selection dialog"}
+            items={symbolInfoItems}
+            onAdd={(ids) => {
+              setValue("symbol", symbolQuery.data?.find((x) => x.id === Number(ids[0])));
+            }}
+            isMultiSelect={false}
+          />
+        }
+      >
+        <Input {...register("symbol")} type="hidden" />
+        {chosenSymbol && <EngineeringSymbolSvg symbol={chosenSymbol} />}
+      </FormSection>
 
       <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
         <FormField label={t("terminal.name")} error={errors.name}>
@@ -98,10 +125,6 @@ const BlockFormBaseFields = ({ mode, limited }: BlockFormBaseFieldsProps) => {
 
         <FormField label={t("terminal.notation")} error={errors.notation}>
           <Input placeholder={t("terminal.placeholders.notation")} {...register("notation")} disabled={limited} />
-        </FormField>
-
-        <FormField label={t("terminal.symbol")} error={errors.symbol}>
-          <Input placeholder={t("terminal.placeholders.symbol")} {...register("symbol")} disabled={limited} />
         </FormField>
 
         <FormField label={t("block.aspect")} error={errors.aspect}>

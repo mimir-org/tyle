@@ -1,4 +1,4 @@
-import { DESCRIPTION_LENGTH, IRI_LENGTH, NAME_LENGTH, NOTATION_LENGTH } from "types/common/stringLengthConstants";
+import { DESCRIPTION_LENGTH, NAME_LENGTH, NOTATION_LENGTH } from "types/common/stringLengthConstants";
 import { vi } from "vitest";
 import { BlockFormFields } from "./BlockForm.helpers";
 import { blockSchema } from "./blockSchema";
@@ -52,19 +52,5 @@ describe("blockSchema tests", () => {
       notation: "c".repeat(NOTATION_LENGTH + 1),
     };
     await expect(blockSchema(t).validateAt("notation", blockWithLongNotation)).rejects.toBeTruthy();
-  });
-
-  it("should resolve with a symbol with the limit length", async () => {
-    const blockWithLongSymbol: Partial<BlockFormFields> = {
-      symbol: "c".repeat(IRI_LENGTH),
-    };
-    await expect(blockSchema(t).validateAt("symbol", blockWithLongSymbol)).resolves.toBeTruthy();
-  });
-
-  it("should reject with a symbol longer than the limit", async () => {
-    const blockWithLongSymbol: Partial<BlockFormFields> = {
-      symbol: "c".repeat(IRI_LENGTH + 1),
-    };
-    await expect(blockSchema(t).validateAt("symbol", blockWithLongSymbol)).rejects.toBeTruthy();
   });
 });

@@ -1,10 +1,12 @@
-import { Icon, Text } from "@mimirorg/component-library";
+import { Text } from "@mimirorg/component-library";
+import EngineeringSymbolSvg from "components/EngineeringSymbolSvg";
 import { useTheme } from "styled-components";
+import { EngineeringSymbol } from "types/blocks/engineeringSymbol";
 import BlockContainer, { BlockContainerProps } from "./Block.styled";
 
 export type BlockProps = BlockContainerProps & {
   name: string;
-  img: string;
+  symbol?: EngineeringSymbol;
 };
 
 /**
@@ -16,13 +18,15 @@ export type BlockProps = BlockContainerProps & {
  * @param variant
  * @constructor
  */
-const Block = ({ name, img, color, variant = "small" }: BlockProps) => {
+const Block = ({ name, symbol, color, variant = "small" }: BlockProps) => {
   const theme = useTheme();
   const variantSpecs = BlockVariantSpecs[variant];
 
   return (
     <BlockContainer variant={variant} color={color}>
-      {img && <Icon size={variantSpecs.icon.size} src={img} alt="" />}
+      {symbol && (
+        <EngineeringSymbolSvg symbol={symbol} width={variantSpecs.icon.size} height={variantSpecs.icon.size} />
+      )}
       <Text variant={"title-medium"} color={theme.mimirorg.color.reference.neutral["0"]} textAlign={"center"}>
         {name}
       </Text>

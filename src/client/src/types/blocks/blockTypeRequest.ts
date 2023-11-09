@@ -8,7 +8,7 @@ export interface BlockTypeRequest {
   classifierIds: number[];
   purposeId?: number;
   notation?: string;
-  symbol?: string;
+  symbolId?: number;
   aspect?: Aspect;
   terminals: TerminalTypeReferenceRequest[];
   attributes: AttributeTypeReferenceRequest[];

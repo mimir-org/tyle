@@ -4,6 +4,7 @@ import { UserView } from "types/authentication/userView";
 import { BlockItem } from "types/blockItem";
 import { BlockTerminalItem } from "types/blockTerminalItem";
 import { BlockView } from "types/blocks/blockView";
+import { EngineeringSymbol } from "types/blocks/engineeringSymbol";
 import { TerminalTypeReferenceView } from "types/blocks/terminalTypeReferenceView";
 import { RdlPurpose } from "types/common/rdlPurpose";
 import { State } from "types/common/state";
@@ -20,6 +21,15 @@ export const purposeInfoItem = (purpose: RdlPurpose): InfoItem => ({
   descriptors: {
     Description: purpose.description,
     IRI: purpose.iri,
+  },
+});
+
+export const symbolInfoItem = (symbol: EngineeringSymbol): InfoItem => ({
+  id: symbol.id.toString(),
+  name: symbol.label,
+  descriptors: {
+    Description: symbol.description,
+    IRI: symbol.iri,
   },
 });
 
@@ -47,7 +57,7 @@ export const toBlockItem = (block: BlockView): BlockItem => {
   return {
     id: block.id,
     name: block.name,
-    img: block.symbol ?? "",
+    symbol: block.symbol,
     description: block.description ?? "",
     color: getColorFromAspect(block.aspect),
     tokens: [block.version, currentStateLabel],

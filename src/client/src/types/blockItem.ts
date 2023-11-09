@@ -1,12 +1,13 @@
 import { BlockTerminalItem } from "types/blockTerminalItem";
 import { InfoItem } from "types/infoItem";
 import { StateItem } from "types/stateItem";
+import { EngineeringSymbol } from "./blocks/engineeringSymbol";
 
 export interface BlockItem extends StateItem {
   id: string;
   name: string;
   description: string;
-  img: string;
+  symbol?: EngineeringSymbol;
   color: string;
   tokens: string[];
   terminals: BlockTerminalItem[];

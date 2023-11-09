@@ -2,6 +2,7 @@ import { useCreateBlock, useGetBlock, useUpdateBlock } from "api/block.queries";
 import { useParams } from "react-router-dom";
 import { BlockTypeRequest } from "types/blocks/blockTypeRequest";
 import { BlockView } from "types/blocks/blockView";
+import { EngineeringSymbol } from "types/blocks/engineeringSymbol";
 import { TerminalTypeReferenceView } from "types/blocks/terminalTypeReferenceView";
 import { AttributeTypeReferenceView } from "types/common/attributeTypeReferenceView";
 import { RdlClassifier } from "types/common/rdlClassifier";
@@ -24,9 +25,10 @@ export const useBlockMutation = (id?: string, mode?: FormMode) => {
 };
 
 export interface BlockFormFields
-  extends Omit<BlockTypeRequest, "purposeId" | "terminals" | "attributes" | "classifierIds"> {
+  extends Omit<BlockTypeRequest, "purposeId" | "terminals" | "attributes" | "classifierIds" | "symbolId"> {
   purpose?: RdlPurpose;
   classifiers?: RdlClassifier[];
+  symbol?: EngineeringSymbol;
   terminals?: TerminalTypeReferenceView[];
   attributes?: AttributeTypeReferenceView[];
 }
@@ -47,6 +49,7 @@ export const toBlockTypeRequest = (blockFormFields: BlockFormFields): BlockTypeR
   ...blockFormFields,
   purposeId: blockFormFields.purpose?.id,
   classifierIds: blockFormFields.classifiers ? blockFormFields.classifiers.map((x) => x.id) : [],
+  symbolId: blockFormFields.symbol?.id,
   terminals: blockFormFields.terminals
     ? blockFormFields.terminals.map((x) => ({ ...x, terminalId: x.terminal.id }))
     : [],

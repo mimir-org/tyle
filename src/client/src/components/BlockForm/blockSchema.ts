@@ -1,5 +1,5 @@
 import { TFunction } from "i18next";
-import { DESCRIPTION_LENGTH, IRI_LENGTH, NAME_LENGTH, NOTATION_LENGTH } from "types/common/stringLengthConstants";
+import { DESCRIPTION_LENGTH, NAME_LENGTH, NOTATION_LENGTH } from "types/common/stringLengthConstants";
 import * as yup from "yup";
 
 export const blockSchema = (t: TFunction<"translation">) =>
@@ -14,6 +14,4 @@ export const blockSchema = (t: TFunction<"translation">) =>
       .max(DESCRIPTION_LENGTH, t("common.validation.description.max", { length: DESCRIPTION_LENGTH })),
 
     notation: yup.string().max(NOTATION_LENGTH, t("common.validation.notation.max", { length: NOTATION_LENGTH })),
-
-    symbol: yup.string().max(IRI_LENGTH, t("common.validation.symbol.max", { length: IRI_LENGTH })),
   });
