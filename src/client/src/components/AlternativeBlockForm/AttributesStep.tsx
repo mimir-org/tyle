@@ -55,7 +55,7 @@ const AttributesStep = ({ chosenAttributes, setAttributes }: AttributesStepProps
             const attributesToAdd: AttributeTypeReferenceView[] = [];
             ids.forEach((id) => {
               const targetAttribute = attributeQuery.data?.find((x) => x.id === id);
-              if (targetAttribute) attributesToAdd.push({ attribute: targetAttribute, minCount: 1 });
+              if (targetAttribute) attributesToAdd.push({ attribute: targetAttribute, minCount: 1, maxCount: null });
             });
             setAttributes([...chosenAttributes, ...attributesToAdd]);
           }}

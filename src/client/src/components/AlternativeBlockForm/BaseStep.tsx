@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Flexbox,
-  FormBaseFieldsContainer,
-  FormField,
-  Input,
-  Select,
-  Textarea,
-} from "@mimirorg/component-library";
+import { Box, Flexbox, FormBaseFieldsContainer, FormField, Input, Select, Textarea } from "@mimirorg/component-library";
 import { useGetPurposes } from "api/purpose.queries";
 import { useTheme } from "styled-components";
 import { Aspect } from "types/common/aspect";
@@ -36,6 +27,7 @@ const BaseStep = ({ blockFormFields, setBlockFormFields }: BaseStepProps) => {
           <Box flexGrow="3">
             <FormField label="Name">
               <Input
+                placeholder="Name"
                 value={blockFormFields.name}
                 onChange={(event) => setBlockFormFields({ ...blockFormFields, name: event.target.value })}
               />
@@ -44,6 +36,7 @@ const BaseStep = ({ blockFormFields, setBlockFormFields }: BaseStepProps) => {
           <Box flexGrow="1">
             <FormField label="Notation">
               <Input
+                placeholder="Notation"
                 value={blockFormFields.notation}
                 onChange={(event) => setBlockFormFields({ ...blockFormFields, notation: event.target.value })}
               />
@@ -79,7 +72,7 @@ const BaseStep = ({ blockFormFields, setBlockFormFields }: BaseStepProps) => {
                     purpose: x?.value ?? null,
                   });
                 }}
-                value={purposeOptions?.find((x) => x.value === blockFormFields.purpose)}
+                value={purposeOptions?.find((x) => x.value.id === blockFormFields.purpose?.id)}
                 isClearable={true}
               />
             </FormField>
@@ -87,12 +80,12 @@ const BaseStep = ({ blockFormFields, setBlockFormFields }: BaseStepProps) => {
         </Flexbox>
         <FormField label="Description">
           <Textarea
+            placeholder="Additional information about this block type can be supplied here."
             value={blockFormFields.description}
             onChange={(event) => setBlockFormFields({ ...blockFormFields, description: event.target.value })}
           />
         </FormField>
       </FormBaseFieldsContainer>
-      <Button onClick={() => console.log(blockFormFields)}>Log state</Button>
     </Box>
   );
 };

@@ -13,6 +13,7 @@ import { FormMode } from "types/formMode";
 import AttributesStep from "./AttributesStep";
 import BaseStep from "./BaseStep";
 import {
+  TerminalTypeReferenceField,
   createEmptyBlockFormFields,
   toBlockFormFields,
   toBlockTypeRequest,
@@ -20,8 +21,9 @@ import {
   useBlockQuery,
 } from "./BlockForm.helpers";
 import ClassifiersStep from "./ClassifiersStep";
-import FormTerminals from "./FormTerminals";
+import ReviewAndSubmit from "./ReviewAndSubmit";
 import SelectSymbolStep from "./SelectSymbolStep";
+import TerminalsStep from "./TerminalsStep";
 
 interface BlockFormProps {
   mode?: FormMode;
@@ -85,7 +87,14 @@ const BlockForm = ({ mode }: BlockFormProps) => {
           />
         );
       case 3:
-        return <FormTerminals />;
+        return (
+          <TerminalsStep
+            chosenTerminals={blockFormFields.terminals}
+            setTerminals={(nextTerminals: TerminalTypeReferenceField[]) => {
+              setBlockFormFields({ ...blockFormFields, terminals: nextTerminals });
+            }}
+          />
+        );
       case 4:
         return (
           <SelectSymbolStep
@@ -95,6 +104,8 @@ const BlockForm = ({ mode }: BlockFormProps) => {
             }
           />
         );
+      case 5:
+        return <ReviewAndSubmit mode={mode} blockFormFields={blockFormFields} />;
       default:
         return <></>;
     }
