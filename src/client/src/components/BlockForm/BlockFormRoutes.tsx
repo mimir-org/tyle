@@ -1,5 +1,5 @@
-import AlternativeBlockForm from "components/AlternativeBlockForm";
 import { RouteObject } from "react-router-dom";
+import AlternativeBlockForm from "./BlockForm";
 
 export const blockFormBasePath = "form/block";
 

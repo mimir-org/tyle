@@ -2,15 +2,15 @@ import { Box, Checkbox, Flexbox, Input, Select, Token } from "@mimirorg/componen
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { TerminalTypeReferenceView } from "types/blocks/terminalTypeReferenceView";
 import { Direction } from "types/terminals/direction";
 import { Option } from "utils";
+import { TerminalTypeReferenceField } from "./BlockForm.helpers";
 
 interface TerminalRowProps {
-  field: TerminalTypeReferenceView;
+  field: TerminalTypeReferenceField;
   remove: () => void;
-  value: TerminalTypeReferenceView;
-  onChange: (terminalTypeReference: TerminalTypeReferenceView) => void;
+  value: TerminalTypeReferenceField;
+  onChange: (terminalTypeReference: TerminalTypeReferenceField) => void;
   directionOptions: Option<Direction>[];
 }
 
@@ -18,7 +18,7 @@ const TerminalRow = ({ field, remove, value, onChange, directionOptions }: Termi
   const { t } = useTranslation("entities");
 
   const [minCount, setMinCount] = useState(field.minCount);
-  const [maxCount, setMaxCount] = useState<number | null>(field.maxCount ?? null);
+  const [maxCount, setMaxCount] = useState(field.maxCount);
   const [direction, setDirection] = useState<Option<Direction>>(
     directionOptions.find((x) => x.value === field.direction) ?? directionOptions[0],
   );
@@ -31,7 +31,7 @@ const TerminalRow = ({ field, remove, value, onChange, directionOptions }: Termi
 
     setMinCount(nextMinCount);
     setMaxCount(nextMaxCount);
-    onChange({ ...value, minCount: nextMinCount, maxCount: nextMaxCount ?? undefined });
+    onChange({ ...value, minCount: nextMinCount, maxCount: nextMaxCount });
   };
 
   const handleCheckedChange = (checked: boolean) => {
@@ -41,7 +41,7 @@ const TerminalRow = ({ field, remove, value, onChange, directionOptions }: Termi
       onChange({ ...value, maxCount: nextMaxCount });
     } else {
       setMaxCount(null);
-      onChange({ ...value, maxCount: undefined });
+      onChange({ ...value, maxCount: null });
     }
   };
 
@@ -68,7 +68,7 @@ const TerminalRow = ({ field, remove, value, onChange, directionOptions }: Termi
           onAction={remove}
           dangerousAction
         >
-          {field.terminal.name}
+          {field.terminalName}
         </Token>
       </Box>
       <Box>
@@ -96,7 +96,6 @@ const TerminalRow = ({ field, remove, value, onChange, directionOptions }: Termi
         <Select
           placeholder={t("common.templates.select", { object: t("block.terminal.name").toLowerCase() })}
           options={directionOptions}
-          getOptionLabel={(x) => x.label}
           value={direction}
           onChange={handleDirectionChange}
         />

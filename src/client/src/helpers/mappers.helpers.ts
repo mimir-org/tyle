@@ -74,7 +74,7 @@ const mapBlockTerminalLibCmsToBlockTerminalItems = (terminals: TerminalTypeRefer
     id: x.terminal.id,
     name: x.terminal.name,
     color: getColorFromAspect(x.terminal.aspect),
-    maxQuantity: x.maxCount,
+    maxQuantity: x.maxCount ?? undefined,
     direction: x.direction,
     attributes: sortInfoItems(mapAttributeViewsToInfoItems(x.terminal.attributes.map((x) => x.attribute))),
   }));
