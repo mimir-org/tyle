@@ -8,11 +8,10 @@ import { InfoItem } from "types/infoItem";
 
 interface ClassifiersStepProps {
   chosenClassifiers: RdlClassifier[];
-  addClassifiers: (classifiers: RdlClassifier[]) => void;
-  removeClassifier: (index: number) => void;
+  setClassifiers: (classifiers: RdlClassifier[]) => void;
 }
 
-const ClassifiersStep = ({ chosenClassifiers, addClassifiers, removeClassifier }: ClassifiersStepProps) => {
+const ClassifiersStep = ({ chosenClassifiers, setClassifiers }: ClassifiersStepProps) => {
   const classifierQuery = useGetClassifiers();
   const classifierInfoItems: InfoItem[] =
     classifierQuery.data?.map((classifier) => ({
@@ -23,6 +22,12 @@ const ClassifiersStep = ({ chosenClassifiers, addClassifiers, removeClassifier }
         IRI: classifier.iri,
       },
     })) ?? [];
+
+  const handleRemoveClassifier = (index: number) => {
+    const nextClassifiers = [...chosenClassifiers];
+    nextClassifiers.splice(index, 1);
+    setClassifiers(nextClassifiers);
+  };
 
   return (
     <FormSection
@@ -43,7 +48,7 @@ const ClassifiersStep = ({ chosenClassifiers, addClassifiers, removeClassifier }
               const targetClassifier = classifierQuery.data?.find((x) => x.id === Number(id));
               if (targetClassifier) classifiersToAdd.push(targetClassifier);
             });
-            addClassifiers(classifiersToAdd);
+            setClassifiers([...chosenClassifiers, ...classifiersToAdd]);
           }}
         />
       }
@@ -55,7 +60,7 @@ const ClassifiersStep = ({ chosenClassifiers, addClassifiers, removeClassifier }
           actionable
           actionIcon={<XCircle />}
           actionText="Remove classifier"
-          onAction={() => removeClassifier(index)}
+          onAction={() => handleRemoveClassifier(index)}
           dangerousAction
         >
           {classifier.name}

@@ -65,14 +65,7 @@ const BlockForm = ({ mode }: BlockFormProps) => {
         return (
           <ClassifiersStep
             chosenClassifiers={blockFormFields.classifiers}
-            addClassifiers={(classifiersToAdd: RdlClassifier[]) => {
-              const nextClassifiers = [...blockFormFields.classifiers];
-              nextClassifiers.push(...classifiersToAdd);
-              setBlockFormFields({ ...blockFormFields, classifiers: nextClassifiers });
-            }}
-            removeClassifier={(index: number) => {
-              const nextClassifiers = [...blockFormFields.classifiers];
-              nextClassifiers.splice(index, 1);
+            setClassifiers={(nextClassifiers: RdlClassifier[]) => {
               setBlockFormFields({ ...blockFormFields, classifiers: nextClassifiers });
             }}
           />
