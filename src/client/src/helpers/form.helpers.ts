@@ -39,6 +39,24 @@ export const usePrefilledForm = <TIn, TOut>(
   return [isPrefilled, query.isInitialLoading];
 };
 
+// This function is temporarily added while forms are in different states (using react hook form or not)
+export const usePrefilledFormTemporary = <TIn, TOut>(
+  query: UseQueryResult<TIn>,
+  mapQueryDataToFormModel: (data: TIn) => TOut,
+  populateForm: (values: TOut) => void,
+): [isPrefilled: boolean, isLoading: boolean] => {
+  const [isPrefilled, setIsPrefilled] = useState(false);
+
+  useEffect(() => {
+    if (!isPrefilled && query.isSuccess) {
+      setIsPrefilled(true);
+      populateForm(mapQueryDataToFormModel(query.data));
+    }
+  }, [query.data, query.isSuccess, populateForm, isPrefilled, mapQueryDataToFormModel]);
+
+  return [isPrefilled, query.isInitialLoading];
+};
+
 export const useSubmissionToast = (type: string) => {
   const { t } = useTranslation("entities");
   type = type.toLowerCase();
