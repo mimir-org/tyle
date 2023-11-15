@@ -94,6 +94,11 @@ public class TerminalsController : ControllerBase
     {
         try
         {
+            if (AccessToAction.HasUserAccessToDoCurrentOperation(User, HttpMethod.Post) == false)
+            {
+                return Unauthorized();
+            }
+
             var createdTerminal = await _terminalRepository.Create(request);
             return Created("dummy", _mapper.Map<TerminalView>(createdTerminal));
         }
@@ -120,6 +125,10 @@ public class TerminalsController : ControllerBase
     {
         try
         {
+            if (AccessToAction.HasUserAccessToDoCurrentOperation(User, HttpMethod.Put) == false)
+            {
+                return Unauthorized();
+            }
             var terminal = await _terminalRepository.Update(id, request);
 
             if (terminal == null)
@@ -155,7 +164,10 @@ public class TerminalsController : ControllerBase
     {
         try
         {
-            // TODO: Handle authorization
+            if (AccessToAction.HasUserAccessToDoCurrentOperation(User, HttpMethod.patch) == false)
+            {
+                return Unauthorized();
+            }
 
             var response = await _approvalService.ChangeTerminalState(id, request.State);
 

@@ -93,7 +93,12 @@ public class BlocksController : ControllerBase
     public async Task<IActionResult> Create([FromBody] BlockTypeRequest request)
     {
         try
-        {
+        {                          
+            if(AccessToAction.HasUserAccessToDoCurrentOperation(User, HttpMethod.Post) == false)
+            {
+                return Unauthorized();
+            }
+
             var createdBlock = await _blockRepository.Create(request);
             return Created("dummy", _mapper.Map<BlockView>(createdBlock));
         }
@@ -120,6 +125,10 @@ public class BlocksController : ControllerBase
     {
         try
         {
+            if (AccessToAction.HasUserAccessToDoCurrentOperation(User, HttpMethod.Put) == false)
+            {
+                return Unauthorized();
+            }
             var block = await _blockRepository.Update(id, request);
 
             if (block == null)

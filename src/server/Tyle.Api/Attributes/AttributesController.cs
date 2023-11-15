@@ -93,6 +93,10 @@ public class AttributesController : ControllerBase
     {
         try
         {
+            if (AccessToAction.HasUserAccessToDoCurrentOperation(User, HttpMethod.Post) == false)
+            {
+                return Unauthorized();
+            }
             var createdAttribute = await _attributeRepository.Create(request);
 
             return Created("dummy", _mapper.Map<AttributeView>(createdAttribute));
@@ -120,6 +124,11 @@ public class AttributesController : ControllerBase
     {
         try
         {
+
+            if (AccessToAction.HasUserAccessToDoCurrentOperation(User, HttpMethod.Put) == false)
+            {
+                return Unauthorized();
+            }
             var attribute = await _attributeRepository.Update(id, request);
 
             if (attribute == null)
