@@ -15,11 +15,12 @@ public class BlockTerminalComparer : IEqualityComparer<BlockTerminalTypeReferenc
                x.TerminalId.Equals(y.TerminalId) &&
                x.Direction == y.Direction &&
                x.MinCount == y.MinCount &&
-               x.MaxCount == y.MaxCount;
+               x.MaxCount == y.MaxCount &&
+               x.ConnectionPointId == y.ConnectionPointId;
     }
 
     public int GetHashCode(BlockTerminalTypeReference obj)
     {
-        return HashCode.Combine(obj.BlockId, obj.TerminalId, (int) obj.Direction, obj.MinCount, obj.MaxCount);
+        return HashCode.Combine(obj.BlockId, obj.TerminalId, (int) obj.Direction, obj.MinCount, obj.MaxCount, obj.ConnectionPointId);
     }
 }

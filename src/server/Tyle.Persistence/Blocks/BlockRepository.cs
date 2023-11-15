@@ -32,6 +32,7 @@ public class BlockRepository : IBlockRepository
             .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Predicate)
             .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Units).ThenInclude(x => x.Unit)
             .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
+            .Include(x => x.Terminals).ThenInclude(x => x.ConnectionPoint)
             .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Predicate)
             .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Units).ThenInclude(x => x.Unit)
             .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
@@ -57,6 +58,7 @@ public class BlockRepository : IBlockRepository
             .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Predicate)
             .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Units).ThenInclude(x => x.Unit)
             .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
+            .Include(x => x.Terminals).ThenInclude(x => x.ConnectionPoint)
             .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Predicate)
             .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Units).ThenInclude(x => x.Unit)
             .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
@@ -84,7 +86,7 @@ public class BlockRepository : IBlockRepository
 
         block.Classifiers = request.ClassifierIds.Select(classifierId => new BlockClassifierJoin { BlockId = block.Id, ClassifierId = classifierId }).ToList();
 
-        block.Terminals = request.Terminals.Select(x => new BlockTerminalTypeReference { BlockId = block.Id, TerminalId = x.TerminalId, Direction = x.Direction, MinCount = x.MinCount, MaxCount = x.MaxCount }).ToList();
+        block.Terminals = request.Terminals.Select(x => new BlockTerminalTypeReference { BlockId = block.Id, TerminalId = x.TerminalId, Direction = x.Direction, MinCount = x.MinCount, MaxCount = x.MaxCount, ConnectionPointId = x.ConnectionPointId }).ToList();
 
         block.Attributes = request.Attributes.Select(x => new BlockAttributeTypeReference { BlockId = block.Id, AttributeId = x.AttributeId, MinCount = x.MinCount, MaxCount = x.MaxCount }).ToList();
 
@@ -160,7 +162,8 @@ public class BlockRepository : IBlockRepository
                 TerminalId = terminalTypeReferenceRequest.TerminalId,
                 Direction = terminalTypeReferenceRequest.Direction,
                 MinCount = terminalTypeReferenceRequest.MinCount,
-                MaxCount = terminalTypeReferenceRequest.MaxCount
+                MaxCount = terminalTypeReferenceRequest.MaxCount,
+                ConnectionPointId = terminalTypeReferenceRequest.ConnectionPointId
             };
 
             if (block.Terminals.Contains(blockTerminal, blockTerminalComparer)) continue;
@@ -171,6 +174,7 @@ public class BlockRepository : IBlockRepository
             {
                 blockTerminalToUpdate.MinCount = blockTerminal.MinCount;
                 blockTerminalToUpdate.MaxCount = blockTerminal.MaxCount;
+                blockTerminalToUpdate.ConnectionPointId = blockTerminal.ConnectionPointId;
             }
             else
             {
