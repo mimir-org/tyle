@@ -2,6 +2,7 @@ import { useCreateBlock, useGetBlock, useUpdateBlock } from "api/block.queries";
 import { useParams } from "react-router-dom";
 import { BlockTypeRequest } from "types/blocks/blockTypeRequest";
 import { BlockView } from "types/blocks/blockView";
+import { ConnectionPoint } from "types/blocks/connectionPoint";
 import { EngineeringSymbol } from "types/blocks/engineeringSymbol";
 import { Aspect } from "types/common/aspect";
 import { AttributeTypeReferenceView } from "types/common/attributeTypeReferenceView";
@@ -41,6 +42,7 @@ export interface TerminalTypeReferenceField {
   direction: Direction;
   minCount: number;
   maxCount: number | null;
+  connectionPoint: ConnectionPoint | null;
 }
 
 export const createEmptyBlockFormFields = (): BlockFormFields => ({
@@ -79,9 +81,10 @@ export const toBlockTypeRequest = (blockFormFields: BlockFormFields): BlockTypeR
   purposeId: blockFormFields.purpose?.id ?? null,
   notation: blockFormFields.notation ? blockFormFields.notation : null,
   symbolId: blockFormFields.symbol?.id ?? null,
-  terminals: blockFormFields.terminals.map((terminalTypeReferenceView) => ({
-    ...terminalTypeReferenceView,
-    terminalId: terminalTypeReferenceView.terminalId,
+  terminals: blockFormFields.terminals.map((terminalTypeReferenceField) => ({
+    ...terminalTypeReferenceField,
+    terminalId: terminalTypeReferenceField.terminalId,
+    connectionPointId: terminalTypeReferenceField.connectionPoint?.id ?? null,
   })),
   attributes: blockFormFields.attributes.map((attributeTypeReferenceView) => ({
     ...attributeTypeReferenceView,

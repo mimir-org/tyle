@@ -7,13 +7,10 @@ import React, { ReactElement, useState } from "react";
 import { useTheme } from "styled-components/macro";
 import { BlockView } from "types/blocks/blockView";
 import { EngineeringSymbol } from "types/blocks/engineeringSymbol";
-import { AttributeTypeReferenceView } from "types/common/attributeTypeReferenceView";
-import { RdlClassifier } from "types/common/rdlClassifier";
 import { FormMode } from "types/formMode";
 import AttributesStep from "./AttributesStep";
 import BaseStep from "./BaseStep";
 import {
-  TerminalTypeReferenceField,
   createEmptyBlockFormFields,
   toBlockFormFields,
   toBlockTypeRequest,
@@ -65,7 +62,7 @@ const BlockForm = ({ mode }: BlockFormProps) => {
         return (
           <ClassifiersStep
             chosenClassifiers={blockFormFields.classifiers}
-            setClassifiers={(nextClassifiers: RdlClassifier[]) => {
+            setClassifiers={(nextClassifiers) => {
               setBlockFormFields({ ...blockFormFields, classifiers: nextClassifiers });
             }}
           />
@@ -74,7 +71,7 @@ const BlockForm = ({ mode }: BlockFormProps) => {
         return (
           <AttributesStep
             chosenAttributes={blockFormFields.attributes}
-            setAttributes={(nextAttributes: AttributeTypeReferenceView[]) => {
+            setAttributes={(nextAttributes) => {
               setBlockFormFields({ ...blockFormFields, attributes: nextAttributes });
             }}
           />
@@ -83,7 +80,7 @@ const BlockForm = ({ mode }: BlockFormProps) => {
         return (
           <TerminalsStep
             chosenTerminals={blockFormFields.terminals}
-            setTerminals={(nextTerminals: TerminalTypeReferenceField[]) => {
+            setTerminals={(nextTerminals) => {
               setBlockFormFields({ ...blockFormFields, terminals: nextTerminals });
             }}
           />
@@ -95,6 +92,10 @@ const BlockForm = ({ mode }: BlockFormProps) => {
             setSymbol={(nextSymbol: EngineeringSymbol | null) =>
               setBlockFormFields({ ...blockFormFields, symbol: nextSymbol })
             }
+            terminals={blockFormFields.terminals}
+            setTerminals={(nextTerminals) => {
+              setBlockFormFields({ ...blockFormFields, terminals: nextTerminals });
+            }}
           />
         );
       case 5:
