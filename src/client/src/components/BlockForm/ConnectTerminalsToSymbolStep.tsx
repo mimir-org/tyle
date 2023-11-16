@@ -1,10 +1,11 @@
-import { Box, Flexbox, Select, Token } from "@mimirorg/component-library";
+import { Box, Flexbox, Select, Text } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import EngineeringSymbolSvg from "components/EngineeringSymbolSvg";
 import React from "react";
 import { useTheme } from "styled-components";
 import { ConnectionPoint } from "types/blocks/connectionPoint";
 import { EngineeringSymbol } from "types/blocks/engineeringSymbol";
+import { Direction } from "types/terminals/direction";
 import { Option } from "utils";
 import { TerminalTypeReferenceField } from "./BlockForm.helpers";
 
@@ -28,7 +29,10 @@ const ConnectTerminalsToSymbolStep = ({
   const getTerminalOptions = (connectionPointId: number) => {
     return terminals
       .filter((terminal) => !terminal.connectionPoint?.id || terminal.connectionPoint.id === connectionPointId)
-      .map((terminal) => ({ value: terminal.id, label: `${terminal.terminalName} (${terminal.direction})` }));
+      .map((terminal) => ({
+        value: terminal.id,
+        label: `${terminal.terminalName} (${Direction[terminal.direction]})`,
+      }));
   };
 
   const handleTerminalChange = (nextTerminal: Option<string> | null, connectionPoint: ConnectionPoint) => {
@@ -47,9 +51,9 @@ const ConnectTerminalsToSymbolStep = ({
   };
 
   return (
-    <Flexbox flexDirection="column" gap={theme.mimirorg.spacing.multiple(6)}>
-      <Box width="100%" maxWidth="500px" style={{ margin: "0 auto", position: "relative" }}>
-        <Box width="fit-content" style={{ position: "absolute", top: 0, right: 0, cursor: "pointer" }}>
+    <Flexbox flexDirection="row" gap={theme.mimirorg.spacing.multiple(6)}>
+      <Box width="100%" maxWidth="300px" style={{ margin: "0 auto", position: "relative" }}>
+        <Box width="fit-content" style={{ position: "absolute", top: "-1rem", right: "-1rem", cursor: "pointer" }}>
           <XCircle size="2rem" color={theme.mimirorg.color.dangerousAction.on} onClick={removeSymbol} />
         </Box>
         <EngineeringSymbolSvg
@@ -60,16 +64,15 @@ const ConnectTerminalsToSymbolStep = ({
         />
       </Box>
       <Flexbox flexDirection="column" gap={theme.mimirorg.spacing.base} style={{ margin: "0 auto" }}>
-        {symbol.connectionPoints.map((connectionPoint) => (
-          <>
-            <Token
-              key={connectionPoint.id}
+        {symbol.connectionPoints.map((connectionPoint, index) => (
+          <Flexbox key={connectionPoint.id} gap={theme.mimirorg.spacing.xl} alignItems="center">
+            <Text
+              font={theme.mimirorg.typography.roles.body.large.font}
               onMouseEnter={() => setHoveredConnectionPoint(connectionPoint.id)}
               onMouseLeave={() => setHoveredConnectionPoint(null)}
-              variant={"secondary"}
             >
-              {connectionPoint.identifier}
-            </Token>
+              Connection point #{index + 1}
+            </Text>
             <Select
               placeholder={"Select a terminal"}
               options={getTerminalOptions(connectionPoint.id)}
@@ -81,7 +84,7 @@ const ConnectTerminalsToSymbolStep = ({
               onChange={(terminal) => handleTerminalChange(terminal, connectionPoint)}
               isClearable={true}
             />
-          </>
+          </Flexbox>
         ))}
       </Flexbox>
     </Flexbox>
