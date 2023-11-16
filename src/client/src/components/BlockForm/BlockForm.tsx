@@ -18,7 +18,7 @@ import {
 } from "./BlockForm.helpers";
 import ClassifiersStep from "./ClassifiersStep";
 import ConnectTerminalsToSymbolStep from "./ConnectTerminalsToSymbolStep";
-import ReviewAndSubmit from "./ReviewAndSubmit";
+import ReviewAndSubmitStep from "./ReviewAndSubmitStep";
 import SelectSymbolStep from "./SelectSymbolStep";
 import TerminalsStep from "./TerminalsStep";
 
@@ -105,7 +105,7 @@ const BlockForm = ({ mode }: BlockFormProps) => {
           );
         }
       case 5:
-        return <ReviewAndSubmit mode={mode} blockFormFields={blockFormFields} />;
+        return <ReviewAndSubmitStep mode={mode} blockFormFields={blockFormFields} />;
       default:
         return <></>;
     }
