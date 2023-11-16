@@ -9,4 +9,5 @@ public class DcTerms
     public static readonly Uri Creator = new($"{NameSpace}creator");
     public static readonly Uri Contributor = new($"{NameSpace}contributor");
     public static readonly Uri Modified = new($"{NameSpace}modified");
+    public static readonly Uri Identifier = new($"{NameSpace}identifier");
 }

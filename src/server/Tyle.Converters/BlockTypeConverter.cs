@@ -40,7 +40,7 @@ public static class BlockTypeConverter
                 g.CreateUriNode(block.Purpose.Iri));
         }
 
-        // Add notation and symbol
+        // Add notation
 
         if (block.Notation != null)
         {
@@ -50,6 +50,8 @@ public static class BlockTypeConverter
                 Sh.HasValue,
                 g.CreateLiteralNode(block.Notation));
         }
+
+        // Add symbol
 
         if (block.Symbol != null)
         {
@@ -92,6 +94,26 @@ public static class BlockTypeConverter
                     propertyNode,
                     g.CreateUriNode(Sh.MaxCount),
                     g.CreateLiteralNode(terminal.MaxCount.ToString(), Xsd.Integer)));
+            }
+
+            if (terminal.ConnectionPoint != null)
+            {
+                var isPointOnNode = g.CreateBlankNode();
+                g.Assert(new Triple(isPointOnNode, g.CreateUriNode(Sh.Path), g.CreateUriNode(Sym.IsPointOn)));
+                g.Assert(new Triple(isPointOnNode, g.CreateUriNode(Sh.HasValue), g.CreateUriNode(block.Symbol!.Iri)));
+
+                var identifierNode = g.CreateBlankNode();
+                g.Assert(new Triple(identifierNode, g.CreateUriNode(Sh.Path), g.CreateUriNode(DcTerms.Identifier)));
+                g.Assert(new Triple(identifierNode, g.CreateUriNode(Sh.HasValue), g.CreateLiteralNode(terminal.ConnectionPoint.Identifier)));
+
+                var innerNode = g.CreateBlankNode();
+                g.Assert(new Triple(innerNode, g.CreateUriNode(Sh.Property), isPointOnNode));
+                g.Assert(new Triple(innerNode, g.CreateUriNode(Sh.Property), identifierNode));
+
+                var outerNode = g.CreateBlankNode();
+                g.AddShaclPropertyTriple(outerNode, Imf.Symbol, Sh.Node, innerNode);
+
+                g.Assert(propertyNode, g.CreateUriNode(Sh.Node), outerNode);
             }
         }
 
