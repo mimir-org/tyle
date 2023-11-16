@@ -6,7 +6,6 @@ import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import React, { ReactElement, useState } from "react";
 import { useTheme } from "styled-components/macro";
 import { BlockView } from "types/blocks/blockView";
-import { EngineeringSymbol } from "types/blocks/engineeringSymbol";
 import { FormMode } from "types/formMode";
 import AttributesStep from "./AttributesStep";
 import BaseStep from "./BaseStep";
@@ -18,6 +17,7 @@ import {
   useBlockQuery,
 } from "./BlockForm.helpers";
 import ClassifiersStep from "./ClassifiersStep";
+import ConnectTerminalsToSymbolStep from "./ConnectTerminalsToSymbolStep";
 import ReviewAndSubmit from "./ReviewAndSubmit";
 import SelectSymbolStep from "./SelectSymbolStep";
 import TerminalsStep from "./TerminalsStep";
@@ -86,23 +86,35 @@ const BlockForm = ({ mode }: BlockFormProps) => {
           />
         );
       case 4:
-        return (
-          <SelectSymbolStep
-            symbol={blockFormFields.symbol}
-            setSymbol={(nextSymbol: EngineeringSymbol | null) =>
-              setBlockFormFields({ ...blockFormFields, symbol: nextSymbol })
-            }
-            terminals={blockFormFields.terminals}
-            setTerminals={(nextTerminals) => {
-              setBlockFormFields({ ...blockFormFields, terminals: nextTerminals });
-            }}
-          />
-        );
+        if (blockFormFields.symbol === null) {
+          return (
+            <SelectSymbolStep
+              setSymbol={(nextSymbol) => setBlockFormFields({ ...blockFormFields, symbol: nextSymbol })}
+            />
+          );
+        } else {
+          return (
+            <ConnectTerminalsToSymbolStep
+              symbol={blockFormFields.symbol}
+              removeSymbol={handleRemoveSymbol}
+              terminals={blockFormFields.terminals}
+              setTerminals={(nextTerminals) => {
+                setBlockFormFields({ ...blockFormFields, terminals: nextTerminals });
+              }}
+            />
+          );
+        }
       case 5:
         return <ReviewAndSubmit mode={mode} blockFormFields={blockFormFields} />;
       default:
         return <></>;
     }
+  };
+
+  const handleRemoveSymbol = () => {
+    const nextTerminals = blockFormFields.terminals.map((terminal) => ({ ...terminal, connectionPoint: null }));
+
+    setBlockFormFields({ ...blockFormFields, symbol: null, terminals: nextTerminals });
   };
 
   const handleSubmit = (event: React.FormEvent) => {
