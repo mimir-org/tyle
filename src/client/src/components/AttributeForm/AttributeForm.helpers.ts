@@ -48,8 +48,8 @@ export const toAttributeFormFields = (attribute: AttributeView): AttributeFormFi
     attribute.unitMinCount === 1
       ? UnitRequirement.Required
       : attribute.unitMaxCount === 1
-      ? UnitRequirement.Optional
-      : UnitRequirement.NoUnit,
+        ? UnitRequirement.Optional
+        : UnitRequirement.NoUnit,
   provenanceQualifier: attribute.provenanceQualifier,
   rangeQualifier: attribute.rangeQualifier,
   regularityQualifier: attribute.regularityQualifier,
@@ -90,8 +90,8 @@ export const toValueConstraintRequest = (
     minCount: attributeFormFields.requireValue
       ? 1
       : attributeFormFields.constraintType === ConstraintType.HasSpecificValue
-      ? undefined
-      : 0,
+        ? undefined
+        : 0,
     maxCount: undefined,
     value: attributeFormFields.value,
     valueList: attributeFormFields.valueList ? attributeFormFields.valueList.map((x) => x.value) : [],
