@@ -6,14 +6,10 @@ import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import React, { ReactElement, useState } from "react";
 import { useTheme } from "styled-components/macro";
 import { BlockView } from "types/blocks/blockView";
-import { EngineeringSymbol } from "types/blocks/engineeringSymbol";
-import { AttributeTypeReferenceView } from "types/common/attributeTypeReferenceView";
-import { RdlClassifier } from "types/common/rdlClassifier";
 import { FormMode } from "types/formMode";
 import AttributesStep from "./AttributesStep";
 import BaseStep from "./BaseStep";
 import {
-  TerminalTypeReferenceField,
   createEmptyBlockFormFields,
   toBlockFormFields,
   toBlockTypeRequest,
@@ -21,7 +17,8 @@ import {
   useBlockQuery,
 } from "./BlockForm.helpers";
 import ClassifiersStep from "./ClassifiersStep";
-import ReviewAndSubmit from "./ReviewAndSubmit";
+import ConnectTerminalsToSymbolStep from "./ConnectTerminalsToSymbolStep";
+import ReviewAndSubmitStep from "./ReviewAndSubmitStep";
 import SelectSymbolStep from "./SelectSymbolStep";
 import TerminalsStep from "./TerminalsStep";
 
@@ -65,7 +62,7 @@ const BlockForm = ({ mode }: BlockFormProps) => {
         return (
           <ClassifiersStep
             chosenClassifiers={blockFormFields.classifiers}
-            setClassifiers={(nextClassifiers: RdlClassifier[]) => {
+            setClassifiers={(nextClassifiers) => {
               setBlockFormFields({ ...blockFormFields, classifiers: nextClassifiers });
             }}
           />
@@ -74,7 +71,7 @@ const BlockForm = ({ mode }: BlockFormProps) => {
         return (
           <AttributesStep
             chosenAttributes={blockFormFields.attributes}
-            setAttributes={(nextAttributes: AttributeTypeReferenceView[]) => {
+            setAttributes={(nextAttributes) => {
               setBlockFormFields({ ...blockFormFields, attributes: nextAttributes });
             }}
           />
@@ -83,25 +80,41 @@ const BlockForm = ({ mode }: BlockFormProps) => {
         return (
           <TerminalsStep
             chosenTerminals={blockFormFields.terminals}
-            setTerminals={(nextTerminals: TerminalTypeReferenceField[]) => {
+            setTerminals={(nextTerminals) => {
               setBlockFormFields({ ...blockFormFields, terminals: nextTerminals });
             }}
           />
         );
       case 4:
-        return (
-          <SelectSymbolStep
-            symbol={blockFormFields.symbol}
-            setSymbol={(nextSymbol: EngineeringSymbol | null) =>
-              setBlockFormFields({ ...blockFormFields, symbol: nextSymbol })
-            }
-          />
-        );
+        if (blockFormFields.symbol === null) {
+          return (
+            <SelectSymbolStep
+              setSymbol={(nextSymbol) => setBlockFormFields({ ...blockFormFields, symbol: nextSymbol })}
+            />
+          );
+        } else {
+          return (
+            <ConnectTerminalsToSymbolStep
+              symbol={blockFormFields.symbol}
+              removeSymbol={handleRemoveSymbol}
+              terminals={blockFormFields.terminals}
+              setTerminals={(nextTerminals) => {
+                setBlockFormFields({ ...blockFormFields, terminals: nextTerminals });
+              }}
+            />
+          );
+        }
       case 5:
-        return <ReviewAndSubmit mode={mode} blockFormFields={blockFormFields} />;
+        return <ReviewAndSubmitStep mode={mode} blockFormFields={blockFormFields} />;
       default:
         return <></>;
     }
+  };
+
+  const handleRemoveSymbol = () => {
+    const nextTerminals = blockFormFields.terminals.map((terminal) => ({ ...terminal, connectionPoint: null }));
+
+    setBlockFormFields({ ...blockFormFields, symbol: null, terminals: nextTerminals });
   };
 
   const handleSubmit = (event: React.FormEvent) => {

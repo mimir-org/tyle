@@ -29,5 +29,12 @@ public class BlockTerminalConfiguration : IEntityTypeConfiguration<BlockTerminal
             .HasForeignKey(e => e.TerminalId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
+
+        builder
+            .HasOne(e => e.ConnectionPoint)
+            .WithMany()
+            .HasForeignKey(e => e.ConnectionPointId)
+            .OnDelete(DeleteBehavior.SetNull)
+            .IsRequired(false);
     }
 }

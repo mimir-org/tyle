@@ -10,4 +10,6 @@ public class BlockTerminalTypeReference : HasCardinality
     public Guid TerminalId { get; set; }
     public TerminalType Terminal { get; set; } = null!;
     public Direction Direction { get; set; }
+    public int? ConnectionPointId { get; set; }
+    public ConnectionPoint? ConnectionPoint { get; set; }
 }

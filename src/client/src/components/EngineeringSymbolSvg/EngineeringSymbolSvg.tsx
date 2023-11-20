@@ -6,6 +6,7 @@ interface EngineeringSymbolSvgProps {
   height?: number;
   fillContainer?: boolean;
   showConnectionPoints?: boolean;
+  animateConnectionPoint?: number;
 }
 
 const EngineeringSymbolSvg = ({
@@ -14,6 +15,7 @@ const EngineeringSymbolSvg = ({
   height = symbol.height,
   fillContainer = false,
   showConnectionPoints = false,
+  animateConnectionPoint,
 }: EngineeringSymbolSvgProps) => {
   return (
     <svg
@@ -32,7 +34,11 @@ const EngineeringSymbolSvg = ({
             cy={connectionPoint.positionY}
             r="2"
             fill="red"
-          />
+          >
+            {connectionPoint.id === animateConnectionPoint && (
+              <animate attributeName="r" values="1;3;1" dur="1.5s" repeatCount="indefinite" />
+            )}
+          </circle>
         ))}
     </svg>
   );

@@ -61,6 +61,7 @@ export const onAddTerminals = (
       minCount: 1,
       direction: defaultDirection,
       maxCount: null,
+      connectionPoint: null,
     });
   });
 
