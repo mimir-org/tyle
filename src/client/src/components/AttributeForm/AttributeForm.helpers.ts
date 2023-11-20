@@ -25,27 +25,45 @@ export const useAttributeMutation = (id?: string, mode?: FormMode) => {
 };
 
 export interface AttributeFormFields {
-  name: string;
-  predicate: RdlPredicate | null;
-  description: string;
-  provenanceQualifier: ProvenanceQualifier | null;
-  rangeQualifier: RangeQualifier | null;
-  regularityQualifier: RegularityQualifier | null;
-  scopeQualifier: ScopeQualifier | null;
+  base: AttributeBaseFields;
+  qualifiers: AttributeQualifierFields;
   unitRequirement: UnitRequirement;
   units: RdlUnit[];
   valueConstraint: ValueConstraintRequest | null;
 }
 
+export interface AttributeBaseFields {
+  name: string;
+  predicate: RdlPredicate | null;
+  description: string;
+}
+
+export interface AttributeQualifierFields {
+  provenance: ProvenanceQualifier | null;
+  range: RangeQualifier | null;
+  regularity: RegularityQualifier | null;
+  scope: ScopeQualifier | null;
+}
+
 export const toAttributeFormFields = (attributeView: AttributeView): AttributeFormFields => ({
-  ...attributeView,
-  description: attributeView.description ?? "",
+  base: {
+    name: attributeView.name,
+    predicate: attributeView.predicate,
+    description: attributeView.description ?? "",
+  },
+  qualifiers: {
+    provenance: attributeView.provenanceQualifier,
+    range: attributeView.rangeQualifier,
+    regularity: attributeView.regularityQualifier,
+    scope: attributeView.scopeQualifier,
+  },
   unitRequirement:
     attributeView.unitMinCount === 1
       ? UnitRequirement.Required
       : attributeView.unitMaxCount === 1
       ? UnitRequirement.Optional
       : UnitRequirement.NoUnit,
+  units: attributeView.units,
   valueConstraint: attributeView.valueConstraint
     ? {
         ...attributeView.valueConstraint,
@@ -56,22 +74,31 @@ export const toAttributeFormFields = (attributeView: AttributeView): AttributeFo
 });
 
 export const toAttributeTypeRequest = (attributeFormFields: AttributeFormFields): AttributeTypeRequest => ({
-  ...attributeFormFields,
-  description: attributeFormFields.description ? attributeFormFields.description : null,
-  predicateId: attributeFormFields.predicate?.id ?? null,
-  unitIds: attributeFormFields.units.map((x) => x.id),
+  name: attributeFormFields.base.name,
+  description: attributeFormFields.base.description ? attributeFormFields.base.description : null,
+  predicateId: attributeFormFields.base.predicate?.id ?? null,
+  unitIds: attributeFormFields.units.map((unit) => unit.id),
   unitMinCount: attributeFormFields.unitRequirement === UnitRequirement.Required ? 1 : 0,
   unitMaxCount: attributeFormFields.unitRequirement === UnitRequirement.NoUnit ? 0 : 1,
+  provenanceQualifier: attributeFormFields.qualifiers.provenance,
+  rangeQualifier: attributeFormFields.qualifiers.range,
+  regularityQualifier: attributeFormFields.qualifiers.regularity,
+  scopeQualifier: attributeFormFields.qualifiers.scope,
+  valueConstraint: attributeFormFields.valueConstraint,
 });
 
 export const createEmptyAttributeFormFields = (): AttributeFormFields => ({
-  name: "",
-  predicate: null,
-  description: "",
-  provenanceQualifier: null,
-  rangeQualifier: null,
-  regularityQualifier: null,
-  scopeQualifier: null,
+  base: {
+    name: "",
+    predicate: null,
+    description: "",
+  },
+  qualifiers: {
+    provenance: null,
+    range: null,
+    regularity: null,
+    scope: null,
+  },
   unitRequirement: UnitRequirement.NoUnit,
   units: [],
   valueConstraint: null,

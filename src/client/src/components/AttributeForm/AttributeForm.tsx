@@ -8,7 +8,6 @@ import { useTheme } from "styled-components";
 import { AttributeView } from "types/attributes/attributeView";
 import { FormMode } from "types/formMode";
 import {
-  createEmptyAttributeFormFields,
   toAttributeFormFields,
   toAttributeTypeRequest,
   useAttributeMutation,
@@ -16,6 +15,8 @@ import {
 } from "./AttributeForm.helpers";
 import BaseStep from "./BaseStep";
 import QualifiersStep from "./QualifiersStep";
+import UnitsStep from "./UnitsStep";
+import { useAttributeFormState } from "./useAttributeFormState";
 
 interface AttributeFormProps {
   mode?: FormMode;
@@ -24,12 +25,13 @@ interface AttributeFormProps {
 const AttributeForm = ({ mode }: AttributeFormProps) => {
   const theme = useTheme();
 
-  const [attributeFormFields, setAttributeFormFields] = React.useState(createEmptyAttributeFormFields);
+  const [formFields, setFormFields, setBaseFields, setQualifiers, setUnitRequirement, setUnits] =
+    useAttributeFormState();
 
   const query = useAttributeQuery();
   const mapper = (source: AttributeView) => toAttributeFormFields(source);
 
-  const [_, isLoading] = usePrefilledForm(query, mapper, setAttributeFormFields);
+  const [_, isLoading] = usePrefilledForm(query, mapper, setFormFields);
 
   const mutation = useAttributeMutation(query.data?.id, mode);
 
@@ -50,10 +52,17 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
   const getFormStep = (step: number) => {
     switch (step) {
       case 0:
-        return <BaseStep attributeFormFields={attributeFormFields} setAttributeFormFields={setAttributeFormFields} />;
+        return <BaseStep baseFields={formFields.base} setBaseFields={setBaseFields} />;
       case 1:
+        return <QualifiersStep qualifiers={formFields.qualifiers} setQualifiers={setQualifiers} />;
+      case 2:
         return (
-          <QualifiersStep attributeFormFields={attributeFormFields} setAttributeFormFields={setAttributeFormFields} />
+          <UnitsStep
+            unitRequirement={formFields.unitRequirement}
+            setUnitRequirement={setUnitRequirement}
+            units={formFields.units}
+            setUnits={setUnits}
+          />
         );
       default:
         return <></>;
@@ -62,7 +71,7 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    onSubmitForm(toAttributeTypeRequest(attributeFormFields), mutation.mutateAsync, toast);
+    onSubmitForm(toAttributeTypeRequest(formFields), mutation.mutateAsync, toast);
   };
 
   return (

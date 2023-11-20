@@ -5,14 +5,14 @@ import { RangeQualifier } from "types/attributes/rangeQualifier";
 import { RegularityQualifier } from "types/attributes/regularityQualifier";
 import { ScopeQualifier } from "types/attributes/scopeQualifier";
 import { getOptionsFromEnum } from "utils";
-import { AttributeFormFields } from "./AttributeForm.helpers";
+import { AttributeQualifierFields } from "./AttributeForm.helpers";
 
 interface QualifiersStepProps {
-  attributeFormFields: AttributeFormFields;
-  setAttributeFormFields: (nextAttributeFormFields: AttributeFormFields) => void;
+  qualifiers: AttributeQualifierFields;
+  setQualifiers: (nextQualifiers: AttributeQualifierFields) => void;
 }
 
-const QualifiersStep = ({ attributeFormFields, setAttributeFormFields }: QualifiersStepProps) => {
+const QualifiersStep = ({ qualifiers, setQualifiers }: QualifiersStepProps) => {
   const theme = useTheme();
 
   const provenanceQualifierOptions = getOptionsFromEnum<ProvenanceQualifier>(ProvenanceQualifier);
@@ -30,12 +30,12 @@ const QualifiersStep = ({ attributeFormFields, setAttributeFormFields }: Qualifi
                 placeholder="Select a provenance qualifier"
                 options={provenanceQualifierOptions}
                 onChange={(x) => {
-                  setAttributeFormFields({
-                    ...attributeFormFields,
-                    provenanceQualifier: x?.value ?? null,
+                  setQualifiers({
+                    ...qualifiers,
+                    provenance: x?.value ?? null,
                   });
                 }}
-                value={provenanceQualifierOptions.find((x) => x.value === attributeFormFields.provenanceQualifier)}
+                value={provenanceQualifierOptions.find((x) => x.value === qualifiers.provenance)}
                 isClearable={true}
               />
             </FormField>
@@ -47,12 +47,12 @@ const QualifiersStep = ({ attributeFormFields, setAttributeFormFields }: Qualifi
                   placeholder="Select a range qualifier"
                   options={rangeQualifierOptions}
                   onChange={(x) => {
-                    setAttributeFormFields({
-                      ...attributeFormFields,
-                      rangeQualifier: x?.value ?? null,
+                    setQualifiers({
+                      ...qualifiers,
+                      range: x?.value ?? null,
                     });
                   }}
-                  value={rangeQualifierOptions.find((x) => x.value === attributeFormFields.rangeQualifier)}
+                  value={rangeQualifierOptions.find((x) => x.value === qualifiers.range)}
                   isClearable={true}
                 />
               </FormField>
@@ -66,12 +66,12 @@ const QualifiersStep = ({ attributeFormFields, setAttributeFormFields }: Qualifi
                 placeholder="Select a regularity qualifier"
                 options={regularityQualifierOptions}
                 onChange={(x) => {
-                  setAttributeFormFields({
-                    ...attributeFormFields,
-                    regularityQualifier: x?.value ?? null,
+                  setQualifiers({
+                    ...qualifiers,
+                    regularity: x?.value ?? null,
                   });
                 }}
-                value={regularityQualifierOptions.find((x) => x.value === attributeFormFields.regularityQualifier)}
+                value={regularityQualifierOptions.find((x) => x.value === qualifiers.regularity)}
                 isClearable={true}
               />
             </FormField>
@@ -83,12 +83,12 @@ const QualifiersStep = ({ attributeFormFields, setAttributeFormFields }: Qualifi
                   placeholder="Select a scope qualifier"
                   options={scopeQualifierOptions}
                   onChange={(x) => {
-                    setAttributeFormFields({
-                      ...attributeFormFields,
-                      scopeQualifier: x?.value ?? null,
+                    setQualifiers({
+                      ...qualifiers,
+                      scope: x?.value ?? null,
                     });
                   }}
-                  value={scopeQualifierOptions.find((x) => x.value === attributeFormFields.scopeQualifier)}
+                  value={scopeQualifierOptions.find((x) => x.value === qualifiers.scope)}
                   isClearable={true}
                 />
               </FormField>

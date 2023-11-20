@@ -1,14 +1,14 @@
 import { Box, Flexbox, FormBaseFieldsContainer, FormField, Input, Select, Textarea } from "@mimirorg/component-library";
 import { useGetPredicates } from "api/predicate.queries";
 import { useTheme } from "styled-components";
-import { AttributeFormFields } from "./AttributeForm.helpers";
+import { AttributeBaseFields } from "./AttributeForm.helpers";
 
 interface BaseStepProps {
-  attributeFormFields: AttributeFormFields;
-  setAttributeFormFields: (nextAttributeFormFields: AttributeFormFields) => void;
+  baseFields: AttributeBaseFields;
+  setBaseFields: (nextAttributeFormFields: AttributeBaseFields) => void;
 }
 
-const BaseStep = ({ attributeFormFields, setAttributeFormFields }: BaseStepProps) => {
+const BaseStep = ({ baseFields, setBaseFields }: BaseStepProps) => {
   const theme = useTheme();
 
   const predicateQuery = useGetPredicates();
@@ -25,8 +25,8 @@ const BaseStep = ({ attributeFormFields, setAttributeFormFields }: BaseStepProps
             <FormField label="Name">
               <Input
                 placeholder="Name"
-                value={attributeFormFields.name}
-                onChange={(event) => setAttributeFormFields({ ...attributeFormFields, name: event.target.value })}
+                value={baseFields.name}
+                onChange={(event) => setBaseFields({ ...baseFields, name: event.target.value })}
               />
             </FormField>
           </Box>
@@ -37,12 +37,12 @@ const BaseStep = ({ attributeFormFields, setAttributeFormFields }: BaseStepProps
                 options={predicateOptions}
                 isLoading={predicateQuery.isLoading}
                 onChange={(x) => {
-                  setAttributeFormFields({
-                    ...attributeFormFields,
+                  setBaseFields({
+                    ...baseFields,
                     predicate: x?.value ?? null,
                   });
                 }}
-                value={predicateOptions?.find((x) => x.value.id === attributeFormFields.predicate?.id)}
+                value={predicateOptions?.find((x) => x.value.id === baseFields.predicate?.id)}
                 isClearable={true}
               />
             </FormField>
@@ -51,8 +51,8 @@ const BaseStep = ({ attributeFormFields, setAttributeFormFields }: BaseStepProps
         <FormField label="Description">
           <Textarea
             placeholder="Additional information about this attribute type can be supplied here."
-            value={attributeFormFields.description}
-            onChange={(event) => setAttributeFormFields({ ...attributeFormFields, description: event.target.value })}
+            value={baseFields.description}
+            onChange={(event) => setBaseFields({ ...baseFields, description: event.target.value })}
           />
         </FormField>
       </FormBaseFieldsContainer>
