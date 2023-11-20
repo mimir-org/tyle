@@ -1,9 +1,9 @@
 import { Box, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
 import FormStepsNavigation from "components/FormStepsNavigation";
 import Loader from "components/Loader";
-import { onSubmitForm, usePrefilledFormTemporary, useSubmissionToast } from "helpers/form.helpers";
+import { onSubmitForm, usePrefilledForm, useSubmissionToast } from "helpers/form.helpers";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
-import React, { ReactElement, useState } from "react";
+import React, { useState } from "react";
 import { useTheme } from "styled-components/macro";
 import { BlockView } from "types/blocks/blockView";
 import { FormMode } from "types/formMode";
@@ -34,11 +34,10 @@ const BlockForm = ({ mode }: BlockFormProps) => {
   const query = useBlockQuery();
   const mapper = (source: BlockView) => toBlockFormFields(source);
 
-  const [_, isLoading] = usePrefilledFormTemporary(query, mapper, setBlockFormFields);
+  const [_, isLoading] = usePrefilledForm(query, mapper, setBlockFormFields);
 
   const mutation = useBlockMutation(query.data?.id, mode);
 
-  //useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
   const toast = useSubmissionToast("block");
@@ -54,7 +53,7 @@ const BlockForm = ({ mode }: BlockFormProps) => {
     "Review and submit",
   ];
 
-  const getFormStep = (step: number): ReactElement => {
+  const getFormStep = (step: number) => {
     switch (step) {
       case 0:
         return <BaseStep blockFormFields={blockFormFields} setBlockFormFields={setBlockFormFields} />;

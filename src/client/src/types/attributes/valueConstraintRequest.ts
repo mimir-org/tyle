@@ -1,14 +1,13 @@
+import { HasCardinality } from "types/common/hasCardinality";
 import { ConstraintType } from "./constraintType";
 import { XsdDataType } from "./xsdDataType";
 
-export interface ValueConstraintRequest {
+export interface ValueConstraintRequest extends HasCardinality {
   constraintType: ConstraintType;
   dataType: XsdDataType;
-  minCount?: number;
-  maxCount?: number;
-  value?: string;
-  valueList: string[];
-  pattern?: string;
-  minValue?: number;
-  maxValue?: number;
+  value: string | null;
+  valueList: string[] | null;
+  pattern: string | null;
+  minValue: number | null;
+  maxValue: number | null;
 }

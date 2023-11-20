@@ -1,87 +1,86 @@
-import { DevTool } from "@hookform/devtools";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
+import { Box, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
+import FormStepsNavigation from "components/FormStepsNavigation";
 import Loader from "components/Loader";
-import PlainLink from "components/PlainLink";
 import { onSubmitForm, usePrefilledForm, useSubmissionToast } from "helpers/form.helpers";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
-import { useServerValidation } from "hooks/useServerValidation";
-import { FormProvider, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
+import React from "react";
 import { useTheme } from "styled-components";
 import { AttributeView } from "types/attributes/attributeView";
 import { FormMode } from "types/formMode";
 import {
-  AttributeFormFields,
-  createDefaultAttributeFormFields,
+  createEmptyAttributeFormFields,
   toAttributeFormFields,
   toAttributeTypeRequest,
   useAttributeMutation,
   useAttributeQuery,
 } from "./AttributeForm.helpers";
-import AttributeFormBaseFields from "./AttributeFormBaseFields";
-import AttributeFormUnits from "./AttributeFormUnits";
-import ValueConstraintForm from "./ValueConstraintForm";
-import { attributeSchema } from "./attributeSchema";
+import BaseStep from "./BaseStep";
+import QualifiersStep from "./QualifiersStep";
 
 interface AttributeFormProps {
-  defaultValues?: AttributeFormFields;
   mode?: FormMode;
 }
 
-const AttributeForm = ({ defaultValues = createDefaultAttributeFormFields(), mode }: AttributeFormProps) => {
-  const { t } = useTranslation("entities");
+const AttributeForm = ({ mode }: AttributeFormProps) => {
   const theme = useTheme();
 
-  const formMethods = useForm<AttributeFormFields>({
-    defaultValues: defaultValues,
-    resolver: yupResolver(attributeSchema(t)),
-  });
-
-  const { handleSubmit, control, setError, reset } = formMethods;
+  const [attributeFormFields, setAttributeFormFields] = React.useState(createEmptyAttributeFormFields);
 
   const query = useAttributeQuery();
   const mapper = (source: AttributeView) => toAttributeFormFields(source);
-  const [_, isLoading] = usePrefilledForm(query, mapper, reset);
+
+  const [_, isLoading] = usePrefilledForm(query, mapper, setAttributeFormFields);
 
   const mutation = useAttributeMutation(query.data?.id, mode);
-  useServerValidation(mutation.error, setError);
+
   useNavigateOnCriteria("/", mutation.isSuccess);
 
-  const toast = useSubmissionToast(t("attribute.title"));
+  const toast = useSubmissionToast("attribute");
+
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const steps = [
+    "Define base characteristics",
+    "Choose qualifiers",
+    "Add units",
+    "Add value constraint",
+    "Review and submit",
+  ];
+
+  const getFormStep = (step: number) => {
+    switch (step) {
+      case 0:
+        return <BaseStep attributeFormFields={attributeFormFields} setAttributeFormFields={setAttributeFormFields} />;
+      case 1:
+        return (
+          <QualifiersStep attributeFormFields={attributeFormFields} setAttributeFormFields={setAttributeFormFields} />
+        );
+      default:
+        return <></>;
+    }
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    onSubmitForm(toAttributeTypeRequest(attributeFormFields), mutation.mutateAsync, toast);
+  };
 
   return (
-    <FormProvider {...formMethods}>
-      <FormContainer
-        onSubmit={handleSubmit((data) => onSubmitForm(toAttributeTypeRequest(data), mutation.mutateAsync, toast))}
-      >
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.mimirorg.spacing.multiple(6)}>
-            <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
-              <Text variant={"display-small"}>{t("attribute.title")}</Text>
-              <AttributeFormBaseFields limited={false} />
-              <Flexbox justifyContent={"center"} gap={theme.mimirorg.spacing.xl}>
-                <PlainLink tabIndex={-1} to={"/"}>
-                  <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
-                    {t("common.cancel")}
-                  </Button>
-                </PlainLink>
-                <Button type={"submit"}>{mode === "edit" ? t("common.edit") : t("common.submit")}</Button>
-              </Flexbox>
+    <FormContainer onSubmit={handleSubmit}>
+      {isLoading && <Loader />}
+      {!isLoading && (
+        <Box width="100%">
+          <Flexbox flexDirection="column" gap={theme.mimirorg.spacing.multiple(6)}>
+            <Text as="h1">{mode === "edit" ? "Edit attribute type" : "Create attribute type"}</Text>
+
+            <Flexbox flexDirection="row" gap={theme.mimirorg.spacing.multiple(18)}>
+              <FormStepsNavigation steps={steps} activeStep={activeStep} setActiveStep={setActiveStep} />
+              <Box flexGrow="1">{getFormStep(activeStep)}</Box>
             </Flexbox>
-            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
-              <AttributeFormUnits />
-            </Box>
-            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
-              <ValueConstraintForm />
-            </Box>
-          </Box>
-        )}
-        <DevTool control={control} placement={"bottom-right"} />
-      </FormContainer>
-    </FormProvider>
+          </Flexbox>
+        </Box>
+      )}
+    </FormContainer>
   );
 };
 
