@@ -164,7 +164,7 @@ public class TerminalsController : ControllerBase
     {
         try
         {
-            if (AccessToAction.HasUserAccessToDoCurrentOperation(User, HttpMethod.patch) == false)
+            if (AccessToAction.HasUserAccessToDoCurrentOperation(User, HttpMethod.Patch) == false)
             {
                 return Unauthorized();
             }

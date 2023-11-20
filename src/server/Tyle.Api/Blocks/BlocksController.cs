@@ -2,6 +2,8 @@ using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Mimirorg.Authentication.Attributes;
+using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Constants;
 using Swashbuckle.AspNetCore.Annotations;
 using Tyle.Api.Common;
@@ -18,12 +20,14 @@ namespace Tyle.Api.Blocks;
 [SwaggerTag("Block services")]
 public class BlocksController : ControllerBase
 {
+    private readonly IMimirorgAuthService _authService;
     private readonly IBlockRepository _blockRepository;
     private readonly IMapper _mapper;
     private readonly IApprovalService _approvalService;
 
-    public BlocksController(IBlockRepository blockRepository, IMapper mapper, IApprovalService approvalService)
+    public BlocksController(IBlockRepository blockRepository, IMapper mapper, IApprovalService approvalService, IMimirorgAuthService authService)
     {
+        _authService = authService;
         _blockRepository = blockRepository;
         _mapper = mapper;
         _approvalService = approvalService;
@@ -90,6 +94,7 @@ public class BlocksController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [CheckUserAccess]
     public async Task<IActionResult> Create([FromBody] BlockTypeRequest request)
     {
         try
@@ -125,10 +130,12 @@ public class BlocksController : ControllerBase
     {
         try
         {
-            if (AccessToAction.HasUserAccessToDoCurrentOperation(User, HttpMethod.Put) == false)
-            {
+            var blockFromDb = await _blockRepository.Get(id);            
+
+            if (!_authService.HasUserPermissionToModify(User, blockFromDb.CreatedBy, blockFromDb.State))            
                 return Unauthorized();
-            }
+            
+
             var block = await _blockRepository.Update(id, request);
 
             if (block == null)

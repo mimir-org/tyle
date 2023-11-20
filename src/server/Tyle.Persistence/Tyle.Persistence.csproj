@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Mimirorg.Authentication\Mimirorg.Authentication.csproj" />
     <ProjectReference Include="..\Tyle.Application\Tyle.Application.csproj" />
   </ItemGroup>
 

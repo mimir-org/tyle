@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Mimirorg.Authentication.Contracts;
 using Tyle.Application.Attributes;
 using Tyle.Application.Blocks;
 using Tyle.Application.Common;
@@ -57,7 +58,7 @@ public static class PersistenceDependencyInjection
         services.AddScoped<IMediumRepository, MediumRepository>();
         services.AddScoped<IPredicateRepository, PredicateRepository>();
         services.AddScoped<IPurposeRepository, PurposeRepository>();
-        services.AddScoped<IUnitRepository, UnitRepository>();
+        services.AddScoped<IUnitRepository, UnitRepository>();        
 
         services.AddScoped<IAttributeGroupRepository, AttributeGroupRepository>();
         services.AddScoped<ISymbolRepository, SymbolRepository>();

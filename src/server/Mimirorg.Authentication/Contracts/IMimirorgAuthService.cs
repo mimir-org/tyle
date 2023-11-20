@@ -1,4 +1,5 @@
 using System.Security.Authentication;
+using System.Security.Claims;
 using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Exceptions;
 using Mimirorg.Authentication.Models.Application;
@@ -34,6 +35,15 @@ public interface IMimirorgAuthService
     /// <param name="secret">string</param>
     /// <returns></returns>
     Task Logout(string secret);
+
+    /// <summary>
+    /// Checks if the user has access to the action
+    /// </summary>
+    /// <param name="user"></param>
+    /// <param name="createdNameFromDb"></param>
+    /// <param name="stateFromDb"></param>
+    /// <returns></returns>
+    public bool HasUserPermissionToModify(ClaimsPrincipal? user, string createdNameFromDb, State stateFromDb);
 
     #endregion
 
