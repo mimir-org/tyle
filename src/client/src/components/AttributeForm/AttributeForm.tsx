@@ -16,6 +16,7 @@ import {
 import BaseStep from "./BaseStep";
 import QualifiersStep from "./QualifiersStep";
 import UnitsStep from "./UnitsStep";
+import ValueConstraintStep from "./ValueConstraintStep";
 import { useAttributeFormState } from "./useAttributeFormState";
 
 interface AttributeFormProps {
@@ -25,7 +26,7 @@ interface AttributeFormProps {
 const AttributeForm = ({ mode }: AttributeFormProps) => {
   const theme = useTheme();
 
-  const [formFields, setFormFields, setBaseFields, setQualifiers, setUnitRequirement, setUnits] =
+  const [formFields, setFormFields, setBaseFields, setQualifiers, setUnitRequirement, setUnits, setValueConstraint] =
     useAttributeFormState();
 
   const query = useAttributeQuery();
@@ -63,6 +64,10 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
             units={formFields.units}
             setUnits={setUnits}
           />
+        );
+      case 3:
+        return (
+          <ValueConstraintStep valueConstraint={formFields.valueConstraint} setValueConstraint={setValueConstraint} />
         );
       default:
         return <></>;
