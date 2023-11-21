@@ -1,10 +1,12 @@
 using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Mimirorg.Authentication.Attributes;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Constants;
+using SendGrid.Helpers.Errors.Model;
 using Swashbuckle.AspNetCore.Annotations;
 using Tyle.Api.Common;
 using Tyle.Application.Blocks;
@@ -94,14 +96,14 @@ public class BlocksController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [CheckUserAccess]
+    
     public async Task<IActionResult> Create([FromBody] BlockTypeRequest request)
     {
         try
-        {                          
-            if(AccessToAction.HasUserAccessToDoCurrentOperation(User, HttpMethod.Post) == false)
+        {
+            if (!_authService.HasUserPermissionToModify(User, HttpMethod.Post))
             {
-                return Unauthorized();
+                return StatusCode(403);
             }
 
             var createdBlock = await _blockRepository.Create(request);
@@ -130,11 +132,12 @@ public class BlocksController : ControllerBase
     {
         try
         {
-            var blockFromDb = await _blockRepository.Get(id);            
+            var blockFromDb = await _blockRepository.Get(id);
+            if (blockFromDb == null)
+                return StatusCode(404);
+            if (!_authService.HasUserPermissionToModify(User, HttpMethod.Put, blockFromDb.CreatedBy, blockFromDb.State))
+                return StatusCode(403);
 
-            if (!_authService.HasUserPermissionToModify(User, blockFromDb.CreatedBy, blockFromDb.State))            
-                return Unauthorized();
-            
 
             var block = await _blockRepository.Update(id, request);
 
@@ -171,7 +174,11 @@ public class BlocksController : ControllerBase
     {
         try
         {
-            // TODO: Handle authorization
+            var blockFromDb = await _blockRepository.Get(id);
+            if (blockFromDb == null)
+                return StatusCode(404);
+            if (!_authService.HasUserPermissionToModify(User, HttpMethod.Put, blockFromDb.CreatedBy, blockFromDb.State))
+                return StatusCode(403);
 
             var response = await _approvalService.ChangeBlockState(id, request.State);
 
@@ -203,6 +210,12 @@ public class BlocksController : ControllerBase
     {
         try
         {
+            var blockFromDb = await _blockRepository.Get(id);
+            if (blockFromDb == null)
+                return StatusCode(404);
+            if (!_authService.HasUserPermissionToModify(User, HttpMethod.Put, blockFromDb.CreatedBy, blockFromDb.State))
+                return StatusCode(403);
+
             if (await _blockRepository.Delete(id))
             {
                 return NoContent();

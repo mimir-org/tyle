@@ -15,12 +15,15 @@ using Mimirorg.Authentication.Models;
 using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Client;
 using Tyle.Core.Common;
+using Tyle.Application.Blocks;
+using Tyle.Application.Common;
 
 namespace Mimirorg.Authentication.Services;
 
 public class MimirorgAuthService : IMimirorgAuthService
 {
     private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly IBlockRepository _blockRepository;
     private readonly UserManager<MimirorgUser> _userManager;
     private readonly SignInManager<MimirorgUser> _signInManager;
     private readonly IMimirorgTokenRepository _tokenRepository;
@@ -30,8 +33,9 @@ public class MimirorgAuthService : IMimirorgAuthService
     private readonly IMimirorgTemplateRepository _templateRepository;
     private readonly IHttpContextAccessor _contextAccessor;
 
-    public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IHttpContextAccessor contextAccessor)
+    public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IHttpContextAccessor contextAccessor, IBlockRepository blockRepository)
     {
+        _blockRepository = blockRepository;
         _userManager = userManager;
         _signInManager = signInManager;
         _tokenRepository = tokenRepository;
@@ -137,15 +141,24 @@ public class MimirorgAuthService : IMimirorgAuthService
     }
 
 
-    public bool HasUserPermissionToModify(ClaimsPrincipal? user, string createdNameFromDb, State stateFromDb)
+    public bool HasUserPermissionToModify(ClaimsPrincipal? user, HttpMethod method, TypeRepository? repository = null)
     {
-        if (user == null && stateFromDb == State.Approved)
-            return false;
+        var createdNameFromDb = String.Empty;
+        State stateFromDb = State.Approved;
+
+        if (method != HttpMethod.Post)
+
+
+            if (user == null || stateFromDb == State.Approved)
+                return false;
 
         if (user.IsInRole("Administrator") || user.IsInRole("Reviewer"))
             return true;
 
-        if (user.IsInRole("Contributer") && createdNameFromDb == user.Identity.Name)
+        if (method == HttpMethod.Post && user.IsInRole("Contributer"))
+            return true;
+
+        if ((method == HttpMethod.Put || method == HttpMethod.Patch) && createdNameFromDb == user.Identity.Name)
             return true;
 
         return false;

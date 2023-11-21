@@ -4,6 +4,7 @@ using Mimirorg.Authentication.Enums;
 using Mimirorg.Authentication.Exceptions;
 using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Client;
+using Tyle.Application.Common;
 using Tyle.Core.Common;
 
 namespace Mimirorg.Authentication.Contracts;
@@ -43,7 +44,7 @@ public interface IMimirorgAuthService
     /// <param name="createdNameFromDb"></param>
     /// <param name="stateFromDb"></param>
     /// <returns></returns>
-    public bool HasUserPermissionToModify(ClaimsPrincipal? user, string createdNameFromDb, State stateFromDb);
+    public bool HasUserPermissionToModify(ClaimsPrincipal? user, HttpMethod method, TypeRepository? repository = null);
 
     #endregion
 
