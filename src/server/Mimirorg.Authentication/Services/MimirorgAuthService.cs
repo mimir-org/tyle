@@ -158,7 +158,7 @@ public class MimirorgAuthService : IMimirorgAuthService
 
         if (method != HttpMethod.Post)
         {
-            var item = await GetInfoFromDb(repository, typeId);
+            var item = await GetInfoFromDb(repository.GetValueOrDefault(), typeId.GetValueOrDefault());
             if (item == null)
                 return true;
             createdNameFromDb = item.Item1;
