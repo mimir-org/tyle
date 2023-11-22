@@ -158,32 +158,11 @@ public class MimirorgAuthService : IMimirorgAuthService
 
         if (method != HttpMethod.Post)
         {
-            if (repository == TypeRepository.Attribute)
-            {
-                var item = await _attributeRepository.Get(typeId.GetValueOrDefault());
-                if (item == null)
-                    return false;
-                stateFromDb = item.State;
-                createdNameFromDb = item.CreatedBy;
-            }
-
-            else if (repository == TypeRepository.Terminal)
-            {
-                var item = await _terminalRepository.Get(typeId.GetValueOrDefault());
-                if (item == null)
-                    return false;
-                stateFromDb = item.State;
-                createdNameFromDb = item.CreatedBy;
-            }
-
-            else if (repository == TypeRepository.Block)
-            {
-                var item = await _blockRepository.Get(typeId.GetValueOrDefault());
-                if (item == null)
-                    return false;
-                stateFromDb = item.State;
-                createdNameFromDb = item.CreatedBy;
-            }
+            var item = await GetInfoFromDb(repository, typeId);
+            if (item == null)
+                return false;
+            createdNameFromDb = item.Item1;
+            stateFromDb = item.Item2;
         }
 
         if (stateFromDb == State.Approved)
@@ -192,8 +171,11 @@ public class MimirorgAuthService : IMimirorgAuthService
         if (stateFromDb == State.Review && (!user.IsInRole("Reviewer") || !user.IsInRole("Administrator")))
             return false;
 
-        if (stateFromDb == State.Draft && user.IsInRole("Contributor") && createdNameFromDb != user.FindFirstValue(ClaimTypes.NameIdentifier))
-        return false;
+        if (stateFromDb == State.Draft && user.IsInRole("Contributor") && method != HttpMethod.Delete)
+        return true;
+
+        if (stateFromDb == State.Draft && user.IsInRole("Contributor") && method == HttpMethod.Delete && (createdNameFromDb == user.FindFirstValue(ClaimTypes.NameIdentifier)))
+            return true;
 
         if (user.IsInRole("Administrator") || user.IsInRole("Reviewer"))
             return true;
@@ -318,6 +300,36 @@ public class MimirorgAuthService : IMimirorgAuthService
 
         return validator.Validate(user.SecurityHash, codeInt);
     }
+
+    private async Task<Tuple<string,State>> GetInfoFromDb(TypeRepository? repository, Guid? typeId)
+    {
+        if (repository == TypeRepository.Attribute)
+        {
+            var item = await _attributeRepository.Get(typeId.GetValueOrDefault());
+            if (item == null)
+                return null;
+            return new Tuple<string, State>(item.CreatedBy, item.State);
+        }
+
+        else if (repository == TypeRepository.Terminal)
+        {
+            var item = await _terminalRepository.Get(typeId.GetValueOrDefault());
+            if (item == null)
+                return null;
+            return new Tuple<string, State>(item.CreatedBy, item.State);
+        }
+
+        else if (repository == TypeRepository.Block)
+        {
+            var item = await _blockRepository.Get(typeId.GetValueOrDefault());
+            if (item == null)
+                return null;
+            return new Tuple<string, State>(item.CreatedBy, item.State);
+        }
+        return null;
+    }
+
+
 
     #endregion
 }
