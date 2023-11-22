@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Mimirorg.Authentication.Contracts;
 using Tyle.Application.Attributes;
 using Tyle.Application.Blocks;
 using Tyle.Application.Common;
