@@ -7,7 +7,7 @@ import { useTheme } from "styled-components";
 import { RdlUnit } from "types/attributes/rdlUnit";
 import { InfoItem } from "types/infoItem";
 import { getOptionsFromEnum } from "utils";
-import { UnitRequirement } from "./UnitRequirement";
+import { UnitRequirement } from "./AttributeForm.helpers";
 
 interface UnitsStepProps {
   unitRequirement: UnitRequirement;

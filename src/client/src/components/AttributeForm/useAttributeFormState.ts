@@ -1,13 +1,13 @@
 import React from "react";
 import { RdlUnit } from "types/attributes/rdlUnit";
-import { ValueConstraintRequest } from "types/attributes/valueConstraintRequest";
 import {
   AttributeBaseFields,
   AttributeFormFields,
   AttributeQualifierFields,
+  UnitRequirement,
   createEmptyAttributeFormFields,
 } from "./AttributeForm.helpers";
-import { UnitRequirement } from "./UnitRequirement";
+import { ValueConstraintFields } from "./ValueConstraintStep.helpers";
 
 export const useAttributeFormState = (): [
   attributeFormFields: AttributeFormFields,
@@ -16,7 +16,7 @@ export const useAttributeFormState = (): [
   setQualifiers: (nextQualifiers: AttributeQualifierFields) => void,
   setUnitRequirement: (nextUnitRequirement: UnitRequirement) => void,
   setUnits: (nextUnits: RdlUnit[]) => void,
-  setValueConstraint: (nextValueConstraint: ValueConstraintRequest | null) => void,
+  setValueConstraint: (nextValueConstraint: ValueConstraintFields) => void,
 ] => {
   const [attributeFormFields, setAttributeFormFields] = React.useState(createEmptyAttributeFormFields);
 
@@ -36,7 +36,7 @@ export const useAttributeFormState = (): [
     setAttributeFormFields({ ...attributeFormFields, units: nextUnits });
   };
 
-  const setValueConstraint = (nextValueConstraint: ValueConstraintRequest | null) => {
+  const setValueConstraint = (nextValueConstraint: ValueConstraintFields) => {
     setAttributeFormFields({ ...attributeFormFields, valueConstraint: nextValueConstraint });
   };
 
