@@ -298,11 +298,11 @@ public class MimirorgAuthService : IMimirorgAuthService
         return validator.Validate(user.SecurityHash, codeInt);
     }
 
-    private async Task<Tuple<string, State>> GetInfoFromDb(TypeRepository? repository, Guid? typeId)
+    private async Task<Tuple<string, State>> GetInfoFromDb(TypeRepository repository, Guid typeId)
     {
         if (repository == TypeRepository.Attribute)
         {
-            var item = await _attributeRepository.Get(typeId.GetValueOrDefault());
+            var item = await _attributeRepository.Get(typeId);
             if (item == null)
                 return null;
             return new Tuple<string, State>(item.CreatedBy, item.State);
@@ -310,7 +310,7 @@ public class MimirorgAuthService : IMimirorgAuthService
 
         else if (repository == TypeRepository.Terminal)
         {
-            var item = await _terminalRepository.Get(typeId.GetValueOrDefault());
+            var item = await _terminalRepository.Get(typeId);
             if (item == null)
                 return null;
             return new Tuple<string, State>(item.CreatedBy, item.State);
@@ -318,7 +318,7 @@ public class MimirorgAuthService : IMimirorgAuthService
 
         else if (repository == TypeRepository.Block)
         {
-            var item = await _blockRepository.Get(typeId.GetValueOrDefault());
+            var item = await _blockRepository.Get(typeId);
             if (item == null)
                 return null;
             return new Tuple<string, State>(item.CreatedBy, item.State);
