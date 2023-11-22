@@ -38,6 +38,7 @@ public class AttributesController : ControllerBase
     /// </summary>
     /// <returns>A collection of attributes</returns>
     [HttpGet]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(ICollection<AttributeView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAll([FromQuery] State? state = null)
@@ -59,6 +60,7 @@ public class AttributesController : ControllerBase
     /// <param name="id">The id of the attribute to get</param>
     /// <returns>The requested attribute</returns>
     [HttpGet("{id}")]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(AttributeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -86,6 +88,7 @@ public class AttributesController : ControllerBase
     /// <param name="request">The attribute that should be created</param>
     /// <returns>The created attribute</returns>
     [HttpPost]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(AttributeView), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -93,11 +96,7 @@ public class AttributesController : ControllerBase
     public async Task<IActionResult> Create([FromBody] AttributeTypeRequest request)
     {
         try
-        {
-            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Post))
-            {
-                return StatusCode(403);
-            }
+        {          
             var createdAttribute = await _attributeRepository.Create(request);
 
             return Created("dummy", _mapper.Map<AttributeView>(createdAttribute));
@@ -115,6 +114,7 @@ public class AttributesController : ControllerBase
     /// <param name="request">The new values of the attribute</param>
     /// <returns>The updated attribute</returns>
     [HttpPut("{id}")]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(AttributeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -123,12 +123,7 @@ public class AttributesController : ControllerBase
     public async Task<IActionResult> Update(Guid id, [FromBody] AttributeTypeRequest request)
     {
         try
-        {
-
-            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Put, TypeRepository.Attribute, id))
-            {
-                return StatusCode(403);
-            }
+        {     
             var attribute = await _attributeRepository.Update(id, request);
 
             if (attribute == null)
@@ -163,7 +158,7 @@ public class AttributesController : ControllerBase
     {
         try
         {
-            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Patch, TypeRepository.Attribute, id))
+            if (!_authService.HasUserPermissionToUpdateToState(User, request.State))
             {
                 return StatusCode(403);
             }
@@ -197,7 +192,11 @@ public class AttributesController : ControllerBase
     {
         try
         {
-            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Delete, TypeRepository.Attribute, id))
+            var attributeFromDb = await _attributeRepository.Get(id);
+            if (attributeFromDb == null)
+                return NotFound();
+
+            if (!_authService.HasUserPermissionToDelete(User, attributeFromDb))
             {
                 return StatusCode(403);
             }

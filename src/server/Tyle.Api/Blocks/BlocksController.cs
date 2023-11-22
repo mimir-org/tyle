@@ -41,6 +41,7 @@ public class BlocksController : ControllerBase
     /// </summary>
     /// <returns>A collection of blocks</returns>
     [HttpGet]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(ICollection<BlockView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAll(State? state = null)
@@ -62,6 +63,7 @@ public class BlocksController : ControllerBase
     /// <param name="id">The id of the block to get</param>
     /// <returns>The requested block</returns>
     [HttpGet("{id}")]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -90,6 +92,7 @@ public class BlocksController : ControllerBase
     /// <param name="request">The block that should be created</param>
     /// <returns>The created block</returns>
     [HttpPost]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -98,12 +101,7 @@ public class BlocksController : ControllerBase
     public async Task<IActionResult> Create([FromBody] BlockTypeRequest request)
     {
         try
-        {
-            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Post))
-            {
-                return StatusCode(403);
-            }
-
+        {       
             var createdBlock = await _blockRepository.Create(request);
             return Created("dummy", _mapper.Map<BlockView>(createdBlock));
         }
@@ -120,6 +118,7 @@ public class BlocksController : ControllerBase
     /// <param name="request">The new values of the block</param>
     /// <returns>The updated block</returns>
     [HttpPut("{id}")]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -128,12 +127,7 @@ public class BlocksController : ControllerBase
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] BlockTypeRequest request)
     {
         try
-        {
-            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Put, TypeRepository.Block, id))
-            {
-                return StatusCode(403);
-            }
-
+        {         
             var block = await _blockRepository.Update(id, request);
 
             if (block == null)
@@ -168,7 +162,7 @@ public class BlocksController : ControllerBase
     {
         try
         {
-            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Put, TypeRepository.Block, id))
+            if (!_authService.HasUserPermissionToUpdateToState(User, request.State))
             {
                 return StatusCode(403);
             }
@@ -202,7 +196,11 @@ public class BlocksController : ControllerBase
     {
         try
         {
-            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Delete, TypeRepository.Block, id))
+            var blockFromDb = await _blockRepository.Get(id);
+            if (blockFromDb == null)
+                return NotFound();
+
+            if (!_authService.HasUserPermissionToDelete(User, blockFromDb))
             {
                 return StatusCode(403);
             }

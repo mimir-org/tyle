@@ -38,6 +38,7 @@ public class TerminalsController : ControllerBase
     /// </summary>
     /// <returns>A collection of terminals</returns>
     [HttpGet]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(ICollection<TerminalView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAll([FromQuery] State? state = null)
@@ -59,6 +60,7 @@ public class TerminalsController : ControllerBase
     /// <param name="id">The id of the terminal to get</param>
     /// <returns>The requested terminal</returns>
     [HttpGet("{id}")]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(TerminalView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -87,6 +89,7 @@ public class TerminalsController : ControllerBase
     /// <param name="request">The terminal that should be created</param>
     /// <returns>The created terminal</returns>
     [HttpPost]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(TerminalView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -94,12 +97,7 @@ public class TerminalsController : ControllerBase
     public async Task<IActionResult> Create([FromBody] TerminalTypeRequest request)
     {
         try
-        {
-            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Post))
-            {
-                return StatusCode(403);
-            }
-
+        {          
             var createdTerminal = await _terminalRepository.Create(request);
             return Created("dummy", _mapper.Map<TerminalView>(createdTerminal));
         }
@@ -116,6 +114,7 @@ public class TerminalsController : ControllerBase
     /// <param name="request">The new values of the terminal</param>
     /// <returns>The updated terminal</returns>
     [HttpPut("{id}")]
+    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(TerminalView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -124,11 +123,7 @@ public class TerminalsController : ControllerBase
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] TerminalTypeRequest request)
     {
         try
-        {
-            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Put, TypeRepository.Terminal, id))
-            {
-                return StatusCode(403);
-            }
+        {           
             var terminal = await _terminalRepository.Update(id, request);
 
             if (terminal == null)
@@ -163,7 +158,7 @@ public class TerminalsController : ControllerBase
     {
         try
         {
-            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Patch, TypeRepository.Terminal, id))
+            if (!_authService.HasUserPermissionToUpdateToState(User, request.State))
             {
                 return StatusCode(403);
             }
@@ -197,7 +192,11 @@ public class TerminalsController : ControllerBase
     {
         try
         {
-            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Delete, TypeRepository.Terminal, id))
+            var terminalFromDb = await _terminalRepository.Get(id);
+            if (terminalFromDb == null)
+                return NotFound();
+
+            if (!_authService.HasUserPermissionToDelete(User, terminalFromDb))
             {
                 return StatusCode(403);
             }

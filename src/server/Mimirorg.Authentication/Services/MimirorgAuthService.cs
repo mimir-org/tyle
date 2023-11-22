@@ -25,9 +25,6 @@ namespace Mimirorg.Authentication.Services;
 public class MimirorgAuthService : IMimirorgAuthService
 {
     private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly IBlockRepository _blockRepository;
-    private readonly ITerminalRepository _terminalRepository;
-    private readonly IAttributeRepository _attributeRepository;
     private readonly UserManager<MimirorgUser> _userManager;
     private readonly SignInManager<MimirorgUser> _signInManager;
     private readonly IMimirorgTokenRepository _tokenRepository;
@@ -37,11 +34,9 @@ public class MimirorgAuthService : IMimirorgAuthService
     private readonly IMimirorgTemplateRepository _templateRepository;
     private readonly IHttpContextAccessor _contextAccessor;
 
-    public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IHttpContextAccessor contextAccessor, IBlockRepository blockRepository, ITerminalRepository terminalRepository, IAttributeRepository attributeRepository)
+    public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IHttpContextAccessor contextAccessor)
     {
-        _blockRepository = blockRepository;
-        _terminalRepository = terminalRepository;
-        _attributeRepository = attributeRepository;
+
         _userManager = userManager;
         _signInManager = signInManager;
         _tokenRepository = tokenRepository;
@@ -147,48 +142,22 @@ public class MimirorgAuthService : IMimirorgAuthService
     }
 
 
-    public async Task<bool> HasUserPermissionToModify(ClaimsPrincipal? user, HttpMethod method, TypeRepository? repository = null, Guid? typeId = null)
+    public bool HasUserPermissionToDelete(ClaimsPrincipal? user, ImfType type)
     {
-        if (method != HttpMethod.Post)
-            if (user == null)
-                return false;
-
-        var createdNameFromDb = String.Empty;
-        State? stateFromDb = null;
-
-        if (method != HttpMethod.Post)
-        {
-            var item = await GetInfoFromDb(repository.GetValueOrDefault(), typeId.GetValueOrDefault());
-            if (item == null)
-                return true;
-            createdNameFromDb = item.Item1;
-            stateFromDb = item.Item2;
-        }
-
-        if (stateFromDb == State.Approved)
-            return false;
-
-        if (stateFromDb == State.Review && (!user.IsInRole("Reviewer") || !user.IsInRole("Administrator")))
-            return false;
-
-        if (stateFromDb == State.Draft && user.IsInRole("Contributor") && method != HttpMethod.Delete)
+        if (user.FindFirstValue(ClaimTypes.NameIdentifier) == type.CreatedBy)
             return true;
-
-        if (stateFromDb == State.Draft && user.IsInRole("Contributor") && method == HttpMethod.Delete && (createdNameFromDb == user.FindFirstValue(ClaimTypes.NameIdentifier)))
-            return true;
-
-        if (user.IsInRole("Administrator") || user.IsInRole("Reviewer"))
-            return true;
-
-        else if (method == HttpMethod.Post && user.IsInRole("Contributor"))
-            return true;
-
-        else if (createdNameFromDb == user.FindFirstValue(ClaimTypes.NameIdentifier))
-            return true;
-
-        return false;
-
+       
+        return (user.IsInRole("Administrator") || user.IsInRole("Reviewer"));
     }
+
+    public bool HasUserPermissionToUpdateToState(ClaimsPrincipal? user, State newState)
+    {
+        if (newState == State.Review && user.IsInRole("Contributor"))
+            return true;
+
+        return user.IsInRole("Administrator") || user.IsInRole("Reviewer");
+    }
+
 
     #endregion
 
@@ -296,34 +265,6 @@ public class MimirorgAuthService : IMimirorgAuthService
             return false;
 
         return validator.Validate(user.SecurityHash, codeInt);
-    }
-
-    private async Task<Tuple<string, State>> GetInfoFromDb(TypeRepository repository, Guid typeId)
-    {
-        if (repository == TypeRepository.Attribute)
-        {
-            var item = await _attributeRepository.Get(typeId);
-            if (item == null)
-                return null;
-            return new Tuple<string, State>(item.CreatedBy, item.State);
-        }
-
-        else if (repository == TypeRepository.Terminal)
-        {
-            var item = await _terminalRepository.Get(typeId);
-            if (item == null)
-                return null;
-            return new Tuple<string, State>(item.CreatedBy, item.State);
-        }
-
-        else if (repository == TypeRepository.Block)
-        {
-            var item = await _blockRepository.Get(typeId);
-            if (item == null)
-                return null;
-            return new Tuple<string, State>(item.CreatedBy, item.State);
-        }
-        return null;
     }
     #endregion
 }

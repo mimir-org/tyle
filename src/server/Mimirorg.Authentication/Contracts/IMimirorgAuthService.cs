@@ -38,15 +38,19 @@ public interface IMimirorgAuthService
     Task Logout(string secret);
 
     /// <summary>
-    /// Checks if the user has access to the action
+    /// Checking if user has permissing to delete the type
     /// </summary>
     /// <param name="user"></param>
-    /// <param name="method"></param>
-    /// <param name="repository"></param>
-    /// <param name="typeId"></param>
+    /// <param name="type"></param>
     /// <returns></returns>
-    public Task<bool> HasUserPermissionToModify(ClaimsPrincipal? user, HttpMethod method, TypeRepository? repository = null, Guid? typeId = null);
-
+    public bool HasUserPermissionToDelete(ClaimsPrincipal? user, ImfType type);
+    /// <summary>
+    /// Checking if user has permission to update the state
+    /// </summary>
+    /// <param name="user"></param>
+    /// <param name="newState"></param>
+    /// <returns></returns>
+    public bool HasUserPermissionToUpdateToState(ClaimsPrincipal? user, State newState);
     #endregion
 
     #region Authorization
