@@ -41,8 +41,9 @@ public interface IMimirorgAuthService
     /// Checks if the user has access to the action
     /// </summary>
     /// <param name="user"></param>
-    /// <param name="createdNameFromDb"></param>
-    /// <param name="stateFromDb"></param>
+    /// <param name="method"></param>
+    /// <param name="repository"></param>
+    /// <param name="typeId"></param>
     /// <returns></returns>
     public Task<bool> HasUserPermissionToModify(ClaimsPrincipal? user, HttpMethod method, TypeRepository? repository = null, Guid? typeId = null);
 

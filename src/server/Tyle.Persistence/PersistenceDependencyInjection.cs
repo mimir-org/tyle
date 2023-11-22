@@ -58,7 +58,7 @@ public static class PersistenceDependencyInjection
         services.AddScoped<IMediumRepository, MediumRepository>();
         services.AddScoped<IPredicateRepository, PredicateRepository>();
         services.AddScoped<IPurposeRepository, PurposeRepository>();
-        services.AddScoped<IUnitRepository, UnitRepository>();        
+        services.AddScoped<IUnitRepository, UnitRepository>();
 
         services.AddScoped<IAttributeGroupRepository, AttributeGroupRepository>();
         services.AddScoped<ISymbolRepository, SymbolRepository>();

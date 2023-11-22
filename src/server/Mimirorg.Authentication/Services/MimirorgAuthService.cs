@@ -75,12 +75,12 @@ public class MimirorgAuthService : IMimirorgAuthService
 
         var userStatus = await _signInManager.CheckPasswordSignInAsync(user, authenticate.Password, true);
 
-        //if (!userStatus.Succeeded)
-        //    throw new AuthenticationException($"The user account with email {authenticate.Email} could not be signed in. Status: {userStatus}");
+        if (!userStatus.Succeeded)
+            throw new AuthenticationException($"The user account with email {authenticate.Email} could not be signed in. Status: {userStatus}");
 
-        // Validate security code if user has enabled two factor
-        //if (!ValidateSecurityCode(user, authenticate.Code))
-        //    throw new AuthenticationException($"The user account with email {authenticate.Email} could not validate code.");
+        //Validate security code if user has enabled two factor
+        if (!ValidateSecurityCode(user, authenticate.Code))
+            throw new AuthenticationException($"The user account with email {authenticate.Email} could not validate code.");
 
         var now = DateTime.UtcNow;
         var accessToken = await _tokenRepository.CreateAccessToken(user, now);
@@ -191,9 +191,6 @@ public class MimirorgAuthService : IMimirorgAuthService
     }
 
     #endregion
-
-
-
 
 
     #region Authorization
@@ -328,8 +325,5 @@ public class MimirorgAuthService : IMimirorgAuthService
         }
         return null;
     }
-
-
-
     #endregion
 }

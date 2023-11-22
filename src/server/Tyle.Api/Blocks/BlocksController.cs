@@ -134,7 +134,6 @@ public class BlocksController : ControllerBase
                 return StatusCode(403);
             }
 
-
             var block = await _blockRepository.Update(id, request);
 
             if (block == null)
@@ -207,7 +206,6 @@ public class BlocksController : ControllerBase
             {
                 return StatusCode(403);
             }
-
 
             if (await _blockRepository.Delete(id))
             {
