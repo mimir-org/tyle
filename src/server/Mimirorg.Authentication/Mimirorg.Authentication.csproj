@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tyle.Application\Tyle.Application.csproj" />
     <ProjectReference Include="..\Tyle.Core\Tyle.Core.csproj" />
   </ItemGroup>
 

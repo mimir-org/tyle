@@ -15,10 +15,6 @@ using Mimirorg.Authentication.Models;
 using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Client;
 using Tyle.Core.Common;
-using Tyle.Application.Blocks;
-using Tyle.Application.Common;
-using Tyle.Application.Terminals;
-using Tyle.Application.Attributes;
 
 namespace Mimirorg.Authentication.Services;
 
@@ -36,7 +32,6 @@ public class MimirorgAuthService : IMimirorgAuthService
 
     public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IHttpContextAccessor contextAccessor)
     {
-
         _userManager = userManager;
         _signInManager = signInManager;
         _tokenRepository = tokenRepository;
@@ -73,7 +68,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         if (!userStatus.Succeeded)
             throw new AuthenticationException($"The user account with email {authenticate.Email} could not be signed in. Status: {userStatus}");
 
-        //Validate security code if user has enabled two factor
+        // Validate security code if user has enabled two factor
         if (!ValidateSecurityCode(user, authenticate.Code))
             throw new AuthenticationException($"The user account with email {authenticate.Email} could not validate code.");
 
@@ -158,9 +153,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         return user.IsInRole("Administrator") || user.IsInRole("Reviewer");
     }
 
-
     #endregion
-
 
     #region Authorization
 
