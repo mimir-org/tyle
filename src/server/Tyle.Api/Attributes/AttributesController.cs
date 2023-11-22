@@ -2,6 +2,7 @@ using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Constants;
 using Swashbuckle.AspNetCore.Annotations;
 using Tyle.Api.Common;
@@ -14,16 +15,19 @@ namespace Tyle.Api.Attributes;
 
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]
+[Authorize]
 [Route("[controller]")]
 [SwaggerTag("Attribute services")]
 public class AttributesController : ControllerBase
 {
+    private readonly IMimirorgAuthService _authService;
     private readonly IAttributeRepository _attributeRepository;
     private readonly IMapper _mapper;
     private readonly IApprovalService _approvalService;
 
-    public AttributesController(IAttributeRepository attributeRepository, IMapper mapper, IApprovalService approvalService)
+    public AttributesController(IAttributeRepository attributeRepository, IMapper mapper, IApprovalService approvalService, IMimirorgAuthService authService)
     {
+        _authService = authService;
         _attributeRepository = attributeRepository;
         _mapper = mapper;
         _approvalService = approvalService;
@@ -145,7 +149,6 @@ public class AttributesController : ControllerBase
     /// <param name="id">The id of the attribute that will change state.</param>
     /// <param name="request">A request containing the wanted state.</param>
     [HttpPatch("{id}/state")]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -155,7 +158,10 @@ public class AttributesController : ControllerBase
     {
         try
         {
-            // TODO: Handle authorization
+            if (!_authService.CanChangeState(User, request.State))
+            {
+                return StatusCode(403);
+            }
 
             var response = await _approvalService.ChangeAttributeState(id, request.State);
 
@@ -178,7 +184,6 @@ public class AttributesController : ControllerBase
     /// </summary>
     /// <param name="id">The id of the attribute to delete</param>
     [HttpDelete("{id}")]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -187,6 +192,15 @@ public class AttributesController : ControllerBase
     {
         try
         {
+            var attributeFromDb = await _attributeRepository.Get(id);
+            if (attributeFromDb == null)
+                return NotFound();
+
+            if (!_authService.CanDelete(User, attributeFromDb))
+            {
+                return StatusCode(403);
+            }
+
             if (await _attributeRepository.Delete(id))
             {
                 return NoContent();

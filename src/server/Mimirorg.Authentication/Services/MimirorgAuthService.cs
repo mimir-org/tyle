@@ -136,6 +136,23 @@ public class MimirorgAuthService : IMimirorgAuthService
         await _signInManager.SignOutAsync();
     }
 
+
+    public bool CanDelete(ClaimsPrincipal? user, ImfType type)
+    {
+        if (user.FindFirstValue(ClaimTypes.NameIdentifier) == type.CreatedBy && (user.IsInRole("Contributor")))
+            return true;
+
+        return (user.IsInRole("Administrator") || user.IsInRole("Reviewer"));
+    }
+
+    public bool CanChangeState(ClaimsPrincipal? user, State newState)
+    {
+        if (newState == State.Review && user.IsInRole("Contributor"))
+            return true;
+
+        return user.IsInRole("Administrator") || user.IsInRole("Reviewer");
+    }
+
     #endregion
 
     #region Authorization
@@ -242,6 +259,5 @@ public class MimirorgAuthService : IMimirorgAuthService
 
         return validator.Validate(user.SecurityHash, codeInt);
     }
-
     #endregion
 }

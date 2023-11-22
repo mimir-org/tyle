@@ -70,6 +70,8 @@ const allowDelete = (item: ItemType | null, user: UserItem | null): boolean => {
 
   if (item.state === State.Approved) return false;
 
+  if (item.createdBy === user.id) return true;
+
   if (user.roles.filter((x) => x === "Administrator" || x === "Reviewer").length === 0) {
     return false;
   }
@@ -82,7 +84,7 @@ const allowRequestReview = (item: StateItem | null, user: UserItem | null): bool
 
   if (item.state !== State.Draft) return false;
 
-  if (user.roles.filter((x) => x === "Administrator" || x === "Reviewer").length === 0) {
+  if (user.roles.filter((x) => x === "Administrator" || x === "Reviewer" || x === "Contributor").length === 0) {
     return false;
   }
 

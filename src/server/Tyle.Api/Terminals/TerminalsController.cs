@@ -2,6 +2,7 @@ using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Constants;
 using Swashbuckle.AspNetCore.Annotations;
 using Tyle.Api.Common;
@@ -13,17 +14,20 @@ using Tyle.Core.Common;
 namespace Tyle.Api.Terminals;
 
 [Produces(MediaTypeNames.Application.Json)]
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 [SwaggerTag("Terminal services")]
 public class TerminalsController : ControllerBase
 {
+    private readonly IMimirorgAuthService _authService;
     private readonly IMapper _mapper;
     private readonly ITerminalRepository _terminalRepository;
     private readonly IApprovalService _approvalService;
 
-    public TerminalsController(IMapper mapper, ITerminalRepository terminalRepository, IApprovalService approvalService)
+    public TerminalsController(IMapper mapper, ITerminalRepository terminalRepository, IApprovalService approvalService, IMimirorgAuthService authService)
     {
+        _authService = authService;
         _mapper = mapper;
         _terminalRepository = terminalRepository;
         _approvalService = approvalService;
@@ -145,7 +149,6 @@ public class TerminalsController : ControllerBase
     /// <param name="id">The id of the terminal that will change state.</param>
     /// <param name="request">A request containing the wanted state.</param>
     [HttpPatch("{id}/state")]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -155,7 +158,10 @@ public class TerminalsController : ControllerBase
     {
         try
         {
-            // TODO: Handle authorization
+            if (!_authService.CanChangeState(User, request.State))
+            {
+                return StatusCode(403);
+            }
 
             var response = await _approvalService.ChangeTerminalState(id, request.State);
 
@@ -178,7 +184,6 @@ public class TerminalsController : ControllerBase
     /// </summary>
     /// <param name="id">The id of the terminal to delete</param>
     [HttpDelete("{id}")]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -187,6 +192,15 @@ public class TerminalsController : ControllerBase
     {
         try
         {
+            var terminalFromDb = await _terminalRepository.Get(id);
+            if (terminalFromDb == null)
+                return NotFound();
+
+            if (!_authService.CanDelete(User, terminalFromDb))
+            {
+                return StatusCode(403);
+            }
+
             if (await _terminalRepository.Delete(id))
             {
                 return NoContent();

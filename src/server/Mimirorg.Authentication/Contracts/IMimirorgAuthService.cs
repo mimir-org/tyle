@@ -1,5 +1,5 @@
 using System.Security.Authentication;
-using Mimirorg.Authentication.Enums;
+using System.Security.Claims;
 using Mimirorg.Authentication.Exceptions;
 using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Client;
@@ -35,6 +35,20 @@ public interface IMimirorgAuthService
     /// <returns></returns>
     Task Logout(string secret);
 
+    /// <summary>
+    /// Checking if user has permission to delete the type
+    /// </summary>
+    /// <param name="user"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public bool CanDelete(ClaimsPrincipal? user, ImfType type);
+    /// <summary>
+    /// Checking if user has permission to update the state
+    /// </summary>
+    /// <param name="user"></param>
+    /// <param name="newState"></param>
+    /// <returns></returns>
+    public bool CanChangeState(ClaimsPrincipal? user, State newState);
     #endregion
 
     #region Authorization
