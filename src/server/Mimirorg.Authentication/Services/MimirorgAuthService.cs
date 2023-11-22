@@ -141,7 +141,7 @@ public class MimirorgAuthService : IMimirorgAuthService
     {
         if (user.FindFirstValue(ClaimTypes.NameIdentifier) == type.CreatedBy)
             return true;
-       
+
         return (user.IsInRole("Administrator") || user.IsInRole("Reviewer"));
     }
 
