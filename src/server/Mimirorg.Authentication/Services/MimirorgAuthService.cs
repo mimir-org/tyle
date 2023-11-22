@@ -160,7 +160,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         {
             var item = await GetInfoFromDb(repository, typeId);
             if (item == null)
-                return false;
+                return true;
             createdNameFromDb = item.Item1;
             stateFromDb = item.Item2;
         }
