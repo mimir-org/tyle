@@ -1,12 +1,9 @@
 using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Mimirorg.Authentication.Attributes;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Constants;
-using SendGrid.Helpers.Errors.Model;
 using Swashbuckle.AspNetCore.Annotations;
 using Tyle.Api.Common;
 using Tyle.Application.Blocks;
@@ -97,11 +94,10 @@ public class BlocksController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
     public async Task<IActionResult> Create([FromBody] BlockTypeRequest request)
     {
         try
-        {       
+        {
             var createdBlock = await _blockRepository.Create(request);
             return Created("dummy", _mapper.Map<BlockView>(createdBlock));
         }
@@ -127,7 +123,7 @@ public class BlocksController : ControllerBase
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] BlockTypeRequest request)
     {
         try
-        {         
+        {
             var block = await _blockRepository.Update(id, request);
 
             if (block == null)

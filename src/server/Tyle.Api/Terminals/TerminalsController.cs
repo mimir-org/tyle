@@ -97,7 +97,7 @@ public class TerminalsController : ControllerBase
     public async Task<IActionResult> Create([FromBody] TerminalTypeRequest request)
     {
         try
-        {          
+        {
             var createdTerminal = await _terminalRepository.Create(request);
             return Created("dummy", _mapper.Map<TerminalView>(createdTerminal));
         }
@@ -123,7 +123,7 @@ public class TerminalsController : ControllerBase
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] TerminalTypeRequest request)
     {
         try
-        {           
+        {
             var terminal = await _terminalRepository.Update(id, request);
 
             if (terminal == null)

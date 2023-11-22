@@ -96,7 +96,7 @@ public class AttributesController : ControllerBase
     public async Task<IActionResult> Create([FromBody] AttributeTypeRequest request)
     {
         try
-        {          
+        {
             var createdAttribute = await _attributeRepository.Create(request);
 
             return Created("dummy", _mapper.Map<AttributeView>(createdAttribute));
@@ -123,7 +123,7 @@ public class AttributesController : ControllerBase
     public async Task<IActionResult> Update(Guid id, [FromBody] AttributeTypeRequest request)
     {
         try
-        {     
+        {
             var attribute = await _attributeRepository.Update(id, request);
 
             if (attribute == null)
