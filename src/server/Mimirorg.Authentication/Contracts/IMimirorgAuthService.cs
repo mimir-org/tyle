@@ -36,19 +36,19 @@ public interface IMimirorgAuthService
     Task Logout(string secret);
 
     /// <summary>
-    /// Checking if user has permissing to delete the type
+    /// Checking if user has permission to delete the type
     /// </summary>
     /// <param name="user"></param>
     /// <param name="type"></param>
     /// <returns></returns>
-    public bool HasUserPermissionToDelete(ClaimsPrincipal? user, ImfType type);
+    public bool CanDelete(ClaimsPrincipal? user, ImfType type);
     /// <summary>
     /// Checking if user has permission to update the state
     /// </summary>
     /// <param name="user"></param>
     /// <param name="newState"></param>
     /// <returns></returns>
-    public bool HasUserPermissionToUpdateToState(ClaimsPrincipal? user, State newState);
+    public bool CanChangeState(ClaimsPrincipal? user, State newState);
     #endregion
 
     #region Authorization

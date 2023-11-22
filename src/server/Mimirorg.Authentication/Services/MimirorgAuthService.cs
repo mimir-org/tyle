@@ -137,15 +137,15 @@ public class MimirorgAuthService : IMimirorgAuthService
     }
 
 
-    public bool HasUserPermissionToDelete(ClaimsPrincipal? user, ImfType type)
+    public bool CanDelete(ClaimsPrincipal? user, ImfType type)
     {
-        if (user.FindFirstValue(ClaimTypes.NameIdentifier) == type.CreatedBy)
+        if (user.FindFirstValue(ClaimTypes.NameIdentifier) == type.CreatedBy && (user.IsInRole("Contributor")))
             return true;
 
         return (user.IsInRole("Administrator") || user.IsInRole("Reviewer"));
     }
 
-    public bool HasUserPermissionToUpdateToState(ClaimsPrincipal? user, State newState)
+    public bool CanChangeState(ClaimsPrincipal? user, State newState)
     {
         if (newState == State.Review && user.IsInRole("Contributor"))
             return true;

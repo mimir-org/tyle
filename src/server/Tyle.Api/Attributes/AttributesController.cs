@@ -158,7 +158,7 @@ public class AttributesController : ControllerBase
     {
         try
         {
-            if (!_authService.HasUserPermissionToUpdateToState(User, request.State))
+            if (!_authService.CanChangeState(User, request.State))
             {
                 return StatusCode(403);
             }
@@ -196,7 +196,7 @@ public class AttributesController : ControllerBase
             if (attributeFromDb == null)
                 return NotFound();
 
-            if (!_authService.HasUserPermissionToDelete(User, attributeFromDb))
+            if (!_authService.CanDelete(User, attributeFromDb))
             {
                 return StatusCode(403);
             }

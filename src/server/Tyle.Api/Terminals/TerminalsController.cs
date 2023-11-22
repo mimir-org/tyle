@@ -158,7 +158,7 @@ public class TerminalsController : ControllerBase
     {
         try
         {
-            if (!_authService.HasUserPermissionToUpdateToState(User, request.State))
+            if (!_authService.CanChangeState(User, request.State))
             {
                 return StatusCode(403);
             }
@@ -196,7 +196,7 @@ public class TerminalsController : ControllerBase
             if (terminalFromDb == null)
                 return NotFound();
 
-            if (!_authService.HasUserPermissionToDelete(User, terminalFromDb))
+            if (!_authService.CanDelete(User, terminalFromDb))
             {
                 return StatusCode(403);
             }

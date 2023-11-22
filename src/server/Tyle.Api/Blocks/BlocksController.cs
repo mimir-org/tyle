@@ -158,7 +158,7 @@ public class BlocksController : ControllerBase
     {
         try
         {
-            if (!_authService.HasUserPermissionToUpdateToState(User, request.State))
+            if (!_authService.CanChangeState(User, request.State))
             {
                 return StatusCode(403);
             }
@@ -196,7 +196,7 @@ public class BlocksController : ControllerBase
             if (blockFromDb == null)
                 return NotFound();
 
-            if (!_authService.HasUserPermissionToDelete(User, blockFromDb))
+            if (!_authService.CanDelete(User, blockFromDb))
             {
                 return StatusCode(403);
             }
