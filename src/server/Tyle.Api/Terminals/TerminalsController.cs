@@ -14,6 +14,7 @@ using Tyle.Core.Common;
 namespace Tyle.Api.Terminals;
 
 [Produces(MediaTypeNames.Application.Json)]
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 [SwaggerTag("Terminal services")]
@@ -37,7 +38,6 @@ public class TerminalsController : ControllerBase
     /// </summary>
     /// <returns>A collection of terminals</returns>
     [HttpGet]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(ICollection<TerminalView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAll([FromQuery] State? state = null)
@@ -59,7 +59,6 @@ public class TerminalsController : ControllerBase
     /// <param name="id">The id of the terminal to get</param>
     /// <returns>The requested terminal</returns>
     [HttpGet("{id}")]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(TerminalView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -88,7 +87,6 @@ public class TerminalsController : ControllerBase
     /// <param name="request">The terminal that should be created</param>
     /// <returns>The created terminal</returns>
     [HttpPost]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}")]
     [ProducesResponseType(typeof(TerminalView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -118,7 +116,6 @@ public class TerminalsController : ControllerBase
     /// <param name="request">The new values of the terminal</param>
     /// <returns>The updated terminal</returns>
     [HttpPut("{id}")]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}")]
     [ProducesResponseType(typeof(TerminalView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -157,7 +154,6 @@ public class TerminalsController : ControllerBase
     /// <param name="id">The id of the terminal that will change state.</param>
     /// <param name="request">A request containing the wanted state.</param>
     [HttpPatch("{id}/state")]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -193,7 +189,6 @@ public class TerminalsController : ControllerBase
     /// </summary>
     /// <param name="id">The id of the terminal to delete</param>
     [HttpDelete("{id}")]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

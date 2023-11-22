@@ -192,16 +192,16 @@ public class MimirorgAuthService : IMimirorgAuthService
         if (stateFromDb == State.Review && (!user.IsInRole("Reviewer") || !user.IsInRole("Administrator")))
             return false;
 
-        if (stateFromDb == State.Draft && user.IsInRole("Contributer") && createdNameFromDb != user.Identity.Name)
-            return false;
+        if (stateFromDb == State.Draft && user.IsInRole("Contributor") && createdNameFromDb != user.FindFirstValue(ClaimTypes.NameIdentifier))
+        return false;
 
         if (user.IsInRole("Administrator") || user.IsInRole("Reviewer"))
             return true;
 
-        else if (method == HttpMethod.Post && user.IsInRole("Contributer"))
+        else if (method == HttpMethod.Post && user.IsInRole("Contributor"))
             return true;
 
-        else if  (createdNameFromDb == user.Identity?.Name)
+        else if  (createdNameFromDb == user.FindFirstValue(ClaimTypes.NameIdentifier))
             return true;
 
         return false;

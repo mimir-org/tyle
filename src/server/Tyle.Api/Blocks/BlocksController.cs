@@ -18,6 +18,7 @@ namespace Tyle.Api.Blocks;
 
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]
+[Authorize]
 [Route("[controller]")]
 [SwaggerTag("Block services")]
 public class BlocksController : ControllerBase
@@ -40,7 +41,6 @@ public class BlocksController : ControllerBase
     /// </summary>
     /// <returns>A collection of blocks</returns>
     [HttpGet]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(ICollection<BlockView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAll(State? state = null)
@@ -62,7 +62,6 @@ public class BlocksController : ControllerBase
     /// <param name="id">The id of the block to get</param>
     /// <returns>The requested block</returns>
     [HttpGet("{id}")]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -91,12 +90,11 @@ public class BlocksController : ControllerBase
     /// <param name="request">The block that should be created</param>
     /// <returns>The created block</returns>
     [HttpPost]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}")]
     [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    
+
     public async Task<IActionResult> Create([FromBody] BlockTypeRequest request)
     {
         try
@@ -122,7 +120,6 @@ public class BlocksController : ControllerBase
     /// <param name="request">The new values of the block</param>
     /// <returns>The updated block</returns>
     [HttpPut("{id}")]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}")]
     [ProducesResponseType(typeof(BlockView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -163,7 +160,6 @@ public class BlocksController : ControllerBase
     /// <param name="id">The id of the block that will change state.</param>
     /// <param name="request">A request containing the wanted state.</param>
     [HttpPatch("{id}/state")]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -199,7 +195,6 @@ public class BlocksController : ControllerBase
     /// </summary>
     /// <param name="id">The id of the block to delete</param>
     [HttpDelete("{id}")]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -212,7 +207,7 @@ public class BlocksController : ControllerBase
             {
                 return StatusCode(403);
             }
-            
+
 
             if (await _blockRepository.Delete(id))
             {

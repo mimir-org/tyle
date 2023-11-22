@@ -15,6 +15,7 @@ namespace Tyle.Api.Attributes;
 
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]
+[Authorize]
 [Route("[controller]")]
 [SwaggerTag("Attribute services")]
 public class AttributesController : ControllerBase
@@ -37,7 +38,6 @@ public class AttributesController : ControllerBase
     /// </summary>
     /// <returns>A collection of attributes</returns>
     [HttpGet]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(ICollection<AttributeView>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAll([FromQuery] State? state = null)
@@ -59,7 +59,6 @@ public class AttributesController : ControllerBase
     /// <param name="id">The id of the attribute to get</param>
     /// <returns>The requested attribute</returns>
     [HttpGet("{id}")]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}, {MimirorgDefaultRoles.Reader}")]
     [ProducesResponseType(typeof(AttributeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -87,7 +86,6 @@ public class AttributesController : ControllerBase
     /// <param name="request">The attribute that should be created</param>
     /// <returns>The created attribute</returns>
     [HttpPost]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}")]
     [ProducesResponseType(typeof(AttributeView), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -117,7 +115,6 @@ public class AttributesController : ControllerBase
     /// <param name="request">The new values of the attribute</param>
     /// <returns>The updated attribute</returns>
     [HttpPut("{id}")]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}, {MimirorgDefaultRoles.Contributor}")]
     [ProducesResponseType(typeof(AttributeView), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -157,7 +154,6 @@ public class AttributesController : ControllerBase
     /// <param name="id">The id of the attribute that will change state.</param>
     /// <param name="request">A request containing the wanted state.</param>
     [HttpPatch("{id}/state")]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -193,7 +189,6 @@ public class AttributesController : ControllerBase
     /// </summary>
     /// <param name="id">The id of the attribute to delete</param>
     [HttpDelete("{id}")]
-    [Authorize(Roles = $"{MimirorgDefaultRoles.Administrator}, {MimirorgDefaultRoles.Reviewer}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
