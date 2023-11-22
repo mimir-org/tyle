@@ -17,6 +17,8 @@ using Mimirorg.Authentication.Models.Client;
 using Tyle.Core.Common;
 using Tyle.Application.Blocks;
 using Tyle.Application.Common;
+using Tyle.Application.Terminals;
+using Tyle.Application.Attributes;
 
 namespace Mimirorg.Authentication.Services;
 
@@ -24,6 +26,8 @@ public class MimirorgAuthService : IMimirorgAuthService
 {
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IBlockRepository _blockRepository;
+    private readonly ITerminalRepository _terminalRepository;
+    private readonly IAttributeRepository _attributeRepository;
     private readonly UserManager<MimirorgUser> _userManager;
     private readonly SignInManager<MimirorgUser> _signInManager;
     private readonly IMimirorgTokenRepository _tokenRepository;
@@ -33,9 +37,11 @@ public class MimirorgAuthService : IMimirorgAuthService
     private readonly IMimirorgTemplateRepository _templateRepository;
     private readonly IHttpContextAccessor _contextAccessor;
 
-    public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IHttpContextAccessor contextAccessor, IBlockRepository blockRepository)
+    public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IHttpContextAccessor contextAccessor, IBlockRepository blockRepository, ITerminalRepository terminalRepository, IAttributeRepository attributeRepository)
     {
         _blockRepository = blockRepository;
+        _terminalRepository = terminalRepository;
+        _attributeRepository = attributeRepository;
         _userManager = userManager;
         _signInManager = signInManager;
         _tokenRepository = tokenRepository;
@@ -141,24 +147,61 @@ public class MimirorgAuthService : IMimirorgAuthService
     }
 
 
-    public bool HasUserPermissionToModify(ClaimsPrincipal? user, HttpMethod method, TypeRepository? repository = null)
+    public async Task<bool> HasUserPermissionToModify(ClaimsPrincipal? user, HttpMethod method, TypeRepository? repository = null, Guid? typeId = null)
     {
+        if (method != HttpMethod.Post)
+            if (user == null)
+                return false;
+
         var createdNameFromDb = String.Empty;
-        State stateFromDb = State.Approved;
+        State? stateFromDb = null;
 
         if (method != HttpMethod.Post)
+        {
+            if (repository == TypeRepository.Attribute)
+            {
+                var item = await _attributeRepository.Get(typeId.GetValueOrDefault());
+                if (item == null)
+                    return false;
+                stateFromDb = item.State;
+                createdNameFromDb = item.CreatedBy;
+            }
 
+            else if (repository == TypeRepository.Terminal)
+            {
+                var item = await _terminalRepository.Get(typeId.GetValueOrDefault());
+                if (item == null)
+                    return false;
+                stateFromDb = item.State;
+                createdNameFromDb = item.CreatedBy;
+            }
 
-            if (user == null || stateFromDb == State.Approved)
-                return false;
+            else if (repository == TypeRepository.Block)
+            {
+                var item = await _blockRepository.Get(typeId.GetValueOrDefault());
+                if (item == null)
+                    return false;
+                stateFromDb = item.State;
+                createdNameFromDb = item.CreatedBy;
+            }
+        }
+
+        if (stateFromDb == State.Approved)
+            return false;
+
+        if (stateFromDb == State.Review && (!user.IsInRole("Reviewer") || !user.IsInRole("Administrator")))
+            return false;
+
+        if (stateFromDb == State.Draft && user.IsInRole("Contributer") && createdNameFromDb != user.Identity.Name)
+            return false;
 
         if (user.IsInRole("Administrator") || user.IsInRole("Reviewer"))
             return true;
 
-        if (method == HttpMethod.Post && user.IsInRole("Contributer"))
+        else if (method == HttpMethod.Post && user.IsInRole("Contributer"))
             return true;
 
-        if ((method == HttpMethod.Put || method == HttpMethod.Patch) && createdNameFromDb == user.Identity.Name)
+        else if  (createdNameFromDb == user.Identity?.Name)
             return true;
 
         return false;

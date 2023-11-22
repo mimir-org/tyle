@@ -44,7 +44,7 @@ public interface IMimirorgAuthService
     /// <param name="createdNameFromDb"></param>
     /// <param name="stateFromDb"></param>
     /// <returns></returns>
-    public bool HasUserPermissionToModify(ClaimsPrincipal? user, HttpMethod method, TypeRepository? repository = null);
+    public Task<bool> HasUserPermissionToModify(ClaimsPrincipal? user, HttpMethod method, TypeRepository? repository = null, Guid? typeId = null);
 
     #endregion
 

@@ -2,6 +2,7 @@ using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Constants;
 using Swashbuckle.AspNetCore.Annotations;
 using Tyle.Api.Common;
@@ -18,12 +19,14 @@ namespace Tyle.Api.Attributes;
 [SwaggerTag("Attribute services")]
 public class AttributesController : ControllerBase
 {
+    private readonly IMimirorgAuthService _authService;
     private readonly IAttributeRepository _attributeRepository;
     private readonly IMapper _mapper;
     private readonly IApprovalService _approvalService;
 
-    public AttributesController(IAttributeRepository attributeRepository, IMapper mapper, IApprovalService approvalService)
+    public AttributesController(IAttributeRepository attributeRepository, IMapper mapper, IApprovalService approvalService, IMimirorgAuthService authService)
     {
+        _authService = authService;
         _attributeRepository = attributeRepository;
         _mapper = mapper;
         _approvalService = approvalService;
@@ -93,9 +96,9 @@ public class AttributesController : ControllerBase
     {
         try
         {
-            if (AccessToAction.HasUserAccessToDoCurrentOperation(User, HttpMethod.Post) == false)
+            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Post))
             {
-                return Unauthorized();
+                return StatusCode(403);
             }
             var createdAttribute = await _attributeRepository.Create(request);
 
@@ -125,9 +128,9 @@ public class AttributesController : ControllerBase
         try
         {
 
-            if (AccessToAction.HasUserAccessToDoCurrentOperation(User, HttpMethod.Put) == false)
+            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Put, TypeRepository.Attribute, id))
             {
-                return Unauthorized();
+                return StatusCode(403);
             }
             var attribute = await _attributeRepository.Update(id, request);
 
@@ -164,7 +167,10 @@ public class AttributesController : ControllerBase
     {
         try
         {
-            // TODO: Handle authorization
+            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Patch, TypeRepository.Attribute, id))
+            {
+                return StatusCode(403);
+            }
 
             var response = await _approvalService.ChangeAttributeState(id, request.State);
 
@@ -196,6 +202,11 @@ public class AttributesController : ControllerBase
     {
         try
         {
+            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Delete, TypeRepository.Attribute, id))
+            {
+                return StatusCode(403);
+            }
+
             if (await _attributeRepository.Delete(id))
             {
                 return NoContent();

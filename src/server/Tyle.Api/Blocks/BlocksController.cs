@@ -101,7 +101,7 @@ public class BlocksController : ControllerBase
     {
         try
         {
-            if (!_authService.HasUserPermissionToModify(User, HttpMethod.Post))
+            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Post))
             {
                 return StatusCode(403);
             }
@@ -132,11 +132,10 @@ public class BlocksController : ControllerBase
     {
         try
         {
-            var blockFromDb = await _blockRepository.Get(id);
-            if (blockFromDb == null)
-                return StatusCode(404);
-            if (!_authService.HasUserPermissionToModify(User, HttpMethod.Put, blockFromDb.CreatedBy, blockFromDb.State))
+            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Put, TypeRepository.Block, id))
+            {
                 return StatusCode(403);
+            }
 
 
             var block = await _blockRepository.Update(id, request);
@@ -174,11 +173,10 @@ public class BlocksController : ControllerBase
     {
         try
         {
-            var blockFromDb = await _blockRepository.Get(id);
-            if (blockFromDb == null)
-                return StatusCode(404);
-            if (!_authService.HasUserPermissionToModify(User, HttpMethod.Put, blockFromDb.CreatedBy, blockFromDb.State))
+            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Put, TypeRepository.Block, id))
+            {
                 return StatusCode(403);
+            }
 
             var response = await _approvalService.ChangeBlockState(id, request.State);
 
@@ -210,11 +208,11 @@ public class BlocksController : ControllerBase
     {
         try
         {
-            var blockFromDb = await _blockRepository.Get(id);
-            if (blockFromDb == null)
-                return StatusCode(404);
-            if (!_authService.HasUserPermissionToModify(User, HttpMethod.Put, blockFromDb.CreatedBy, blockFromDb.State))
+            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Delete, TypeRepository.Block, id))
+            {
                 return StatusCode(403);
+            }
+            
 
             if (await _blockRepository.Delete(id))
             {

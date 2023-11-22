@@ -2,6 +2,7 @@ using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Constants;
 using Swashbuckle.AspNetCore.Annotations;
 using Tyle.Api.Common;
@@ -18,12 +19,14 @@ namespace Tyle.Api.Terminals;
 [SwaggerTag("Terminal services")]
 public class TerminalsController : ControllerBase
 {
+    private readonly IMimirorgAuthService _authService;
     private readonly IMapper _mapper;
     private readonly ITerminalRepository _terminalRepository;
     private readonly IApprovalService _approvalService;
 
-    public TerminalsController(IMapper mapper, ITerminalRepository terminalRepository, IApprovalService approvalService)
+    public TerminalsController(IMapper mapper, ITerminalRepository terminalRepository, IApprovalService approvalService, IMimirorgAuthService authService)
     {
+        _authService = authService;
         _mapper = mapper;
         _terminalRepository = terminalRepository;
         _approvalService = approvalService;
@@ -94,9 +97,9 @@ public class TerminalsController : ControllerBase
     {
         try
         {
-            if (AccessToAction.HasUserAccessToDoCurrentOperation(User, HttpMethod.Post) == false)
+            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Post))
             {
-                return Unauthorized();
+                return StatusCode(403);
             }
 
             var createdTerminal = await _terminalRepository.Create(request);
@@ -125,9 +128,9 @@ public class TerminalsController : ControllerBase
     {
         try
         {
-            if (AccessToAction.HasUserAccessToDoCurrentOperation(User, HttpMethod.Put) == false)
+            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Put, TypeRepository.Terminal, id))
             {
-                return Unauthorized();
+                return StatusCode(403);
             }
             var terminal = await _terminalRepository.Update(id, request);
 
@@ -164,9 +167,9 @@ public class TerminalsController : ControllerBase
     {
         try
         {
-            if (AccessToAction.HasUserAccessToDoCurrentOperation(User, HttpMethod.Patch) == false)
+            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Patch, TypeRepository.Terminal, id))
             {
-                return Unauthorized();
+                return StatusCode(403);
             }
 
             var response = await _approvalService.ChangeTerminalState(id, request.State);
@@ -199,6 +202,11 @@ public class TerminalsController : ControllerBase
     {
         try
         {
+            if (!await _authService.HasUserPermissionToModify(User, HttpMethod.Delete, TypeRepository.Terminal, id))
+            {
+                return StatusCode(403);
+            }
+
             if (await _terminalRepository.Delete(id))
             {
                 return NoContent();
