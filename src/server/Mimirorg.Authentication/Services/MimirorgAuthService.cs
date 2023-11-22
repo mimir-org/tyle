@@ -172,7 +172,7 @@ public class MimirorgAuthService : IMimirorgAuthService
             return false;
 
         if (stateFromDb == State.Draft && user.IsInRole("Contributor") && method != HttpMethod.Delete)
-        return true;
+            return true;
 
         if (stateFromDb == State.Draft && user.IsInRole("Contributor") && method == HttpMethod.Delete && (createdNameFromDb == user.FindFirstValue(ClaimTypes.NameIdentifier)))
             return true;
@@ -183,7 +183,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         else if (method == HttpMethod.Post && user.IsInRole("Contributor"))
             return true;
 
-        else if  (createdNameFromDb == user.FindFirstValue(ClaimTypes.NameIdentifier))
+        else if (createdNameFromDb == user.FindFirstValue(ClaimTypes.NameIdentifier))
             return true;
 
         return false;
@@ -298,7 +298,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         return validator.Validate(user.SecurityHash, codeInt);
     }
 
-    private async Task<Tuple<string,State>> GetInfoFromDb(TypeRepository? repository, Guid? typeId)
+    private async Task<Tuple<string, State>> GetInfoFromDb(TypeRepository? repository, Guid? typeId)
     {
         if (repository == TypeRepository.Attribute)
         {
