@@ -21,23 +21,33 @@ const getValueConstraintText = (valueConstraint: ValueConstraintFields) => {
 
   switch (valueConstraint.constraintType) {
     case ConstraintType.HasSpecificValue:
-      return `Has value ${valueConstraint.value}`;
+      return `Has the value ${valueConstraint.value}`;
     case ConstraintType.IsInListOfAllowedValues:
       return `Has${
-        valueConstraint.requireValue ? " no value or " : " "
+        valueConstraint.requireValue ? " " : " no value or "
       }one of the following values: ${valueConstraint.valueList.map((x) => x.value).join(", ")}`;
     case ConstraintType.HasSpecificDataType:
-      return `Has datatype ${XsdDataType[valueConstraint.dataType].toLowerCase()}`;
+      return `Has${valueConstraint.requireValue ? " " : " no value or "}datatype ${XsdDataType[
+        valueConstraint.dataType
+      ].toLowerCase()}`;
     case ConstraintType.MatchesRegexPattern:
-      return `Matches the regex pattern ${valueConstraint.pattern}`;
+      return `${valueConstraint.requireValue ? "M" : "Has no value or m"}atches the regex pattern ${
+        valueConstraint.pattern
+      }`;
     case ConstraintType.IsInNumberRange:
       if (!valueConstraint.minValue) {
-        return `Is lower than or equal to ${valueConstraint.maxValue}`;
+        return `${valueConstraint.requireValue ? "I" : "Has no value or i"}s lower than or equal to ${
+          valueConstraint.maxValue
+        }`;
       }
       if (!valueConstraint.maxValue) {
-        return `Is higher than or equal to ${valueConstraint.minValue}`;
+        return `${valueConstraint.requireValue ? "I" : "Has no value or i"}s higher than or equal to ${
+          valueConstraint.minValue
+        }`;
       }
-      return `Is between ${valueConstraint.minValue} and ${valueConstraint.maxValue}`;
+      return `${valueConstraint.requireValue ? "I" : "Has no value or i"}s between ${valueConstraint.minValue} and ${
+        valueConstraint.maxValue
+      }`;
   }
 };
 
