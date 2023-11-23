@@ -104,10 +104,7 @@ export const toAttributeTypeRequest = (attributeFormFields: AttributeFormFields)
         constraintType: attributeFormFields.valueConstraint.constraintType,
         dataType: attributeFormFields.valueConstraint.dataType,
         value: attributeFormFields.valueConstraint.value ? attributeFormFields.valueConstraint.value : null,
-        valueList:
-          attributeFormFields.valueConstraint.valueList.length > 0
-            ? attributeFormFields.valueConstraint.valueList.map((item) => item.value)
-            : null,
+        valueList: attributeFormFields.valueConstraint.valueList.map((item) => item.value),
         pattern: attributeFormFields.valueConstraint.pattern ? attributeFormFields.valueConstraint.pattern : null,
         minValue: attributeFormFields.valueConstraint.minValue
           ? Number(attributeFormFields.valueConstraint.minValue)
