@@ -15,6 +15,7 @@ import {
 } from "./AttributeForm.helpers";
 import BaseStep from "./BaseStep";
 import QualifiersStep from "./QualifiersStep";
+import ReviewAndSubmitStep from "./ReviewAndSubmitStep";
 import UnitsStep from "./UnitsStep";
 import ValueConstraintStep from "./ValueConstraintStep";
 import { useAttributeFormState } from "./useAttributeFormState";
@@ -69,6 +70,8 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
         return (
           <ValueConstraintStep valueConstraint={formFields.valueConstraint} setValueConstraint={setValueConstraint} />
         );
+      case 4:
+        return <ReviewAndSubmitStep mode={mode} attributeFormFields={formFields} />;
       default:
         return <></>;
     }
