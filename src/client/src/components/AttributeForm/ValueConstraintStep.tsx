@@ -38,12 +38,12 @@ const ValueConstraintStep = React.forwardRef<HTMLFormElement, FormStepProps>(({ 
   const handleConstraintTypeChange = (nextConstraintType: ConstraintType) => {
     if (nextConstraintType === constraintType) return;
 
-    if (constraintType === ConstraintType.IsInListOfAllowedValues && dataType === XsdDataType.Boolean) {
+    if (nextConstraintType === ConstraintType.IsInListOfAllowedValues && dataType === XsdDataType.Boolean) {
       setDataType(XsdDataType.String);
-    } else if (constraintType === ConstraintType.MatchesRegexPattern) {
+    } else if (nextConstraintType === ConstraintType.MatchesRegexPattern) {
       setDataType(XsdDataType.String);
     } else if (
-      constraintType === ConstraintType.IsInNumberRange &&
+      nextConstraintType === ConstraintType.IsInNumberRange &&
       dataType !== XsdDataType.Integer &&
       dataType !== XsdDataType.Decimal
     ) {
