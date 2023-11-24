@@ -1,7 +1,6 @@
 import { Box, Flexbox, FormField, Input } from "@mimirorg/component-library";
 import { PlusCircle, XCircle } from "@styled-icons/heroicons-outline";
 import { useTheme } from "styled-components";
-import { ValueListItem } from "./ValueConstraintStep.helpers";
 
 interface ValueAndPatternFieldsProps {
   value: string;
@@ -44,6 +43,11 @@ export const SpecificBooleanValueFields = ({ value, setValue }: ValueAndPatternF
     </Flexbox>
   );
 };
+
+export interface ValueListItem {
+  id: string;
+  value: string;
+}
 
 interface ValueListFieldsProps {
   valueList: ValueListItem[];
@@ -102,30 +106,23 @@ export const PatternFields = ({ value, setValue }: ValueAndPatternFieldsProps) =
 interface NumberRangeFieldsProps {
   minValue: string;
   maxValue: string;
-  setNumberRange: (min: string, max: string) => void;
+  setMinValue: (nextMinValue: string) => void;
+  setMaxValue: (nextMaxValue: string) => void;
 }
 
-export const NumberRangeFields = ({ minValue, maxValue, setNumberRange }: NumberRangeFieldsProps) => {
+export const NumberRangeFields = ({ minValue, maxValue, setMinValue, setMaxValue }: NumberRangeFieldsProps) => {
   const theme = useTheme();
 
   return (
     <Flexbox flexDirection="row" gap={theme.mimirorg.spacing.xl}>
       <Box flexGrow="1">
         <FormField label="Lower bound">
-          <Input
-            placeholder="Lower bound"
-            value={minValue}
-            onChange={(event) => setNumberRange(event.target.value, maxValue)}
-          />
+          <Input placeholder="Lower bound" value={minValue} onChange={(event) => setMinValue(event.target.value)} />
         </FormField>
       </Box>
       <Box flexGrow="1">
         <FormField label="Upper bound">
-          <Input
-            placeholder="Upper bound"
-            value={maxValue}
-            onChange={(event) => setNumberRange(minValue, event.target.value)}
-          />
+          <Input placeholder="Upper bound" value={maxValue} onChange={(event) => setMaxValue(event.target.value)} />
         </FormField>
       </Box>
     </Flexbox>

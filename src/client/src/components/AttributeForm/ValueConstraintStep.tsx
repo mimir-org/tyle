@@ -12,6 +12,7 @@ import {
   SpecificBooleanValueFields,
   SpecificStringOrNumericalValueFields,
   ValueListFields,
+  ValueListItem,
 } from "./ConditionalValueConstraintFields";
 
 const ValueConstraintStep = React.forwardRef<HTMLFormElement, FormStepProps>(({ fields, setFields }, ref) => {
@@ -25,9 +26,9 @@ const ValueConstraintStep = React.forwardRef<HTMLFormElement, FormStepProps>(({ 
     fields.valueConstraint?.constraintType ?? ConstraintType.HasSpecificValue,
   );
   const [dataType, setDataType] = React.useState(fields.valueConstraint?.dataType ?? XsdDataType.String);
-  const [value, setValue] = React.useState(fields.valueConstraint?.value?.toString ?? "");
-  const [valueList, setValueList] = React.useState(
-    fields.valueConstraint?.valueList?.map((value) => value.toString()) ?? [],
+  const [value, setValue] = React.useState(fields.valueConstraint?.value?.toString() ?? "");
+  const [valueList, setValueList] = React.useState<ValueListItem[]>(
+    fields.valueConstraint?.valueList?.map((value) => ({ id: crypto.randomUUID(), value: value.toString() })) ?? [],
   );
   const [pattern, setPattern] = React.useState(fields.valueConstraint?.pattern ?? "");
   const [minValue, setMinValue] = React.useState(fields.valueConstraint?.minValue?.toString() ?? "");
@@ -64,15 +65,15 @@ const ValueConstraintStep = React.forwardRef<HTMLFormElement, FormStepProps>(({ 
   const getDataTypeOptions = () => {
     const options = getOptionsFromEnum<XsdDataType>(XsdDataType);
 
-    if (valueConstraint.constraintType === ConstraintType.IsInListOfAllowedValues) {
+    if (constraintType === ConstraintType.IsInListOfAllowedValues) {
       return options.filter((option) => option.value !== XsdDataType.Boolean);
     }
 
-    if (valueConstraint.constraintType === ConstraintType.MatchesRegexPattern) {
+    if (constraintType === ConstraintType.MatchesRegexPattern) {
       return options.filter((option) => option.value === XsdDataType.String);
     }
 
-    if (valueConstraint.constraintType === ConstraintType.IsInNumberRange) {
+    if (constraintType === ConstraintType.IsInNumberRange) {
       return options.filter((option) => option.value === XsdDataType.Decimal || option.value === XsdDataType.Integer);
     }
 
@@ -80,49 +81,24 @@ const ValueConstraintStep = React.forwardRef<HTMLFormElement, FormStepProps>(({ 
   };
   const dataTypeOptions = getDataTypeOptions();
 
-  const handleSetChange = (checked: boolean) => {
-    setValueConstraint({ ...valueConstraint, set: checked });
-  };
-
-  const handleRequireValueChange = (checked: boolean) => {
-    setValueConstraint({ ...valueConstraint, requireValue: checked });
-  };
-
-  const handleSpecificValueChange = (nextValue: string) => {
-    setValueConstraint({ ...valueConstraint, value: nextValue });
-  };
-
-  const handleValueListChange = (nextValueList: ValueListItem[]) => {
-    setValueConstraint({ ...valueConstraint, valueList: nextValueList });
-  };
-
-  const handlePatternChange = (nextPattern: string) => {
-    setValueConstraint({ ...valueConstraint, pattern: nextPattern });
-  };
-
-  const handleNumberRangeChange = (nextMinValue: string, nextMaxValue: string) => {
-    setValueConstraint({ ...valueConstraint, minValue: nextMinValue, maxValue: nextMaxValue });
-  };
-
   const getConditionalValueConstraintFields = (constraintType: ConstraintType, dataType: XsdDataType) => {
     switch (constraintType) {
       case ConstraintType.HasSpecificValue:
         if (dataType === XsdDataType.Boolean) {
-          return <SpecificBooleanValueFields value={valueConstraint.value} setValue={handleSpecificValueChange} />;
+          return <SpecificBooleanValueFields value={value} setValue={setValue} />;
         }
-        return (
-          <SpecificStringOrNumericalValueFields value={valueConstraint.value} setValue={handleSpecificValueChange} />
-        );
+        return <SpecificStringOrNumericalValueFields value={value} setValue={setValue} />;
       case ConstraintType.IsInListOfAllowedValues:
-        return <ValueListFields valueList={valueConstraint.valueList} setValueList={handleValueListChange} />;
+        return <ValueListFields valueList={valueList} setValueList={setValueList} />;
       case ConstraintType.MatchesRegexPattern:
-        return <PatternFields value={valueConstraint.pattern} setValue={handlePatternChange} />;
+        return <PatternFields value={pattern} setValue={setPattern} />;
       case ConstraintType.IsInNumberRange:
         return (
           <NumberRangeFields
-            minValue={valueConstraint.minValue}
-            maxValue={valueConstraint.maxValue}
-            setNumberRange={handleNumberRangeChange}
+            minValue={minValue}
+            maxValue={maxValue}
+            setMinValue={setMinValue}
+            setMaxValue={setMaxValue}
           />
         );
       default:
@@ -130,59 +106,80 @@ const ValueConstraintStep = React.forwardRef<HTMLFormElement, FormStepProps>(({ 
     }
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setFields({
+      ...fields,
+      valueConstraint: enabled
+        ? {
+            constraintType,
+            dataType,
+            value:
+              dataType === XsdDataType.Boolean
+                ? value === "true"
+                : dataType === XsdDataType.Decimal || dataType === XsdDataType.Integer
+                  ? Number(value)
+                  : value,
+            valueList:
+              dataType === XsdDataType.Decimal || dataType === XsdDataType.Integer
+                ? valueList.map((item) => Number(item.value))
+                : valueList.map((item) => item.value),
+            pattern,
+            minValue: minValue ? Number(minValue) : null,
+            maxValue: maxValue ? Number(maxValue) : null,
+            minCount: requireValue ? 1 : 0,
+            maxCount: null,
+          }
+        : null,
+    });
+  };
+
   return (
-    <Box maxWidth="50rem">
-      <Flexbox gap={theme.mimirorg.spacing.xl} flexDirection="column">
-        <Flexbox justifyContent="space-between">
-          <Flexbox alignItems="center" gap={theme.mimirorg.spacing.l}>
-            <Box>Add value constraint</Box>
-            <Switch checked={valueConstraint.set} onCheckedChange={(checked) => handleSetChange(checked)} />
-          </Flexbox>
-          {valueConstraint.set && valueConstraint.constraintType !== ConstraintType.HasSpecificValue && (
+    <form onSubmit={handleSubmit} ref={ref}>
+      <Box maxWidth="50rem">
+        <Flexbox gap={theme.mimirorg.spacing.xl} flexDirection="column">
+          <Flexbox justifyContent="space-between">
             <Flexbox alignItems="center" gap={theme.mimirorg.spacing.l}>
-              <Box>Require value to be set</Box>
-              <Switch
-                checked={valueConstraint.requireValue}
-                onCheckedChange={(checked) => handleRequireValueChange(checked)}
-              />
+              <Box>Add value constraint</Box>
+              <Switch checked={enabled} onCheckedChange={(checked) => setEnabled(checked)} />
+            </Flexbox>
+            {enabled && constraintType !== ConstraintType.HasSpecificValue && (
+              <Flexbox alignItems="center" gap={theme.mimirorg.spacing.l}>
+                <Box>Require value to be set</Box>
+                <Switch checked={requireValue} onCheckedChange={(checked) => setRequireValue(checked)} />
+              </Flexbox>
+            )}
+          </Flexbox>
+          {enabled && (
+            <Flexbox flexDirection="row" gap={theme.mimirorg.spacing.xl}>
+              <Box flexGrow="1">
+                <FormField label="Constraint type">
+                  <Select
+                    placeholder="Select a constraint type"
+                    options={constraintTypeOptions}
+                    onChange={(x) => {
+                      if (x?.value !== undefined) handleConstraintTypeChange(x.value);
+                    }}
+                    value={constraintTypeOptions.find((x) => x.value === constraintType)}
+                  />
+                </FormField>
+              </Box>
+              <Box flexGrow="1">
+                <FormField label="Data type">
+                  <Select
+                    placeholder="Select a data type"
+                    options={dataTypeOptions}
+                    onChange={(x) => setDataType(x?.value ?? XsdDataType.String)}
+                    value={dataTypeOptions.find((x) => x.value === dataType)}
+                  />
+                </FormField>
+              </Box>
             </Flexbox>
           )}
+          {enabled && getConditionalValueConstraintFields(constraintType, dataType)}
         </Flexbox>
-        {valueConstraint.set && (
-          <Flexbox flexDirection="row" gap={theme.mimirorg.spacing.xl}>
-            <Box flexGrow="1">
-              <FormField label="Constraint type">
-                <Select
-                  placeholder="Select a constraint type"
-                  options={constraintTypeOptions}
-                  onChange={(x) => {
-                    if (x?.value !== undefined) handleConstraintTypeChange(x.value);
-                  }}
-                  value={constraintTypeOptions.find((x) => x.value === valueConstraint?.constraintType)}
-                />
-              </FormField>
-            </Box>
-            <Box flexGrow="1">
-              <FormField label="Data type">
-                <Select
-                  placeholder="Select a data type"
-                  options={dataTypeOptions}
-                  onChange={(x) => {
-                    setValueConstraint({
-                      ...valueConstraint,
-                      dataType: x?.value ?? XsdDataType.String,
-                    });
-                  }}
-                  value={dataTypeOptions.find((x) => x.value === valueConstraint?.dataType)}
-                />
-              </FormField>
-            </Box>
-          </Flexbox>
-        )}
-        {valueConstraint.set &&
-          getConditionalValueConstraintFields(valueConstraint.constraintType, valueConstraint.dataType)}
-      </Flexbox>
-    </Box>
+      </Box>
+    </form>
   );
 });
 
