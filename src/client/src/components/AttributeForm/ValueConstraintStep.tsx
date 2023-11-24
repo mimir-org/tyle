@@ -1,9 +1,11 @@
 import { Box, Flexbox, FormField, Select } from "@mimirorg/component-library";
 import Switch from "components/Switch";
+import React from "react";
 import { useTheme } from "styled-components";
 import { ConstraintType } from "types/attributes/constraintType";
 import { XsdDataType } from "types/attributes/xsdDataType";
 import { getOptionsFromEnum } from "utils";
+import { FormStepProps } from "./AttributeForm";
 import {
   NumberRangeFields,
   PatternFields,
@@ -11,35 +13,52 @@ import {
   SpecificStringOrNumericalValueFields,
   ValueListFields,
 } from "./ConditionalValueConstraintFields";
-import { ValueConstraintFields, ValueListItem, getEmptyValueFields } from "./ValueConstraintStep.helpers";
 
-interface ValueConstraintStepProps {
-  valueConstraint: ValueConstraintFields;
-  setValueConstraint: (nextValueConstraint: ValueConstraintFields) => void;
-}
-
-const ValueConstraintStep = ({ valueConstraint, setValueConstraint }: ValueConstraintStepProps) => {
+const ValueConstraintStep = React.forwardRef<HTMLFormElement, FormStepProps>(({ fields, setFields }, ref) => {
   const theme = useTheme();
 
-  const constraintTypeOptions = getOptionsFromEnum<ConstraintType>(ConstraintType);
-  const handleConstraintTypeChange = (constraintType: ConstraintType) => {
-    if (constraintType === valueConstraint.constraintType) return;
+  const [enabled, setEnabled] = React.useState(!!fields.valueConstraint);
+  const [requireValue, setRequireValue] = React.useState(
+    fields.valueConstraint ? fields.valueConstraint.minCount > 0 : false,
+  );
+  const [constraintType, setConstraintType] = React.useState(
+    fields.valueConstraint?.constraintType ?? ConstraintType.HasSpecificValue,
+  );
+  const [dataType, setDataType] = React.useState(fields.valueConstraint?.dataType ?? XsdDataType.String);
+  const [value, setValue] = React.useState(fields.valueConstraint?.value?.toString ?? "");
+  const [valueList, setValueList] = React.useState(
+    fields.valueConstraint?.valueList?.map((value) => value.toString()) ?? [],
+  );
+  const [pattern, setPattern] = React.useState(fields.valueConstraint?.pattern ?? "");
+  const [minValue, setMinValue] = React.useState(fields.valueConstraint?.minValue?.toString() ?? "");
+  const [maxValue, setMaxValue] = React.useState(fields.valueConstraint?.maxValue?.toString() ?? "");
 
-    let dataType = valueConstraint.dataType;
+  const constraintTypeOptions = getOptionsFromEnum<ConstraintType>(ConstraintType);
+  const handleConstraintTypeChange = (nextConstraintType: ConstraintType) => {
+    if (nextConstraintType === constraintType) return;
 
     if (constraintType === ConstraintType.IsInListOfAllowedValues && dataType === XsdDataType.Boolean) {
-      dataType = XsdDataType.String;
+      setDataType(XsdDataType.String);
     } else if (constraintType === ConstraintType.MatchesRegexPattern) {
-      dataType = XsdDataType.String;
+      setDataType(XsdDataType.String);
     } else if (
       constraintType === ConstraintType.IsInNumberRange &&
       dataType !== XsdDataType.Integer &&
       dataType !== XsdDataType.Decimal
     ) {
-      dataType = XsdDataType.Decimal;
+      setDataType(XsdDataType.Decimal);
     }
 
-    setValueConstraint({ ...valueConstraint, constraintType, dataType, ...getEmptyValueFields() });
+    setConstraintType(nextConstraintType);
+    resetAllValueFields();
+  };
+
+  const resetAllValueFields = () => {
+    setValue("");
+    setValueList([]);
+    setPattern("");
+    setMinValue("");
+    setMaxValue("");
   };
 
   const getDataTypeOptions = () => {
@@ -165,6 +184,8 @@ const ValueConstraintStep = ({ valueConstraint, setValueConstraint }: ValueConst
       </Flexbox>
     </Box>
   );
-};
+});
+
+ValueConstraintStep.displayName = "ValueConstraintStep";
 
 export default ValueConstraintStep;

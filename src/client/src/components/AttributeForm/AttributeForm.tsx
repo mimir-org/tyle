@@ -6,6 +6,8 @@ import React from "react";
 import { AttributeView } from "types/attributes/attributeView";
 import { FormMode } from "types/formMode";
 import {
+  AttributeFormFields,
+  createEmptyAttributeFormFields,
   toAttributeFormFields,
   toAttributeTypeRequest,
   useAttributeMutation,
@@ -13,24 +15,26 @@ import {
 } from "./AttributeForm.helpers";
 import BaseStep from "./BaseStep";
 import QualifiersStep from "./QualifiersStep";
-import ReviewAndSubmitStep from "./ReviewAndSubmitStep";
 import UnitsStep from "./UnitsStep";
 import ValueConstraintStep from "./ValueConstraintStep";
-import { useAttributeFormState } from "./useAttributeFormState";
 
 interface AttributeFormProps {
   mode?: FormMode;
 }
 
+export interface FormStepProps {
+  fields: AttributeFormFields;
+  setFields: (nextAttributeFormFields: AttributeFormFields) => void;
+}
+
 export interface FormStep {
   id: string;
   description: string;
-  component: React.ReactNode;
+  component: React.ForwardRefExoticComponent<FormStepProps>;
 }
 
 const AttributeForm = ({ mode }: AttributeFormProps) => {
-  const [formFields, setFormFields, setBaseFields, setQualifiers, setUnitRequirement, setUnits, setValueConstraint] =
-    useAttributeFormState();
+  const [fields, setFields] = React.useState<AttributeFormFields>(createEmptyAttributeFormFields);
 
   const [activeStep, setActiveStep] = React.useState(0);
   const currentStepFormRef = React.useRef<HTMLFormElement>(null);
@@ -39,43 +43,34 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
     {
       id: "base-step",
       description: "Define base characteristics",
-      component: <BaseStep baseFields={formFields.base} setBaseFields={setBaseFields} ref={currentStepFormRef} />,
+      component: BaseStep,
     },
     {
       id: "qualifiers-step",
       description: "Choose qualifiers",
-      component: <QualifiersStep qualifiers={formFields.qualifiers} setQualifiers={setQualifiers} />,
+      component: QualifiersStep,
     },
     {
       id: "units-step",
       description: "Add units",
-      component: (
-        <UnitsStep
-          unitRequirement={formFields.unitRequirement}
-          setUnitRequirement={setUnitRequirement}
-          units={formFields.units}
-          setUnits={setUnits}
-        />
-      ),
+      component: UnitsStep,
     },
     {
       id: "value-constraint-step",
       description: "Add value constraint",
-      component: (
-        <ValueConstraintStep valueConstraint={formFields.valueConstraint} setValueConstraint={setValueConstraint} />
-      ),
+      component: ValueConstraintStep,
     },
     {
       id: "review-step",
       description: "Review and submit",
-      component: <ReviewAndSubmitStep mode={mode} attributeFormFields={formFields} />,
+      component: activeStep === 0 ? BaseStep : BaseStep,
     },
   ];
 
   const query = useAttributeQuery();
   const mapper = (source: AttributeView) => toAttributeFormFields(source);
 
-  const [_, isLoading] = usePrefilledForm(query, mapper, setFormFields);
+  const [_, isLoading] = usePrefilledForm(query, mapper, setFields);
 
   const mutation = useAttributeMutation(query.data?.id, mode);
 
@@ -85,8 +80,10 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    onSubmitForm(toAttributeTypeRequest(formFields), mutation.mutateAsync, toast);
+    onSubmitForm(toAttributeTypeRequest(fields), mutation.mutateAsync, toast);
   };
+
+  const FormStep = steps[activeStep].component;
 
   return (
     <>
@@ -99,7 +96,7 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
           setActiveStep={setActiveStep}
           formRef={currentStepFormRef}
         >
-          {steps[activeStep].component}
+          <FormStep fields={fields} setFields={setFields} ref={currentStepFormRef} />
         </TypeFormContainer>
       )}
     </>

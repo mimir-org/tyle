@@ -2,19 +2,14 @@ import { Box, Flexbox, FormBaseFieldsContainer, FormField, Input, Select, Textar
 import { useGetPredicates } from "api/predicate.queries";
 import React from "react";
 import { useTheme } from "styled-components";
-import { AttributeBaseFields } from "./AttributeForm.helpers";
+import { FormStepProps } from "./AttributeForm";
 
-interface BaseStepProps {
-  baseFields: AttributeBaseFields;
-  setBaseFields: (nextAttributeFormFields: AttributeBaseFields) => void;
-}
-
-const BaseStep = React.forwardRef<HTMLFormElement, BaseStepProps>(({ baseFields, setBaseFields }, ref) => {
+const BaseStep = React.forwardRef<HTMLFormElement, FormStepProps>(({ fields, setFields }, ref) => {
   const theme = useTheme();
 
-  const [name, setName] = React.useState(baseFields.name);
-  const [predicate, setPredicate] = React.useState(baseFields.predicate);
-  const [description, setDescription] = React.useState(baseFields.description);
+  const [name, setName] = React.useState(fields.name);
+  const [predicate, setPredicate] = React.useState(fields.predicate);
+  const [description, setDescription] = React.useState(fields.description);
 
   const predicateQuery = useGetPredicates();
   const predicateOptions = predicateQuery.data?.map((predicate) => ({
@@ -24,11 +19,11 @@ const BaseStep = React.forwardRef<HTMLFormElement, BaseStepProps>(({ baseFields,
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setBaseFields({ name, predicate, description });
+    setFields({ ...fields, name, predicate, description });
   };
 
   return (
-    <form onSubmit={handleSubmit} id="current-form-step" ref={ref}>
+    <form onSubmit={handleSubmit} ref={ref}>
       <Box maxWidth="50rem">
         <FormBaseFieldsContainer>
           <Flexbox flexDirection="row" gap={theme.mimirorg.spacing.xl}>
