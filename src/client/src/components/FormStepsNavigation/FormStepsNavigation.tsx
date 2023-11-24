@@ -12,9 +12,11 @@ interface FormStepsNavigationProps {
 
 const FormStepsNavigation = ({ steps, activeStep, setActiveStep, formRef }: FormStepsNavigationProps) => {
   const handleClick = (index: number) => {
-    formRef.current?.requestSubmit();
+    if (formRef.current?.reportValidity()) {
+      formRef.current?.requestSubmit();
 
-    setActiveStep(index);
+      setActiveStep(index);
+    }
   };
 
   return (
