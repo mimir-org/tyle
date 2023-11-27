@@ -1,20 +1,16 @@
+import { useGetAttribute } from "api/attribute.queries";
 import Loader from "components/Loader";
 import TypeFormContainer from "components/TypeFormContainer";
-import { onSubmitForm, usePrefilledForm, useSubmissionToast } from "helpers/form.helpers";
-import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
+import { usePrefilledForm } from "helpers/form.helpers";
 import React from "react";
+import { useParams } from "react-router-dom";
 import { AttributeView } from "types/attributes/attributeView";
 import { FormMode } from "types/formMode";
-import {
-  AttributeFormFields,
-  createEmptyAttributeFormFields,
-  toAttributeFormFields,
-  toAttributeTypeRequest,
-  useAttributeMutation,
-  useAttributeQuery,
-} from "./AttributeForm.helpers";
+import { AttributeFormFields, createEmptyAttributeFormFields, toAttributeFormFields } from "./AttributeForm.helpers";
 import BaseStep from "./BaseStep";
 import QualifiersStep from "./QualifiersStep";
+import ReviewAndCreateStep from "./ReviewAndCreateStep";
+import ReviewAndUpdateStep from "./ReviewAndUpdate";
 import UnitsStep from "./UnitsStep";
 import ValueConstraintStep from "./ValueConstraintStep";
 
@@ -33,6 +29,14 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
   const [activeStep, setActiveStep] = React.useState(0);
   const currentStepFormRef = React.useRef<HTMLFormElement>(null);
 
+  const { id } = useParams();
+
+  const query = useGetAttribute(id);
+
+  const mapper = (source: AttributeView) => toAttributeFormFields(source);
+
+  const [isPrefilled, isLoading] = usePrefilledForm(query, mapper, setFields);
+
   const steps = [
     "Define base characteristics",
     "Choose qualifiers",
@@ -46,31 +50,15 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
     QualifiersStep,
     UnitsStep,
     ValueConstraintStep,
-    activeStep === 0 ? BaseStep : BaseStep,
+    mode === "edit" ? ReviewAndUpdateStep : ReviewAndCreateStep,
   ];
-
-  const query = useAttributeQuery();
-  const mapper = (source: AttributeView) => toAttributeFormFields(source);
-
-  const [_, isLoading] = usePrefilledForm(query, mapper, setFields);
-
-  const mutation = useAttributeMutation(query.data?.id, mode);
-
-  useNavigateOnCriteria("/", mutation.isSuccess);
-
-  const toast = useSubmissionToast("attribute");
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    onSubmitForm(toAttributeTypeRequest(fields), mutation.mutateAsync, toast);
-  };
 
   const FormStep = stepComponents[activeStep];
 
   return (
     <>
-      {isLoading && <Loader />}
-      {!isLoading && (
+      {isLoading && <Loader />}{" "}
+      {(!mode || isPrefilled) && (
         <TypeFormContainer
           title={mode === "edit" ? "Edit attribute type" : "Create attribute type"}
           steps={steps}

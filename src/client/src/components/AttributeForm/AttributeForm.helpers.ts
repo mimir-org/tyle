@@ -1,5 +1,4 @@
-import { useCreateAttribute, useGetAttribute, useUpdateAttribute } from "api/attribute.queries";
-import { useParams } from "react-router-dom";
+import { useCreateAttribute, useUpdateAttribute } from "api/attribute.queries";
 import { AttributeTypeRequest } from "types/attributes/attributeTypeRequest";
 import { AttributeView } from "types/attributes/attributeView";
 import { ProvenanceQualifier } from "types/attributes/provenanceQualifier";
@@ -11,11 +10,6 @@ import { ScopeQualifier } from "types/attributes/scopeQualifier";
 import { ValueConstraintRequest } from "types/attributes/valueConstraintRequest";
 import { FormMode } from "types/formMode";
 import { InfoItem } from "types/infoItem";
-
-export const useAttributeQuery = () => {
-  const { id } = useParams();
-  return useGetAttribute(id);
-};
 
 export const useAttributeMutation = (id?: string, mode?: FormMode) => {
   const createMutation = useCreateAttribute();
