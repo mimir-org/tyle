@@ -8,7 +8,7 @@ import { RdlPredicate } from "types/attributes/rdlPredicate";
 import { RdlUnit } from "types/attributes/rdlUnit";
 import { RegularityQualifier } from "types/attributes/regularityQualifier";
 import { ScopeQualifier } from "types/attributes/scopeQualifier";
-import { ValueConstraintView } from "types/attributes/valueConstraintView";
+import { ValueConstraintRequest } from "types/attributes/valueConstraintRequest";
 import { FormMode } from "types/formMode";
 import { InfoItem } from "types/infoItem";
 
@@ -33,7 +33,7 @@ export interface AttributeFormFields {
   scopeQualifier: ScopeQualifier | null;
   unitRequirement: UnitRequirement;
   units: RdlUnit[];
-  valueConstraint: ValueConstraintView | null;
+  valueConstraint: ValueConstraintRequest | null;
 }
 
 export enum UnitRequirement {
@@ -51,7 +51,13 @@ export const toAttributeFormFields = (attributeView: AttributeView): AttributeFo
       : attributeView.unitMaxCount === 1
         ? UnitRequirement.Optional
         : UnitRequirement.NoUnit,
-  valueConstraint: attributeView.valueConstraint,
+  valueConstraint: attributeView.valueConstraint
+    ? {
+        ...attributeView.valueConstraint,
+        value: attributeView.valueConstraint.value?.toString() ?? null,
+        valueList: attributeView.valueConstraint.valueList?.map((item) => item.toString()) ?? [],
+      }
+    : null,
 });
 
 export const toAttributeTypeRequest = (attributeFormFields: AttributeFormFields): AttributeTypeRequest => ({
@@ -61,13 +67,6 @@ export const toAttributeTypeRequest = (attributeFormFields: AttributeFormFields)
   unitIds: attributeFormFields.units.map((unit) => unit.id),
   unitMinCount: attributeFormFields.unitRequirement === UnitRequirement.Required ? 1 : 0,
   unitMaxCount: attributeFormFields.unitRequirement === UnitRequirement.NoUnit ? 0 : 1,
-  valueConstraint: attributeFormFields.valueConstraint
-    ? {
-        ...attributeFormFields.valueConstraint,
-        value: attributeFormFields.valueConstraint.value?.toString() ?? null,
-        valueList: attributeFormFields.valueConstraint.valueList?.map((item) => item.toString()) ?? null,
-      }
-    : null,
 });
 
 export const createEmptyAttributeFormFields = (): AttributeFormFields => ({

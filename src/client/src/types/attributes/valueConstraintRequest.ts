@@ -6,7 +6,7 @@ export interface ValueConstraintRequest extends HasCardinality {
   constraintType: ConstraintType;
   dataType: XsdDataType;
   value: string | null;
-  valueList: string[] | null;
+  valueList: string[];
   pattern: string | null;
   minValue: number | null;
   maxValue: number | null;

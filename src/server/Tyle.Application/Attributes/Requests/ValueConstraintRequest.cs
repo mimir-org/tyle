@@ -15,13 +15,14 @@ public class ValueConstraintRequest : IValidatableObject
     public XsdDataType DataType { get; set; }
 
     [Range(0, int.MaxValue, ErrorMessage = "Min count must be null or a non-negative integer.")]
-    public int? MinCount { get; set; }
+    public int MinCount { get; set; }
 
     public int? MaxCount { get; set; }
 
     [MaxLength(StringLengthConstants.ValueLength)]
     public string? Value { get; set; }
 
+    [Required]
     public ICollection<string> ValueList { get; set; } = new List<string>();
 
     [MaxLength(StringLengthConstants.ValueLength)]
@@ -33,24 +34,11 @@ public class ValueConstraintRequest : IValidatableObject
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        if (ConstraintType == ConstraintType.HasValue)
+        if (MaxCount < MinCount)
         {
-            if (MinCount != null)
-            {
-                yield return new ValidationResult("When the constraint type is HasValue, min count must be null.");
-            }
+            yield return new ValidationResult("The max count can't be smaller than the min count.");
         }
-        else
-        {
-            if (MinCount == null)
-            {
-                yield return new ValidationResult("Min count must be set when the constraint type is not HasValue.");
-            }
-            else if (MaxCount < MinCount)
-            {
-                yield return new ValidationResult("The max count can't be smaller than the min count.");
-            }
-        }
+        
 
         switch (ConstraintType)
         {
@@ -70,9 +58,9 @@ public class ValueConstraintRequest : IValidatableObject
                     yield return new ValidationResult("Constraints of type In can't have data type boolean.");
                 }
 
-                if (ValueList.Count < 2)
+                if (ValueList.Count < 1)
                 {
-                    yield return new ValidationResult("Constraints of type In must specify at least two possible values.");
+                    yield return new ValidationResult("Constraints of type In must specify at least one possible value.");
                 }
                 else
                 {
@@ -117,13 +105,6 @@ public class ValueConstraintRequest : IValidatableObject
                                     yield return validationResult;
                                 }
                                 break;
-                            case XsdDataType.AnyUri:
-                                var iriValueList = ValueList.Select(x => new Uri(x));
-                                foreach (var validationResult in UniqueCollectionValidator.Validate(iriValueList, "Value list entry"))
-                                {
-                                    yield return validationResult;
-                                }
-                                break;
                         }
                     }
                 }
@@ -152,13 +133,13 @@ public class ValueConstraintRequest : IValidatableObject
                 {
                     yield return new ValidationResult("Constraints of type Range must provide at least an upper or lower bound.");
                 }
-                if (DataType == XsdDataType.Decimal && MinValue >= MaxValue)
+                if (DataType == XsdDataType.Decimal && MinValue > MaxValue)
                 {
-                    yield return new ValidationResult("The upper bound must be larger than the lower bound.");
+                    yield return new ValidationResult("The lower bound can't be smaller than the upper bound.");
                 }
-                else if (DataType == XsdDataType.Integer && (int?) MinValue >= (int?) MaxValue)
+                else if (DataType == XsdDataType.Integer && (int?) MinValue > (int?) MaxValue)
                 {
-                    yield return new ValidationResult("The upper bound must be larger than the lower bound.");
+                    yield return new ValidationResult("The lower bound can't be smaller than the upper bound.");
                 }
                 break;
         }
@@ -168,9 +149,6 @@ public class ValueConstraintRequest : IValidatableObject
     {
         switch (dataType)
         {
-            case XsdDataType.AnyUri when !Uri.TryCreate(value, UriKind.Absolute, out var _):
-                result = new ValidationResult("Values with data type AnyUri must be a valid Uri.");
-                return false;
             case XsdDataType.String when string.IsNullOrWhiteSpace(value):
                 result = new ValidationResult("Values with data type string must not be only whitespace.");
                 return false;
