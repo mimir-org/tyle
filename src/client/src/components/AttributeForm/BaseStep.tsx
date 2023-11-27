@@ -1,12 +1,11 @@
-import { Box, Flexbox, FormBaseFieldsContainer, FormField, Input, Select, Textarea } from "@mimirorg/component-library";
+import { FormField, Input, Select, Textarea } from "@mimirorg/component-library";
 import { useGetPredicates } from "api/predicate.queries";
 import React from "react";
-import { useTheme } from "styled-components";
+import { DESCRIPTION_LENGTH, NAME_LENGTH } from "types/common/stringLengthConstants";
 import { AttributeFormStepProps } from "./AttributeForm";
+import { BaseStepWrapper } from "./BaseStep.styled";
 
 const BaseStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
-  const theme = useTheme();
-
   const [name, setName] = React.useState(fields.name);
   const [predicate, setPredicate] = React.useState(fields.predicate);
   const [description, setDescription] = React.useState(fields.description);
@@ -23,38 +22,27 @@ const BaseStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fi
   };
 
   return (
-    <form onSubmit={handleSubmit} ref={ref}>
-      <Box maxWidth="50rem">
-        <FormBaseFieldsContainer>
-          <Flexbox flexDirection="row" gap={theme.mimirorg.spacing.xl}>
-            <Box flexGrow="3">
-              <FormField label="Name">
-                <Input placeholder="Name" value={name} onChange={(event) => setName(event.target.value)} />
-              </FormField>
-            </Box>
-            <Box flexGrow="1">
-              <FormField label="Predicate">
-                <Select
-                  placeholder="Select a predicate"
-                  options={predicateOptions}
-                  isLoading={predicateQuery.isLoading}
-                  onChange={(x) => setPredicate(x?.value ?? null)}
-                  value={predicateOptions?.find((x) => x.value.id === predicate?.id)}
-                  isClearable={true}
-                />
-              </FormField>
-            </Box>
-          </Flexbox>
-          <FormField label="Description">
-            <Textarea
-              placeholder="Additional information about this attribute type can be supplied here."
-              value={description}
-              onChange={(event) => setDescription(event.target.value)}
-            />
-          </FormField>
-        </FormBaseFieldsContainer>
-      </Box>
-    </form>
+    <BaseStepWrapper onSubmit={handleSubmit} ref={ref}>
+      <FormField label="Name">
+        <Input required={true} maxLength={NAME_LENGTH} value={name} onChange={(event) => setName(event.target.value)} />
+      </FormField>
+      <FormField label="Predicate">
+        <Select
+          options={predicateOptions}
+          isLoading={predicateQuery.isLoading}
+          onChange={(x) => setPredicate(x?.value ?? null)}
+          value={predicateOptions?.find((x) => x.value.id === predicate?.id)}
+          isClearable={true}
+        />
+      </FormField>
+      <FormField label="Description">
+        <Textarea
+          maxLength={DESCRIPTION_LENGTH}
+          value={description}
+          onChange={(event) => setDescription(event.target.value)}
+        />
+      </FormField>
+    </BaseStepWrapper>
   );
 });
 

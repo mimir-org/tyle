@@ -1,23 +1,24 @@
-import { Box, Flexbox, FormField, Select } from "@mimirorg/component-library";
+import { FormField, Input, Select } from "@mimirorg/component-library";
+import { PlusCircle, XCircle } from "@styled-icons/heroicons-outline";
 import Switch from "components/Switch";
 import React from "react";
-import { useTheme } from "styled-components";
 import { ConstraintType } from "types/attributes/constraintType";
 import { XsdDataType } from "types/attributes/xsdDataType";
+import { VALUE_LENGTH } from "types/common/stringLengthConstants";
 import { getOptionsFromEnum } from "utils";
 import { AttributeFormStepProps } from "./AttributeForm";
 import {
-  NumberRangeFields,
-  PatternFields,
-  SpecificBooleanValueFields,
-  SpecificStringOrNumericalValueFields,
-  ValueListFields,
-  ValueListItem,
-} from "./ConditionalValueConstraintFields";
+  AddValueListItemWrapper,
+  ConstraintTypeSelectionWrapper,
+  HasSpecificBooleanValueFieldset,
+  RangeFieldsWrapper,
+  ValueConstraintStepHeader,
+  ValueConstraintStepWrapper,
+  ValueListFieldsWrapper,
+  ValueListItemsWrapper,
+} from "./ValueConstraintStep.styled";
 
 const ValueConstraintStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
-  const theme = useTheme();
-
   const [enabled, setEnabled] = React.useState(!!fields.valueConstraint);
   const [requireValue, setRequireValue] = React.useState(
     fields.valueConstraint ? fields.valueConstraint.minCount > 0 : false,
@@ -27,27 +28,34 @@ const ValueConstraintStep = React.forwardRef<HTMLFormElement, AttributeFormStepP
   );
   const [dataType, setDataType] = React.useState(fields.valueConstraint?.dataType ?? XsdDataType.String);
   const [value, setValue] = React.useState(fields.valueConstraint?.value?.toString() ?? "");
-  const [valueList, setValueList] = React.useState<ValueListItem[]>(
+  const [valueList, setValueList] = React.useState(
     fields.valueConstraint?.valueList?.map((value) => ({ id: crypto.randomUUID(), value: value.toString() })) ?? [],
   );
   const [pattern, setPattern] = React.useState(fields.valueConstraint?.pattern ?? "");
   const [minValue, setMinValue] = React.useState(fields.valueConstraint?.minValue?.toString() ?? "");
   const [maxValue, setMaxValue] = React.useState(fields.valueConstraint?.maxValue?.toString() ?? "");
 
+  const valueListRef = React.useRef<(HTMLInputElement | null)[]>([]);
+  React.useEffect(() => {
+    if (constraintType === ConstraintType.IsInListOfAllowedValues && valueList.length === 0) {
+      setValueList([{ id: crypto.randomUUID(), value: "" }]);
+    }
+  }, [constraintType, valueList.length]);
+
   const constraintTypeOptions = getOptionsFromEnum<ConstraintType>(ConstraintType);
   const handleConstraintTypeChange = (nextConstraintType: ConstraintType) => {
     if (nextConstraintType === constraintType) return;
 
     if (nextConstraintType === ConstraintType.IsInListOfAllowedValues && dataType === XsdDataType.Boolean) {
-      setDataType(XsdDataType.String);
+      handleDataTypeChange(XsdDataType.String);
     } else if (nextConstraintType === ConstraintType.MatchesRegexPattern) {
-      setDataType(XsdDataType.String);
+      handleDataTypeChange(XsdDataType.String);
     } else if (
       nextConstraintType === ConstraintType.IsInNumberRange &&
       dataType !== XsdDataType.Integer &&
       dataType !== XsdDataType.Decimal
     ) {
-      setDataType(XsdDataType.Decimal);
+      handleDataTypeChange(XsdDataType.Decimal);
     }
 
     setConstraintType(nextConstraintType);
@@ -80,26 +88,149 @@ const ValueConstraintStep = React.forwardRef<HTMLFormElement, AttributeFormStepP
     return options;
   };
   const dataTypeOptions = getDataTypeOptions();
+  const handleDataTypeChange = (nextDataType: XsdDataType) => {
+    if (nextDataType === dataType) return;
+
+    resetAllValueFields();
+
+    setDataType(nextDataType);
+  };
+
+  const valueListContains = (value: string) => {
+    if (!value) return true;
+
+    if (dataType !== XsdDataType.String) {
+      const numericalValueList = valueList.map((item) => Number(item.value));
+      return numericalValueList.includes(Number(value));
+    }
+
+    return valueList.map((item) => item.value).includes(value);
+  };
 
   const getConditionalValueConstraintFields = (constraintType: ConstraintType, dataType: XsdDataType) => {
+    const valueInputValidation =
+      dataType === XsdDataType.Decimal
+        ? { type: "number", step: "any" }
+        : dataType === XsdDataType.Integer
+          ? { type: "number" }
+          : {};
+
+    const minValueValidation = maxValue ? { max: maxValue } : { required: true };
+    const maxValueValidation = minValue ? { min: minValue } : { required: true };
+
     switch (constraintType) {
       case ConstraintType.HasSpecificValue:
         if (dataType === XsdDataType.Boolean) {
-          return <SpecificBooleanValueFields value={value} setValue={setValue} />;
+          return (
+            <HasSpecificBooleanValueFieldset>
+              <legend>Value</legend>
+              <label htmlFor="has-specific-value-true">
+                <input
+                  type="radio"
+                  required={true}
+                  id="has-specific-value-true"
+                  name="has-specific-boolean-value"
+                  value={"true"}
+                  checked={value === "true"}
+                  onChange={() => setValue("true")}
+                />{" "}
+                True
+              </label>
+              <label htmlFor="has-specific-value-false">
+                <input
+                  type="radio"
+                  id="has-specific-value-false"
+                  name="has-specific-boolean-value"
+                  value={"false"}
+                  checked={value === "false"}
+                  onChange={() => setValue("false")}
+                />{" "}
+                False
+              </label>
+            </HasSpecificBooleanValueFieldset>
+          );
         }
-        return <SpecificStringOrNumericalValueFields value={value} setValue={setValue} />;
+        return (
+          <FormField label="Value">
+            <Input
+              required={true}
+              maxLength={VALUE_LENGTH}
+              {...valueInputValidation}
+              value={value}
+              onChange={(event) => setValue(event.target.value)}
+            />
+          </FormField>
+        );
       case ConstraintType.IsInListOfAllowedValues:
-        return <ValueListFields valueList={valueList} setValueList={setValueList} />;
+        return (
+          <ValueListFieldsWrapper>
+            {valueList.map((item, index) => (
+              <ValueListItemsWrapper key={item.id}>
+                <Input
+                  required={true}
+                  maxLength={VALUE_LENGTH}
+                  {...valueInputValidation}
+                  value={item.value}
+                  onChange={(event) => {
+                    if (valueListContains(event.target.value)) {
+                      valueListRef.current[index]?.setCustomValidity("Value is not unique");
+                    } else {
+                      valueListRef.current[index]?.setCustomValidity("");
+                    }
+
+                    const nextValueList = [...valueList];
+                    nextValueList[index] = { id: valueList[index].id, value: event.target.value };
+                    setValueList(nextValueList);
+                  }}
+                  ref={(element) => (valueListRef.current[index] = element)}
+                />
+                {valueList.length > 1 && (
+                  <XCircle
+                    onClick={() => {
+                      setValueList(valueList.filter((x) => x.id !== item.id));
+                    }}
+                  />
+                )}
+              </ValueListItemsWrapper>
+            ))}
+            <AddValueListItemWrapper>
+              <PlusCircle onClick={() => setValueList([...valueList, { id: crypto.randomUUID(), value: "" }])} />
+            </AddValueListItemWrapper>
+          </ValueListFieldsWrapper>
+        );
       case ConstraintType.MatchesRegexPattern:
-        return <PatternFields value={pattern} setValue={setPattern} />;
+        return (
+          <FormField label="Pattern">
+            <Input
+              required={true}
+              maxLength={VALUE_LENGTH}
+              value={pattern}
+              onChange={(event) => setPattern(event.target.value)}
+            />
+          </FormField>
+        );
       case ConstraintType.IsInNumberRange:
         return (
-          <NumberRangeFields
-            minValue={minValue}
-            maxValue={maxValue}
-            setMinValue={setMinValue}
-            setMaxValue={setMaxValue}
-          />
+          <RangeFieldsWrapper>
+            <FormField label="Lower bound (leave empty for no lower bound)">
+              <Input
+                type="number"
+                step={dataType === XsdDataType.Integer ? 1 : "any"}
+                {...minValueValidation}
+                value={minValue}
+                onChange={(event) => setMinValue(event.target.value)}
+              />
+            </FormField>
+            <FormField label="Upper bound (leave empty for no upper bound)">
+              <Input
+                type="number"
+                step={dataType === XsdDataType.Integer ? 1 : "any"}
+                {...maxValueValidation}
+                value={maxValue}
+                onChange={(event) => setMaxValue(event.target.value)}
+              />
+            </FormField>
+          </RangeFieldsWrapper>
         );
       default:
         return <></>;
@@ -108,6 +239,7 @@ const ValueConstraintStep = React.forwardRef<HTMLFormElement, AttributeFormStepP
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     setFields({
       ...fields,
       valueConstraint: enabled
@@ -127,51 +259,43 @@ const ValueConstraintStep = React.forwardRef<HTMLFormElement, AttributeFormStepP
   };
 
   return (
-    <form onSubmit={handleSubmit} ref={ref}>
-      <Box maxWidth="50rem">
-        <Flexbox gap={theme.mimirorg.spacing.xl} flexDirection="column">
-          <Flexbox justifyContent="space-between">
-            <Flexbox alignItems="center" gap={theme.mimirorg.spacing.l}>
-              <Box>Add value constraint</Box>
-              <Switch checked={enabled} onCheckedChange={(checked) => setEnabled(checked)} />
-            </Flexbox>
-            {enabled && constraintType !== ConstraintType.HasSpecificValue && (
-              <Flexbox alignItems="center" gap={theme.mimirorg.spacing.l}>
-                <Box>Require value to be set</Box>
-                <Switch checked={requireValue} onCheckedChange={(checked) => setRequireValue(checked)} />
-              </Flexbox>
-            )}
-          </Flexbox>
-          {enabled && (
-            <Flexbox flexDirection="row" gap={theme.mimirorg.spacing.xl}>
-              <Box flexGrow="1">
-                <FormField label="Constraint type">
-                  <Select
-                    placeholder="Select a constraint type"
-                    options={constraintTypeOptions}
-                    onChange={(x) => {
-                      if (x?.value !== undefined) handleConstraintTypeChange(x.value);
-                    }}
-                    value={constraintTypeOptions.find((x) => x.value === constraintType)}
-                  />
-                </FormField>
-              </Box>
-              <Box flexGrow="1">
-                <FormField label="Data type">
-                  <Select
-                    placeholder="Select a data type"
-                    options={dataTypeOptions}
-                    onChange={(x) => setDataType(x?.value ?? XsdDataType.String)}
-                    value={dataTypeOptions.find((x) => x.value === dataType)}
-                  />
-                </FormField>
-              </Box>
-            </Flexbox>
-          )}
-          {enabled && getConditionalValueConstraintFields(constraintType, dataType)}
-        </Flexbox>
-      </Box>
-    </form>
+    <ValueConstraintStepWrapper onSubmit={handleSubmit} ref={ref}>
+      <ValueConstraintStepHeader>
+        <Switch checked={enabled} onCheckedChange={(checked) => setEnabled(checked)}>
+          Add value constraint
+        </Switch>
+        {enabled && constraintType !== ConstraintType.HasSpecificValue && (
+          <Switch checked={requireValue} onCheckedChange={(checked) => setRequireValue(checked)}>
+            Require value to be set
+          </Switch>
+        )}
+      </ValueConstraintStepHeader>
+      {enabled && (
+        <ConstraintTypeSelectionWrapper>
+          <FormField label="Constraint type">
+            <Select
+              placeholder="Select a constraint type"
+              options={constraintTypeOptions}
+              onChange={(x) => {
+                if (x?.value !== undefined) handleConstraintTypeChange(x.value);
+              }}
+              value={constraintTypeOptions.find((x) => x.value === constraintType)}
+            />
+          </FormField>
+          <FormField label="Data type">
+            <Select
+              placeholder="Select a data type"
+              options={dataTypeOptions}
+              onChange={(x) => {
+                if (x?.value !== undefined) handleDataTypeChange(x.value);
+              }}
+              value={dataTypeOptions.find((x) => x.value === dataType)}
+            />
+          </FormField>
+        </ConstraintTypeSelectionWrapper>
+      )}
+      {enabled && getConditionalValueConstraintFields(constraintType, dataType)}
+    </ValueConstraintStepWrapper>
   );
 });
 

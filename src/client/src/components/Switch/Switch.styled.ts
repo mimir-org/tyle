@@ -1,7 +1,13 @@
 import * as Switch from "@radix-ui/react-switch";
 import styled from "styled-components";
 
-export const Wrapper = styled(Switch.Root)`
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: ${(props) => props.theme.mimirorg.spacing.l};
+`;
+
+export const SwitchContainer = styled(Switch.Root)`
   all: unset;
 
   width: 42px;

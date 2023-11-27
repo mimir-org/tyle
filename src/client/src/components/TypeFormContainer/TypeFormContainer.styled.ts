@@ -13,3 +13,7 @@ export const TypeFormContainerBody = styled.div`
   display: flex;
   gap: ${(props) => props.theme.mimirorg.spacing.multiple(18)};
 `;
+
+export const TypeFormChildrenWrapper = styled.div`
+  flex-grow: 1;
+`;

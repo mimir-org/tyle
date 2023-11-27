@@ -1,6 +1,11 @@
 import FormStepsNavigation from "components/FormStepsNavigation";
 import React from "react";
-import { TypeFormContainerBody, TypeFormContainerHeader, TypeFormContainerWrapper } from "./TypeFormContainer.styled";
+import {
+  TypeFormChildrenWrapper,
+  TypeFormContainerBody,
+  TypeFormContainerHeader,
+  TypeFormContainerWrapper,
+} from "./TypeFormContainer.styled";
 
 interface TypeFormContainerProps {
   title: string;
@@ -17,7 +22,7 @@ const TypeFormContainer = ({ title, steps, activeStep, setActiveStep, formRef, c
       <TypeFormContainerHeader>{title}</TypeFormContainerHeader>
       <TypeFormContainerBody>
         <FormStepsNavigation steps={steps} activeStep={activeStep} setActiveStep={setActiveStep} formRef={formRef} />
-        {children}
+        <TypeFormChildrenWrapper>{children}</TypeFormChildrenWrapper>
       </TypeFormContainerBody>
     </TypeFormContainerWrapper>
   );

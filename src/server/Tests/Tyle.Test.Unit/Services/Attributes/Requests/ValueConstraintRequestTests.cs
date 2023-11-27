@@ -16,67 +16,11 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
     }
 
     [Theory]
-    [InlineData(null, true)]
-    [InlineData(0, false)]
-    [InlineData(1, false)]
-    public void HasValueDemandsMinCountIsNull(int? minCount, bool result)
-    {
-        var valueConstraintRequest = new ValueConstraintRequest
-        {
-            ConstraintType = ConstraintType.HasValue,
-            Value = "15",
-            DataType = XsdDataType.Integer,
-            MinCount = minCount
-        };
-
-        var validationContext = new ValidationContext(valueConstraintRequest);
-
-        var results = valueConstraintRequest.Validate(validationContext);
-
-        Assert.Equal(result, results.IsNullOrEmpty());
-    }
-
-    [Theory]
-    [InlineData(null, false)]
-    [InlineData(0, true)]
-    [InlineData(1, true)]
-    public void MinCountMustBeSetForConstraintsOtherThanHasValue(int? minCount, bool result)
-    {
-        var valueConstraintRequest = new ValueConstraintRequest
-        {
-            ConstraintType = ConstraintType.Range,
-            DataType = XsdDataType.Integer,
-            MinCount = minCount,
-            MinValue = 15
-        };
-
-        var validationContext = new ValidationContext(valueConstraintRequest);
-
-        var results = valueConstraintRequest.Validate(validationContext);
-
-        Assert.Equal(result, results.IsNullOrEmpty());
-
-        valueConstraintRequest = new ValueConstraintRequest
-        {
-            ConstraintType = ConstraintType.In,
-            DataType = XsdDataType.String,
-            MinCount = minCount,
-            ValueList = new List<string>() { "A", "B", "C" }
-        };
-
-        validationContext = new ValidationContext(valueConstraintRequest);
-
-        results = valueConstraintRequest.Validate(validationContext);
-
-        Assert.Equal(result, results.IsNullOrEmpty());
-    }
-
-    [Theory]
     [InlineData(0, 2, true)]
     [InlineData(3, 3, true)]
     [InlineData(1, null, true)]
     [InlineData(5, 1, false)]
-    public void MinCountMustBeSmallerThanOrEqualToMaxCount(int? minCount, int? maxCount, bool result)
+    public void MinCountMustBeSmallerThanOrEqualToMaxCount(int minCount, int? maxCount, bool result)
     {
         var valueConstraintRequest = new ValueConstraintRequest
         {
@@ -318,8 +262,6 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
     [Theory]
     [InlineData("", XsdDataType.String, false)]
     [InlineData("test", XsdDataType.String, true)]
-    [InlineData("www.vg.no", XsdDataType.AnyUri, false)]
-    [InlineData("http://example.com/123", XsdDataType.AnyUri, true)]
     [InlineData("15", XsdDataType.Decimal, true)]
     [InlineData("-11.5", XsdDataType.Decimal, true)]
     [InlineData("15,342", XsdDataType.Decimal, false)]

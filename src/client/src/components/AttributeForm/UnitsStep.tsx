@@ -1,23 +1,18 @@
-import { Box, Flexbox, FormField, Select, Token } from "@mimirorg/component-library";
+import { Token } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useGetUnits } from "api/unit.queries";
 import FormSection from "components/FormSection";
 import SelectItemDialog from "components/SelectItemDialog";
 import React from "react";
-import { useTheme } from "styled-components";
 import { RdlUnit } from "types/attributes/rdlUnit";
 import { InfoItem } from "types/infoItem";
-import { getOptionsFromEnum } from "utils";
 import { AttributeFormStepProps } from "./AttributeForm";
 import { UnitRequirement } from "./AttributeForm.helpers";
+import { UnitRequirementFieldset, UnitRequirementLegend, UnitsStepWrapper } from "./UnitsStep.styled";
 
 const UnitsStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
-  const theme = useTheme();
-
   const [unitRequirement, setUnitRequirement] = React.useState(fields.unitRequirement);
   const [units, setUnits] = React.useState(fields.units);
-
-  const unitRequirementOptions = getOptionsFromEnum<UnitRequirement>(UnitRequirement);
 
   const unitQuery = useGetUnits();
   const unitInfoItems: InfoItem[] =
@@ -41,58 +36,81 @@ const UnitsStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ f
   };
 
   return (
-    <form onSubmit={handleSubmit} ref={ref}>
-      <Flexbox flexDirection="column" gap={theme.mimirorg.spacing.xl}>
-        <Box maxWidth="20rem">
-          <FormField label="Unit requirement">
-            <Select
-              options={unitRequirementOptions}
-              onChange={(x) => {
-                setUnitRequirement(x?.value ?? UnitRequirement.NoUnit);
-              }}
-              value={unitRequirementOptions.find((x) => x.value === unitRequirement)}
-            />
-          </FormField>
-        </Box>
-        <FormSection
-          title="Add units"
-          action={
-            <SelectItemDialog
-              title="Select units"
-              description="You can select one or more units"
-              searchFieldText="Search"
-              addItemsButtonText="Add units"
-              openDialogButtonText="Open add units dialog"
-              items={unitInfoItems.filter(
-                (unit) => units.filter((chosen) => chosen.id.toString() === unit.id).length === 0,
-              )}
-              onAdd={(ids) => {
-                const unitsToAdd: RdlUnit[] = [];
-                ids.forEach((id) => {
-                  const targetUnit = unitQuery.data?.find((x) => x.id === Number(id));
-                  if (targetUnit) unitsToAdd.push(targetUnit);
-                });
-                setUnits([...units, ...unitsToAdd]);
-              }}
-            />
-          }
-        >
-          {units.map((unit) => (
-            <Token
-              variant="secondary"
-              key={unit.id}
-              actionable
-              actionIcon={<XCircle />}
-              actionText="Remove unit"
-              onAction={() => handleRemoveUnit(unit.id)}
-              dangerousAction
-            >
-              {unit.name}
-            </Token>
-          ))}
-        </FormSection>
-      </Flexbox>
-    </form>
+    <UnitsStepWrapper onSubmit={handleSubmit} ref={ref}>
+      <UnitRequirementFieldset>
+        <UnitRequirementLegend>Unit requirement</UnitRequirementLegend>
+        <label htmlFor="no-unit">
+          <input
+            type="radio"
+            id="no-unit"
+            name="unit-requirement"
+            value={UnitRequirement.NoUnit}
+            checked={unitRequirement === UnitRequirement.NoUnit}
+            onChange={() => setUnitRequirement(UnitRequirement.NoUnit)}
+          />{" "}
+          No unit
+        </label>
+        <label htmlFor="unit-optional">
+          <input
+            type="radio"
+            id="unit-optional"
+            name="unit-requirement"
+            value={UnitRequirement.Optional}
+            checked={unitRequirement === UnitRequirement.Optional}
+            onChange={() => setUnitRequirement(UnitRequirement.Optional)}
+          />{" "}
+          Optional
+        </label>
+        <label htmlFor="unit-required">
+          <input
+            type="radio"
+            id="unit-required"
+            name="unit-requirement"
+            value={UnitRequirement.Required}
+            checked={unitRequirement === UnitRequirement.Required}
+            onChange={() => setUnitRequirement(UnitRequirement.Required)}
+          />{" "}
+          Required
+        </label>
+      </UnitRequirementFieldset>
+      <FormSection
+        title="Add units"
+        action={
+          <SelectItemDialog
+            title="Select units"
+            description="You can select one or more units"
+            searchFieldText="Search"
+            addItemsButtonText="Add units"
+            openDialogButtonText="Open add units dialog"
+            items={unitInfoItems.filter(
+              (unit) => units.filter((chosen) => chosen.id.toString() === unit.id).length === 0,
+            )}
+            onAdd={(ids) => {
+              const unitsToAdd: RdlUnit[] = [];
+              ids.forEach((id) => {
+                const targetUnit = unitQuery.data?.find((x) => x.id === Number(id));
+                if (targetUnit) unitsToAdd.push(targetUnit);
+              });
+              setUnits([...units, ...unitsToAdd]);
+            }}
+          />
+        }
+      >
+        {units.map((unit) => (
+          <Token
+            variant="secondary"
+            key={unit.id}
+            actionable
+            actionIcon={<XCircle />}
+            actionText="Remove unit"
+            onAction={() => handleRemoveUnit(unit.id)}
+            dangerousAction
+          >
+            {unit.name}
+          </Token>
+        ))}
+      </FormSection>
+    </UnitsStepWrapper>
   );
 });
 

@@ -1,14 +1,18 @@
-import { Thumb, Wrapper } from "./Switch.styled";
+import { SwitchContainer, Thumb, Wrapper } from "./Switch.styled";
 
 interface SwitchProps {
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
+  children?: React.ReactNode;
 }
 
-const Switch = ({ checked, onCheckedChange }: SwitchProps) => {
+const Switch = ({ checked, onCheckedChange, children }: SwitchProps) => {
   return (
-    <Wrapper checked={checked} onCheckedChange={onCheckedChange}>
-      <Thumb />
+    <Wrapper>
+      {children}
+      <SwitchContainer checked={checked} onCheckedChange={onCheckedChange}>
+        <Thumb />
+      </SwitchContainer>
     </Wrapper>
   );
 };
