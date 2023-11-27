@@ -22,15 +22,9 @@ interface AttributeFormProps {
   mode?: FormMode;
 }
 
-export interface FormStepProps {
+export interface AttributeFormStepProps {
   fields: AttributeFormFields;
-  setFields: (nextAttributeFormFields: AttributeFormFields) => void;
-}
-
-export interface FormStep {
-  id: string;
-  description: string;
-  component: React.ForwardRefExoticComponent<FormStepProps>;
+  setFields: (fields: AttributeFormFields) => void;
 }
 
 const AttributeForm = ({ mode }: AttributeFormProps) => {
@@ -40,31 +34,19 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
   const currentStepFormRef = React.useRef<HTMLFormElement>(null);
 
   const steps = [
-    {
-      id: "base-step",
-      description: "Define base characteristics",
-      component: BaseStep,
-    },
-    {
-      id: "qualifiers-step",
-      description: "Choose qualifiers",
-      component: QualifiersStep,
-    },
-    {
-      id: "units-step",
-      description: "Add units",
-      component: UnitsStep,
-    },
-    {
-      id: "value-constraint-step",
-      description: "Add value constraint",
-      component: ValueConstraintStep,
-    },
-    {
-      id: "review-step",
-      description: "Review and submit",
-      component: activeStep === 0 ? BaseStep : BaseStep,
-    },
+    "Define base characteristics",
+    "Choose qualifiers",
+    "Add units",
+    "Add value constraint",
+    "Review and submit",
+  ];
+
+  const stepComponents = [
+    BaseStep,
+    QualifiersStep,
+    UnitsStep,
+    ValueConstraintStep,
+    activeStep === 0 ? BaseStep : BaseStep,
   ];
 
   const query = useAttributeQuery();
@@ -83,7 +65,7 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
     onSubmitForm(toAttributeTypeRequest(fields), mutation.mutateAsync, toast);
   };
 
-  const FormStep = steps[activeStep].component;
+  const FormStep = stepComponents[activeStep];
 
   return (
     <>

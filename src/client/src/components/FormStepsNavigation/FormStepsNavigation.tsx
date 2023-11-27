@@ -1,10 +1,9 @@
 import { Button } from "@mimirorg/component-library";
-import { FormStep } from "components/AttributeForm/AttributeForm";
 import React from "react";
 import { StepWrapper } from "./FormStepsNavigation.styled";
 
 interface FormStepsNavigationProps {
-  steps: FormStep[];
+  steps: string[];
   activeStep: number;
   setActiveStep: (nextStep: number) => void;
   formRef: React.RefObject<HTMLFormElement>;
@@ -12,6 +11,8 @@ interface FormStepsNavigationProps {
 
 const FormStepsNavigation = ({ steps, activeStep, setActiveStep, formRef }: FormStepsNavigationProps) => {
   const handleClick = (index: number) => {
+    if (activeStep === index) return;
+
     if (formRef.current?.reportValidity()) {
       formRef.current?.requestSubmit();
 
@@ -22,9 +23,9 @@ const FormStepsNavigation = ({ steps, activeStep, setActiveStep, formRef }: Form
   return (
     <div>
       {steps.map((step, index) => (
-        <StepWrapper key={step.id}>
+        <StepWrapper key={index}>
           <Button variant={activeStep === index ? "filled" : "text"} onClick={() => handleClick(index)}>
-            {index + 1}. {step.description}
+            {index + 1}. {step}
           </Button>
         </StepWrapper>
       ))}

@@ -5,7 +5,7 @@ import { useTheme } from "styled-components";
 import { ConstraintType } from "types/attributes/constraintType";
 import { XsdDataType } from "types/attributes/xsdDataType";
 import { getOptionsFromEnum } from "utils";
-import { FormStepProps } from "./AttributeForm";
+import { AttributeFormStepProps } from "./AttributeForm";
 import {
   NumberRangeFields,
   PatternFields,
@@ -15,7 +15,7 @@ import {
   ValueListItem,
 } from "./ConditionalValueConstraintFields";
 
-const ValueConstraintStep = React.forwardRef<HTMLFormElement, FormStepProps>(({ fields, setFields }, ref) => {
+const ValueConstraintStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
   const theme = useTheme();
 
   const [enabled, setEnabled] = React.useState(!!fields.valueConstraint);
@@ -114,16 +114,8 @@ const ValueConstraintStep = React.forwardRef<HTMLFormElement, FormStepProps>(({ 
         ? {
             constraintType,
             dataType,
-            value:
-              dataType === XsdDataType.Boolean
-                ? value === "true"
-                : dataType === XsdDataType.Decimal || dataType === XsdDataType.Integer
-                  ? Number(value)
-                  : value,
-            valueList:
-              dataType === XsdDataType.Decimal || dataType === XsdDataType.Integer
-                ? valueList.map((item) => Number(item.value))
-                : valueList.map((item) => item.value),
+            value: value ? value : null,
+            valueList: valueList.map((item) => item.value),
             pattern,
             minValue: minValue ? Number(minValue) : null,
             maxValue: maxValue ? Number(maxValue) : null,

@@ -11,14 +11,7 @@ interface TypeFormContainerProps {
   children: React.ReactNode;
 }
 
-const TypeFormContainer = <T,>({
-  title,
-  steps,
-  activeStep,
-  setActiveStep,
-  formRef,
-  children,
-}: TypeFormContainerProps) => {
+const TypeFormContainer = ({ title, steps, activeStep, setActiveStep, formRef, children }: TypeFormContainerProps) => {
   return (
     <TypeFormContainerWrapper>
       <TypeFormContainerHeader>{title}</TypeFormContainerHeader>

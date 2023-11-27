@@ -6,9 +6,9 @@ import { RangeQualifier } from "types/attributes/rangeQualifier";
 import { RegularityQualifier } from "types/attributes/regularityQualifier";
 import { ScopeQualifier } from "types/attributes/scopeQualifier";
 import { getOptionsFromEnum } from "utils";
-import { FormStepProps } from "./AttributeForm";
+import { AttributeFormStepProps } from "./AttributeForm";
 
-const QualifiersStep = React.forwardRef<HTMLFormElement, FormStepProps>(({ fields, setFields }, ref) => {
+const QualifiersStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
   const theme = useTheme();
 
   const [provenanceQualifier, setProvenanceQualifier] = React.useState(fields.provenanceQualifier);

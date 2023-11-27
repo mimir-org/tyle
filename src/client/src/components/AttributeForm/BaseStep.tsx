@@ -2,9 +2,9 @@ import { Box, Flexbox, FormBaseFieldsContainer, FormField, Input, Select, Textar
 import { useGetPredicates } from "api/predicate.queries";
 import React from "react";
 import { useTheme } from "styled-components";
-import { FormStepProps } from "./AttributeForm";
+import { AttributeFormStepProps } from "./AttributeForm";
 
-const BaseStep = React.forwardRef<HTMLFormElement, FormStepProps>(({ fields, setFields }, ref) => {
+const BaseStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
   const theme = useTheme();
 
   const [name, setName] = React.useState(fields.name);

@@ -8,10 +8,10 @@ import { useTheme } from "styled-components";
 import { RdlUnit } from "types/attributes/rdlUnit";
 import { InfoItem } from "types/infoItem";
 import { getOptionsFromEnum } from "utils";
-import { FormStepProps } from "./AttributeForm";
+import { AttributeFormStepProps } from "./AttributeForm";
 import { UnitRequirement } from "./AttributeForm.helpers";
 
-const UnitsStep = React.forwardRef<HTMLFormElement, FormStepProps>(({ fields, setFields }, ref) => {
+const UnitsStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
   const theme = useTheme();
 
   const [unitRequirement, setUnitRequirement] = React.useState(fields.unitRequirement);
