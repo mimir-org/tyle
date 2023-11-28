@@ -14,7 +14,10 @@ const FormStepsNavigation = ({ steps, activeStep, setActiveStep, formRef }: Form
     if (activeStep === index) return;
 
     if (formRef.current?.reportValidity()) {
-      formRef.current?.requestSubmit();
+      // Submits form on navigation except for the last step (which is the final submit)
+      if (activeStep !== steps.length - 1) {
+        formRef.current?.requestSubmit();
+      }
 
       setActiveStep(index);
     }

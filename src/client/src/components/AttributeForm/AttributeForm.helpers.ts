@@ -37,7 +37,7 @@ export enum UnitRequirement {
   Required = 2,
 }
 
-interface ValueConstraintFields {
+export interface ValueConstraintFields {
   enabled: boolean;
   requireValue: boolean;
   constraintType: ConstraintType;
@@ -45,8 +45,8 @@ interface ValueConstraintFields {
   value: string;
   valueList: { id: string; value: string }[];
   pattern: string;
-  minValue: number | undefined;
-  maxValue: number | undefined;
+  minValue: string;
+  maxValue: string;
 }
 
 export const toAttributeFormFields = (attributeView: AttributeView): AttributeFormFields => ({
@@ -71,8 +71,8 @@ export const toAttributeFormFields = (attributeView: AttributeView): AttributeFo
             value: item.toString(),
           })) ?? [],
         pattern: attributeView.valueConstraint.pattern ?? "",
-        minValue: attributeView.valueConstraint.minValue ?? undefined,
-        maxValue: attributeView.valueConstraint.maxValue ?? undefined,
+        minValue: attributeView.valueConstraint.minValue?.toString() ?? "",
+        maxValue: attributeView.valueConstraint.maxValue?.toString() ?? "",
       }
     : createEmptyValueConstraintFields(),
 });
@@ -100,8 +100,16 @@ export const toAttributeTypeRequest = (attributeFormFields: AttributeFormFields)
           attributeFormFields.valueConstraint.constraintType === ConstraintType.MatchesRegexPattern
             ? attributeFormFields.valueConstraint.pattern
             : null,
-        minValue: attributeFormFields.valueConstraint.minValue ?? null,
-        maxValue: attributeFormFields.valueConstraint.maxValue ?? null,
+        minValue:
+          attributeFormFields.valueConstraint.constraintType === ConstraintType.IsInNumberRange &&
+          attributeFormFields.valueConstraint.minValue
+            ? Number(attributeFormFields.valueConstraint.minValue)
+            : null,
+        maxValue:
+          attributeFormFields.valueConstraint.constraintType === ConstraintType.IsInNumberRange &&
+          attributeFormFields.valueConstraint.maxValue
+            ? Number(attributeFormFields.valueConstraint.maxValue)
+            : null,
         minCount: attributeFormFields.valueConstraint.requireValue ? 1 : 0,
         maxCount: null,
       }
@@ -129,8 +137,8 @@ const createEmptyValueConstraintFields = (): ValueConstraintFields => ({
   value: "",
   valueList: [],
   pattern: "",
-  minValue: undefined,
-  maxValue: undefined,
+  minValue: "",
+  maxValue: "",
 });
 
 export const predicateInfoItem = (predicate: RdlPredicate): InfoItem => ({

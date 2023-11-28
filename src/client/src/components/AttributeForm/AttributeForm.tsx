@@ -20,7 +20,7 @@ interface AttributeFormProps {
 
 export interface AttributeFormStepProps {
   fields: AttributeFormFields;
-  setFields: (fields: AttributeFormFields) => void;
+  setFields: React.Dispatch<React.SetStateAction<AttributeFormFields>>;
 }
 
 const AttributeForm = ({ mode }: AttributeFormProps) => {
