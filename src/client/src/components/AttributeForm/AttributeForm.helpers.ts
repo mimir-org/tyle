@@ -1,13 +1,14 @@
 import { useCreateAttribute, useUpdateAttribute } from "api/attribute.queries";
 import { AttributeTypeRequest } from "types/attributes/attributeTypeRequest";
 import { AttributeView } from "types/attributes/attributeView";
+import { ConstraintType } from "types/attributes/constraintType";
 import { ProvenanceQualifier } from "types/attributes/provenanceQualifier";
 import { RangeQualifier } from "types/attributes/rangeQualifier";
 import { RdlPredicate } from "types/attributes/rdlPredicate";
 import { RdlUnit } from "types/attributes/rdlUnit";
 import { RegularityQualifier } from "types/attributes/regularityQualifier";
 import { ScopeQualifier } from "types/attributes/scopeQualifier";
-import { ValueConstraintRequest } from "types/attributes/valueConstraintRequest";
+import { XsdDataType } from "types/attributes/xsdDataType";
 import { FormMode } from "types/formMode";
 import { InfoItem } from "types/infoItem";
 
@@ -27,13 +28,25 @@ export interface AttributeFormFields {
   scopeQualifier: ScopeQualifier | null;
   unitRequirement: UnitRequirement;
   units: RdlUnit[];
-  valueConstraint: ValueConstraintRequest | null;
+  valueConstraint: ValueConstraintFields;
 }
 
 export enum UnitRequirement {
   NoUnit = 0,
   Optional = 1,
   Required = 2,
+}
+
+interface ValueConstraintFields {
+  enabled: boolean;
+  requireValue: boolean;
+  constraintType: ConstraintType;
+  dataType: XsdDataType;
+  value: string;
+  valueList: { id: string; value: string }[];
+  pattern: string;
+  minValue: number | undefined;
+  maxValue: number | undefined;
 }
 
 export const toAttributeFormFields = (attributeView: AttributeView): AttributeFormFields => ({
@@ -47,11 +60,21 @@ export const toAttributeFormFields = (attributeView: AttributeView): AttributeFo
         : UnitRequirement.NoUnit,
   valueConstraint: attributeView.valueConstraint
     ? {
-        ...attributeView.valueConstraint,
-        value: attributeView.valueConstraint.value?.toString() ?? null,
-        valueList: attributeView.valueConstraint.valueList?.map((item) => item.toString()) ?? [],
+        enabled: true,
+        requireValue: attributeView.valueConstraint.minCount > 0,
+        constraintType: attributeView.valueConstraint.constraintType,
+        dataType: attributeView.valueConstraint.dataType,
+        value: attributeView.valueConstraint.value?.toString() ?? "",
+        valueList:
+          attributeView.valueConstraint.valueList?.map((item) => ({
+            id: crypto.randomUUID(),
+            value: item.toString(),
+          })) ?? [],
+        pattern: attributeView.valueConstraint.pattern ?? "",
+        minValue: attributeView.valueConstraint.minValue ?? undefined,
+        maxValue: attributeView.valueConstraint.maxValue ?? undefined,
       }
-    : null,
+    : createEmptyValueConstraintFields(),
 });
 
 export const toAttributeTypeRequest = (attributeFormFields: AttributeFormFields): AttributeTypeRequest => ({
@@ -61,6 +84,28 @@ export const toAttributeTypeRequest = (attributeFormFields: AttributeFormFields)
   unitIds: attributeFormFields.units.map((unit) => unit.id),
   unitMinCount: attributeFormFields.unitRequirement === UnitRequirement.Required ? 1 : 0,
   unitMaxCount: attributeFormFields.unitRequirement === UnitRequirement.NoUnit ? 0 : 1,
+  valueConstraint: attributeFormFields.valueConstraint.enabled
+    ? {
+        constraintType: attributeFormFields.valueConstraint.constraintType,
+        dataType: attributeFormFields.valueConstraint.dataType,
+        value:
+          attributeFormFields.valueConstraint.constraintType === ConstraintType.HasSpecificValue
+            ? attributeFormFields.valueConstraint.value
+            : null,
+        valueList:
+          attributeFormFields.valueConstraint.constraintType === ConstraintType.IsInListOfAllowedValues
+            ? attributeFormFields.valueConstraint.valueList.map((item) => item.value)
+            : [],
+        pattern:
+          attributeFormFields.valueConstraint.constraintType === ConstraintType.MatchesRegexPattern
+            ? attributeFormFields.valueConstraint.pattern
+            : null,
+        minValue: attributeFormFields.valueConstraint.minValue ?? null,
+        maxValue: attributeFormFields.valueConstraint.maxValue ?? null,
+        minCount: attributeFormFields.valueConstraint.requireValue ? 1 : 0,
+        maxCount: null,
+      }
+    : null,
 });
 
 export const createEmptyAttributeFormFields = (): AttributeFormFields => ({
@@ -73,7 +118,19 @@ export const createEmptyAttributeFormFields = (): AttributeFormFields => ({
   scopeQualifier: null,
   unitRequirement: UnitRequirement.NoUnit,
   units: [],
-  valueConstraint: null,
+  valueConstraint: createEmptyValueConstraintFields(),
+});
+
+const createEmptyValueConstraintFields = (): ValueConstraintFields => ({
+  enabled: false,
+  requireValue: false,
+  constraintType: ConstraintType.HasSpecificValue,
+  dataType: XsdDataType.String,
+  value: "",
+  valueList: [],
+  pattern: "",
+  minValue: undefined,
+  maxValue: undefined,
 });
 
 export const predicateInfoItem = (predicate: RdlPredicate): InfoItem => ({

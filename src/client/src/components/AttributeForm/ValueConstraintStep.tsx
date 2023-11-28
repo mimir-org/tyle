@@ -19,28 +19,22 @@ import {
 } from "./ValueConstraintStep.styled";
 
 const ValueConstraintStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
-  const [enabled, setEnabled] = React.useState(!!fields.valueConstraint);
-  const [requireValue, setRequireValue] = React.useState(
-    fields.valueConstraint ? fields.valueConstraint.minCount > 0 : false,
-  );
-  const [constraintType, setConstraintType] = React.useState(
-    fields.valueConstraint?.constraintType ?? ConstraintType.HasSpecificValue,
-  );
-  const [dataType, setDataType] = React.useState(fields.valueConstraint?.dataType ?? XsdDataType.String);
-  const [value, setValue] = React.useState(fields.valueConstraint?.value?.toString() ?? "");
-  const [valueList, setValueList] = React.useState(
-    fields.valueConstraint?.valueList?.map((value) => ({ id: crypto.randomUUID(), value: value.toString() })) ?? [],
-  );
-  const [pattern, setPattern] = React.useState(fields.valueConstraint?.pattern ?? "");
-  const [minValue, setMinValue] = React.useState(fields.valueConstraint?.minValue?.toString() ?? "");
-  const [maxValue, setMaxValue] = React.useState(fields.valueConstraint?.maxValue?.toString() ?? "");
+  const { enabled, requireValue, constraintType, dataType, value, valueList, pattern, minValue, maxValue } =
+    fields.valueConstraint;
+
+  const setEnabled = (enabled: boolean) =>
+    setFields({ ...fields, valueConstraint: { ...fields.valueConstraint, enabled } });
+  const setRequireValue = (requireValue: boolean) =>
+    setFields({ ...fields, valueConstraint: { ...fields.valueConstraint, requireValue } });
+  const setConstraintType = (constraintType: ConstraintType) =>
+    setFields({ ...fields, valueConstraint: { ...fields.valueConstraint, constraintType } });
+  const setDataType = (dataType: XsdDataType) =>
+    setFields({ ...fields, valueConstraint: { ...fields.valueConstraint, dataType } });
+  const setValue = (value: string) => setFields({ ...fields, valueConstraint: { ...fields.valueConstraint, value } });
+  const setValueList = (valueList: { id: string; value: string }[]) =>
+    setFields({ ...fields, valueConstraint: { ...fields.valueConstraint, valueList } });
 
   const valueListRef = React.useRef<(HTMLInputElement | null)[]>([]);
-  React.useEffect(() => {
-    if (constraintType === ConstraintType.IsInListOfAllowedValues && valueList.length === 0) {
-      setValueList([{ id: crypto.randomUUID(), value: "" }]);
-    }
-  }, [constraintType, valueList.length]);
 
   const constraintTypeOptions = getOptionsFromEnum<ConstraintType>(ConstraintType);
   const handleConstraintTypeChange = (nextConstraintType: ConstraintType) => {
