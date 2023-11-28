@@ -5,8 +5,8 @@ export const QualifiersStepWrapper = styled.form`
   flex-wrap: wrap;
   max-width: 40rem;
   gap: ${(props) => props.theme.mimirorg.spacing.xl};
-`;
 
-export const QualifierSelectWrapper = styled.div`
-  flex: 1;
+  & > * {
+    flex: 1;
+  }
 `;

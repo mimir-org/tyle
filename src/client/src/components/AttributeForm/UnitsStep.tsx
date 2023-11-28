@@ -11,8 +11,11 @@ import { UnitRequirement } from "./AttributeForm.helpers";
 import { UnitRequirementFieldset, UnitRequirementLegend, UnitsStepWrapper } from "./UnitsStep.styled";
 
 const UnitsStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
-  const [unitRequirement, setUnitRequirement] = React.useState(fields.unitRequirement);
-  const [units, setUnits] = React.useState(fields.units);
+  const { unitRequirement, units } = fields;
+  const setUnitRequirement = (unitRequirement: UnitRequirement) => setFields({ ...fields, unitRequirement });
+  const addUnits = (unitsToAdd: RdlUnit[]) => setFields({ ...fields, units: [...fields.units, ...unitsToAdd] });
+  const removeUnit = (unitToRemove: RdlUnit) =>
+    setFields({ ...fields, units: fields.units.filter((unit) => unit.id !== unitToRemove.id) });
 
   const unitQuery = useGetUnits();
   const unitInfoItems: InfoItem[] =
@@ -25,14 +28,8 @@ const UnitsStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ f
       },
     })) ?? [];
 
-  const handleRemoveUnit = (id: number) => {
-    const nextUnits = units.filter((unit) => unit.id !== id);
-    setUnits(nextUnits);
-  };
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setFields({ ...fields, unitRequirement, units });
   };
 
   return (
@@ -91,7 +88,7 @@ const UnitsStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ f
                 const targetUnit = unitQuery.data?.find((x) => x.id === Number(id));
                 if (targetUnit) unitsToAdd.push(targetUnit);
               });
-              setUnits([...units, ...unitsToAdd]);
+              addUnits(unitsToAdd);
             }}
           />
         }
@@ -103,10 +100,10 @@ const UnitsStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ f
             actionable
             actionIcon={<XCircle />}
             actionText="Remove unit"
-            onAction={() => handleRemoveUnit(unit.id)}
+            onAction={() => removeUnit(unit)}
             dangerousAction
           >
-            {unit.name}
+            {unit.name + (unit.symbol ? ` (${unit.symbol})` : "")}
           </Token>
         ))}
       </FormSection>

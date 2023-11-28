@@ -1,14 +1,16 @@
 import { FormField, Input, Select, Textarea } from "@mimirorg/component-library";
 import { useGetPredicates } from "api/predicate.queries";
 import React from "react";
+import { RdlPredicate } from "types/attributes/rdlPredicate";
 import { DESCRIPTION_LENGTH, NAME_LENGTH } from "types/common/stringLengthConstants";
 import { AttributeFormStepProps } from "./AttributeForm";
 import { BaseStepWrapper } from "./BaseStep.styled";
 
 const BaseStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
-  const [name, setName] = React.useState(fields.name);
-  const [predicate, setPredicate] = React.useState(fields.predicate);
-  const [description, setDescription] = React.useState(fields.description);
+  const { name, predicate, description } = fields;
+  const setName = (name: string) => setFields({ ...fields, name });
+  const setPredicate = (predicate: RdlPredicate | undefined) => setFields({ ...fields, predicate: predicate ?? null });
+  const setDescription = (description: string) => setFields({ ...fields, description });
 
   const predicateQuery = useGetPredicates();
   const predicateOptions = predicateQuery.data?.map((predicate) => ({
@@ -18,7 +20,6 @@ const BaseStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fi
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setFields({ ...fields, name, predicate, description });
   };
 
   return (
@@ -30,7 +31,7 @@ const BaseStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fi
         <Select
           options={predicateOptions}
           isLoading={predicateQuery.isLoading}
-          onChange={(x) => setPredicate(x?.value ?? null)}
+          onChange={(x) => setPredicate(x?.value)}
           value={predicateOptions?.find((x) => x.value.id === predicate?.id)}
           isClearable={true}
         />

@@ -35,7 +35,7 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
 
   const mapper = (source: AttributeView) => toAttributeFormFields(source);
 
-  const [isPrefilled, isLoading] = usePrefilledForm(query, mapper, setFields);
+  const [_, isLoading] = usePrefilledForm(query, mapper, setFields);
 
   const steps = [
     "Define base characteristics",
@@ -57,8 +57,8 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
 
   return (
     <>
-      {isLoading && <Loader />}{" "}
-      {(!mode || isPrefilled) && (
+      {isLoading && <Loader />}
+      {!isLoading && (
         <TypeFormContainer
           title={mode === "edit" ? "Edit attribute type" : "Create attribute type"}
           steps={steps}
