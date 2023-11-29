@@ -1,28 +1,21 @@
-import { Checkbox, Input, Select, Token } from "@mimirorg/component-library";
+import { Checkbox, Input, Token } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Direction } from "types/terminals/direction";
-import { Option } from "utils";
-import { TerminalTypeReferenceField } from "./BlockForm.helpers";
-import { TerminalRowWrapper, TokenWrapper } from "./TerminalRow.styled";
+import { AttributeTypeReferenceView } from "types/common/attributeTypeReferenceView";
+import { AttributeRowWrapper, TokenWrapper } from "./AttributeRow.styled";
 
-interface TerminalRowProps {
-  field: TerminalTypeReferenceField;
+interface AttributeRowProps {
+  value: AttributeTypeReferenceView;
+  onChange: (attributeTypeReference: AttributeTypeReferenceView) => void;
   remove: () => void;
-  value: TerminalTypeReferenceField;
-  onChange: (terminalTypeReference: TerminalTypeReferenceField) => void;
-  directionOptions: Option<Direction>[];
 }
 
-const TerminalRow = ({ field, remove, value, onChange, directionOptions }: TerminalRowProps) => {
+const AttributeRow = ({ value, onChange, remove }: AttributeRowProps) => {
   const { t } = useTranslation("entities");
 
-  const [minCount, setMinCount] = useState(field.minCount);
-  const [maxCount, setMaxCount] = useState(field.maxCount);
-  const [direction, setDirection] = useState<Option<Direction>>(
-    directionOptions.find((x) => x.value === field.direction) ?? directionOptions[0],
-  );
+  const [minCount, setMinCount] = useState(value.minCount);
+  const [maxCount, setMaxCount] = useState(value.maxCount);
 
   const handleMinCountChange = (nextMinCount: number) => {
     let nextMaxCount = null;
@@ -51,25 +44,18 @@ const TerminalRow = ({ field, remove, value, onChange, directionOptions }: Termi
     onChange({ ...value, maxCount: nextMaxCount });
   };
 
-  const handleDirectionChange = (nextDirection: Option<Direction> | null) => {
-    if (nextDirection === null) return;
-
-    setDirection(nextDirection);
-    onChange({ ...value, direction: nextDirection.value });
-  };
-
   return (
-    <TerminalRowWrapper>
+    <AttributeRowWrapper>
       <TokenWrapper>
         <Token
           variant={"secondary"}
           actionable
           actionIcon={<XCircle />}
-          actionText={t("block.terminals.remove")}
+          actionText={t("common.attributes.remove")}
           onAction={remove}
           dangerousAction
         >
-          {field.terminalName}
+          {value.attribute.name}
         </Token>
       </TokenWrapper>
       <Input
@@ -86,14 +72,8 @@ const TerminalRow = ({ field, remove, value, onChange, directionOptions }: Termi
         value={maxCount ?? 0}
         onChange={(event) => handleMaxCountChange(Number(event.target.value))}
       />
-      <Select
-        placeholder={t("common.templates.select", { object: t("block.terminal.name").toLowerCase() })}
-        options={directionOptions}
-        value={direction}
-        onChange={handleDirectionChange}
-      />
-    </TerminalRowWrapper>
+    </AttributeRowWrapper>
   );
 };
 
-export default TerminalRow;
+export default AttributeRow;

@@ -24,7 +24,7 @@ const FormStepsNavigation = ({ steps, activeStep, setActiveStep, formRef }: Form
   };
 
   return (
-    <div>
+    <nav>
       {steps.map((step, index) => (
         <StepWrapper key={index}>
           <Button variant={activeStep === index ? "filled" : "text"} onClick={() => handleClick(index)}>
@@ -32,7 +32,7 @@ const FormStepsNavigation = ({ steps, activeStep, setActiveStep, formRef }: Form
           </Button>
         </StepWrapper>
       ))}
-    </div>
+    </nav>
   );
 };
 

@@ -30,7 +30,6 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
   const currentStepFormRef = React.useRef<HTMLFormElement>(null);
 
   const { id } = useParams();
-
   const query = useGetAttribute(id);
 
   const mapper = (source: AttributeView) => toAttributeFormFields(source);

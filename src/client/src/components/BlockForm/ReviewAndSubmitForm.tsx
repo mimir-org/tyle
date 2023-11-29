@@ -1,20 +1,34 @@
-import { Button, Flexbox, PlainLink, Table, Tbody, Td, Tr } from "@mimirorg/component-library";
-import { useTheme } from "styled-components";
+import { Button, PlainLink, Table, Tbody, Td, Tr } from "@mimirorg/component-library";
+import { UseMutationResult } from "@tanstack/react-query";
+import { onSubmitForm, useSubmissionToast } from "helpers/form.helpers";
+import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
+import { BlockTypeRequest } from "types/blocks/blockTypeRequest";
+import { BlockView } from "types/blocks/blockView";
 import { Aspect } from "types/common/aspect";
 import { FormMode } from "types/formMode";
 import { Direction } from "types/terminals/direction";
-import { BlockFormFields } from "./BlockForm.helpers";
+import { BlockFormFields, toBlockTypeRequest } from "./BlockForm.helpers";
+import { ReviewAndSubmitFormWrapper, SubmitButtonsWrapper } from "./ReviewAndSubmitForm.styled";
 
 interface ReviewAndSubmitProps {
   blockFormFields: BlockFormFields;
+  mutation: UseMutationResult<BlockView, unknown, BlockTypeRequest, unknown>;
+  formRef: React.ForwardedRef<HTMLFormElement>;
   mode?: FormMode;
 }
 
-const ReviewAndSubmitStep = ({ blockFormFields, mode }: ReviewAndSubmitProps) => {
-  const theme = useTheme();
+const ReviewAndSubmitForm = ({ blockFormFields, mutation, formRef, mode }: ReviewAndSubmitProps) => {
+  useNavigateOnCriteria("/", mutation.isSuccess);
+
+  const toast = useSubmissionToast("block");
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    onSubmitForm(toBlockTypeRequest(blockFormFields), mutation.mutateAsync, toast);
+  };
 
   return (
-    <Flexbox gap={theme.mimirorg.spacing.xl} flexDirection="column">
+    <ReviewAndSubmitFormWrapper onSubmit={handleSubmit} ref={formRef}>
       <Table>
         <Tbody>
           <Tr>
@@ -82,20 +96,16 @@ const ReviewAndSubmitStep = ({ blockFormFields, mode }: ReviewAndSubmitProps) =>
         </Tbody>
       </Table>
 
-      {!blockFormFields.name && <p style={{ color: "red" }}>Required field name is missing</p>}
-
-      <Flexbox gap={theme.mimirorg.spacing.xl}>
-        <Button type="submit" disabled={!blockFormFields.name}>
-          {mode === "edit" ? "Save changes" : "Create new type"}
-        </Button>
+      <SubmitButtonsWrapper>
+        <Button type="submit">{mode === "edit" ? "Save changes" : "Create new type"}</Button>
         <PlainLink tabIndex={-1} to={"/"}>
           <Button tabIndex={0} as={"span"} variant={"outlined"}>
             Cancel
           </Button>
         </PlainLink>
-      </Flexbox>
-    </Flexbox>
+      </SubmitButtonsWrapper>
+    </ReviewAndSubmitFormWrapper>
   );
 };
 
-export default ReviewAndSubmitStep;
+export default ReviewAndSubmitForm;

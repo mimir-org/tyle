@@ -15,7 +15,7 @@ const UnitsForm = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ f
   const setUnitRequirement = (unitRequirement: UnitRequirement) => setFields({ ...fields, unitRequirement });
   const addUnits = (unitsToAdd: RdlUnit[]) => setFields({ ...fields, units: [...fields.units, ...unitsToAdd] });
   const removeUnit = (unitToRemove: RdlUnit) =>
-    setFields({ ...fields, units: fields.units.filter((unit) => unit.id !== unitToRemove.id) });
+    setFields({ ...fields, units: units.filter((unit) => unit.id !== unitToRemove.id) });
 
   const unitQuery = useGetUnits();
   const unitInfoItems: InfoItem[] =
@@ -30,6 +30,19 @@ const UnitsForm = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ f
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+  };
+
+  const availableUnits = unitInfoItems.filter(
+    (unit) => units.filter((selectedUnit) => selectedUnit.id.toString() === unit.id).length === 0,
+  );
+
+  const handleAdd = (addedIds: string[]) => {
+    const unitsToAdd: RdlUnit[] = [];
+    addedIds.forEach((id) => {
+      const targetUnit = unitQuery.data?.find((x) => x.id === Number(id));
+      if (targetUnit) unitsToAdd.push(targetUnit);
+    });
+    addUnits(unitsToAdd);
   };
 
   return (
@@ -79,17 +92,8 @@ const UnitsForm = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ f
             searchFieldText="Search"
             addItemsButtonText="Add units"
             openDialogButtonText="Open add units dialog"
-            items={unitInfoItems.filter(
-              (unit) => units.filter((chosen) => chosen.id.toString() === unit.id).length === 0,
-            )}
-            onAdd={(ids) => {
-              const unitsToAdd: RdlUnit[] = [];
-              ids.forEach((id) => {
-                const targetUnit = unitQuery.data?.find((x) => x.id === Number(id));
-                if (targetUnit) unitsToAdd.push(targetUnit);
-              });
-              addUnits(unitsToAdd);
-            }}
+            items={availableUnits}
+            onAdd={handleAdd}
           />
         }
       >

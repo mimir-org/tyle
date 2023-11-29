@@ -6,12 +6,13 @@ import SelectItemDialog from "components/SelectItemDialog";
 import { RdlClassifier } from "types/common/rdlClassifier";
 import { InfoItem } from "types/infoItem";
 
-interface ClassifiersStepProps {
-  chosenClassifiers: RdlClassifier[];
-  setClassifiers: (classifiers: RdlClassifier[]) => void;
+interface AddClassifiersFormProps {
+  classifiers: RdlClassifier[];
+  addClassifiers: (classifiersToAdd: RdlClassifier[]) => void;
+  removeClassifier: (classifierToRemove: RdlClassifier) => void;
 }
 
-const ClassifiersStep = ({ chosenClassifiers, setClassifiers }: ClassifiersStepProps) => {
+const AddClassifiersForm = ({ classifiers, addClassifiers, removeClassifier }: AddClassifiersFormProps) => {
   const classifierQuery = useGetClassifiers();
   const classifierInfoItems: InfoItem[] =
     classifierQuery.data?.map((classifier) => ({
@@ -23,10 +24,18 @@ const ClassifiersStep = ({ chosenClassifiers, setClassifiers }: ClassifiersStepP
       },
     })) ?? [];
 
-  const handleRemoveClassifier = (index: number) => {
-    const nextClassifiers = [...chosenClassifiers];
-    nextClassifiers.splice(index, 1);
-    setClassifiers(nextClassifiers);
+  const availableClassifiers = classifierInfoItems.filter(
+    (classifier) =>
+      classifiers.filter((selectedClassifier) => selectedClassifier.id.toString() === classifier.id).length === 0,
+  );
+
+  const handleAdd = (addedIds: string[]) => {
+    const classifiersToAdd: RdlClassifier[] = [];
+    addedIds.forEach((id) => {
+      const targetClassifier = classifierQuery.data?.find((x) => x.id === Number(id));
+      if (targetClassifier) classifiersToAdd.push(targetClassifier);
+    });
+    addClassifiers(classifiersToAdd);
   };
 
   return (
@@ -39,28 +48,19 @@ const ClassifiersStep = ({ chosenClassifiers, setClassifiers }: ClassifiersStepP
           searchFieldText="Search"
           addItemsButtonText="Add classifiers"
           openDialogButtonText="Open add classifiers dialog"
-          items={classifierInfoItems.filter(
-            (classifier) => chosenClassifiers.filter((chosen) => chosen.id.toString() === classifier.id).length === 0,
-          )}
-          onAdd={(ids) => {
-            const classifiersToAdd: RdlClassifier[] = [];
-            ids.forEach((id) => {
-              const targetClassifier = classifierQuery.data?.find((x) => x.id === Number(id));
-              if (targetClassifier) classifiersToAdd.push(targetClassifier);
-            });
-            setClassifiers([...chosenClassifiers, ...classifiersToAdd]);
-          }}
+          items={availableClassifiers}
+          onAdd={handleAdd}
         />
       }
     >
-      {chosenClassifiers.map((classifier, index) => (
+      {classifiers.map((classifier) => (
         <Token
           variant={"secondary"}
           key={classifier.id}
           actionable
           actionIcon={<XCircle />}
           actionText="Remove classifier"
-          onAction={() => handleRemoveClassifier(index)}
+          onAction={() => removeClassifier(classifier)}
           dangerousAction
         >
           {classifier.name}
@@ -70,4 +70,4 @@ const ClassifiersStep = ({ chosenClassifiers, setClassifiers }: ClassifiersStepP
   );
 };
 
-export default ClassifiersStep;
+export default AddClassifiersForm;
