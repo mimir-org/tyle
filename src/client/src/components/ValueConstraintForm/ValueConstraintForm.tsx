@@ -1,20 +1,20 @@
 import { FormField, Select } from "@mimirorg/component-library";
+import { AttributeFormStepProps } from "components/AttributeForm";
 import Switch from "components/Switch";
 import React from "react";
 import { ConstraintType } from "types/attributes/constraintType";
 import { XsdDataType } from "types/attributes/xsdDataType";
 import { getOptionsFromEnum } from "utils";
-import { AttributeFormStepProps } from "./AttributeForm";
-import { RangeValueFields } from "./RangeValueFields";
+import RangeValueFields from "./RangeValueFields";
 import {
   ConstraintTypeSelectionWrapper,
-  ValueConstraintStepHeader,
-  ValueConstraintStepWrapper,
-} from "./ValueConstraintStep.styled";
+  ValueConstraintFormHeader,
+  ValueConstraintFormWrapper,
+} from "./ValueConstraintForm.styled";
 import { BooleanValueField, DecimalValueField, IntegerValueField, StringValueField } from "./ValueFields";
-import { ValueListFields } from "./ValueListFields";
+import ValueListFields from "./ValueListFields";
 
-const ValueConstraintStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
+const ValueConstraintForm = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
   const { enabled, requireValue, constraintType, dataType, value, valueList, pattern, minValue, maxValue } =
     fields.valueConstraint;
 
@@ -96,8 +96,8 @@ const ValueConstraintStep = React.forwardRef<HTMLFormElement, AttributeFormStepP
   };
 
   return (
-    <ValueConstraintStepWrapper onSubmit={handleSubmit} ref={ref}>
-      <ValueConstraintStepHeader>
+    <ValueConstraintFormWrapper onSubmit={handleSubmit} ref={ref}>
+      <ValueConstraintFormHeader>
         <Switch
           checked={enabled}
           onCheckedChange={(checked) => {
@@ -112,7 +112,7 @@ const ValueConstraintStep = React.forwardRef<HTMLFormElement, AttributeFormStepP
             Require value to be set
           </Switch>
         )}
-      </ValueConstraintStepHeader>
+      </ValueConstraintFormHeader>
       {enabled && (
         <ConstraintTypeSelectionWrapper>
           <FormField label="Constraint type">
@@ -164,10 +164,10 @@ const ValueConstraintStep = React.forwardRef<HTMLFormElement, AttributeFormStepP
           dataType={dataType}
         />
       )}
-    </ValueConstraintStepWrapper>
+    </ValueConstraintFormWrapper>
   );
 });
 
-ValueConstraintStep.displayName = "ValueConstraintStep";
+ValueConstraintForm.displayName = "ValueConstraintForm";
 
-export default ValueConstraintStep;
+export default ValueConstraintForm;

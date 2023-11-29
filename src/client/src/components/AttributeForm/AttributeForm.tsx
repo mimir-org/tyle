@@ -1,6 +1,7 @@
 import { useGetAttribute } from "api/attribute.queries";
 import Loader from "components/Loader";
 import TypeFormContainer from "components/TypeFormContainer";
+import ValueConstraintForm from "components/ValueConstraintForm";
 import { usePrefilledForm } from "helpers/form.helpers";
 import React from "react";
 import { useParams } from "react-router-dom";
@@ -12,7 +13,6 @@ import QualifiersStep from "./QualifiersStep";
 import ReviewAndCreateStep from "./ReviewAndCreateStep";
 import ReviewAndUpdateStep from "./ReviewAndUpdate";
 import UnitsStep from "./UnitsStep";
-import ValueConstraintStep from "./ValueConstraintStep";
 
 interface AttributeFormProps {
   mode?: FormMode;
@@ -49,7 +49,7 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
     BaseStep,
     QualifiersStep,
     UnitsStep,
-    ValueConstraintStep,
+    ValueConstraintForm,
     mode === "edit" ? ReviewAndUpdateStep : ReviewAndCreateStep,
   ];
 

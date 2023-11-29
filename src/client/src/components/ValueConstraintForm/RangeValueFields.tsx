@@ -1,9 +1,9 @@
 import { FormField, Input } from "@mimirorg/component-library";
 import React from "react";
 import { XsdDataType } from "types/attributes/xsdDataType";
-import { RangeFieldsWrapper } from "./RangeValueFields.styled";
+import { RangeValueFieldsWrapper } from "./RangeValueFields.styled";
 
-interface RangeFieldsProps {
+interface RangeValueFieldsProps {
   minValue: string;
   maxValue: string;
   setMinValue: (minValue: string) => void;
@@ -11,7 +11,7 @@ interface RangeFieldsProps {
   dataType: XsdDataType;
 }
 
-export const RangeValueFields = ({ minValue, maxValue, setMinValue, setMaxValue, dataType }: RangeFieldsProps) => {
+const RangeValueFields = ({ minValue, maxValue, setMinValue, setMaxValue, dataType }: RangeValueFieldsProps) => {
   const minValueRef = React.useRef<HTMLInputElement>(null);
 
   const numberValidation =
@@ -46,13 +46,15 @@ export const RangeValueFields = ({ minValue, maxValue, setMinValue, setMaxValue,
   };
 
   return (
-    <RangeFieldsWrapper>
+    <RangeValueFieldsWrapper>
       <FormField label="Lower bound (leave empty for no lower bound)">
         <Input {...minValueValidation} value={minValue} onChange={handleMinValueChange} ref={minValueRef} />
       </FormField>
       <FormField label="Upper bound (leave empty for no upper bound)">
         <Input {...maxValueValidation} value={maxValue} onChange={handleMaxValueChange} />
       </FormField>
-    </RangeFieldsWrapper>
+    </RangeValueFieldsWrapper>
   );
 };
+
+export default RangeValueFields;

@@ -21,7 +21,7 @@ const createEmptyValueListItem = () => ({
   value: "",
 });
 
-export const ValueListFields = ({ valueList, setValueList, dataType }: ValueListFieldsProps) => {
+const ValueListFields = ({ valueList, setValueList, dataType }: ValueListFieldsProps) => {
   const valueListRef = React.useRef<(HTMLInputElement | null)[]>([]);
 
   React.useEffect(() => {
@@ -91,3 +91,5 @@ export const ValueListFields = ({ valueList, setValueList, dataType }: ValueList
     </ValueListFieldsWrapper>
   );
 };
+
+export default ValueListFields;
