@@ -10,8 +10,8 @@ import { FormMode } from "types/formMode";
 import AttributeBaseForm from "./AttributeBaseForm";
 import { AttributeFormFields, createEmptyAttributeFormFields, toAttributeFormFields } from "./AttributeForm.helpers";
 import QualifiersForm from "./QualifiersForm";
-import ReviewAndCreateStep from "./ReviewAndCreateStep";
-import ReviewAndUpdateStep from "./ReviewAndUpdate";
+import ReviewAndCreateForm from "./ReviewAndCreateForm";
+import ReviewAndUpdateForm from "./ReviewAndUpdateForm";
 import UnitsForm from "./UnitsForm";
 
 interface AttributeFormProps {
@@ -50,7 +50,7 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
     QualifiersForm,
     UnitsForm,
     ValueConstraintForm,
-    mode === "edit" ? ReviewAndUpdateStep : ReviewAndCreateStep,
+    mode === "edit" ? ReviewAndUpdateForm : ReviewAndCreateForm,
   ];
 
   const FormStep = stepComponents[activeStep];

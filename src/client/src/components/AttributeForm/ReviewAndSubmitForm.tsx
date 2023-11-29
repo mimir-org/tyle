@@ -1,57 +1,37 @@
 import { Button, PlainLink, Table, Tbody, Td, Tr } from "@mimirorg/component-library";
+import { UseMutationResult } from "@tanstack/react-query";
+import { onSubmitForm, useSubmissionToast } from "helpers/form.helpers";
+import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
+import { AttributeTypeRequest } from "types/attributes/attributeTypeRequest";
+import { AttributeView } from "types/attributes/attributeView";
 import { ConstraintType } from "types/attributes/constraintType";
 import { ProvenanceQualifier } from "types/attributes/provenanceQualifier";
 import { RangeQualifier } from "types/attributes/rangeQualifier";
 import { RegularityQualifier } from "types/attributes/regularityQualifier";
 import { ScopeQualifier } from "types/attributes/scopeQualifier";
-import { ValueConstraintRequest } from "types/attributes/valueConstraintRequest";
 import { XsdDataType } from "types/attributes/xsdDataType";
 import { FormMode } from "types/formMode";
 import { addSpacesToPascalCase } from "utils";
-import { AttributeFormFields, UnitRequirement } from "./AttributeForm.helpers";
-import { ReviewAndSubmitStepWrapper, SubmitButtonsWrapper } from "./ReviewAndSubmitStep.styled";
+import { AttributeFormFields, UnitRequirement, toAttributeTypeRequest } from "./AttributeForm.helpers";
+import { ReviewAndSubmitFormWrapper, SubmitButtonsWrapper } from "./ReviewAndSubmitForm.styled";
 
-interface ReviewAndSubmitProps {
+interface ReviewAndSubmitFormProps {
   attributeFormFields: AttributeFormFields;
+  mutation: UseMutationResult<AttributeView, unknown, AttributeTypeRequest, unknown>;
+  formRef: React.ForwardedRef<HTMLFormElement>;
   mode?: FormMode;
 }
 
-const getValueConstraintText = (valueConstraint: ValueConstraintRequest | null) => {
-  if (!valueConstraint) return "not set";
+const ReviewAndSubmitForm = ({ attributeFormFields, mutation, formRef, mode }: ReviewAndSubmitFormProps) => {
+  useNavigateOnCriteria("/", mutation.isSuccess);
 
-  switch (valueConstraint.constraintType) {
-    case ConstraintType.HasSpecificValue:
-      return `Has the value ${valueConstraint.value}`;
-    case ConstraintType.IsInListOfAllowedValues:
-      return `Has${
-        valueConstraint.minCount > 0 ? " " : " no value or "
-      }one of the following values: ${valueConstraint.valueList.join(", ")}`;
-    case ConstraintType.HasSpecificDataType:
-      return `Has${valueConstraint.minCount > 0 ? " " : " no value or "}datatype ${XsdDataType[
-        valueConstraint.dataType
-      ].toLowerCase()}`;
-    case ConstraintType.MatchesRegexPattern:
-      return `${valueConstraint.minCount > 0 ? "M" : "Has no value or m"}atches the regex pattern ${
-        valueConstraint.pattern
-      }`;
-    case ConstraintType.IsInNumberRange:
-      if (!valueConstraint.minValue) {
-        return `${valueConstraint.minCount > 0 ? "I" : "Has no value or i"}s lower than or equal to ${
-          valueConstraint.maxValue
-        }`;
-      }
-      if (!valueConstraint.maxValue) {
-        return `${valueConstraint.minCount > 0 ? "I" : "Has no value or i"}s higher than or equal to ${
-          valueConstraint.minValue
-        }`;
-      }
-      return `${valueConstraint.minCount > 0 ? "I" : "Has no value or i"}s between ${valueConstraint.minValue} and ${
-        valueConstraint.maxValue
-      }`;
-  }
-};
+  const toast = useSubmissionToast("attribute");
 
-const ReviewAndSubmitStep = ({ attributeFormFields, mode }: ReviewAndSubmitProps) => {
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    onSubmitForm(toAttributeTypeRequest(attributeFormFields), mutation.mutateAsync, toast);
+  };
+
   const getQualifiersString = () => {
     const qualifierNames: string[] = [];
 
@@ -67,8 +47,44 @@ const ReviewAndSubmitStep = ({ attributeFormFields, mode }: ReviewAndSubmitProps
     return qualifierNames.join(" / ");
   };
 
+  const getValueConstraintText = () => {
+    const { valueConstraint } = attributeFormFields;
+    if (!valueConstraint.enabled) return "not set";
+
+    switch (valueConstraint.constraintType) {
+      case ConstraintType.HasSpecificValue:
+        return `Has the value ${valueConstraint.value}`;
+      case ConstraintType.IsInListOfAllowedValues:
+        return `Has${
+          valueConstraint.requireValue ? " " : " no value or "
+        }one of the following values: ${valueConstraint.valueList.join(", ")}`;
+      case ConstraintType.HasSpecificDataType:
+        return `Has${valueConstraint.requireValue ? " " : " no value or "}datatype ${XsdDataType[
+          valueConstraint.dataType
+        ].toLowerCase()}`;
+      case ConstraintType.MatchesRegexPattern:
+        return `${valueConstraint.requireValue ? "M" : "Has no value or m"}atches the regex pattern ${
+          valueConstraint.pattern
+        }`;
+      case ConstraintType.IsInNumberRange:
+        if (!valueConstraint.minValue) {
+          return `${valueConstraint.requireValue ? "I" : "Has no value or i"}s lower than or equal to ${
+            valueConstraint.maxValue
+          }`;
+        }
+        if (!valueConstraint.maxValue) {
+          return `${valueConstraint.requireValue ? "I" : "Has no value or i"}s higher than or equal to ${
+            valueConstraint.minValue
+          }`;
+        }
+        return `${valueConstraint.requireValue ? "I" : "Has no value or i"}s between ${valueConstraint.minValue} and ${
+          valueConstraint.maxValue
+        }`;
+    }
+  };
+
   return (
-    <ReviewAndSubmitStepWrapper>
+    <ReviewAndSubmitFormWrapper onSubmit={handleSubmit} ref={formRef}>
       <Table>
         <Tbody>
           <Tr>
@@ -103,7 +119,7 @@ const ReviewAndSubmitStep = ({ attributeFormFields, mode }: ReviewAndSubmitProps
           </Tr>
           <Tr>
             <Td>Value constraint</Td>
-            <Td>{getValueConstraintText(attributeFormFields.valueConstraint)}</Td>
+            <Td>{getValueConstraintText()}</Td>
           </Tr>
         </Tbody>
       </Table>
@@ -116,8 +132,8 @@ const ReviewAndSubmitStep = ({ attributeFormFields, mode }: ReviewAndSubmitProps
           </Button>
         </PlainLink>
       </SubmitButtonsWrapper>
-    </ReviewAndSubmitStepWrapper>
+    </ReviewAndSubmitFormWrapper>
   );
 };
 
-export default ReviewAndSubmitStep;
+export default ReviewAndSubmitForm;
