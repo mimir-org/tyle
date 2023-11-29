@@ -2,7 +2,6 @@ import { accessBasePath } from "components/Access/AccessRoutes";
 import { approvalBasePath } from "components/Approval/ApprovalRoutes";
 import { permissionsBasePath } from "components/Permissions/PermissionsRoutes";
 import { usersettingsBasePath } from "components/UserSettings/UserSettingsRoutes";
-import { useTranslation } from "react-i18next";
 import { Link } from "types/link";
 import { LinkGroup } from "types/linkGroup";
 
@@ -13,26 +12,22 @@ export const useSettingsLinkGroups = (): LinkGroup[] => {
 };
 
 const useAdministerLinks = (): Link[] => {
-  const { t } = useTranslation("settings");
-
-  const result: Link[] = [
+  return [
     {
-      name: t("usersettings.title"),
+      name: "User settings",
       path: usersettingsBasePath,
     },
     {
-      name: t("approval.title"),
+      name: "Approval",
       path: approvalBasePath,
     },
     {
-      name: t("access.title"),
+      name: "Access",
       path: accessBasePath,
     },
     {
-      name: t("permissions.title"),
+      name: "Roles",
       path: permissionsBasePath,
     },
   ];
-
-  return result;
 };

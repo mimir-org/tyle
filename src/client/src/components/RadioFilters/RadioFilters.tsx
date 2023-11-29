@@ -30,14 +30,14 @@ const RadioFilters = ({ title, filters, onChange, value }: RadioFiltersProps) =>
         {filters.map((x, i) => {
           const conditionalProps: Partial<{ checked: boolean }> = {};
           if (inputIsControlled) {
-            conditionalProps.checked = value === x.value;
+            conditionalProps.checked = value === x.label;
           }
 
           return (
             <TokenRadioGroupItem
               key={x.value + i}
-              value={x.value}
-              onClick={() => onChange(x.value)}
+              value={x.label}
+              onClick={() => onChange(x.label)}
               {...conditionalProps}
             >
               {x.label}

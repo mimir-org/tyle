@@ -30,7 +30,7 @@ public class MimirorgAuthorizeController : ControllerBase
     /// Get all roles
     /// </summary>
     /// <returns>ICollection&lt;MimirorgRoleCm&gt;</returns>
-    [AllowAnonymous]
+    [Authorize(Roles = MimirorgDefaultRoles.Administrator)]
     [HttpGet]
     [Route("role")]
     [ProducesResponseType(typeof(ICollection<RoleView>), 200)]
