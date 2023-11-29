@@ -1,5 +1,8 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Option, getOptionsFromEnum } from "utils";
+import { UserItem } from "../../types/userItem";
+import { useGetAllUsers } from "../../api/user.queries";
+import { mapUserViewToUserItem } from "../../helpers/mappers.helpers";
 
 /**
  * Returns the permission options for the permission dropdown.
@@ -35,3 +38,8 @@ export const getPermissionOptions = (): Option<string>[] => {
 
   return users.filter((user) => user.permissions[companyId]?.value === permission);
 };*/
+
+export const getAllUsersMapped = (): UserItem[] => {
+  const usersQuery = useGetAllUsers();
+  return usersQuery.data?.map((user) => mapUserViewToUserItem(user)) ?? []
+}
