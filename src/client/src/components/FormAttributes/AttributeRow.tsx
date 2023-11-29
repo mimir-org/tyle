@@ -25,7 +25,7 @@ const AttributeRow = ({ field, remove, value, onChange }: AttributeRowProps) => 
 
     setMinCount(nextMinCount);
     setMaxCount(nextMaxCount);
-    onChange({ ...value, minCount: nextMinCount, maxCount: nextMaxCount ?? undefined });
+    onChange({ ...value, minCount: nextMinCount, maxCount: nextMaxCount });
   };
 
   const handleCheckedChange = (checked: boolean) => {
@@ -35,7 +35,7 @@ const AttributeRow = ({ field, remove, value, onChange }: AttributeRowProps) => 
       onChange({ ...value, maxCount: nextMaxCount });
     } else {
       setMaxCount(null);
-      onChange({ ...value, maxCount: undefined });
+      onChange({ ...value, maxCount: null });
     }
   };
 

@@ -17,7 +17,7 @@ export const getTerminalItemsFromFormData = (formTerminals: BlockTerminalLibAm[]
       terminalItems.push({
         id: sourceTerminal.id,
         name: sourceTerminal.name,
-        color: getColorFromAspect(sourceTerminal.aspect),
+        color: getColorFromAspect(sourceTerminal.aspect ?? null),
         maxQuantity: formTerminal.maxQuantity,
         direction: sourceTerminal.qualifier,
       });
