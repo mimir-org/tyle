@@ -6,9 +6,9 @@ import { RegularityQualifier } from "types/attributes/regularityQualifier";
 import { ScopeQualifier } from "types/attributes/scopeQualifier";
 import { getOptionsFromEnum } from "utils";
 import { AttributeFormStepProps } from "./AttributeForm";
-import { QualifiersStepWrapper } from "./QualifiersStep.styled";
+import { QualifiersFormWrapper } from "./QualifiersForm.styled";
 
-const QualifiersStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
+const QualifiersForm = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
   const { provenanceQualifier, rangeQualifier, regularityQualifier, scopeQualifier } = fields;
   const setProvenanceQualifier = (provenanceQualifier: ProvenanceQualifier | undefined) =>
     setFields({ ...fields, provenanceQualifier: provenanceQualifier ?? null });
@@ -29,7 +29,7 @@ const QualifiersStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>
   };
 
   return (
-    <QualifiersStepWrapper onSubmit={handleSubmit} ref={ref}>
+    <QualifiersFormWrapper onSubmit={handleSubmit} ref={ref}>
       <FormField label="Provenance qualifier">
         <Select
           options={provenanceQualifierOptions}
@@ -62,10 +62,10 @@ const QualifiersStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>
           isClearable={true}
         />
       </FormField>
-    </QualifiersStepWrapper>
+    </QualifiersFormWrapper>
   );
 });
 
-QualifiersStep.displayName = "QualifiersStep";
+QualifiersForm.displayName = "QualifiersForm";
 
-export default QualifiersStep;
+export default QualifiersForm;

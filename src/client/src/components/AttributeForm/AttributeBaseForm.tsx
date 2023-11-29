@@ -3,10 +3,10 @@ import { useGetPredicates } from "api/predicate.queries";
 import React from "react";
 import { RdlPredicate } from "types/attributes/rdlPredicate";
 import { DESCRIPTION_LENGTH, NAME_LENGTH } from "types/common/stringLengthConstants";
+import { AttributeBaseFormWrapper } from "./AttributeBaseForm.styled";
 import { AttributeFormStepProps } from "./AttributeForm";
-import { BaseStepWrapper } from "./BaseStep.styled";
 
-const BaseStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
+const AttributeBaseForm = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
   const { name, predicate, description } = fields;
   const setName = (name: string) => setFields({ ...fields, name });
   const setPredicate = (predicate: RdlPredicate | undefined) => setFields({ ...fields, predicate: predicate ?? null });
@@ -23,7 +23,7 @@ const BaseStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fi
   };
 
   return (
-    <BaseStepWrapper onSubmit={handleSubmit} ref={ref}>
+    <AttributeBaseFormWrapper onSubmit={handleSubmit} ref={ref}>
       <FormField label="Name">
         <Input required={true} maxLength={NAME_LENGTH} value={name} onChange={(event) => setName(event.target.value)} />
       </FormField>
@@ -43,10 +43,10 @@ const BaseStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fi
           onChange={(event) => setDescription(event.target.value)}
         />
       </FormField>
-    </BaseStepWrapper>
+    </AttributeBaseFormWrapper>
   );
 });
 
-BaseStep.displayName = "BaseStep";
+AttributeBaseForm.displayName = "AttributeBaseForm";
 
-export default BaseStep;
+export default AttributeBaseForm;

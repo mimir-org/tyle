@@ -7,12 +7,12 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { AttributeView } from "types/attributes/attributeView";
 import { FormMode } from "types/formMode";
+import AttributeBaseForm from "./AttributeBaseForm";
 import { AttributeFormFields, createEmptyAttributeFormFields, toAttributeFormFields } from "./AttributeForm.helpers";
-import BaseStep from "./BaseStep";
-import QualifiersStep from "./QualifiersStep";
+import QualifiersForm from "./QualifiersForm";
 import ReviewAndCreateStep from "./ReviewAndCreateStep";
 import ReviewAndUpdateStep from "./ReviewAndUpdate";
-import UnitsStep from "./UnitsStep";
+import UnitsForm from "./UnitsForm";
 
 interface AttributeFormProps {
   mode?: FormMode;
@@ -46,9 +46,9 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
   ];
 
   const stepComponents = [
-    BaseStep,
-    QualifiersStep,
-    UnitsStep,
+    AttributeBaseForm,
+    QualifiersForm,
+    UnitsForm,
     ValueConstraintForm,
     mode === "edit" ? ReviewAndUpdateStep : ReviewAndCreateStep,
   ];

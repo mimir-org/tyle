@@ -8,9 +8,9 @@ import { RdlUnit } from "types/attributes/rdlUnit";
 import { InfoItem } from "types/infoItem";
 import { AttributeFormStepProps } from "./AttributeForm";
 import { UnitRequirement } from "./AttributeForm.helpers";
-import { UnitRequirementFieldset, UnitRequirementLegend, UnitsStepWrapper } from "./UnitsStep.styled";
+import { UnitRequirementFieldset, UnitRequirementLegend, UnitsFormWrapper } from "./UnitsForm.styled";
 
-const UnitsStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
+const UnitsForm = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
   const { unitRequirement, units } = fields;
   const setUnitRequirement = (unitRequirement: UnitRequirement) => setFields({ ...fields, unitRequirement });
   const addUnits = (unitsToAdd: RdlUnit[]) => setFields({ ...fields, units: [...fields.units, ...unitsToAdd] });
@@ -33,7 +33,7 @@ const UnitsStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ f
   };
 
   return (
-    <UnitsStepWrapper onSubmit={handleSubmit} ref={ref}>
+    <UnitsFormWrapper onSubmit={handleSubmit} ref={ref}>
       <UnitRequirementFieldset>
         <UnitRequirementLegend>Unit requirement</UnitRequirementLegend>
         <label htmlFor="no-unit">
@@ -107,10 +107,10 @@ const UnitsStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ f
           </Token>
         ))}
       </FormSection>
-    </UnitsStepWrapper>
+    </UnitsFormWrapper>
   );
 });
 
-UnitsStep.displayName = "UnitsStep";
+UnitsForm.displayName = "UnitsForm";
 
-export default UnitsStep;
+export default UnitsForm;
