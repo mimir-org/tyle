@@ -5,11 +5,12 @@ import { BooleanValueFieldset, BooleanValueLegend } from "./ValueFields.styled";
 interface ValueFieldProps {
   value: string;
   setValue: (value: string) => void;
+  label?: string;
 }
 
-export const StringValueField = ({ value, setValue }: ValueFieldProps) => {
+export const StringValueField = ({ value, setValue, label }: ValueFieldProps) => {
   return (
-    <FormField label="Value">
+    <FormField label={label ?? "Value"}>
       <Input
         required={true}
         maxLength={VALUE_LENGTH}

@@ -1,19 +1,18 @@
-import { FormField, Input, Select } from "@mimirorg/component-library";
+import { FormField, Select } from "@mimirorg/component-library";
 import Switch from "components/Switch";
 import React from "react";
 import { ConstraintType } from "types/attributes/constraintType";
 import { XsdDataType } from "types/attributes/xsdDataType";
-import { VALUE_LENGTH } from "types/common/stringLengthConstants";
 import { getOptionsFromEnum } from "utils";
 import { AttributeFormStepProps } from "./AttributeForm";
+import { RangeValueFields } from "./RangeValueFields";
 import {
   ConstraintTypeSelectionWrapper,
-  RangeFieldsWrapper,
   ValueConstraintStepHeader,
   ValueConstraintStepWrapper,
 } from "./ValueConstraintStep.styled";
 import { BooleanValueField, DecimalValueField, IntegerValueField, StringValueField } from "./ValueFields";
-import { DecimalValueListFields, IntegerValueListFields, StringValueListFields } from "./ValueListFields";
+import { ValueListFields } from "./ValueListFields";
 
 const ValueConstraintStep = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ fields, setFields }, ref) => {
   const { enabled, requireValue, constraintType, dataType, value, valueList, pattern, minValue, maxValue } =
@@ -37,8 +36,6 @@ const ValueConstraintStep = React.forwardRef<HTMLFormElement, AttributeFormStepP
     setFields((fields) => ({ ...fields, valueConstraint: { ...fields.valueConstraint, minValue } }));
   const setMaxValue = (maxValue: string) =>
     setFields((fields) => ({ ...fields, valueConstraint: { ...fields.valueConstraint, maxValue } }));
-
-  const valueListRef = React.useRef<(HTMLInputElement | null)[]>([]);
 
   const constraintTypeOptions = getOptionsFromEnum<ConstraintType>(ConstraintType);
   const handleConstraintTypeChange = (nextConstraintType: ConstraintType) => {
@@ -92,57 +89,6 @@ const ValueConstraintStep = React.forwardRef<HTMLFormElement, AttributeFormStepP
     resetAllValueFields();
 
     setDataType(nextDataType);
-  };
-
-  const getConditionalValueConstraintFields = (constraintType: ConstraintType, dataType: XsdDataType) => {
-    const valueInputValidation =
-      dataType === XsdDataType.Decimal
-        ? { type: "number", step: "any" }
-        : dataType === XsdDataType.Integer
-          ? { type: "number" }
-          : {};
-
-    const minValueValidation = maxValue ? { max: maxValue } : { required: true };
-    const maxValueValidation = minValue ? { min: minValue } : { required: true };
-
-    switch (constraintType) {
-      case ConstraintType.MatchesRegexPattern:
-        return (
-          <FormField label="Pattern">
-            <Input
-              required={true}
-              maxLength={VALUE_LENGTH}
-              value={pattern}
-              onChange={(event) => setPattern(event.target.value)}
-            />
-          </FormField>
-        );
-      case ConstraintType.IsInNumberRange:
-        return (
-          <RangeFieldsWrapper>
-            <FormField label="Lower bound (leave empty for no lower bound)">
-              <Input
-                type="number"
-                step={dataType === XsdDataType.Integer ? 1 : "any"}
-                {...minValueValidation}
-                value={minValue}
-                onChange={(event) => setMinValue(event.target.value)}
-              />
-            </FormField>
-            <FormField label="Upper bound (leave empty for no upper bound)">
-              <Input
-                type="number"
-                step={dataType === XsdDataType.Integer ? 1 : "any"}
-                {...maxValueValidation}
-                value={maxValue}
-                onChange={(event) => setMaxValue(event.target.value)}
-              />
-            </FormField>
-          </RangeFieldsWrapper>
-        );
-      default:
-        return <></>;
-    }
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -203,14 +149,20 @@ const ValueConstraintStep = React.forwardRef<HTMLFormElement, AttributeFormStepP
       {enabled && constraintType === ConstraintType.HasSpecificValue && dataType === XsdDataType.Boolean && (
         <BooleanValueField value={value} setValue={setValue} />
       )}
-      {enabled && constraintType === ConstraintType.IsInListOfAllowedValues && dataType === XsdDataType.String && (
-        <StringValueListFields valueList={valueList} setValueList={setValueList} valueListRef={valueListRef} />
+      {enabled && constraintType === ConstraintType.IsInListOfAllowedValues && (
+        <ValueListFields valueList={valueList} setValueList={setValueList} dataType={dataType} />
       )}
-      {enabled && constraintType === ConstraintType.IsInListOfAllowedValues && dataType === XsdDataType.Decimal && (
-        <DecimalValueListFields valueList={valueList} setValueList={setValueList} valueListRef={valueListRef} />
+      {enabled && constraintType === ConstraintType.MatchesRegexPattern && (
+        <StringValueField value={pattern} setValue={setPattern} label="Pattern" />
       )}
-      {enabled && constraintType === ConstraintType.IsInListOfAllowedValues && dataType === XsdDataType.Integer && (
-        <IntegerValueListFields valueList={valueList} setValueList={setValueList} valueListRef={valueListRef} />
+      {enabled && constraintType === ConstraintType.IsInNumberRange && (
+        <RangeValueFields
+          minValue={minValue}
+          maxValue={maxValue}
+          setMinValue={setMinValue}
+          setMaxValue={setMaxValue}
+          dataType={dataType}
+        />
       )}
     </ValueConstraintStepWrapper>
   );
