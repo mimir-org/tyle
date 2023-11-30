@@ -23,6 +23,13 @@ public interface IReferenceRepository<T, TRequest>
     Task<T> Create(TRequest request);
 
     /// <summary>
+    /// Updates an exisitng reference
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    Task<T> Update(TRequest request);
+
+    /// <summary>
     /// Deletes the reference with the given id.
     /// </summary>
     /// <param name="id">The id of the reference to delete.</param>

@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Tyle.Api;
 using Tyle.Application;
+using Tyle.Application.Common;
 using Tyle.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -146,8 +147,9 @@ if (builder.Configuration.GetValue<bool>("FetchDataFromCL"))
     {
         var services = scope.ServiceProvider;
         var context = services.GetRequiredService<TyleDbContext>();
-        var autoMapperService = (IMapper) services.GetService(typeof(IMapper));
-        var savingDataService = new Tyle.External.SupplyExternalData(context, autoMapperService);
+        var purposeRepoService = (IPurposeRepository) services.GetService(typeof(IPurposeRepository));
+        var classifierRepoService = (IClassifierRepository) services.GetService(typeof(IClassifierRepository));
+        var savingDataService = new Tyle.External.SupplyExternalData(purposeRepoService, classifierRepoService);
         var responseAddingDataToDb = await savingDataService.SupplyData();
     }
 }

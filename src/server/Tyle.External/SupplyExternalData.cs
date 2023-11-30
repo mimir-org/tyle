@@ -1,11 +1,5 @@
 using AutoMapper;
-using Azure;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using System.Text.Json.Nodes;
-using Tyle.Application.Common.Requests;
-using Tyle.Core.Common;
-using Tyle.External.Model;
+using Tyle.Application.Common;
 using Tyle.External.Service;
 using Tyle.Persistence;
 using Tyle.Persistence.Common;
@@ -14,26 +8,39 @@ namespace Tyle.External
 {
     public class SupplyExternalData
     {
-        private TyleDbContext _dbContext;
-        private IMapper _mapper;
+        private IPurposeRepository _purposeRepository;
+        private IClassifierRepository _classifierRepository;
 
-        public SupplyExternalData(TyleDbContext dbContext, IMapper mapper)
+        public SupplyExternalData(IPurposeRepository purposeRepository, IClassifierRepository classifierRepository)
         {
-            _dbContext = dbContext;
-            _mapper = mapper;
+            _purposeRepository = purposeRepository;
+            _classifierRepository = classifierRepository;
         }
 
         public async Task<bool> SupplyData()
         {
             var externalData = new FetchExternalDataFromCL();
             var purposeData = await externalData.FetchAllData();
-                    
-            var savingClient = new PurposeRepository(_dbContext, _mapper);
+
             if (purposeData != null)
             {
+                var itemsFromDb = await _purposeRepository.GetAll();
+
                 foreach (var item in purposeData)
                 {
-                    await savingClient.Create(item);
+                    //if exisit and name or descirption has changed.. update
+                    var itemFromDb = itemsFromDb.Where(x => x.Iri.Equals(item.Iri)).FirstOrDefault();
+                    if (itemFromDb != null)
+                    {
+                        if (itemFromDb.Name != item.Name || itemFromDb.Description != itemFromDb.Description)
+                        {
+                            //Update the purpose
+                        }
+                    }
+                    else
+                    {
+                        await _purposeRepository.Create(item);
+                    }
                 }
             }
 

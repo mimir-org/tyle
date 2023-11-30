@@ -52,4 +52,9 @@ public class PurposeRepository : IPurposeRepository
 
         return true;
     }
+
+    public Task<RdlPurpose> Update(RdlPurposeRequest request)
+    {
+        throw new NotImplementedException();
+    }
 }
