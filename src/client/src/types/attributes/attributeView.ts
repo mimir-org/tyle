@@ -8,13 +8,13 @@ import { ScopeQualifier } from "./scopeQualifier";
 import { ValueConstraintView } from "./valueConstraintView";
 
 export interface AttributeView extends ImfType {
-  predicate?: RdlPredicate;
+  predicate: RdlPredicate | null;
   units: RdlUnit[];
   unitMinCount: number;
   unitMaxCount: number;
-  provenanceQualifier?: ProvenanceQualifier;
-  rangeQualifier?: RangeQualifier;
-  regularityQualifier?: RegularityQualifier;
-  scopeQualifier?: ScopeQualifier;
-  valueConstraint?: ValueConstraintView;
+  provenanceQualifier: ProvenanceQualifier | null;
+  rangeQualifier: RangeQualifier | null;
+  regularityQualifier: RegularityQualifier | null;
+  scopeQualifier: ScopeQualifier | null;
+  valueConstraint: ValueConstraintView | null;
 }

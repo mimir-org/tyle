@@ -4,7 +4,7 @@ export interface EngineeringSymbol {
   id: number;
   label: string;
   iri: string;
-  description?: string;
+  description: string | null;
   path: string;
   height: number;
   width: number;

@@ -22,7 +22,7 @@ export const resolveAvailableTerminals = (
     }
   });
 
-  return mapTerminalViewsToInfoItems(available);
+  return available;
 };
 
 export const onAddTerminals = (
@@ -68,9 +68,15 @@ export const onAddTerminals = (
   setTerminals([...selectedTerminals, ...terminalsToAdd]);
 };
 
-const mapTerminalViewsToInfoItems = (terminals: TerminalView[]): InfoItem[] =>
+export const mapTerminalViewsToInfoItems = (terminals: TerminalView[]): InfoItem[] =>
   terminals.map((terminal) => ({
     id: terminal.id,
     name: terminal.name,
     descriptors: {},
   }));
+
+export const prepareTerminals = (terminals?: TerminalView[]) => {
+  if (!terminals || terminals.length === 0) return [];
+
+  return terminals.sort((a, b) => a.name.localeCompare(b.name));
+};

@@ -1,49 +1,41 @@
-import { Box, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
-import FormStepsNavigation from "components/FormStepsNavigation";
+import { useGetBlock } from "api/block.queries";
 import Loader from "components/Loader";
-import { onSubmitForm, usePrefilledFormTemporary, useSubmissionToast } from "helpers/form.helpers";
-import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
-import React, { ReactElement, useState } from "react";
-import { useTheme } from "styled-components/macro";
+import TypeFormContainer from "components/TypeFormContainer";
+import { usePrefilledForm } from "helpers/form.helpers";
+import React from "react";
+import { useParams } from "react-router-dom";
 import { BlockView } from "types/blocks/blockView";
 import { FormMode } from "types/formMode";
-import AttributesStep from "./AttributesStep";
-import BaseStep from "./BaseStep";
-import {
-  createEmptyBlockFormFields,
-  toBlockFormFields,
-  toBlockTypeRequest,
-  useBlockMutation,
-  useBlockQuery,
-} from "./BlockForm.helpers";
-import ClassifiersStep from "./ClassifiersStep";
-import ConnectTerminalsToSymbolStep from "./ConnectTerminalsToSymbolStep";
-import ReviewAndSubmitStep from "./ReviewAndSubmitStep";
-import SelectSymbolStep from "./SelectSymbolStep";
-import TerminalsStep from "./TerminalsStep";
+import AttributesForm from "./AttributesForm";
+import BlockBaseForm from "./BlockBaseForm";
+import { BlockFormFields, createEmptyBlockFormFields, toBlockFormFields } from "./BlockForm.helpers";
+import ClassifiersForm from "./ClassifiersForm";
+import ReviewAndCreateForm from "./ReviewAndCreateForm";
+import ReviewAndUpdateForm from "./ReviewAndUpdateForm";
+import SymbolForm from "./SymbolForm";
+import TerminalsForm from "./TerminalsForm";
 
 interface BlockFormProps {
   mode?: FormMode;
 }
 
+export interface BlockFormStepProps {
+  fields: BlockFormFields;
+  setFields: React.Dispatch<React.SetStateAction<BlockFormFields>>;
+}
+
 const BlockForm = ({ mode }: BlockFormProps) => {
-  const theme = useTheme();
+  const [fields, setFields] = React.useState(createEmptyBlockFormFields);
 
-  const [blockFormFields, setBlockFormFields] = React.useState(createEmptyBlockFormFields);
+  const [activeStep, setActiveStep] = React.useState(0);
+  const currentStepFormRef = React.useRef<HTMLFormElement>(null);
 
-  const query = useBlockQuery();
+  const { id } = useParams();
+  const query = useGetBlock(id);
+
   const mapper = (source: BlockView) => toBlockFormFields(source);
 
-  const [_, isLoading] = usePrefilledFormTemporary(query, mapper, setBlockFormFields);
-
-  const mutation = useBlockMutation(query.data?.id, mode);
-
-  //useServerValidation(mutation.error, setError);
-  useNavigateOnCriteria("/", mutation.isSuccess);
-
-  const toast = useSubmissionToast("block");
-
-  const [activeStep, setActiveStep] = useState(0);
+  const [_, isLoading] = usePrefilledForm(query, mapper, setFields);
 
   const steps = [
     "Define base characteristics",
@@ -54,90 +46,32 @@ const BlockForm = ({ mode }: BlockFormProps) => {
     "Review and submit",
   ];
 
-  const getFormStep = (step: number): ReactElement => {
-    switch (step) {
-      case 0:
-        return <BaseStep blockFormFields={blockFormFields} setBlockFormFields={setBlockFormFields} />;
-      case 1:
-        return (
-          <ClassifiersStep
-            chosenClassifiers={blockFormFields.classifiers}
-            setClassifiers={(nextClassifiers) => {
-              setBlockFormFields({ ...blockFormFields, classifiers: nextClassifiers });
-            }}
-          />
-        );
-      case 2:
-        return (
-          <AttributesStep
-            chosenAttributes={blockFormFields.attributes}
-            setAttributes={(nextAttributes) => {
-              setBlockFormFields({ ...blockFormFields, attributes: nextAttributes });
-            }}
-          />
-        );
-      case 3:
-        return (
-          <TerminalsStep
-            chosenTerminals={blockFormFields.terminals}
-            setTerminals={(nextTerminals) => {
-              setBlockFormFields({ ...blockFormFields, terminals: nextTerminals });
-            }}
-          />
-        );
-      case 4:
-        if (blockFormFields.symbol === null) {
-          return (
-            <SelectSymbolStep
-              setSymbol={(nextSymbol) => setBlockFormFields({ ...blockFormFields, symbol: nextSymbol })}
-            />
-          );
-        } else {
-          return (
-            <ConnectTerminalsToSymbolStep
-              symbol={blockFormFields.symbol}
-              removeSymbol={handleRemoveSymbol}
-              terminals={blockFormFields.terminals}
-              setTerminals={(nextTerminals) => {
-                setBlockFormFields({ ...blockFormFields, terminals: nextTerminals });
-              }}
-            />
-          );
-        }
-      case 5:
-        return <ReviewAndSubmitStep mode={mode} blockFormFields={blockFormFields} />;
-      default:
-        return <></>;
-    }
-  };
+  const stepComponents = [
+    BlockBaseForm,
+    ClassifiersForm,
+    AttributesForm,
+    TerminalsForm,
+    SymbolForm,
+    mode === "edit" ? ReviewAndUpdateForm : ReviewAndCreateForm,
+  ];
 
-  const handleRemoveSymbol = () => {
-    const nextTerminals = blockFormFields.terminals.map((terminal) => ({ ...terminal, connectionPoint: null }));
-
-    setBlockFormFields({ ...blockFormFields, symbol: null, terminals: nextTerminals });
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    onSubmitForm(toBlockTypeRequest(blockFormFields), mutation.mutateAsync, toast);
-  };
+  const FormStep = stepComponents[activeStep];
 
   return (
-    <FormContainer onSubmit={handleSubmit}>
+    <>
       {isLoading && <Loader />}
       {!isLoading && (
-        <Box width="100%">
-          <Flexbox flexDirection="column" gap={theme.mimirorg.spacing.multiple(6)}>
-            <Text as="h1">{mode === "edit" ? "Edit block type" : "Create block type"}</Text>
-
-            <Flexbox flexDirection="row" gap={theme.mimirorg.spacing.multiple(18)}>
-              <FormStepsNavigation steps={steps} activeStep={activeStep} setActiveStep={setActiveStep} />
-              <Box flexGrow="1">{getFormStep(activeStep)}</Box>
-            </Flexbox>
-          </Flexbox>
-        </Box>
+        <TypeFormContainer
+          title={mode === "edit" ? "Edit block type" : "Create block type"}
+          steps={steps}
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+          formRef={currentStepFormRef}
+        >
+          <FormStep fields={fields} setFields={setFields} ref={currentStepFormRef} />
+        </TypeFormContainer>
       )}
-    </FormContainer>
+    </>
   );
 };
 
