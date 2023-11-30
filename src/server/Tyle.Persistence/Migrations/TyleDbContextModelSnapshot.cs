@@ -259,7 +259,7 @@ namespace TypeLibrary.Data.Migrations
                         .HasPrecision(38, 19)
                         .HasColumnType("decimal(38,19)");
 
-                    b.Property<int?>("MinCount")
+                    b.Property<int>("MinCount")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("MinValue")

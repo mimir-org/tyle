@@ -30,7 +30,7 @@ export const getOptionsFromEnum = <T>(enumObject: EnumObject): Option<T>[] => {
     .map((k) => ({ value: enumObject[k] as unknown as T, label: addSpacesToPascalCase(k) }));
 };
 
-const addSpacesToPascalCase = (s: string): string => {
+export const addSpacesToPascalCase = (s: string): string => {
   const wordsArray = s.split(/(?=[A-Z])/);
   return wordsArray.join(" ");
 };

@@ -31,6 +31,7 @@ export interface TerminalFormFields
 
 export const toTerminalFormFields = (terminal: TerminalView): TerminalFormFields => ({
   ...terminal,
+  description: terminal.description ?? undefined,
   classifiers: terminal.classifiers.length === 0 ? undefined : terminal.classifiers,
   attributes: terminal.attributes.length === 0 ? undefined : terminal.attributes,
 });

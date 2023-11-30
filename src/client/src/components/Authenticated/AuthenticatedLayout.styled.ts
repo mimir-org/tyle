@@ -8,7 +8,6 @@ export const AuthenticatedContainer = styled.div`
 `;
 
 export const AuthenticatedContentContainer = styled.div`
-  display: flex;
   height: calc(100% - var(--tl-header-height));
   max-width: 1920px;
   margin: 0 auto;

@@ -7,7 +7,7 @@ export interface BlockItem extends StateItem {
   id: string;
   name: string;
   description: string;
-  symbol?: EngineeringSymbol;
+  symbol: EngineeringSymbol | null;
   color: string;
   tokens: string[];
   terminals: BlockTerminalItem[];

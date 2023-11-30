@@ -1,29 +1,33 @@
-import { Box, Flexbox, Select, Text } from "@mimirorg/component-library";
+import { Select } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import EngineeringSymbolSvg from "components/EngineeringSymbolSvg";
 import React from "react";
-import { useTheme } from "styled-components";
 import { ConnectionPoint } from "types/blocks/connectionPoint";
 import { EngineeringSymbol } from "types/blocks/engineeringSymbol";
 import { Direction } from "types/terminals/direction";
 import { Option } from "utils";
 import { TerminalTypeReferenceField } from "./BlockForm.helpers";
+import {
+  ConnectTerminalsWrapper,
+  ConnectionPointList,
+  ConnectionPointListItem,
+  RemoveSymbolIconWrapper,
+  SymbolPreview,
+} from "./ConnectTerminalsToSymbolStep.styled";
 
 interface ConnectTerminalsToSymbolStepProps {
   symbol: EngineeringSymbol;
-  removeSymbol: () => void;
+  setSymbol: (symbol: EngineeringSymbol | null) => void;
   terminals: TerminalTypeReferenceField[];
-  setTerminals: (nextTerminals: TerminalTypeReferenceField[]) => void;
+  setTerminals: (terminals: TerminalTypeReferenceField[]) => void;
 }
 
 const ConnectTerminalsToSymbolStep = ({
   symbol,
-  removeSymbol,
+  setSymbol,
   terminals,
   setTerminals,
 }: ConnectTerminalsToSymbolStepProps) => {
-  const theme = useTheme();
-
   const [hoveredConnectionPoint, setHoveredConnectionPoint] = React.useState<number | null>(null);
 
   const getTerminalOptions = (connectionPointId: number) => {
@@ -33,6 +37,16 @@ const ConnectTerminalsToSymbolStep = ({
         value: terminal.id,
         label: `${terminal.terminalName} (${Direction[terminal.direction]})`,
       }));
+  };
+
+  const handleRemoveSymbol = () => {
+    const nextTerminals = terminals.map((terminal) => ({
+      ...terminal,
+      connectionPoint: null,
+    }));
+
+    setTerminals(nextTerminals);
+    setSymbol(null);
   };
 
   const handleTerminalChange = (nextTerminal: Option<string> | null, connectionPoint: ConnectionPoint) => {
@@ -51,28 +65,26 @@ const ConnectTerminalsToSymbolStep = ({
   };
 
   return (
-    <Flexbox flexDirection="row" gap={theme.mimirorg.spacing.multiple(6)}>
-      <Box width="100%" maxWidth="300px" style={{ margin: "0 auto", position: "relative" }}>
-        <Box width="fit-content" style={{ position: "absolute", top: "-1rem", right: "-1rem", cursor: "pointer" }}>
-          <XCircle size="2rem" color={theme.mimirorg.color.dangerousAction.on} onClick={removeSymbol} />
-        </Box>
+    <ConnectTerminalsWrapper>
+      <SymbolPreview>
+        <RemoveSymbolIconWrapper>
+          <XCircle size="2rem" onClick={handleRemoveSymbol} />
+        </RemoveSymbolIconWrapper>
         <EngineeringSymbolSvg
           symbol={symbol}
           fillContainer={true}
           showConnectionPoints={true}
           animateConnectionPoint={hoveredConnectionPoint ?? undefined}
         />
-      </Box>
-      <Flexbox flexDirection="column" gap={theme.mimirorg.spacing.base} style={{ margin: "0 auto" }}>
+      </SymbolPreview>
+      <ConnectionPointList>
         {symbol.connectionPoints.map((connectionPoint, index) => (
-          <Flexbox key={connectionPoint.id} gap={theme.mimirorg.spacing.xl} alignItems="center">
-            <Text
-              font={theme.mimirorg.typography.roles.body.large.font}
-              onMouseEnter={() => setHoveredConnectionPoint(connectionPoint.id)}
-              onMouseLeave={() => setHoveredConnectionPoint(null)}
-            >
-              Connection point #{index + 1}
-            </Text>
+          <ConnectionPointListItem
+            key={connectionPoint.identifier}
+            onMouseEnter={() => setHoveredConnectionPoint(connectionPoint.id)}
+            onMouseLeave={() => setHoveredConnectionPoint(null)}
+          >
+            <p>Connection point #{index + 1}</p>
             <Select
               placeholder={"Select a terminal"}
               options={getTerminalOptions(connectionPoint.id)}
@@ -84,10 +96,10 @@ const ConnectTerminalsToSymbolStep = ({
               onChange={(terminal) => handleTerminalChange(terminal, connectionPoint)}
               isClearable={true}
             />
-          </Flexbox>
+          </ConnectionPointListItem>
         ))}
-      </Flexbox>
-    </Flexbox>
+      </ConnectionPointList>
+    </ConnectTerminalsWrapper>
   );
 };
 
