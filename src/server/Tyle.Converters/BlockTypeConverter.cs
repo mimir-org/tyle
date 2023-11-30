@@ -21,7 +21,7 @@ public class BlockTypeConverter : IBlockTypeConverter
         var blockNode = g.CreateUriNode(new Uri($"http://tyle.imftools.com/blocks/{block.Id}"));
 
         // Add metadata
-        
+
         var creator = new UserData
         {
             Name = await _userInformationService.GetFullName(block.CreatedBy),
