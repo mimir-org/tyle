@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Tyle.Api;
 using Tyle.Application;
+using Tyle.Converters;
 using Tyle.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-    //options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+    options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
 });
 
 // CORS policy
@@ -46,6 +47,7 @@ builder.Services
     .AddDatabaseConfiguration(builder.Configuration)
     .AddRequestToDomainMapping()
     .AddRepositories()
+    .AddConversionServices()
     .AddDomainToViewMapping()
     .AddApiServices();
 

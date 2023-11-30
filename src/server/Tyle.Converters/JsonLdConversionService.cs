@@ -8,9 +8,20 @@ using VDS.RDF.Writing;
 
 namespace Tyle.Converters;
 
-public static class TypeToJsonLdWriter
+public class JsonLdConversionService : IJsonLdConversionService
 {
-    private static JObject GetJsonLd(IGraph g)
+    private readonly IAttributeTypeConverter _attributeTypeConverter;
+    private readonly ITerminalTypeConverter _terminalTypeConverter;
+    private readonly IBlockTypeConverter _blockTypeConverter;
+
+    public JsonLdConversionService(IAttributeTypeConverter attributeTypeConverter, ITerminalTypeConverter terminalTypeConverter, IBlockTypeConverter blockTypeConverter)
+    {
+        _attributeTypeConverter = attributeTypeConverter;
+        _terminalTypeConverter = terminalTypeConverter;
+        _blockTypeConverter = blockTypeConverter;
+    }
+
+    private static JObject GetJsonLd(IGraph g, string frame)
     {
         var store = new TripleStore();
 
@@ -20,12 +31,12 @@ public static class TypeToJsonLdWriter
         var serializedGraph = jsonLdWriter.SerializeStore(store);
         var jsonString = $"{{ \"@graph\": {serializedGraph} }}";
 
-        var result = JsonLdProcessor.Frame(JToken.Parse(jsonString), JToken.Parse(JsonLdConstants.Frame), new JsonLdProcessorOptions());
+        var result = JsonLdProcessor.Frame(JToken.Parse(jsonString), JToken.Parse(frame), new JsonLdProcessorOptions());
 
         return result;
     }
 
-    public static JObject ToJsonLd(this BlockType block)
+    public async Task<JObject> ConvertToJsonLd(BlockType block)
     {
         var uniqueAttributes = new List<AttributeType>();
         var uniqueTerminals = new List<TerminalType>();
@@ -52,20 +63,20 @@ public static class TypeToJsonLdWriter
 
         foreach (var attribute in uniqueAttributes)
         {
-            g.AddAttributeType(attribute);
+            g.Merge(await _attributeTypeConverter.ConvertTypeToGraph(attribute));
         }
 
         foreach (var terminal in uniqueTerminals)
         {
-            g.AddTerminalType(terminal);
+            g.Merge(await _terminalTypeConverter.ConvertTypeToGraph(terminal));
         }
 
-        g.AddBlockType(block);
+        g.Merge(await _blockTypeConverter.ConvertTypeToGraph(block));
 
-        return GetJsonLd(g);
+        return GetJsonLd(g, JsonLdConstants.BlockFrame);
     }
 
-    public static JObject ToJsonLd(this TerminalType terminal)
+    public async Task<JObject> ConvertToJsonLd(TerminalType terminal)
     {
         var uniqueAttributes = new List<AttributeType>();
 
@@ -79,20 +90,20 @@ public static class TypeToJsonLdWriter
 
         foreach (var attribute in uniqueAttributes)
         {
-            g.AddAttributeType(attribute);
+            g.Merge(await _attributeTypeConverter.ConvertTypeToGraph(attribute));
         }
 
-        g.AddTerminalType(terminal);
+        g.Merge(await _terminalTypeConverter.ConvertTypeToGraph(terminal));
 
-        return GetJsonLd(g);
+        return GetJsonLd(g, JsonLdConstants.TerminalFrame);
     }
 
-    public static JObject ToJsonLd(this AttributeType attribute)
+    public async Task<JObject> ConvertToJsonLd(AttributeType attribute)
     {
         var g = new Graph();
 
-        g.AddAttributeType(attribute);
+        g.Merge(await _attributeTypeConverter.ConvertTypeToGraph(attribute));
 
-        return GetJsonLd(g);
+        return GetJsonLd(g, JsonLdConstants.AttributeFrame);
     }
 }

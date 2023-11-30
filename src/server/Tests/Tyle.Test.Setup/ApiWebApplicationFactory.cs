@@ -87,6 +87,16 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Program>
 
 public class FakeUserInformationService : IUserInformationService
 {
+    public Task<string?> GetEmail(string userId)
+    {
+        return Task.FromResult("fake@email.com");
+    }
+
+    public Task<string?> GetFullName(string userId)
+    {
+        return Task.FromResult("Fake Name");
+    }
+
     public string GetUserId()
     {
         return "fake-user-id";
