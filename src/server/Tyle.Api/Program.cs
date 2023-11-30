@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Mimirorg.Authentication.Extensions;
@@ -132,10 +133,22 @@ app.UseCookiePolicy();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<TyleDbContext>();
+    var context = services.GetRequiredService<TyleDbContext>();    
     if (context.Database.IsRelational())
     {
         context.Database.Migrate();
+    }     
+}
+
+if (builder.Configuration.GetValue<bool>("FetchDataFromCL"))
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var context = services.GetRequiredService<TyleDbContext>();
+        var autoMapperService = (IMapper) services.GetService(typeof(IMapper));
+        var savingDataService = new Tyle.External.SupplyExternalData(context, autoMapperService);
+        var responseAddingDataToDb = await savingDataService.SupplyData();
     }
 }
 
