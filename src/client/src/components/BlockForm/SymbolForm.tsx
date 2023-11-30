@@ -14,8 +14,6 @@ const SymbolForm = React.forwardRef<HTMLFormElement, BlockFormStepProps>(({ fiel
     event.preventDefault();
   };
 
-  console.log(terminals);
-
   return (
     <form onSubmit={handleSubmit} ref={ref}>
       {symbol ? (
