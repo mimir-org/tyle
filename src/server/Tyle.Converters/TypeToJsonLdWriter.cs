@@ -10,7 +10,7 @@ namespace Tyle.Converters;
 
 public static class TypeToJsonLdWriter
 {
-    private static JObject GetJsonLd(IGraph g)
+    private static JObject GetJsonLd(IGraph g, string frame)
     {
         var store = new TripleStore();
 
@@ -20,7 +20,7 @@ public static class TypeToJsonLdWriter
         var serializedGraph = jsonLdWriter.SerializeStore(store);
         var jsonString = $"{{ \"@graph\": {serializedGraph} }}";
 
-        var result = JsonLdProcessor.Frame(JToken.Parse(jsonString), JToken.Parse(JsonLdConstants.Frame), new JsonLdProcessorOptions());
+        var result = JsonLdProcessor.Frame(JToken.Parse(jsonString), JToken.Parse(frame), new JsonLdProcessorOptions());
 
         return result;
     }
@@ -62,7 +62,7 @@ public static class TypeToJsonLdWriter
 
         g.AddBlockType(block);
 
-        return GetJsonLd(g);
+        return GetJsonLd(g, JsonLdConstants.BlockFrame);
     }
 
     public static JObject ToJsonLd(this TerminalType terminal)
@@ -84,7 +84,7 @@ public static class TypeToJsonLdWriter
 
         g.AddTerminalType(terminal);
 
-        return GetJsonLd(g);
+        return GetJsonLd(g, JsonLdConstants.TerminalFrame);
     }
 
     public static JObject ToJsonLd(this AttributeType attribute)
@@ -93,6 +93,6 @@ public static class TypeToJsonLdWriter
 
         g.AddAttributeType(attribute);
 
-        return GetJsonLd(g);
+        return GetJsonLd(g, JsonLdConstants.AttributeFrame);
     }
 }
