@@ -1,22 +1,45 @@
-using Newtonsoft.Json.Linq;
+using Tyle.Application.Common;
 using Tyle.Converters.Iris;
-using Tyle.Core.Attributes;
 using Tyle.Core.Blocks;
-using Tyle.Core.Terminals;
 using VDS.RDF;
-using VDS.RDF.JsonLd;
 
 namespace Tyle.Converters;
 
-public static class BlockTypeConverter
+public class BlockTypeConverter : IBlockTypeConverter
 {
-    public static void AddBlockType(this IGraph g, BlockType block)
+    private readonly IUserInformationService _userInformationService;
+
+    public BlockTypeConverter(IUserInformationService userInformationService)
     {
+        _userInformationService = userInformationService;
+    }
+
+    public async Task<IGraph> ConvertTypeToGraph(BlockType block)
+    {
+        var g = new Graph();
+
         var blockNode = g.CreateUriNode(new Uri($"http://tyle.imftools.com/blocks/{block.Id}"));
 
         // Add metadata
+        
+        var creator = new UserData
+        {
+            Name = await _userInformationService.GetFullName(block.CreatedBy),
+            Email = await _userInformationService.GetEmail(block.CreatedBy)
+        };
 
-        g.AddMetadataTriples(blockNode, block);
+        var contributors = new List<UserData>();
+
+        foreach (var contributor in block.ContributedBy)
+        {
+            contributors.Add(new UserData
+            {
+                Name = await _userInformationService.GetFullName(contributor),
+                Email = await _userInformationService.GetEmail(contributor)
+            });
+        }
+
+        g.AddMetadataTriples(blockNode, block, creator, contributors);
 
         // Add classifier references
 
@@ -140,5 +163,7 @@ public static class BlockTypeConverter
                     g.CreateLiteralNode(attribute.MaxCount.ToString(), Xsd.Integer)));
             }
         }
+
+        return g;
     }
 }

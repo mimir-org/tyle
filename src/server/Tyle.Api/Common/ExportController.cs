@@ -1,3 +1,4 @@
+using System;
 using System.Net.Mime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,12 +19,14 @@ public class ExportController : ControllerBase
     private readonly IAttributeRepository _attributeRepository;
     private readonly IBlockRepository _blockRepository;
     private readonly ITerminalRepository _terminalRepository;
+    private readonly IJsonLdConversionService _jsonLdConversionService;
 
-    public ExportController(IAttributeRepository attributeRepository, IBlockRepository blockRepository, ITerminalRepository terminalRepository)
+    public ExportController(IAttributeRepository attributeRepository, IBlockRepository blockRepository, ITerminalRepository terminalRepository, IJsonLdConversionService jsonLdConversionService)
     {
         _attributeRepository = attributeRepository;
         _blockRepository = blockRepository;
         _terminalRepository = terminalRepository;
+        _jsonLdConversionService = jsonLdConversionService;
     }
 
     [HttpGet("attribute/{id}")]
@@ -41,7 +44,7 @@ public class ExportController : ControllerBase
                 return Ok("");
             }
 
-            return Ok(attribute.ToJsonLd());
+            return Ok(await _jsonLdConversionService.ConvertToJsonLd(attribute));
         }
         catch (Exception)
         {
@@ -64,7 +67,7 @@ public class ExportController : ControllerBase
                 return Ok("");
             }
 
-            return Ok(terminal.ToJsonLd());
+            return Ok(await _jsonLdConversionService.ConvertToJsonLd(terminal));
         }
         catch (Exception)
         {
@@ -87,7 +90,7 @@ public class ExportController : ControllerBase
                 return Ok("");
             }
 
-            return Ok(block.ToJsonLd());
+            return Ok(await _jsonLdConversionService.ConvertToJsonLd(block));
         }
         catch (Exception)
         {
