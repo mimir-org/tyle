@@ -58,6 +58,7 @@ const ValueConstraintForm = React.forwardRef<HTMLFormElement, AttributeFormStepP
   };
 
   const resetAllValueFields = () => {
+    setRequireValue(false);
     setValue("");
     setValueList([]);
     setPattern("");

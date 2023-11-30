@@ -110,7 +110,11 @@ export const toAttributeTypeRequest = (attributeFormFields: AttributeFormFields)
           attributeFormFields.valueConstraint.maxValue
             ? Number(attributeFormFields.valueConstraint.maxValue)
             : null,
-        minCount: attributeFormFields.valueConstraint.requireValue ? 1 : 0,
+        minCount:
+          attributeFormFields.valueConstraint.constraintType === ConstraintType.HasSpecificValue ||
+          attributeFormFields.valueConstraint.requireValue
+            ? 1
+            : 0,
         maxCount: null,
       }
     : null,

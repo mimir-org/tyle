@@ -38,7 +38,7 @@ public class ValueConstraintRequest : IValidatableObject
         {
             yield return new ValidationResult("The max count can't be smaller than the min count.");
         }
-        
+
 
         switch (ConstraintType)
         {

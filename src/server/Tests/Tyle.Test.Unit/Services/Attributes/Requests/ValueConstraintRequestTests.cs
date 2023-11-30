@@ -97,7 +97,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
 
     [Theory]
     [MemberData(nameof(AllowedValuesExamples))]
-    public void AtLeastTwoValuesMustBeProvidedForConstraintTypeIn(ICollection<string> values, bool result)
+    public void AtLeastOneValueMustBeProvidedForConstraintTypeIn(ICollection<string> values, bool result)
     {
         var valueConstraintRequest = new ValueConstraintRequest
         {
@@ -117,7 +117,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
     public static IEnumerable<object[]> AllowedValuesExamples()
     {
         yield return new object[] { new List<string>(), false };
-        yield return new object[] { new List<string> { "single" }, false };
+        yield return new object[] { new List<string> { "single" }, true };
         yield return new object[] { new List<string> { "one", "two" }, true };
         yield return new object[] { new List<string> { "one", "two", "three" }, true };
     }
@@ -226,7 +226,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
         yield return new object?[] { null, null, false };
         yield return new object?[] { 1M, null, true };
         yield return new object?[] { null, 2000M, true };
-        yield return new object?[] { 23.4M, 23.4M, false };
+        yield return new object?[] { 23.4M, 23.4M, true };
         yield return new object?[] { 23.4M, 23.5M, true };
         yield return new object?[] { 23.5M, 23.4M, false };
     }
@@ -254,9 +254,9 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
     public static IEnumerable<object?[]> RangeBoundsExamplesWithIntConversion()
     {
         yield return new object?[] { 1M, 2M, true };
-        yield return new object?[] { 1M, 1.2M, false };
-        yield return new object?[] { 1M, 1.7M, false };
-        yield return new object?[] { 2.6M, 2.7M, false };
+        yield return new object?[] { 1M, 0.8M, false };
+        yield return new object?[] { 1M, 1.7M, true };
+        yield return new object?[] { 2.6M, 2.7M, true };
     }
 
     [Theory]
