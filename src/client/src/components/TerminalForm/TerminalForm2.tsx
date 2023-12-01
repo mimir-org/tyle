@@ -12,6 +12,7 @@ import { usePrefilledForm } from "../../helpers/form.helpers";
 import Loader from "../Loader";
 import TypeFormContainer from "../TypeFormContainer";
 import TerminalBaseForm2 from "./TerminalBaseForm2";
+import MediumAndQualifierForm from "./MediumAndQualifierForm";
 
 interface TerminalForm2Props {
   mode?: FormMode;
@@ -43,7 +44,8 @@ const TerminalForm2 = ({mode}: TerminalForm2Props) => {
   ];
 
   const stepComponents = [
-    TerminalBaseForm2
+    TerminalBaseForm2,
+    MediumAndQualifierForm
   ];
 
   const FormStep = stepComponents[activeStep];
