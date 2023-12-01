@@ -134,11 +134,11 @@ app.UseCookiePolicy();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<TyleDbContext>();    
+    var context = services.GetRequiredService<TyleDbContext>();
     if (context.Database.IsRelational())
     {
         context.Database.Migrate();
-    }     
+    }
 }
 
 if (builder.Configuration.GetValue<bool>("FetchDataFromCL"))
@@ -148,14 +148,29 @@ if (builder.Configuration.GetValue<bool>("FetchDataFromCL"))
         var services = scope.ServiceProvider;
         var context = services.GetRequiredService<TyleDbContext>();
         var purposeRepoService = (IPurposeRepository) services.GetService(typeof(IPurposeRepository));
+        var loggerService = (ILogger<Program>) services.GetService(typeof(ILogger<Program>));
         var classifierRepoService = (IClassifierRepository) services.GetService(typeof(IClassifierRepository));
         var savingDataService = new Tyle.External.SupplyExternalData(purposeRepoService, classifierRepoService);
-        var responseAddingDataToDb = await savingDataService.SupplyData();
+        try
+        {
+
+            await savingDataService.SupplyData();
+
+        }
+        catch (Exception ex)
+        {
+            loggerService.LogError(ex, "Something went wrong fetching data from external resource");
+        }
+        finally
+        {
+            scope.Dispose();
+            app.MapControllers();
+            app.Run();
+        }
     }
 }
 
 app.MapControllers();
-
 app.Run();
 
 namespace Tyle.Api
