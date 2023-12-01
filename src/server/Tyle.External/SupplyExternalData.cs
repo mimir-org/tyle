@@ -27,8 +27,8 @@ namespace Tyle.External
 
 
 
-            var rawData = File.ReadAllText("C:\\Users\\andreas.kristensen\\Downloads\\purposes.txt");
-            var externalData = JsonSerializer.Deserialize<List<ExternalType>>(rawData);
+            //var rawData = File.ReadAllText("");
+            //var externalData = JsonSerializer.Deserialize<List<ExternalType>>(rawData);
 
             var purposeData = new List<RdlPurposeRequest>();
 
