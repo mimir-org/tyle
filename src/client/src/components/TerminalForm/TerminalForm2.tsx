@@ -13,6 +13,8 @@ import Loader from "../Loader";
 import TypeFormContainer from "../TypeFormContainer";
 import TerminalBaseForm2 from "./TerminalBaseForm2";
 import MediumAndQualifierForm from "./MediumAndQualifierForm";
+import ClassifiersForm from "./ClassifiersForm";
+import AttributesForm from "./AttributesForm";
 
 interface TerminalForm2Props {
   mode?: FormMode;
@@ -45,7 +47,9 @@ const TerminalForm2 = ({mode}: TerminalForm2Props) => {
 
   const stepComponents = [
     TerminalBaseForm2,
-    MediumAndQualifierForm
+    MediumAndQualifierForm,
+    ClassifiersForm,
+    AttributesForm
   ];
 
   const FormStep = stepComponents[activeStep];
