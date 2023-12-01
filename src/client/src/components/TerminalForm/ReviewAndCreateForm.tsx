@@ -1,6 +1,6 @@
 import { useCreateTerminal } from "../../api/terminal.queries";
 import React from "react";
-import { TerminalFormStepProps } from "./TerminalForm2";
+import { TerminalFormStepProps } from "./TerminalForm";
 import ReviewAndSubmitForm from "./ReviewAndSubmitForm";
 
 const ReviewAndUpdateForm = React.forwardRef<HTMLFormElement, TerminalFormStepProps>(({ fields }, ref) => {

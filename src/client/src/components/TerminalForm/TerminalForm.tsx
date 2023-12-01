@@ -1,79 +1,76 @@
-import { DevTool } from "@hookform/devtools";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, FormContainer } from "@mimirorg/component-library";
-import FormAttributes from "components/FormAttributes";
-import FormClassifiers from "components/FormClassifiers";
-import Loader from "components/Loader";
-import { onSubmitForm, usePrefilledForm, useSubmissionToast } from "helpers/form.helpers";
-import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
-import { useServerValidation } from "hooks/useServerValidation";
-import { FormProvider, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components";
-import { FormMode } from "types/formMode";
-import { TerminalView } from "types/terminals/terminalView";
+import { FormMode } from "../../types/formMode";
 import {
+  createEmptyTerminalFormFields,
   TerminalFormFields,
-  createDefaultTerminalFormFields,
   toTerminalFormFields,
-  toTerminalTypeRequest,
-  useTerminalMutation,
-  useTerminalQuery,
+  useTerminalQuery
 } from "./TerminalForm.helpers";
-import TerminalFormBaseFields from "./TerminalFormBaseFields";
-import { terminalSchema } from "./terminalSchema";
+import React from "react";
+import { TerminalView } from "../../types/terminals/terminalView";
+import { usePrefilledForm } from "../../helpers/form.helpers";
+import Loader from "../Loader";
+import TypeFormContainer from "../TypeFormContainer";
+import TerminalBaseForm from "./TerminalBaseForm";
+import MediumAndQualifierForm from "./MediumAndQualifierForm";
+import ClassifiersForm from "./ClassifiersForm";
+import AttributesForm from "./AttributesForm";
+import ReviewAndCreateForm from "./ReviewAndCreateForm";
+import ReviewAndUpdateForm from "./ReviewAndUpdateForm";
 
-interface TerminalFormProps {
-  defaultValues?: TerminalFormFields;
+interface TerminalForm2Props {
   mode?: FormMode;
 }
+export interface TerminalFormStepProps {
+  fields: TerminalFormFields;
+  setFields: React.Dispatch<React.SetStateAction<TerminalFormFields>>;
+}
 
-const TerminalForm = ({ defaultValues = createDefaultTerminalFormFields(), mode }: TerminalFormProps) => {
-  const theme = useTheme();
-  const { t } = useTranslation("entities");
+const TerminalForm = ({ mode }: TerminalForm2Props) => {
+  const [fields, setFields] = React.useState(createEmptyTerminalFormFields);
 
-  const formMethods = useForm<TerminalFormFields>({
-    defaultValues: defaultValues,
-    resolver: yupResolver(terminalSchema(t)),
-  });
-
-  const { handleSubmit, control, setError, reset } = formMethods;
+  const [activeStep, setActiveStep] = React.useState(0);
+  const currentStepFormRef = React.useRef<HTMLFormElement>(null);
 
   const query = useTerminalQuery();
+
   const mapper = (source: TerminalView) => toTerminalFormFields(source);
-  const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
-  const mutation = useTerminalMutation(query.data?.id, mode);
-  useServerValidation(mutation.error, setError);
-  useNavigateOnCriteria("/", mutation.isSuccess);
+  const [_, isLoading] = usePrefilledForm(query, mapper, setFields);
 
-  const toast = useSubmissionToast(t("terminal.title"));
+  const steps = [
+    "Define base characteristics",
+    "Add medium and qualifiers",
+    "Add classifiers",
+    "Add attributes",
+    "Review and submit",
+  ];
 
-  const limited = false;
+  const stepComponents = [
+    TerminalBaseForm,
+    MediumAndQualifierForm,
+    ClassifiersForm,
+    AttributesForm,
+    mode === "edit" ? ReviewAndUpdateForm : ReviewAndCreateForm
+  ];
+
+  const FormStep = stepComponents[activeStep];
 
   return (
-    <FormProvider {...formMethods}>
-      <FormContainer
-        onSubmit={handleSubmit((data) => onSubmitForm(toTerminalTypeRequest(data), mutation.mutateAsync, toast))}
-      >
-        {isLoading && <Loader />}
-        {!isLoading && (
-          <>
-            <TerminalFormBaseFields limited={limited} mode={mode} />
-
-            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
-              <FormClassifiers />
-            </Box>
-
-            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
-              <FormAttributes />
-            </Box>
-          </>
-        )}
-        <DevTool control={control} placement={"bottom-right"} />
-      </FormContainer>
-    </FormProvider>
-  );
-};
+    <>
+      {isLoading && <Loader />}
+      {!isLoading && (
+        <TypeFormContainer
+          title={mode === "edit" ? "Edit terminal type" : "Create terminal type"}
+          steps={steps}
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+          formRef={currentStepFormRef}
+        >
+          <FormStep fields={fields} setFields={setFields} ref={currentStepFormRef} />
+        </TypeFormContainer>
+      )}
+    </>
+  )
+}
 
 export default TerminalForm;

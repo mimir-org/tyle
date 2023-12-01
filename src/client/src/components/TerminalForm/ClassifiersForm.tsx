@@ -1,5 +1,5 @@
 import AddClassifiersForm from "components/AddClassifiersForm";
-import { TerminalFormStepProps } from "./TerminalForm2";
+import { TerminalFormStepProps } from "./TerminalForm";
 import React from "react";
 import { RdlClassifier } from "types/common/rdlClassifier";
 

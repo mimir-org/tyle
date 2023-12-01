@@ -1,5 +1,5 @@
 import AddAttributesForm from "components/AddAttributesForm";
-import { TerminalFormStepProps } from "./TerminalForm2";
+import { TerminalFormStepProps } from "./TerminalForm";
 import React from "react";
 import { AttributeTypeReferenceView } from "types/common/attributeTypeReferenceView";
 

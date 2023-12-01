@@ -1,5 +1,5 @@
 import React from "react";
-import { TerminalFormStepProps } from "./TerminalForm2";
+import { TerminalFormStepProps } from "./TerminalForm";
 import { RdlMedium } from "types/terminals/rdlMedium";
 import { Direction } from "../../types/terminals/direction";
 import { useGetMedia } from "../../api/medium.queries";

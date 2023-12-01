@@ -1,10 +1,10 @@
 import React from "react";
-import { TerminalFormStepProps } from "./TerminalForm2";
+import { TerminalFormStepProps } from "./TerminalForm";
 import { Aspect } from "../../types/common/aspect";
 import { RdlPurpose } from "../../types/common/rdlPurpose";
 import { getOptionsFromEnum } from "../../utils";
 import { useGetPurposes } from "../../api/purpose.queries";
-import { TerminalBaseFormWrapper } from "./TerminalBaseForm2.styled";
+import { TerminalBaseFormWrapper } from "./TerminalBaseForm.styled";
 import {
   AspectSelectWrapper, DescriptionInputWrapper,
   NameInputWrapper,
@@ -14,7 +14,7 @@ import {
 import { FormField, Input, Select, Textarea } from "@mimirorg/component-library";
 import { DESCRIPTION_LENGTH, NAME_LENGTH, NOTATION_LENGTH } from "../../types/common/stringLengthConstants";
 
-const TerminalBaseForm2 = React.forwardRef<HTMLFormElement, TerminalFormStepProps>(({ fields, setFields }, ref) => {
+const TerminalBaseForm = React.forwardRef<HTMLFormElement, TerminalFormStepProps>(({ fields, setFields }, ref) => {
   const { name, notation, aspect, purpose, description } = fields;
   const setName = (name: string) => setFields({ ...fields, name });
   const setNotation = (notation: string) => setFields({ ...fields, notation });
@@ -89,6 +89,6 @@ const TerminalBaseForm2 = React.forwardRef<HTMLFormElement, TerminalFormStepProp
   );
 });
 
-TerminalBaseForm2.displayName = "TerminalBaseForm";
+TerminalBaseForm.displayName = "TerminalBaseForm";
 
-export default TerminalBaseForm2;
+export default TerminalBaseForm;

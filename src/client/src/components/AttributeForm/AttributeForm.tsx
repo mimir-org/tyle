@@ -32,8 +32,6 @@ const AttributeForm = ({ mode }: AttributeFormProps) => {
   const { id } = useParams();
   const query = useGetAttribute(id);
 
-  console.log("Modus fra attributtskjema " + mode);
-
   const mapper = (source: AttributeView) => toAttributeFormFields(source);
 
   const [_, isLoading] = usePrefilledForm(query, mapper, setFields);
