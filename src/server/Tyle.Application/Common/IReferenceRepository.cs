@@ -27,7 +27,7 @@ public interface IReferenceRepository<T, TRequest>
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    Task<T> Update(TRequest request);
+    Task<T> Update(int id, TRequest request);
 
     /// <summary>
     /// Deletes the reference with the given id.

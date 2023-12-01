@@ -52,4 +52,9 @@ public class UnitRepository : IUnitRepository
 
         return true;
     }
+
+    public Task<RdlUnit> Update(int id, RdlUnitRequest request)
+    {
+        throw new NotImplementedException();
+    }
 }

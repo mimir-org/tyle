@@ -52,4 +52,9 @@ public class PredicateRepository : IPredicateRepository
 
         return true;
     }
+
+    public Task<RdlPredicate> Update(int id, RdlPredicateRequest request)
+    {
+        throw new NotImplementedException();
+    }
 }

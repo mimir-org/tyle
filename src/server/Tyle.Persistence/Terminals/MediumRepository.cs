@@ -52,4 +52,9 @@ public class MediumRepository : IMediumRepository
 
         return true;
     }
+
+    public Task<RdlMedium> Update(int id, RdlMediumRequest request)
+    {
+        throw new NotImplementedException();
+    }
 }

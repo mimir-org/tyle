@@ -1,5 +1,8 @@
 using AutoMapper;
+using System.Text.Json;
 using Tyle.Application.Common;
+using Tyle.Application.Common.Requests;
+using Tyle.External.Model;
 using Tyle.External.Service;
 using Tyle.Persistence;
 using Tyle.Persistence.Common;
@@ -19,8 +22,21 @@ namespace Tyle.External
 
         public async Task<bool> SupplyData()
         {
-            var externalData = new FetchExternalDataFromCL();
-            var purposeData = await externalData.FetchAllData();
+            //var externalData = new FetchExternalDataFromCL();
+            //var purposeData = await externalData.FetchAllData();
+
+
+
+            var rawData = File.ReadAllText("C:\\Users\\andreas.kristensen\\Downloads\\purposes.txt");
+            var externalData = JsonSerializer.Deserialize<List<ExternalType>>(rawData);
+
+            var purposeData = new List<RdlPurposeRequest>();
+
+            foreach(var item in externalData)
+                purposeData.Add(new RdlPurposeRequest { Iri=item.Identity, Name=item.Name, Description=item.Description});
+
+
+
 
             if (purposeData != null)
             {
@@ -34,7 +50,7 @@ namespace Tyle.External
                     {
                         if (itemFromDb.Name != item.Name || itemFromDb.Description != itemFromDb.Description)
                         {
-                            //Update the purpose
+                            await _purposeRepository.Update(itemFromDb.Id, item);
                         }
                     }
                     else

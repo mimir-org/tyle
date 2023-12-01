@@ -1,8 +1,11 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
 using Tyle.Application.Common.Requests;
+using Tyle.Core.Attributes;
 using Tyle.Core.Common;
+using Tyle.Persistence.Attributes;
 
 namespace Tyle.Persistence.Common;
 
@@ -53,8 +56,21 @@ public class PurposeRepository : IPurposeRepository
         return true;
     }
 
-    public Task<RdlPurpose> Update(RdlPurposeRequest request)
+    public async Task<RdlPurpose> Update(int id, RdlPurposeRequest request)
     {
-        throw new NotImplementedException();
+        var purpose = await _dbSet.AsTracking()
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        if (purpose == null)
+        {
+            return null;
+        }
+
+        purpose.Name = request.Name;
+        purpose.Description = request.Description;
+
+        await _context.SaveChangesAsync();
+
+        return await Get(id);
     }
 }

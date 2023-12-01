@@ -52,4 +52,9 @@ public class ClassifierRepository : IClassifierRepository
 
         return true;
     }
+
+    public Task<RdlClassifier> Update(int id, RdlClassifierRequest request)
+    {
+        throw new NotImplementedException();
+    }
 }
