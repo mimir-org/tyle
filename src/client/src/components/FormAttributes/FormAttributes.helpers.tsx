@@ -10,7 +10,7 @@ export const onAddAttributes = (
   selectedIds.forEach((id) => {
     const targetAttribute = allAttributes.find((x) => x.id === id);
     if (targetAttribute) {
-      append({ attribute: targetAttribute, minCount: 1 });
+      append({ attribute: targetAttribute, minCount: 1, maxCount: null });
     }
   });
 };

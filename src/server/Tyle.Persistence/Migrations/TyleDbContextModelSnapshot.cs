@@ -259,7 +259,7 @@ namespace TypeLibrary.Data.Migrations
                         .HasPrecision(38, 19)
                         .HasColumnType("decimal(38,19)");
 
-                    b.Property<int?>("MinCount")
+                    b.Property<int>("MinCount")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("MinValue")
@@ -355,6 +355,9 @@ namespace TypeLibrary.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int?>("ConnectionPointId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("MaxCount")
                         .HasColumnType("int");
 
@@ -362,6 +365,8 @@ namespace TypeLibrary.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("BlockId", "TerminalId", "Direction");
+
+                    b.HasIndex("ConnectionPointId");
 
                     b.HasIndex("TerminalId");
 
@@ -466,7 +471,7 @@ namespace TypeLibrary.Data.Migrations
                     b.ToTable("ConnectionPoint", (string)null);
                 });
 
-            modelBuilder.Entity("Tyle.Core.Blocks.Symbol", b =>
+            modelBuilder.Entity("Tyle.Core.Blocks.EngineeringSymbol", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -849,6 +854,11 @@ namespace TypeLibrary.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Tyle.Core.Blocks.ConnectionPoint", "ConnectionPoint")
+                        .WithMany()
+                        .HasForeignKey("ConnectionPointId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("Tyle.Core.Terminals.TerminalType", "Terminal")
                         .WithMany()
                         .HasForeignKey("TerminalId")
@@ -856,6 +866,8 @@ namespace TypeLibrary.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Block");
+
+                    b.Navigation("ConnectionPoint");
 
                     b.Navigation("Terminal");
                 });
@@ -867,7 +879,7 @@ namespace TypeLibrary.Data.Migrations
                         .HasForeignKey("PurposeId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("Tyle.Core.Blocks.Symbol", "Symbol")
+                    b.HasOne("Tyle.Core.Blocks.EngineeringSymbol", "Symbol")
                         .WithMany()
                         .HasForeignKey("SymbolId")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -879,7 +891,7 @@ namespace TypeLibrary.Data.Migrations
 
             modelBuilder.Entity("Tyle.Core.Blocks.ConnectionPoint", b =>
                 {
-                    b.HasOne("Tyle.Core.Blocks.Symbol", "Symbol")
+                    b.HasOne("Tyle.Core.Blocks.EngineeringSymbol", "Symbol")
                         .WithMany("ConnectionPoints")
                         .HasForeignKey("SymbolId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -976,7 +988,7 @@ namespace TypeLibrary.Data.Migrations
                     b.Navigation("Terminals");
                 });
 
-            modelBuilder.Entity("Tyle.Core.Blocks.Symbol", b =>
+            modelBuilder.Entity("Tyle.Core.Blocks.EngineeringSymbol", b =>
                 {
                     b.Navigation("ConnectionPoints");
                 });

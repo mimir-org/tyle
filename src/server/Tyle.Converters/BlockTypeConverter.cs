@@ -1,22 +1,45 @@
-using Newtonsoft.Json.Linq;
+using Tyle.Application.Common;
 using Tyle.Converters.Iris;
-using Tyle.Core.Attributes;
 using Tyle.Core.Blocks;
-using Tyle.Core.Terminals;
 using VDS.RDF;
-using VDS.RDF.JsonLd;
 
 namespace Tyle.Converters;
 
-public static class BlockTypeConverter
+public class BlockTypeConverter : IBlockTypeConverter
 {
-    public static void AddBlockType(this IGraph g, BlockType block)
+    private readonly IUserInformationService _userInformationService;
+
+    public BlockTypeConverter(IUserInformationService userInformationService)
     {
+        _userInformationService = userInformationService;
+    }
+
+    public async Task<IGraph> ConvertTypeToGraph(BlockType block)
+    {
+        var g = new Graph();
+
         var blockNode = g.CreateUriNode(new Uri($"http://tyle.imftools.com/blocks/{block.Id}"));
 
         // Add metadata
 
-        g.AddMetadataTriples(blockNode, block);
+        var creator = new UserData
+        {
+            Name = await _userInformationService.GetFullName(block.CreatedBy),
+            Email = await _userInformationService.GetEmail(block.CreatedBy)
+        };
+
+        var contributors = new List<UserData>();
+
+        foreach (var contributor in block.ContributedBy)
+        {
+            contributors.Add(new UserData
+            {
+                Name = await _userInformationService.GetFullName(contributor),
+                Email = await _userInformationService.GetEmail(contributor)
+            });
+        }
+
+        g.AddMetadataTriples(blockNode, block, creator, contributors);
 
         // Add classifier references
 
@@ -40,7 +63,7 @@ public static class BlockTypeConverter
                 g.CreateUriNode(block.Purpose.Iri));
         }
 
-        // Add notation and symbol
+        // Add notation
 
         if (block.Notation != null)
         {
@@ -50,6 +73,8 @@ public static class BlockTypeConverter
                 Sh.HasValue,
                 g.CreateLiteralNode(block.Notation));
         }
+
+        // Add symbol
 
         if (block.Symbol != null)
         {
@@ -93,6 +118,26 @@ public static class BlockTypeConverter
                     g.CreateUriNode(Sh.MaxCount),
                     g.CreateLiteralNode(terminal.MaxCount.ToString(), Xsd.Integer)));
             }
+
+            if (terminal.ConnectionPoint != null)
+            {
+                var isPointOnNode = g.CreateBlankNode();
+                g.Assert(new Triple(isPointOnNode, g.CreateUriNode(Sh.Path), g.CreateUriNode(Sym.IsPointOn)));
+                g.Assert(new Triple(isPointOnNode, g.CreateUriNode(Sh.HasValue), g.CreateUriNode(block.Symbol!.Iri)));
+
+                var identifierNode = g.CreateBlankNode();
+                g.Assert(new Triple(identifierNode, g.CreateUriNode(Sh.Path), g.CreateUriNode(DcTerms.Identifier)));
+                g.Assert(new Triple(identifierNode, g.CreateUriNode(Sh.HasValue), g.CreateLiteralNode(terminal.ConnectionPoint.Identifier)));
+
+                var innerNode = g.CreateBlankNode();
+                g.Assert(new Triple(innerNode, g.CreateUriNode(Sh.Property), isPointOnNode));
+                g.Assert(new Triple(innerNode, g.CreateUriNode(Sh.Property), identifierNode));
+
+                var outerNode = g.CreateBlankNode();
+                g.AddShaclPropertyTriple(outerNode, Imf.Symbol, Sh.Node, innerNode);
+
+                g.Assert(propertyNode, g.CreateUriNode(Sh.Node), outerNode);
+            }
         }
 
         // Add attributes
@@ -118,5 +163,7 @@ public static class BlockTypeConverter
                     g.CreateLiteralNode(attribute.MaxCount.ToString(), Xsd.Integer)));
             }
         }
+
+        return g;
     }
 }

@@ -17,6 +17,8 @@ public class TerminalTypeReferenceRequest : IValidatableObject
     [Required]
     public Guid TerminalId { get; set; }
 
+    public int? ConnectionPointId { get; set; }
+
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
         if (MinCount > MaxCount)

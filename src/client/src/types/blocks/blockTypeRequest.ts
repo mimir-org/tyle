@@ -4,12 +4,12 @@ import { TerminalTypeReferenceRequest } from "./terminalTypeReferenceRequest";
 
 export interface BlockTypeRequest {
   name: string;
-  description?: string;
+  description: string | null;
   classifierIds: number[];
-  purposeId?: number;
-  notation?: string;
-  symbolId?: number;
-  aspect?: Aspect;
+  purposeId: number | null;
+  notation: string | null;
+  symbolId: number | null;
+  aspect: Aspect | null;
   terminals: TerminalTypeReferenceRequest[];
   attributes: AttributeTypeReferenceRequest[];
 }

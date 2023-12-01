@@ -58,21 +58,55 @@ public class BlockTypeRequest : IValidatableObject
             }
         }
 
-        if (!ClassifierIds.Any())
+        if (ClassifierIds.Any())
         {
-            yield break;
-        }
+            var classifierRepository = (IClassifierRepository) validationContext.GetService(typeof(IClassifierRepository))!;
 
-        var classifierRepository = (IClassifierRepository) validationContext.GetService(typeof(IClassifierRepository))!;
-
-        foreach (var classifierId in ClassifierIds)
-        {
-            var classifier = classifierRepository.Get(classifierId).Result;
-
-            if (classifier == null)
+            foreach (var classifierId in ClassifierIds)
             {
-                yield return new ValidationResult($"Couldn't find a classifier with id {classifierId}.");
+                var classifier = classifierRepository.Get(classifierId).Result;
+
+                if (classifier == null)
+                {
+                    yield return new ValidationResult($"Couldn't find a classifier with id {classifierId}.");
+                }
             }
         }
+
+        if (SymbolId == null)
+        {
+            foreach (var terminalTypeReferenceRequest in Terminals)
+            {
+                if (terminalTypeReferenceRequest.ConnectionPointId != null)
+                {
+                    yield return new ValidationResult($"The terminal with id {terminalTypeReferenceRequest.TerminalId} can't be associated with a connection point since the block type has no symbol.");
+                }
+            }
+        }
+        else
+        {
+            var symbolRepository = (ISymbolRepository) validationContext.GetService(typeof(ISymbolRepository))!;
+
+            var symbol = symbolRepository.Get((int) SymbolId).Result;
+
+            if (symbol == null)
+            {
+                yield return new ValidationResult($"Couldn't find a symbol with id {SymbolId}.");
+            }
+            else
+            {
+                var symbolConnectionPointIds = symbol.ConnectionPoints.Select(x => x.Id).ToHashSet();
+
+                foreach (var terminalTypeReferenceRequest in Terminals)
+                {
+                    if (terminalTypeReferenceRequest.ConnectionPointId == null) continue;
+
+                    if (symbolConnectionPointIds.Contains((int) terminalTypeReferenceRequest.ConnectionPointId)) continue;
+
+                    yield return new ValidationResult($"The terminal with id {terminalTypeReferenceRequest.TerminalId} references a connection point not found on the block symbol.");
+                }
+            }
+        }
+
     }
 }

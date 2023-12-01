@@ -2,7 +2,6 @@ import { toast } from "@mimirorg/component-library";
 import { UseQueryResult } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
-import { DefaultValues, KeepStateOptions } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 export const onSubmitForm = <TAm, TCm>(
@@ -15,24 +14,17 @@ export const onSubmitForm = <TAm, TCm>(
   return submissionPromise;
 };
 
-/**
- * Hook ties together data from react query and react hook form binding
- *
- * @param query returns data to fill the form
- * @param mapQueryDataToFormModel takes the response type of the data query and maps it to the form type
- * @param populateForm populates the form with the provided data
- */
 export const usePrefilledForm = <TIn, TOut>(
   query: UseQueryResult<TIn>,
   mapQueryDataToFormModel: (data: TIn) => TOut,
-  populateForm: (values?: DefaultValues<TOut> | TOut, keepStateOptions?: KeepStateOptions) => void,
+  populateForm: (values: TOut) => void,
 ): [isPrefilled: boolean, isLoading: boolean] => {
   const [isPrefilled, setIsPrefilled] = useState(false);
 
   useEffect(() => {
     if (!isPrefilled && query.isSuccess) {
       setIsPrefilled(true);
-      populateForm(mapQueryDataToFormModel(query.data), { keepDefaultValues: false });
+      populateForm(mapQueryDataToFormModel(query.data));
     }
   }, [query.data, query.isSuccess, populateForm, isPrefilled, mapQueryDataToFormModel]);
 

@@ -1,81 +1,77 @@
-import { DevTool } from "@hookform/devtools";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, FormContainer } from "@mimirorg/component-library";
-import FormAttributes from "components/FormAttributes";
-import FormClassifiers from "components/FormClassifiers";
+import { useGetBlock } from "api/block.queries";
 import Loader from "components/Loader";
-import { onSubmitForm, usePrefilledForm, useSubmissionToast } from "helpers/form.helpers";
-import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
-import { useServerValidation } from "hooks/useServerValidation";
-import { FormProvider, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components/macro";
+import TypeFormContainer from "components/TypeFormContainer";
+import { usePrefilledForm } from "helpers/form.helpers";
+import React from "react";
+import { useParams } from "react-router-dom";
 import { BlockView } from "types/blocks/blockView";
 import { FormMode } from "types/formMode";
-import {
-  BlockFormFields,
-  createDefaultBlockFormFields,
-  toBlockFormFields,
-  toBlockTypeRequest,
-  useBlockMutation,
-  useBlockQuery,
-} from "./BlockForm.helpers";
-import BlockFormBaseFields from "./BlockFormBaseFields";
-import FormTerminals from "./FormTerminals";
-import { blockSchema } from "./blockSchema";
+import AttributesForm from "./AttributesForm";
+import BlockBaseForm from "./BlockBaseForm";
+import { BlockFormFields, createEmptyBlockFormFields, toBlockFormFields } from "./BlockForm.helpers";
+import ClassifiersForm from "./ClassifiersForm";
+import ReviewAndCreateForm from "./ReviewAndCreateForm";
+import ReviewAndUpdateForm from "./ReviewAndUpdateForm";
+import SymbolForm from "./SymbolForm";
+import TerminalsForm from "./TerminalsForm";
 
 interface BlockFormProps {
-  defaultValues?: BlockFormFields;
   mode?: FormMode;
 }
 
-const BlockForm = ({ defaultValues = createDefaultBlockFormFields(), mode }: BlockFormProps) => {
-  const theme = useTheme();
-  const { t } = useTranslation("entities");
+export interface BlockFormStepProps {
+  fields: BlockFormFields;
+  setFields: React.Dispatch<React.SetStateAction<BlockFormFields>>;
+}
 
-  const formMethods = useForm<BlockFormFields>({
-    defaultValues: defaultValues,
-    resolver: yupResolver(blockSchema(t)),
-  });
+const BlockForm = ({ mode }: BlockFormProps) => {
+  const [fields, setFields] = React.useState(createEmptyBlockFormFields);
 
-  const { handleSubmit, control, setError, reset } = formMethods;
+  const [activeStep, setActiveStep] = React.useState(0);
+  const currentStepFormRef = React.useRef<HTMLFormElement>(null);
 
-  const query = useBlockQuery();
+  const { id } = useParams();
+  const query = useGetBlock(id);
+
   const mapper = (source: BlockView) => toBlockFormFields(source);
 
-  const [_, isLoading] = usePrefilledForm(query, mapper, reset);
+  const [_, isLoading] = usePrefilledForm(query, mapper, setFields);
 
-  const mutation = useBlockMutation(query.data?.id, mode);
+  const steps = [
+    "Define base characteristics",
+    "Choose classifiers",
+    "Add attributes",
+    "Add terminals",
+    "Select symbol",
+    "Review and submit",
+  ];
 
-  useServerValidation(mutation.error, setError);
-  useNavigateOnCriteria("/", mutation.isSuccess);
+  const stepComponents = [
+    BlockBaseForm,
+    ClassifiersForm,
+    AttributesForm,
+    TerminalsForm,
+    SymbolForm,
+    mode === "edit" ? ReviewAndUpdateForm : ReviewAndCreateForm,
+  ];
 
-  const toast = useSubmissionToast(t("block.title"));
-
-  const limited = false;
+  const FormStep = stepComponents[activeStep];
 
   return (
-    <FormProvider {...formMethods}>
-      <FormContainer
-        onSubmit={handleSubmit((data) => onSubmitForm(toBlockTypeRequest(data), mutation.mutateAsync, toast))}
-      >
-        {isLoading && <Loader />}
-        {!isLoading && (
-          <>
-            <BlockFormBaseFields limited={limited} mode={mode} />
-
-            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
-              <FormClassifiers />
-            </Box>
-            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
-              <FormTerminals />
-              <FormAttributes />
-            </Box>
-          </>
-        )}
-        <DevTool control={control} placement={"bottom-right"} />
-      </FormContainer>
-    </FormProvider>
+    <>
+      {isLoading && <Loader />}
+      {!isLoading && (
+        <TypeFormContainer
+          title={mode === "edit" ? "Edit block type" : "Create block type"}
+          steps={steps}
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+          formRef={currentStepFormRef}
+        >
+          <FormStep fields={fields} setFields={setFields} ref={currentStepFormRef} />
+        </TypeFormContainer>
+      )}
+    </>
   );
 };
 

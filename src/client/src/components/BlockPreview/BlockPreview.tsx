@@ -10,7 +10,7 @@ import Terminals from "./Terminals";
 export interface BlockPreviewProps {
   name: string;
   color: string;
-  symbol?: EngineeringSymbol;
+  symbol: EngineeringSymbol | null;
   terminals: BlockTerminalItem[];
   variant?: "small" | "large";
 }
