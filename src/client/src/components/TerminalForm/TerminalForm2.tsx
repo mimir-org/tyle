@@ -15,6 +15,8 @@ import TerminalBaseForm2 from "./TerminalBaseForm2";
 import MediumAndQualifierForm from "./MediumAndQualifierForm";
 import ClassifiersForm from "./ClassifiersForm";
 import AttributesForm from "./AttributesForm";
+import ReviewAndCreateForm from "./ReviewAndCreateForm";
+import ReviewAndUpdateForm from "./ReviewAndUpdateForm";
 
 interface TerminalForm2Props {
   mode?: FormMode;
@@ -24,14 +26,14 @@ export interface TerminalFormStepProps {
   setFields: React.Dispatch<React.SetStateAction<TerminalFormFields>>;
 }
 
-const TerminalForm2 = ({mode}: TerminalForm2Props) => {
+const TerminalForm2 = ({ mode }: TerminalForm2Props) => {
   const [fields, setFields] = React.useState(createEmptyTerminalFormFields);
 
   const [activeStep, setActiveStep] = React.useState(0);
   const currentStepFormRef = React.useRef<HTMLFormElement>(null);
 
-  const {id} = useParams();
   const query = useTerminalQuery();
+  console.log("Modus fra terminalskjema " + mode);
 
   const mapper = (source: TerminalView) => toTerminalFormFields(source);
 
@@ -49,7 +51,8 @@ const TerminalForm2 = ({mode}: TerminalForm2Props) => {
     TerminalBaseForm2,
     MediumAndQualifierForm,
     ClassifiersForm,
-    AttributesForm
+    AttributesForm,
+    mode === "edit" ? ReviewAndUpdateForm : ReviewAndCreateForm
   ];
 
   const FormStep = stepComponents[activeStep];

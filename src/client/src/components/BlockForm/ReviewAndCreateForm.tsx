@@ -6,7 +6,7 @@ import ReviewAndSubmitForm from "./ReviewAndSubmitForm";
 const ReviewAndUpdateForm = React.forwardRef<HTMLFormElement, BlockFormStepProps>(({ fields }, ref) => {
   const mutation = useCreateBlock();
 
-  return <ReviewAndSubmitForm blockFormFields={fields} mutation={mutation} formRef={ref} mode="edit" />;
+  return <ReviewAndSubmitForm blockFormFields={fields} mutation={mutation} formRef={ref} />;
 });
 
 ReviewAndUpdateForm.displayName = "ReviewAndUpdateForm";
