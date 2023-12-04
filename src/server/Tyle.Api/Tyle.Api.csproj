@@ -35,7 +35,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tyle.Converters\Tyle.Converters.csproj" />
-    <ProjectReference Include="..\Tyle.External\Tyle.External.csproj" />
+    <!--<ProjectReference Include="..\Tyle.External\Tyle.External.csproj" />-->
     <ProjectReference Include="..\Tyle.Persistence\Tyle.Persistence.csproj" />
     <ProjectReference Include="..\Mimirorg.Authentication\Mimirorg.Authentication.csproj" />
   </ItemGroup>
