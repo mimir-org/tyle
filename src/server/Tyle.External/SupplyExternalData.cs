@@ -28,11 +28,11 @@ namespace Tyle.External
 
         public async Task SupplyData()
         {
-     
+
             var purposeExternalData = await GetDataFromCommonlib(ExternalDataType.Purpose, _baseUrlForExternalApi, _commonLibClientOptions);
             await SaveDataToDb(purposeExternalData, ExternalDataType.Purpose);
 
-            
+
 
             //var classifierExternalData = await GetDataFromCommonlib(ExternalDataType.Classifier, _baseUrlForExternalApi, _commonLibClientOptions);
             //await SaveDataToDb(classifierExternalData, ExternalDataType.Classifier);
@@ -76,7 +76,7 @@ namespace Tyle.External
                     throw new Exception("External datatype not found");
             }
 
-            var codes = await client.CodeAsync(library: library, isValid:true);
+            var codes = await client.CodeAsync(library: library, isValid: true);
 
             var returnData = new List<RdlPurposeRequest>();
 
@@ -108,8 +108,8 @@ namespace Tyle.External
                         {
                             await _purposeRepository.Update(itemFromDb.Id, item);
                         }
-                        
-                        if(itemFromDb == null)
+
+                        if (itemFromDb == null)
                         {
                             await _purposeRepository.Create(item);
                         }
@@ -120,5 +120,3 @@ namespace Tyle.External
         }
     }
 }
-
-
