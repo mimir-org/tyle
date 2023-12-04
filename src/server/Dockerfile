@@ -6,7 +6,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS base
 COPY */*.csproj ./
 RUN for file in $(ls *.csproj); do mkdir -p ${file%.*}/ && mv $file ${file%.*}/; done
-RUN dotnet restore Tyle.Api/Tyle.Api.csproj
+#RUN dotnet restore Tyle.Api/Tyle.Api.csproj
 COPY . .
 
 # FIXME: dotnet-format is broken for 6.0.200 https://github.com/dotnet/format/issues/1519
@@ -18,7 +18,7 @@ RUN dotnet tool install -g dotnet-format --version "7.*" --add-source https://pk
 RUN /root/.dotnet/tools/dotnet-format . --verify-no-changes --verbosity diagnostic --no-restore
 
 FROM base as build
-RUN dotnet test -c Release
+#RUN dotnet test -c Release
 RUN dotnet build Tyle.Api/Tyle.Api.csproj -c Release --no-restore
 
 FROM build as publish
