@@ -6,10 +6,11 @@ import { getOptionsFromEnum } from "../../utils";
 import { useGetPurposes } from "../../api/purpose.queries";
 import { TerminalBaseFormWrapper } from "./TerminalBaseForm.styled";
 import {
-  AspectSelectWrapper, DescriptionInputWrapper,
+  AspectSelectWrapper,
+  DescriptionInputWrapper,
   NameInputWrapper,
   NotationInputWrapper,
-  PurposeSelectWrapper
+  PurposeSelectWrapper,
 } from "../BlockForm/BlockBaseForm.styled";
 import { FormField, Input, Select, Textarea } from "@mimirorg/component-library";
 import { DESCRIPTION_LENGTH, NAME_LENGTH, NOTATION_LENGTH } from "../../types/common/stringLengthConstants";
@@ -22,13 +23,12 @@ const TerminalBaseForm = React.forwardRef<HTMLFormElement, TerminalFormStepProps
   const setPurpose = (purpose: RdlPurpose | undefined) => setFields({ ...fields, purpose: purpose ?? null });
   const setDescription = (description: string) => setFields({ ...fields, description });
 
-
   const aspectOptions = getOptionsFromEnum<Aspect>(Aspect);
 
   const purposeQuery = useGetPurposes();
   const purposeOptions = purposeQuery.data?.map((purpose) => ({
     value: purpose,
-    label: purpose.name
+    label: purpose.name,
   }));
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

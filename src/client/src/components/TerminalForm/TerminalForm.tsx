@@ -3,7 +3,7 @@ import {
   createEmptyTerminalFormFields,
   TerminalFormFields,
   toTerminalFormFields,
-  useTerminalQuery
+  useTerminalQuery,
 } from "./TerminalForm.helpers";
 import React from "react";
 import { TerminalView } from "../../types/terminals/terminalView";
@@ -17,7 +17,7 @@ import AttributesForm from "./AttributesForm";
 import ReviewAndCreateForm from "./ReviewAndCreateForm";
 import ReviewAndUpdateForm from "./ReviewAndUpdateForm";
 
-interface TerminalForm2Props {
+interface TerminalFormProps {
   mode?: FormMode;
 }
 export interface TerminalFormStepProps {
@@ -25,7 +25,7 @@ export interface TerminalFormStepProps {
   setFields: React.Dispatch<React.SetStateAction<TerminalFormFields>>;
 }
 
-const TerminalForm = ({ mode }: TerminalForm2Props) => {
+const TerminalForm = ({ mode }: TerminalFormProps) => {
   const [fields, setFields] = React.useState(createEmptyTerminalFormFields);
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -50,7 +50,7 @@ const TerminalForm = ({ mode }: TerminalForm2Props) => {
     MediumAndQualifierForm,
     ClassifiersForm,
     AttributesForm,
-    mode === "edit" ? ReviewAndUpdateForm : ReviewAndCreateForm
+    mode === "edit" ? ReviewAndUpdateForm : ReviewAndCreateForm,
   ];
 
   const FormStep = stepComponents[activeStep];
@@ -70,7 +70,7 @@ const TerminalForm = ({ mode }: TerminalForm2Props) => {
         </TypeFormContainer>
       )}
     </>
-  )
-}
+  );
+};
 
 export default TerminalForm;

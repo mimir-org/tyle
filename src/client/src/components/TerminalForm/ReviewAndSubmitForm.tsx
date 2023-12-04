@@ -20,7 +20,7 @@ interface ReviewAndSubmitProps {
 const ReviewAndSubmitForm = ({ terminalFormFields, mutation, formRef, mode }: ReviewAndSubmitProps) => {
   useNavigateOnCriteria("/", mutation.isSuccess);
 
-  const toast = useSubmissionToast("block");
+  const toast = useSubmissionToast("terminal");
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -51,8 +51,7 @@ const ReviewAndSubmitForm = ({ terminalFormFields, mutation, formRef, mode }: Re
             <Td>Description</Td>
             <Td>{terminalFormFields.description}</Td>
           </Tr>
-          <Tr>
-          </Tr>
+          <Tr></Tr>
           <Tr>
             <Td>Medium</Td>
             <Td>{terminalFormFields.medium ? terminalFormFields.medium.name : "undefined"}</Td>
@@ -61,8 +60,7 @@ const ReviewAndSubmitForm = ({ terminalFormFields, mutation, formRef, mode }: Re
             <Td>Qualifier</Td>
             <Td>{Direction[terminalFormFields.qualifier]}</Td>
           </Tr>
-          <Tr>
-          </Tr>
+          <Tr></Tr>
           <Tr>
             <Td>Classifiers</Td>
             <Td>
@@ -71,8 +69,7 @@ const ReviewAndSubmitForm = ({ terminalFormFields, mutation, formRef, mode }: Re
                 : "none"}
             </Td>
           </Tr>
-          <Tr>
-          </Tr>
+          <Tr></Tr>
           <Tr>
             <Td>Attributes</Td>
             <Td>

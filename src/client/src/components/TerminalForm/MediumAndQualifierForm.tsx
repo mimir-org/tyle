@@ -5,27 +5,31 @@ import { Direction } from "../../types/terminals/direction";
 import { useGetMedia } from "../../api/medium.queries";
 import { getOptionsFromEnum } from "../../utils";
 import { FormField, Select } from "@mimirorg/component-library";
-import { MediumAndQualifierFormWrapper, MediumSelectWrapper, QualifierSelectWrapper } from "./MediumAndQualifiersForm.styled";
+import {
+  MediumAndQualifierFormWrapper,
+  MediumSelectWrapper,
+  QualifierSelectWrapper,
+} from "./MediumAndQualifiersForm.styled";
 
+const MediumAndQualifierForm = React.forwardRef<HTMLFormElement, TerminalFormStepProps>(
+  ({ fields, setFields }, ref) => {
+    const { medium, qualifier } = fields;
 
-const MediumAndQualifierForm = React.forwardRef<HTMLFormElement, TerminalFormStepProps>(({ fields, setFields }, ref) => {
-  const {medium, qualifier} = fields;
+    const setMedium = (medium: RdlMedium | undefined) => setFields({ ...fields, medium: medium ?? null });
+    const setQualifier = (qualifier: Direction) => setFields({ ...fields, qualifier: qualifier });
 
-  const setMedium = (medium: RdlMedium | undefined ) => setFields({...fields, medium: medium ?? null});
-  const setQualifier = (qualifier: Direction ) => setFields({...fields, qualifier: qualifier});
+    const mediumQuery = useGetMedia();
+    const mediumOptions = mediumQuery.data?.map((medium) => ({
+      value: medium,
+      label: medium.name,
+    }));
+    const qualifierOptions = getOptionsFromEnum<Direction>(Direction);
 
-  const mediumQuery = useGetMedia();
-  const mediumOptions = mediumQuery.data?.map((medium) =>  ({
-    value: medium,
-    label: medium.name
-  }));
-  const qualifierOptions = getOptionsFromEnum<Direction>(Direction);
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+    };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
-
-  return (
+    return (
       <MediumAndQualifierFormWrapper onSubmit={handleSubmit} ref={ref}>
         <MediumSelectWrapper>
           <FormField label="Medium">
@@ -45,7 +49,8 @@ const MediumAndQualifierForm = React.forwardRef<HTMLFormElement, TerminalFormSte
             <Select
               options={qualifierOptions}
               onChange={(x) => {
-                setQualifier(x?.value);
+                // @ts-ignore
+                setQualifier(x.value);
               }}
               value={qualifierOptions?.find((x) => x.value === qualifier)}
               isClearable={true}
@@ -54,7 +59,8 @@ const MediumAndQualifierForm = React.forwardRef<HTMLFormElement, TerminalFormSte
         </QualifierSelectWrapper>
       </MediumAndQualifierFormWrapper>
     );
-});
+  },
+);
 
 MediumAndQualifierForm.displayName = "MediumAndQualifierForm";
 

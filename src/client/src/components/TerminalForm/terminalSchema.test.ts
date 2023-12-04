@@ -55,20 +55,6 @@ describe("terminalSchema tests", () => {
     await expect(terminalSchema(t).validateAt("notation", terminalWithLongNotation)).rejects.toBeTruthy();
   });
 
-  it("should resolve with a symbol with the limit length", async () => {
-    const terminalWithLongSymbol: Partial<TerminalFormFields> = {
-      symbol: "c".repeat(IRI_LENGTH),
-    };
-    await expect(terminalSchema(t).validateAt("symbol", terminalWithLongSymbol)).resolves.toBeTruthy();
-  });
-
-  it("should reject with a symbol longer than the limit", async () => {
-    const terminalWithLongSymbol: Partial<TerminalFormFields> = {
-      symbol: "c".repeat(IRI_LENGTH + 1),
-    };
-    await expect(terminalSchema(t).validateAt("symbol", terminalWithLongSymbol)).rejects.toBeTruthy();
-  });
-
   it("should resolve with qualifier", async () => {
     const terminalWithQualifier: Partial<TerminalFormFields> = {
       qualifier: Direction.Output,

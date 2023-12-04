@@ -43,13 +43,13 @@ export const createEmptyTerminalFormFields = (): TerminalFormFields => ({
   aspect: null,
   medium: null,
   qualifier: Direction.Bidirectional,
-  attributes: []
+  attributes: [],
 });
 
 export const toTerminalFormFields = (terminal: TerminalView): TerminalFormFields => ({
   ...terminal,
   description: terminal.description ?? "",
-  notation: terminal.notation ?? ""
+  notation: terminal.notation ?? "",
 });
 
 export const toTerminalTypeRequest = (terminalFormFields: TerminalFormFields): TerminalTypeRequest => ({
@@ -67,6 +67,6 @@ export const mediumInfoItem = (medium: RdlMedium): InfoItem => ({
   name: medium.name,
   descriptors: {
     Description: medium.description,
-    IRI: medium.iri
-  }
+    IRI: medium.iri,
+  },
 });

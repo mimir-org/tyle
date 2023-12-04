@@ -9,6 +9,6 @@ const ReviewAndUpdateForm = React.forwardRef<HTMLFormElement, TerminalFormStepPr
   return <ReviewAndSubmitForm terminalFormFields={fields} mutation={mutation} formRef={ref} />;
 });
 
-ReviewAndUpdateForm.displayName = "ReviewAndUpdateForm";
+ReviewAndUpdateForm.displayName = "ReviewAndCreateForm";
 
 export default ReviewAndUpdateForm;
