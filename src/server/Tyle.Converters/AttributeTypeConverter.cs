@@ -1,22 +1,46 @@
 using System.Globalization;
-using Newtonsoft.Json.Linq;
+using Tyle.Application.Common;
 using Tyle.Converters.Iris;
 using Tyle.Core.Attributes;
 using VDS.RDF;
-using VDS.RDF.JsonLd;
-using VDS.RDF.Writing;
 
 namespace Tyle.Converters;
 
-public static class AttributeTypeConverter
+public class AttributeTypeConverter : IAttributeTypeConverter
 {
-    public static void AddAttributeType(this IGraph g, AttributeType attribute)
+    private readonly IUserInformationService _userInformationService;
+
+    public AttributeTypeConverter(IUserInformationService userInformationService)
     {
+        _userInformationService = userInformationService;
+    }
+
+    public async Task<IGraph> ConvertTypeToGraph(AttributeType attribute)
+    {
+        var g = new Graph();
+
         var attributeNode = g.CreateUriNode(new Uri($"http://tyle.imftools.com/attributes/{attribute.Id}"));
 
         // Add metadata
 
-        g.AddMetadataTriples(attributeNode, attribute);
+        var creator = new UserData
+        {
+            Name = await _userInformationService.GetFullName(attribute.CreatedBy),
+            Email = await _userInformationService.GetEmail(attribute.CreatedBy)
+        };
+
+        var contributors = new List<UserData>();
+
+        foreach (var contributor in attribute.ContributedBy)
+        {
+            contributors.Add(new UserData
+            {
+                Name = await _userInformationService.GetFullName(contributor),
+                Email = await _userInformationService.GetEmail(contributor)
+            });
+        }
+
+        g.AddMetadataTriples(attributeNode, attribute, creator, contributors);
 
         // Add predicate reference
 
@@ -205,5 +229,7 @@ public static class AttributeTypeConverter
                     break;
             }
         }
+
+        return g;
     }
 }

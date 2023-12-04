@@ -1,5 +1,3 @@
-import { useCreateBlock, useGetBlock, useUpdateBlock } from "api/block.queries";
-import { useParams } from "react-router-dom";
 import { BlockTypeRequest } from "types/blocks/blockTypeRequest";
 import { BlockView } from "types/blocks/blockView";
 import { ConnectionPoint } from "types/blocks/connectionPoint";
@@ -8,19 +6,7 @@ import { Aspect } from "types/common/aspect";
 import { AttributeTypeReferenceView } from "types/common/attributeTypeReferenceView";
 import { RdlClassifier } from "types/common/rdlClassifier";
 import { RdlPurpose } from "types/common/rdlPurpose";
-import { FormMode } from "types/formMode";
 import { Direction } from "types/terminals/direction";
-
-export const useBlockQuery = () => {
-  const { id } = useParams();
-  return useGetBlock(id);
-};
-
-export const useBlockMutation = (id?: string, mode?: FormMode) => {
-  const blockUpdateMutation = useUpdateBlock(id ?? "");
-  const blockCreateMutation = useCreateBlock();
-  return mode === "edit" ? blockUpdateMutation : blockCreateMutation;
-};
 
 export interface BlockFormFields {
   name: string;

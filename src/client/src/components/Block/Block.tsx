@@ -6,7 +6,7 @@ import BlockContainer, { BlockContainerProps } from "./Block.styled";
 
 export type BlockProps = BlockContainerProps & {
   name: string;
-  symbol?: EngineeringSymbol;
+  symbol: EngineeringSymbol | null;
 };
 
 /**

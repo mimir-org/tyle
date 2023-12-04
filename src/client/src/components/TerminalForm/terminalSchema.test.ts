@@ -1,4 +1,4 @@
-import { DESCRIPTION_LENGTH, IRI_LENGTH, NAME_LENGTH, NOTATION_LENGTH } from "types/common/stringLengthConstants";
+import { DESCRIPTION_LENGTH, NAME_LENGTH, NOTATION_LENGTH } from "types/common/stringLengthConstants";
 import { Direction } from "types/terminals/direction";
 import { vi } from "vitest";
 import { TerminalFormFields } from "./TerminalForm.helpers";
@@ -53,20 +53,6 @@ describe("terminalSchema tests", () => {
       notation: "c".repeat(NOTATION_LENGTH + 1),
     };
     await expect(terminalSchema(t).validateAt("notation", terminalWithLongNotation)).rejects.toBeTruthy();
-  });
-
-  it("should resolve with a symbol with the limit length", async () => {
-    const terminalWithLongSymbol: Partial<TerminalFormFields> = {
-      symbol: "c".repeat(IRI_LENGTH),
-    };
-    await expect(terminalSchema(t).validateAt("symbol", terminalWithLongSymbol)).resolves.toBeTruthy();
-  });
-
-  it("should reject with a symbol longer than the limit", async () => {
-    const terminalWithLongSymbol: Partial<TerminalFormFields> = {
-      symbol: "c".repeat(IRI_LENGTH + 1),
-    };
-    await expect(terminalSchema(t).validateAt("symbol", terminalWithLongSymbol)).rejects.toBeTruthy();
   });
 
   it("should resolve with qualifier", async () => {

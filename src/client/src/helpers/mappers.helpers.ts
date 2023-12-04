@@ -41,7 +41,7 @@ export const toTerminalItem = (terminal: TerminalView): TerminalItem => {
     id: terminal.id,
     name: terminal.name,
     description: terminal.description ?? "",
-    color: getColorFromAspect(terminal.aspect),
+    color: getColorFromAspect(terminal.aspect ?? null),
     attributes: sortInfoItems(mapAttributeViewsToInfoItems(terminal.attributes.map((x) => x.attribute))),
     tokens: [currentStateLabel],
     kind: "TerminalItem",
@@ -73,7 +73,7 @@ const mapBlockTerminalLibCmsToBlockTerminalItems = (terminals: TerminalTypeRefer
   terminals.map((x) => ({
     id: x.terminal.id,
     name: x.terminal.name,
-    color: getColorFromAspect(x.terminal.aspect),
+    color: getColorFromAspect(x.terminal.aspect ?? null),
     maxQuantity: x.maxCount ?? undefined,
     direction: x.direction,
     attributes: sortInfoItems(mapAttributeViewsToInfoItems(x.terminal.attributes.map((x) => x.attribute))),
