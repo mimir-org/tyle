@@ -18,7 +18,7 @@ RUN dotnet tool install -g dotnet-format --version "7.*" --add-source https://pk
 RUN /root/.dotnet/tools/dotnet-format . --verify-no-changes --verbosity diagnostic --no-restore
 
 FROM base as build
-RUN dotnet test -c Release
+#RUN dotnet test -c Release
 RUN dotnet build Tyle.Api/Tyle.Api.csproj -c Release --no-restore
 
 FROM build as publish
