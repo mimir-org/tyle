@@ -1,8 +1,5 @@
 using Azure.Identity;
-using Equinor.TI.CommonLibrary.Client;
-using Statoil.TI.CommonLibrary.Entities;
-using System.Data.SqlTypes;
-using System.Text.Json;
+//using Equinor.TI.CommonLibrary.Client;
 using Tyle.Application.Common;
 using Tyle.Application.Common.Requests;
 using Tyle.External.Model;
@@ -45,49 +42,51 @@ namespace Tyle.External
         private async Task<List<RdlPurposeRequest>> GetDataFromCommonlib(ExternalDataType typeData, string baseUrl, string commonLibClientOptions)
         {
             var tokenCredential = new AzureCliCredential();
-            var clientOptions = new CommonLibraryClientOptions
-            {
-                CommonLibraryAppId = commonLibClientOptions,
-                CommonLibraryApiBaseAddress = baseUrl
-            };
+            //var clientOptions = new CommonLibraryClientOptions
+            //{
+            //    CommonLibraryAppId = commonLibClientOptions,
+            //    CommonLibraryApiBaseAddress = baseUrl
+            //};
 
-            var client = new CommonLibraryClient(clientOptions, tokenCredential);
+            //var client = new CommonLibraryClient(clientOptions, tokenCredential);
 
-            var library = String.Empty;
+            //var library = String.Empty;
 
-            switch (typeData)
-            {
-                case ExternalDataType.Purpose:
-                    library = "IMFPurpose";
-                    break;
-                case ExternalDataType.Classifier:
-                    //TODO
-                    break;
-                case ExternalDataType.Medium:
-                    //TODO
-                    break;
-                case ExternalDataType.Predicate:
-                    //TODO
-                    break;
-                case ExternalDataType.Unit:
-                    //TODO
-                    break;
-                default:
-                    throw new Exception("External datatype not found");
-            }
+            //switch (typeData)
+            //{
+            //    case ExternalDataType.Purpose:
+            //        library = "IMFPurpose";
+            //        break;
+            //    case ExternalDataType.Classifier:
+            //        //TODO
+            //        break;
+            //    case ExternalDataType.Medium:
+            //        //TODO
+            //        break;
+            //    case ExternalDataType.Predicate:
+            //        //TODO
+            //        break;
+            //    case ExternalDataType.Unit:
+            //        //TODO
+            //        break;
+            //    default:
+            //        throw new Exception("External datatype not found");
+            //}
 
-            var codes = await client.CodeAsync(library: library, isValid: true);
+            //var codes = await client.CodeAsync(library: library, isValid: true);
 
-            var returnData = new List<RdlPurposeRequest>();
+            //var returnData = new List<RdlPurposeRequest>();
 
-            if (codes != null)
-            {
-                foreach (var code in codes)
-                {
-                    returnData.Add(new RdlPurposeRequest { Description = code.Description, Iri = code.Identity, Name = code.Name });
-                }
-            }
-            return returnData;
+            //if (codes != null)
+            //{
+            //    foreach (var code in codes)
+            //    {
+            //        returnData.Add(new RdlPurposeRequest { Description = code.Description, Iri = code.Identity, Name = code.Name });
+            //    }
+            //}
+            //return returnData;
+
+            return null;
         }
 
         private async Task SaveDataToDb(List<RdlPurposeRequest> externalData, ExternalDataType typeData)
