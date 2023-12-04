@@ -1,87 +1,74 @@
-import { DevTool } from "@hookform/devtools";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
+import { useGetAttribute } from "api/attribute.queries";
 import Loader from "components/Loader";
-import PlainLink from "components/PlainLink";
-import { onSubmitForm, usePrefilledForm, useSubmissionToast } from "helpers/form.helpers";
-import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
-import { useServerValidation } from "hooks/useServerValidation";
-import { FormProvider, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components";
+import TypeFormContainer from "components/TypeFormContainer";
+import ValueConstraintForm from "components/ValueConstraintForm";
+import { usePrefilledForm } from "helpers/form.helpers";
+import React from "react";
+import { useParams } from "react-router-dom";
 import { AttributeView } from "types/attributes/attributeView";
 import { FormMode } from "types/formMode";
-import {
-  AttributeFormFields,
-  createDefaultAttributeFormFields,
-  toAttributeFormFields,
-  toAttributeTypeRequest,
-  useAttributeMutation,
-  useAttributeQuery,
-} from "./AttributeForm.helpers";
-import AttributeFormBaseFields from "./AttributeFormBaseFields";
-import AttributeFormUnits from "./AttributeFormUnits";
-import ValueConstraintForm from "./ValueConstraintForm";
-import { attributeSchema } from "./attributeSchema";
+import AttributeBaseForm from "./AttributeBaseForm";
+import { AttributeFormFields, createEmptyAttributeFormFields, toAttributeFormFields } from "./AttributeForm.helpers";
+import QualifiersForm from "./QualifiersForm";
+import ReviewAndCreateForm from "./ReviewAndCreateForm";
+import ReviewAndUpdateForm from "./ReviewAndUpdateForm";
+import UnitsForm from "./UnitsForm";
 
 interface AttributeFormProps {
-  defaultValues?: AttributeFormFields;
   mode?: FormMode;
 }
 
-const AttributeForm = ({ defaultValues = createDefaultAttributeFormFields(), mode }: AttributeFormProps) => {
-  const { t } = useTranslation("entities");
-  const theme = useTheme();
+export interface AttributeFormStepProps {
+  fields: AttributeFormFields;
+  setFields: React.Dispatch<React.SetStateAction<AttributeFormFields>>;
+}
 
-  const formMethods = useForm<AttributeFormFields>({
-    defaultValues: defaultValues,
-    resolver: yupResolver(attributeSchema(t)),
-  });
+const AttributeForm = ({ mode }: AttributeFormProps) => {
+  const [fields, setFields] = React.useState<AttributeFormFields>(createEmptyAttributeFormFields);
 
-  const { handleSubmit, control, setError, reset } = formMethods;
+  const [activeStep, setActiveStep] = React.useState(0);
+  const currentStepFormRef = React.useRef<HTMLFormElement>(null);
 
-  const query = useAttributeQuery();
+  const { id } = useParams();
+  const query = useGetAttribute(id);
+
   const mapper = (source: AttributeView) => toAttributeFormFields(source);
-  const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
-  const mutation = useAttributeMutation(query.data?.id, mode);
-  useServerValidation(mutation.error, setError);
-  useNavigateOnCriteria("/", mutation.isSuccess);
+  const [_, isLoading] = usePrefilledForm(query, mapper, setFields);
 
-  const toast = useSubmissionToast(t("attribute.title"));
+  const steps = [
+    "Define base characteristics",
+    "Choose qualifiers",
+    "Add units",
+    "Add value constraint",
+    "Review and submit",
+  ];
+
+  const stepComponents = [
+    AttributeBaseForm,
+    QualifiersForm,
+    UnitsForm,
+    ValueConstraintForm,
+    mode === "edit" ? ReviewAndUpdateForm : ReviewAndCreateForm,
+  ];
+
+  const FormStep = stepComponents[activeStep];
 
   return (
-    <FormProvider {...formMethods}>
-      <FormContainer
-        onSubmit={handleSubmit((data) => onSubmitForm(toAttributeTypeRequest(data), mutation.mutateAsync, toast))}
-      >
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.mimirorg.spacing.multiple(6)}>
-            <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
-              <Text variant={"display-small"}>{t("attribute.title")}</Text>
-              <AttributeFormBaseFields limited={false} />
-              <Flexbox justifyContent={"center"} gap={theme.mimirorg.spacing.xl}>
-                <PlainLink tabIndex={-1} to={"/"}>
-                  <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
-                    {t("common.cancel")}
-                  </Button>
-                </PlainLink>
-                <Button type={"submit"}>{mode === "edit" ? t("common.edit") : t("common.submit")}</Button>
-              </Flexbox>
-            </Flexbox>
-            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
-              <AttributeFormUnits />
-            </Box>
-            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
-              <ValueConstraintForm />
-            </Box>
-          </Box>
-        )}
-        <DevTool control={control} placement={"bottom-right"} />
-      </FormContainer>
-    </FormProvider>
+    <>
+      {isLoading && <Loader />}
+      {!isLoading && (
+        <TypeFormContainer
+          title={mode === "edit" ? "Edit attribute type" : "Create attribute type"}
+          steps={steps}
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+          formRef={currentStepFormRef}
+        >
+          <FormStep fields={fields} setFields={setFields} ref={currentStepFormRef} />
+        </TypeFormContainer>
+      )}
+    </>
   );
 };
 

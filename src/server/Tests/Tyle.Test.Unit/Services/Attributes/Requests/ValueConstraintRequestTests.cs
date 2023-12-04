@@ -16,67 +16,11 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
     }
 
     [Theory]
-    [InlineData(null, true)]
-    [InlineData(0, false)]
-    [InlineData(1, false)]
-    public void HasValueDemandsMinCountIsNull(int? minCount, bool result)
-    {
-        var valueConstraintRequest = new ValueConstraintRequest
-        {
-            ConstraintType = ConstraintType.HasValue,
-            Value = "15",
-            DataType = XsdDataType.Integer,
-            MinCount = minCount
-        };
-
-        var validationContext = new ValidationContext(valueConstraintRequest);
-
-        var results = valueConstraintRequest.Validate(validationContext);
-
-        Assert.Equal(result, results.IsNullOrEmpty());
-    }
-
-    [Theory]
-    [InlineData(null, false)]
-    [InlineData(0, true)]
-    [InlineData(1, true)]
-    public void MinCountMustBeSetForConstraintsOtherThanHasValue(int? minCount, bool result)
-    {
-        var valueConstraintRequest = new ValueConstraintRequest
-        {
-            ConstraintType = ConstraintType.Range,
-            DataType = XsdDataType.Integer,
-            MinCount = minCount,
-            MinValue = 15
-        };
-
-        var validationContext = new ValidationContext(valueConstraintRequest);
-
-        var results = valueConstraintRequest.Validate(validationContext);
-
-        Assert.Equal(result, results.IsNullOrEmpty());
-
-        valueConstraintRequest = new ValueConstraintRequest
-        {
-            ConstraintType = ConstraintType.In,
-            DataType = XsdDataType.String,
-            MinCount = minCount,
-            ValueList = new List<string>() { "A", "B", "C" }
-        };
-
-        validationContext = new ValidationContext(valueConstraintRequest);
-
-        results = valueConstraintRequest.Validate(validationContext);
-
-        Assert.Equal(result, results.IsNullOrEmpty());
-    }
-
-    [Theory]
     [InlineData(0, 2, true)]
     [InlineData(3, 3, true)]
     [InlineData(1, null, true)]
     [InlineData(5, 1, false)]
-    public void MinCountMustBeSmallerThanOrEqualToMaxCount(int? minCount, int? maxCount, bool result)
+    public void MinCountMustBeSmallerThanOrEqualToMaxCount(int minCount, int? maxCount, bool result)
     {
         var valueConstraintRequest = new ValueConstraintRequest
         {
@@ -153,7 +97,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
 
     [Theory]
     [MemberData(nameof(AllowedValuesExamples))]
-    public void AtLeastTwoValuesMustBeProvidedForConstraintTypeIn(ICollection<string> values, bool result)
+    public void AtLeastOneValueMustBeProvidedForConstraintTypeIn(ICollection<string> values, bool result)
     {
         var valueConstraintRequest = new ValueConstraintRequest
         {
@@ -173,7 +117,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
     public static IEnumerable<object[]> AllowedValuesExamples()
     {
         yield return new object[] { new List<string>(), false };
-        yield return new object[] { new List<string> { "single" }, false };
+        yield return new object[] { new List<string> { "single" }, true };
         yield return new object[] { new List<string> { "one", "two" }, true };
         yield return new object[] { new List<string> { "one", "two", "three" }, true };
     }
@@ -282,7 +226,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
         yield return new object?[] { null, null, false };
         yield return new object?[] { 1M, null, true };
         yield return new object?[] { null, 2000M, true };
-        yield return new object?[] { 23.4M, 23.4M, false };
+        yield return new object?[] { 23.4M, 23.4M, true };
         yield return new object?[] { 23.4M, 23.5M, true };
         yield return new object?[] { 23.5M, 23.4M, false };
     }
@@ -310,16 +254,14 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
     public static IEnumerable<object?[]> RangeBoundsExamplesWithIntConversion()
     {
         yield return new object?[] { 1M, 2M, true };
-        yield return new object?[] { 1M, 1.2M, false };
-        yield return new object?[] { 1M, 1.7M, false };
-        yield return new object?[] { 2.6M, 2.7M, false };
+        yield return new object?[] { 1M, 0.8M, false };
+        yield return new object?[] { 1M, 1.7M, true };
+        yield return new object?[] { 2.6M, 2.7M, true };
     }
 
     [Theory]
     [InlineData("", XsdDataType.String, false)]
     [InlineData("test", XsdDataType.String, true)]
-    [InlineData("www.vg.no", XsdDataType.AnyUri, false)]
-    [InlineData("http://example.com/123", XsdDataType.AnyUri, true)]
     [InlineData("15", XsdDataType.Decimal, true)]
     [InlineData("-11.5", XsdDataType.Decimal, true)]
     [InlineData("15,342", XsdDataType.Decimal, false)]

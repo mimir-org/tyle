@@ -9,7 +9,7 @@ namespace Tyle.Converters;
 
 public static class RdfTripleBuilder
 {
-    public static void AddMetadataTriples(this IGraph g, INode typeNode, ImfType type)
+    public static void AddMetadataTriples(this IGraph g, INode typeNode, ImfType type, UserData creator, IEnumerable<UserData> contributors)
     {
         var (rdfType, rdfsSubClassOf) = GetImfClass(type);
 
@@ -27,8 +27,37 @@ public static class RdfTripleBuilder
 
         g.Assert(new Triple(typeNode, g.CreateUriNode(Pav.Version), g.CreateLiteralNode(type.Version)));
         g.Assert(new Triple(typeNode, g.CreateUriNode(DcTerms.Created), g.CreateLiteralNode(type.CreatedOn.ToString("o"), Xsd.DateTime)));
+        g.Assert(new Triple(typeNode, g.CreateUriNode(DcTerms.Modified), g.CreateLiteralNode(type.LastUpdateOn.ToString("o"), Xsd.DateTime)));
 
-        // TODO: Created by, contributed by, last update on
+        if (creator.Name != null || creator.Email != null)
+        {
+            var creatorNode = g.CreateBlankNode();
+            if (creator.Name != null)
+            {
+                g.Assert(new Triple(creatorNode, g.CreateUriNode(Foaf.Name), g.CreateLiteralNode(creator.Name)));
+            }
+            if (creator.Email != null)
+            {
+                g.Assert(new Triple(creatorNode, g.CreateUriNode(Foaf.MBox), g.CreateLiteralNode(creator.Email)));
+            }
+
+            g.Assert(new Triple(typeNode, g.CreateUriNode(DcTerms.Creator), creatorNode));
+        }
+
+        foreach (var contributor in contributors)
+        {
+            var contributorNode = g.CreateBlankNode();
+            if (contributor.Name != null)
+            {
+                g.Assert(new Triple(contributorNode, g.CreateUriNode(Foaf.Name), g.CreateLiteralNode(contributor.Name)));
+            }
+            if (contributor.Email != null)
+            {
+                g.Assert(new Triple(contributorNode, g.CreateUriNode(Foaf.MBox), g.CreateLiteralNode(contributor.Email)));
+            }
+
+            g.Assert(new Triple(typeNode, g.CreateUriNode(DcTerms.Contributor), contributorNode));
+        }
     }
 
     public static void AddShaclPropertyTriple(this IGraph g, INode root, Uri path, Uri constraint, INode value)

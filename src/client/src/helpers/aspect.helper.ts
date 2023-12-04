@@ -1,6 +1,6 @@
 import { Aspect } from "types/common/aspect";
 
-export const getColorFromAspect = (aspect?: Aspect) => {
+export const getColorFromAspect = (aspect: Aspect | null) => {
   switch (aspect) {
     case Aspect.Function:
       return "hsl(57,99%,63%)";

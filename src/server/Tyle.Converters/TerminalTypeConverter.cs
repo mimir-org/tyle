@@ -1,21 +1,45 @@
-using Newtonsoft.Json.Linq;
+using Tyle.Application.Common;
 using Tyle.Converters.Iris;
 using Tyle.Core.Terminals;
 using VDS.RDF;
-using VDS.RDF.JsonLd;
-using VDS.RDF.Writing;
 
 namespace Tyle.Converters;
 
-public static class TerminalTypeConverter
+public class TerminalTypeConverter : ITerminalTypeConverter
 {
-    public static void AddTerminalType(this IGraph g, TerminalType terminal)
+    private readonly IUserInformationService _userInformationService;
+
+    public TerminalTypeConverter(IUserInformationService userInformationService)
     {
+        _userInformationService = userInformationService;
+    }
+
+    public async Task<IGraph> ConvertTypeToGraph(TerminalType terminal)
+    {
+        var g = new Graph();
+
         var terminalNode = g.CreateUriNode(new Uri($"http://tyle.imftools.com/terminals/{terminal.Id}"));
 
         // Add metadata
 
-        g.AddMetadataTriples(terminalNode, terminal);
+        var creator = new UserData
+        {
+            Name = await _userInformationService.GetFullName(terminal.CreatedBy),
+            Email = await _userInformationService.GetEmail(terminal.CreatedBy)
+        };
+
+        var contributors = new List<UserData>();
+
+        foreach (var contributor in terminal.ContributedBy)
+        {
+            contributors.Add(new UserData
+            {
+                Name = await _userInformationService.GetFullName(contributor),
+                Email = await _userInformationService.GetEmail(contributor)
+            });
+        }
+
+        g.AddMetadataTriples(terminalNode, terminal, creator, contributors);
 
         // Add classifier references
 
@@ -115,5 +139,7 @@ public static class TerminalTypeConverter
                     g.CreateLiteralNode(attribute.MaxCount.ToString(), Xsd.Integer)));
             }
         }
+
+        return g;
     }
 }

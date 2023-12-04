@@ -8,10 +8,10 @@ import { TerminalTypeReferenceView } from "./terminalTypeReferenceView";
 
 export interface BlockView extends ImfType {
   classifiers: RdlClassifier[];
-  purpose?: RdlPurpose;
-  notation?: string;
-  symbol?: EngineeringSymbol;
-  aspect?: Aspect;
+  purpose: RdlPurpose | null;
+  notation: string | null;
+  symbol: EngineeringSymbol | null;
+  aspect: Aspect | null;
   terminals: TerminalTypeReferenceView[];
   attributes: AttributeTypeReferenceView[];
 }
