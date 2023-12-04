@@ -1,4 +1,4 @@
-import { DESCRIPTION_LENGTH, IRI_LENGTH, NAME_LENGTH, NOTATION_LENGTH } from "types/common/stringLengthConstants";
+import { DESCRIPTION_LENGTH, NAME_LENGTH, NOTATION_LENGTH } from "types/common/stringLengthConstants";
 import { Direction } from "types/terminals/direction";
 import { vi } from "vitest";
 import { TerminalFormFields } from "./TerminalForm.helpers";

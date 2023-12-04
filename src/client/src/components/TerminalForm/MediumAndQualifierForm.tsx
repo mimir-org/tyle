@@ -49,7 +49,7 @@ const MediumAndQualifierForm = React.forwardRef<HTMLFormElement, TerminalFormSte
             <Select
               options={qualifierOptions}
               onChange={(x) => {
-                // @ts-ignore
+                // @ts-expect-error: Cannot be null. Qualifier is a static enum.
                 setQualifier(x.value);
               }}
               value={qualifierOptions?.find((x) => x.value === qualifier)}
