@@ -1,25 +1,13 @@
 using Azure.Core;
 using Azure.Identity;
-using Equinor.TI.CommonLibrary.Client;
-using Newtonsoft.Json;
-using Statoil.TI.CommonLibrary.Entities;
-using Statoil.TI.CommonLibrary.Entities.GenericView;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Http.Json;
+using Tyle.External.Model;
 
 namespace Tyle.External
 {
     public class CommonLibClient
     {
-
-        private static readonly JsonSerializerSettings SERIALIZER_SETTINGS = new JsonSerializerSettings
-        {
-            Converters = { (JsonConverter) new QueryConditionConverter() }
-        };
 
         private readonly string _apiBaseAddress;
         private readonly IRequestSender _requestSender;
@@ -35,19 +23,20 @@ namespace Tyle.External
         {
         }
 
-        public async Task<List<Code>> CodeAsync(string library, string scope = null, string name = null, string description = null, bool? isValid = null, string filter = null)
+        public async Task<List<ExternalType>> CodeAsync(string library, string scope = null, string name = null, string description = null, bool? isValid = null, string filter = null)
         {
-            return await GetAsync<List<Code>>($"/api/Code/{library}?scope={scope}&name={name}&description={description}&isValid={isValid}&$filter={filter}");
+            var response = await GetAsync<string>($"/api/Code/{library}?scope={scope}&name={name}&description={description}&isValid={isValid}&$filter={filter}");
+            return response;
         }
 
 
-        private async Task<TResponse> GetAsync<TResponse>(FormattableString address)
+        private async Task<List<ExternalType>> GetAsync<TResponse>(FormattableString address)
         {
             HttpResponseMessage response = await _requestSender.SendRequest(HttpMethod.Get, BuildSafeUrl(address));
             await EnsureSuccessStatusCode(response);
 
+            return await response.Content.ReadFromJsonAsync<List<ExternalType>>();
 
-            return JsonConvert.DeserializeObject<TResponse>(await response.Content.ReadAsStringAsync(), SERIALIZER_SETTINGS);
         }
 
         private string BuildSafeUrl(FormattableString urlFormat)
@@ -74,12 +63,9 @@ namespace Tyle.External
             }
 
             string text = ((response.Content == null) ? string.Empty : (await response.Content.ReadAsStringAsync()));
-            string responseBody = text;
-            throw new CommonLibraryApiRequestException(response.StatusCode, responseBody);
+            throw new Exception(text);
         }
-
     }
-
 }
 
 
@@ -99,18 +85,7 @@ internal class ConnectionHandler : IRequestSender
 
     private readonly TokenRequestContext _tokenRequestContext;
 
-    public ConnectionHandler(CommonLibraryClientOptions options, HttpClient httpClient)
-    {
-        if (options.TokenProviderConnectionString == null)
-        {
-            throw new ArgumentException("TokenProviderConnectionString is required when creating a CommonLibraryClient");
-        }
 
-        _options = options;
-        _client = httpClient ?? commonHttpClient;
-        _tokenCredential = CommonLibraryTokenCredential.GetTokenCredential(options.TokenProviderConnectionString, options);
-        _tokenRequestContext = new TokenRequestContext(new string[1] { _options.CommonLibraryAppId + "/.default" });
-    }
 
     public ConnectionHandler(CommonLibraryClientOptions options, HttpClient httpClient, TokenCredential tokenCredential)
     {
@@ -141,37 +116,6 @@ internal static class CommonLibraryTokenCredential
 
     private static readonly char[] ConnectionStringKvSeparator = new char[1] { '=' };
 
-    private const int CONNECTION_STRING_KEY_VALUE_ARGUMENTS_MAX = 2;
-
-    private const string AZURE_APPKEY = "AppKey";
-
-    private const string AZURE_TENANTID = "TenantId";
-
-    private const string AZURE_APPID = "AppId";
-
-    private const string APP_KEYVAULT_CERTIFICATE_SECRET_IDENTIFIER = "KeyVaultCertificateSecretIdentifier";
-
-    private const string CERTIFICATE_STORE_LOCATION = "CertificateStoreLocation";
-
-    private const string CERTIFICATE_THUMBPRINT = "CertificateThumbprint";
-
-    private const string CERTIFICATE_SUBJECTNAME = "CertificateSubjectName";
-
-    private const string RUNAS = "RunAs";
-
-    private const string RUNAS_TYPE_CURRENT_USER = "CurrentUser";
-
-    private const string RUNAS_TYPE_DEVELOPER = "Developer";
-
-    private const string RUNAS_TYPE_APP = "App";
-
-    private const string DEVELOPER_TYPE_DEVELOPERTOOL = "DeveloperTool";
-
-    private const string DEVELOPER_TOOL_VISUALSTUDIO = "VisualStudio";
-
-    private const string DEVELOPER_TOOL_AZURECLI = "AzureCli";
-
-    private const string MS_SUPPORT_URL = "https://learn.microsoft.com/en-us/dotnet/api/overview/azure/app-auth-migration";
 
     public static TokenCredential GetTokenCredential(string connectionString, CommonLibraryClientOptions options)
     {
