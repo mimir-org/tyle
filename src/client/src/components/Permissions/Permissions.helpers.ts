@@ -3,7 +3,7 @@ import { UserItem } from "../../types/userItem";
 import { useGetAllUsers } from "../../api/user.queries";
 import { mapUserViewToUserItem } from "../../helpers/mappers.helpers";
 
-export const rolesOptions: Option<string>[] = [
+export const roleFilters: Option<string>[] = [
     {value: "-1", label: "All"},
     {value: "0", label: "None"},
     {value: "1", label: "Reader"},

@@ -7,12 +7,12 @@ import { getAllUsersMapped } from "./Permissions.helpers";
 import UserList from "./UserList";
 import UserListItem from "./UserListItem";
 import PermissionDialog from "./PermissionDialog";
-import { rolesOptions } from "./Permissions.helpers";
+import { roleFilters } from "./Permissions.helpers";
 import { UserItem } from "../../types/userItem";
 
 const Permissions = () => {
   const theme = useTheme();
-  const [selectedRoleFilter, setSelectedRoleFilter] = useState(rolesOptions[0]?.label);
+  const [selectedRoleFilter, setSelectedRoleFilter] = useState(roleFilters[0]?.label);
   const users = getAllUsersMapped();
 
   const filteredUsers = (): UserItem[] => {
@@ -26,7 +26,7 @@ const Permissions = () => {
       <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xxl}>
         <RadioFilters
           title={""}
-          filters={rolesOptions}
+          filters={roleFilters}
           value={selectedRoleFilter}
           onChange={(x) => setSelectedRoleFilter(x)}
         />
