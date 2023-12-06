@@ -32,6 +32,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.Test.Setup", "Tests\Ty
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.Converters", "Tyle.Converters\Tyle.Converters.csproj", "{BF59C1DA-7968-4515-9E53-E9FFCA5B46BC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyle.External", "Tyle.External\Tyle.External.csproj", "{2D90B2A3-A543-4C25-AC03-71891401496C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,10 @@ Global
 		{BF59C1DA-7968-4515-9E53-E9FFCA5B46BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF59C1DA-7968-4515-9E53-E9FFCA5B46BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF59C1DA-7968-4515-9E53-E9FFCA5B46BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D90B2A3-A543-4C25-AC03-71891401496C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D90B2A3-A543-4C25-AC03-71891401496C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D90B2A3-A543-4C25-AC03-71891401496C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D90B2A3-A543-4C25-AC03-71891401496C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
