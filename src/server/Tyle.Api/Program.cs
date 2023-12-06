@@ -146,7 +146,7 @@ if (builder.Configuration.GetValue<bool>("FetchDataFromCL"))
 {
     using (var scope = app.Services.CreateScope())
     {
-        var services = scope.ServiceProvider;        
+        var services = scope.ServiceProvider;
         var purposeRepoService = (IPurposeRepository) services.GetService(typeof(IPurposeRepository));
         var loggerService = (ILogger<Program>) services.GetService(typeof(ILogger<Program>));
         var classifierRepoService = (IClassifierRepository) services.GetService(typeof(IClassifierRepository));
