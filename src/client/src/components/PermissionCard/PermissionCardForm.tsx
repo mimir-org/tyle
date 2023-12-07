@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import { UserItem } from "types/userItem";
 import { getOptionsFromEnum } from "../../utils";
 import { Role } from "../../types/Role";
+import { useState } from "react";
+import { useAddUserToRole } from "../../api/authorize.queries";
 
 export interface PermissionCardFormProps {
   user: UserItem;
@@ -12,11 +14,11 @@ export interface PermissionCardFormProps {
 }
 
 const PermissionCardForm = ({ user, formId, showSubmitButton = true }: PermissionCardFormProps) => {
+  //TODO Remove translation
   const { t } = useTranslation(["settings"]);
+  const [ currentRole, setRole ] = useState<string | undefined>(user.roles[0]);
 
   const roleOptions = getOptionsFromEnum<Role>(Role);
-  const currentRole = user.roles[0];
-  const setRole = (newRole: string | undefined) => (console.log(newRole));
 
   //const toast = usePermissionToasts(currentPermission);
 
@@ -34,7 +36,7 @@ const PermissionCardForm = ({ user, formId, showSubmitButton = true }: Permissio
             <Select
               placeholder={t("common.templates.select", { object: t("common.permission.permission").toLowerCase() })}
               options={roleOptions}
-              value={roleOptions?.find((x) => x.label === user.roles[0])}
+              value={roleOptions?.find((x) => x.label === currentRole)}
               onChange={(x) => {setRole(x?.label)}}
             />
           </FormField>
