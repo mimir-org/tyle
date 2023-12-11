@@ -21,6 +21,10 @@ const Permissions = () => {
     return users.filter((user) => user.roles.includes(selectedRoleFilter));
   };
 
+  const handleRoleChange = (user: UserItem) => {
+    console.log("Handle role change in Permissions component" + user.name);
+  }
+
   return (
     <SettingsSection title={"Roles"}>
       <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xxl}>
@@ -36,7 +40,7 @@ const Permissions = () => {
               key={user.id}
               name={user.name}
               role={user.roles}
-              action={<PermissionDialog user={user} />}
+              action={<PermissionDialog user={user} handleRoleChange={handleRoleChange} />}
             />
           ))}
         </UserList>

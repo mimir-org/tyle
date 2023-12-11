@@ -10,6 +10,7 @@ import PermissionCardHeader from "./PermissionCardHeader";
 export type AccessCardProps = PermissionCardFormProps & {
   user: UserItem;
   selected?: boolean;
+  handleRoleChange: (user: UserItem) => void
 };
 
 /**
@@ -26,7 +27,7 @@ const PermissionCard = ({ user, selected, ...delegated }: AccessCardProps) => {
   const cardRef = useRef(null);
   const userDescriptors = useUserDescriptors(user);
 
-  const { formId, onSubmit, showSubmitButton } = delegated;
+  const { formId, onSubmit, showSubmitButton, handleRoleChange } = delegated;
 
   return (
     <MotionPermissionCardContainer
@@ -34,11 +35,11 @@ const PermissionCard = ({ user, selected, ...delegated }: AccessCardProps) => {
       ref={cardRef}
       variant={selected ? "selected" : "filled"}
       layout={"position"}
-      {...theme.mimirorg.animation.selectHover}
+      {...theme.mimirorg.animation.fade}
     >
       <PermissionCardHeader>{user.name}</PermissionCardHeader>
       <PermissionCardDetails descriptors={userDescriptors} />
-      <PermissionCardForm user={user} formId={formId} onSubmit={onSubmit} showSubmitButton={showSubmitButton} />
+      <PermissionCardForm user={user} formId={formId} onSubmit={onSubmit} showSubmitButton={showSubmitButton} handleRoleChange={handleRoleChange} />
     </MotionPermissionCardContainer>
   );
 };

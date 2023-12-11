@@ -7,6 +7,7 @@ import { UserItem } from "types/userItem";
 
 interface PermissionDialogProps {
   user: UserItem;
+  handleRoleChange: (user: UserItem) => void
 }
 
 /**
@@ -16,15 +17,16 @@ interface PermissionDialogProps {
  * The dialog's action is extended with the submit type and a form id so that it can submit an external component form.
  *
  * @param user
+ * @param handleRoleChange
  * @constructor
  */
-const PermissionDialog = ({ user }: PermissionDialogProps) => {
+const PermissionDialog = ({ user, handleRoleChange }: PermissionDialogProps) => {
   const { t } = useTranslation("settings");
   const [open, setOpen] = useState(false);
   const formId = "changeUserPermission";
 
   const dialogContent = (
-    <PermissionCard selected user={user} formId={formId} onSubmit={() => setOpen(false)} showSubmitButton={false} />
+    <PermissionCard selected user={user} formId={formId} onSubmit={() => setOpen(false)} showSubmitButton={false} handleRoleChange={handleRoleChange} />
   );
   const dialogOverriddenSubmitAction: AlertDialogActionItem = {
     name: t("permissions.dialog.submit"),
@@ -33,7 +35,7 @@ const PermissionDialog = ({ user }: PermissionDialogProps) => {
   };
   const dialogOverriddenCancelAction: AlertDialogCancelItem = {
     name: t("permissions.dialog.cancel"),
-    onAction: () => setOpen(false),
+    onAction: () => { setOpen(false); console.log("Hei fra dialogOverride")},
   };
 
   return (
