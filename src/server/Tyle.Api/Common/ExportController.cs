@@ -1,6 +1,7 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Abstractions;
 using Swashbuckle.AspNetCore.Annotations;
 using Tyle.Application.Attributes;
 using Tyle.Application.Blocks;
@@ -20,12 +21,15 @@ public class ExportController : ControllerBase
     private readonly ITerminalRepository _terminalRepository;
     private readonly IJsonLdConversionService _jsonLdConversionService;
 
-    public ExportController(IAttributeRepository attributeRepository, IBlockRepository blockRepository, ITerminalRepository terminalRepository, IJsonLdConversionService jsonLdConversionService)
+    private readonly IDownstreamApi _downstreamApi;
+
+    public ExportController(IAttributeRepository attributeRepository, IBlockRepository blockRepository, ITerminalRepository terminalRepository, IJsonLdConversionService jsonLdConversionService, IDownstreamApi downstreamApi)
     {
         _attributeRepository = attributeRepository;
         _blockRepository = blockRepository;
         _terminalRepository = terminalRepository;
         _jsonLdConversionService = jsonLdConversionService;
+        _downstreamApi = downstreamApi;
     }
 
     [HttpGet("attribute/{id}")]
@@ -43,7 +47,22 @@ public class ExportController : ControllerBase
                 return Ok("");
             }
 
-            return Ok(await _jsonLdConversionService.ConvertToJsonLd(attribute));
+            var jsonLdAttribute = await _jsonLdConversionService.ConvertToJsonLd(attribute);
+
+            var payload = jsonLdAttribute.ToString();
+
+            var postResponse = await _downstreamApi.CallApiForAppAsync("CommonLib", options =>
+            {
+                options.HttpMethod = "POST";
+                options.RelativePath = $"/api/imftype/WriteImfType";
+
+                options.CustomizeHttpRequestMessage = message =>
+                {
+                    message.Content = new StringContent(jsonLdAttribute.ToString(), System.Text.Encoding.UTF8, "application/json-patch+json");
+                };
+            });
+
+            return Ok(jsonLdAttribute);
         }
         catch (Exception)
         {

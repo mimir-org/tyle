@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -94,7 +95,7 @@ public static class MimirorgAuthenticationExtensions
                     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddJwtBearer(cfg =>
+                .AddJwtBearer("MimirorgAuth", cfg =>
                 {
                     cfg.RequireHttpsMetadata = false;
                     cfg.SaveToken = true;
@@ -106,6 +107,11 @@ public static class MimirorgAuthenticationExtensions
                         ClockSkew = TimeSpan.Zero
                     };
                 });
+
+            serviceCollection.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder("MimirorgAuth", JwtBearerDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build();
+            });
         }
 
         return serviceCollection;
