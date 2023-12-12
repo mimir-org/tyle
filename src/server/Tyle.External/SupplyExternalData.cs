@@ -25,8 +25,29 @@ namespace Tyle.External
         public async Task SupplyData()
         {
 
-            var purposeExternalData = await GetDataFromCommonlib(ExternalDataType.Purpose, _baseUrlForExternalApi, _commonLibClientOptions);
-            await SaveDataToDb(purposeExternalData, ExternalDataType.Purpose);
+           
+
+            var tokenCredential = new AzureCliCredential();
+            var client2Options = new CommonLibraryClientOptions
+            {
+                CommonLibraryAppId = _commonLibClientOptions,
+                CommonLibraryApiBaseAddress = _baseUrlForExternalApi
+            };
+            var client1Options = new CommonLibraryClientOptions
+            {
+                CommonLibraryAppId = "cf965a8b-9283-4849-a38b-b8d9c307c57d",
+                CommonLibraryApiBaseAddress = "https://commonlibapitest.azurewebsites.net/"
+            };
+
+            var client2 = new CommonLibClient(client2Options, tokenCredential);
+            var client1 = new CommonLibClient(client1Options, tokenCredential);
+
+            var symbolExternalData = await GetSymbolsFromCommonlib(client1);
+            // await SaveSymbolsToDb(symbolExternalData);
+
+
+            var purposeExternalData = await GetDataFromCommonlib(ExternalDataType.Purpose, client2);
+            //await SaveDataToDb(purposeExternalData, ExternalDataType.Purpose);
 
 
 
@@ -38,21 +59,37 @@ namespace Tyle.External
             //TODO Unit
         }
 
-        private async Task<List<RdlPurposeRequest>> GetDataFromCommonlib(ExternalDataType typeData, string baseUrl, string commonLibClientOptions)
+        private async Task<List<SymbolFromCommonlib>> GetSymbolsFromCommonlib(CommonLibClient client)
         {
-            var tokenCredential = new AzureCliCredential();
-            var clientOptions = new CommonLibraryClientOptions
-            {
-                CommonLibraryAppId = commonLibClientOptions,
-                CommonLibraryApiBaseAddress = baseUrl
-            };
 
+            var symbols = await client.GetSymbolsAsync();
+
+            var returnData = new List<SymbolFromCommonlib>();
+
+            return returnData;
+
+        }
+
+        private async Task<List<RdlObjectRequest>> GetDataFromCommonlib(ExternalDataType typeData, CommonLibClient client)
+        {
             var library = String.Empty;
+            var returnData = new List<RdlObjectRequest>();
 
             switch (typeData)
             {
                 case ExternalDataType.Purpose:
                     library = "IMFPurpose";
+
+                    var codes = await client.CodeAsync(library: library, isValid: true);
+
+                    if (codes != null)
+                    {
+                        foreach (var code in codes)
+                        {
+                            returnData.Add(new RdlPurposeRequest { Description = code.Description, Iri = code.Identity, Name = code.Name });
+                        }
+                    }
+
                     break;
                 case ExternalDataType.Classifier:
                     //TODO
@@ -70,22 +107,8 @@ namespace Tyle.External
                     throw new Exception("External datatype not found");
             }
 
-            var client = new CommonLibClient(clientOptions, tokenCredential);
-
-            var codes = await client.CodeAsync(library: library, isValid: true);
-
-            var returnData = new List<RdlPurposeRequest>();
-
-            if (codes != null)
-            {
-                foreach (var code in codes)
-                {
-                    returnData.Add(new RdlPurposeRequest { Description = code.Description, Iri = code.Identity, Name = code.Name });
-                }
-            }
             return returnData;
 
-            return null;
         }
 
         private async Task SaveDataToDb(List<RdlPurposeRequest> externalData, ExternalDataType typeData)

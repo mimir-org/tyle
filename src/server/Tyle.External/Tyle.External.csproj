@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Tyle.Core\Tyle.Core.csproj" />
     <ProjectReference Include="..\Tyle.Persistence\Tyle.Persistence.csproj" />
   </ItemGroup>
