@@ -46,7 +46,7 @@ namespace Tyle.External
             // await SaveSymbolsToDb(symbolExternalData);
 
 
-            var purposeExternalData = await GetDataFromCommonlib(ExternalDataType.Purpose, client2);
+            //var purposeExternalData = await GetDataFromCommonlib(ExternalDataType.Purpose, client2);
             //await SaveDataToDb(purposeExternalData, ExternalDataType.Purpose);
 
 
@@ -59,12 +59,12 @@ namespace Tyle.External
             //TODO Unit
         }
 
-        private async Task<List<SymbolFromCommonlib>> GetSymbolsFromCommonlib(CommonLibClient client)
+        private async Task<List<string>> GetSymbolsFromCommonlib(CommonLibClient client)
         {
 
             var symbols = await client.GetSymbolsAsync();
 
-            var returnData = new List<SymbolFromCommonlib>();
+            var returnData = new List<string>();
 
             return returnData;
 
