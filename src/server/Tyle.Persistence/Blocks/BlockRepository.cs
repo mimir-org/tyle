@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Abstractions;
+using System;
 using Tyle.Application.Blocks;
 using Tyle.Application.Blocks.Requests;
 using Tyle.Application.Common;
@@ -233,6 +234,11 @@ public class BlockRepository : IBlockRepository
         if (block == null)
         {
             return false;
+        }
+
+        if (block.State == State.Approved)
+        {
+            throw new InvalidOperationException("Approved blocks cannot be deleted.");
         }
 
         _dbSet.Remove(block);

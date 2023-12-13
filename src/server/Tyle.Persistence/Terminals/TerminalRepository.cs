@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Abstractions;
+using System;
 using Tyle.Application.Common;
 using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
@@ -183,6 +184,11 @@ public class TerminalRepository : ITerminalRepository
         if (terminal == null)
         {
             return false;
+        }
+
+        if (terminal.State == State.Approved)
+        {
+            throw new InvalidOperationException("Approved terminals cannot be deleted.");
         }
 
         _dbSet.Remove(terminal);

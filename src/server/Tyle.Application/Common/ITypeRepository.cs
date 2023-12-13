@@ -39,6 +39,7 @@ public interface ITypeRepository<T, TRequest>
     /// </summary>
     /// <param name="id">The id of the type to delete.</param>
     /// <returns>True if the type was deleted, false if it was not found.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the type has a state which prohibits deletion.</exception>
     Task<bool> Delete(Guid id);
 
     /// <summary>

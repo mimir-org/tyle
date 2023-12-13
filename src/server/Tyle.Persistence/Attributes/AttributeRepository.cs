@@ -169,6 +169,11 @@ public class AttributeRepository : IAttributeRepository
             return false;
         }
 
+        if (attribute.State == State.Approved)
+        {
+            throw new InvalidOperationException("Approved attributes cannot be deleted.");
+        }
+
         _dbSet.Remove(attribute);
         await _context.SaveChangesAsync();
 
