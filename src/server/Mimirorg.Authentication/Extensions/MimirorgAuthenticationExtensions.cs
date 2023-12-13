@@ -89,13 +89,13 @@ public static class MimirorgAuthenticationExtensions
 
         if (authSettings.JwtKey != null)
         {
-            _ = serviceCollection.AddAuthentication(options =>
+            serviceCollection.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddJwtBearer("MimirorgAuth", cfg =>
+                .AddJwtBearer(cfg =>
                 {
                     cfg.RequireHttpsMetadata = false;
                     cfg.SaveToken = true;
@@ -107,11 +107,6 @@ public static class MimirorgAuthenticationExtensions
                         ClockSkew = TimeSpan.Zero
                     };
                 });
-
-            serviceCollection.AddAuthorization(options =>
-            {
-                options.DefaultPolicy = new AuthorizationPolicyBuilder("MimirorgAuth", JwtBearerDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build();
-            });
         }
 
         return serviceCollection;

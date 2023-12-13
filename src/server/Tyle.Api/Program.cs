@@ -14,8 +14,8 @@ using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration)
+builder.Services.AddAuthentication("AzureAd")
+    .AddMicrosoftIdentityWebApi(builder.Configuration, jwtBearerScheme: "AzureAd")
     .EnableTokenAcquisitionToCallDownstreamApi()
     .AddDownstreamApi("CommonLib", builder.Configuration.GetSection("CommonLibApi"))
     .AddInMemoryTokenCaches();

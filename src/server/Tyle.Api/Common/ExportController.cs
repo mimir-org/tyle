@@ -55,6 +55,7 @@ public class ExportController : ControllerBase
             {
                 options.HttpMethod = "POST";
                 options.RelativePath = $"/api/imftype/WriteImfType";
+                options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
 
                 options.CustomizeHttpRequestMessage = message =>
                 {
