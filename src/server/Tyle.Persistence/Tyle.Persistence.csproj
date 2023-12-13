@@ -9,13 +9,15 @@
   <ItemGroup>
       <PackageReference Include="AutoMapper" Version="12.0.1" />
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.13" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.14" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.0" />
+      <PackageReference Include="Microsoft.Identity.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Tyle.Application\Tyle.Application.csproj" />
+    <ProjectReference Include="..\Tyle.Converters\Tyle.Converters.csproj" />
   </ItemGroup>
 
 </Project>

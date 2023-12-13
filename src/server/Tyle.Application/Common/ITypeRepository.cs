@@ -39,6 +39,7 @@ public interface ITypeRepository<T, TRequest>
     /// </summary>
     /// <param name="id">The id of the type to delete.</param>
     /// <returns>True if the type was deleted, false if it was not found.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the type has a state which prohibits deletion.</exception>
     Task<bool> Delete(Guid id);
 
     /// <summary>
@@ -47,5 +48,6 @@ public interface ITypeRepository<T, TRequest>
     /// <param name="id">The id of the type that will change state.</param>
     /// <param name="state">The new state of the type.</param>
     /// <returns>True if the state was changed, false if the type was not found.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the type references unapproved entities or pushing to Common Library fails.</exception>
     Task<bool> ChangeState(Guid id, State state);
 }

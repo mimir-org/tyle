@@ -21,12 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.14" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.14">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Identity.Web.DownstreamApi" Version="2.16.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
@@ -35,6 +36,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tyle.Converters\Tyle.Converters.csproj" />
+    <ProjectReference Include="..\Tyle.External\Tyle.External.csproj" />
     <ProjectReference Include="..\Tyle.Persistence\Tyle.Persistence.csproj" />
     <ProjectReference Include="..\Mimirorg.Authentication\Mimirorg.Authentication.csproj" />
   </ItemGroup>

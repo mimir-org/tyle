@@ -40,7 +40,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
     [Theory]
     [InlineData(null, false)]
     [InlineData("test value", true)]
-    public void ValueMustBeSetForConstraintTypeHasValue(string value, bool result)
+    public void ValueMustBeSetForConstraintTypeHasValue(string? value, bool result)
     {
         var valueConstraintRequest = new ValueConstraintRequest
         {
@@ -144,7 +144,7 @@ public class ValueConstraintRequestTests : UnitTest<MimirorgCommonFixture>
     [InlineData(null, false)]
     [InlineData("", false)]
     [InlineData("[0-9]+", true)]
-    public void ValueMustBeSetForConstraintTypePattern(string pattern, bool result)
+    public void ValueMustBeSetForConstraintTypePattern(string? pattern, bool result)
     {
         var valueConstraintRequest = new ValueConstraintRequest
         {

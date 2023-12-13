@@ -7,9 +7,19 @@ using Newtonsoft.Json.Serialization;
 using Tyle.Api;
 using Tyle.Application;
 using Tyle.Converters;
+using Tyle.Application.Common;
 using Tyle.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication("AzureAd")
+    .AddMicrosoftIdentityWebApi(builder.Configuration, jwtBearerScheme: "AzureAd")
+    .EnableTokenAcquisitionToCallDownstreamApi()
+    .AddDownstreamApi("CommonLib", builder.Configuration.GetSection("CommonLibApi"))
+    .AddInMemoryTokenCaches();
+
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
@@ -141,8 +151,35 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.MapControllers();
+if (builder.Configuration.GetValue<bool>("FetchDataFromCL"))
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var purposeRepoService = (IPurposeRepository) services.GetService(typeof(IPurposeRepository));
+        var loggerService = (ILogger<Program>) services.GetService(typeof(ILogger<Program>));
+        var classifierRepoService = (IClassifierRepository) services.GetService(typeof(IClassifierRepository));
+        var savingDataService = new Tyle.External.SupplyExternalData(purposeRepoService, classifierRepoService);
+        try
+        {
 
+            await savingDataService.SupplyData();
+
+        }
+        catch (Exception ex)
+        {
+            loggerService.LogError(ex, "Something went wrong fetching data from external resource");
+        }
+        finally
+        {
+            scope.Dispose();
+            app.MapControllers();
+            app.Run();
+        }
+    }
+}
+
+app.MapControllers();
 app.Run();
 
 namespace Tyle.Api
