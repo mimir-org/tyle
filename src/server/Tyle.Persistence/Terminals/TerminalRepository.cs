@@ -215,6 +215,14 @@ public class TerminalRepository : ITerminalRepository
                 return false;
             }
 
+            foreach (var terminalAttribute in terminal.Attributes)
+            {
+                if (terminalAttribute.Attribute.State != State.Approved)
+                {
+                    throw new InvalidOperationException("A terminal can only be approved if all its attributes are also approved.");
+                }
+            }
+
             var terminalAsJsonLd = await _jsonLdConversionService.ConvertToJsonLd(completeTerminal);
 
             var postResponse = await _downstreamApi.CallApiForAppAsync("CommonLib", options =>

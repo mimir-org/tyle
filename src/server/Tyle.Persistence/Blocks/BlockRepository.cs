@@ -265,6 +265,16 @@ public class BlockRepository : IBlockRepository
                 return false;
             }
 
+            if (block.Attributes.Any(blockAttribute => blockAttribute.Attribute.State != State.Approved))
+            {
+                throw new InvalidOperationException("A block can only be approved if all its attributes are also approved.");
+            }
+
+            if (block.Terminals.Any(blockTerminal => blockTerminal.Terminal.State != State.Approved))
+            {
+                throw new InvalidOperationException("A block can only be approved if all its terminals are also approved.");
+            }
+
             var blockAsJsonLd = await _jsonLdConversionService.ConvertToJsonLd(completeBlock);
 
             var postResponse = await _downstreamApi.CallApiForAppAsync("CommonLib", options =>
