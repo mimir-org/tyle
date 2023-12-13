@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Abstractions;
 using Tyle.Application.Blocks;
 using Tyle.Application.Blocks.Requests;
 using Tyle.Application.Common;
+using Tyle.Converters;
 using Tyle.Core.Blocks;
 using Tyle.Core.Common;
 
@@ -11,12 +13,16 @@ public class BlockRepository : IBlockRepository
 {
     private readonly TyleDbContext _context;
     private readonly DbSet<BlockType> _dbSet;
+    private readonly IDownstreamApi _downstreamApi;
+    private readonly IJsonLdConversionService _jsonLdConversionService;
     private readonly IUserInformationService _userInformationService;
 
-    public BlockRepository(TyleDbContext context, IUserInformationService userInformationService)
+    public BlockRepository(TyleDbContext context, IDownstreamApi downstreamApi, IJsonLdConversionService jsonLdConversionService, IUserInformationService userInformationService)
     {
         _context = context;
         _dbSet = context.Blocks;
+        _downstreamApi = downstreamApi;
+        _jsonLdConversionService = jsonLdConversionService;
         _userInformationService = userInformationService;
     }
 
@@ -242,6 +248,50 @@ public class BlockRepository : IBlockRepository
         if (block == null)
         {
             return false;
+        }
+
+        if (state == State.Approved)
+        {
+            var completeBlock = await _dbSet.AsNoTracking()
+                .Include(x => x.Classifiers).ThenInclude(x => x.Classifier)
+                .Include(x => x.Purpose)
+                .Include(x => x.Symbol).ThenInclude(x => x!.ConnectionPoints)
+                .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Classifiers).ThenInclude(x => x.Classifier)
+                .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Purpose)
+                .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Medium)
+                .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Predicate)
+                .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Units).ThenInclude(x => x.Unit)
+                .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
+                .Include(x => x.Terminals).ThenInclude(x => x.ConnectionPoint)
+                .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Predicate)
+                .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Units).ThenInclude(x => x.Unit)
+                .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
+                .AsSplitQuery()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (completeBlock == null)
+            {
+                return false;
+            }
+
+            var blockAsJsonLd = await _jsonLdConversionService.ConvertToJsonLd(completeBlock);
+
+            var postResponse = await _downstreamApi.CallApiForAppAsync("CommonLib", options =>
+            {
+                options.HttpMethod = "POST";
+                options.RelativePath = "/api/imftype/WriteImfType";
+                options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
+
+                options.CustomizeHttpRequestMessage = message =>
+                {
+                    message.Content = new StringContent(blockAsJsonLd.ToString(), System.Text.Encoding.UTF8, "application/json-patch+json");
+                };
+            });
+
+            if (!postResponse.IsSuccessStatusCode)
+            {
+                return false;
+            }
         }
 
         block.State = state;

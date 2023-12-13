@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Abstractions;
 using Tyle.Application.Common;
 using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
+using Tyle.Converters;
 using Tyle.Core.Common;
 using Tyle.Core.Terminals;
 
@@ -11,12 +13,16 @@ public class TerminalRepository : ITerminalRepository
 {
     private readonly TyleDbContext _context;
     private readonly DbSet<TerminalType> _dbSet;
+    private readonly IDownstreamApi _downstreamApi;
+    private readonly IJsonLdConversionService _jsonLdConversionService;
     private readonly IUserInformationService _userInformationService;
 
-    public TerminalRepository(TyleDbContext context, IUserInformationService userInformationService)
+    public TerminalRepository(TyleDbContext context, IDownstreamApi downstreamApi, IJsonLdConversionService jsonLdConversionService, IUserInformationService userInformationService)
     {
         _context = context;
         _dbSet = context.Terminals;
+        _downstreamApi = downstreamApi;
+        _jsonLdConversionService = jsonLdConversionService;
         _userInformationService = userInformationService;
     }
 
@@ -192,6 +198,43 @@ public class TerminalRepository : ITerminalRepository
         if (terminal == null)
         {
             return false;
+        }
+
+        if (state == State.Approved)
+        {
+            var completeTerminal = await _dbSet.AsNoTracking()
+                .Include(x => x.Classifiers).ThenInclude(x => x.Classifier)
+                .Include(x => x.Purpose)
+                .Include(x => x.Medium)
+                .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Predicate)
+                .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Units).ThenInclude(x => x.Unit)
+                .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
+                .AsSplitQuery()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (completeTerminal == null)
+            {
+                return false;
+            }
+
+            var terminalAsJsonLd = await _jsonLdConversionService.ConvertToJsonLd(completeTerminal);
+
+            var postResponse = await _downstreamApi.CallApiForAppAsync("CommonLib", options =>
+            {
+                options.HttpMethod = "POST";
+                options.RelativePath = "/api/imftype/WriteImfType";
+                options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
+
+                options.CustomizeHttpRequestMessage = message =>
+                {
+                    message.Content = new StringContent(terminalAsJsonLd.ToString(), System.Text.Encoding.UTF8, "application/json-patch+json");
+                };
+            });
+
+            if (!postResponse.IsSuccessStatusCode)
+            {
+                return false;
+            }
         }
 
         terminal.State = state;

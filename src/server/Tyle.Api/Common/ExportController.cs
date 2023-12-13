@@ -47,23 +47,7 @@ public class ExportController : ControllerBase
                 return Ok("");
             }
 
-            var jsonLdAttribute = await _jsonLdConversionService.ConvertToJsonLd(attribute);
-
-            var payload = jsonLdAttribute.ToString();
-
-            var postResponse = await _downstreamApi.CallApiForAppAsync("CommonLib", options =>
-            {
-                options.HttpMethod = "POST";
-                options.RelativePath = $"/api/imftype/WriteImfType";
-                options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
-
-                options.CustomizeHttpRequestMessage = message =>
-                {
-                    message.Content = new StringContent(jsonLdAttribute.ToString(), System.Text.Encoding.UTF8, "application/json-patch+json");
-                };
-            });
-
-            return Ok(jsonLdAttribute);
+            return Ok(await _jsonLdConversionService.ConvertToJsonLd(attribute));
         }
         catch (Exception)
         {

@@ -1,8 +1,10 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Abstractions;
 using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common;
+using Tyle.Converters;
 using Tyle.Core.Attributes;
 using Tyle.Core.Common;
 
@@ -12,13 +14,17 @@ public class AttributeRepository : IAttributeRepository
 {
     private readonly TyleDbContext _context;
     private readonly DbSet<AttributeType> _dbSet;
+    private readonly IDownstreamApi _downstreamApi;
+    private readonly IJsonLdConversionService _jsonLdConversionService;
     private readonly IMapper _mapper;
     private readonly IUserInformationService _userInformationService;
 
-    public AttributeRepository(TyleDbContext context, IMapper mapper, IUserInformationService userInformationService)
+    public AttributeRepository(TyleDbContext context, IDownstreamApi downstreamApi, IJsonLdConversionService jsonLdConversionService, IMapper mapper, IUserInformationService userInformationService)
     {
         _context = context;
         _dbSet = context.Attributes;
+        _downstreamApi = downstreamApi;
+        _jsonLdConversionService = jsonLdConversionService;
         _mapper = mapper;
         _userInformationService = userInformationService;
     }
@@ -176,6 +182,40 @@ public class AttributeRepository : IAttributeRepository
         if (attribute == null)
         {
             return false;
+        }
+
+        if (state == State.Approved)
+        {
+            var completeAttribute = await _dbSet.AsNoTracking()
+                .Include(x => x.Predicate)
+                .Include(x => x.Units).ThenInclude(x => x.Unit)
+                .Include(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
+                .AsSplitQuery()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (completeAttribute == null)
+            {
+                return false;
+            }
+
+            var attributeAsJsonLd = await _jsonLdConversionService.ConvertToJsonLd(completeAttribute);
+
+            var postResponse = await _downstreamApi.CallApiForAppAsync("CommonLib", options =>
+            {
+                options.HttpMethod = "POST";
+                options.RelativePath = "/api/imftype/WriteImfType";
+                options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
+
+                options.CustomizeHttpRequestMessage = message =>
+                {
+                    message.Content = new StringContent(attributeAsJsonLd.ToString(), System.Text.Encoding.UTF8, "application/json-patch+json");
+                };
+            });
+
+            if (!postResponse.IsSuccessStatusCode)
+            {
+                return false;
+            }
         }
 
         attribute.State = state;
