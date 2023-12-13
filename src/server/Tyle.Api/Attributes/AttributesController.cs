@@ -173,9 +173,9 @@ public class AttributesController : ControllerBase
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError, e);
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 
