@@ -1,7 +1,6 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Abstractions;
 using Swashbuckle.AspNetCore.Annotations;
 using Tyle.Application.Attributes;
 using Tyle.Application.Blocks;
