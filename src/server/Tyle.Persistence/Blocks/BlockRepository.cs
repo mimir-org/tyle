@@ -275,7 +275,7 @@ public class BlockRepository : IBlockRepository
 
             if (!postResponse.IsSuccessStatusCode)
             {
-                return false;
+                throw new InvalidOperationException("Post request to Common Library failed.");
             }
         }
 

@@ -225,7 +225,7 @@ public class TerminalRepository : ITerminalRepository
 
             if (!postResponse.IsSuccessStatusCode)
             {
-                return false;
+                throw new InvalidOperationException("Post request to Common Library failed.");
             }
         }
 

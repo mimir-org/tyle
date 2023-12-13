@@ -198,7 +198,7 @@ public class AttributeRepository : IAttributeRepository
             var postResponse = await _downstreamApi.CallApiForAppAsync("CommonLib", options =>
             {
                 options.HttpMethod = "POST";
-                options.RelativePath = "/api/imftype/WriteImfType";
+                options.RelativePath = "/api/imftype/WriteImfTyp";
                 options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
 
                 options.CustomizeHttpRequestMessage = message =>
@@ -209,7 +209,7 @@ public class AttributeRepository : IAttributeRepository
 
             if (!postResponse.IsSuccessStatusCode)
             {
-                return false;
+                throw new InvalidOperationException("Post request to Common Library failed.");
             }
         }
 
