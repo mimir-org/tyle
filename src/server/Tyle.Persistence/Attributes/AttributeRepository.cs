@@ -186,12 +186,7 @@ public class AttributeRepository : IAttributeRepository
 
         if (state == State.Approved)
         {
-            var completeAttribute = await _dbSet.AsNoTracking()
-                .Include(x => x.Predicate)
-                .Include(x => x.Units).ThenInclude(x => x.Unit)
-                .Include(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
-                .AsSplitQuery()
-                .FirstOrDefaultAsync(x => x.Id == id);
+            var completeAttribute = await Get(id);
 
             if (completeAttribute == null)
             {

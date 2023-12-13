@@ -252,22 +252,7 @@ public class BlockRepository : IBlockRepository
 
         if (state == State.Approved)
         {
-            var completeBlock = await _dbSet.AsNoTracking()
-                .Include(x => x.Classifiers).ThenInclude(x => x.Classifier)
-                .Include(x => x.Purpose)
-                .Include(x => x.Symbol).ThenInclude(x => x!.ConnectionPoints)
-                .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Classifiers).ThenInclude(x => x.Classifier)
-                .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Purpose)
-                .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Medium)
-                .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Predicate)
-                .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Units).ThenInclude(x => x.Unit)
-                .Include(x => x.Terminals).ThenInclude(x => x.Terminal).ThenInclude(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
-                .Include(x => x.Terminals).ThenInclude(x => x.ConnectionPoint)
-                .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Predicate)
-                .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Units).ThenInclude(x => x.Unit)
-                .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
-                .AsSplitQuery()
-                .FirstOrDefaultAsync(x => x.Id == id);
+            var completeBlock = await Get(id);
 
             if (completeBlock == null)
             {

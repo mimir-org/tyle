@@ -202,15 +202,7 @@ public class TerminalRepository : ITerminalRepository
 
         if (state == State.Approved)
         {
-            var completeTerminal = await _dbSet.AsNoTracking()
-                .Include(x => x.Classifiers).ThenInclude(x => x.Classifier)
-                .Include(x => x.Purpose)
-                .Include(x => x.Medium)
-                .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Predicate)
-                .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.Units).ThenInclude(x => x.Unit)
-                .Include(x => x.Attributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ValueConstraint).ThenInclude(x => x!.ValueList)
-                .AsSplitQuery()
-                .FirstOrDefaultAsync(x => x.Id == id);
+            var completeTerminal = await Get(id);
 
             if (completeTerminal == null)
             {
