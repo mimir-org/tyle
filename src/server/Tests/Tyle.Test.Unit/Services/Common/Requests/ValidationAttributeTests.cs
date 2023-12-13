@@ -24,7 +24,7 @@ public class ValidationAttributeTests : UnitTest<MimirorgCommonFixture>
     [InlineData("", false)]
     [InlineData("https://rdf.runir.net/ID1234/123/123", true)]
     [InlineData("rdf.runir.net/ID1234", false)]
-    public void Iri_Attribute_Validates_Correctly(string value, bool result)
+    public void Iri_Attribute_Validates_Correctly(string? value, bool result)
     {
         var attribute = new ValidIriAttribute();
         var isValid = attribute.IsValid(value);
@@ -47,7 +47,7 @@ public class ValidationAttributeTests : UnitTest<MimirorgCommonFixture>
     [InlineData(null, "1234", true)]
     [InlineData("1234", "", true)]
     [InlineData("1234", null, true)]
-    public void RequiredOne_Attribute_Validates_Correctly(string value, string dependent, bool result)
+    public void RequiredOne_Attribute_Validates_Correctly(string? value, string? dependent, bool result)
     {
         var model = new RequiredOneTestValidator { Id = value, Iri = dependent };
         var validation = model.ValidateObject();
@@ -76,7 +76,7 @@ public class ValidationAttributeTests : UnitTest<MimirorgCommonFixture>
     [InlineData("", false)]
     [InlineData(" ", false)]
     [InlineData(null, false)]
-    public void PasswordAttribute_Validates_Correctly_With_No_Rules(string value, bool result)
+    public void PasswordAttribute_Validates_Correctly_With_No_Rules(string? value, bool result)
     {
         var settings = new MimirorgAuthSettings
         {

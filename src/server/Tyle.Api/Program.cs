@@ -9,8 +9,17 @@ using Tyle.Application;
 using Tyle.Converters;
 using Tyle.Application.Common;
 using Tyle.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication("AzureAd")
+    .AddMicrosoftIdentityWebApi(builder.Configuration, jwtBearerScheme: "AzureAd")
+    .EnableTokenAcquisitionToCallDownstreamApi()
+    .AddDownstreamApi("CommonLib", builder.Configuration.GetSection("CommonLibApi"))
+    .AddInMemoryTokenCaches();
+
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {

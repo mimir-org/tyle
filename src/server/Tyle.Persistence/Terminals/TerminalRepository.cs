@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Abstractions;
+using Tyle.Application.Attributes;
 using Tyle.Application.Common;
 using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
+using Tyle.Converters;
 using Tyle.Core.Common;
 using Tyle.Core.Terminals;
 
@@ -11,13 +14,19 @@ public class TerminalRepository : ITerminalRepository
 {
     private readonly TyleDbContext _context;
     private readonly DbSet<TerminalType> _dbSet;
+    private readonly IDownstreamApi _downstreamApi;
+    private readonly IJsonLdConversionService _jsonLdConversionService;
     private readonly IUserInformationService _userInformationService;
+    private readonly IAttributeRepository _attributeRepository;
 
-    public TerminalRepository(TyleDbContext context, IUserInformationService userInformationService)
+    public TerminalRepository(TyleDbContext context, IDownstreamApi downstreamApi, IJsonLdConversionService jsonLdConversionService, IUserInformationService userInformationService, IAttributeRepository attributeRepository)
     {
         _context = context;
         _dbSet = context.Terminals;
+        _downstreamApi = downstreamApi;
+        _jsonLdConversionService = jsonLdConversionService;
         _userInformationService = userInformationService;
+        _attributeRepository = attributeRepository;
     }
 
     public async Task<IEnumerable<TerminalType>> GetAll(State? state = null)
@@ -179,6 +188,11 @@ public class TerminalRepository : ITerminalRepository
             return false;
         }
 
+        if (terminal.State == State.Approved)
+        {
+            throw new InvalidOperationException("Approved terminals cannot be deleted.");
+        }
+
         _dbSet.Remove(terminal);
         await _context.SaveChangesAsync();
 
@@ -192,6 +206,57 @@ public class TerminalRepository : ITerminalRepository
         if (terminal == null)
         {
             return false;
+        }
+
+        if (state == State.Review)
+        {
+            var completeTerminal = await Get(id);
+
+            if (completeTerminal == null)
+            {
+                return false;
+            }
+
+            foreach (var terminalAttribute in completeTerminal.Attributes)
+            {
+                if (terminalAttribute.Attribute.State != State.Draft) continue;
+
+                await _attributeRepository.ChangeState(terminalAttribute.AttributeId, State.Review);
+            }
+        }
+
+        if (state == State.Approved)
+        {
+            var completeTerminal = await Get(id);
+
+            if (completeTerminal == null)
+            {
+                return false;
+            }
+
+            if (completeTerminal.Attributes.Any(terminalAttribute => terminalAttribute.Attribute.State != State.Approved))
+            {
+                throw new InvalidOperationException("A terminal can only be approved if all its attributes are also approved.");
+            }
+
+            var terminalAsJsonLd = await _jsonLdConversionService.ConvertToJsonLd(completeTerminal);
+
+            var postResponse = await _downstreamApi.CallApiForAppAsync("CommonLib", options =>
+            {
+                options.HttpMethod = "POST";
+                options.RelativePath = "/api/imftype/WriteImfType";
+                options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
+
+                options.CustomizeHttpRequestMessage = message =>
+                {
+                    message.Content = new StringContent(terminalAsJsonLd.ToString(), System.Text.Encoding.UTF8, "application/json-patch+json");
+                };
+            });
+
+            if (!postResponse.IsSuccessStatusCode)
+            {
+                throw new InvalidOperationException("Post request to Common Library failed.");
+            }
         }
 
         terminal.State = state;
