@@ -21,15 +21,12 @@ public class ExportController : ControllerBase
     private readonly ITerminalRepository _terminalRepository;
     private readonly IJsonLdConversionService _jsonLdConversionService;
 
-    private readonly IDownstreamApi _downstreamApi;
-
-    public ExportController(IAttributeRepository attributeRepository, IBlockRepository blockRepository, ITerminalRepository terminalRepository, IJsonLdConversionService jsonLdConversionService, IDownstreamApi downstreamApi)
+    public ExportController(IAttributeRepository attributeRepository, IBlockRepository blockRepository, ITerminalRepository terminalRepository, IJsonLdConversionService jsonLdConversionService)
     {
         _attributeRepository = attributeRepository;
         _blockRepository = blockRepository;
         _terminalRepository = terminalRepository;
         _jsonLdConversionService = jsonLdConversionService;
-        _downstreamApi = downstreamApi;
     }
 
     [HttpGet("attribute/{id}")]
