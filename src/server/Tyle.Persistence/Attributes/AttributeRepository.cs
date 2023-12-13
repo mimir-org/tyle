@@ -203,7 +203,7 @@ public class AttributeRepository : IAttributeRepository
             var postResponse = await _downstreamApi.CallApiForAppAsync("CommonLib", options =>
             {
                 options.HttpMethod = "POST";
-                options.RelativePath = "/api/imftype/WriteImfTyp";
+                options.RelativePath = "/api/imftype/WriteImfType";
                 options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
 
                 options.CustomizeHttpRequestMessage = message =>
