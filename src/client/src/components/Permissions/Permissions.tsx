@@ -1,19 +1,26 @@
-import { Flexbox } from "@mimirorg/component-library";
+import { Flexbox, toast } from "@mimirorg/component-library";
 import RadioFilters from "components/RadioFilters";
 import SettingsSection from "components/SettingsSection";
 import { useState } from "react";
 import { useTheme } from "styled-components";
-import { getAllUsersMapped } from "./Permissions.helpers";
+import { getAllRolesMapped, getAllUsersMapped, toUserRoleRequest } from "./Permissions.helpers";
 import UserList from "./UserList";
 import UserListItem from "./UserListItem";
 import PermissionDialog from "./PermissionDialog";
 import { roleFilters } from "./Permissions.helpers";
 import { UserItem } from "../../types/userItem";
+import { useAddUserToRole, useRemoveUserFromRole } from "../../api/authorize.queries";
+import { useSubmissionToast } from "../../helpers/form.helpers";
 
 const Permissions = () => {
   const theme = useTheme();
   const [selectedRoleFilter, setSelectedRoleFilter] = useState(roleFilters[0]?.label);
   const users = getAllUsersMapped();
+  const roles = getAllRolesMapped();
+  const setRoleMutation = useAddUserToRole()
+  const removeRoleMutation = useRemoveUserFromRole();
+
+  const toast = useSubmissionToast("permission");
 
   const filteredUsers = (): UserItem[] => {
     if(selectedRoleFilter === "All") return users;
@@ -21,9 +28,13 @@ const Permissions = () => {
     return users.filter((user) => user.roles.includes(selectedRoleFilter));
   };
 
-  const handleRoleChange = (user: UserItem) => {
-    console.log("Handle role change in Permissions component" + user.name);
-  }
+  const handleRoleChange = (user: UserItem, newRole: string | undefined) => {
+    const newRoleId = roles.find((r) => r.roleName === newRole)?.roleId;
+    const oldRoleId = roles.find((r) => r.roleId === user.roles[0])?.roleId;
+
+    toast(removeRoleMutation.mutateAsync(toUserRoleRequest(user.id, oldRoleId)));
+    toast(setRoleMutation.mutateAsync(toUserRoleRequest(user.id, newRoleId)));
+  };
 
   return (
     <SettingsSection title={"Roles"}>

@@ -7,7 +7,7 @@ import { UserItem } from "types/userItem";
 
 interface PermissionDialogProps {
   user: UserItem;
-  handleRoleChange: (user: UserItem) => void
+  handleRoleChange: (user: UserItem, newRole: string | undefined) => void
 }
 
 /**
@@ -31,11 +31,11 @@ const PermissionDialog = ({ user, handleRoleChange }: PermissionDialogProps) => 
   const dialogOverriddenSubmitAction: AlertDialogActionItem = {
     name: t("permissions.dialog.submit"),
     form: formId,
-    type: "submit",
+    type: "submit"
   };
   const dialogOverriddenCancelAction: AlertDialogCancelItem = {
     name: t("permissions.dialog.cancel"),
-    onAction: () => { setOpen(false); console.log("Hei fra dialogOverride")},
+    onAction: () => { setOpen(false); },
   };
 
   return (

@@ -10,7 +10,7 @@ import PermissionCardHeader from "./PermissionCardHeader";
 export type AccessCardProps = PermissionCardFormProps & {
   user: UserItem;
   selected?: boolean;
-  handleRoleChange: (user: UserItem) => void
+  handleRoleChange: (user: UserItem, newRole: string | undefined) => void
 };
 
 /**

@@ -10,23 +10,24 @@ export interface PermissionCardFormProps {
   formId?: string;
   onSubmit?: () => void;
   showSubmitButton?: boolean;
-  handleRoleChange: (user: UserItem) => void
+  handleRoleChange: (user: UserItem, newRole: string | undefined) => void
 }
 const PermissionCardForm = ({ user, formId, showSubmitButton = true, handleRoleChange }: PermissionCardFormProps) => {
   //TODO Remove translation
   const { t } = useTranslation(["settings"]);
-  const [ currentRole, setRole ] = useState<string | undefined>(user.roles[0]);
+  const [ selectedRole, setSelectedRole ] = useState<string | undefined>(user.roles[0]);
 
   const roleOptions = getOptionsFromEnum<Role>(Role);
 
-  //const toast = usePermissionToasts(currentPermission);
+  // const toast = useSubmissionToast("permission");
 
   return (
     <Form
       id={formId}
       alignItems={"center"}
-      onSubmit={() => {
-        handleRoleChange(user);
+      onSubmit={(event) => {
+        event.preventDefault();
+        handleRoleChange(user, selectedRole);
       }}
     >
       <Input type={"hidden"} value={user.id} />
@@ -34,8 +35,8 @@ const PermissionCardForm = ({ user, formId, showSubmitButton = true, handleRoleC
         <Select
           placeholder={t("common.templates.select", { object: t("common.permission.permission").toLowerCase() })}
           options={roleOptions}
-          value={roleOptions?.find((x) => x.label === currentRole)}
-          onChange={(x) => {setRole(x?.label)}}
+          value={roleOptions?.find((x) => x.label === selectedRole)}
+          onChange={(x) => {setSelectedRole(x?.label)}}
         />
       </FormField>
       {showSubmitButton && <Button type={"submit"}>{t("common.permission.submit")}</Button>}
