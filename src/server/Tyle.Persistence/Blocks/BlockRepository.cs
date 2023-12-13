@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Abstractions;
-using System;
+using Tyle.Application.Attributes;
 using Tyle.Application.Blocks;
 using Tyle.Application.Blocks.Requests;
 using Tyle.Application.Common;
+using Tyle.Application.Terminals;
 using Tyle.Converters;
 using Tyle.Core.Blocks;
 using Tyle.Core.Common;
@@ -17,14 +18,18 @@ public class BlockRepository : IBlockRepository
     private readonly IDownstreamApi _downstreamApi;
     private readonly IJsonLdConversionService _jsonLdConversionService;
     private readonly IUserInformationService _userInformationService;
+    private readonly IAttributeRepository _attributeRepository;
+    private readonly ITerminalRepository _terminalRepository;
 
-    public BlockRepository(TyleDbContext context, IDownstreamApi downstreamApi, IJsonLdConversionService jsonLdConversionService, IUserInformationService userInformationService)
+    public BlockRepository(TyleDbContext context, IDownstreamApi downstreamApi, IJsonLdConversionService jsonLdConversionService, IUserInformationService userInformationService, IAttributeRepository attributeRepository, ITerminalRepository terminalRepository)
     {
         _context = context;
         _dbSet = context.Blocks;
         _downstreamApi = downstreamApi;
         _jsonLdConversionService = jsonLdConversionService;
         _userInformationService = userInformationService;
+        _attributeRepository = attributeRepository;
+        _terminalRepository = terminalRepository;
     }
 
     public async Task<IEnumerable<BlockType>> GetAll(State? state = null)
@@ -256,6 +261,30 @@ public class BlockRepository : IBlockRepository
             return false;
         }
 
+        if (state == State.Review)
+        {
+            var completeBlock = await Get(id);
+
+            if (completeBlock == null)
+            {
+                return false;
+            }
+
+            foreach (var blockAttribute in completeBlock.Attributes)
+            {
+                if (blockAttribute.Attribute.State != State.Draft) continue;
+
+                await _attributeRepository.ChangeState(blockAttribute.AttributeId, State.Review);
+            }
+
+            foreach (var blockTerminal in completeBlock.Terminals)
+            {
+                if (blockTerminal.Terminal.State != State.Draft) continue;
+
+                await _terminalRepository.ChangeState(blockTerminal.TerminalId, State.Review);
+            }
+        }
+
         if (state == State.Approved)
         {
             var completeBlock = await Get(id);
@@ -265,12 +294,12 @@ public class BlockRepository : IBlockRepository
                 return false;
             }
 
-            if (block.Attributes.Any(blockAttribute => blockAttribute.Attribute.State != State.Approved))
+            if (completeBlock.Attributes.Any(blockAttribute => blockAttribute.Attribute.State != State.Approved))
             {
                 throw new InvalidOperationException("A block can only be approved if all its attributes are also approved.");
             }
 
-            if (block.Terminals.Any(blockTerminal => blockTerminal.Terminal.State != State.Approved))
+            if (completeBlock.Terminals.Any(blockTerminal => blockTerminal.Terminal.State != State.Approved))
             {
                 throw new InvalidOperationException("A block can only be approved if all its terminals are also approved.");
             }

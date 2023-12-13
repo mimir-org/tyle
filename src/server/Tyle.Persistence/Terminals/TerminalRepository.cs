@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Abstractions;
-using System;
+using Tyle.Application.Attributes;
 using Tyle.Application.Common;
 using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
@@ -17,14 +17,16 @@ public class TerminalRepository : ITerminalRepository
     private readonly IDownstreamApi _downstreamApi;
     private readonly IJsonLdConversionService _jsonLdConversionService;
     private readonly IUserInformationService _userInformationService;
+    private readonly IAttributeRepository _attributeRepository;
 
-    public TerminalRepository(TyleDbContext context, IDownstreamApi downstreamApi, IJsonLdConversionService jsonLdConversionService, IUserInformationService userInformationService)
+    public TerminalRepository(TyleDbContext context, IDownstreamApi downstreamApi, IJsonLdConversionService jsonLdConversionService, IUserInformationService userInformationService, IAttributeRepository attributeRepository)
     {
         _context = context;
         _dbSet = context.Terminals;
         _downstreamApi = downstreamApi;
         _jsonLdConversionService = jsonLdConversionService;
         _userInformationService = userInformationService;
+        _attributeRepository = attributeRepository;
     }
 
     public async Task<IEnumerable<TerminalType>> GetAll(State? state = null)
@@ -206,6 +208,23 @@ public class TerminalRepository : ITerminalRepository
             return false;
         }
 
+        if (state == State.Review)
+        {
+            var completeTerminal = await Get(id);
+
+            if (completeTerminal == null)
+            {
+                return false;
+            }
+
+            foreach (var terminalAttribute in completeTerminal.Attributes)
+            {
+                if (terminalAttribute.Attribute.State != State.Draft) continue;
+
+                await _attributeRepository.ChangeState(terminalAttribute.AttributeId, State.Review);
+            }
+        }
+
         if (state == State.Approved)
         {
             var completeTerminal = await Get(id);
@@ -215,12 +234,9 @@ public class TerminalRepository : ITerminalRepository
                 return false;
             }
 
-            foreach (var terminalAttribute in terminal.Attributes)
+            if (completeTerminal.Attributes.Any(terminalAttribute => terminalAttribute.Attribute.State != State.Approved))
             {
-                if (terminalAttribute.Attribute.State != State.Approved)
-                {
-                    throw new InvalidOperationException("A terminal can only be approved if all its attributes are also approved.");
-                }
+                throw new InvalidOperationException("A terminal can only be approved if all its attributes are also approved.");
             }
 
             var terminalAsJsonLd = await _jsonLdConversionService.ConvertToJsonLd(completeTerminal);
