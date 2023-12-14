@@ -9,8 +9,8 @@ using Tyle.Application;
 using Tyle.Converters;
 using Tyle.Application.Common;
 using Tyle.Persistence;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
+using Tyle.External;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,10 +54,11 @@ builder.Services.AddMimirorgAuthenticationModule(builder.Configuration);
 
 builder.Services
     .AddApplicationServices()
+    .AddConversionServices()
     .AddDatabaseConfiguration(builder.Configuration)
     .AddRequestToDomainMapping()
     .AddRepositories()
-    .AddConversionServices()
+    .AddSyncingServices()
     .AddDomainToViewMapping()
     .AddApiServices();
 
