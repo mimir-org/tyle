@@ -48,7 +48,7 @@ namespace Tyle.External
             await SaveSymbolsToDb(symbolExternalData);
 
 
-            var purposeExternalData = await GetDataFromCommonlib(ExternalDataType.Purpose, client2);            
+            var purposeExternalData = await GetDataFromCommonlib(ExternalDataType.Purpose, client2);
             await SaveDataToDb(purposeExternalData, ExternalDataType.Purpose);
 
 
@@ -64,7 +64,7 @@ namespace Tyle.External
         private async Task<List<EngineeringSymbol>> GetSymbolsFromCommonlib(CommonLibClient client)
         {
 
-            var symbols = await client.GetSymbolsAsync();           
+            var symbols = await client.GetSymbolsAsync();
 
             return symbols;
 
@@ -148,16 +148,16 @@ namespace Tyle.External
 
             foreach (var item in symbols)
             {
-                if(!symbolsAlreadyInDb.Where(x => x.Iri.Equals(item.Iri)).Any())
+                if (!symbolsAlreadyInDb.Where(x => x.Iri.Equals(item.Iri)).Any())
                     symbolsNotInDb.Add(item);
             }
 
-            
 
-            foreach ( var symbol in symbols)
 
-            if (symbolsNotInDb.Count == 0)
-                return;
+            foreach (var symbol in symbols)
+
+                if (symbolsNotInDb.Count == 0)
+                    return;
 
             await _symbolRepository.Create(symbolsNotInDb);
 

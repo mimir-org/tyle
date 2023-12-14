@@ -58,11 +58,11 @@ namespace Tyle.External
             var parser = new JsonLdParser();
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            
+
             using (TextReader reader = new StringReader(responseContent))
             {
                 parser.Load(ts, reader);
-                
+
                 var listSparQlQueryResults = new List<SparqlResultSet>();
 
                 foreach (var graph in ts.Graphs)
