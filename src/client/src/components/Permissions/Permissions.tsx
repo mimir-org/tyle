@@ -17,22 +17,24 @@ const Permissions = () => {
   const [selectedRoleFilter, setSelectedRoleFilter] = useState(roleFilters[0]?.label);
   const users = getAllUsersMapped();
   const roles = getAllRolesMapped();
-  const setRoleMutation = useAddUserToRole()
+  const setRoleMutation = useAddUserToRole();
   const removeRoleMutation = useRemoveUserFromRole();
 
   const toast = useSubmissionToast("permission");
 
   const filteredUsers = (): UserItem[] => {
-    if(selectedRoleFilter === "All") return users;
-    if(selectedRoleFilter === "None") return users.filter((user) => user.roles.length === 0);
+    if (selectedRoleFilter === "All") return users;
+    if (selectedRoleFilter === "None") return users.filter((user) => user.roles.length === 0);
     return users.filter((user) => user.roles.includes(selectedRoleFilter));
   };
-
   const handleRoleChange = (user: UserItem, newRole: string | undefined) => {
-    const newRoleId = roles.find((r) => r.roleName === newRole)?.roleId;
-    const oldRoleId = roles.find((r) => r.roleId === user.roles[0])?.roleId;
+    const newRoleId = roles.find((r) => r.roleName === newRole)?.roleId ?? "";
 
-    toast(removeRoleMutation.mutateAsync(toUserRoleRequest(user.id, oldRoleId)));
+    if (user.roles.length > 0){
+      const oldRoleId = roles.find((r) => r.roleName === user.roles[0])?.roleId ?? "";
+      toast(removeRoleMutation.mutateAsync(toUserRoleRequest(user.id, oldRoleId)));
+    }
+
     toast(setRoleMutation.mutateAsync(toUserRoleRequest(user.id, newRoleId)));
   };
 

@@ -25,7 +25,7 @@ export const getAllRolesMapped = (): RoleItem[] => {
   return roleQuery.data?.map((role) => mapRoleViewToRoleItem(role)) ?? []
 };
 
-export const toUserRoleRequest = (uId: string, rId: string | undefined): UserRoleRequest => ({
+export const toUserRoleRequest = (uId: string, rId: string): UserRoleRequest => ({
   userId: uId,
-  roleId: rId ?? ""
+  roleId: rId
 });

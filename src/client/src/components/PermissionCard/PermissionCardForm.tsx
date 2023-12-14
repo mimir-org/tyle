@@ -19,8 +19,6 @@ const PermissionCardForm = ({ user, formId, showSubmitButton = true, handleRoleC
 
   const roleOptions = getOptionsFromEnum<Role>(Role);
 
-  // const toast = useSubmissionToast("permission");
-
   return (
     <Form
       id={formId}
