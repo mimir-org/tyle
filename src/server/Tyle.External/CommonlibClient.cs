@@ -87,14 +87,14 @@ namespace Tyle.External
                         }
 
                         if (key == "http://example.equinor.com/symbol#width")
-                        {                                                 
+                        {
                             var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
                             Decimal.TryParse(attributeValue, out var width);
                             symbol.Width = width;
                         }
 
                         if (key == "http://example.equinor.com/symbol#height")
-                        {                         
+                        {
                             var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
                             Decimal.TryParse(attributeValue, out var height);
                             symbol.Height = height;
@@ -106,7 +106,7 @@ namespace Tyle.External
                         }
 
                         if (key == "http://www.w3.org/2000/01/rdf-schema#label")
-                        {                           
+                        {
                             var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
                             symbol.Label = attributeValue;
                         }
