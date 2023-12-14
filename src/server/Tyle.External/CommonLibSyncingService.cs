@@ -4,10 +4,10 @@ using Microsoft.Identity.Abstractions;
 using Tyle.Application.Blocks;
 using Tyle.Application.Common;
 using Tyle.Application.Common.Requests;
+using Tyle.Converters.Iris;
 using Tyle.Core.Blocks;
 using Tyle.External.Model;
 using VDS.RDF.Parsing;
-using VDS.RDF.Query;
 using VDS.RDF;
 
 namespace Tyle.External;
@@ -85,8 +85,8 @@ public class CommonLibSyncingService : IHostedService, IDisposable
     {
         using IServiceScope scope = _serviceProvider.CreateScope();
 
-        IDownstreamApi? downstreamApi = scope.ServiceProvider.GetService<IDownstreamApi>();
-        ISymbolRepository? symbolRepository = scope.ServiceProvider.GetService<ISymbolRepository>();
+        var downstreamApi = scope.ServiceProvider.GetService<IDownstreamApi>();
+        var symbolRepository = scope.ServiceProvider.GetService<ISymbolRepository>();
 
         if (downstreamApi == null || symbolRepository == null)
         {
@@ -110,123 +110,99 @@ public class CommonLibSyncingService : IHostedService, IDisposable
             return;
         }
 
-        var symbolsDb = await symbolRepository.GetAll();
-
         var ts = new TripleStore();
         var parser = new JsonLdParser();
 
         var responseContent = await response.Content.ReadAsStringAsync();
 
-        var symbols = new List<SymbolFromCL>();
+        using TextReader reader = new StringReader(responseContent);
 
-        using (TextReader reader = new StringReader(responseContent))
+        parser.Load(ts, reader);
+
+        var symbolsDb = (await symbolRepository.GetAll()).ToList();
+
+        var symbolsToCreate = new List<EngineeringSymbol>();
+
+        foreach (var graph in ts.Graphs)
         {
-            parser.Load(ts, reader);
+            var typeTriples = graph.GetTriplesWithPredicateObject(graph.GetUriNode(Rdf.Type), graph.GetUriNode(Sym.Symbol)).ToList();
 
-            var listSparQlQueryResults = new List<SparqlResultSet>();
-
-            foreach (var graph in ts.Graphs)
+            if (typeTriples.Count != 1)
             {
-                var queryResult = (SparqlResultSet) graph.ExecuteQuery(@"
-                SELECT ?subject ?predicate ?object
-                WHERE { 
-                        ?subject ?predicate ?object .
-                }");
-                listSparQlQueryResults.Add(queryResult);
+                continue;
             }
 
-            foreach (var items in listSparQlQueryResults)
+            var symbolNode = typeTriples.First().Subject;
+
+            if (symbolsDb.Any(savedSymbol => savedSymbol.Iri.Equals(new Uri(symbolNode.ToString()))))
             {
-                var symbol = new SymbolFromCL();
-                foreach (var queryResultItem in items)
+                continue;
+            }
+
+            var symbolLabelTriple = graph.GetTriplesWithSubjectPredicate(symbolNode, graph.GetUriNode(Rdfs.Label)).ToList();
+            var hasSerializationTriple = graph.GetTriplesWithPredicate(Sym.HasSerialization).ToList();
+
+            if (symbolLabelTriple.Count != 1 || hasSerializationTriple.Count != 1)
+            {
+                continue;
+            }
+
+            var symbol = new EngineeringSymbol
+            {
+                Label = ((LiteralNode) symbolLabelTriple.First().Object).Value,
+                Iri = new Uri(symbolNode.ToString()),
+                Path = ((LiteralNode) hasSerializationTriple.First().Object).Value
+            };
+
+            var descriptionTriple = graph.GetTriplesWithPredicate(DcTerms.Description);
+            var description = ((LiteralNode) descriptionTriple.First().Object).Value;
+            if (description.Length > 0)
+            {
+                symbol.Description = description;
+            }
+
+            var heightTriple = graph.GetTriplesWithPredicate(Sym.Height);
+            decimal.TryParse(((LiteralNode) heightTriple.First().Object).Value, out var height);
+            symbol.Height = height;
+
+            var widthTriple = graph.GetTriplesWithPredicate(Sym.Width);
+            decimal.TryParse(((LiteralNode) widthTriple.First().Object).Value, out var width);
+            symbol.Width = width;
+
+            var hasConnectionPointTriples = graph.GetTriplesWithPredicate(Sym.HasConnectionPoint);
+            foreach (var triple in hasConnectionPointTriples)
+            {
+                var connectionPointIdentifierTriple = graph.GetTriplesWithSubjectPredicate(triple.Object, graph.GetUriNode(DcTerms.Identifier)).ToList();
+                var connectionPointPositionXTriple = graph.GetTriplesWithSubjectPredicate(triple.Object, graph.GetUriNode(Sym.PositionX)).ToList();
+                var connectionPointPositionYTriple = graph.GetTriplesWithSubjectPredicate(triple.Object, graph.GetUriNode(Sym.PositionY)).ToList();
+
+                if (connectionPointIdentifierTriple.Count != 1 || connectionPointPositionXTriple.Count != 1 || connectionPointPositionYTriple.Count != 1)
                 {
-                    var key = ((UriNode) queryResultItem[1]).ToString();
-                    var iriValue = queryResultItem[0].ToString();
-                    if (symbol.Iri == null)
-                    {
-                        if (iriValue.StartsWith("https://rdf.equinor.com/engineering-symbols/") || iriValue.StartsWith("http://example.com/"))
-                        {
-                            symbol.Iri = new Uri(iriValue);
-
-                            if (symbolsDb != null && symbolsDb.Any(symbolDb => symbolDb.Iri == symbol.Iri))
-                            {
-                                continue;
-                            }
-                        }
-                    }
-
-                    if (key == "http://example.equinor.com/symbol#width")
-                    {
-                        var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
-                        decimal.TryParse(attributeValue, out var width);
-                        symbol.Width = width;
-                    }
-
-                    if (key == "http://example.equinor.com/symbol#height")
-                    {
-                        var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
-                        decimal.TryParse(attributeValue, out var height);
-                        symbol.Height = height;
-                    }
-                    if (key == "http://example.equinor.com/symbol#hasSerialization")
-                    {
-                        var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
-                        symbol.Path = attributeValue;
-                    }
-
-                    if (key == "http://www.w3.org/2000/01/rdf-schema#label")
-                    {
-                        var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
-                        symbol.Label = attributeValue;
-                    }
-
-                    if (key == "http://purl.org/dc/terms/description")
-                    {
-                        var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
-                        symbol.Description = attributeValue;
-                    }
-                    if (key == "http://example.equinor.com/symbol#positionX")
-                    {
-                        var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
-                        decimal.TryParse(attributeValue, out var x);
-                        symbol.ConnectionPoints.Add(new ConnectionPointFromCL { X = x, });
-                    }
-                    if (key == "http://example.equinor.com/symbol#positionY")
-                    {
-                        var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
-                        decimal.TryParse(attributeValue, out var y);
-                        var currentSymbol = symbol.ConnectionPoints.LastOrDefault();
-                        currentSymbol.Y = y;
-                    }
-
-                    if (key == "http://purl.org/dc/terms/description")
-                    {
-                        var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
-                        symbol.Description = attributeValue;
-                    }
-
-                    if (queryResultItem == items.LastOrDefault())
-                    {
-                        symbols.Add(symbol);
-                    }
+                    continue;
                 }
+
+                var parsedPositionX = decimal.TryParse(((LiteralNode) connectionPointPositionXTriple.First().Object).Value, out var connectionPointPositionX);
+                var parsedPositionY = decimal.TryParse(((LiteralNode) connectionPointPositionYTriple.First().Object).Value, out var connectionPointPositionY);
+
+                if (!parsedPositionX || !parsedPositionY)
+                {
+                    continue;
+                }
+
+                var connectionPoint = new ConnectionPoint
+                {
+                    Identifier = ((LiteralNode) connectionPointIdentifierTriple.First().Object).Value,
+                    PositionX = connectionPointPositionX,
+                    PositionY = connectionPointPositionY
+                };
+
+                symbol.ConnectionPoints.Add(connectionPoint);
             }
+
+            symbolsToCreate.Add(symbol);
         }
 
-        var engineeringSymbols = new List<EngineeringSymbol>();
-
-        foreach (var item in symbols)
-        {
-            var connectionPoints = new List<ConnectionPoint>();
-            foreach (var connectionPoint in item.ConnectionPoints)
-            {
-                connectionPoints.Add(new ConnectionPoint { Identifier = connectionPoint.Identifier, PositionX = connectionPoint.X, PositionY = connectionPoint.Y });
-            }
-
-            engineeringSymbols.Add(new EngineeringSymbol { ConnectionPoints = connectionPoints, Description = item.Description, Height = item.Height, Iri = item.Iri, Width = item.Width, Label = item.Label, Path = item.Path });
-        }
-
-        await symbolRepository.Create(engineeringSymbols);
+        await symbolRepository.Create(symbolsToCreate);
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
