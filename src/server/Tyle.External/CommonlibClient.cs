@@ -14,6 +14,8 @@ using VDS.RDF.Query.Algebra;
 using Lucene.Net.Sandbox.Queries;
 using VDS.RDF.Query;
 using Newtonsoft.Json.Linq;
+using Tyle.Core.Blocks;
+using AngleSharp.Text;
 
 
 
@@ -44,156 +46,159 @@ namespace Tyle.External
             return response;
         }
 
-        public async Task<List<string>> GetSymbolsAsync()
+        public async Task<List<EngineeringSymbol>> GetSymbolsAsync()
         {
-            try
+            var symbols = new List<SymbolFromCL>();
+
+            var adress = "https://commonlibapitest.azurewebsites.net/api/symbol/ReadEngineeringSymbol?allVersions=false";
+            var content = new StringContent("", Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _requestSender.SendRequest(HttpMethod.Post, adress, content);
+
+            var ts = new TripleStore();
+            var parser = new JsonLdParser();
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            using (TextReader reader = new StringReader(responseContent))
             {
-                var adress = "https://commonlibapitest.azurewebsites.net/api/symbol/ReadEngineeringSymbol?allVersions=false";
-                var content = new StringContent("", Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await _requestSender.SendRequest(HttpMethod.Post, adress, content);
+                parser.Load(ts, reader);
+                var g = ts.Graphs.FirstOrDefault();
+                var g2 = ts.Graphs.LastOrDefault();
 
-                var ts = new TripleStore();
-                var parser = new JsonLdParser();
+                var listSparQlQueryResults = new List<SparqlResultSet>();
 
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                using (TextReader reader = new StringReader(responseContent))
+                for (int i = 0; i < ts.Graphs.Count; i++)
                 {
-                    parser.Load(ts, reader);
-                    var g = ts.Graphs.FirstOrDefault();
-                    var g2 = ts.Graphs.LastOrDefault();
-
-                    var listSparQlQueryResults = new List<SparqlResultSet>();
-
-                    for (int i = 0; i < ts.Graphs.Count; i++)
-                    {
-                        var queryResult = (SparqlResultSet) g.ExecuteQuery(@"
+                    var queryResult = (SparqlResultSet) g.ExecuteQuery(@"
                 SELECT ?subject ?predicate ?object
                 WHERE { 
                         ?subject ?predicate ?object .
                 }");
-                        listSparQlQueryResults.Add(queryResult);
+                    listSparQlQueryResults.Add(queryResult);
 
-                    }
+                }
 
+                foreach (var items in listSparQlQueryResults)
+                {
 
-                    var symbols = new List<SymbolFromCL>();
-
-                    foreach (var items in listSparQlQueryResults)
+                    var symbol = new SymbolFromCL();
+                    foreach (var queryResultItem in items)
                     {
-
-                        var symbol = new SymbolFromCL();
-                        foreach (var queryResultItem in items)
+                        var key = ((UriNode) queryResultItem[1]).ToString();
+                        var iriValue = queryResultItem[0].ToString();
+                        if (symbol.Iri == null)
                         {
-                            var key = ((UriNode) queryResultItem[1]).ToString();
-                            var iriValue = queryResultItem[0].ToString();
-                            if (symbol.Iri == null)
+                            if (iriValue.StartsWith("https://rdf.equinor.com/engineering-symbols/"))
                             {
-                                if (iriValue.StartsWith("https://rdf.equinor.com/engineering-symbols/"))
-                                {
-                                    symbol.Iri = iriValue;
-                                }
+                                symbol.Iri = iriValue;
                             }
+                        }
 
+                        if (key == "http://example.equinor.com/symbol#width")
+                        {
+                            var attributeName = key.Split("#").Length > 1
+                                        ? key.Split("#").Last()
+                                        : key.Split("/").Last();
+                            attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
+                            var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
+                            Decimal.TryParse(attributeValue, out var width);
+                            symbol.Width = width;
+                        }
 
-                            if (key == "http://example.equinor.com/symbol#width")
-                            {
-                                var attributeName = key.Split("#").Length > 1
-                                            ? key.Split("#").Last()
-                                            : key.Split("/").Last();
-                                attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
-                                var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
-                                Decimal.TryParse(attributeValue, out var width);
-                                symbol.Width = width;
-                            }
+                        if (key == "http://example.equinor.com/symbol#height")
+                        {
+                            var attributeName = key.Split("#").Length > 1
+                                        ? key.Split("#").Last()
+                                        : key.Split("/").Last();
+                            attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
+                            var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
+                            Decimal.TryParse(attributeValue, out var height);
+                            symbol.Height = height;
+                        }
+                        if (key == "http://example.equinor.com/symbol#hasSerialization")
+                        {
+                            var attributeName = key.Split("#").Length > 1
+                                     ? key.Split("#").Last()
+                                     : key.Split("/").Last();
+                            attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
+                            var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
+                            symbol.Path = attributeValue;
+                        }
 
-                            if (key == "http://example.equinor.com/symbol#height")
-                            {
-                                var attributeName = key.Split("#").Length > 1
-                                            ? key.Split("#").Last()
-                                            : key.Split("/").Last();
-                                attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
-                                var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
-                                Decimal.TryParse(attributeValue, out var height);
-                                symbol.Height = height;
-                            }
-                            if (key == "http://example.equinor.com/symbol#hasSerialization")
-                            {
-                                var attributeName = key.Split("#").Length > 1
-                                         ? key.Split("#").Last()
-                                         : key.Split("/").Last();
-                                attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
-                                var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
-                                symbol.Path = attributeValue;
-                            }
+                        if (key == "http://www.w3.org/2000/01/rdf-schema#label")
+                        {
+                            var attributeName = key.Split("#").Length > 1
+                                     ? key.Split("#").Last()
+                                     : key.Split("/").Last();
+                            attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
+                            var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
+                            symbol.Label = attributeValue;
+                        }
 
-                            if (key == "http://www.w3.org/2000/01/rdf-schema#label")
-                            {
-                                var attributeName = key.Split("#").Length > 1
-                                         ? key.Split("#").Last()
-                                         : key.Split("/").Last();
-                                attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
-                                var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
-                                symbol.Label = attributeValue;
-                            }
+                        if (key == "http://purl.org/dc/terms/description")
+                        {
+                            var attributeName = key.Split("#").Length > 1
+                                     ? key.Split("#").Last()
+                                     : key.Split("/").Last();
+                            attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
+                            var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
+                            symbol.Description = attributeValue;
+                        }
+                        if (key == "http://example.equinor.com/symbol#positionX")
+                        {
+                            var attributeName = key.Split("#").Length > 1
+                                     ? key.Split("#").Last()
+                                     : key.Split("/").Last();
+                            attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
+                            var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
+                            Decimal.TryParse(attributeValue, out var x);
+                            symbol.ConnectionPoints.Add(new Tyle.External.Model.ConnectionPoint { X = x, });
+                        }
+                        if (key == "http://example.equinor.com/symbol#positionY")
+                        {
+                            var attributeName = key.Split("#").Length > 1
+                                     ? key.Split("#").Last()
+                                     : key.Split("/").Last();
+                            attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
+                            var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
+                            Decimal.TryParse(attributeValue, out var y);
+                            var currentSymbol = symbol.ConnectionPoints.LastOrDefault();
+                            currentSymbol.Y = y;
+                        }
 
-                            if (key == "http://purl.org/dc/terms/description")
-                            {
-                                var attributeName = key.Split("#").Length > 1
-                                         ? key.Split("#").Last()
-                                         : key.Split("/").Last();
-                                attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
-                                var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
-                                symbol.Description = attributeValue;
-                            }
-                            if (key == "http://example.equinor.com/symbol#positionX")
-                            {
-                                var attributeName = key.Split("#").Length > 1
-                                         ? key.Split("#").Last()
-                                         : key.Split("/").Last();
-                                attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
-                                var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
-                                Decimal.TryParse(attributeValue, out var x);
-                                symbol.ConnectionPoints.Add(new ConnectionPoint { X = x, });
-                            }
-                            if (key == "http://example.equinor.com/symbol#positionY")
-                            {
-                                var attributeName = key.Split("#").Length > 1
-                                         ? key.Split("#").Last()
-                                         : key.Split("/").Last();
-                                attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
-                                var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
-                                Decimal.TryParse(attributeValue, out var y);
-                                var currentSymbol = symbol.ConnectionPoints.LastOrDefault();
-                                currentSymbol.Y = y;
-                            }
+                        if (key == "http://purl.org/dc/terms/description")
+                        {
+                            var attributeName = key.Split("#").Length > 1
+                                     ? key.Split("#").Last()
+                                     : key.Split("/").Last();
+                            attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
+                            var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
+                            symbol.Description = attributeValue;
+                        }
 
-                            if(key == "http://purl.org/dc/terms/description")
-                            {
-                                var attributeName = key.Split("#").Length > 1
-                                         ? key.Split("#").Last()
-                                         : key.Split("/").Last();
-                                attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
-                                var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
-                                symbol.Description = attributeValue;
-                            }
-
-                            if (queryResultItem == items.LastOrDefault())
-                            {
-                                symbols.Add(symbol);
-                            }
-
-
-
+                        if (queryResultItem == items.LastOrDefault())
+                        {
+                            symbols.Add(symbol);
                         }
                     }
                 }
             }
 
+            var engineeringSymbols = new List<EngineeringSymbol>();
 
+            foreach (var item in symbols)
+            {
+                var connectionPoints = new List<Tyle.Core.Blocks.ConnectionPoint>();
+                foreach (var connectionPoint in item.ConnectionPoints)
+                {
+                    connectionPoints.Add(new Core.Blocks.ConnectionPoint { Identifier = connectionPoint.Identifier, PositionX = connectionPoint.X, PositionY = connectionPoint.Y });
+                }
 
-            catch { }
-            return null;
+                engineeringSymbols.Add(new EngineeringSymbol { ConnectionPoints = connectionPoints, Description = item.Description, Height = item.Height, Iri = item.Iri, Width = item.Width, Label = item.Label, Path = item.Path });
+
+            }
+
+            return engineeringSymbols;
+
 
         }
 

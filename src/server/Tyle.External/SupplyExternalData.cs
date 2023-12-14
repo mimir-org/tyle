@@ -1,7 +1,10 @@
 using Azure.Identity;
+using Tyle.Application.Blocks;
 using Tyle.Application.Common;
 using Tyle.Application.Common.Requests;
+using Tyle.Core.Blocks;
 using Tyle.External.Model;
+using Tyle.Persistence.Blocks;
 
 namespace Tyle.External
 {
@@ -9,24 +12,23 @@ namespace Tyle.External
     {
         private IPurposeRepository _purposeRepository;
         private IClassifierRepository _classifierRepository;
+        private ISymbolRepository _symbolRepository;
         private string _baseUrlForExternalApi;
         private string _typeOfResource;
         private string _commonLibClientOptions;
 
-        public SupplyExternalData(IPurposeRepository purposeRepository, IClassifierRepository classifierRepository, string baseUrlForExternalApi = "https://commonlibapitest2.azurewebsites.net/", string typeOfResource = "CommonLib", string commonLibClientOptions = "47c797ba-b6e9-4383-92fc-1dd82a30fac0")
+        public SupplyExternalData(IPurposeRepository purposeRepository, IClassifierRepository classifierRepository, ISymbolRepository symbolRepository, string baseUrlForExternalApi = "https://commonlibapitest2.azurewebsites.net/", string typeOfResource = "CommonLib", string commonLibClientOptions = "47c797ba-b6e9-4383-92fc-1dd82a30fac0")
         {
             _baseUrlForExternalApi = baseUrlForExternalApi;
             _typeOfResource = typeOfResource;
             _commonLibClientOptions = commonLibClientOptions;
             _purposeRepository = purposeRepository;
             _classifierRepository = classifierRepository;
+            _symbolRepository = symbolRepository;
         }
 
         public async Task SupplyData()
         {
-
-           
-
             var tokenCredential = new AzureCliCredential();
             var client2Options = new CommonLibraryClientOptions
             {
@@ -43,7 +45,7 @@ namespace Tyle.External
             var client1 = new CommonLibClient(client1Options, tokenCredential);
 
             var symbolExternalData = await GetSymbolsFromCommonlib(client1);
-            // await SaveSymbolsToDb(symbolExternalData);
+            await SaveSymbolsToDb(symbolExternalData);
 
 
             //var purposeExternalData = await GetDataFromCommonlib(ExternalDataType.Purpose, client2);
@@ -59,14 +61,12 @@ namespace Tyle.External
             //TODO Unit
         }
 
-        private async Task<List<string>> GetSymbolsFromCommonlib(CommonLibClient client)
+        private async Task<List<EngineeringSymbol>> GetSymbolsFromCommonlib(CommonLibClient client)
         {
 
-            var symbols = await client.GetSymbolsAsync();
+            var symbols = await client.GetSymbolsAsync();           
 
-            var returnData = new List<string>();
-
-            return returnData;
+            return symbols;
 
         }
 
@@ -138,6 +138,22 @@ namespace Tyle.External
                     }
                 }
             }
+        }
+
+        private async Task SaveSymbolsToDb(List<EngineeringSymbol> symbols)
+        {
+            var symbolsAlreadyInDb = await _symbolRepository.GetAll();
+            
+            var symbolsNotInDb = symbols.Except(symbolsAlreadyInDb).ToList();
+
+            if(symbolsNotInDb.Count == 0)
+                return;
+
+            await _symbolRepository.Create(symbolsNotInDb);
+
+            return;
+
+
         }
     }
 }

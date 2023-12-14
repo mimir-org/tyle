@@ -9,6 +9,7 @@ using Tyle.Application;
 using Tyle.Converters;
 using Tyle.Application.Common;
 using Tyle.Persistence;
+using Tyle.Application.Blocks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -150,7 +151,8 @@ if (builder.Configuration.GetValue<bool>("FetchDataFromCL"))
         var purposeRepoService = (IPurposeRepository) services.GetService(typeof(IPurposeRepository));
         var loggerService = (ILogger<Program>) services.GetService(typeof(ILogger<Program>));
         var classifierRepoService = (IClassifierRepository) services.GetService(typeof(IClassifierRepository));
-        var savingDataService = new Tyle.External.SupplyExternalData(purposeRepoService, classifierRepoService);
+        var symbolRepoService = (ISymbolRepository) services.GetService(typeof(ISymbolRepository));
+        var savingDataService = new Tyle.External.SupplyExternalData(purposeRepoService, classifierRepoService, symbolRepoService);
         try
         {
 
