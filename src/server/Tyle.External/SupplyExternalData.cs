@@ -48,8 +48,8 @@ namespace Tyle.External
             await SaveSymbolsToDb(symbolExternalData);
 
 
-            //var purposeExternalData = await GetDataFromCommonlib(ExternalDataType.Purpose, client2);
-            //await SaveDataToDb(purposeExternalData, ExternalDataType.Purpose);
+            var purposeExternalData = await GetDataFromCommonlib(ExternalDataType.Purpose, client2);            
+            await SaveDataToDb(purposeExternalData, ExternalDataType.Purpose);
 
 
 
@@ -70,10 +70,10 @@ namespace Tyle.External
 
         }
 
-        private async Task<List<RdlObjectRequest>> GetDataFromCommonlib(ExternalDataType typeData, CommonLibClient client)
+        private async Task<List<RdlPurposeRequest>> GetDataFromCommonlib(ExternalDataType typeData, CommonLibClient client)
         {
             var library = String.Empty;
-            var returnData = new List<RdlObjectRequest>();
+            var returnData = new List<RdlPurposeRequest>();
 
             switch (typeData)
             {
