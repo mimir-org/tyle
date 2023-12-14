@@ -143,10 +143,20 @@ namespace Tyle.External
         private async Task SaveSymbolsToDb(List<EngineeringSymbol> symbols)
         {
             var symbolsAlreadyInDb = await _symbolRepository.GetAll();
-            
-            var symbolsNotInDb = symbols.Except(symbolsAlreadyInDb).ToList();
 
-            if(symbolsNotInDb.Count == 0)
+            var symbolsNotInDb = new List<EngineeringSymbol>();
+
+            foreach (var item in symbols)
+            {
+                if(!symbolsAlreadyInDb.Where(x => x.Iri.Equals(item.Iri)).Any())
+                    symbolsNotInDb.Add(item);
+            }
+
+            
+
+            foreach ( var symbol in symbols)
+
+            if (symbolsNotInDb.Count == 0)
                 return;
 
             await _symbolRepository.Create(symbolsNotInDb);
