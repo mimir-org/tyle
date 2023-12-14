@@ -11,6 +11,7 @@ using Tyle.Application.Common;
 using Tyle.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
+using Tyle.Application.Blocks;
 
 var builder = WebApplication.CreateBuilder(args);
 
