@@ -1,7 +1,10 @@
 using Azure.Identity;
+using Tyle.Application.Blocks;
 using Tyle.Application.Common;
 using Tyle.Application.Common.Requests;
+using Tyle.Core.Blocks;
 using Tyle.External.Model;
+using Tyle.Persistence.Blocks;
 
 namespace Tyle.External
 {
@@ -9,23 +12,43 @@ namespace Tyle.External
     {
         private IPurposeRepository _purposeRepository;
         private IClassifierRepository _classifierRepository;
+        private ISymbolRepository _symbolRepository;
         private string _baseUrlForExternalApi;
         private string _typeOfResource;
         private string _commonLibClientOptions;
 
-        public SupplyExternalData(IPurposeRepository purposeRepository, IClassifierRepository classifierRepository, string baseUrlForExternalApi = "https://commonlibapitest2.azurewebsites.net/", string typeOfResource = "CommonLib", string commonLibClientOptions = "47c797ba-b6e9-4383-92fc-1dd82a30fac0")
+        public SupplyExternalData(IPurposeRepository purposeRepository, IClassifierRepository classifierRepository, ISymbolRepository symbolRepository, string baseUrlForExternalApi = "https://commonlibapitest2.azurewebsites.net/", string typeOfResource = "CommonLib", string commonLibClientOptions = "47c797ba-b6e9-4383-92fc-1dd82a30fac0")
         {
             _baseUrlForExternalApi = baseUrlForExternalApi;
             _typeOfResource = typeOfResource;
             _commonLibClientOptions = commonLibClientOptions;
             _purposeRepository = purposeRepository;
             _classifierRepository = classifierRepository;
+            _symbolRepository = symbolRepository;
         }
 
         public async Task SupplyData()
         {
+            var tokenCredential = new AzureCliCredential();
+            var client2Options = new CommonLibraryClientOptions
+            {
+                CommonLibraryAppId = _commonLibClientOptions,
+                CommonLibraryApiBaseAddress = _baseUrlForExternalApi
+            };
+            var client1Options = new CommonLibraryClientOptions
+            {
+                CommonLibraryAppId = "cf965a8b-9283-4849-a38b-b8d9c307c57d",
+                CommonLibraryApiBaseAddress = "https://commonlibapitest.azurewebsites.net/"
+            };
 
-            var purposeExternalData = await GetDataFromCommonlib(ExternalDataType.Purpose, _baseUrlForExternalApi, _commonLibClientOptions);
+            var client2 = new CommonLibClient(client2Options, tokenCredential);
+            var client1 = new CommonLibClient(client1Options, tokenCredential);
+
+            var symbolExternalData = await GetSymbolsFromCommonlib(client1);
+            await SaveSymbolsToDb(symbolExternalData);
+
+
+            var purposeExternalData = await GetDataFromCommonlib(ExternalDataType.Purpose, client2);
             await SaveDataToDb(purposeExternalData, ExternalDataType.Purpose);
 
 
@@ -38,21 +61,35 @@ namespace Tyle.External
             //TODO Unit
         }
 
-        private async Task<List<RdlPurposeRequest>> GetDataFromCommonlib(ExternalDataType typeData, string baseUrl, string commonLibClientOptions)
+        private async Task<List<EngineeringSymbol>> GetSymbolsFromCommonlib(CommonLibClient client)
         {
-            var tokenCredential = new AzureCliCredential();
-            var clientOptions = new CommonLibraryClientOptions
-            {
-                CommonLibraryAppId = commonLibClientOptions,
-                CommonLibraryApiBaseAddress = baseUrl
-            };
 
+            var symbols = await client.GetSymbolsAsync();
+
+            return symbols;
+
+        }
+
+        private async Task<List<RdlPurposeRequest>> GetDataFromCommonlib(ExternalDataType typeData, CommonLibClient client)
+        {
             var library = String.Empty;
+            var returnData = new List<RdlPurposeRequest>();
 
             switch (typeData)
             {
                 case ExternalDataType.Purpose:
                     library = "IMFPurpose";
+
+                    var codes = await client.CodeAsync(library: library, isValid: true);
+
+                    if (codes != null)
+                    {
+                        foreach (var code in codes)
+                        {
+                            returnData.Add(new RdlPurposeRequest { Description = code.Description, Iri = code.Identity, Name = code.Name });
+                        }
+                    }
+
                     break;
                 case ExternalDataType.Classifier:
                     //TODO
@@ -70,22 +107,8 @@ namespace Tyle.External
                     throw new Exception("External datatype not found");
             }
 
-            var client = new CommonLibClient(clientOptions, tokenCredential);
-
-            var codes = await client.CodeAsync(library: library, isValid: true);
-
-            var returnData = new List<RdlPurposeRequest>();
-
-            if (codes != null)
-            {
-                foreach (var code in codes)
-                {
-                    returnData.Add(new RdlPurposeRequest { Description = code.Description, Iri = code.Identity, Name = code.Name });
-                }
-            }
             return returnData;
 
-            return null;
         }
 
         private async Task SaveDataToDb(List<RdlPurposeRequest> externalData, ExternalDataType typeData)
@@ -115,6 +138,28 @@ namespace Tyle.External
                     }
                 }
             }
+        }
+
+        private async Task SaveSymbolsToDb(List<EngineeringSymbol> symbols)
+        {
+            var symbolsAlreadyInDb = await _symbolRepository.GetAll();
+
+            var symbolsNotInDb = new List<EngineeringSymbol>();
+
+            foreach (var item in symbols)
+            {
+                if (!symbolsAlreadyInDb.Where(x => x.Iri.Equals(item.Iri)).Any())
+                    symbolsNotInDb.Add(item);
+            }
+
+            if (symbolsNotInDb.Count == 0)
+                return;
+
+            await _symbolRepository.Create(symbolsNotInDb);
+
+            return;
+
+
         }
     }
 }

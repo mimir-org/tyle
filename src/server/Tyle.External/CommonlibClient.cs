@@ -1,8 +1,21 @@
 using Azure.Core;
 using Azure.Identity;
+using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Text;
 using Tyle.External.Model;
+using VDS.RDF.Parsing;
+using VDS.RDF;
+using VDS.RDF.Writing;
+using VDS.RDF.Query.Builder;
+using System;
+using VDS.RDF.Query.Algebra;
+using Lucene.Net.Sandbox.Queries;
+using VDS.RDF.Query;
+using Newtonsoft.Json.Linq;
+using Tyle.Core.Blocks;
+using AngleSharp.Text;
 
 namespace Tyle.External
 {
@@ -27,6 +40,124 @@ namespace Tyle.External
         {
             var response = await GetAsync<string>($"/api/Code/{library}?scope={scope}&name={name}&description={description}&isValid={isValid}&$filter={filter}");
             return response;
+        }
+
+        public async Task<List<EngineeringSymbol>> GetSymbolsAsync()
+        {
+            var symbols = new List<SymbolFromCL>();
+
+            var adress = "https://commonlibapitest.azurewebsites.net/api/symbol/ReadEngineeringSymbol?allVersions=false";
+            var content = new StringContent("", Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _requestSender.SendRequest(HttpMethod.Post, adress, content);
+
+            var ts = new TripleStore();
+            var parser = new JsonLdParser();
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            using (TextReader reader = new StringReader(responseContent))
+            {
+                parser.Load(ts, reader);
+
+                var listSparQlQueryResults = new List<SparqlResultSet>();
+
+                foreach (var graph in ts.Graphs)
+                {
+                    var queryResult = (SparqlResultSet) graph.ExecuteQuery(@"
+                SELECT ?subject ?predicate ?object
+                WHERE { 
+                        ?subject ?predicate ?object .
+                }");
+                    listSparQlQueryResults.Add(queryResult);
+                }
+
+                foreach (var items in listSparQlQueryResults)
+                {
+                    var symbol = new SymbolFromCL();
+                    foreach (var queryResultItem in items)
+                    {
+                        var key = ((UriNode) queryResultItem[1]).ToString();
+                        var iriValue = queryResultItem[0].ToString();
+                        if (symbol.Iri == null)
+                        {
+                            if (iriValue.StartsWith("https://rdf.equinor.com/engineering-symbols/") || iriValue.StartsWith("http://example.com/"))
+                            {
+                                symbol.Iri = new Uri(iriValue);
+                            }
+                        }
+
+                        if (key == "http://example.equinor.com/symbol#width")
+                        {
+                            var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
+                            Decimal.TryParse(attributeValue, out var width);
+                            symbol.Width = width;
+                        }
+
+                        if (key == "http://example.equinor.com/symbol#height")
+                        {
+                            var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
+                            Decimal.TryParse(attributeValue, out var height);
+                            symbol.Height = height;
+                        }
+                        if (key == "http://example.equinor.com/symbol#hasSerialization")
+                        {
+                            var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
+                            symbol.Path = attributeValue;
+                        }
+
+                        if (key == "http://www.w3.org/2000/01/rdf-schema#label")
+                        {
+                            var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
+                            symbol.Label = attributeValue;
+                        }
+
+                        if (key == "http://purl.org/dc/terms/description")
+                        {
+                            var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
+                            symbol.Description = attributeValue;
+                        }
+                        if (key == "http://example.equinor.com/symbol#positionX")
+                        {
+                            var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
+                            Decimal.TryParse(attributeValue, out var x);
+                            symbol.ConnectionPoints.Add(new Model.ConnectionPoint { X = x, });
+                        }
+                        if (key == "http://example.equinor.com/symbol#positionY")
+                        {
+                            var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
+                            Decimal.TryParse(attributeValue, out var y);
+                            var currentSymbol = symbol.ConnectionPoints.LastOrDefault();
+                            currentSymbol.Y = y;
+                        }
+
+                        if (key == "http://purl.org/dc/terms/description")
+                        {
+                            var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
+                            symbol.Description = attributeValue;
+                        }
+
+                        if (queryResultItem == items.LastOrDefault())
+                        {
+                            symbols.Add(symbol);
+                        }
+                    }
+                }
+            }
+
+            var engineeringSymbols = new List<EngineeringSymbol>();
+
+            foreach (var item in symbols)
+            {
+                var connectionPoints = new List<Tyle.Core.Blocks.ConnectionPoint>();
+                foreach (var connectionPoint in item.ConnectionPoints)
+                {
+                    connectionPoints.Add(new Core.Blocks.ConnectionPoint { Identifier = connectionPoint.Identifier, PositionX = connectionPoint.X, PositionY = connectionPoint.Y });
+                }
+
+                engineeringSymbols.Add(new EngineeringSymbol { ConnectionPoints = connectionPoints, Description = item.Description, Height = item.Height, Iri = item.Iri, Width = item.Width, Label = item.Label, Path = item.Path });
+            }
+
+            return engineeringSymbols;
         }
 
 
@@ -141,8 +272,11 @@ internal static class CommonLibraryTokenCredential
             return new Dictionary<string, string>();
         }
 
-        return (from entry in tokenProviderConnectionString.Split(ConnectionStringConfigSeparator).AsEnumerable()
-                select entry.Split(ConnectionStringKvSeparator, 2)).ToDictionary((string[] entry) => entry[0], (string[] entry) => entry[1]);
+
+        //TODO COMENT BACK!
+        return null;
+        //return (from entry in tokenProviderConnectionString.Split(ConnectionStringConfigSeparator).AsEnumerable()
+        //        select entry.Split(ConnectionStringKvSeparator, 2)).ToDictionary((string[] entry) => entry[0], (string[] entry) => entry[1]);
     }
 
     private static TokenCredential GetDeveloper(IReadOnlyDictionary<string, string> connectionString)

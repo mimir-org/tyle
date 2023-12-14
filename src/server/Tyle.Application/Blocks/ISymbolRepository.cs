@@ -16,4 +16,11 @@ public interface ISymbolRepository
     /// <param name="id">The id of the symbol.</param>
     /// <returns>The symbol, or null if no symbol was found.</returns>
     Task<EngineeringSymbol?> Get(int id);
+
+    /// <summary>
+    /// Add symbol from external resource
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    Task Create(List<EngineeringSymbol> symbols);
 }
