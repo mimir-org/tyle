@@ -152,8 +152,6 @@ namespace Tyle.External
                     symbolsNotInDb.Add(item);
             }
 
-
-
             foreach (var symbol in symbols)
 
                 if (symbolsNotInDb.Count == 0)

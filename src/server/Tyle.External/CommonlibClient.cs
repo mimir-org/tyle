@@ -17,10 +17,6 @@ using Newtonsoft.Json.Linq;
 using Tyle.Core.Blocks;
 using AngleSharp.Text;
 
-
-
-
-
 namespace Tyle.External
 {
     public class CommonLibClient
@@ -77,7 +73,6 @@ namespace Tyle.External
 
                 foreach (var items in listSparQlQueryResults)
                 {
-
                     var symbol = new SymbolFromCL();
                     foreach (var queryResultItem in items)
                     {
@@ -92,71 +87,43 @@ namespace Tyle.External
                         }
 
                         if (key == "http://example.equinor.com/symbol#width")
-                        {
-                            var attributeName = key.Split("#").Length > 1
-                                        ? key.Split("#").Last()
-                                        : key.Split("/").Last();
-                            attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
+                        {                                                 
                             var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
                             Decimal.TryParse(attributeValue, out var width);
                             symbol.Width = width;
                         }
 
                         if (key == "http://example.equinor.com/symbol#height")
-                        {
-                            var attributeName = key.Split("#").Length > 1
-                                        ? key.Split("#").Last()
-                                        : key.Split("/").Last();
-                            attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
+                        {                         
                             var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
                             Decimal.TryParse(attributeValue, out var height);
                             symbol.Height = height;
                         }
                         if (key == "http://example.equinor.com/symbol#hasSerialization")
                         {
-                            var attributeName = key.Split("#").Length > 1
-                                     ? key.Split("#").Last()
-                                     : key.Split("/").Last();
-                            attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
                             var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
                             symbol.Path = attributeValue;
                         }
 
                         if (key == "http://www.w3.org/2000/01/rdf-schema#label")
-                        {
-                            var attributeName = key.Split("#").Length > 1
-                                     ? key.Split("#").Last()
-                                     : key.Split("/").Last();
-                            attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
+                        {                           
                             var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
                             symbol.Label = attributeValue;
                         }
 
                         if (key == "http://purl.org/dc/terms/description")
                         {
-                            var attributeName = key.Split("#").Length > 1
-                                     ? key.Split("#").Last()
-                                     : key.Split("/").Last();
-                            attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
                             var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
                             symbol.Description = attributeValue;
                         }
                         if (key == "http://example.equinor.com/symbol#positionX")
                         {
-                            var attributeName = key.Split("#").Length > 1
-                                     ? key.Split("#").Last()
-                                     : key.Split("/").Last();
-                            attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
                             var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
                             Decimal.TryParse(attributeValue, out var x);
-                            symbol.ConnectionPoints.Add(new Tyle.External.Model.ConnectionPoint { X = x, });
+                            symbol.ConnectionPoints.Add(new Model.ConnectionPoint { X = x, });
                         }
                         if (key == "http://example.equinor.com/symbol#positionY")
                         {
-                            var attributeName = key.Split("#").Length > 1
-                                     ? key.Split("#").Last()
-                                     : key.Split("/").Last();
-                            attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
                             var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
                             Decimal.TryParse(attributeValue, out var y);
                             var currentSymbol = symbol.ConnectionPoints.LastOrDefault();
@@ -165,10 +132,6 @@ namespace Tyle.External
 
                         if (key == "http://purl.org/dc/terms/description")
                         {
-                            var attributeName = key.Split("#").Length > 1
-                                     ? key.Split("#").Last()
-                                     : key.Split("/").Last();
-                            attributeName = char.ToUpper(attributeName[0]) + attributeName[1..];
                             var attributeValue = ((LiteralNode) queryResultItem[2]).Value;
                             symbol.Description = attributeValue;
                         }
@@ -192,12 +155,9 @@ namespace Tyle.External
                 }
 
                 engineeringSymbols.Add(new EngineeringSymbol { ConnectionPoints = connectionPoints, Description = item.Description, Height = item.Height, Iri = item.Iri, Width = item.Width, Label = item.Label, Path = item.Path });
-
             }
 
             return engineeringSymbols;
-
-
         }
 
 
