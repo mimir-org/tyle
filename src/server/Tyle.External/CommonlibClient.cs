@@ -63,11 +63,6 @@ namespace Tyle.External
             {
                 parser.Load(ts, reader);
                 
-                
-
-                //var g = ts.Graphs.FirstOrDefault();
-                //var g2 = ts.Graphs.LastOrDefault();
-
                 var listSparQlQueryResults = new List<SparqlResultSet>();
 
                 foreach (var graph in ts.Graphs)
@@ -78,7 +73,6 @@ namespace Tyle.External
                         ?subject ?predicate ?object .
                 }");
                     listSparQlQueryResults.Add(queryResult);
-
                 }
 
                 foreach (var items in listSparQlQueryResults)
