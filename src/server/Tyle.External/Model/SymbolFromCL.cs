@@ -2,7 +2,7 @@ namespace Tyle.External.Model
 {
     public class SymbolFromCL
     {
-        public string Iri { get; set; }
+        public Uri Iri { get; set; }
         public string Label { get; set; }
         public string Description { get; set; } = "";
         public string Path { get; set; }

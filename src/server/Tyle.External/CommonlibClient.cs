@@ -82,7 +82,7 @@ namespace Tyle.External
                         {
                             if (iriValue.StartsWith("https://rdf.equinor.com/engineering-symbols/") || iriValue.StartsWith("http://example.com/"))
                             {
-                                symbol.Iri = iriValue;
+                                symbol.Iri = new Uri(iriValue);
                             }
                         }
 
