@@ -8,10 +8,10 @@ namespace Tyle.External.Model
         public string Path { get; set; }
         public decimal Height { get; set; }
         public decimal Width { get; set; }
-        public List<ConnectionPoint> ConnectionPoints { get; set; } = new();
+        public List<ConnectionPointFromCL> ConnectionPoints { get; set; } = new();
     }
 
-    public class ConnectionPoint
+    public class ConnectionPointFromCL
     {
         public string Identifier { get; set; } = "";
         public decimal X { get; set; }

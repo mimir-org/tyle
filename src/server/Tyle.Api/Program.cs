@@ -153,35 +153,6 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-if (builder.Configuration.GetValue<bool>("FetchDataFromCL"))
-{
-    using (var scope = app.Services.CreateScope())
-    {
-        var services = scope.ServiceProvider;
-        var purposeRepoService = (IPurposeRepository) services.GetService(typeof(IPurposeRepository));
-        var loggerService = (ILogger<Program>) services.GetService(typeof(ILogger<Program>));
-        var classifierRepoService = (IClassifierRepository) services.GetService(typeof(IClassifierRepository));
-        var symbolRepoService = (ISymbolRepository) services.GetService(typeof(ISymbolRepository));
-        var savingDataService = new Tyle.External.SupplyExternalData(purposeRepoService, classifierRepoService, symbolRepoService);
-        try
-        {
-
-            await savingDataService.SupplyData();
-
-        }
-        catch (Exception ex)
-        {
-            loggerService.LogError(ex, "Something went wrong fetching data from external resource");
-        }
-        finally
-        {
-            scope.Dispose();
-            app.MapControllers();
-            app.Run();
-        }
-    }
-}
-
 app.MapControllers();
 app.Run();
 
