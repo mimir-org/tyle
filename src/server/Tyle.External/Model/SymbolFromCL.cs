@@ -16,7 +16,6 @@ namespace Tyle.External.Model
         public string Identifier { get; set; } = "";
         public decimal X { get; set; }
         public decimal Y { get; set; }
-        public string ConnectorDirection { get; set; } = "";
     }
 
 }
