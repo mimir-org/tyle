@@ -19,7 +19,7 @@ const Access = () => {
       <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xxxl}>
         {/*showPlaceholder && <AccessPlaceholder text={t("access.placeholders.users")} />*/}
         {/*users.map((user) => (
-          <PermissionCard key={user.id} user={mapMimirorgUserCmToUserItem(user)} />
+          <RoleCard key={user.id} user={mapMimirorgUserCmToUserItem(user)} />
         ))*/}
       </Flexbox>
     </SettingsSection>

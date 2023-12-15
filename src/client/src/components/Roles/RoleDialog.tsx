@@ -1,12 +1,12 @@
 import { AlertDialog, AlertDialogActionItem, AlertDialogCancelItem, Button } from "@mimirorg/component-library";
 import { PencilSquare } from "@styled-icons/heroicons-outline";
-import PermissionCard from "components/PermissionCard";
+import RoleCard from "components/RoleCard";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { UserItem } from "types/userItem";
 
-interface PermissionDialogProps {
+interface RoleDialogProps {
   user: UserItem;
+  handleRoleChange: (user: UserItem, newRole: string | undefined) => void;
 }
 
 /**
@@ -16,40 +16,61 @@ interface PermissionDialogProps {
  * The dialog's action is extended with the submit type and a form id so that it can submit an external component form.
  *
  * @param user
+ * @param handleRoleChange
  * @constructor
  */
-const PermissionDialog = ({ user }: PermissionDialogProps) => {
-  const { t } = useTranslation("settings");
-  const [open, setOpen] = useState(false);
+const RoleDialog = ({ user, handleRoleChange }: RoleDialogProps) => {
   const formId = "changeUserPermission";
+  const [open, setOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState<string>(user.roles[0]);
 
   const dialogContent = (
-    <PermissionCard selected user={user} formId={formId} onSubmit={() => setOpen(false)} showSubmitButton={false} />
+    <RoleCard
+      selected
+      user={user}
+      formId={formId}
+      showSubmitButton={false}
+      selectedRole={selectedRole}
+      setSelectedRole={setSelectedRole}
+    />
   );
   const dialogOverriddenSubmitAction: AlertDialogActionItem = {
-    name: t("permissions.dialog.submit"),
+    name: "Submit",
     form: formId,
     type: "submit",
+    onAction: () => {
+      handleRoleChange(user, selectedRole);
+      setOpen(false);
+    },
   };
   const dialogOverriddenCancelAction: AlertDialogCancelItem = {
-    name: t("permissions.dialog.cancel"),
-    onAction: () => setOpen(false),
+    name: "Cancel",
+    onAction: () => {
+      setOpen(false);
+    },
   };
 
   return (
     <AlertDialog
       open={open}
-      title={t("permissions.dialog.title")}
-      description={t("permissions.dialog.description")}
+      title="Editing"
+      description="Change the user's role"
       content={dialogContent}
       actions={[dialogOverriddenSubmitAction]}
       cancelAction={dialogOverriddenCancelAction}
     >
-      <Button variant={"text"} icon={<PencilSquare />} iconOnly onClick={() => setOpen(true)}>
-        {t("permissions.dialog.trigger", { name: user.name })}
+      <Button
+        variant={"text"}
+        icon={<PencilSquare />}
+        iconOnly
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        {user.name}
       </Button>
     </AlertDialog>
   );
 };
 
-export default PermissionDialog;
+export default RoleDialog;

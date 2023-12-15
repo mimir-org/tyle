@@ -30,7 +30,7 @@ public class MimirorgAuthorizeController : ControllerBase
     /// Get all roles
     /// </summary>
     /// <returns>ICollection&lt;MimirorgRoleCm&gt;</returns>
-    [AllowAnonymous]
+    [Authorize(Roles = MimirorgDefaultRoles.Administrator)]
     [HttpGet]
     [Route("role")]
     [ProducesResponseType(typeof(ICollection<RoleView>), 200)]
@@ -135,6 +135,52 @@ public class MimirorgAuthorizeController : ControllerBase
         catch (Exception e)
         {
             _logger.LogError(e, $"An error occurred while trying to remove user from role. Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
+    /// Update user role
+    /// </summary>
+    /// <param name="userRole">MimirorgUserRoleAm</param>
+    /// <returns>bool</returns>
+    [Authorize(Roles = MimirorgDefaultRoles.Administrator)]
+    [HttpPut]
+    [Route("role/update")]
+    [ProducesResponseType(typeof(bool), 200)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [SwaggerOperation("Update user role")]
+    public async Task<IActionResult> UpdateUserRole(UserRoleRequest userRole)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var deleteResult = await _authService.DeleteUserRoles(userRole);
+            if (!deleteResult) return StatusCode(500, "Internal Server Error");
+            var data = await _authService.AddUserToRole(userRole);
+            return Ok(data);
+        }
+        catch (MimirorgNotFoundException)
+        {
+            return NotFound();
+        }
+        catch (MimirorgBadRequestException e)
+        {
+            foreach (var error in e.Errors().ToList())
+            {
+                ModelState.Remove(error.Key);
+                ModelState.TryAddModelError(error.Key, error.Error);
+            }
+
+            return BadRequest(ModelState);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"An error occurred while trying to add user to role. Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }

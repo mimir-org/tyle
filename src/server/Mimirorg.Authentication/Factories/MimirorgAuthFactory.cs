@@ -17,10 +17,26 @@ public class MimirorgAuthFactory : IMimirorgAuthFactory
 
     private static IEnumerable<IdentityRole> CreateDefaultRoles()
     {
-        yield return new IdentityRole(MimirorgDefaultRoles.Administrator);
-        yield return new IdentityRole(MimirorgDefaultRoles.Reviewer);
-        yield return new IdentityRole(MimirorgDefaultRoles.Contributor);
-        yield return new IdentityRole(MimirorgDefaultRoles.Reader);
+        yield return new IdentityRole
+        {
+            Name = MimirorgDefaultRoles.Administrator,
+            NormalizedName = MimirorgDefaultRoles.Administrator.Normalize()
+        };
+        yield return new IdentityRole
+        {
+            Name = MimirorgDefaultRoles.Reviewer,
+            NormalizedName = MimirorgDefaultRoles.Reviewer.Normalize()
+        };
+        yield return new IdentityRole
+        {
+            Name = MimirorgDefaultRoles.Contributor,
+            NormalizedName = MimirorgDefaultRoles.Contributor.Normalize()
+        };
+        yield return new IdentityRole
+        {
+            Name = MimirorgDefaultRoles.Reader,
+            NormalizedName = MimirorgDefaultRoles.Reader.Normalize()
+        };
     }
 
     #endregion

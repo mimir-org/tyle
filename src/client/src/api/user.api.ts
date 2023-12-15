@@ -11,6 +11,9 @@ export const userApi = {
   getCurrentUser() {
     return apiClient.get<UserView>(_basePath).then((r) => r.data);
   },
+  getUsers() {
+    return apiClient.get<UserView[]>(`${_basePath}/users`).then((r) => r.data);
+  },
   postUser(item: UserRequest) {
     return apiClient.post<QrCodeView>(_basePath, item).then((r) => r.data);
   },

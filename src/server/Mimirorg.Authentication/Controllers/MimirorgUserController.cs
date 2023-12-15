@@ -6,6 +6,7 @@ using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Exceptions;
 using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Client;
+using Mimirorg.Authentication.Models.Constants;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Mimirorg.Authentication.Controllers;
@@ -50,6 +51,36 @@ public class MimirorgUserController : ControllerBase
         catch (Exception e)
         {
             _logger.LogError(e, $"An error occurred while trying to get current user. Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
+    /// Get all users
+    /// </summary>
+    /// <returns>List of all users</returns>
+    [Authorize(Roles = MimirorgDefaultRoles.Administrator)]
+    [HttpGet]
+    [Route("users")]
+    [ProducesResponseType(typeof(UserView[]), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [SwaggerOperation("Get all user")]
+    public async Task<IActionResult> GetAllUsers()
+    {
+        try
+        {
+            var users = await _userService.GetUsers();
+            return Ok(users);
+        }
+        catch (MimirorgNotFoundException)
+        {
+            return StatusCode(204, null);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"An error occurred while trying to get users. Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -178,7 +209,8 @@ public class MimirorgUserController : ControllerBase
         }
         catch (MimirorgInvalidOperationException e)
         {
-            _logger.LogError(e, $"An error occurred while trying to verify account. The operation is invalid Error: {e.Message}");
+            _logger.LogError(e,
+                $"An error occurred while trying to verify account. The operation is invalid Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
         catch (Exception e)
@@ -222,7 +254,8 @@ public class MimirorgUserController : ControllerBase
         }
         catch (MimirorgInvalidOperationException e)
         {
-            _logger.LogError(e, $"An error occurred while trying to verify account. The operation is invalid Error: {e.Message}");
+            _logger.LogError(e,
+                $"An error occurred while trying to verify account. The operation is invalid Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
         catch (Exception e)
@@ -295,7 +328,8 @@ public class MimirorgUserController : ControllerBase
         }
         catch (MimirorgInvalidOperationException e)
         {
-            _logger.LogError(e, $"An error occurred while trying to verify account. The operation is invalid Error: {e.Message}");
+            _logger.LogError(e,
+                $"An error occurred while trying to verify account. The operation is invalid Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
         catch (Exception e)

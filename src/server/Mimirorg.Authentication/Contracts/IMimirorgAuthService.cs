@@ -77,5 +77,11 @@ public interface IMimirorgAuthService
     /// <exception cref="MimirorgNotFoundException"></exception>
     Task<bool> RemoveUserFromRole(UserRoleRequest userRole);
 
+    /// <summary>
+    /// Delete all user roles
+    /// </summary>
+    /// <returns>ICollection&lt;MimirorgRoleCm&gt;</returns>
+    Task<bool> DeleteUserRoles(UserRoleRequest userRole);
+
     #endregion
 }
