@@ -1,6 +1,6 @@
 import { accessBasePath } from "components/Access/AccessRoutes";
 import { approvalBasePath } from "components/Approval/ApprovalRoutes";
-import { permissionsBasePath } from "components/Permissions/PermissionsRoutes";
+import { rolesBasePath } from "components/Permissions/RolesRoutes";
 import { usersettingsBasePath } from "components/UserSettings/UserSettingsRoutes";
 import { Link } from "types/link";
 import { LinkGroup } from "types/linkGroup";
@@ -27,7 +27,7 @@ const useAdministerLinks = (): Link[] => {
     },
     {
       name: "Roles",
-      path: permissionsBasePath,
+      path: rolesBasePath,
     },
   ];
 };

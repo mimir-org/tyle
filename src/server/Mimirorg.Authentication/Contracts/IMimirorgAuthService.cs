@@ -78,7 +78,7 @@ public interface IMimirorgAuthService
     Task<bool> RemoveUserFromRole(UserRoleRequest userRole);
 
     /// <summary>
-    /// Get all roles
+    /// Delete all user roles
     /// </summary>
     /// <returns>ICollection&lt;MimirorgRoleCm&gt;</returns>
     Task<bool> DeleteUserRoles(UserRoleRequest userRole);

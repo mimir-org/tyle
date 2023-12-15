@@ -19,16 +19,18 @@ export type AccessCardProps = PermissionCardFormProps & {
  *
  * @param user
  * @param selected property for overriding the cards selected visual state
+ * @param selectedRole currently selected role in form
+ * @param setSelectedRole function to set currently selected role
  * @param delegated receives all the properties of PermissionCardFormProps
  * @see PermissionCardFormProps
  * @constructor
  */
-const PermissionCard = ({ user, selected, ...delegated }: AccessCardProps) => {
+const PermissionCard = ({ user, selected, selectedRole, setSelectedRole, ...delegated }: AccessCardProps) => {
   const theme = useTheme();
   const cardRef = useRef(null);
   const userDescriptors = useUserDescriptors(user);
 
-  const { formId, showSubmitButton, setSelectedRole, selectedRole } = delegated;
+  const { formId, showSubmitButton} = delegated;
 
   return (
     <MotionPermissionCardContainer

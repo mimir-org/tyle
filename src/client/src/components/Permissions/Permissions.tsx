@@ -37,15 +37,15 @@ const Permissions = () => {
   };
 
   return (
-    <SettingsSection title={"Roles"}>
+    <SettingsSection title="Roles">
       <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xxl}>
         <RadioFilters
-          title={""}
+          title=""
           filters={roleFilters}
           value={selectedRoleFilter}
           onChange={(x) => setSelectedRoleFilter(x)}
         />
-        <UserList title={"Users"}>
+        <UserList title="Users">
           {filteredUsers().map((user) => (
             <UserListItem
               key={user.id}

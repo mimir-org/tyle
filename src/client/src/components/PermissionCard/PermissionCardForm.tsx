@@ -18,15 +18,13 @@ const PermissionCardForm = ({
   setSelectedRole,
   selectedRole,
 }: PermissionCardFormProps) => {
-  const { t } = useTranslation(["settings"]);
   const roleOptions = getOptionsFromEnum<Role>(Role);
 
   return (
     <Form id={formId} alignItems={"center"}>
       <Input type={"hidden"} value={user.id} />
-      <FormField label={t("common.permission.permission")} indent={false}>
+      <FormField label="Roles" indent={false}>
         <Select
-          placeholder={t("common.templates.select", { object: t("common.permission.permission").toLowerCase() })}
           options={roleOptions}
           value={roleOptions?.find((x) => x.label === selectedRole)}
           onChange={(x) => {
@@ -34,7 +32,7 @@ const PermissionCardForm = ({
           }}
         />
       </FormField>
-      {showSubmitButton && <Button type={"submit"}>{t("common.permission.submit")}</Button>}
+      {showSubmitButton && <Button type={"submit"}>Submit</Button>}
     </Form>
   );
 };

@@ -21,7 +21,6 @@ interface PermissionDialogProps {
  * @constructor
  */
 const PermissionDialog = ({ user, handleRoleChange }: PermissionDialogProps) => {
-  const { t } = useTranslation("settings");
   const formId = "changeUserPermission";
   const [open, setOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState<string>(user.roles[0]);
@@ -37,7 +36,7 @@ const PermissionDialog = ({ user, handleRoleChange }: PermissionDialogProps) => 
     />
   );
   const dialogOverriddenSubmitAction: AlertDialogActionItem = {
-    name: t("permissions.dialog.submit"),
+    name: "Submit",
     form: formId,
     type: "submit",
     onAction: () => {
@@ -46,7 +45,7 @@ const PermissionDialog = ({ user, handleRoleChange }: PermissionDialogProps) => 
     },
   };
   const dialogOverriddenCancelAction: AlertDialogCancelItem = {
-    name: t("permissions.dialog.cancel"),
+    name: "Cancel",
     onAction: () => {
       setOpen(false);
     },
@@ -55,8 +54,8 @@ const PermissionDialog = ({ user, handleRoleChange }: PermissionDialogProps) => 
   return (
     <AlertDialog
       open={open}
-      title={t("permissions.dialog.title")}
-      description={t("permissions.dialog.description")}
+      title="Editing"
+      description="Change the user`s role"
       content={dialogContent}
       actions={[dialogOverriddenSubmitAction]}
       cancelAction={dialogOverriddenCancelAction}
@@ -69,7 +68,7 @@ const PermissionDialog = ({ user, handleRoleChange }: PermissionDialogProps) => 
           setOpen(true);
         }}
       >
-        {t("permissions.dialog.trigger", { name: user.name })}
+        { user.name }
       </Button>
     </AlertDialog>
   );
