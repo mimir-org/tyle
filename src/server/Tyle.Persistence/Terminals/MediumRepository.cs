@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Tyle.Application.Terminals;
 using Tyle.Application.Terminals.Requests;
+using Tyle.Core.Common;
 using Tyle.Core.Terminals;
 
 namespace Tyle.Persistence.Terminals;
@@ -36,6 +37,19 @@ public class MediumRepository : IMediumRepository
         await _context.SaveChangesAsync();
 
         return medium;
+    }
+
+    public async Task Create(IEnumerable<RdlMediumRequest> requests, ReferenceSource source)
+    {
+        var media = _mapper.Map<IEnumerable<RdlMedium>>(requests).ToList();
+
+        foreach (var medium in media)
+        {
+            medium.Source = source;
+        }
+
+        _dbSet.AddRange(media);
+        await _context.SaveChangesAsync();
     }
 
     public async Task<bool> Delete(int id)

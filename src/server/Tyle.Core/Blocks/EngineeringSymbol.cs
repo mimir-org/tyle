@@ -7,7 +7,7 @@ public class EngineeringSymbol
     public required Uri Iri { get; set; }
     public string? Description { get; set; }
     public required string Path { get; set; }
-    public int Height { get; set; }
-    public int Width { get; set; }
+    public decimal Height { get; set; }
+    public decimal Width { get; set; }
     public ICollection<ConnectionPoint> ConnectionPoints { get; set; } = new List<ConnectionPoint>();
 }

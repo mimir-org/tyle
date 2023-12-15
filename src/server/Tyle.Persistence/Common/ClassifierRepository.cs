@@ -38,6 +38,19 @@ public class ClassifierRepository : IClassifierRepository
         return classifier;
     }
 
+    public async Task Create(IEnumerable<RdlClassifierRequest> requests, ReferenceSource source)
+    {
+        var classifiers = _mapper.Map<IEnumerable<RdlClassifier>>(requests).ToList();
+
+        foreach (var classifier in classifiers)
+        {
+            classifier.Source = source;
+        }
+
+        _dbSet.AddRange(classifiers);
+        await _context.SaveChangesAsync();
+    }
+
     public async Task<bool> Delete(int id)
     {
         var classifier = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id);

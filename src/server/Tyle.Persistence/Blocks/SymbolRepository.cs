@@ -30,4 +30,31 @@ public class SymbolRepository : ISymbolRepository
             .AsSplitQuery()
             .FirstOrDefaultAsync(x => x.Id == id);
     }
+
+    public async Task Create(List<EngineeringSymbol> symbols)
+    {
+        var exceptions = new List<Exception>();
+
+        foreach (var item in symbols)
+        {
+            try
+            {
+                var saveItem = _dbSet.Add(item);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                exceptions.Add(ex);
+
+            }
+        }
+
+        if (exceptions.Count > 0)
+        {
+            throw new AggregateException(exceptions);
+        }
+
+        return;
+
+    }
 }
