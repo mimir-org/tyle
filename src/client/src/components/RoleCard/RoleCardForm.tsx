@@ -10,13 +10,7 @@ export interface RoleCardFormProps {
   selectedRole: string;
   setSelectedRole: (role: string) => void;
 }
-const RoleCardForm = ({
-  user,
-  formId,
-  showSubmitButton = true,
-  setSelectedRole,
-  selectedRole,
-}: RoleCardFormProps) => {
+const RoleCardForm = ({ user, formId, showSubmitButton = true, setSelectedRole, selectedRole }: RoleCardFormProps) => {
   const roleOptions = getOptionsFromEnum<Role>(Role);
 
   return (
