@@ -76,7 +76,7 @@ public interface IMimirorgAuthService
     /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="MimirorgNotFoundException"></exception>
     Task<bool> RemoveUserFromRole(UserRoleRequest userRole);
-    
+
     /// <summary>
     /// Get all roles
     /// </summary>

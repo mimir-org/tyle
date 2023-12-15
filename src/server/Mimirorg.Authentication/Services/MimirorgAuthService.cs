@@ -166,7 +166,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         var roles = _roleManager.Roles.Select(x => new RoleView { Id = x.Id, Name = x.Name });
         return await Task.FromResult(roles.ToList());
     }
-    
+
     /// <summary>
     /// Delete all roles on a user
     /// </summary>
@@ -180,9 +180,9 @@ public class MimirorgAuthService : IMimirorgAuthService
         }
         var userRoles = await _userManager.GetRolesAsync(user);
         return (await _userManager.RemoveFromRolesAsync(user, userRoles)).Succeeded;
-        
+
     }
-    
+
 
     /// <summary>
     /// Add an user to a role

@@ -138,7 +138,7 @@ public class MimirorgAuthorizeController : ControllerBase
             return StatusCode(500, "Internal Server Error");
         }
     }
-    
+
     /// <summary>
     /// Update user role
     /// </summary>
@@ -158,7 +158,7 @@ public class MimirorgAuthorizeController : ControllerBase
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            
+
             var deleteResult = await _authService.DeleteUserRoles(userRole);
             if (!deleteResult) return StatusCode(500, "Internal Server Error");
             var data = await _authService.AddUserToRole(userRole);
