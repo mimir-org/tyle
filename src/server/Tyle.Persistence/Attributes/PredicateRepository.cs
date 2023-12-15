@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Core.Attributes;
+using Tyle.Core.Common;
 
 namespace Tyle.Persistence.Attributes;
 
@@ -36,6 +37,19 @@ public class PredicateRepository : IPredicateRepository
         await _context.SaveChangesAsync();
 
         return predicate;
+    }
+
+    public async Task Create(IEnumerable<RdlPredicateRequest> requests, ReferenceSource source)
+    {
+        var predicates = _mapper.Map<IEnumerable<RdlPredicate>>(requests).ToList();
+
+        foreach (var predicate in predicates)
+        {
+            predicate.Source = source;
+        }
+
+        _dbSet.AddRange(predicates);
+        await _context.SaveChangesAsync();
     }
 
     public async Task<bool> Delete(int id)

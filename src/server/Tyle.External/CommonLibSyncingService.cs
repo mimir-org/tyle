@@ -6,6 +6,7 @@ using Tyle.Application.Common;
 using Tyle.Application.Common.Requests;
 using Tyle.Converters.Iris;
 using Tyle.Core.Blocks;
+using Tyle.Core.Common;
 using Tyle.External.Model;
 using VDS.RDF.Parsing;
 using VDS.RDF;
@@ -68,6 +69,8 @@ public class CommonLibSyncingService : IHostedService, IDisposable
 
         var newPurposes = purposes.Where(purpose => purposesDb.All(purposeDb => purposeDb.Iri != new Uri(purpose.Identity)));
 
+        var purposesToCreate = new List<RdlPurposeRequest>();
+
         foreach (var purpose in newPurposes)
         {
             var purposeRequest = new RdlPurposeRequest
@@ -77,8 +80,10 @@ public class CommonLibSyncingService : IHostedService, IDisposable
                 Iri = purpose.Identity
             };
 
-            await purposeRepository.Create(purposeRequest);
+            purposesToCreate.Add(purposeRequest);
         }
+
+        await purposeRepository.Create(purposesToCreate, ReferenceSource.CommonLibrary);
     }
 
     private async Task SyncSymbols()

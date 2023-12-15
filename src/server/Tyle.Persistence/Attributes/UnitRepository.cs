@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
 using Tyle.Core.Attributes;
+using Tyle.Core.Common;
 
 namespace Tyle.Persistence.Attributes;
 
@@ -36,6 +37,19 @@ public class UnitRepository : IUnitRepository
         await _context.SaveChangesAsync();
 
         return unit;
+    }
+
+    public async Task Create(IEnumerable<RdlUnitRequest> requests, ReferenceSource source)
+    {
+        var units = _mapper.Map<IEnumerable<RdlUnit>>(requests).ToList();
+
+        foreach (var unit in units)
+        {
+            unit.Source = source;
+        }
+
+        _dbSet.AddRange(units);
+        await _context.SaveChangesAsync();
     }
 
     public async Task<bool> Delete(int id)

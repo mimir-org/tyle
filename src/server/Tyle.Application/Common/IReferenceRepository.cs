@@ -1,3 +1,5 @@
+using Tyle.Core.Common;
+
 namespace Tyle.Application.Common;
 
 public interface IReferenceRepository<T, TRequest>
@@ -21,6 +23,13 @@ public interface IReferenceRepository<T, TRequest>
     /// <param name="request">A request defining the reference that should be created.</param>
     /// <returns>The created reference object.</returns>
     Task<T> Create(TRequest request);
+
+    /// <summary>
+    /// Creates new references from an external source.
+    /// </summary>
+    /// <param name="requests">An enumerable containing the reference requests that should be created.</param>
+    /// <param name="source">The external source that the references are collected from.</param>
+    Task Create(IEnumerable<TRequest> requests, ReferenceSource source);
 
     /// <summary>
     /// Deletes the reference with the given id.

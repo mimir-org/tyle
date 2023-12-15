@@ -38,6 +38,19 @@ public class PurposeRepository : IPurposeRepository
         return purpose;
     }
 
+    public async Task Create(IEnumerable<RdlPurposeRequest> requests, ReferenceSource source)
+    {
+        var purposes = _mapper.Map<IEnumerable<RdlPurpose>>(requests).ToList();
+
+        foreach (var purpose in purposes)
+        {
+            purpose.Source = source;
+        }
+
+        _dbSet.AddRange(purposes);
+        await _context.SaveChangesAsync();
+    }
+
     public async Task<bool> Delete(int id)
     {
         var purpose = await _dbSet.AsTracking().FirstOrDefaultAsync(x => x.Id == id);
