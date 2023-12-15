@@ -7,7 +7,7 @@ import { UserItem } from "types/userItem";
 
 interface PermissionDialogProps {
   user: UserItem;
-  handleRoleChange: (user: UserItem, newRole: string | undefined) => void
+  handleRoleChange: (user: UserItem, newRole: string | undefined) => void;
 }
 
 /**
@@ -22,16 +22,19 @@ interface PermissionDialogProps {
  */
 const PermissionDialog = ({ user, handleRoleChange }: PermissionDialogProps) => {
   const { t } = useTranslation("settings");
-  const [open, setOpen] = useState(false);
   const formId = "changeUserPermission";
+  const [open, setOpen] = useState(false);
+  const [ selectedRole, setSelectedRole ] = useState<string>(user.roles[0]);
+
 
   const dialogContent = (
-    <PermissionCard selected user={user} formId={formId} onSubmit={() => setOpen(false)} showSubmitButton={false} handleRoleChange={handleRoleChange} />
+    <PermissionCard selected user={user} formId={formId} showSubmitButton={false} selectedRole={selectedRole} setSelectedRole={setSelectedRole} />
   );
   const dialogOverriddenSubmitAction: AlertDialogActionItem = {
     name: t("permissions.dialog.submit"),
     form: formId,
-    type: "submit"
+    type: "submit",
+    onAction: () => { handleRoleChange(user, selectedRole); setOpen(false); }
   };
   const dialogOverriddenCancelAction: AlertDialogCancelItem = {
     name: t("permissions.dialog.cancel"),
@@ -47,7 +50,7 @@ const PermissionDialog = ({ user, handleRoleChange }: PermissionDialogProps) => 
       actions={[dialogOverriddenSubmitAction]}
       cancelAction={dialogOverriddenCancelAction}
     >
-      <Button variant={"text"} icon={<PencilSquare />} iconOnly onClick={() => setOpen(true)}>
+      <Button variant={"text"} icon={<PencilSquare />} iconOnly onClick={() => {setOpen(true); }}>
         {t("permissions.dialog.trigger", { name: user.name })}
       </Button>
     </AlertDialog>

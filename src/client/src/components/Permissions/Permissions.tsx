@@ -1,4 +1,4 @@
-import { Flexbox, toast } from "@mimirorg/component-library";
+import { Flexbox } from "@mimirorg/component-library";
 import RadioFilters from "components/RadioFilters";
 import SettingsSection from "components/SettingsSection";
 import { useState } from "react";
@@ -9,33 +9,32 @@ import UserListItem from "./UserListItem";
 import PermissionDialog from "./PermissionDialog";
 import { roleFilters } from "./Permissions.helpers";
 import { UserItem } from "../../types/userItem";
-import { useAddUserToRole, useRemoveUserFromRole } from "../../api/authorize.queries";
+import { useUpdateUserRole } from "../../api/authorize.queries";
 import { useSubmissionToast } from "../../helpers/form.helpers";
+import { useGetCurrentUser } from "../../api/user.queries";
+import { mapUserViewToUserItem } from "../../helpers/mappers.helpers";
+
 
 const Permissions = () => {
   const theme = useTheme();
   const [selectedRoleFilter, setSelectedRoleFilter] = useState(roleFilters[0]?.label);
+  const userQuery = useGetCurrentUser();
+  const currentUser = userQuery?.data != null ? mapUserViewToUserItem(userQuery.data) : undefined;
   const users = getAllUsersMapped();
   const roles = getAllRolesMapped();
-  const setRoleMutation = useAddUserToRole();
-  const removeRoleMutation = useRemoveUserFromRole();
+  const updateUserRoleMutation = useUpdateUserRole();
 
   const toast = useSubmissionToast("permission");
 
   const filteredUsers = (): UserItem[] => {
-    if (selectedRoleFilter === "All") return users;
-    if (selectedRoleFilter === "None") return users.filter((user) => user.roles.length === 0);
-    return users.filter((user) => user.roles.includes(selectedRoleFilter));
+    if (selectedRoleFilter === "All") return users.filter((user) => user.id !== currentUser?.id);
+    if (selectedRoleFilter === "None") return users.filter((user) => user.roles.length === 0 && user.id !== currentUser?.id);
+    return users.filter((user) => user.roles.includes(selectedRoleFilter) && user.id !== currentUser?.id);
   };
+
   const handleRoleChange = (user: UserItem, newRole: string | undefined) => {
     const newRoleId = roles.find((r) => r.roleName === newRole)?.roleId ?? "";
-
-    if (user.roles.length > 0){
-      const oldRoleId = roles.find((r) => r.roleName === user.roles[0])?.roleId ?? "";
-      toast(removeRoleMutation.mutateAsync(toUserRoleRequest(user.id, oldRoleId)));
-    }
-
-    toast(setRoleMutation.mutateAsync(toUserRoleRequest(user.id, newRoleId)));
+    toast(updateUserRoleMutation.mutateAsync(toUserRoleRequest(user.id, newRoleId)));
   };
 
   return (
@@ -53,7 +52,7 @@ const Permissions = () => {
               key={user.id}
               name={user.name}
               role={user.roles}
-              action={<PermissionDialog user={user} handleRoleChange={handleRoleChange} />}
+              action={<PermissionDialog user={user}  handleRoleChange={handleRoleChange}/>}
             />
           ))}
         </UserList>

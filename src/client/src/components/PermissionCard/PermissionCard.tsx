@@ -10,7 +10,8 @@ import PermissionCardHeader from "./PermissionCardHeader";
 export type AccessCardProps = PermissionCardFormProps & {
   user: UserItem;
   selected?: boolean;
-  handleRoleChange: (user: UserItem, newRole: string | undefined) => void
+  selectedRole: string;
+  setSelectedRole: (role: string) => void;
 };
 
 /**
@@ -27,7 +28,7 @@ const PermissionCard = ({ user, selected, ...delegated }: AccessCardProps) => {
   const cardRef = useRef(null);
   const userDescriptors = useUserDescriptors(user);
 
-  const { formId, onSubmit, showSubmitButton, handleRoleChange } = delegated;
+  const { formId, showSubmitButton, setSelectedRole, selectedRole } = delegated;
 
   return (
     <MotionPermissionCardContainer
@@ -39,7 +40,7 @@ const PermissionCard = ({ user, selected, ...delegated }: AccessCardProps) => {
     >
       <PermissionCardHeader>{user.name}</PermissionCardHeader>
       <PermissionCardDetails descriptors={userDescriptors} />
-      <PermissionCardForm user={user} formId={formId} onSubmit={onSubmit} showSubmitButton={showSubmitButton} handleRoleChange={handleRoleChange} />
+      <PermissionCardForm user={user} formId={formId} showSubmitButton={showSubmitButton} selectedRole={selectedRole} setSelectedRole={setSelectedRole}/>
     </MotionPermissionCardContainer>
   );
 };

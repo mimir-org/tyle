@@ -166,6 +166,23 @@ public class MimirorgAuthService : IMimirorgAuthService
         var roles = _roleManager.Roles.Select(x => new RoleView { Id = x.Id, Name = x.Name });
         return await Task.FromResult(roles.ToList());
     }
+    
+    /// <summary>
+    /// Delete all roles on a user
+    /// </summary>
+    /// <returns>ICollection&lt;MimirorgRoleCm&gt;</returns>
+    public async Task<bool> DeleteUserRoles(UserRoleRequest userRole)
+    {
+        var user = await _userManager.FindByIdAsync(userRole.UserId);
+        if (user == null)
+        {
+            throw new MimirorgNotFoundException($"Couldn't find any user with id: {userRole.UserId}");
+        }
+        var userRoles = await _userManager.GetRolesAsync(user);
+        return (await _userManager.RemoveFromRolesAsync(user, userRoles)).Succeeded;
+        
+    }
+    
 
     /// <summary>
     /// Add an user to a role

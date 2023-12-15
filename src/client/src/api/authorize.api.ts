@@ -14,4 +14,7 @@ export const authorizeApi = {
   postRemoveUserRole(item: UserRoleRequest) {
     return apiClient.post<boolean>(`${_basePath}/role/remove`, item).then((r) => r.data);
   },
+  putUpdateUserRole(item: UserRoleRequest) {
+    return apiClient.put<boolean>(`${_basePath}/role/update`, item).then((r) => r.data);
+  }
 };
