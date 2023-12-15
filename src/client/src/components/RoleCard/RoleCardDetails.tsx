@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import { Dd, Dl, Dt } from "./RoleCardDetails.styled";
 
-interface PermissionCardDetailsProps {
+interface RoleCardDetailsProps {
   descriptors: { [key: string]: string };
 }
 
-const RoleCardDetails = ({ descriptors }: PermissionCardDetailsProps) => (
+const RoleCardDetails = ({ descriptors }: RoleCardDetailsProps) => (
   <Dl>
     {descriptors &&
       Object.keys(descriptors).map((k, i) => (

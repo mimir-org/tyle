@@ -2,12 +2,12 @@ import { useRef } from "react";
 import { useTheme } from "styled-components";
 import { UserItem } from "types/userItem";
 import { useUserDescriptors } from "./RoleCard.helpers";
-import MotionPermissionCardContainer from "./RoleCard.styled";
+import MotionRoleCardContainer from "./RoleCard.styled";
 import RoleCardDetails from "./RoleCardDetails";
-import RoleCardForm, { PermissionCardFormProps } from "./RoleCardForm";
+import RoleCardForm, { RoleCardFormProps } from "./RoleCardForm";
 import RoleCardHeader from "./RoleCardHeader";
 
-export type AccessCardProps = PermissionCardFormProps & {
+export type AccessCardProps = RoleCardFormProps & {
   user: UserItem;
   selected?: boolean;
   selectedRole: string;
@@ -22,7 +22,7 @@ export type AccessCardProps = PermissionCardFormProps & {
  * @param selectedRole currently selected role in form
  * @param setSelectedRole function to set currently selected role
  * @param delegated receives all the properties of PermissionCardFormProps
- * @see PermissionCardFormProps
+ * @see RoleCardFormProps
  * @constructor
  */
 const RoleCard = ({ user, selected, selectedRole, setSelectedRole, ...delegated }: AccessCardProps) => {
@@ -33,7 +33,7 @@ const RoleCard = ({ user, selected, selectedRole, setSelectedRole, ...delegated 
   const { formId, showSubmitButton } = delegated;
 
   return (
-    <MotionPermissionCardContainer
+    <MotionRoleCardContainer
       key={user.id}
       ref={cardRef}
       variant={selected ? "selected" : "filled"}
@@ -49,7 +49,7 @@ const RoleCard = ({ user, selected, selectedRole, setSelectedRole, ...delegated 
         selectedRole={selectedRole}
         setSelectedRole={setSelectedRole}
       />
-    </MotionPermissionCardContainer>
+    </MotionRoleCardContainer>
   );
 };
 

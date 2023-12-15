@@ -3,7 +3,7 @@ import { UserItem } from "types/userItem";
 import { getOptionsFromEnum } from "../../utils";
 import { Role } from "../../types/Role";
 
-export interface PermissionCardFormProps {
+export interface RoleCardFormProps {
   user: UserItem;
   formId?: string;
   showSubmitButton?: boolean;
@@ -16,7 +16,7 @@ const RoleCardForm = ({
   showSubmitButton = true,
   setSelectedRole,
   selectedRole,
-}: PermissionCardFormProps) => {
+}: RoleCardFormProps) => {
   const roleOptions = getOptionsFromEnum<Role>(Role);
 
   return (

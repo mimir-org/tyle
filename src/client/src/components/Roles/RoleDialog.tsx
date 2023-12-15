@@ -4,7 +4,7 @@ import RoleCard from "components/RoleCard";
 import { useState } from "react";
 import { UserItem } from "types/userItem";
 
-interface PermissionDialogProps {
+interface RoleDialogProps {
   user: UserItem;
   handleRoleChange: (user: UserItem, newRole: string | undefined) => void;
 }
@@ -19,7 +19,7 @@ interface PermissionDialogProps {
  * @param handleRoleChange
  * @constructor
  */
-const RoleDialog = ({ user, handleRoleChange }: PermissionDialogProps) => {
+const RoleDialog = ({ user, handleRoleChange }: RoleDialogProps) => {
   const formId = "changeUserPermission";
   const [open, setOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState<string>(user.roles[0]);
@@ -54,7 +54,7 @@ const RoleDialog = ({ user, handleRoleChange }: PermissionDialogProps) => {
     <AlertDialog
       open={open}
       title="Editing"
-      description="Change the user`s role"
+      description="Change the user´s role"
       content={dialogContent}
       actions={[dialogOverriddenSubmitAction]}
       cancelAction={dialogOverriddenCancelAction}
