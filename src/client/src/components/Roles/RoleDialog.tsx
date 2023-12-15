@@ -1,8 +1,7 @@
 import { AlertDialog, AlertDialogActionItem, AlertDialogCancelItem, Button } from "@mimirorg/component-library";
 import { PencilSquare } from "@styled-icons/heroicons-outline";
-import PermissionCard from "components/PermissionCard";
+import RoleCard from "components/RoleCard";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { UserItem } from "types/userItem";
 
 interface PermissionDialogProps {
@@ -20,13 +19,13 @@ interface PermissionDialogProps {
  * @param handleRoleChange
  * @constructor
  */
-const PermissionDialog = ({ user, handleRoleChange }: PermissionDialogProps) => {
+const RoleDialog = ({ user, handleRoleChange }: PermissionDialogProps) => {
   const formId = "changeUserPermission";
   const [open, setOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState<string>(user.roles[0]);
 
   const dialogContent = (
-    <PermissionCard
+    <RoleCard
       selected
       user={user}
       formId={formId}
@@ -68,10 +67,10 @@ const PermissionDialog = ({ user, handleRoleChange }: PermissionDialogProps) => 
           setOpen(true);
         }}
       >
-        { user.name }
+        {user.name}
       </Button>
     </AlertDialog>
   );
 };
 
-export default PermissionDialog;
+export default RoleDialog;

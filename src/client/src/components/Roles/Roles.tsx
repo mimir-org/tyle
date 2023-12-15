@@ -3,17 +3,17 @@ import RadioFilters from "components/RadioFilters";
 import SettingsSection from "components/SettingsSection";
 import { useState } from "react";
 import { useTheme } from "styled-components";
-import { GetAllRolesMapped, GetAllUsersMapped, toUserRoleRequest, roleFilters } from "./permissions.helpers";
+import { GetAllRolesMapped, GetAllUsersMapped, toUserRoleRequest, roleFilters } from "./Roles.helpers";
 import UserList from "./UserList";
 import UserListItem from "./UserListItem";
-import PermissionDialog from "./PermissionDialog";
+import RoleDialog from "./RoleDialog";
 import { UserItem } from "../../types/userItem";
 import { useUpdateUserRole } from "../../api/authorize.queries";
 import { useSubmissionToast } from "../../helpers/form.helpers";
 import { useGetCurrentUser } from "../../api/user.queries";
 import { mapUserViewToUserItem } from "../../helpers/mappers.helpers";
 
-const Permissions = () => {
+const Roles = () => {
   const theme = useTheme();
   const [selectedRoleFilter, setSelectedRoleFilter] = useState(roleFilters[0]?.label);
   const userQuery = useGetCurrentUser();
@@ -51,7 +51,7 @@ const Permissions = () => {
               key={user.id}
               name={user.name}
               role={user.roles}
-              action={<PermissionDialog user={user} handleRoleChange={handleRoleChange} />}
+              action={<RoleDialog user={user} handleRoleChange={handleRoleChange} />}
             />
           ))}
         </UserList>
@@ -60,4 +60,4 @@ const Permissions = () => {
   );
 };
 
-export default Permissions;
+export default Roles;

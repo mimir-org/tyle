@@ -1,11 +1,11 @@
 import { useRef } from "react";
 import { useTheme } from "styled-components";
 import { UserItem } from "types/userItem";
-import { useUserDescriptors } from "./PermissionCard.helpers";
-import MotionPermissionCardContainer from "./PermissionCard.styled";
-import PermissionCardDetails from "./PermissionCardDetails";
-import PermissionCardForm, { PermissionCardFormProps } from "./PermissionCardForm";
-import PermissionCardHeader from "./PermissionCardHeader";
+import { useUserDescriptors } from "./RoleCard.helpers";
+import MotionPermissionCardContainer from "./RoleCard.styled";
+import RoleCardDetails from "./RoleCardDetails";
+import RoleCardForm, { PermissionCardFormProps } from "./RoleCardForm";
+import RoleCardHeader from "./RoleCardHeader";
 
 export type AccessCardProps = PermissionCardFormProps & {
   user: UserItem;
@@ -25,12 +25,12 @@ export type AccessCardProps = PermissionCardFormProps & {
  * @see PermissionCardFormProps
  * @constructor
  */
-const PermissionCard = ({ user, selected, selectedRole, setSelectedRole, ...delegated }: AccessCardProps) => {
+const RoleCard = ({ user, selected, selectedRole, setSelectedRole, ...delegated }: AccessCardProps) => {
   const theme = useTheme();
   const cardRef = useRef(null);
   const userDescriptors = useUserDescriptors(user);
 
-  const { formId, showSubmitButton} = delegated;
+  const { formId, showSubmitButton } = delegated;
 
   return (
     <MotionPermissionCardContainer
@@ -40,9 +40,9 @@ const PermissionCard = ({ user, selected, selectedRole, setSelectedRole, ...dele
       layout={"position"}
       {...theme.mimirorg.animation.fade}
     >
-      <PermissionCardHeader>{user.name}</PermissionCardHeader>
-      <PermissionCardDetails descriptors={userDescriptors} />
-      <PermissionCardForm
+      <RoleCardHeader>{user.name}</RoleCardHeader>
+      <RoleCardDetails descriptors={userDescriptors} />
+      <RoleCardForm
         user={user}
         formId={formId}
         showSubmitButton={showSubmitButton}
@@ -53,4 +53,4 @@ const PermissionCard = ({ user, selected, selectedRole, setSelectedRole, ...dele
   );
 };
 
-export default PermissionCard;
+export default RoleCard;

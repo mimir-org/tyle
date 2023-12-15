@@ -6,7 +6,7 @@ interface PermissionCardHeaderProps {
   children?: string;
 }
 
-const PermissionCardHeader = ({ children }: PermissionCardHeaderProps) => {
+const RoleCardHeader = ({ children }: PermissionCardHeaderProps) => {
   const theme = useTheme();
 
   return (
@@ -17,4 +17,4 @@ const PermissionCardHeader = ({ children }: PermissionCardHeaderProps) => {
   );
 };
 
-export default PermissionCardHeader;
+export default RoleCardHeader;

@@ -1,6 +1,6 @@
 import { accessRoutes } from "components/Access/AccessRoutes";
 import { approvalRoutes } from "components/Approval/ApprovalRoutes";
-import { rolesRoutes } from "components/Permissions/RolesRoutes";
+import { rolesRoutes } from "components/Roles/RolesRoutes";
 import { usersettingsBasePath, usersettingsRoutes } from "components/UserSettings/UserSettingsRoutes";
 import { Navigate, RouteObject } from "react-router-dom";
 import SettingsLayout from "./SettingsLayout";

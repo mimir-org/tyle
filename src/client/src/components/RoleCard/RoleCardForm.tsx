@@ -1,5 +1,4 @@
 import { Button, Form, FormField, Input, Select } from "@mimirorg/component-library";
-import { useTranslation } from "react-i18next";
 import { UserItem } from "types/userItem";
 import { getOptionsFromEnum } from "../../utils";
 import { Role } from "../../types/Role";
@@ -11,7 +10,7 @@ export interface PermissionCardFormProps {
   selectedRole: string;
   setSelectedRole: (role: string) => void;
 }
-const PermissionCardForm = ({
+const RoleCardForm = ({
   user,
   formId,
   showSubmitButton = true,
@@ -37,4 +36,4 @@ const PermissionCardForm = ({
   );
 };
 
-export default PermissionCardForm;
+export default RoleCardForm;
