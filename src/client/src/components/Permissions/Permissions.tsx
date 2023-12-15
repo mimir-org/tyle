@@ -3,33 +3,32 @@ import RadioFilters from "components/RadioFilters";
 import SettingsSection from "components/SettingsSection";
 import { useState } from "react";
 import { useTheme } from "styled-components";
-import { getAllRolesMapped, getAllUsersMapped, toUserRoleRequest } from "./Permissions.helpers";
+import { GetAllRolesMapped, GetAllUsersMapped, toUserRoleRequest, roleFilters } from "./permissions.helpers";
 import UserList from "./UserList";
 import UserListItem from "./UserListItem";
 import PermissionDialog from "./PermissionDialog";
-import { roleFilters } from "./Permissions.helpers";
 import { UserItem } from "../../types/userItem";
 import { useUpdateUserRole } from "../../api/authorize.queries";
 import { useSubmissionToast } from "../../helpers/form.helpers";
 import { useGetCurrentUser } from "../../api/user.queries";
 import { mapUserViewToUserItem } from "../../helpers/mappers.helpers";
 
-
 const Permissions = () => {
   const theme = useTheme();
   const [selectedRoleFilter, setSelectedRoleFilter] = useState(roleFilters[0]?.label);
   const userQuery = useGetCurrentUser();
   const currentUser = userQuery?.data != null ? mapUserViewToUserItem(userQuery.data) : undefined;
-  const users = getAllUsersMapped();
-  const roles = getAllRolesMapped();
+  const users = GetAllUsersMapped();
+  const roles = GetAllRolesMapped();
   const updateUserRoleMutation = useUpdateUserRole();
 
   const toast = useSubmissionToast("permission");
 
   const filteredUsers = (): UserItem[] => {
-    if (selectedRoleFilter === "All") return users.filter((user) => user.id !== currentUser?.id);
-    if (selectedRoleFilter === "None") return users.filter((user) => user.roles.length === 0 && user.id !== currentUser?.id);
-    return users.filter((user) => user.roles.includes(selectedRoleFilter) && user.id !== currentUser?.id);
+    const excludingCurrentUserList = users.filter((user) => user.id !== currentUser?.id);
+    if (selectedRoleFilter === "All") return excludingCurrentUserList.filter((user) => user.id !== currentUser?.id);
+    if (selectedRoleFilter === "None") return excludingCurrentUserList.filter((user) => user.roles.length === 0);
+    return excludingCurrentUserList.filter((user) => user.roles.includes(selectedRoleFilter));
   };
 
   const handleRoleChange = (user: UserItem, newRole: string | undefined) => {
@@ -52,7 +51,7 @@ const Permissions = () => {
               key={user.id}
               name={user.name}
               role={user.roles}
-              action={<PermissionDialog user={user}  handleRoleChange={handleRoleChange}/>}
+              action={<PermissionDialog user={user} handleRoleChange={handleRoleChange} />}
             />
           ))}
         </UserList>

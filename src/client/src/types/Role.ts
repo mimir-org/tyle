@@ -2,7 +2,7 @@ export enum Role {
   Reader,
   Contributor,
   Reviewer,
-  Administrator
+  Administrator,
 }
 
 export interface RoleItem {

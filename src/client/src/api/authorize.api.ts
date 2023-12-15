@@ -16,5 +16,5 @@ export const authorizeApi = {
   },
   putUpdateUserRole(item: UserRoleRequest) {
     return apiClient.put<boolean>(`${_basePath}/role/update`, item).then((r) => r.data);
-  }
+  },
 };

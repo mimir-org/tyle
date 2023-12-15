@@ -7,25 +7,25 @@ import { useGetRoles } from "../../api/authorize.queries";
 import { UserRoleRequest } from "../../types/authentication/userRoleRequest";
 
 export const roleFilters: Option<string>[] = [
-    {value: "-1", label: "All"},
-    {value: "0", label: "None"},
-    {value: "1", label: "Reader"},
-    {value: "2", label: "Contributor"},
-    {value: "3", label: "Reviewer"},
-    {value: "4", label: "Administrator"}
+  { value: "-1", label: "All" },
+  { value: "0", label: "None" },
+  { value: "1", label: "Reader" },
+  { value: "2", label: "Contributor" },
+  { value: "3", label: "Reviewer" },
+  { value: "4", label: "Administrator" },
 ];
 
-export const getAllUsersMapped = (): UserItem[] => {
+export const GetAllUsersMapped = (): UserItem[] => {
   const usersQuery = useGetAllUsers();
-  return usersQuery.data?.map((user) => mapUserViewToUserItem(user)) ?? []
+  return usersQuery.data?.map((user) => mapUserViewToUserItem(user)) ?? [];
 };
 
-export const getAllRolesMapped = (): RoleItem[] => {
+export const GetAllRolesMapped = (): RoleItem[] => {
   const roleQuery = useGetRoles();
-  return roleQuery.data?.map((role) => mapRoleViewToRoleItem(role)) ?? []
+  return roleQuery.data?.map((role) => mapRoleViewToRoleItem(role)) ?? [];
 };
 
 export const toUserRoleRequest = (uId: string, rId: string): UserRoleRequest => ({
   userId: uId,
-  roleId: rId
+  roleId: rId,
 });

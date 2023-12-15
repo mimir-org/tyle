@@ -99,9 +99,9 @@ export const mapUserViewToUserItem = (user: UserView): UserItem => {
 export const mapRoleViewToRoleItem = (role: RoleView): RoleItem => {
   return {
     roleName: role.name,
-    roleId: role.id
-  }
-}
+    roleId: role.id,
+  };
+};
 
 export const mapAttributeViewToInfoItem = (attribute: AttributeView): InfoItem => {
   const infoItem = {

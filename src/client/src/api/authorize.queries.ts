@@ -6,7 +6,7 @@ import { userKeys } from "./user.queries";
 const keys = {
   all: ["authorize"] as const,
   lists: () => [...keys.all, "list"] as const,
-  list: (filters: string) => [...keys.lists(), {filters}] as const,
+  list: (filters: string) => [...keys.lists(), { filters }] as const,
 };
 
 export const useGetRoles = () => useQuery(keys.list(""), authorizeApi.getRoles);
@@ -19,11 +19,9 @@ export const useRemoveUserFromRole = () =>
 export const useUpdateUserRole = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: UserRoleRequest) => authorizeApi.putUpdateUserRole(item),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(userKeys.list(""));
-      }
-    })
-
-}
+  return useMutation((item: UserRoleRequest) => authorizeApi.putUpdateUserRole(item), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(userKeys.list(""));
+    },
+  });
+};

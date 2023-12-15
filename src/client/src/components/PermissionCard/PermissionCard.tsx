@@ -40,7 +40,13 @@ const PermissionCard = ({ user, selected, ...delegated }: AccessCardProps) => {
     >
       <PermissionCardHeader>{user.name}</PermissionCardHeader>
       <PermissionCardDetails descriptors={userDescriptors} />
-      <PermissionCardForm user={user} formId={formId} showSubmitButton={showSubmitButton} selectedRole={selectedRole} setSelectedRole={setSelectedRole}/>
+      <PermissionCardForm
+        user={user}
+        formId={formId}
+        showSubmitButton={showSubmitButton}
+        selectedRole={selectedRole}
+        setSelectedRole={setSelectedRole}
+      />
     </MotionPermissionCardContainer>
   );
 };

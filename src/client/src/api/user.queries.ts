@@ -7,7 +7,7 @@ import { userApi } from "./user.api";
 export const userKeys = {
   all: ["user"] as const,
   lists: () => [...userKeys.all, "list"] as const,
-  list: (filters: string) => [...userKeys.lists(), { filters }] as const
+  list: (filters: string) => [...userKeys.lists(), { filters }] as const,
 };
 
 export const useGetCurrentUser = () =>
