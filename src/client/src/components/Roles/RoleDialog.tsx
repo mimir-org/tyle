@@ -54,7 +54,7 @@ const RoleDialog = ({ user, handleRoleChange }: RoleDialogProps) => {
     <AlertDialog
       open={open}
       title="Editing"
-      description="Change the user´s role"
+      description="Change the user's role"
       content={dialogContent}
       actions={[dialogOverriddenSubmitAction]}
       cancelAction={dialogOverriddenCancelAction}
