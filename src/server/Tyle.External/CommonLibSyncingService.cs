@@ -4,6 +4,8 @@ using Microsoft.Identity.Abstractions;
 using Tyle.Application.Blocks;
 using Tyle.Application.Common;
 using Tyle.Application.Common.Requests;
+using Tyle.Application.Terminals;
+using Tyle.Application.Terminals.Requests;
 using Tyle.Converters.Iris;
 using Tyle.Core.Blocks;
 using Tyle.Core.Common;
@@ -39,6 +41,7 @@ public class CommonLibSyncingService : IHostedService, IDisposable
     private async void Sync(object? state)
     {
         await SyncPurposes();
+        await SyncMedia();
         await SyncSymbols();
     }
 
@@ -46,8 +49,8 @@ public class CommonLibSyncingService : IHostedService, IDisposable
     {
         using IServiceScope scope = _serviceProvider.CreateScope();
 
-        IDownstreamApi? downstreamApi = scope.ServiceProvider.GetService<IDownstreamApi>();
-        IPurposeRepository? purposeRepository = scope.ServiceProvider.GetService<IPurposeRepository>();
+        var downstreamApi = scope.ServiceProvider.GetService<IDownstreamApi>();
+        var purposeRepository = scope.ServiceProvider.GetService<IPurposeRepository>();
 
         if (downstreamApi == null || purposeRepository == null)
         {
@@ -65,25 +68,77 @@ public class CommonLibSyncingService : IHostedService, IDisposable
             return;
         }
 
-        var purposesDb = await purposeRepository.GetAll();
-
-        var newPurposes = purposes.Where(purpose => purposesDb.All(purposeDb => purposeDb.Iri != new Uri(purpose.Identity)));
+        var purposesDb = (await purposeRepository.GetAll()).ToList();
 
         var purposesToCreate = new List<RdlPurposeRequest>();
 
-        foreach (var purpose in newPurposes)
+        foreach (var purpose in purposes)
         {
+            var iriAttribute = purpose.Attributes.FirstOrDefault(x => x.DefinitionName == "Identifier");
+            if (iriAttribute == null || purposesDb.Any(savedPurpose => savedPurpose.Iri.Equals(new Uri(iriAttribute.DisplayValue))))
+            {
+                continue;
+            }
+
             var purposeRequest = new RdlPurposeRequest
             {
                 Name = purpose.Name,
                 Description = purpose.Description.Length > 0 ? purpose.Description : null,
-                Iri = purpose.Identity
+                Iri = iriAttribute.DisplayValue
             };
 
             purposesToCreate.Add(purposeRequest);
         }
 
         await purposeRepository.Create(purposesToCreate, ReferenceSource.CommonLibrary);
+    }
+
+    private async Task SyncMedia()
+    {
+        using IServiceScope scope = _serviceProvider.CreateScope();
+
+        var downstreamApi = scope.ServiceProvider.GetService<IDownstreamApi>();
+        var mediumRepository = scope.ServiceProvider.GetService<IMediumRepository>();
+
+        if (downstreamApi == null || mediumRepository == null)
+        {
+            return;
+        }
+
+        var media = await downstreamApi.GetForAppAsync<IEnumerable<ExternalType>>("CommonLib", options =>
+        {
+            options.RelativePath = "api/Code/IMFMedium";
+            options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
+        });
+
+        if (media == null)
+        {
+            return;
+        }
+
+        var mediaDb = (await mediumRepository.GetAll()).ToList();
+
+        var mediaToCreate = new List<RdlMediumRequest>();
+
+        foreach (var medium in media)
+        {
+            var iriAttribute = medium.Attributes.FirstOrDefault(x => x.DefinitionName == "Identifier");
+            if (iriAttribute == null || mediaDb.Any(savedMedium => savedMedium.Iri.Equals(new Uri(iriAttribute.DisplayValue))))
+            {
+                continue;
+            }
+
+            var mediumRequest = new RdlMediumRequest
+            {
+                Name = medium.Name,
+                Description = medium.Description.Length > 0 ? medium.Description : null,
+                Iri = iriAttribute.DisplayValue
+            };
+
+            mediaToCreate.Add(mediumRequest);
+        }
+
+        await mediumRepository.Create(mediaToCreate, ReferenceSource.CommonLibrary);
     }
 
     private async Task SyncSymbols()
