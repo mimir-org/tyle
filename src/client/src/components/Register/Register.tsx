@@ -1,7 +1,6 @@
 import Completion from "components/Completion";
 import MultiFactorAuthentication from "components/MultiFactorAuthentication";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { QrCodeView } from "types/authentication/qrCodeView";
 import RegisterDetails from "./RegisterDetails";
@@ -10,7 +9,6 @@ import RegisterVerification from "./RegisterVerification";
 export type RegisterSteps = "DETAILS" | "VERIFY" | "MFA" | "COMPLETE";
 
 const Register = () => {
-  const { t } = useTranslation("auth");
   const [stage, setStage] = useState<RegisterSteps>("DETAILS");
   const [email, setEmail] = useState("");
   const [mfaInfo, setMfaInfo] = useState<QrCodeView>({ code: "", manualCode: "" });
@@ -23,7 +21,7 @@ const Register = () => {
           setUserEmail={setEmail}
           complete={{
             actionable: true,
-            actionText: t("register.details.submit"),
+            actionText: "Create account",
             onAction: () => setStage("VERIFY"),
           }}
         />
@@ -34,12 +32,12 @@ const Register = () => {
           setMfaInfo={setMfaInfo}
           complete={{
             actionable: true,
-            actionText: t("register.next"),
+            actionText: "Next",
             onAction: () => setStage("MFA"),
           }}
           cancel={{
             actionable: true,
-            actionText: t("register.back"),
+            actionText: "Back",
             onAction: () => setStage("DETAILS"),
           }}
         />
@@ -47,30 +45,30 @@ const Register = () => {
       {stage === "MFA" && (
         <MultiFactorAuthentication
           mfaInfo={mfaInfo}
-          title={t("register.mfa.title")}
-          infoText={t("register.mfa.info.text")}
-          codeTitle={t("register.mfa.code.title")}
-          manualCodeTitle={t("register.mfa.manual.title")}
-          manualCodeDescription={t("register.mfa.manual.description")}
+          title="Register authenticator"
+          infoText="In order to use :Tyle, you must activate 2-factor authentication using an authenticator app. This is to ensure the quality fo the data created and stored in :Tyle."
+          codeTitle="Scan the QR code"
+          manualCodeTitle="Can't scan image?"
+          manualCodeDescription="Copy this code into your authenticator app of choice"
           complete={{
             actionable: true,
-            actionText: t("register.next"),
+            actionText: "Next",
             onAction: () => setStage("COMPLETE"),
           }}
           cancel={{
             actionable: true,
-            actionText: t("register.back"),
+            actionText: "Back",
             onAction: () => setStage("DETAILS"),
           }}
         />
       )}
       {stage === "COMPLETE" && (
         <Completion
-          title={t("register.complete.title")}
-          infoText={t("register.complete.info.text")}
+          title="Register"
+          infoText="Account creation complete. Please return to the main page and log in."
           complete={{
             actionable: true,
-            actionText: t("register.complete.return"),
+            actionText: "Return",
             onAction: () => navigate("/"),
           }}
         />

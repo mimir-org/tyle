@@ -9,7 +9,6 @@ import MotionVerifyForm from "components/MotionVerifyForm";
 import Processing from "components/Processing";
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { Controller, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { onSubmitForm } from "./RegisterVerification.helpers";
 
@@ -21,7 +20,6 @@ type VerificationProps = Pick<MimirorgVerifyAm, "email"> & {
 
 const RegisterVerification = ({ email, setMfaInfo, cancel, complete }: VerificationProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("auth");
   const { control, register, handleSubmit } = useForm<MimirorgVerifyAm>();
 
   const generateMfaMutation = useGenerateMfa();
@@ -35,11 +33,16 @@ const RegisterVerification = ({ email, setMfaInfo, cancel, complete }: Verificat
 
   return (
     <AuthContent
-      title={t("register.verify.title")}
+      title="Verify e-mail"
       firstRow={
         <>
-          {showProcessing && <Processing>{t("register.processing")}</Processing>}
-          {showError && <Error>{t("register.verify.error")}</Error>}
+          {showProcessing && <Processing>Processing</Processing>}
+          {showError && (
+            <Error>
+              We were not able verify your ownership of this email. Verify that that you have entered the correct code
+              and please try again in about a minute. If the issue persist,
+            </Error>
+          )}
           {showInput && (
             <MotionVerifyForm
               id={"verify-form"}
@@ -61,7 +64,10 @@ const RegisterVerification = ({ email, setMfaInfo, cancel, complete }: Verificat
       }
       secondRow={
         <>
-          <Text textAlign={"center"}>{t("register.verify.info.text")}</Text>
+          <Text textAlign={"center"}>
+            We have sent a six-digit code to your e-mail. Please enter the code within 1 hour, or the code will expire
+            and you will have to restart the registration. Make sure to check your spam/junk folder for the e-mail.
+          </Text>
           <Flexbox gap={theme.mimirorg.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>
