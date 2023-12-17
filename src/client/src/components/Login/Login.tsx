@@ -16,18 +16,16 @@ import { recoverBasePath } from "components/Recover/RecoverRoutes";
 import { registerBasePath } from "components/Register/RegisterRoutes";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "styled-components";
 import { loginSchema } from "./loginSchema";
 
 const Login = () => {
   const theme = useTheme();
-  const { t } = useTranslation("auth");
   const navigate = useNavigate();
 
   const formMethods = useForm({
-    resolver: yupResolver(loginSchema(t)),
+    resolver: yupResolver(loginSchema()),
   });
 
   const { register, handleSubmit, setError, formState } = formMethods;
@@ -38,53 +36,45 @@ const Login = () => {
 
   return (
     <AuthContent
-      title={t("login.title")}
-      subtitle={t("login.description")}
+      title="Login"
+      subtitle="View, create and edit types!"
       firstRow={
         <Form onSubmit={handleSubmit((data) => mutation.mutate(data))}>
-          {mutation.isError && <FormErrorBanner>{t("login.error")}</FormErrorBanner>}
+          {mutation.isError && <FormErrorBanner>Unable to login.</FormErrorBanner>}
 
           <FormFieldset>
-            <FormField label={`${t("login.email")} *`} error={errors.email}>
-              <Input id="email" type="email" placeholder={t("login.placeholders.email")} {...register("email")} />
+            <FormField label="E-mail *" error={errors.email}>
+              <Input id="email" type="email" placeholder="you@organization.com" {...register("email")} />
             </FormField>
 
-            <FormField label={`${t("login.password")} *`} error={errors.password}>
-              <Input
-                id="password"
-                type="password"
-                placeholder={t("login.placeholders.password")}
-                {...register("password")}
-              />
+            <FormField label="Password *" error={errors.password}>
+              <Input id="password" type="password" placeholder="**********" {...register("password")} />
             </FormField>
 
-            <FormField label={`${t("login.code")} *`} error={errors.code}>
-              <Input
-                id="code"
-                type="tel"
-                autoComplete="off"
-                placeholder={t("login.placeholders.code")}
-                {...register("code")}
-              />
+            <FormField label="Authentication code *" error={errors.code}>
+              <Input id="code" type="tel" autoComplete="off" placeholder="123456" {...register("code")} />
             </FormField>
 
             <MotionText color={theme.mimirorg.color.surface.variant.on} layout={"position"} as={"i"}>
-              {t("login.placeholders.required")}
+              * Indicates a required field.
             </MotionText>
           </FormFieldset>
           <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.mimirorg.spacing.xxl}>
-            <Button type={"submit"}>{t("login.submit")}</Button>
+            <Button type={"submit"}>Login</Button>
             <Text color={theme.mimirorg.color.surface.variant.on}>
-              {t("login.altLead")} <Link to={registerBasePath}>{t("login.altLink")}</Link>
+              Don&apos;t have an account? <Link to={registerBasePath}>Sign up</Link>
             </Text>
           </MotionFlexbox>
         </Form>
       }
       secondRow={
         <>
-          <Text textAlign={"center"}>{t("login.info.text")}</Text>
+          <Text textAlign={"center"}>
+            If you have forgotten your password, follow the instruction below for account recovery. You will need to
+            re-verify your e-mail and authenticator. You will not lose the data you have created in :Tyle
+          </Text>
           <Button variant={"outlined"} alignSelf={"center"} onClick={() => navigate(recoverBasePath)}>
-            {t("login.info.action")}
+            Account recovery
           </Button>
         </>
       }
