@@ -1,14 +1,12 @@
 import { Flexbox, Text } from "@mimirorg/component-library";
 import TerminalButton from "components/TerminalButton";
-import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { BlockTerminalItem } from "types/blockTerminalItem";
 import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "./blockTerminalQuantityRestrictions";
 
 const TerminalDescription = ({ name, maxQuantity, color, direction }: Omit<BlockTerminalItem, "id">) => {
   const theme = useTheme();
-  const { t } = useTranslation("common");
-  const shownQuantity = maxQuantity === MAXIMUM_TERMINAL_QUANTITY_VALUE ? t("terminal.infinite") : maxQuantity;
+  const shownQuantity = maxQuantity === MAXIMUM_TERMINAL_QUANTITY_VALUE ? "Infinite" : maxQuantity;
 
   return (
     <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
