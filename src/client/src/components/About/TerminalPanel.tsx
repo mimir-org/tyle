@@ -2,7 +2,6 @@ import { Flexbox, Heading, MotionBox, Text } from "@mimirorg/component-library";
 import InfoItemButton from "components/InfoItemButton";
 import StateBadge from "components/StateBadge";
 import TerminalPreview from "components/TerminalPreview";
-import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { TerminalItem } from "types/terminalItem";
 import PanelPropertiesContainer from "./PanelPropertiesContainer";
@@ -16,7 +15,6 @@ import PanelSection from "./PanelSection";
  */
 export const TerminalPanel = ({ name, description, color, attributes, tokens }: TerminalItem) => {
   const theme = useTheme();
-  const { t } = useTranslation("explore");
   const showAttributes = attributes && attributes.length > 0;
 
   return (
@@ -45,7 +43,7 @@ export const TerminalPanel = ({ name, description, color, attributes, tokens }: 
 
       <PanelPropertiesContainer>
         {showAttributes && (
-          <PanelSection title={t("about.attributes")}>
+          <PanelSection title="Attributes">
             {attributes.map((a, i) => (
               <InfoItemButton key={i} {...a} />
             ))}

@@ -4,7 +4,6 @@ import { AxiosError } from "axios";
 import PlainLink from "components/PlainLink";
 import StateBadge from "components/StateBadge";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { State } from "types/common/state";
 import { ItemType } from "types/itemTypes";
@@ -23,7 +22,6 @@ const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: S
   const [isApprovalOpen, setIsApprovalOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const theme = useTheme();
-  const { t } = useTranslation("explore");
   const btnFilter = useButtonStateFilter(item, user);
 
   const patchMutation = usePatchMutation(item);
@@ -31,17 +29,16 @@ const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: S
 
   const submitToast = (submissionPromise: Promise<unknown>) =>
     toast.promise(submissionPromise, {
-      loading: t("search.item.toast.loading"),
-      success: t("search.item.toast.success"),
+      loading: "Sending request",
+      success: "Request submitted",
       error: (error: AxiosError) => {
-        if (error.response?.status === 403)
-          return t("search.item.toast.error.403", { data: error.response?.data ?? "" });
-        return t("search.item.toast.error.default");
+        if (error.response?.status === 403) return `403 (Forbidden) error: ${error.response?.data ?? ""}`;
+        return "An error occurred while sending the request";
       },
     });
 
   const deleteAction = {
-    name: t("search.item.delete"),
+    name: "Delete",
     onAction: () => {
       const mutation = deleteMutation.mutateAsync();
       submitToast(mutation);
@@ -49,7 +46,7 @@ const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: S
   };
 
   const approveAction = {
-    name: t("search.item.approve"),
+    name: "Send approval request",
     onAction: () => {
       const mutation = patchMutation.mutateAsync({ state: State.Review });
       submitToast(mutation);
@@ -65,7 +62,7 @@ const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: S
       {!isStateApproved && !isAttributeGroup && <StateBadge state={item.state} />}
 
       <PlainLink tabIndex={-1} to={cloneLink}>
-        <Tooltip content={<Text>{t("search.item.clone")}</Text>}>
+        <Tooltip content={<Text>Clone</Text>}>
           <Button
             disabled={!btnFilter.clone}
             tabIndex={0}
@@ -73,13 +70,13 @@ const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: S
             icon={<DocumentDuplicate />}
             iconOnly
           >
-            {t("search.item.clone")}
+            Clone
           </Button>
         </Tooltip>
       </PlainLink>
 
       <PlainLink tabIndex={-1} to={editLink}>
-        <Tooltip content={<Text>{t("search.item.edit")}</Text>}>
+        <Tooltip content={<Text>Edit</Text>}>
           <Button
             disabled={!btnFilter.edit}
             tabIndex={0}
@@ -87,7 +84,7 @@ const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: S
             icon={<PencilSquare />}
             iconOnly
           >
-            {t("search.item.edit")}
+            Edit
           </Button>
         </Tooltip>
       </PlainLink>
@@ -97,15 +94,15 @@ const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: S
           <AlertDialog
             gap={theme.mimirorg.spacing.multiple(6)}
             actions={[approveAction]}
-            title={t("search.item.templates.approve")}
-            description={t("search.item.approveDescription")}
+            title="Do you want to send approval request?"
+            description="Someone has to accept this scope change."
             hideDescription
             content={children}
             open={isApprovalOpen}
             onOpenChange={(open) => setIsApprovalOpen(open)}
           />
 
-          <Tooltip content={<Text>{t("search.item.approve")}</Text>}>
+          <Tooltip content={<Text>Send approval request</Text>}>
             <Button
               disabled={!btnFilter.review}
               tabIndex={0}
@@ -114,7 +111,7 @@ const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: S
               iconOnly
               onClick={() => setIsApprovalOpen(true)}
             >
-              {t("search.item.approve")}
+              Send approval request
             </Button>
           </Tooltip>
         </>
@@ -122,14 +119,14 @@ const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: S
       <AlertDialog
         gap={theme.mimirorg.spacing.multiple(6)}
         actions={[deleteAction]}
-        title={t("search.item.templates.delete", { object: name })}
-        description={t("search.item.deleteDescription")}
+        title="Do you want to delete this item?"
+        description="The item will be deleted."
         hideDescription
         content={children}
         open={isDeleteOpen}
         onOpenChange={(open) => setIsDeleteOpen(open)}
       />
-      <Tooltip content={<Text>{t("search.item.delete")}</Text>}>
+      <Tooltip content={<Text>Delete</Text>}>
         <Button
           disabled={!btnFilter.delete}
           variant={"filled"}
@@ -138,7 +135,7 @@ const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: S
           iconOnly
           onClick={() => setIsDeleteOpen(true)}
         >
-          {t("search.item.delete")}
+          Delete
         </Button>
       </Tooltip>
     </>

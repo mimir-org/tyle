@@ -2,7 +2,6 @@ import { useGetBlock } from "api/block.queries";
 import ExploreSection from "components/ExploreSection";
 import Loader from "components/Loader";
 import { toBlockItem } from "helpers/mappers.helpers";
-import { useTranslation } from "react-i18next";
 import { SelectedInfo } from "types/selectedInfo";
 import AboutPlaceholder from "./AboutPlaceholder";
 import BlockPanel from "./BlockPanel";
@@ -18,9 +17,6 @@ interface AboutProps {
  * @constructor
  */
 const About = ({ selected }: AboutProps) => {
-  const { t } = useTranslation("explore");
-  const { t: typeName } = useTranslation("entities");
-
   const blockQuery = useGetBlock(selected?.id ?? "");
   //const terminalQuery = useGetTerminal(selected?.type === "terminal" ? selected?.id : undefined);
   //const attributeQuery = useGetAttribute(selected?.type === "attribute" ? selected?.id : undefined);
@@ -40,20 +36,20 @@ const About = ({ selected }: AboutProps) => {
       case "block":
         return "Block";
       case "terminal":
-        return typeName("terminal.title");
+        return "Terminal";
       case "attribute":
-        return typeName("attribute.title");
+        return "Attribute";
       case "attributeGroup":
-        return typeName("attributeGroup.title");
+        return "Attribute Group";
       default:
-        return t("about.title");
+        return "About";
     }
   }
 
   return (
     <ExploreSection title={typeParser(selected?.type)}>
       {showLoader && <Loader />}
-      {showPlaceHolder && <AboutPlaceholder text={t("about.placeholders.item")} />}
+      {showPlaceHolder && <AboutPlaceholder text="Select an item to view its properties" />}
       {showBlockPanel && <BlockPanel key={blockQuery.data.id} {...toBlockItem(blockQuery.data)} />}
       {/*showTerminalPanel && (
         <TerminalPanel

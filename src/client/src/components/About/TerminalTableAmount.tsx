@@ -1,16 +1,14 @@
 import { Td } from "@mimirorg/component-library";
 import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "components/BlockPreview/blockTerminalQuantityRestrictions";
-import { useTranslation } from "react-i18next";
 import { BlockTerminalItem } from "types/blockTerminalItem";
 import { useMediaQuery } from "usehooks-ts";
 
 const TerminalTableAmount = ({ maxQuantity }: Pick<BlockTerminalItem, "maxQuantity">) => {
   const adjustAmountAlignment = useMediaQuery("screen and (min-width: 1500px)");
-  const { t } = useTranslation("explore");
 
   return (
-    <Td data-label={t("about.terminals.amount")} textAlign={adjustAmountAlignment ? "center" : "left"}>
-      {maxQuantity === MAXIMUM_TERMINAL_QUANTITY_VALUE ? t("about.terminals.infinite") : maxQuantity}
+    <Td data-label="Max amount" textAlign={adjustAmountAlignment ? "center" : "left"}>
+      {maxQuantity === MAXIMUM_TERMINAL_QUANTITY_VALUE ? "Infinite" : maxQuantity}
     </Td>
   );
 };
