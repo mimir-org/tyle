@@ -2,7 +2,6 @@ import { toast } from "@mimirorg/component-library";
 import { UseQueryResult } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 
 export const onSubmitForm = <TAm, TCm>(
   submittable: TAm,
@@ -32,16 +31,15 @@ export const usePrefilledForm = <TIn, TOut>(
 };
 
 export const useSubmissionToast = (type: string) => {
-  const { t } = useTranslation("entities");
   type = type.toLowerCase();
 
   return (submissionPromise: Promise<unknown>) =>
     toast.promise(submissionPromise, {
-      loading: t("common.processing.loading", { type }),
-      success: t("common.processing.success", { type }),
+      loading: `Submitting ${type}`,
+      success: `Your ${type} has been submitted`,
       error: (error: AxiosError) => {
-        if (error.response?.status === 403) return t("common.processing.error.403", { data: error.response?.data });
-        return t("common.processing.error.default", { type });
+        if (error.response?.status === 403) return `403 (Forbidden) error: ${error.response?.data}`;
+        return `An error occurred during ${type} submission`;
       },
     });
 };

@@ -19,7 +19,7 @@ const ApprovalCardForm = ({ item, itemType }: ApprovalCardFormProps) => {
 
   const patchStateMutation = usePatchStateMutation(item, itemType);
 
-  const toast = useSubmissionToast(t("attribute.title"));
+  const toast = useSubmissionToast(itemType);
 
   return (
     <Flexbox flexFlow={"row"} justifyContent={"space-between"} style={{ marginTop: "8px" }}>

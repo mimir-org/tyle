@@ -38,7 +38,7 @@ const About = ({ selected }: AboutProps) => {
   function typeParser(type?: string) {
     switch (type) {
       case "block":
-        return typeName("block.title");
+        return "Block";
       case "terminal":
         return typeName("terminal.title");
       case "attribute":

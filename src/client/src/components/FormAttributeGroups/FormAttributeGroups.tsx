@@ -3,7 +3,6 @@ import { AttributeGroupLibCm, AttributeLibCm } from "@mimirorg/typelibrary-types
 import FormSection from "components/FormSection";
 import SelectItemDialog from "components/SelectItemDialog";
 import { UseFormRegisterReturn } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { AttributeGroupView } from "types/attributes/attributeGroupView";
 import { ValueObject } from "types/valueObject";
@@ -35,7 +34,6 @@ export interface FormAttributeGroupsProps {
  */
 const FormAttributeGroups = ({ append, canAddAttributeGroups = true }: FormAttributeGroupsProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("entities");
 
   //const attributeQuery = useGetAttributeGroups();
 
@@ -45,15 +43,15 @@ const FormAttributeGroups = ({ append, canAddAttributeGroups = true }: FormAttri
 
   return (
     <FormSection
-      title={t("attributeGroup.title")}
+      title="Attribute Group"
       action={
         canAddAttributeGroups && (
           <SelectItemDialog
-            title={t("attributeGroup.dialog.title")}
-            description={t("attributeGroup.dialog.description")}
-            searchFieldText={t("attributeGroup.dialog.search")}
-            addItemsButtonText={t("attributeGroup.dialog.add")}
-            openDialogButtonText={t("attributeGroup.open")}
+            title="Select attribute groups(s)"
+            description="The attribute groups listed below can be used across multiple entities."
+            searchFieldText="Search"
+            addItemsButtonText="Add"
+            openDialogButtonText="Open attribute group(s) selection dialog"
             items={[]}
             onAdd={(ids) => onAddAttributeGroup(ids, [], append)}
           />
