@@ -1,10 +1,9 @@
-import { TFunction } from "i18next";
 import * as yup from "yup";
 
-export const recoverDetailsSchema = (t: TFunction<"translation">) =>
+export const recoverDetailsSchema = () =>
   yup.object({
     email: yup
       .string()
-      .email(t("recover.details.validation.email.email"))
-      .required(t("recover.details.validation.email.required")),
+      .email("Please ensure that the email is formatted correctly")
+      .required("Please specify an email"),
   });

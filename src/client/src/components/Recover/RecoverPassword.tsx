@@ -8,7 +8,6 @@ import Processing from "components/Processing";
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { VerifyRequest } from "types/authentication/verifyRequest";
 import { recoverPasswordSchema } from "./recoverPasswordSchema";
@@ -21,10 +20,9 @@ interface RecoverPasswordProps {
 
 const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverPasswordProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("auth");
 
   const formMethods = useForm({
-    resolver: yupResolver(recoverPasswordSchema(t)),
+    resolver: yupResolver(recoverPasswordSchema()),
   });
 
   const { register, control, handleSubmit, setError, formState } = formMethods;
@@ -37,31 +35,31 @@ const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverPassword
 
   return (
     <AuthContent
-      title={t("recover.password.title")}
+      title="Choose a new password"
       firstRow={
         <>
-          {mutation.isLoading && <Processing>{t("recover.processing")}</Processing>}
+          {mutation.isLoading && <Processing>Processing</Processing>}
           {!mutation.isSuccess && !mutation.isLoading && (
             <Form id={"password-form"} onSubmit={handleSubmit((data) => mutation.mutate(data))}>
-              {mutation.isError && <Error>{t("recover.password.error")}</Error>}
+              {mutation.isError && (
+                <Error>
+                  We were not able to change your password at this time. Please try again in about a minute. If the
+                  issue persist,
+                </Error>
+              )}
               <FormFieldset>
                 <Input type={"hidden"} value={verificationInfo.email} {...register("email")} />
                 <Input type={"hidden"} value={verificationInfo.code} {...register("code")} />
 
-                <FormField label={`${t("recover.password.password")} *`} error={errors.password}>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder={t("recover.password.placeholders.password")}
-                    {...register("password")}
-                  />
+                <FormField label="Password *" error={errors.password}>
+                  <Input id="password" type="password" placeholder="**********" {...register("password")} />
                 </FormField>
 
-                <FormField label={`${t("recover.password.confirmPassword")} *`} error={errors.confirmPassword}>
+                <FormField label="Confirm password *" error={errors.confirmPassword}>
                   <Input
                     id="confirmPassword"
                     type="password"
-                    placeholder={t("recover.password.placeholders.password")}
+                    placeholder="**********"
                     {...register("confirmPassword")}
                   />
                 </FormField>
@@ -73,7 +71,7 @@ const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverPassword
       }
       secondRow={
         <>
-          <Text textAlign={"center"}>{t("recover.password.info.text")}</Text>
+          <Text textAlign={"center"}>Enter the desired password for this account.</Text>
           <Flexbox gap={theme.mimirorg.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>

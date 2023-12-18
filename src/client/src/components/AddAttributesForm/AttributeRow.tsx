@@ -1,7 +1,6 @@
 import { Checkbox, Input, Token } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { AttributeTypeReferenceView } from "types/common/attributeTypeReferenceView";
 import { AttributeRowWrapper, TokenWrapper } from "./AttributeRow.styled";
 
@@ -12,8 +11,6 @@ interface AttributeRowProps {
 }
 
 const AttributeRow = ({ value, onChange, remove }: AttributeRowProps) => {
-  const { t } = useTranslation("entities");
-
   const [minCount, setMinCount] = useState(value.minCount);
   const [maxCount, setMaxCount] = useState(value.maxCount);
 
@@ -51,7 +48,7 @@ const AttributeRow = ({ value, onChange, remove }: AttributeRowProps) => {
           variant={"secondary"}
           actionable
           actionIcon={<XCircle />}
-          actionText={t("common.attributes.remove")}
+          actionText="Remove attribute"
           onAction={remove}
           dangerousAction
         >

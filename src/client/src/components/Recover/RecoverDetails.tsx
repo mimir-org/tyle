@@ -8,7 +8,6 @@ import Processing from "components/Processing";
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { recoverDetailsSchema } from "./recoverDetailsSchema";
 
 interface RecoverDetailsProps {
@@ -17,10 +16,8 @@ interface RecoverDetailsProps {
 }
 
 const RecoverDetails = ({ complete, setUserEmail }: RecoverDetailsProps) => {
-  const { t } = useTranslation("auth");
-
   const formMethods = useForm({
-    resolver: yupResolver(recoverDetailsSchema(t)),
+    resolver: yupResolver(recoverDetailsSchema()),
   });
 
   const { register, control, handleSubmit, setError, formState } = formMethods;
@@ -33,10 +30,10 @@ const RecoverDetails = ({ complete, setUserEmail }: RecoverDetailsProps) => {
 
   return (
     <AuthContent
-      title={t("recover.details.title")}
+      title="Account recovery"
       firstRow={
         <>
-          {mutation.isLoading && <Processing>{t("recover.processing")}</Processing>}
+          {mutation.isLoading && <Processing>Processing</Processing>}
           {!mutation.isSuccess && !mutation.isLoading && (
             <Form
               id={"details-form"}
@@ -45,14 +42,14 @@ const RecoverDetails = ({ complete, setUserEmail }: RecoverDetailsProps) => {
                 mutation.mutate(data.email);
               })}
             >
-              {mutation.isError && <Error>{t("recover.details.error")}</Error>}
-              <FormField label={`${t("recover.details.email")} *`} error={errors.email}>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder={t("recover.details.placeholders.email")}
-                  {...register("email")}
-                />
+              {mutation.isError && (
+                <Error>
+                  We were not able to start the recovery process. Please try again in about a minute. If the issue
+                  persists,
+                </Error>
+              )}
+              <FormField label="E-mail *" error={errors.email}>
+                <Input id="email" type="email" placeholder="you@organization.com" {...register("email")} />
               </FormField>
             </Form>
           )}
@@ -61,7 +58,11 @@ const RecoverDetails = ({ complete, setUserEmail }: RecoverDetailsProps) => {
       }
       secondRow={
         <>
-          <Text textAlign={"center"}>{t("recover.details.info.text")}</Text>
+          <Text textAlign={"center"}>
+            Your next step will be to verify your e-mail and activate 2-factor authentication. Without these, you cannot
+            access :Tyle. If this process is interrupted or you do not complete registration within 1 hour, you will
+            have to start the recovery process over again.
+          </Text>
           <Button type={"submit"} form={"details-form"} alignSelf={"center"}>
             {complete?.actionText}
           </Button>

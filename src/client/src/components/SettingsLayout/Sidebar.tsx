@@ -3,7 +3,6 @@ import { useGetAttributesByState } from "api/attribute.queries";
 import { useGetBlocksByState } from "api/block.queries";
 import { useGetTerminalsByState } from "api/terminal.queries";
 import { Fragment } from "react";
-import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "styled-components";
 import { State } from "types/common/state";
@@ -16,7 +15,6 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ title, groups }: SidebarProps) => {
-  const { t } = useTranslation("settings");
   const theme = useTheme();
   const location = useLocation();
 
@@ -37,10 +35,10 @@ const Sidebar = ({ title, groups }: SidebarProps) => {
 
   const linkText = (name: string) => {
     switch (name) {
-      case t("approval.title"): {
+      case "Approval": {
         return name + (numberOfTypesInReview ? ` (${numberOfTypesInReview})` : "");
       }
-      case t("access.title"): {
+      case "Access": {
         return name; // + (pendingUsers.data?.length ? ` (${pendingUsers.data.length})` : "");
       }
       default:

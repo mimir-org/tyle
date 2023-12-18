@@ -1,7 +1,6 @@
 import Completion from "components/Completion";
 import MultiFactorAuthentication from "components/MultiFactorAuthentication";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { QrCodeView } from "types/authentication/qrCodeView";
 import { VerifyRequest } from "types/authentication/verifyRequest";
@@ -12,7 +11,6 @@ import RecoverVerification from "./RecoverVerification";
 export type RecoverySteps = "DETAILS" | "VERIFY" | "PASSWORD" | "MFA" | "COMPLETE";
 
 const Recover = () => {
-  const { t } = useTranslation("auth");
   const [stage, setStage] = useState<RecoverySteps>("DETAILS");
   const [email, setEmail] = useState("");
   const [mfaInfo, setMfaInfo] = useState<QrCodeView>({ code: "", manualCode: "" });
@@ -26,7 +24,7 @@ const Recover = () => {
           setUserEmail={setEmail}
           complete={{
             actionable: true,
-            actionText: t("recover.details.submit"),
+            actionText: "Continue",
             onAction: () => setStage("VERIFY"),
           }}
         />
@@ -38,12 +36,12 @@ const Recover = () => {
           setMfaInfo={setMfaInfo}
           complete={{
             actionable: true,
-            actionText: t("recover.next"),
+            actionText: "Next",
             onAction: () => setStage("PASSWORD"),
           }}
           cancel={{
             actionable: true,
-            actionText: t("recover.back"),
+            actionText: "Back",
             onAction: () => setStage("DETAILS"),
           }}
         />
@@ -53,43 +51,43 @@ const Recover = () => {
           verificationInfo={verificationInfo}
           complete={{
             actionable: true,
-            actionText: t("recover.next"),
+            actionText: "Next",
             onAction: () => setStage("MFA"),
           }}
           cancel={{
             actionable: true,
-            actionText: t("recover.back"),
+            actionText: "Back",
             onAction: () => setStage("DETAILS"),
           }}
         />
       )}
       {stage === "MFA" && (
         <MultiFactorAuthentication
-          title={t("recover.mfa.title")}
-          infoText={t("recover.mfa.info.text")}
-          codeTitle={t("recover.mfa.code.title")}
-          manualCodeTitle={t("recover.mfa.manual.title")}
-          manualCodeDescription={t("recover.mfa.manual.description")}
+          title="Register authenticator"
+          infoText="In order to use :Tyle, you must activate 2-factor authentication using an authenticator app. This is to ensure the quality fo the data created and stored in :Tyle."
+          codeTitle="Scan the QR code"
+          manualCodeTitle="Can't scan image?"
+          manualCodeDescription="Copy this code into your authenticator app of choice"
           mfaInfo={mfaInfo}
           complete={{
             actionable: true,
-            actionText: t("recover.next"),
+            actionText: "Next",
             onAction: () => setStage("COMPLETE"),
           }}
           cancel={{
             actionable: true,
-            actionText: t("recover.back"),
+            actionText: "Back",
             onAction: () => setStage("DETAILS"),
           }}
         />
       )}
       {stage === "COMPLETE" && (
         <Completion
-          title={t("recover.complete.title")}
-          infoText={t("recover.complete.info.text")}
+          title="Account recovery"
+          infoText="Account recovery complete. Please return to the main page and log in."
           complete={{
             actionable: true,
-            actionText: t("recover.complete.return"),
+            actionText: "Return",
             onAction: () => navigate("/"),
           }}
         />

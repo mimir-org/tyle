@@ -1,5 +1,4 @@
 import { Box, Dialog, Select } from "@mimirorg/component-library";
-import { useTranslation } from "react-i18next";
 
 /**
  * Component that displays a button with a dialog for finding contact information about
@@ -8,7 +7,6 @@ import { useTranslation } from "react-i18next";
  * @constructor
  */
 const ContactButton = () => {
-  const { t } = useTranslation("ui");
   //const [selected, setSelected] = useState<number>();
 
   //const companies = useGetFilteredCompanies(MimirorgPermission.Read);
@@ -23,13 +21,13 @@ const ContactButton = () => {
 
   return (
     <Dialog
-      title={t("header.menu.contact.title")}
-      description={t("header.menu.contact.description")}
+      title="Contact"
+      description="Need any help? View your manager's contact information by selecting an organization below."
       width={"500px"}
       content={
         <>
           <Select
-            placeholder={t("header.menu.contact.select")}
+            placeholder="Select organization"
             //options={companies}
             //getOptionLabel={(x) => x.name}
             //onChange={(x) => setSelected(x?.id)}
@@ -38,13 +36,13 @@ const ContactButton = () => {
 
           <Box display={"flex"} alignItems={"center"} minHeight={"70px"}>
             {/*showManager && <ContactCard name={managerName} email={managerEmail} />*/}
-            {/*showNotFound && <Text>{t("header.menu.contact.notFound")}</Text>*/}
+            {/*showNotFound && <Text>Sorry! No manager found.</Text>*/}
           </Box>
         </>
       }
     >
       {/*companies.length > 0 && (
-        <UserMenuButton icon={<Envelope size={24} />}>{t("header.menu.contact.title")}</UserMenuButton>
+        <UserMenuButton icon={<Envelope size={24} />}>Contact</UserMenuButton>
       )*/}
     </Dialog>
   );
