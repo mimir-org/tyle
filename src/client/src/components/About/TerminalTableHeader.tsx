@@ -1,11 +1,9 @@
 import { Text, Th, Tr } from "@mimirorg/component-library";
-import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { useMediaQuery } from "usehooks-ts";
 
 const TerminalTableHeader = () => {
   const theme = useTheme();
-  const { t } = useTranslation("explore", { keyPrefix: "about.terminals" });
   const adjustAmountAlignment = useMediaQuery("screen and (min-width: 1500px)");
   const textColor = theme.mimirorg.color.primary.base;
 
@@ -13,22 +11,22 @@ const TerminalTableHeader = () => {
     <Tr>
       <Th>
         <Text as={"span"} color={textColor}>
-          {t("templates.terminal", { object: t("name").toLowerCase() })}
+          Terminal name
         </Text>
       </Th>
       <Th>
         <Text as={"span"} color={textColor}>
-          {t("templates.terminal", { object: t("direction").toLowerCase() })}
+          Terminal direction
         </Text>
       </Th>
       <Th textAlign={adjustAmountAlignment ? "center" : "left"}>
         <Text as={"span"} color={textColor}>
-          {t("amount")}
+          Max amount
         </Text>
       </Th>
       <Th>
         <Text as={"span"} color={textColor}>
-          {t("templates.terminal", { object: t("attributes").toLowerCase() })}
+          Terminal attributes
         </Text>
       </Th>
     </Tr>

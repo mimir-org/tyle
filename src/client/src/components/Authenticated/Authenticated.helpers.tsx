@@ -5,23 +5,20 @@ import { blockFormRoutes } from "components/BlockForm/BlockFormRoutes";
 import { exploreRoutes } from "components/Explore/ExploreRoutes";
 import { settingsRoutes } from "components/SettingsLayout/SettingsRoutes";
 import { terminalFormRoutes } from "components/TerminalForm/TerminalFormRoutes";
-import { useTranslation } from "react-i18next";
 import { createBrowserRouter } from "react-router-dom";
 import AuthenticatedLayout from "./AuthenticatedLayout";
 
 export const useAuthenticatedRouter = () => {
-  const { t } = useTranslation("ui");
-
   return createBrowserRouter([
     {
       path: "/",
       element: <AuthenticatedLayout />,
       errorElement: (
         <ErrorMessage
-          title={t("global.clientError.title")}
-          subtitle={t("global.clientError.subtitle")}
-          status={t("global.clientError.status")}
-          linkText={t("global.clientError.link")}
+          title="Oops!"
+          subtitle="An error occurred when loading the page. Please contact support if the problem persists."
+          status="Error: Client"
+          linkText="Go back home"
           linkPath={"/"}
         />
       ),
@@ -36,10 +33,10 @@ export const useAuthenticatedRouter = () => {
           path: "*",
           element: (
             <ErrorMessage
-              title={t("global.notFound.title")}
-              subtitle={t("global.notFound.subtitle")}
-              status={t("global.notFound.status")}
-              linkText={t("global.notFound.link")}
+              title="Oops!"
+              subtitle="We can't seem to find the page you're looking for."
+              status="Error code: 404"
+              linkText="Go back home"
               linkPath={"/"}
             />
           ),
