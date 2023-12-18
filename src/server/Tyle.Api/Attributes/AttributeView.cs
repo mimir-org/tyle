@@ -14,4 +14,5 @@ public class AttributeView : ImfType
     public RegularityQualifier? RegularityQualifier { get; set; }
     public ScopeQualifier? ScopeQualifier { get; set; }
     public ValueConstraintView? ValueConstraint { get; set; }
+    public string Kind => nameof(AttributeView);
 }

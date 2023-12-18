@@ -14,4 +14,5 @@ export interface TerminalView extends ImfType {
   medium: RdlMedium | null;
   qualifier: Direction;
   attributes: AttributeTypeReferenceView[];
+  kind: string;
 }

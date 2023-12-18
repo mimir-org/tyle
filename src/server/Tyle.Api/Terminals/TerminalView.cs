@@ -14,4 +14,5 @@ public class TerminalView : ImfType
     public RdlMedium? Medium { get; set; }
     public Direction Qualifier { get; set; }
     public ICollection<AttributeTypeReferenceView> Attributes { get; set; } = new List<AttributeTypeReferenceView>();
+    public string Kind => nameof(TerminalView);
 }

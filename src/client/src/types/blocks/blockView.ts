@@ -14,4 +14,5 @@ export interface BlockView extends ImfType {
   aspect: Aspect | null;
   terminals: TerminalTypeReferenceView[];
   attributes: AttributeTypeReferenceView[];
+  kind: string;
 }

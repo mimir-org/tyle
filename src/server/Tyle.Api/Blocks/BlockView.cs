@@ -13,4 +13,5 @@ public class BlockView : ImfType
     public Aspect? Aspect { get; set; }
     public ICollection<TerminalTypeReferenceView> Terminals { get; set; } = new List<TerminalTypeReferenceView>();
     public ICollection<AttributeTypeReferenceView> Attributes { get; set; } = new List<AttributeTypeReferenceView>();
+    public string Kind => nameof(BlockView);
 }
