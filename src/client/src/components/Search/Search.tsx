@@ -49,7 +49,7 @@ const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
     if (!isPositiveInt(pageParam) || (!isLoading && Number(pageParam) > Math.ceil(totalHits / pageLimit))) {
       setSearchParams({ page: "1" });
     }
-  });
+  }, [isLoading, pageLimit, pageParam, setSearchParams, totalHits]);
 
   const showSearchText = !isLoading;
   const showResults = results.length > 0;
