@@ -7,11 +7,9 @@ using Newtonsoft.Json.Serialization;
 using Tyle.Api;
 using Tyle.Application;
 using Tyle.Converters;
-using Tyle.Application.Common;
 using Tyle.Persistence;
 using Microsoft.Identity.Web;
 using Tyle.External;
-using Tyle.Application.Blocks;
 
 var builder = WebApplication.CreateBuilder(args);
 

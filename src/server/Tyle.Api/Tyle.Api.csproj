@@ -35,10 +35,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Mimirorg.Authentication\Mimirorg.Authentication.csproj" />
+    <ProjectReference Include="..\Tyle.Application\Tyle.Application.csproj" />
+    <ProjectReference Include="..\Tyle.Core\Tyle.Core.csproj" />
     <ProjectReference Include="..\Tyle.Converters\Tyle.Converters.csproj" />
     <ProjectReference Include="..\Tyle.External\Tyle.External.csproj" />
     <ProjectReference Include="..\Tyle.Persistence\Tyle.Persistence.csproj" />
-    <ProjectReference Include="..\Mimirorg.Authentication\Mimirorg.Authentication.csproj" />
   </ItemGroup>
 
   <ItemGroup>
