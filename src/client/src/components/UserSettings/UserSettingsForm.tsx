@@ -6,7 +6,6 @@ import { onSubmitForm, usePrefilledForm } from "helpers/form.helpers";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { UserRequest } from "types/authentication/userRequest";
 import { UserView } from "types/authentication/userView";
 import {
@@ -21,8 +20,6 @@ interface UserSettingsFormProps {
 }
 
 const UserSettingsForm = ({ defaultValues }: UserSettingsFormProps) => {
-  const { t } = useTranslation("settings");
-
   const formMethods = useForm<UserRequest>({
     defaultValues: defaultValues,
     //resolver: yupResolver(userSchema(t)),
@@ -45,21 +42,13 @@ const UserSettingsForm = ({ defaultValues }: UserSettingsFormProps) => {
       {isLoading && <Loader />}
       {!isLoading && (
         <>
-          <FormField label={t("usersettings.labels.firstName")} error={formState.errors.firstName}>
-            <Input
-              style={{ fontSize: "17px" }}
-              placeholder={t("usersettings.placeholders.firstName")}
-              {...register("firstName")}
-            />
+          <FormField label="First name" error={formState.errors.firstName}>
+            <Input style={{ fontSize: "17px" }} placeholder="Enter first name" {...register("firstName")} />
           </FormField>
-          <FormField label={t("usersettings.labels.lastName")} error={formState.errors.lastName}>
-            <Input
-              style={{ fontSize: "17px" }}
-              placeholder={t("usersettings.placeholders.lastName")}
-              {...register("lastName")}
-            />
+          <FormField label="Last name" error={formState.errors.lastName}>
+            <Input style={{ fontSize: "17px" }} placeholder="Enter last name" {...register("lastName")} />
           </FormField>
-          <Button type={"submit"}>{t("usersettings.submit")}</Button>
+          <Button type={"submit"}>Update user settings</Button>
         </>
       )}
       <DevTool control={control} placement={"bottom-right"} />

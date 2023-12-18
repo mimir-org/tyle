@@ -1,6 +1,5 @@
 import { Button, Flexbox, Text } from "@mimirorg/component-library";
 import { useSubmissionToast } from "helpers/form.helpers";
-import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { AttributeView } from "types/attributes/attributeView";
 import { BlockView } from "types/blocks/blockView";
@@ -14,7 +13,6 @@ export interface ApprovalCardFormProps {
 }
 
 const ApprovalCardForm = ({ item, itemType }: ApprovalCardFormProps) => {
-  const { t } = useTranslation(["settings"]);
   const theme = useTheme();
 
   const patchStateMutation = usePatchStateMutation(item, itemType);
@@ -30,10 +28,10 @@ const ApprovalCardForm = ({ item, itemType }: ApprovalCardFormProps) => {
           type={"button"}
           onClick={() => toast(patchStateMutation.mutateAsync({ state: State.Draft }))}
         >
-          {t("common.approval.reject")}
+          Reject
         </Button>
         <Button type={"button"} onClick={() => toast(patchStateMutation.mutateAsync({ state: State.Approved }))}>
-          {t("common.approval.submit")}
+          Approve
         </Button>
       </Flexbox>
     </Flexbox>
