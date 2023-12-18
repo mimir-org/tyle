@@ -17,4 +17,5 @@ export interface AttributeView extends ImfType {
   regularityQualifier: RegularityQualifier | null;
   scopeQualifier: ScopeQualifier | null;
   valueConstraint: ValueConstraintView | null;
+  kind: string;
 }
