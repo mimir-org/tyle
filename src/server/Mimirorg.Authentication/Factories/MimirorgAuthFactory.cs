@@ -20,22 +20,22 @@ public class MimirorgAuthFactory : IMimirorgAuthFactory
         yield return new IdentityRole
         {
             Name = MimirorgDefaultRoles.Administrator,
-            NormalizedName = MimirorgDefaultRoles.Administrator.Normalize()
+            NormalizedName = MimirorgDefaultRoles.Administrator.ToUpper()
         };
         yield return new IdentityRole
         {
             Name = MimirorgDefaultRoles.Reviewer,
-            NormalizedName = MimirorgDefaultRoles.Reviewer.Normalize()
+            NormalizedName = MimirorgDefaultRoles.Reviewer.ToUpper()
         };
         yield return new IdentityRole
         {
             Name = MimirorgDefaultRoles.Contributor,
-            NormalizedName = MimirorgDefaultRoles.Contributor.Normalize()
+            NormalizedName = MimirorgDefaultRoles.Contributor.ToUpper()
         };
         yield return new IdentityRole
         {
             Name = MimirorgDefaultRoles.Reader,
-            NormalizedName = MimirorgDefaultRoles.Reader.Normalize()
+            NormalizedName = MimirorgDefaultRoles.Reader.ToUpper()
         };
     }
 

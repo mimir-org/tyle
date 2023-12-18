@@ -17,7 +17,7 @@ namespace Mimirorg.Authentication.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.13")
+                .HasAnnotation("ProductVersion", "7.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -51,23 +51,27 @@ namespace Mimirorg.Authentication.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "181ba3bc-a74c-4d06-ba29-0e80d95cc20c",
-                            Name = "Administrator"
+                            Id = "76392a20-acbe-491d-bb52-a67cf58dd108",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "8d22e2a4-85b5-4ba5-b596-2be880a27be8",
-                            Name = "Reviewer"
+                            Id = "ceaf8cc1-5e35-4493-8341-1838b46e6f6b",
+                            Name = "Reviewer",
+                            NormalizedName = "REVIEWER"
                         },
                         new
                         {
-                            Id = "e46697ea-7cad-4da1-b399-06cf0621b475",
-                            Name = "Contributor"
+                            Id = "58e158cf-08b6-477c-82a8-a4d44a854be1",
+                            Name = "Contributor",
+                            NormalizedName = "CONTRIBUTOR"
                         },
                         new
                         {
-                            Id = "e4446917-bbbe-41e1-b156-a7b6ff819ab6",
-                            Name = "Reader"
+                            Id = "c62d0f40-27c3-455b-8b12-56b272a87386",
+                            Name = "Reader",
+                            NormalizedName = "READER"
                         });
                 });
 
@@ -239,9 +243,11 @@ namespace Mimirorg.Authentication.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -268,6 +274,7 @@ namespace Mimirorg.Authentication.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Purpose")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityHash")
