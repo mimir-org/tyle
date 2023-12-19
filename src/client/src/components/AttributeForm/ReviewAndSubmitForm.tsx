@@ -111,9 +111,7 @@ const ReviewAndSubmitForm = ({ attributeFormFields, mutation, formRef, mode }: R
             <Td>Units</Td>
             <Td>
               {attributeFormFields.units.length > 0
-                ? attributeFormFields.units
-                    .map((unit) => unit.name + (unit.symbol ? ` (${unit.symbol})` : ""))
-                    .join(", ")
+                ? attributeFormFields.units.map((unit) => unit.name).join(", ")
                 : "none"}
             </Td>
           </Tr>
