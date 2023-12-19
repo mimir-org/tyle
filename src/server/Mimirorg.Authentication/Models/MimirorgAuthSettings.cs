@@ -5,7 +5,6 @@ namespace Mimirorg.Authentication.Models;
 public class MimirorgAuthSettings
 {
     public string ApplicationName { get; set; }
-    public string ApplicationUrl { get; set; }
     public string JwtKey { get; set; }
     public string JwtIssuer { get; set; }
     public string JwtAudience { get; set; }
@@ -34,7 +33,6 @@ public class MimirorgAuthSettings
         sb.AppendLine();
         sb.AppendLine("############################ Auth settings ####################################################");
         sb.AppendLine($"{nameof(ApplicationName)}:          {ApplicationName}");
-        sb.AppendLine($"{nameof(ApplicationUrl)}:           {ApplicationUrl}");
         sb.AppendLine($"{nameof(JwtExpireMinutes)}:         {JwtExpireMinutes}");
         sb.AppendLine($"{nameof(JwtRefreshExpireMinutes)}:  {JwtRefreshExpireMinutes}");
         sb.AppendLine($"{nameof(MaxFailedAccessAttempts)}:  {MaxFailedAccessAttempts}");
