@@ -156,7 +156,7 @@ export const predicateInfoItem = (predicate: RdlPredicate): InfoItem => ({
 
 export const unitInfoItem = (unit: RdlUnit): InfoItem => ({
   id: unit.id.toString(),
-  name: unit.symbol ? `${unit.name} (${unit.symbol})` : unit.name,
+  name: unit.name,
   descriptors: {
     Description: unit.description,
     IRI: unit.iri,

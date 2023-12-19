@@ -21,7 +21,7 @@ const UnitsForm = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ f
   const unitInfoItems: InfoItem[] =
     unitQuery.data?.map((unit) => ({
       id: unit.id.toString(),
-      name: unit.name + (unit.symbol ? ` (${unit.symbol})` : ""),
+      name: unit.name,
       descriptors: {
         Description: unit.description,
         IRI: unit.iri,
@@ -107,7 +107,7 @@ const UnitsForm = React.forwardRef<HTMLFormElement, AttributeFormStepProps>(({ f
             onAction={() => removeUnit(unit)}
             dangerousAction
           >
-            {unit.name + (unit.symbol ? ` (${unit.symbol})` : "")}
+            {unit.name}
           </Token>
         ))}
       </FormSection>
