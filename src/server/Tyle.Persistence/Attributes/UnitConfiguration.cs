@@ -17,6 +17,5 @@ public class UnitConfiguration : IEntityTypeConfiguration<RdlUnit>
         builder.Property(x => x.Description).HasMaxLength(StringLengthConstants.DescriptionLength);
         builder.Property(x => x.Iri).IsRequired().HasConversion<string>().HasMaxLength(StringLengthConstants.IriLength);
         builder.Property(x => x.Source).IsRequired().HasConversion<string>().HasMaxLength(StringLengthConstants.EnumLength);
-        builder.Property(x => x.Symbol).HasMaxLength(StringLengthConstants.UnitSymbolLength);
     }
 }

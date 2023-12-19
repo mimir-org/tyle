@@ -73,8 +73,7 @@ public class AttributesControllerTests : IntegrationTest
 
         var firstUnitRequest = new RdlUnitRequest
         {
-            Name = "Kilogram",
-            Symbol = "kg",
+            Name = "kg",
             Iri = "http://example.com/kg"
         };
 
@@ -83,8 +82,7 @@ public class AttributesControllerTests : IntegrationTest
 
         var secondUnitRequest = new RdlUnitRequest
         {
-            Name = "Metre",
-            Symbol = "m",
+            Name = "m",
             Iri = "http://example.com/m"
         };
 
@@ -250,8 +248,7 @@ public class AttributesControllerTests : IntegrationTest
 
         var firstUnitRequest = new RdlUnitRequest
         {
-            Name = "Kilogram",
-            Symbol = "kg",
+            Name = "kg",
             Iri = "http://example.com/kg"
         };
 
@@ -260,8 +257,7 @@ public class AttributesControllerTests : IntegrationTest
 
         var secondUnitRequest = new RdlUnitRequest
         {
-            Name = "Metre",
-            Symbol = "m",
+            Name = "m",
             Iri = "http://example.com/m"
         };
 
@@ -270,8 +266,7 @@ public class AttributesControllerTests : IntegrationTest
 
         var thirdUnitRequest = new RdlUnitRequest
         {
-            Name = "Watt",
-            Symbol = "W",
+            Name = "W",
             Iri = "http://example.com/W"
         };
 

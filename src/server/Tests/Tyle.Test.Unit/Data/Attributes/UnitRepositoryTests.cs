@@ -22,8 +22,7 @@ public class UnitRepositoryTests : UnitTest<MimirorgCommonFixture>
     {
         var unit = new RdlUnitRequest
         {
-            Name = "Test unit",
-            Symbol = "tu",
+            Name = "tu",
             Description = "Test description",
             Iri = "http://test.com/unit"
         };
@@ -41,8 +40,7 @@ public class UnitRepositoryTests : UnitTest<MimirorgCommonFixture>
     {
         var unit = new RdlUnitRequest
         {
-            Name = "Test unit",
-            Symbol = "tu",
+            Name = "tu",
             Description = "Test description",
             Iri = "http://test.com/unit"
         };
@@ -51,7 +49,6 @@ public class UnitRepositoryTests : UnitTest<MimirorgCommonFixture>
         Assert.NotNull(createdUnit);
 
         Assert.Equal(unit.Name, createdUnit.Name);
-        Assert.Equal(unit.Symbol, createdUnit.Symbol);
         Assert.Equal(unit.Description, createdUnit.Description);
         Assert.Equal(unit.Iri, createdUnit.Iri.OriginalString);
     }
