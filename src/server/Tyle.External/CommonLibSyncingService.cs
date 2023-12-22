@@ -1,6 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Abstractions;
+using Tyle.Application.Attributes;
+using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Blocks;
 using Tyle.Application.Common;
 using Tyle.Application.Common.Requests;
@@ -42,6 +44,9 @@ public class CommonLibSyncingService : IHostedService, IDisposable
     {
         await SyncPurposes();
         await SyncMedia();
+        await SyncClassifiers();
+        await SyncPredicates();
+        await SyncUnits();
         await SyncSymbols();
     }
 
@@ -75,7 +80,7 @@ public class CommonLibSyncingService : IHostedService, IDisposable
         foreach (var purpose in purposes)
         {
             var iriAttribute = purpose.Attributes.FirstOrDefault(x => x.DefinitionName == "Identifier");
-            if (iriAttribute == null || purposesDb.Any(savedPurpose => savedPurpose.Iri.Equals(new Uri(iriAttribute.DisplayValue))))
+            if (iriAttribute == null || !Uri.TryCreate(iriAttribute.DisplayValue, UriKind.Absolute, out var iri) || purposesDb.Any(savedPurpose => savedPurpose.Iri.Equals(iri)))
             {
                 continue;
             }
@@ -86,6 +91,8 @@ public class CommonLibSyncingService : IHostedService, IDisposable
                 Description = purpose.Description.Length > 0 ? purpose.Description : null,
                 Iri = iriAttribute.DisplayValue
             };
+
+            if (purposesToCreate.Any(x => new Uri(x.Iri).Equals(new Uri(purposeRequest.Iri)))) continue;
 
             purposesToCreate.Add(purposeRequest);
         }
@@ -123,7 +130,7 @@ public class CommonLibSyncingService : IHostedService, IDisposable
         foreach (var medium in media)
         {
             var iriAttribute = medium.Attributes.FirstOrDefault(x => x.DefinitionName == "Identifier");
-            if (iriAttribute == null || mediaDb.Any(savedMedium => savedMedium.Iri.Equals(new Uri(iriAttribute.DisplayValue))))
+            if (iriAttribute == null || !Uri.TryCreate(iriAttribute.DisplayValue, UriKind.Absolute, out var iri) || mediaDb.Any(savedMedia => savedMedia.Iri.Equals(iri)))
             {
                 continue;
             }
@@ -135,10 +142,162 @@ public class CommonLibSyncingService : IHostedService, IDisposable
                 Iri = iriAttribute.DisplayValue
             };
 
+            if (mediaToCreate.Any(x => new Uri(x.Iri).Equals(new Uri(mediumRequest.Iri)))) continue;
+
             mediaToCreate.Add(mediumRequest);
         }
 
         await mediumRepository.Create(mediaToCreate, ReferenceSource.CommonLibrary);
+    }
+
+    private async Task SyncClassifiers()
+    {
+        using IServiceScope scope = _serviceProvider.CreateScope();
+
+        var downstreamApi = scope.ServiceProvider.GetService<IDownstreamApi>();
+        var classifierRepository = scope.ServiceProvider.GetService<IClassifierRepository>();
+
+        if (downstreamApi == null || classifierRepository == null)
+        {
+            return;
+        }
+
+        var classifiers = await downstreamApi.GetForAppAsync<IEnumerable<ExternalType>>("CommonLib", options =>
+        {
+            options.RelativePath = "api/Code/IMFClassifier";
+            options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
+        });
+
+        if (classifiers == null)
+        {
+            return;
+        }
+
+        var classifiersDb = (await classifierRepository.GetAll()).ToList();
+
+        var classifiersToCreate = new List<RdlClassifierRequest>();
+
+        foreach (var classifier in classifiers)
+        {
+            var iriAttribute = classifier.Attributes.FirstOrDefault(x => x.DefinitionName == "Identifier");
+            if (iriAttribute == null || !Uri.TryCreate(iriAttribute.DisplayValue, UriKind.Absolute, out var iri) || classifiersDb.Any(savedClassifier => savedClassifier.Iri.Equals(iri)))
+            {
+                continue;
+            }
+
+            var classifierRequest = new RdlClassifierRequest
+            {
+                Name = classifier.Name,
+                Description = classifier.Description.Length > 0 ? classifier.Description : null,
+                Iri = iriAttribute.DisplayValue
+            };
+
+            if (classifiersToCreate.Any(x => new Uri(x.Iri).Equals(new Uri(classifierRequest.Iri)))) continue;
+
+            classifiersToCreate.Add(classifierRequest);
+        }
+
+        await classifierRepository.Create(classifiersToCreate, ReferenceSource.CommonLibrary);
+    }
+
+    private async Task SyncPredicates()
+    {
+        using IServiceScope scope = _serviceProvider.CreateScope();
+
+        var downstreamApi = scope.ServiceProvider.GetService<IDownstreamApi>();
+        var predicateRepository = scope.ServiceProvider.GetService<IPredicateRepository>();
+
+        if (downstreamApi == null || predicateRepository == null)
+        {
+            return;
+        }
+
+        var predicates = await downstreamApi.GetForAppAsync<IEnumerable<ExternalType>>("CommonLib", options =>
+        {
+            options.RelativePath = "api/Code/IMFPredicate";
+            options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
+        });
+
+        if (predicates == null)
+        {
+            return;
+        }
+
+        var predicatesDb = (await predicateRepository.GetAll()).ToList();
+
+        var predicatesToCreate = new List<RdlPredicateRequest>();
+
+        foreach (var predicate in predicates)
+        {
+            var iriAttribute = predicate.Attributes.FirstOrDefault(x => x.DefinitionName == "Identifier");
+            if (iriAttribute == null || !Uri.TryCreate(iriAttribute.DisplayValue, UriKind.Absolute, out var iri) || predicatesDb.Any(savedPredicate => savedPredicate.Iri.Equals(iri)))
+            {
+                continue;
+            }
+
+            var predicateRequest = new RdlPredicateRequest
+            {
+                Name = predicate.Name,
+                Description = predicate.Description.Length > 0 ? predicate.Description : null,
+                Iri = iriAttribute.DisplayValue
+            };
+
+            if (predicatesToCreate.Any(x => new Uri(x.Iri).Equals(new Uri(predicateRequest.Iri)))) continue;
+
+            predicatesToCreate.Add(predicateRequest);
+        }
+
+        await predicateRepository.Create(predicatesToCreate, ReferenceSource.CommonLibrary);
+    }
+
+    private async Task SyncUnits()
+    {
+        using IServiceScope scope = _serviceProvider.CreateScope();
+
+        var downstreamApi = scope.ServiceProvider.GetService<IDownstreamApi>();
+        var unitRepository = scope.ServiceProvider.GetService<IUnitRepository>();
+
+        if (downstreamApi == null || unitRepository == null)
+        {
+            return;
+        }
+
+        var units = await downstreamApi.GetForAppAsync<IEnumerable<ExternalType>>("CommonLib", options =>
+        {
+            options.RelativePath = "api/Code/IMFUnitOfMeasure";
+            options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
+        });
+
+        if (units == null)
+        {
+            return;
+        }
+
+        var unitsDb = (await unitRepository.GetAll()).ToList();
+
+        var unitsToCreate = new List<RdlUnitRequest>();
+
+        foreach (var unit in units)
+        {
+            var iriAttribute = unit.Attributes.FirstOrDefault(x => x.DefinitionName == "Identifier");
+            if (iriAttribute == null || !Uri.TryCreate(iriAttribute.DisplayValue, UriKind.Absolute, out var iri) || unitsDb.Any(savedUnit => savedUnit.Iri.Equals(iri)))
+            {
+                continue;
+            }
+
+            var unitRequest = new RdlUnitRequest
+            {
+                Name = unit.Name,
+                Description = unit.Description.Length > 0 ? unit.Description : null,
+                Iri = iriAttribute.DisplayValue
+            };
+
+            if (unitsToCreate.Any(x => new Uri(x.Iri).Equals(new Uri(unitRequest.Iri)))) continue;
+
+            unitsToCreate.Add(unitRequest);
+        }
+
+        await unitRepository.Create(unitsToCreate, ReferenceSource.CommonLibrary);
     }
 
     private async Task SyncSymbols()

@@ -1,24 +1,22 @@
-import { useTranslation } from "react-i18next";
 import { ApprovalCm, State } from "@mimirorg/typelibrary-types";
 
 export const useApprovalDescriptors = (approval: ApprovalCm): { [key: string]: string } => {
-  const { t } = useTranslation("settings");
   const descriptors: { [key: string]: string } = {};
 
   if (approval.companyName) {
-    descriptors[t("common.approval.company")] = approval.companyName;
+    descriptors["Company"] = approval.companyName;
   }
 
   if (approval.objectType) {
-    descriptors[t("common.approval.objectType")] = approval.objectType;
+    descriptors["Type"] = approval.objectType;
   }
 
   if (approval.userName) {
-    descriptors[t("common.approval.userName")] = approval.userName;
+    descriptors["User"] = approval.userName;
   }
 
   if (approval.stateName) {
-    descriptors[t("common.approval.stateName")] = approval.stateName;
+    descriptors["State"] = approval.stateName;
   }
 
   return descriptors;

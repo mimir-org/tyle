@@ -5,11 +5,11 @@ import { useTheme } from "styled-components";
 
 export interface UserListItemProps {
   name: string;
-  trait: string;
+  role: string[];
   action?: ReactNode;
 }
 
-const UserListItem = ({ name, trait, action }: UserListItemProps) => {
+const UserListItem = ({ name, role, action }: UserListItemProps) => {
   const theme = useTheme();
 
   return (
@@ -19,7 +19,7 @@ const UserListItem = ({ name, trait, action }: UserListItemProps) => {
         <Text>{name}</Text>
       </Flexbox>
       <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
-        <Text variant={"label-large"}>{trait}</Text>
+        <Text variant={"label-large"}>{role}</Text>
         {action}
       </Flexbox>
     </MotionBox>

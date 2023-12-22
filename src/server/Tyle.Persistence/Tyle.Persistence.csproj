@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tyle.Application\Tyle.Application.csproj" />
+    <ProjectReference Include="..\Tyle.Core\Tyle.Core.csproj" />
     <ProjectReference Include="..\Tyle.Converters\Tyle.Converters.csproj" />
   </ItemGroup>
 

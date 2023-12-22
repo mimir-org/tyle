@@ -4,7 +4,6 @@ import { onSubmitForm, useSubmissionToast } from "helpers/form.helpers";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { FormProvider, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { FormMode } from "types/formMode";
 import { useAttributeGroupMutation, useAttributeGroupQuery } from "./AttributeGroupForm.helpers";
@@ -22,7 +21,6 @@ interface AttributeGroupFormProps {
 
 const AttributeGroupForm = ({ defaultValues = createEmptyFormAttributeGroupLib(), mode }: AttributeGroupFormProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("entities");
 
   const formMethods = useForm<FormAttributeGroupLib>({
     defaultValues: defaultValues,
@@ -41,7 +39,7 @@ const AttributeGroupForm = ({ defaultValues = createEmptyFormAttributeGroupLib()
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
-  const toast = useSubmissionToast(t("attributeGroup.title"));
+  const toast = useSubmissionToast("attribute group");
 
   return (
     <FormProvider {...formMethods}>

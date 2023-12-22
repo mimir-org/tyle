@@ -2,11 +2,11 @@ import { Box, Text } from "@mimirorg/component-library";
 import { UserCircle } from "@styled-icons/heroicons-outline";
 import { useTheme } from "styled-components";
 
-interface PermissionCardHeaderProps {
+interface RoleCardHeaderProps {
   children?: string;
 }
 
-const PermissionCardHeader = ({ children }: PermissionCardHeaderProps) => {
+const RoleCardHeader = ({ children }: RoleCardHeaderProps) => {
   const theme = useTheme();
 
   return (
@@ -17,4 +17,4 @@ const PermissionCardHeader = ({ children }: PermissionCardHeaderProps) => {
   );
 };
 
-export default PermissionCardHeader;
+export default RoleCardHeader;

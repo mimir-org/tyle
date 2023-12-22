@@ -28,8 +28,7 @@ public class UnitsControllerTests : IntegrationTest
     {
         var unitRequest = new RdlUnitRequest
         {
-            Name = "Test unit",
-            Symbol = "tu",
+            Name = "tu",
             Description = "For testing",
             Iri = "http://test.com/unit"
         };
@@ -41,7 +40,6 @@ public class UnitsControllerTests : IntegrationTest
         var responseContent = JsonConvert.DeserializeObject<RdlUnit>(await response.Content.ReadAsStringAsync());
 
         Assert.Equal(unitRequest.Name, responseContent?.Name);
-        Assert.Equal(unitRequest.Symbol, responseContent?.Symbol);
         Assert.Equal(unitRequest.Description, responseContent?.Description);
         Assert.Equal(unitRequest.Iri, responseContent?.Iri.OriginalString);
     }
@@ -55,8 +53,7 @@ public class UnitsControllerTests : IntegrationTest
 
         var unitRequest = new RdlUnitRequest
         {
-            Name = "Test unit",
-            Symbol = "tu",
+            Name = "tu",
             Description = "For testing",
             Iri = "http://test.com/unit"
         };

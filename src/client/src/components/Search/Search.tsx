@@ -8,7 +8,6 @@ import SearchField from "components/SearchField";
 import { mapUserViewToUserItem } from "helpers/mappers.helpers";
 import { useDebounceState } from "hooks/useDebounceState";
 import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { useTheme } from "styled-components";
 import { SelectedInfo } from "types/selectedInfo";
@@ -37,7 +36,6 @@ interface SearchProps {
  */
 const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("explore");
   const createMenuLinks = useCreateMenuLinks();
   const [activeFilters, toggleFilter] = useFilterState([]);
   const [query, setQuery, debouncedQuery] = useDebounceState("");
@@ -51,7 +49,7 @@ const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
     if (!isPositiveInt(pageParam) || (!isLoading && Number(pageParam) > Math.ceil(totalHits / pageLimit))) {
       setSearchParams({ page: "1" });
     }
-  });
+  }, [isLoading, pageLimit, pageParam, setSearchParams, totalHits]);
 
   const showSearchText = !isLoading;
   const showResults = results.length > 0;
@@ -63,21 +61,17 @@ const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
   const shown = totalHits < pageLimit ? totalHits : lowerShown <= higherShown ? lowerShown + "–" + higherShown : 0;
 
   return (
-    <ExploreSection title={t("search.title")}>
+    <ExploreSection title="Search">
       <Flexbox gap={theme.mimirorg.spacing.xxxl} alignItems={"center"}>
-        <SearchField
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder={t("search.placeholders.search")}
-        />
+        <SearchField value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search for types" />
         <FilterMenu
-          name={t("search.filter.title")}
+          name="Filter"
           filterGroups={useGetFilterGroups()}
           activeFilters={activeFilters}
           toggleFilter={toggleFilter}
         />
         <LinkMenu
-          name={t("search.create.title")}
+          name="Create"
           links={createMenuLinks}
           justifyContent={"space-between"}
           disabled={
@@ -92,7 +86,7 @@ const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
             <Token
               key={`${x.value}`}
               actionable
-              actionText={t("search.filter.templates.remove", { object: x.label })}
+              actionText={`Remove ${x.label} filter`}
               actionIcon={<XCircle />}
               onAction={() => toggleFilter(x)}
             >
@@ -109,7 +103,7 @@ const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
           color={theme.mimirorg.color.surface.variant.on}
           {...theme.mimirorg.animation.fade}
         >
-          {t("search.templates.hits", { shown: shown, total: totalHits })}
+          {`Showing ${shown} of ${totalHits} results found`}
         </MotionText>
       )}
 
@@ -131,9 +125,13 @@ const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
 
       {showPlaceholder && (
         <SearchPlaceholder
-          title={t("search.help.templates.query", { query })}
-          subtitle={t("search.help.subtitle")}
-          tips={[t("search.help.tip1"), t("search.help.tip2"), t("search.help.tip3")]}
+          title={`We are sorry, there are no results for “${query}”`}
+          subtitle="Search help"
+          tips={[
+            "Check your search for typos",
+            "Use more generic search terms",
+            "The type you are searching for might not have been added yet",
+          ]}
         />
       )}
     </ExploreSection>

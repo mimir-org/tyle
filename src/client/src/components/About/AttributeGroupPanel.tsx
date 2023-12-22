@@ -1,7 +1,6 @@
 import { MotionBox } from "@mimirorg/component-library";
 import AttributeGroupPreview from "components/AttributeGroupPreview";
 import InfoItemButton from "components/InfoItemButton";
-import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { AttributeGroupItem } from "types/attributeGroupItem";
 import PanelPropertiesContainer from "./PanelPropertiesContainer";
@@ -15,7 +14,6 @@ import PanelSection from "./PanelSection";
  */
 export const AttributeGroupPanel = ({ name, description, attributes }: AttributeGroupItem) => {
   const theme = useTheme();
-  const { t } = useTranslation("explore");
 
   const showAttributes = attributes && attributes.length > 0;
 
@@ -33,7 +31,7 @@ export const AttributeGroupPanel = ({ name, description, attributes }: Attribute
 
       <PanelPropertiesContainer>
         {showAttributes && (
-          <PanelSection title={t("about.attributes")}>
+          <PanelSection title="Attributes">
             {attributes.map((a, i) => (
               <InfoItemButton descriptors={{}} key={i} {...a} />
             ))}

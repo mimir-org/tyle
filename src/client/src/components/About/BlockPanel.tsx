@@ -1,7 +1,6 @@
 import { Flexbox, Heading, MotionBox, Text } from "@mimirorg/component-library";
 import InfoItemButton from "components/InfoItemButton";
 import StateBadge from "components/StateBadge";
-import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { BlockItem } from "types/blockItem";
 import PanelPropertiesContainer from "./PanelPropertiesContainer";
@@ -29,7 +28,6 @@ const BlockPanel = ({
   attributes,
 }: BlockItem) => {
   const theme = useTheme();
-  const { t } = useTranslation("explore");
   const showTerminals = terminals && terminals.length > 0;
   const showAttributes = attributes && attributes.length > 0;
 
@@ -59,14 +57,14 @@ const BlockPanel = ({
 
       <PanelPropertiesContainer>
         {showAttributes && (
-          <PanelSection title={t("about.attributes")}>
+          <PanelSection title="Attributes">
             {attributes.map((a) => (
               <InfoItemButton key={a.id} {...a} />
             ))}
           </PanelSection>
         )}
         {showTerminals && (
-          <PanelSection title={t("about.terminals.title")}>
+          <PanelSection title="Terminals">
             <TerminalTable terminals={terminals} />
           </PanelSection>
         )}

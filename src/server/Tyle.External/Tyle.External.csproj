@@ -8,13 +8,15 @@
 
   <ItemGroup>
     <PackageReference Include="dotNetRdf" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Identity.Abstractions" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tyle.Core\Tyle.Core.csproj" />
-    <ProjectReference Include="..\Tyle.Persistence\Tyle.Persistence.csproj" />
+      <ProjectReference Include="..\Tyle.Application\Tyle.Application.csproj" />
+      <ProjectReference Include="..\Tyle.Core\Tyle.Core.csproj" />
+    <ProjectReference Include="..\Tyle.Converters\Tyle.Converters.csproj" />
   </ItemGroup>
 
 </Project>

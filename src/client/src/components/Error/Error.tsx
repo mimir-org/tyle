@@ -1,5 +1,4 @@
 import { FormErrorBanner, Text } from "@mimirorg/component-library";
-import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 
 interface ErrorProps {
@@ -15,13 +14,12 @@ interface ErrorProps {
  */
 const Error = ({ children }: ErrorProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("auth");
 
   return (
     <FormErrorBanner>
       {children}
-      <Text as={"a"} href={`mailto:${t("support.email")}`} color={theme.mimirorg.color.error.on}>
-        {t("support.text")}
+      <Text as={"a"} href="mailto:orgmimir@gmail.com" color={theme.mimirorg.color.error.on}>
+        contact support.
       </Text>
     </FormErrorBanner>
   );

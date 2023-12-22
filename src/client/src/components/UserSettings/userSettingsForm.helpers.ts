@@ -1,6 +1,5 @@
 import { toast } from "@mimirorg/component-library";
 import { useGetCurrentUser } from "api/user.queries";
-import { useTranslation } from "react-i18next";
 import { UserRequest } from "types/authentication/userRequest";
 import { UserView } from "types/authentication/userView";
 
@@ -18,13 +17,11 @@ export const mapUserViewToRequest = (user: UserView): UserRequest => ({
 });
 
 export const useUpdatingToast = () => {
-  const { t } = useTranslation("settings");
-
   return (updatingPromise: Promise<unknown>) =>
     toast.promise(updatingPromise, {
-      loading: t("usersettings.updating.loading"),
-      success: t("usersettings.updating.success"),
-      error: t("usersettings.updating.error"),
+      loading: "Updating user settings",
+      success: "Your user settings have been updated",
+      error: "An error occured while updating your user settings",
     });
 };
 

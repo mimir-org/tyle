@@ -1,12 +1,11 @@
-import { TFunction } from "i18next";
 import { YupShape } from "types/yupShape";
 import * as yup from "yup";
 import { FormApproval } from "./formApproval";
 
-export const approvalSchema = (t: TFunction<"translation">) =>
+export const approvalSchema = () =>
   yup.object<YupShape<FormApproval>>({
-    id: yup.string().required(t("common.approval.validation.id.required")),
-    objectType: yup.string().required(t("common.approval.validation.objectType.required")),
-    state: yup.object().required(t("common.approval.validation.state.required")),
-    companyId: yup.number().required(t("common.approval.validation.companyId.required")),
+    id: yup.string().required("An approval must have an id"),
+    objectType: yup.string().required("An approval must be of a type"),
+    state: yup.object().required("An approval must have a state"),
+    companyId: yup.number().required("An approval must have a company id"),
   });

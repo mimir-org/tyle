@@ -14,6 +14,8 @@ import { TerminalView } from "types/terminals/terminalView";
 import { UserItem } from "types/userItem";
 import { getOptionsFromEnum } from "utils";
 import { getColorFromAspect } from "./aspect.helper";
+import { RoleView } from "../types/authentication/roleView";
+import { RoleItem } from "../types/Role";
 
 export const purposeInfoItem = (purpose: RdlPurpose): InfoItem => ({
   id: purpose.id.toString(),
@@ -91,6 +93,13 @@ export const mapUserViewToUserItem = (user: UserView): UserItem => {
     email: user.email,
     purpose: user.purpose,
     roles: user.roles,
+  };
+};
+
+export const mapRoleViewToRoleItem = (role: RoleView): RoleItem => {
+  return {
+    roleName: role.name,
+    roleId: role.id,
   };
 };
 

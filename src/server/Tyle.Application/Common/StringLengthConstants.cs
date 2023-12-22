@@ -8,8 +8,6 @@ public static class StringLengthConstants
 
     public const int ValueLength = 500;
 
-    public const int UnitSymbolLength = 20;
-
     public const int NotationLength = 50;
 
     public const int EnumLength = 50;

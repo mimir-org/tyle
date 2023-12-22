@@ -19,7 +19,6 @@ import Processing from "components/Processing";
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useTheme } from "styled-components";
 import { MimirorgUserAmCorrectTypes } from "./mimirorgUserAm";
@@ -32,12 +31,11 @@ interface RegisterDetailsProps {
 
 const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("auth");
 
   const mutation = useCreateUser();
 
   const formMethods = useForm({
-    resolver: yupResolver(registerDetailsSchema(t)),
+    resolver: yupResolver(registerDetailsSchema()),
   });
 
   const { register, control, handleSubmit, setError, formState } = formMethods;
@@ -56,64 +54,54 @@ const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
 
   return (
     <AuthContent
-      title={t("register.details.title")}
-      subtitle={t("register.details.description")}
+      title="Register"
+      subtitle="Create an account to collaborate with your organization!"
       firstRow={
         <>
-          {mutation.isLoading && <Processing>{t("register.processing")}</Processing>}
+          {mutation.isLoading && <Processing>Processing</Processing>}
           {!mutation.isSuccess && !mutation.isLoading && (
             <Form id={"details-form"} onSubmit={handleSubmit((data) => onSubmit(data))}>
-              {mutation.isError && <Error>{t("register.details.error")}</Error>}
+              {mutation.isError && (
+                <Error>
+                  We were not able to create your user at this moment. Please try again in about a minute. If the
+                  problem persists,
+                </Error>
+              )}
               <FormFieldset>
-                <FormField label={`${t("register.details.email")} *`} error={formState.errors.email}>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder={t("register.details.placeholders.email")}
-                    {...register("email")}
-                  />
+                <FormField label="E-mail *" error={formState.errors.email}>
+                  <Input id="email" type="email" placeholder="you@organization.com" {...register("email")} />
                 </FormField>
 
-                <FormField label={`${t("register.details.firstname")} *`} error={errors.firstName}>
-                  <Input
-                    id="firstName"
-                    placeholder={t("register.details.placeholders.firstname")}
-                    {...register("firstName")}
-                  />
+                <FormField label="First name *" error={errors.firstName}>
+                  <Input id="firstName" placeholder="Jane" {...register("firstName")} />
                 </FormField>
 
-                <FormField label={`${t("register.details.lastname")} *`} error={errors.lastName}>
-                  <Input
-                    id="lastName"
-                    placeholder={t("register.details.placeholders.lastname")}
-                    {...register("lastName")}
-                  />
+                <FormField label="Last name *" error={errors.lastName}>
+                  <Input id="lastName" placeholder="Smith" {...register("lastName")} />
                 </FormField>
 
-                <FormField label={`${t("register.details.password")} *`} error={errors.password}>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder={t("register.details.placeholders.password")}
-                    {...register("password")}
-                  />
+                <FormField label="Password *" error={errors.password}>
+                  <Input id="password" type="password" placeholder="**********" {...register("password")} />
                 </FormField>
 
-                <FormField label={`${t("register.details.confirmPassword")} *`} error={errors.confirmPassword}>
+                <FormField label="Confirm password *" error={errors.confirmPassword}>
                   <Input
                     id="confirmPassword"
                     type="password"
-                    placeholder={t("register.details.placeholders.password")}
+                    placeholder="**********"
                     {...register("confirmPassword")}
                   />
                 </FormField>
 
-                <FormField label={`${t("register.details.purpose")} *`} error={errors.purpose}>
-                  <Textarea placeholder={t("register.details.placeholders.purpose")} {...register("purpose")} />
+                <FormField label="Purpose *" error={errors.purpose}>
+                  <Textarea
+                    placeholder="Please explain why should have access to the application."
+                    {...register("purpose")}
+                  />
                 </FormField>
 
                 <MotionText color={theme.mimirorg.color.surface.variant.on} layout={"position"} as={"i"}>
-                  {t("register.details.placeholders.required")}
+                  * Indicates a required field.
                 </MotionText>
               </FormFieldset>
             </Form>
@@ -123,13 +111,17 @@ const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
       }
       secondRow={
         <>
-          <Text textAlign={"center"}>{t("register.details.info.text")}</Text>
+          <Text textAlign={"center"}>
+            Your next step will be to verify your e-mail and activate 2-factor authentication. Without these, you cannot
+            access :Tyle. If this process is interrupted or you do not complete registration within 1 hour, you will
+            have to start the registration process over again.
+          </Text>
           <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.mimirorg.spacing.xxl}>
             <Button type={"submit"} form={"details-form"}>
               {complete?.actionText}
             </Button>
             <Text color={theme.mimirorg.color.surface.variant.on}>
-              {t("register.details.altLead")} <Link to="/">{t("register.details.altLink")}</Link>
+              Have an account? <Link to="/">Log in</Link>
             </Text>
           </MotionFlexbox>
         </>

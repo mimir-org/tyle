@@ -1,7 +1,6 @@
 import { Checkbox, Input, Select, Token } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { Direction } from "types/terminals/direction";
 import { Option } from "utils";
 import { TerminalTypeReferenceField } from "./BlockForm.helpers";
@@ -16,8 +15,6 @@ interface TerminalRowProps {
 }
 
 const TerminalRow = ({ field, remove, value, onChange, directionOptions }: TerminalRowProps) => {
-  const { t } = useTranslation("entities");
-
   const [minCount, setMinCount] = useState(field.minCount);
   const [maxCount, setMaxCount] = useState(field.maxCount);
   const [direction, setDirection] = useState<Option<Direction>>(
@@ -65,7 +62,7 @@ const TerminalRow = ({ field, remove, value, onChange, directionOptions }: Termi
           variant={"secondary"}
           actionable
           actionIcon={<XCircle />}
-          actionText={t("block.terminals.remove")}
+          actionText="Remove terminal"
           onAction={remove}
           dangerousAction
         >
@@ -86,12 +83,7 @@ const TerminalRow = ({ field, remove, value, onChange, directionOptions }: Termi
         value={maxCount ?? 0}
         onChange={(event) => handleMaxCountChange(Number(event.target.value))}
       />
-      <Select
-        placeholder={t("common.templates.select", { object: t("block.terminal.name").toLowerCase() })}
-        options={directionOptions}
-        value={direction}
-        onChange={handleDirectionChange}
-      />
+      <Select options={directionOptions} value={direction} onChange={handleDirectionChange} />
     </TerminalRowWrapper>
   );
 };

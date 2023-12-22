@@ -1,24 +1,9 @@
-import { useGetPurposes } from "api/purpose.queries";
 import { Aspect } from "types/common/aspect";
 import { State } from "types/common/state";
 import { FilterGroup } from "types/filterGroup";
 import { getOptionsFromEnum } from "utils";
 
-export const useGetFilterGroups = (): FilterGroup[] => [
-  getEntityFilters(),
-  getStateFilters(),
-  getAspectFilters(),
-  useGetPurposeFilters(),
-];
-
-const useGetPurposeFilters = (): FilterGroup => {
-  const purposeQuery = useGetPurposes();
-
-  return {
-    name: "Purpose",
-    filters: purposeQuery.data?.map((p) => ({ key: "purposeName", label: p.name, value: p.name })),
-  };
-};
+export const useGetFilterGroups = (): FilterGroup[] => [getTypeFilters(), getStateFilters(), getAspectFilters()];
 
 const getAspectFilters = (): FilterGroup => {
   const aspectOptions = getOptionsFromEnum<Aspect>(Aspect);
@@ -46,43 +31,23 @@ const getStateFilters = (): FilterGroup => {
   };
 };
 
-const getEntityFilters = (): FilterGroup => ({
-  name: "Entity",
+const getTypeFilters = (): FilterGroup => ({
+  name: "Type",
   filters: [
     {
       key: "kind",
       label: "Block",
-      value: "BlockLibCm",
+      value: "BlockView",
     },
     {
       key: "kind",
       label: "Terminal",
-      value: "TerminalLibCm",
+      value: "TerminalView",
     },
     {
       key: "kind",
       label: "Attribute",
-      value: "AttributeLibCm",
-    },
-    {
-      key: "kind",
-      label: "Attribute group",
-      value: "AttributeGroupLibCm",
-    },
-    {
-      key: "kind",
-      label: "Unit",
-      value: "UnitLibCm",
-    },
-    {
-      key: "kind",
-      label: "Quantity datum",
-      value: "QuantityDatumLibCm",
-    },
-    {
-      key: "kind",
-      label: "RDS",
-      value: "RdsLibCm",
+      value: "AttributeView",
     },
   ],
 });

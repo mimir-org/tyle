@@ -3,7 +3,6 @@ import { usePatchAttributeState } from "api/attribute.queries";
 import { usePatchBlockState } from "api/block.queries";
 import { usePatchTerminalState } from "api/terminal.queries";
 import { AxiosError } from "axios";
-import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { AttributeView } from "types/attributes/attributeView";
 import { BlockView } from "types/blocks/blockView";
@@ -34,7 +33,6 @@ export const usePatchStateMutation = (
  */
 export const useApprovalToasts = (id: string) => {
   const theme = useTheme();
-  const { t } = useTranslation("settings");
   // const patchMutationBlock = usePatchBlockState();
   //const patchMutationTerminal = usePatchTerminalState();
   const patchMutationAttribute = usePatchAttributeState(id);
@@ -59,7 +57,7 @@ export const useApprovalToasts = (id: string) => {
     return toast.promise(
       mutationPromise,
       {
-        loading: t("common.approval.processing.loading"),
+        loading: "Approving state",
         success: (
           <Flexbox alignContent="center" alignItems="center">
             <Text
@@ -67,14 +65,13 @@ export const useApprovalToasts = (id: string) => {
               spacing={{ mr: theme.mimirorg.spacing.base }}
               color={theme.mimirorg.color.pure.base}
             >
-              {t("common.approval.processing.success")}
+              State approved
             </Text>
           </Flexbox>
         ),
         error: (error: AxiosError) => {
-          if (error.response?.status === 403)
-            return t("common.approval.processing.error.403", { data: error.response?.data ?? "" });
-          return t("common.approval.processing.error.default");
+          if (error.response?.status === 403) return `403 (Forbidden) error: ${error.response?.data ?? ""}`;
+          return "An error occurred";
         },
       },
       {

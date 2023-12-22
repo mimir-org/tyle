@@ -2,27 +2,24 @@ import { attributeFormBasePath } from "components/AttributeForm/AttributeFormRou
 import { attributeGroupFormBasePath } from "components/AttributeGroupForm/AttributeGroupFormRoutes";
 import { blockFormBasePath } from "components/BlockForm/BlockFormRoutes";
 import { terminalFormBasePath } from "components/TerminalForm/TerminalFormRoutes";
-import { useTranslation } from "react-i18next";
 import { Link } from "types/link";
 
 export const useCreateMenuLinks = (): Link[] => {
-  const { t } = useTranslation("explore");
-
   return [
     {
-      name: t("search.create.block"),
+      name: "Block",
       path: blockFormBasePath,
     },
     {
-      name: t("search.create.terminal"),
+      name: "Terminal",
       path: terminalFormBasePath,
     },
     {
-      name: t("search.create.attribute"),
+      name: "Attribute",
       path: attributeFormBasePath,
     },
     {
-      name: t("search.create.attributeGroup"),
+      name: "Attribute Group",
       path: attributeGroupFormBasePath,
     },
   ];
