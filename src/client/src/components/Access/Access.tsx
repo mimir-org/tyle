@@ -15,7 +15,7 @@ import { useSubmissionToast } from "../../helpers/form.helpers";
 const Access = () => {
   const theme = useTheme();
 
-  const [selectedRoleFilter, ] = useState(roleFilters[0]?.label);
+  const [selectedRoleFilter] = useState(roleFilters[0]?.label);
   const userQuery = useGetCurrentUser();
   const currentUser = userQuery?.data != null ? mapUserViewToUserItem(userQuery.data) : undefined;
   const users = GetAllUsersMapped().filter((e) => e.roles.length === 0);
