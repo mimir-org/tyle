@@ -8,6 +8,7 @@ import { useTheme } from "styled-components";
 import { State } from "types/common/state";
 import { LinkGroup } from "types/linkGroup";
 import { SidebarContainer, SidebarLink } from "./Sidebar.styled";
+import { GetAllUsersMapped } from "../Roles/Roles.helpers";
 
 interface SidebarProps {
   title: string;
@@ -21,7 +22,7 @@ const Sidebar = ({ title, groups }: SidebarProps) => {
   const attributesInReview = useGetAttributesByState(State.Review);
   const terminalsInReview = useGetTerminalsByState(State.Review);
   const blocksInReview = useGetBlocksByState(State.Review);
-
+  const pendingUsers = GetAllUsersMapped().filter((e) => e.roles.length === 0);
   const reviewData = [attributesInReview, terminalsInReview, blocksInReview];
   let numberOfTypesInReview = 0;
 
@@ -31,15 +32,13 @@ const Sidebar = ({ title, groups }: SidebarProps) => {
     }
   }
 
-  //const pendingUsers = useGetPendingUsers();
-
   const linkText = (name: string) => {
     switch (name) {
       case "Approval": {
         return name + (numberOfTypesInReview ? ` (${numberOfTypesInReview})` : "");
       }
       case "Access": {
-        return name; // + (pendingUsers.data?.length ? ` (${pendingUsers.data.length})` : "");
+        return name + (pendingUsers.length ? ` (${pendingUsers.length})` : "");
       }
       default:
         return name;
