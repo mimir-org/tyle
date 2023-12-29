@@ -13,6 +13,13 @@ const Approval = () => {
   const attributesInReview = useGetAttributesByState(State.Review);
   const terminalsInReview = useGetTerminalsByState(State.Review);
   const blocksInReview = useGetBlocksByState(State.Review);
+
+  const attributesInDraft = useGetAttributesByState(State.Draft);
+  const terminalsInDraft = useGetTerminalsByState(State.Draft);
+
+  const terminalsNotApproved = (terminalsInReview.data || []).concat(terminalsInDraft.data || []);
+  const attributesNotApproved  = (attributesInReview.data || []).concat(attributesInDraft.data || []);
+
   const showPlaceholder =
     attributesInReview?.data &&
     attributesInReview.data.length === 0 &&
@@ -28,9 +35,32 @@ const Approval = () => {
       </Text>
       <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.mimirorg.spacing.xxxl}>
         {showPlaceholder && <ApprovalPlaceholder text="There is no types ready for approval" />}
-        {attributesInReview.data?.map((x) => <ApprovalCard key={x.id} item={x} itemType={"attribute"} />)}
-        {terminalsInReview.data?.map((x) => <ApprovalCard key={x.id} item={x} itemType={"terminal"} />)}
-        {blocksInReview.data?.map((x) => <ApprovalCard key={x.id} item={x} itemType={"block"} />)}
+        {attributesInReview.data?.map((x) => <ApprovalCard key={x.id} item={x} itemType={"attribute"} dissabledButton={false} />)}
+        {terminalsInReview.data?.map((x) => <ApprovalCard key={x.id} item={x} itemType={"terminal"}
+                                                          dissabledButton={
+                                                            !(
+                                                              x.attributes
+                                                                .map(x => x.attribute.id)
+                                                                .filter(item => attributesNotApproved.map(x => x.id).includes(item))
+                                                                .length > 0
+                                                            )
+                                                          } />)}
+        {blocksInReview.data?.map((x) => <ApprovalCard key={x.id} item={x} itemType={"block"}
+                                                       dissabledButton={
+                                                         !(
+                                                           x.attributes
+                                                             .map(x => x.attribute.id)
+                                                             .filter(item => attributesNotApproved.map(x => x.id).includes(item))
+                                                             .length > 0
+                                                         ) ||
+                                                         !(
+                                                           x.terminals
+                                                             .map(x => x.terminal.id)
+                                                             .filter(item => terminalsNotApproved.map(x => x.id).includes(item))
+                                                             .length > 0
+                                                         )
+                                                       } />)}
+
       </Flexbox>
     </SettingsSection>
   );

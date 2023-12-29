@@ -12,17 +12,11 @@ export type ApprovalCardProps = {
   item: AttributeView | TerminalView | BlockView;
   itemType: "attribute" | "terminal" | "block";
   selected?: string;
+  dissabledButton: boolean;
 };
 
-/**
- * Shows a card with information about the user and a form for altering the user's permission level *
- * @param item
- * @param selected property for overriding the cards selected visual state
- * @param delegated receives all the properties of PermissionCardFormProps
- * @see PermissionCardFormProps
- * @constructor
- */
-const ApprovalCard = ({ item, itemType, selected }: ApprovalCardProps) => {
+
+const ApprovalCard = ({ item, itemType, selected, dissabledButton}: ApprovalCardProps) => {
   const theme = useTheme();
   const cardRef = useRef(null);
 
@@ -42,7 +36,7 @@ const ApprovalCard = ({ item, itemType, selected }: ApprovalCardProps) => {
       <Flexbox flexFlow={"column"} justifyContent={"space-between"} style={{ height: "100%" }}>
         <Text variant={"title-small"}>{item.description}</Text>
         <Divider orientation={"horizontal"} color={"#2e2e2e"} />
-        <ApprovalCardForm item={item} itemType={itemType} />
+        <ApprovalCardForm item={item} itemType={itemType} dissabledButton={dissabledButton} />
       </Flexbox>
     </MotionApprovalCardContainer>
   );
