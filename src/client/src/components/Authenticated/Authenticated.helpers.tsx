@@ -1,6 +1,5 @@
 import { ErrorMessage } from "@mimirorg/component-library";
 import { attributeFormRoutes } from "components/AttributeForm/AttributeFormRoutes";
-import { attributeGroupFormRoutes } from "components/AttributeGroupForm/AttributeGroupFormRoutes";
 import { blockFormRoutes } from "components/BlockForm/BlockFormRoutes";
 import { exploreRoutes } from "components/Explore/ExploreRoutes";
 import { settingsRoutes } from "components/SettingsLayout/SettingsRoutes";
@@ -27,7 +26,6 @@ export const useAuthenticatedRouter = () => {
         ...blockFormRoutes,
         ...terminalFormRoutes,
         ...attributeFormRoutes,
-        ...attributeGroupFormRoutes,
         settingsRoutes,
         {
           path: "*",
