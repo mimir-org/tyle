@@ -13,9 +13,9 @@ import { TerminalItem } from "types/terminalItem";
 import { TerminalView } from "types/terminals/terminalView";
 import { UserItem } from "types/userItem";
 import { getOptionsFromEnum } from "utils";
-import { getColorFromAspect } from "./aspect.helper";
 import { RoleView } from "../types/authentication/roleView";
-import { RoleItem } from "../types/Role";
+import { RoleItem } from "../types/role";
+import { getColorFromAspect } from "./aspect.helper";
 
 export const purposeInfoItem = (purpose: RdlPurpose): InfoItem => ({
   id: purpose.id.toString(),
