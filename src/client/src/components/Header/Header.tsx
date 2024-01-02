@@ -11,6 +11,7 @@ import SettingsButton from "./SettingsButton";
 import ThemeButton from "./ThemeButton";
 import UserInfo from "./UserInfo";
 import UserMenu from "./UserMenu";
+import DocumentationButton from "./Documentation";
 
 const Header = () => {
   const theme = useTheme();
@@ -31,6 +32,7 @@ const Header = () => {
           <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.base}>
             <UserInfo name={userFullName} roles={userRoles} />
             <ThemeButton />
+            <DocumentationButton />
             <ContactButton />
             <FeedbackButton />
             <SettingsButton />
