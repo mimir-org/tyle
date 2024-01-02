@@ -2,13 +2,13 @@ import { Divider, Flexbox, Heading } from "@mimirorg/component-library";
 import { useGetAttributesByState } from "api/attribute.queries";
 import { useGetBlocksByState } from "api/block.queries";
 import { useGetTerminalsByState } from "api/terminal.queries";
+import { useGetAllUsersMapped } from "hooks/useGetAllUsersMapped";
 import { Fragment } from "react";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "styled-components";
 import { State } from "types/common/state";
 import { LinkGroup } from "types/linkGroup";
 import { SidebarContainer, SidebarLink } from "./Sidebar.styled";
-import { GetAllUsersMapped } from "../Roles/Roles.helpers";
 
 interface SidebarProps {
   title: string;
@@ -22,7 +22,7 @@ const Sidebar = ({ title, groups }: SidebarProps) => {
   const attributesInReview = useGetAttributesByState(State.Review);
   const terminalsInReview = useGetTerminalsByState(State.Review);
   const blocksInReview = useGetBlocksByState(State.Review);
-  const pendingUsers = GetAllUsersMapped().filter((e) => e.roles.length === 0);
+  const pendingUsers = useGetAllUsersMapped().filter((e) => e.roles.length === 0);
   const reviewData = [attributesInReview, terminalsInReview, blocksInReview];
   let numberOfTypesInReview = 0;
 

@@ -1,51 +1,49 @@
 import { Flexbox } from "@mimirorg/component-library";
 import SettingsSection from "components/SettingsSection";
+import { useGetAllRolesMapped } from "hooks/useGetAllRolesMapped";
+import { useGetAllUsersMapped } from "hooks/useGetAllUsersMapped";
 import { useTheme } from "styled-components";
-import { GetAllRolesMapped, GetAllUsersMapped, roleFilters, toUserRoleRequest } from "../Roles/Roles.helpers";
-import { useState } from "react";
+import { useUpdateUserRole } from "../../api/authorize.queries";
+import { useSubmissionToast } from "../../helpers/form.helpers";
+import { UserItem } from "../../types/userItem";
+import RoleDialog from "../Roles/RoleDialog";
 import UserList from "../Roles/UserList";
 import UserListItem from "../Roles/UserListItem";
-import RoleDialog from "../Roles/RoleDialog";
-import { useGetCurrentUser } from "../../api/user.queries";
-import { mapUserViewToUserItem } from "../../helpers/mappers.helpers";
-import { useUpdateUserRole } from "../../api/authorize.queries";
-import { UserItem } from "../../types/userItem";
-import { useSubmissionToast } from "../../helpers/form.helpers";
+import AccessPlaceholder from "./AccessPlaceholder";
 
 const Access = () => {
   const theme = useTheme();
 
-  const [selectedRoleFilter] = useState(roleFilters[0]?.label);
-  const userQuery = useGetCurrentUser();
-  const currentUser = userQuery?.data != null ? mapUserViewToUserItem(userQuery.data) : undefined;
-  const users = GetAllUsersMapped().filter((e) => e.roles.length === 0);
-  const roles = GetAllRolesMapped();
+  const users = useGetAllUsersMapped().filter((e) => e.roles.length === 0);
+  const roles = useGetAllRolesMapped();
   const updateUserRoleMutation = useUpdateUserRole();
+
   const toast = useSubmissionToast("permission");
-  const filteredUsers = (): UserItem[] => {
-    const excludingCurrentUserList = users.filter((user) => user.id !== currentUser?.id);
-    if (selectedRoleFilter === "All") return excludingCurrentUserList.filter((user) => user.id !== currentUser?.id);
-    if (selectedRoleFilter === "None") return excludingCurrentUserList.filter((user) => user.roles.length === 0);
-    return excludingCurrentUserList.filter((user) => user.roles.includes(selectedRoleFilter));
-  };
 
   const handleRoleChange = (user: UserItem, newRole: string | undefined) => {
     const newRoleId = roles.find((r) => r.roleName === newRole)?.roleId ?? "";
-    toast(updateUserRoleMutation.mutateAsync(toUserRoleRequest(user.id, newRoleId)));
+    toast(updateUserRoleMutation.mutateAsync({ userId: user.id, roleId: newRoleId }));
   };
+
+  const showPlaceholder = users.length === 0;
+
   return (
-    <SettingsSection title="Roles">
+    <SettingsSection title="Grant access to new users">
       <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xxl}>
-        <UserList title="Users">
-          {filteredUsers().map((user) => (
-            <UserListItem
-              key={user.id}
-              name={user.name}
-              role={user.roles}
-              action={<RoleDialog user={user} handleRoleChange={handleRoleChange} />}
-            />
-          ))}
-        </UserList>
+        {showPlaceholder ? (
+          <AccessPlaceholder text="There are no new users in need of role assignment" />
+        ) : (
+          <UserList title="Users">
+            {users.map((user) => (
+              <UserListItem
+                key={user.id}
+                name={user.name}
+                role={user.roles}
+                action={<RoleDialog user={user} handleRoleChange={handleRoleChange} />}
+              />
+            ))}
+          </UserList>
+        )}
       </Flexbox>
     </SettingsSection>
   );
