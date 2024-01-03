@@ -1,7 +1,8 @@
 import { DevTool } from "@hookform/devtools";
-import { Form, FormField } from "@mimirorg/component-library";
+import { Form } from "@mimirorg/component-library";
 import { useUpdateUser } from "api/user.queries";
 import Button from "components/Button";
+import FormField from "components/FormField";
 import Input from "components/Input";
 import Loader from "components/Loader";
 import { onSubmitForm, usePrefilledForm } from "helpers/form.helpers";

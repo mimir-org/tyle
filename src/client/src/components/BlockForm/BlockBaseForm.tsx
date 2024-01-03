@@ -1,5 +1,6 @@
-import { FormField, Select, Textarea } from "@mimirorg/component-library";
+import { Select, Textarea } from "@mimirorg/component-library";
 import { useGetPurposes } from "api/purpose.queries";
+import FormField from "components/FormField";
 import Input from "components/Input";
 import React from "react";
 import { Aspect } from "types/common/aspect";

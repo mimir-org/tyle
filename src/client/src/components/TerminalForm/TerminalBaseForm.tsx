@@ -1,10 +1,11 @@
+import { Input, Select, Textarea } from "@mimirorg/component-library";
+import FormField from "components/FormField";
 import React from "react";
-import { TerminalFormStepProps } from "./TerminalForm";
+import { useGetPurposes } from "../../api/purpose.queries";
 import { Aspect } from "../../types/common/aspect";
 import { RdlPurpose } from "../../types/common/rdlPurpose";
+import { DESCRIPTION_LENGTH, NAME_LENGTH, NOTATION_LENGTH } from "../../types/common/stringLengthConstants";
 import { getOptionsFromEnum } from "../../utils";
-import { useGetPurposes } from "../../api/purpose.queries";
-import { TerminalBaseFormWrapper } from "./TerminalBaseForm.styled";
 import {
   AspectSelectWrapper,
   DescriptionInputWrapper,
@@ -12,8 +13,8 @@ import {
   NotationInputWrapper,
   PurposeSelectWrapper,
 } from "../BlockForm/BlockBaseForm.styled";
-import { FormField, Input, Select, Textarea } from "@mimirorg/component-library";
-import { DESCRIPTION_LENGTH, NAME_LENGTH, NOTATION_LENGTH } from "../../types/common/stringLengthConstants";
+import { TerminalBaseFormWrapper } from "./TerminalBaseForm.styled";
+import { TerminalFormStepProps } from "./TerminalForm";
 
 const TerminalBaseForm = React.forwardRef<HTMLFormElement, TerminalFormStepProps>(({ fields, setFields }, ref) => {
   const { name, notation, aspect, purpose, description } = fields;

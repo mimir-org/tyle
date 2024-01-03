@@ -1,4 +1,4 @@
-import { FormField } from "@mimirorg/component-library";
+import FormField from "components/FormField";
 import Input from "components/Input";
 import { VALUE_LENGTH } from "types/common/stringLengthConstants";
 import { BooleanValueFieldset, BooleanValueLegend } from "./ValueFields.styled";

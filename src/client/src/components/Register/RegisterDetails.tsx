@@ -1,11 +1,12 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Form, FormField, FormFieldset, Textarea } from "@mimirorg/component-library";
+import { Form, FormFieldset, Textarea } from "@mimirorg/component-library";
 import { useCreateUser } from "api/user.queries";
 import AuthContent from "components/AuthContent";
 import Button from "components/Button";
 import Error from "components/Error";
 import { MotionFlexbox } from "components/Flexbox";
+import FormField from "components/FormField";
 import Input from "components/Input";
 import Processing from "components/Processing";
 import Text, { MotionText } from "components/Text";

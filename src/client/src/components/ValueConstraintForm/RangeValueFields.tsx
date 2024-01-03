@@ -1,4 +1,4 @@
-import { FormField } from "@mimirorg/component-library";
+import FormField from "components/FormField";
 import Input from "components/Input";
 import React from "react";
 import { XsdDataType } from "types/attributes/xsdDataType";
