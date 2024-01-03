@@ -1,4 +1,4 @@
-import { Card } from "@mimirorg/component-library";
+import Card from "components/Card";
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
 
