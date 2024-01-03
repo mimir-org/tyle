@@ -1,8 +1,11 @@
+import { CheckboxProps, Root as CheckboxRoot } from "@radix-ui/react-checkbox";
+import { RadioGroupItem, RadioGroupItemProps, RadioGroupProps } from "@radix-ui/react-radio-group";
 import Button from "components/Button";
 import Text from "components/Text";
-import { ForwardedRef, HTMLAttributes, ReactNode, forwardRef } from "react";
+import { ButtonHTMLAttributes, ForwardedRef, HTMLAttributes, ReactNode, forwardRef } from "react";
+import { useTheme } from "styled-components";
 import { Actionable } from "types/actionable";
-import { TokenContainer } from "./Token.styled";
+import { MotionTokenContainer, TokenContainer, TokenRadioGroupRoot } from "./Token.styled";
 
 export type TokenBaseProps = {
   children?: ReactNode;
@@ -50,3 +53,112 @@ const Token = forwardRef((props: TokenProps, ref: ForwardedRef<HTMLSpanElement>)
 Token.displayName = "Token";
 
 export default Token;
+
+export type TokenButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & Omit<TokenBaseProps, "interactive">;
+
+/**
+ * A button wrapper for the Token component.
+ * Exposes standard button attributes to the consumer.
+ *
+ * @param children text to be displayed inside token
+ * @param variant controls style of the token
+ * @constructor
+ */
+export const TokenButton = forwardRef((props: TokenButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
+  const theme = useTheme();
+  const { children, ...delegated } = props;
+
+  return (
+    <MotionTokenContainer ref={ref} as={"button"} $interactive {...theme.tyle.animation.buttonTap} {...delegated}>
+      <Text variant={"label-small"} useEllipsis ellipsisMaxLines={1}>
+        {children}
+      </Text>
+    </MotionTokenContainer>
+  );
+});
+
+TokenButton.displayName = "TokenButton";
+
+export type TokenCheckboxProps = Omit<CheckboxProps, "asChild">;
+
+/**
+ * A checkbox wrapper for the Token component.
+ *
+ * For documentation about the underlying checkbox component see the link below.
+ * @see https://www.radix-ui.com/docs/primitives/components/checkbox
+ *
+ * @param children text to be displayed inside token
+ * @constructor
+ */
+export const TokenCheckbox = forwardRef((props: TokenCheckboxProps, ref: ForwardedRef<HTMLButtonElement>) => {
+  const theme = useTheme();
+  const { children, ...delegated } = props;
+
+  return (
+    <CheckboxRoot asChild {...delegated}>
+      <MotionTokenContainer
+        as={"button"}
+        ref={ref}
+        variant={"secondary"}
+        $interactive
+        {...theme.tyle.animation.checkboxTap}
+      >
+        <Text variant={"label-small"} useEllipsis ellipsisMaxLines={1}>
+          {children}
+        </Text>
+      </MotionTokenContainer>
+    </CheckboxRoot>
+  );
+});
+
+TokenCheckbox.displayName = "TokenCheckbox";
+
+export type TokenRadioGroupProps = Omit<RadioGroupProps, "asChild">;
+
+/**
+ * A radio group wrapper, with styling that follows library conventions.
+ *
+ * For documentation about the underlying checkbox component see the link below.
+ * @see https://www.radix-ui.com/docs/primitives/components/radio-group
+ *
+ * @constructor
+ */
+export const TokenRadioGroup = ({ children, ...delegated }: TokenRadioGroupProps) => (
+  <TokenRadioGroupRoot {...delegated}>{children}</TokenRadioGroupRoot>
+);
+
+export type TokenRadioGroupItemProps = Omit<RadioGroupItemProps, "asChild">;
+
+/**
+ * A radio group item wrapper for the Token component.
+ *
+ * For documentation about the underlying radio group item component see the link below.
+ * @see https://www.radix-ui.com/docs/primitives/components/radio-group#item
+ *
+ * @param children text to be displayed inside token
+ * @constructor
+ */
+export const TokenRadioGroupItem = forwardRef(
+  (props: TokenRadioGroupItemProps, ref: ForwardedRef<HTMLButtonElement>) => {
+    const theme = useTheme();
+    const { children, ...delegated } = props;
+
+    return (
+      <RadioGroupItem asChild {...delegated}>
+        <MotionTokenContainer
+          as={"button"}
+          ref={ref}
+          variant={"secondary"}
+          $interactive
+          {...theme.tyle.animation.radioButtonTap}
+        >
+          <Text variant={"label-small"} useEllipsis ellipsisMaxLines={1}>
+            {children}
+          </Text>
+        </MotionTokenContainer>
+      </RadioGroupItem>
+    );
+  },
+);
+
+TokenRadioGroupItem.displayName = "TokenRadioGroupItem";

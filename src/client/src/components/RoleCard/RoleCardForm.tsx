@@ -1,5 +1,5 @@
-import { Form } from "@mimirorg/component-library";
 import Button from "components/Button";
+import Form from "components/Form";
 import FormField from "components/FormField";
 import Input from "components/Input";
 import Select from "components/Select";

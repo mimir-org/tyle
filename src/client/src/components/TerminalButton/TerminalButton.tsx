@@ -1,6 +1,6 @@
-import { Polymorphic } from "@mimirorg/component-library";
 import { ArrowSmallRight, ArrowsRightLeft } from "@styled-icons/heroicons-outline";
 import { ButtonHTMLAttributes, ElementType, ReactNode, forwardRef } from "react";
+import { Polymorphic } from "types/styleProps";
 import { Direction } from "types/terminals/direction";
 import { EllipseIcon } from "./EllipseIcon";
 import { TerminalButtonContainer } from "./TerminalButton.styled";

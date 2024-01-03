@@ -1,3 +1,4 @@
+import { RadioGroup } from "@radix-ui/react-radio-group";
 import { ColorSystem } from "components/TyleThemeProvider/color";
 import { SpacingSystem } from "components/TyleThemeProvider/spacing";
 import { motion } from "framer-motion";
@@ -85,3 +86,9 @@ TokenContainer.defaultProps = {
  * @see https://github.com/framer/motion
  */
 export const MotionTokenContainer = motion(TokenContainer);
+
+export const TokenRadioGroupRoot = styled(RadioGroup)`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${(props) => props.theme.tyle.spacing.base};
+`;

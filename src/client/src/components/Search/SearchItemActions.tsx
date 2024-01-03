@@ -1,6 +1,6 @@
-import { AlertDialog } from "@mimirorg/component-library";
 import { Check, DocumentDuplicate, PencilSquare, Trash } from "@styled-icons/heroicons-outline";
 import { AxiosError } from "axios";
+import AlertDialog from "components/AlertDialog";
 import Button from "components/Button";
 import PlainLink from "components/PlainLink";
 import StateBadge from "components/StateBadge";

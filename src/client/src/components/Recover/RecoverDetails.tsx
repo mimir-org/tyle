@@ -1,10 +1,10 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Form } from "@mimirorg/component-library";
 import { useGenerateChangePasswordSecret } from "api/user.queries";
 import AuthContent from "components/AuthContent";
 import Button from "components/Button";
 import Error from "components/Error";
+import Form from "components/Form";
 import FormField from "components/FormField";
 import Input from "components/Input";
 import Processing from "components/Processing";
