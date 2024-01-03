@@ -1,6 +1,6 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Form, FormFieldset, Textarea } from "@mimirorg/component-library";
+import { Form, FormFieldset } from "@mimirorg/component-library";
 import { useCreateUser } from "api/user.queries";
 import AuthContent from "components/AuthContent";
 import Button from "components/Button";
@@ -10,6 +10,7 @@ import FormField from "components/FormField";
 import Input from "components/Input";
 import Processing from "components/Processing";
 import Text, { MotionText } from "components/Text";
+import Textarea from "components/Textarea";
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
