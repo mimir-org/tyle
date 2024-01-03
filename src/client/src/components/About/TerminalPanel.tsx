@@ -9,7 +9,7 @@ import PreviewPanel from "./PreviewPanel";
  * @param props receives all properties of a TerminalItem
  * @constructor
  */
-export const TerminalPanel = ({ name, description, color, attributes, tokens, kind }: TerminalItem) => {
+export const TerminalPanel = ({ name, description, attributes, tokens, kind }: TerminalItem) => {
   const theme = useTheme();
 
   return (

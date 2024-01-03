@@ -52,7 +52,7 @@ const About = ({ selected }: AboutProps) => {
       {showPlaceHolder && <AboutPlaceholder text="Select an item to view its properties" />}
       {showBlockPanel && <BlockPanel key={blockQuery.data.id} {...toBlockItem(blockQuery.data)} />}
       {showTerminalPanel && <TerminalPanel key={terminalQuery.data.id} {...toTerminalItem(terminalQuery.data)} />}
-      {showAttributePanel && <AttributePanel {...toAttributeItem(attributeQuery.data)} />}
+      {showAttributePanel && <AttributePanel key={attributeQuery.data.id} {...toAttributeItem(attributeQuery.data)} />}
     </ExploreSection>
   );
 };
