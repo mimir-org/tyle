@@ -27,6 +27,8 @@ const Approval = () => {
 
   )));
 
+  const test =
+
   const showPlaceholder =
     attributesInReview?.data &&
     attributesInReview.data.length === 0 &&
@@ -61,7 +63,7 @@ const Approval = () => {
 
                                                          ) ||
                                                          !(
-                                                           x.terminalsø
+                                                           x.terminals
                                                              .map(x => x.terminal.id)
                                                              .some(item => terminalsNotApproved.map(x => x.id).includes(item))
 

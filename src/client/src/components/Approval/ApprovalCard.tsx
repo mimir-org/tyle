@@ -7,6 +7,8 @@ import { TerminalView } from "types/terminals/terminalView";
 import MotionApprovalCardContainer from "./ApprovalCard.styled";
 import ApprovalCardForm from "./ApprovalCardForm";
 import ApprovalCardHeader from "./ApprovalCardHeader";
+import { AttributeTypeReferenceView } from "../../types/common/attributeTypeReferenceView";
+import { TerminalTypeReferenceView } from "../../types/blocks/terminalTypeReferenceView";
 
 export type ApprovalCardProps = {
   item: AttributeView | TerminalView | BlockView;
@@ -19,6 +21,9 @@ export type ApprovalCardProps = {
 const ApprovalCard = ({ item, itemType, selected, dissabledButton}: ApprovalCardProps) => {
   const theme = useTheme();
   const cardRef = useRef(null);
+
+
+
 
   return (
     <MotionApprovalCardContainer
