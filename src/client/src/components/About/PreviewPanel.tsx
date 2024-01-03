@@ -59,4 +59,5 @@ const GridContainer = styled.div`
 const FlexContainer = styled.div`
   display: flex;
   flex-direction: row;
+    align-items: center;
 `;
