@@ -1,4 +1,4 @@
-import { Button } from "@mimirorg/component-library";
+import Button from "components/Button";
 import Flexbox from "components/Flexbox";
 import Text from "components/Text";
 import { useSubmissionToast } from "helpers/form.helpers";

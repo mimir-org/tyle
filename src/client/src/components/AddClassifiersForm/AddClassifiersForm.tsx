@@ -1,8 +1,8 @@
-import { Token } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useGetClassifiers } from "api/classifier.queries";
 import FormSection from "components/FormSection";
 import SelectItemDialog from "components/SelectItemDialog";
+import Token from "components/Token";
 import { RdlClassifier } from "types/common/rdlClassifier";
 import { InfoItem } from "types/infoItem";
 

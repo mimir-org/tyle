@@ -1,8 +1,9 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Actionable, Button, Form, FormField, FormFieldset } from "@mimirorg/component-library";
+import { Form, FormField, FormFieldset } from "@mimirorg/component-library";
 import { useChangePassword } from "api/user.queries";
 import AuthContent from "components/AuthContent";
+import Button from "components/Button";
 import Error from "components/Error";
 import Flexbox from "components/Flexbox";
 import Input from "components/Input";
@@ -12,6 +13,7 @@ import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
+import { Actionable } from "types/actionable";
 import { VerifyRequest } from "types/authentication/verifyRequest";
 import { recoverPasswordSchema } from "./recoverPasswordSchema";
 

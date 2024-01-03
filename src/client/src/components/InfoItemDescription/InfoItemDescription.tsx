@@ -1,8 +1,10 @@
-import { Actionable, Button, Divider } from "@mimirorg/component-library";
+import { Divider } from "@mimirorg/component-library";
 import Box from "components/Box";
+import Button from "components/Button";
 import Flexbox from "components/Flexbox";
 import Text from "components/Text";
 import { useTheme } from "styled-components";
+import { Actionable } from "types/actionable";
 import { InfoItem } from "types/infoItem";
 
 export type InfoItemDescriptionProps = Omit<InfoItem, "id"> & Partial<Actionable>;

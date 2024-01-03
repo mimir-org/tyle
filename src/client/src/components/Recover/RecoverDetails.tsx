@@ -1,8 +1,9 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Actionable, Button, Form, FormField } from "@mimirorg/component-library";
+import { Form, FormField } from "@mimirorg/component-library";
 import { useGenerateChangePasswordSecret } from "api/user.queries";
 import AuthContent from "components/AuthContent";
+import Button from "components/Button";
 import Error from "components/Error";
 import Input from "components/Input";
 import Processing from "components/Processing";
@@ -10,6 +11,7 @@ import Text from "components/Text";
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
+import { Actionable } from "types/actionable";
 import { recoverDetailsSchema } from "./recoverDetailsSchema";
 
 interface RecoverDetailsProps {

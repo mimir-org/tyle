@@ -1,5 +1,5 @@
-import { Button } from "@mimirorg/component-library";
 import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight } from "@styled-icons/heroicons-outline";
+import Button from "components/Button";
 import Flexbox from "components/Flexbox";
 import { useSearchParams } from "react-router-dom";
 import { useTheme } from "styled-components";

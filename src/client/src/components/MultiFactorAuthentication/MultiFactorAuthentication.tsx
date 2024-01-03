@@ -1,10 +1,12 @@
-import { Actionable, Button, Popover } from "@mimirorg/component-library";
+import { Popover } from "@mimirorg/component-library";
 import AuthContent from "components/AuthContent";
 import Box from "components/Box";
+import Button from "components/Button";
 import Flexbox from "components/Flexbox";
 import Icon from "components/Icon";
 import Text from "components/Text";
 import { useTheme } from "styled-components";
+import { Actionable } from "types/actionable";
 import { QrCodeView } from "types/authentication/qrCodeView";
 
 interface MultiFactorAuthenticationProps {

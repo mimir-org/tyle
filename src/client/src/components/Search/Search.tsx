@@ -1,4 +1,3 @@
-import { Token } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useGetCurrentUser } from "api/user.queries";
 import ExploreSection from "components/ExploreSection";
@@ -7,6 +6,7 @@ import Flexbox, { MotionFlexbox } from "components/Flexbox";
 import LinkMenu from "components/LinkMenu";
 import SearchField from "components/SearchField";
 import { MotionText } from "components/Text";
+import Token from "components/Token";
 import { mapUserViewToUserItem } from "helpers/mappers.helpers";
 import { useDebounceState } from "hooks/useDebounceState";
 import { useEffect } from "react";

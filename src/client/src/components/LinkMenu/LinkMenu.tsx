@@ -1,6 +1,7 @@
-import { Button, Popover } from "@mimirorg/component-library";
+import { Popover } from "@mimirorg/component-library";
 import { ArrowSmallRight } from "@styled-icons/heroicons-outline";
 import Box from "components/Box";
+import Button from "components/Button";
 import PlainLink from "components/PlainLink";
 import { useTheme } from "styled-components";
 import { Link } from "types/link";

@@ -1,7 +1,7 @@
 import { DevTool } from "@hookform/devtools";
-import { Actionable, Button } from "@mimirorg/component-library";
 import { useGenerateMfa, useVerification } from "api/user.queries";
 import AuthContent from "components/AuthContent";
+import Button from "components/Button";
 import Digits from "components/Digits";
 import Error from "components/Error";
 import Flexbox from "components/Flexbox";
@@ -12,6 +12,7 @@ import Text from "components/Text";
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { Controller, useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
+import { Actionable } from "types/actionable";
 import { QrCodeView } from "types/authentication/qrCodeView";
 import { VerifyRequest } from "types/authentication/verifyRequest";
 import { onSubmitForm } from "./RegisterVerification.helpers";

@@ -1,4 +1,5 @@
-import { Button, Form, FormField, Select } from "@mimirorg/component-library";
+import { Form, FormField, Select } from "@mimirorg/component-library";
+import Button from "components/Button";
 import Input from "components/Input";
 import { UserItem } from "types/userItem";
 import { Role } from "../../types/role";
