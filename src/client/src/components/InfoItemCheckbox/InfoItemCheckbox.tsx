@@ -1,5 +1,6 @@
-import { TokenCheckbox, TokenCheckboxProps, Tooltip } from "@mimirorg/component-library";
+import { TokenCheckbox, TokenCheckboxProps } from "@mimirorg/component-library";
 import InfoItemDescription from "components/InfoItemDescription";
+import Tooltip from "components/Tooltip";
 import { InfoItem } from "types/infoItem";
 
 type InfoItemCheckboxProps = TokenCheckboxProps & Omit<InfoItem, "id">;
