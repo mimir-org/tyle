@@ -1,12 +1,15 @@
 import { useGetBlock } from "api/block.queries";
 import ExploreSection from "components/ExploreSection";
 import Loader from "components/Loader";
-import { toBlockItem, toTerminalItem } from "helpers/mappers.helpers";
+import { toAttributeItem, toBlockItem, toTerminalItem } from "helpers/mappers.helpers";
 import { SelectedInfo } from "types/selectedInfo";
 import AboutPlaceholder from "./AboutPlaceholder";
 import BlockPanel from "./BlockPanel";
 import { TerminalPanel } from "./TerminalPanel";
 import { useGetTerminal } from "../../api/terminal.queries";
+import { useGetAttribute } from "../../api/attribute.queries";
+import UnifiedPanel from "./UnifiedPanel";
+import AttributePreview from "../AttributePreview";
 
 interface AboutProps {
   selected?: SelectedInfo;
@@ -21,15 +24,15 @@ interface AboutProps {
 const About = ({ selected }: AboutProps) => {
   const blockQuery = useGetBlock(selected?.type === "block" ? selected?.id : "");
   const terminalQuery = useGetTerminal(selected?.type === "terminal" ? selected?.id : "");
-  //const attributeQuery = useGetAttribute(selected?.type === "attribute" ? selected?.id : undefined);
-  const allQueries = [blockQuery, terminalQuery];
+  const attributeQuery = useGetAttribute(selected?.type === "attribute" ? selected?.id : "");
+  const allQueries = [blockQuery, terminalQuery, attributeQuery];
 
   const showLoader = allQueries.some((x) => x.isFetching);
 
   const showPlaceHolder = !showLoader && selected?.type === undefined;
   const showBlockPanel = !showLoader && selected?.type === "block" && blockQuery.isSuccess;
   const showTerminalPanel = !showLoader && selected?.type === "terminal" && terminalQuery.isSuccess;
-  //const showAttributePanel = !showLoader && selected?.type === "attribute" && attributeQuery.isSuccess;
+  const showAttributePanel = !showLoader && selected?.type === "attribute" && attributeQuery.isSuccess;
 
   function typeParser(type?: string) {
     switch (type) {
@@ -39,8 +42,6 @@ const About = ({ selected }: AboutProps) => {
         return "Terminal";
       case "attribute":
         return "Attribute";
-      case "attributeGroup":
-        return "Attribute Group";
       default:
         return "About";
     }
@@ -57,11 +58,11 @@ const About = ({ selected }: AboutProps) => {
           {...toTerminalItem(terminalQuery.data)}
         />
       )}
-      {/*showAttributePanel && (
-        <UnifiedPanel {...toAttributeFormFields(attributeQuery.data)}>
-          <AttributePreview {...toAttributeFormFields(attributeQuery.data)} />
+      {showAttributePanel && (
+        <UnifiedPanel {...toAttributeItem(attributeQuery.data)}>
+          <AttributePreview {...toAttributeItem(attributeQuery.data)} />
         </UnifiedPanel>
-      )*/}
+      )}
     </ExploreSection>
   );
 };
