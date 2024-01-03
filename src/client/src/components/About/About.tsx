@@ -1,10 +1,12 @@
 import { useGetBlock } from "api/block.queries";
 import ExploreSection from "components/ExploreSection";
 import Loader from "components/Loader";
-import { toBlockItem } from "helpers/mappers.helpers";
+import { toBlockItem, toTerminalItem } from "helpers/mappers.helpers";
 import { SelectedInfo } from "types/selectedInfo";
 import AboutPlaceholder from "./AboutPlaceholder";
 import BlockPanel from "./BlockPanel";
+import { TerminalPanel } from "./TerminalPanel";
+import { useGetTerminal } from "../../api/terminal.queries";
 
 interface AboutProps {
   selected?: SelectedInfo;
@@ -17,19 +19,17 @@ interface AboutProps {
  * @constructor
  */
 const About = ({ selected }: AboutProps) => {
-  const blockQuery = useGetBlock(selected?.id ?? "");
-  //const terminalQuery = useGetTerminal(selected?.type === "terminal" ? selected?.id : undefined);
+  const blockQuery = useGetBlock(selected?.type === "block" ? selected?.id : "");
+  const terminalQuery = useGetTerminal(selected?.type === "terminal" ? selected?.id : "");
   //const attributeQuery = useGetAttribute(selected?.type === "attribute" ? selected?.id : undefined);
-  //const attributeGroupQuery = useGetAttributeGroup(selected?.type === "attributeGroup" ? selected?.id : undefined);
-  const allQueries = [blockQuery];
+  const allQueries = [blockQuery, terminalQuery];
 
   const showLoader = allQueries.some((x) => x.isFetching);
 
   const showPlaceHolder = !showLoader && selected?.type === undefined;
   const showBlockPanel = !showLoader && selected?.type === "block" && blockQuery.isSuccess;
-  //const showTerminalPanel = !showLoader && selected?.type === "terminal" && terminalQuery.isSuccess;
+  const showTerminalPanel = !showLoader && selected?.type === "terminal" && terminalQuery.isSuccess;
   //const showAttributePanel = !showLoader && selected?.type === "attribute" && attributeQuery.isSuccess;
-  //const showAttributeGroupPanel = !showLoader && selected?.type === "attributeGroup" && attributeGroupQuery.isSuccess;
 
   function typeParser(type?: string) {
     switch (type) {
@@ -51,30 +51,16 @@ const About = ({ selected }: AboutProps) => {
       {showLoader && <Loader />}
       {showPlaceHolder && <AboutPlaceholder text="Select an item to view its properties" />}
       {showBlockPanel && <BlockPanel key={blockQuery.data.id} {...toBlockItem(blockQuery.data)} />}
-      {/*showTerminalPanel && (
+      {showTerminalPanel && (
         <TerminalPanel
           key={terminalQuery.data.id + terminalQuery.data.kind}
-          {...mapTerminalLibCmToTerminalItem(terminalQuery.data)}
+          {...toTerminalItem(terminalQuery.data)}
         />
-      )*/}
+      )}
       {/*showAttributePanel && (
         <UnifiedPanel {...toAttributeFormFields(attributeQuery.data)}>
           <AttributePreview {...toAttributeFormFields(attributeQuery.data)} />
         </UnifiedPanel>
-      )*/}
-      {/*showAttributeGroupPanel && (
-        <AttributeGroupPanel
-          key={attributeGroupQuery.data.id + attributeGroupQuery.data.kind}
-          id={attributeGroupQuery.data.id}
-          name={attributeGroupQuery.data.name}
-          created={attributeGroupQuery.data.created}
-          createdBy={attributeGroupQuery.data.createdBy}
-          description={attributeGroupQuery.data.description}
-          kind={attributeGroupQuery.data.kind}
-          attributeIds={attributeGroupQuery.data.attributes.map((x) => x.id)}
-          attributes={attributeGroupQuery.data.attributes}
-          state={State.Draft}
-        />
       )*/}
     </ExploreSection>
   );
