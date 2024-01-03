@@ -15,13 +15,9 @@ export type ApprovalCardProps = {
   dissabledButton: boolean;
 };
 
-
-const ApprovalCard = ({ item, itemType, selected, dissabledButton}: ApprovalCardProps) => {
+const ApprovalCard = ({ item, itemType, selected, dissabledButton }: ApprovalCardProps) => {
   const theme = useTheme();
   const cardRef = useRef(null);
-
-
-
 
   return (
     <MotionApprovalCardContainer

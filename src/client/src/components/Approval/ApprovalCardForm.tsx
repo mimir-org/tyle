@@ -10,17 +10,15 @@ import { usePatchStateMutation } from "./ApprovalCardForm.helpers";
 export interface ApprovalCardFormProps {
   item: AttributeView | TerminalView | BlockView;
   itemType: "attribute" | "terminal" | "block";
-  dissabledButton:boolean;
-
+  dissabledButton: boolean;
 }
 
-const ApprovalCardForm = ({ item, itemType, dissabledButton=true }: ApprovalCardFormProps) => {
+const ApprovalCardForm = ({ item, itemType, dissabledButton = true }: ApprovalCardFormProps) => {
   const theme = useTheme();
 
   const patchStateMutation = usePatchStateMutation(item, itemType);
 
   const toast = useSubmissionToast(itemType);
-
 
   return (
     <Flexbox flexFlow={"row"} justifyContent={"space-between"} style={{ marginTop: "8px" }}>
@@ -33,12 +31,13 @@ const ApprovalCardForm = ({ item, itemType, dissabledButton=true }: ApprovalCard
         >
           Reject
         </Button>
-        {!dissabledButton ?
+        {!dissabledButton ? (
           <Button type={"button"} onClick={() => toast(patchStateMutation.mutateAsync({ state: State.Approved }))}>
             Approve
-          </Button>:
+          </Button>
+        ) : (
           <div>Please review the other types before approvoing this</div>
-        }
+        )}
       </Flexbox>
     </Flexbox>
   );

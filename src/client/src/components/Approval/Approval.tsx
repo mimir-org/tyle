@@ -18,7 +18,7 @@ const Approval = () => {
   const terminalsInDraft = useGetTerminalsByState(State.Draft);
 
   const terminalsNotApproved = (terminalsInReview.data || []).concat(terminalsInDraft.data || []);
-  const attributesNotApproved  = (attributesInReview.data || []).concat(attributesInDraft.data || []);
+  const attributesNotApproved = (attributesInReview.data || []).concat(attributesInDraft.data || []);
 
   const showPlaceholder =
     attributesInReview?.data &&
@@ -35,31 +35,36 @@ const Approval = () => {
       </Text>
       <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.mimirorg.spacing.xxxl}>
         {showPlaceholder && <ApprovalPlaceholder text="There is no types ready for approval" />}
-        {attributesInReview.data?.map((x) => <ApprovalCard key={x.id} item={x} itemType={"attribute"} dissabledButton={false} />)}
-        {terminalsInReview.data?.map((x) => <ApprovalCard key={x.id} item={x} itemType={"terminal"}
-                                                          dissabledButton={
-                                                            !(
-                                                              x.attributes
-                                                                 .map(x => x.attribute.id)
-                                                                .every(item => attributesNotApproved.map(x => x.id).includes(item) === false)
-                                                            )
-                                                          } />)}
-        {blocksInReview.data?.map((x) => <ApprovalCard key={x.id} item={x} itemType={"block"}
-                                                       dissabledButton={
-                                                         !(
-                                                           x.attributes
-                                                             .map(x => x.attribute.id)
-                                                             .every(item => attributesNotApproved.map(x => x.id).includes(item) === false)
-
-                                                         ) ||
-                                                         !(
-                                                           x.terminals
-                                                             .map(x => x.terminal.id)
-                                                             .every(item => terminalsNotApproved.map(x => x.id).includes(item) === false)
-
-                                                         )
-                                                       } />)}
-
+        {attributesInReview.data?.map((x) => (
+          <ApprovalCard key={x.id} item={x} itemType={"attribute"} dissabledButton={false} />
+        ))}
+        {terminalsInReview.data?.map((x) => (
+          <ApprovalCard
+            key={x.id}
+            item={x}
+            itemType={"terminal"}
+            dissabledButton={
+              !x.attributes
+                .map((x) => x.attribute.id)
+                .every((item) => attributesNotApproved.map((x) => x.id).includes(item) === false)
+            }
+          />
+        ))}
+        {blocksInReview.data?.map((x) => (
+          <ApprovalCard
+            key={x.id}
+            item={x}
+            itemType={"block"}
+            dissabledButton={
+              !x.attributes
+                .map((x) => x.attribute.id)
+                .every((item) => attributesNotApproved.map((x) => x.id).includes(item) === false) ||
+              !x.terminals
+                .map((x) => x.terminal.id)
+                .every((item) => terminalsNotApproved.map((x) => x.id).includes(item) === false)
+            }
+          />
+        ))}
       </Flexbox>
     </SettingsSection>
   );
