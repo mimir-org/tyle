@@ -21,7 +21,7 @@
     "@styled-icons/material-rounded": "^10.47.0",
     "@tanstack/react-query": "^4.36.1",
     "@tanstack/react-query-devtools": "^4.36.1",
-    "axios": "^1.6.2",
+    "axios": "^1.6.3",
     "framer-motion": "^10.16.6",
     "fuse.js": "^6.6.2",
     "lodash.camelcase": "^4.3.0",
