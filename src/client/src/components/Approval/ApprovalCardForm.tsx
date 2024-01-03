@@ -39,10 +39,7 @@ const ApprovalCardForm = ({ item, itemType, disabledButton = true }: ApprovalCar
           <Tooltip
             content={<Text>This type cannot be approved because it references types that are not approved</Text>}
           >
-            <Button
-              disabled={true}
-              type={"button"}
-            >
+            <Button disabled={true} type={"button"}>
               Approve
             </Button>
           </Tooltip>
