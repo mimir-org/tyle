@@ -1,6 +1,5 @@
 import { DevTool } from "@hookform/devtools";
 import { Actionable, Button, Flexbox, Input, Text } from "@mimirorg/component-library";
-import { MimirorgQrCodeCm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
 import { useGenerateMfa, useVerification } from "api/user.queries";
 import AuthContent from "components/AuthContent";
 import Digits from "components/Digits";
@@ -10,17 +9,19 @@ import Processing from "components/Processing";
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { Controller, useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
+import { QrCodeView } from "types/authentication/qrCodeView";
+import { VerifyRequest } from "types/authentication/verifyRequest";
 import { onSubmitForm } from "./RegisterVerification.helpers";
 
-type VerificationProps = Pick<MimirorgVerifyAm, "email"> & {
-  setMfaInfo: (info: MimirorgQrCodeCm) => void;
+type VerificationProps = Pick<VerifyRequest, "email"> & {
+  setMfaInfo: (info: QrCodeView) => void;
   cancel?: Partial<Actionable>;
   complete?: Partial<Actionable>;
 };
 
 const RegisterVerification = ({ email, setMfaInfo, cancel, complete }: VerificationProps) => {
   const theme = useTheme();
-  const { control, register, handleSubmit } = useForm<MimirorgVerifyAm>();
+  const { control, register, handleSubmit } = useForm<VerifyRequest>();
 
   const generateMfaMutation = useGenerateMfa();
   const verificationMutation = useVerification();

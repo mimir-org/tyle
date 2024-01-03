@@ -1,5 +1,4 @@
 import { attributeFormBasePath } from "components/AttributeForm/AttributeFormRoutes";
-import { attributeGroupFormBasePath } from "components/AttributeGroupForm/AttributeGroupFormRoutes";
 import { blockFormBasePath } from "components/BlockForm/BlockFormRoutes";
 import { terminalFormBasePath } from "components/TerminalForm/TerminalFormRoutes";
 import { Link } from "types/link";
@@ -17,10 +16,6 @@ export const useCreateMenuLinks = (): Link[] => {
     {
       name: "Attribute",
       path: attributeFormBasePath,
-    },
-    {
-      name: "Attribute Group",
-      path: attributeGroupFormBasePath,
     },
   ];
 };
