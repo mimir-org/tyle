@@ -1,4 +1,4 @@
-import { AccordionContent, AccordionItem, AccordionTrigger } from "@mimirorg/component-library";
+import { AccordionContent, AccordionItem, AccordionTrigger } from "components/Accordion";
 import Box from "components/Box";
 import Checkbox from "components/Checkbox";
 import Text from "components/Text";

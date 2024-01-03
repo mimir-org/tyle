@@ -1,5 +1,5 @@
-import { Accordion } from "@mimirorg/component-library";
 import { AdjustmentsHorizontal } from "@styled-icons/heroicons-outline";
+import Accordion from "components/Accordion";
 import Box from "components/Box";
 import Button from "components/Button";
 import Popover from "components/Popover";
