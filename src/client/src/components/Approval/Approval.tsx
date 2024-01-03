@@ -1,7 +1,8 @@
-import { Flexbox, Text } from "@mimirorg/component-library";
+import { Text } from "@mimirorg/component-library";
 import { useGetAttributesByState } from "api/attribute.queries";
 import { useGetBlocksByState } from "api/block.queries";
 import { useGetTerminalsByState } from "api/terminal.queries";
+import Flexbox from "components/Flexbox";
 import SettingsSection from "components/SettingsSection";
 import { useTheme } from "styled-components";
 import { State } from "types/common/state";

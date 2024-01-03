@@ -1,5 +1,6 @@
-import { Flexbox, MotionBox, Text } from "@mimirorg/component-library";
+import { MotionBox, Text } from "@mimirorg/component-library";
 import { UserCircle } from "@styled-icons/heroicons-outline";
+import Flexbox from "components/Flexbox";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
 

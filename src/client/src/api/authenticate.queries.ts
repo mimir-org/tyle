@@ -1,7 +1,7 @@
-import { toast } from "@mimirorg/component-library";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { authenticateApi } from "api/authenticate.api";
 import { userKeys } from "api/user.queries";
+import { toast } from "components/Toaster/toast";
 import { useNavigate } from "react-router-dom";
 import { AuthenticateRequest } from "types/authentication/authenticateRequest";
 import { removeToken, setToken } from "./token";

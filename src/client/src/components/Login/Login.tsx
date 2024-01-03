@@ -6,12 +6,12 @@ import {
   FormField,
   FormFieldset,
   Input,
-  MotionFlexbox,
   MotionText,
   Text,
 } from "@mimirorg/component-library";
 import { useLogin } from "api/authenticate.queries";
 import AuthContent from "components/AuthContent";
+import { MotionFlexbox } from "components/Flexbox";
 import { recoverBasePath } from "components/Recover/RecoverRoutes";
 import { registerBasePath } from "components/Register/RegisterRoutes";
 import { useServerValidation } from "hooks/useServerValidation";

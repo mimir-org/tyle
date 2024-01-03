@@ -1,5 +1,6 @@
-import { Actionable, Box, Button, Flexbox, Icon, Popover, Text } from "@mimirorg/component-library";
+import { Actionable, Box, Button, Icon, Popover, Text } from "@mimirorg/component-library";
 import AuthContent from "components/AuthContent";
+import Flexbox from "components/Flexbox";
 import { useTheme } from "styled-components";
 import { QrCodeView } from "types/authentication/qrCodeView";
 

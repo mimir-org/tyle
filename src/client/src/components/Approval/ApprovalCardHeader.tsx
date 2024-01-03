@@ -1,6 +1,7 @@
-import { Box, Flexbox, Text, Tooltip } from "@mimirorg/component-library";
+import { Box, Text, Tooltip } from "@mimirorg/component-library";
 import AttributeIcon from "components/AttributeIcon";
 import BlockIcon from "components/BlockIcon";
+import Flexbox from "components/Flexbox";
 import TerminalIcon from "components/TerminalIcon";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";

@@ -1,5 +1,6 @@
-import { Flexbox, Text } from "@mimirorg/component-library";
+import { Text } from "@mimirorg/component-library";
 import { useGetCurrentUser } from "api/user.queries";
+import Flexbox from "components/Flexbox";
 import config from "config";
 import { useTheme } from "styled-components";
 import ContactButton from "./ContactButton";

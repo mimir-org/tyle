@@ -1,4 +1,5 @@
-import { Flexbox, Text, TokenRadioGroup, TokenRadioGroupItem } from "@mimirorg/component-library";
+import { Text, TokenRadioGroup, TokenRadioGroupItem } from "@mimirorg/component-library";
+import Flexbox from "components/Flexbox";
 import { useTheme } from "styled-components";
 import { Option } from "utils";
 

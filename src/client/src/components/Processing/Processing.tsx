@@ -1,4 +1,5 @@
-import { Flexbox, Spinner, Text } from "@mimirorg/component-library";
+import { Spinner, Text } from "@mimirorg/component-library";
+import Flexbox from "components/Flexbox";
 import { useTheme } from "styled-components";
 
 interface RegisterProcessingProps {

@@ -7,7 +7,6 @@ import {
   FormField,
   FormFieldset,
   Input,
-  MotionFlexbox,
   MotionText,
   Text,
   Textarea,
@@ -15,6 +14,7 @@ import {
 import { useCreateUser } from "api/user.queries";
 import AuthContent from "components/AuthContent";
 import Error from "components/Error";
+import { MotionFlexbox } from "components/Flexbox";
 import Processing from "components/Processing";
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";

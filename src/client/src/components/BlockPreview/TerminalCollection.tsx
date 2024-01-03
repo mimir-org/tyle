@@ -1,4 +1,5 @@
-import { Box, Divider, Flexbox, Popover, Text, VisuallyHidden } from "@mimirorg/component-library";
+import { Box, Divider, Popover, Text, VisuallyHidden } from "@mimirorg/component-library";
+import Flexbox from "components/Flexbox";
 import TerminalButton from "components/TerminalButton";
 import { useTheme } from "styled-components";
 import { BlockTerminalItem } from "types/blockTerminalItem";

@@ -1,5 +1,6 @@
-import { Flexbox, Text } from "@mimirorg/component-library";
+import { Text } from "@mimirorg/component-library";
 import AttributeIcon from "components/AttributeIcon";
+import Flexbox from "components/Flexbox";
 import { useTheme } from "styled-components";
 import styled from "styled-components/macro";
 import { State } from "types/common/state";

@@ -1,4 +1,4 @@
-import { Flexbox } from "@mimirorg/component-library";
+import Flexbox from "components/Flexbox";
 import SettingsSection from "components/SettingsSection";
 import { useGetAllRolesMapped } from "hooks/useGetAllRolesMapped";
 import { useGetAllUsersMapped } from "hooks/useGetAllUsersMapped";

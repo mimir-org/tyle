@@ -1,4 +1,5 @@
-import { Flexbox, Text } from "@mimirorg/component-library";
+import { Text } from "@mimirorg/component-library";
+import Flexbox from "components/Flexbox";
 import { useTheme } from "styled-components";
 
 interface UserInfoProps {

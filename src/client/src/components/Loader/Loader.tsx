@@ -1,4 +1,5 @@
-import { MotionFlexbox, Spinner } from "@mimirorg/component-library";
+import { Spinner } from "@mimirorg/component-library";
+import { MotionFlexbox } from "components/Flexbox";
 import { useTheme } from "styled-components";
 
 /**

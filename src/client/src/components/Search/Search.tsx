@@ -1,8 +1,9 @@
-import { Flexbox, MotionFlexbox, MotionText, Token } from "@mimirorg/component-library";
+import { MotionText, Token } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useGetCurrentUser } from "api/user.queries";
 import ExploreSection from "components/ExploreSection";
 import FilterMenu from "components/FilterMenu";
+import Flexbox, { MotionFlexbox } from "components/Flexbox";
 import LinkMenu from "components/LinkMenu";
 import SearchField from "components/SearchField";
 import { mapUserViewToUserItem } from "helpers/mappers.helpers";
