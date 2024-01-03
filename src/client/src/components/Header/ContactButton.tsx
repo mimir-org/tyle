@@ -1,5 +1,5 @@
-import { Dialog } from "@mimirorg/component-library";
 import Box from "components/Box";
+import Dialog from "components/Dialog";
 import Select from "components/Select";
 
 /**
