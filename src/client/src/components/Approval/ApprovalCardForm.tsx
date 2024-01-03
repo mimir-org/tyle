@@ -1,6 +1,7 @@
 import Button from "components/Button";
 import Flexbox from "components/Flexbox";
 import Text from "components/Text";
+import Tooltip from "components/Tooltip";
 import { useSubmissionToast } from "helpers/form.helpers";
 import { useTheme } from "styled-components";
 import { AttributeView } from "types/attributes/attributeView";
@@ -12,9 +13,10 @@ import { usePatchStateMutation } from "./ApprovalCardForm.helpers";
 export interface ApprovalCardFormProps {
   item: AttributeView | TerminalView | BlockView;
   itemType: "attribute" | "terminal" | "block";
+  disabledButton: boolean;
 }
 
-const ApprovalCardForm = ({ item, itemType }: ApprovalCardFormProps) => {
+const ApprovalCardForm = ({ item, itemType, disabledButton = true }: ApprovalCardFormProps) => {
   const theme = useTheme();
 
   const patchStateMutation = usePatchStateMutation(item, itemType);
@@ -32,9 +34,19 @@ const ApprovalCardForm = ({ item, itemType }: ApprovalCardFormProps) => {
         >
           Reject
         </Button>
-        <Button type={"button"} onClick={() => toast(patchStateMutation.mutateAsync({ state: State.Approved }))}>
-          Approve
-        </Button>
+        {!disabledButton ? (
+          <Button type={"button"} onClick={() => toast(patchStateMutation.mutateAsync({ state: State.Approved }))}>
+            Approve
+          </Button>
+        ) : (
+          <Tooltip
+            content={<Text>This type cannot be approved because it references types that are not approved</Text>}
+          >
+            <Button disabled={true} type={"button"}>
+              Approve
+            </Button>
+          </Tooltip>
+        )}
       </Flexbox>
     </Flexbox>
   );
