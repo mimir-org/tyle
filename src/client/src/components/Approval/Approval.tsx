@@ -14,12 +14,6 @@ const Approval = () => {
   const terminalsInReview = useGetTerminalsByState(State.Review);
   const blocksInReview = useGetBlocksByState(State.Review);
 
-  const attributesInDraft = useGetAttributesByState(State.Draft);
-  const terminalsInDraft = useGetTerminalsByState(State.Draft);
-
-  const terminalsNotApproved = (terminalsInReview.data || []).concat(terminalsInDraft.data || []);
-  const attributesNotApproved = (attributesInReview.data || []).concat(attributesInDraft.data || []);
-
   const showPlaceholder =
     attributesInReview?.data &&
     attributesInReview.data.length === 0 &&
@@ -43,11 +37,7 @@ const Approval = () => {
             key={x.id}
             item={x}
             itemType={"terminal"}
-            disabledButton={
-              !x.attributes
-                .map((x) => x.attribute.id)
-                .every((item) => attributesNotApproved.map((x) => x.id).includes(item) === false)
-            }
+            disabledButton={x.attributes.some((x) => x.attribute.state === (State.Review || State.Draft))}
           />
         ))}
         {blocksInReview.data?.map((x) => (
@@ -56,12 +46,8 @@ const Approval = () => {
             item={x}
             itemType={"block"}
             disabledButton={
-              !x.attributes
-                .map((x) => x.attribute.id)
-                .every((item) => attributesNotApproved.map((x) => x.id).includes(item) === false) ||
-              !x.terminals
-                .map((x) => x.terminal.id)
-                .every((item) => terminalsNotApproved.map((x) => x.id).includes(item) === false)
+              x.attributes.some((x) => x.attribute.state === (State.Review || State.Draft)) ||
+              x.terminals.some((x) => x.terminal.state === (State.Review || State.Draft))
             }
           />
         ))}
