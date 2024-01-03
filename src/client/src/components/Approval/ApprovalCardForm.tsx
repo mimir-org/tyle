@@ -42,7 +42,6 @@ const ApprovalCardForm = ({ item, itemType, disabledButton = true }: ApprovalCar
             <Button
               disabled={true}
               type={"button"}
-              onClick={() => toast(patchStateMutation.mutateAsync({ state: State.Approved }))}
             >
               Approve
             </Button>
