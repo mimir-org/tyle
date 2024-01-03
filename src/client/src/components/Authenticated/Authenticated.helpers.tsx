@@ -1,6 +1,6 @@
-import { ErrorMessage } from "@mimirorg/component-library";
 import { attributeFormRoutes } from "components/AttributeForm/AttributeFormRoutes";
 import { blockFormRoutes } from "components/BlockForm/BlockFormRoutes";
+import ErrorMessage from "components/ErrorMessage";
 import { exploreRoutes } from "components/Explore/ExploreRoutes";
 import { settingsRoutes } from "components/SettingsLayout/SettingsRoutes";
 import { terminalFormRoutes } from "components/TerminalForm/TerminalFormRoutes";

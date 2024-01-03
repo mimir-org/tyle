@@ -1,5 +1,6 @@
-import { focus, layer, translucify } from "@mimirorg/component-library";
+import { layer, translucify } from "helpers/theme.helpers";
 import { meetsContrastGuidelines } from "polished";
+import { focus } from "styleConstants";
 import styled, { css } from "styled-components/macro";
 import { TerminalButtonProps } from "./TerminalButton";
 

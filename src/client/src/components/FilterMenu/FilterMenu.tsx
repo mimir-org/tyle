@@ -1,7 +1,8 @@
-import { Accordion, Popover } from "@mimirorg/component-library";
+import { Accordion } from "@mimirorg/component-library";
 import { AdjustmentsHorizontal } from "@styled-icons/heroicons-outline";
 import Box from "components/Box";
 import Button from "components/Button";
+import Popover from "components/Popover";
 import SearchField from "components/SearchField";
 import { useState } from "react";
 import { useTheme } from "styled-components";

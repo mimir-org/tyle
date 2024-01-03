@@ -1,4 +1,4 @@
-import { hideScrollbar } from "@mimirorg/component-library";
+import { hideScrollbar } from "helpers/theme.helpers";
 import styled from "styled-components/macro";
 
 export const SelectContainer = styled.div`

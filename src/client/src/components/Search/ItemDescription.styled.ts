@@ -1,4 +1,4 @@
-import { focus } from "@mimirorg/component-library";
+import { focus } from "styleConstants";
 import styled from "styled-components/macro";
 
 const ItemDescriptionContainer = styled.button`
