@@ -1,9 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Form, FormErrorBanner, FormFieldset } from "@mimirorg/component-library";
+import { Form, FormFieldset } from "@mimirorg/component-library";
 import { useLogin } from "api/authenticate.queries";
 import AuthContent from "components/AuthContent";
 import Button from "components/Button";
 import { MotionFlexbox } from "components/Flexbox";
+import FormErrorBanner from "components/FormErrorBanner";
 import FormField from "components/FormField";
 import Input from "components/Input";
 import { recoverBasePath } from "components/Recover/RecoverRoutes";

@@ -1,4 +1,4 @@
-import { FormErrorBanner } from "@mimirorg/component-library";
+import FormErrorBanner from "components/FormErrorBanner";
 import Text from "components/Text";
 import { useTheme } from "styled-components";
 
