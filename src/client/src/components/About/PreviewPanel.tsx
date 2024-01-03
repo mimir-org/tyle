@@ -1,7 +1,8 @@
 import { BlockTerminalItem } from "../../types/blockTerminalItem";
 import { State } from "../../types/common/state";
 import styled from "styled-components/macro";
-import { Heading, Text } from "@mimirorg/component-library";
+import Text from "../Text";
+import Heading from "../Heading"
 import StateBadge from "../StateBadge";
 import PanelPropertiesContainer from "./PanelPropertiesContainer";
 import PanelSection from "./PanelSection";

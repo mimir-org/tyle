@@ -1,6 +1,6 @@
 import { State } from "../../types/common/state";
 import { useTheme } from "styled-components";
-import { MotionBox } from "@mimirorg/component-library";
+import { MotionBox } from "components/Box";
 import PreviewPanel from "./PreviewPanel";
 
 interface AttributePanelProps {
@@ -17,10 +17,10 @@ const AttributePanel = ({ name, description, state, kind }: AttributePanelProps)
       flex={1}
       display={"flex"}
       flexDirection={"column"}
-      gap={theme.mimirorg.spacing.xxxl}
+      gap={theme.tyle.spacing.xxxl}
       maxHeight={"100%"}
       overflow={"hidden"}
-      {...theme.mimirorg.animation.fade}
+      {...theme.tyle.animation.fade}
     >
       <PreviewPanel name={name} description={description} state={state} kind={kind} />
     </MotionBox>
