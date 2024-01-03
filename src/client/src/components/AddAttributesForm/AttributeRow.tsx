@@ -1,5 +1,6 @@
-import { Checkbox, Input, Token } from "@mimirorg/component-library";
+import { Input, Token } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
+import Checkbox from "components/Checkbox";
 import { useState } from "react";
 import { AttributeTypeReferenceView } from "types/common/attributeTypeReferenceView";
 import { AttributeRowWrapper, TokenWrapper } from "./AttributeRow.styled";

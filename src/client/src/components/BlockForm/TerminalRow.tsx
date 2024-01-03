@@ -1,5 +1,6 @@
-import { Checkbox, Input, Select, Token } from "@mimirorg/component-library";
+import { Input, Select, Token } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
+import Checkbox from "components/Checkbox";
 import { useState } from "react";
 import { Direction } from "types/terminals/direction";
 import { Option } from "utils";

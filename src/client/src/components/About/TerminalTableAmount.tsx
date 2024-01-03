@@ -1,5 +1,5 @@
-import { Td } from "@mimirorg/component-library";
 import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "components/BlockPreview/blockTerminalQuantityRestrictions";
+import { Td } from "components/Table";
 import { BlockTerminalItem } from "types/blockTerminalItem";
 import { useMediaQuery } from "usehooks-ts";
 

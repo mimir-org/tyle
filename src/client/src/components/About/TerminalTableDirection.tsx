@@ -1,6 +1,6 @@
-import { Td } from "@mimirorg/component-library";
 import { ArrowLeft, ArrowRight, ArrowsRightLeft } from "@styled-icons/heroicons-outline";
 import Flexbox from "components/Flexbox";
+import { Td } from "components/Table";
 import { useTheme } from "styled-components";
 import { BlockTerminalItem } from "types/blockTerminalItem";
 import { Direction } from "types/terminals/direction";

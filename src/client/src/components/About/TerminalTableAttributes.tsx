@@ -1,6 +1,6 @@
-import { Td } from "@mimirorg/component-library";
 import Box from "components/Box";
 import InfoItemButton from "components/InfoItemButton";
+import { Td } from "components/Table";
 import { useTheme } from "styled-components";
 import { BlockTerminalItem } from "types/blockTerminalItem";
 

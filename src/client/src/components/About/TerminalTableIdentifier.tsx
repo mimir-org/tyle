@@ -1,5 +1,5 @@
-import { Td } from "@mimirorg/component-library";
 import Flexbox from "components/Flexbox";
+import { Td } from "components/Table";
 import TerminalButton from "components/TerminalButton";
 import { useTheme } from "styled-components";
 import { BlockTerminalItem } from "types/blockTerminalItem";
