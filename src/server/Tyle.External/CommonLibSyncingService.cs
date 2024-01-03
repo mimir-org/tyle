@@ -42,12 +42,12 @@ public class CommonLibSyncingService : IHostedService, IDisposable
 
     private async void Sync(object? state)
     {
-        // await SyncPurposes();
-        // await SyncMedia();
-        // await SyncClassifiers();
-        // await SyncPredicates();
-        // await SyncUnits();
-        // await SyncSymbols();
+        await SyncPurposes();
+        await SyncMedia();
+        await SyncClassifiers();
+        await SyncPredicates();
+        await SyncUnits();
+        await SyncSymbols();
     }
 
     private async Task SyncPurposes()

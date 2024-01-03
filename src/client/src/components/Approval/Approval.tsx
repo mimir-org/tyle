@@ -20,15 +20,6 @@ const Approval = () => {
   const terminalsNotApproved = (terminalsInReview.data || []).concat(terminalsInDraft.data || []);
   const attributesNotApproved  = (attributesInReview.data || []).concat(attributesInDraft.data || []);
 
-  console.log(terminalsInReview.data?.map((x) =>!(
-    x.attributes
-      .map(x => x.attribute.id)
-      .some(item => attributesNotApproved.map(x => x.id).includes(item))
-
-  )));
-
-  const test =
-
   const showPlaceholder =
     attributesInReview?.data &&
     attributesInReview.data.length === 0 &&
@@ -49,9 +40,8 @@ const Approval = () => {
                                                           dissabledButton={
                                                             !(
                                                               x.attributes
-                                                                .map(x => x.attribute.id)
-                                                                .some(item => attributesNotApproved.map(x => x.id).includes(item))
-
+                                                                 .map(x => x.attribute.id)
+                                                                .every(item => attributesNotApproved.map(x => x.id).includes(item) === false)
                                                             )
                                                           } />)}
         {blocksInReview.data?.map((x) => <ApprovalCard key={x.id} item={x} itemType={"block"}
@@ -59,13 +49,13 @@ const Approval = () => {
                                                          !(
                                                            x.attributes
                                                              .map(x => x.attribute.id)
-                                                             .some(item => attributesNotApproved.map(x => x.id).includes(item))
+                                                             .every(item => attributesNotApproved.map(x => x.id).includes(item) === false)
 
                                                          ) ||
                                                          !(
                                                            x.terminals
                                                              .map(x => x.terminal.id)
-                                                             .some(item => terminalsNotApproved.map(x => x.id).includes(item))
+                                                             .every(item => terminalsNotApproved.map(x => x.id).includes(item) === false)
 
                                                          )
                                                        } />)}
