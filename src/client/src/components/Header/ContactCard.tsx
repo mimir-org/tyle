@@ -1,5 +1,6 @@
-import { Box, MotionBox, Text } from "@mimirorg/component-library";
+import { Box, MotionBox } from "@mimirorg/component-library";
 import { User } from "@styled-icons/heroicons-outline";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
 
 interface ContactCardProps {

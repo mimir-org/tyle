@@ -1,19 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  Button,
-  Form,
-  FormErrorBanner,
-  FormField,
-  FormFieldset,
-  Input,
-  MotionText,
-  Text,
-} from "@mimirorg/component-library";
+import { Button, Form, FormErrorBanner, FormField, FormFieldset, Input } from "@mimirorg/component-library";
 import { useLogin } from "api/authenticate.queries";
 import AuthContent from "components/AuthContent";
 import { MotionFlexbox } from "components/Flexbox";
 import { recoverBasePath } from "components/Recover/RecoverRoutes";
 import { registerBasePath } from "components/Register/RegisterRoutes";
+import Text, { MotionText } from "components/Text";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";

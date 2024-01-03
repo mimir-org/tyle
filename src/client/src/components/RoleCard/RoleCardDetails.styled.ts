@@ -1,4 +1,4 @@
-import { getTextRole } from "@mimirorg/component-library";
+import { getTextRole } from "helpers/theme.helpers";
 import styled from "styled-components/macro";
 
 export const Dl = styled.dl`

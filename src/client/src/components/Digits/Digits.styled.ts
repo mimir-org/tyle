@@ -1,4 +1,5 @@
-import { focus, getTextRole } from "@mimirorg/component-library";
+import { getTextRole } from "helpers/theme.helpers";
+import { focus } from "styleConstants";
 import styled from "styled-components";
 
 export const DigitsInputContainer = styled.div`

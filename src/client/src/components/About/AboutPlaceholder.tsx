@@ -1,5 +1,5 @@
-import { Text } from "@mimirorg/component-library";
 import { MotionFlexbox } from "components/Flexbox";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
 
 /**

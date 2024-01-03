@@ -1,6 +1,6 @@
 import { CheckCircle, XCircle } from "@styled-icons/heroicons-outline";
 import { Theme } from "components/TyleThemeProvider/theme";
-import { translucify } from "components/TyleThemeProvider/theme.helpers";
+import { translucify } from "helpers/theme.helpers";
 import { CSSProperties } from "react";
 import { DefaultToastOptions } from "react-hot-toast";
 

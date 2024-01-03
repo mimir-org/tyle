@@ -1,6 +1,6 @@
-import { Text } from "@mimirorg/component-library";
 import Flexbox from "components/Flexbox";
 import TerminalButton from "components/TerminalButton";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
 import { BlockTerminalItem } from "types/blockTerminalItem";
 import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "./blockTerminalQuantityRestrictions";

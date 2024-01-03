@@ -1,5 +1,6 @@
-import { Box, Text } from "@mimirorg/component-library";
+import { Box } from "@mimirorg/component-library";
 import { UserCircle } from "@styled-icons/heroicons-outline";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
 
 interface RoleCardHeaderProps {

@@ -1,4 +1,5 @@
-import { Box, Text } from "@mimirorg/component-library";
+import { Box } from "@mimirorg/component-library";
+import Text from "components/Text";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
 

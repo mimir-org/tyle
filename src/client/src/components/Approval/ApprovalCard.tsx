@@ -1,5 +1,6 @@
-import { Divider, Text } from "@mimirorg/component-library";
+import { Divider } from "@mimirorg/component-library";
 import Flexbox from "components/Flexbox";
+import Text from "components/Text";
 import { useRef } from "react";
 import { useTheme } from "styled-components";
 import { AttributeView } from "types/attributes/attributeView";

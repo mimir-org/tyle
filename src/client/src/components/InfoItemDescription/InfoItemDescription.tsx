@@ -1,5 +1,6 @@
-import { Actionable, Box, Button, Divider, Text } from "@mimirorg/component-library";
+import { Actionable, Box, Button, Divider } from "@mimirorg/component-library";
 import Flexbox from "components/Flexbox";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
 import { InfoItem } from "types/infoItem";
 

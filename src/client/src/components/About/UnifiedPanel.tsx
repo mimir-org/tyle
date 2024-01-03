@@ -1,6 +1,7 @@
-import { Heading, MotionBox, Text } from "@mimirorg/component-library";
+import { Heading, MotionBox } from "@mimirorg/component-library";
 import Flexbox from "components/Flexbox";
 import StateBadge from "components/StateBadge";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
 import { State } from "types/common/state";
 

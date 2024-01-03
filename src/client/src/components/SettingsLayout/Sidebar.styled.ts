@@ -1,4 +1,4 @@
-import { getTextRole } from "@mimirorg/component-library";
+import { getTextRole } from "helpers/theme.helpers";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components/macro";
 

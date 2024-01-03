@@ -1,6 +1,6 @@
+import { getTextRole } from "helpers/theme.helpers";
 import { createGlobalStyle } from "styled-components";
 import { globalResetStyle } from "./globalResetStyle";
-import { getTextRole } from "./theme.helpers";
 
 export const GlobalStyle = createGlobalStyle`
   ${globalResetStyle};

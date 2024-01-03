@@ -1,8 +1,8 @@
 import { transparentize } from "polished";
 import { css } from "styled-components";
-import { TextTypes } from "./textVariant";
-import { theme } from "./theme";
-import { NominalScale, TypographyRoles } from "./typography";
+import { TextTypes } from "types/styleProps";
+import { theme } from "../components/TyleThemeProvider/theme";
+import { NominalScale, TypographyRoles } from "../components/TyleThemeProvider/typography";
 
 export const getTextRole = (variant?: TextTypes) => {
   if (!variant) return "";

@@ -1,5 +1,5 @@
-import { Text } from "@mimirorg/component-library";
 import EngineeringSymbolSvg from "components/EngineeringSymbolSvg";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
 import { EngineeringSymbol } from "types/blocks/engineeringSymbol";
 import BlockContainer, { BlockContainerProps } from "./Block.styled";

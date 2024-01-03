@@ -1,4 +1,5 @@
-import { Text, Th, Tr } from "@mimirorg/component-library";
+import { Th, Tr } from "@mimirorg/component-library";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
 import { useMediaQuery } from "usehooks-ts";
 

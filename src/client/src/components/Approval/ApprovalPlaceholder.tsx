@@ -1,4 +1,4 @@
-import { MotionText } from "@mimirorg/component-library";
+import { MotionText } from "components/Text";
 import { useTheme } from "styled-components";
 
 const ApprovalPlaceholder = ({ text }: { text: string }) => {

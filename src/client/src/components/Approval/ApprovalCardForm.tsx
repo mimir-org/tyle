@@ -1,5 +1,6 @@
-import { Button, Text } from "@mimirorg/component-library";
+import { Button } from "@mimirorg/component-library";
 import Flexbox from "components/Flexbox";
+import Text from "components/Text";
 import { useSubmissionToast } from "helpers/form.helpers";
 import { useTheme } from "styled-components";
 import { AttributeView } from "types/attributes/attributeView";
