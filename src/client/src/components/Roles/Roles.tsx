@@ -1,25 +1,27 @@
 import { Flexbox } from "@mimirorg/component-library";
 import RadioFilters from "components/RadioFilters";
 import SettingsSection from "components/SettingsSection";
+import { useGetAllRolesMapped } from "hooks/useGetAllRolesMapped";
+import { useGetAllUsersMapped } from "hooks/useGetAllUsersMapped";
 import { useState } from "react";
 import { useTheme } from "styled-components";
-import { GetAllRolesMapped, GetAllUsersMapped, toUserRoleRequest, roleFilters } from "./Roles.helpers";
+import { useUpdateUserRole } from "../../api/authorize.queries";
+import { useGetCurrentUser } from "../../api/user.queries";
+import { useSubmissionToast } from "../../helpers/form.helpers";
+import { mapUserViewToUserItem } from "../../helpers/mappers.helpers";
+import { UserItem } from "../../types/userItem";
+import RoleDialog from "./RoleDialog";
+import { roleFilters } from "./Roles.helpers";
 import UserList from "./UserList";
 import UserListItem from "./UserListItem";
-import RoleDialog from "./RoleDialog";
-import { UserItem } from "../../types/userItem";
-import { useUpdateUserRole } from "../../api/authorize.queries";
-import { useSubmissionToast } from "../../helpers/form.helpers";
-import { useGetCurrentUser } from "../../api/user.queries";
-import { mapUserViewToUserItem } from "../../helpers/mappers.helpers";
 
 const Roles = () => {
   const theme = useTheme();
   const [selectedRoleFilter, setSelectedRoleFilter] = useState(roleFilters[0]?.label);
   const userQuery = useGetCurrentUser();
   const currentUser = userQuery?.data != null ? mapUserViewToUserItem(userQuery.data) : undefined;
-  const users = GetAllUsersMapped();
-  const roles = GetAllRolesMapped();
+  const users = useGetAllUsersMapped();
+  const roles = useGetAllRolesMapped();
   const updateUserRoleMutation = useUpdateUserRole();
 
   const toast = useSubmissionToast("permission");
@@ -33,7 +35,7 @@ const Roles = () => {
 
   const handleRoleChange = (user: UserItem, newRole: string | undefined) => {
     const newRoleId = roles.find((r) => r.roleName === newRole)?.roleId ?? "";
-    toast(updateUserRoleMutation.mutateAsync(toUserRoleRequest(user.id, newRoleId)));
+    toast(updateUserRoleMutation.mutateAsync({ userId: user.id, roleId: newRoleId }));
   };
 
   return (

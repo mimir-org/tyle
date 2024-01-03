@@ -1,7 +1,7 @@
 import { Button, Form, FormField, Input, Select } from "@mimirorg/component-library";
 import { UserItem } from "types/userItem";
+import { Role } from "../../types/role";
 import { getOptionsFromEnum } from "../../utils";
-import { Role } from "../../types/Role";
 
 export interface RoleCardFormProps {
   user: UserItem;

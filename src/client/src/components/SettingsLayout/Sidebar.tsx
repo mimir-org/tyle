@@ -2,6 +2,7 @@ import { Divider, Flexbox, Heading } from "@mimirorg/component-library";
 import { useGetAttributesByState } from "api/attribute.queries";
 import { useGetBlocksByState } from "api/block.queries";
 import { useGetTerminalsByState } from "api/terminal.queries";
+import { useGetAllUsersMapped } from "hooks/useGetAllUsersMapped";
 import { Fragment } from "react";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "styled-components";
@@ -21,7 +22,7 @@ const Sidebar = ({ title, groups }: SidebarProps) => {
   const attributesInReview = useGetAttributesByState(State.Review);
   const terminalsInReview = useGetTerminalsByState(State.Review);
   const blocksInReview = useGetBlocksByState(State.Review);
-
+  const pendingUsers = useGetAllUsersMapped().filter((e) => e.roles.length === 0);
   const reviewData = [attributesInReview, terminalsInReview, blocksInReview];
   let numberOfTypesInReview = 0;
 
@@ -31,15 +32,13 @@ const Sidebar = ({ title, groups }: SidebarProps) => {
     }
   }
 
-  //const pendingUsers = useGetPendingUsers();
-
   const linkText = (name: string) => {
     switch (name) {
       case "Approval": {
         return name + (numberOfTypesInReview ? ` (${numberOfTypesInReview})` : "");
       }
       case "Access": {
-        return name; // + (pendingUsers.data?.length ? ` (${pendingUsers.data.length})` : "");
+        return name + (pendingUsers.length ? ` (${pendingUsers.length})` : "");
       }
       default:
         return name;
