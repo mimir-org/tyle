@@ -118,6 +118,18 @@ export const paletteMixin = css<Palette>`
   background-color: ${(props) => props.bgColor};
 `;
 
+/**
+ * Common placeholder style for several components
+ */
+export const placeholder = css`
+  ::placeholder {
+    font: ${(props) => props.theme.tyle.typography.roles.body.medium.font};
+    letter-spacing: ${(props) => props.theme.tyle.typography.roles.body.medium.letterSpacing};
+    line-height: ${(props) => props.theme.tyle.typography.roles.body.medium.lineHeight};
+    color: ${(props) => props.theme.tyle.color.outline.base};
+  }
+`;
+
 export const positionsMixin = css<Positions>`
   position: ${(props) => props.position};
   z-index: ${(props) => props.zIndex};

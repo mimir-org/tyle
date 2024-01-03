@@ -1,10 +1,11 @@
 import { DevTool } from "@hookform/devtools";
-import { Actionable, Button, Input } from "@mimirorg/component-library";
+import { Actionable, Button } from "@mimirorg/component-library";
 import { useGenerateMfa, useVerification } from "api/user.queries";
 import AuthContent from "components/AuthContent";
 import Digits from "components/Digits";
 import Error from "components/Error";
 import Flexbox from "components/Flexbox";
+import Input from "components/Input";
 import MotionVerifyForm from "components/MotionVerifyForm";
 import Processing from "components/Processing";
 import Text from "components/Text";
