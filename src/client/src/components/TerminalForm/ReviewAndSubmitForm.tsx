@@ -1,14 +1,16 @@
-import { Button, PlainLink, Table, Tbody, Td, Tr } from "@mimirorg/component-library";
 import { UseMutationResult } from "@tanstack/react-query";
+import Button from "components/Button";
+import PlainLink from "components/PlainLink";
+import { Table, Tbody, Td, Tr } from "components/Table";
 import { onSubmitForm, useSubmissionToast } from "helpers/form.helpers";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { Aspect } from "types/common/aspect";
 import { FormMode } from "types/formMode";
-import { ReviewAndSubmitFormWrapper, SubmitButtonsWrapper } from "./ReviewAndSubmitForm.styled";
-import { TerminalFormFields, toTerminalTypeRequest } from "./TerminalForm.helpers";
+import { Direction } from "../../types/terminals/direction";
 import { TerminalTypeRequest } from "../../types/terminals/terminalTypeRequest";
 import { TerminalView } from "../../types/terminals/terminalView";
-import { Direction } from "../../types/terminals/direction";
+import { ReviewAndSubmitFormWrapper, SubmitButtonsWrapper } from "./ReviewAndSubmitForm.styled";
+import { TerminalFormFields, toTerminalTypeRequest } from "./TerminalForm.helpers";
 
 interface ReviewAndSubmitProps {
   terminalFormFields: TerminalFormFields;

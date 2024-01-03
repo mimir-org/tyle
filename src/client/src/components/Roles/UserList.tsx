@@ -1,4 +1,6 @@
-import { Box, MotionFlexbox, Text } from "@mimirorg/component-library";
+import Box from "components/Box";
+import { MotionFlexbox } from "components/Flexbox";
+import Text from "components/Text";
 import { PropsWithChildren } from "react";
 import { useTheme } from "styled-components";
 
@@ -10,9 +12,9 @@ const UserList = ({ title, children }: PropsWithChildren<UsersProps>) => {
   const theme = useTheme();
 
   return (
-    <MotionFlexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l} {...theme.mimirorg.animation.fade}>
+    <MotionFlexbox flexDirection={"column"} gap={theme.tyle.spacing.l} {...theme.tyle.animation.fade}>
       <Text variant={"label-large"}>{title}</Text>
-      <Box as={"ul"} display={"flex"} flexDirection={"column"} gap={theme.mimirorg.spacing.l} spacing={{ p: "0" }}>
+      <Box as={"ul"} display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.l} spacing={{ p: "0" }}>
         {children}
       </Box>
     </MotionFlexbox>

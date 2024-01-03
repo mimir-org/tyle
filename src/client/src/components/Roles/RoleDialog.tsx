@@ -1,5 +1,6 @@
-import { AlertDialog, AlertDialogActionItem, AlertDialogCancelItem, Button } from "@mimirorg/component-library";
 import { PencilSquare } from "@styled-icons/heroicons-outline";
+import AlertDialog, { AlertDialogActionItem, AlertDialogCancelItem } from "components/AlertDialog";
+import Button from "components/Button";
 import RoleCard from "components/RoleCard";
 import { useState } from "react";
 import { UserItem } from "types/userItem";

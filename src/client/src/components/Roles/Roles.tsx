@@ -1,4 +1,4 @@
-import { Flexbox } from "@mimirorg/component-library";
+import Flexbox from "components/Flexbox";
 import RadioFilters from "components/RadioFilters";
 import SettingsSection from "components/SettingsSection";
 import { useGetAllRolesMapped } from "hooks/useGetAllRolesMapped";
@@ -40,7 +40,7 @@ const Roles = () => {
 
   return (
     <SettingsSection title="Roles">
-      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xxl}>
+      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xxl}>
         <RadioFilters
           title=""
           filters={roleFilters}

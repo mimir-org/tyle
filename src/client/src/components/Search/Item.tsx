@@ -1,4 +1,5 @@
-import { Box, MotionCard } from "@mimirorg/component-library";
+import Box from "components/Box";
+import { MotionCard } from "components/Card";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
 import ItemActionContainer from "./Item.styled";
@@ -30,7 +31,7 @@ const Item = ({ isSelected, preview, description, actions, onClick }: ItemProps)
       onClick={onClick}
       layout={"position"}
       variant={isSelected ? "selected" : "filled"}
-      {...theme.mimirorg.animation.selectHover}
+      {...theme.tyle.animation.selectHover}
     >
       <Box
         position={"relative"}
@@ -38,7 +39,7 @@ const Item = ({ isSelected, preview, description, actions, onClick }: ItemProps)
         justifyContent={"space-between"}
         alignItems={"start"}
         flexWrap={"wrap"}
-        gap={theme.mimirorg.spacing.xxxl}
+        gap={theme.tyle.spacing.xxxl}
       >
         {preview}
         {description}

@@ -1,8 +1,9 @@
-import { Flexbox, Text } from "@mimirorg/component-library";
 import { useGetAttributesByState } from "api/attribute.queries";
 import { useGetBlocksByState } from "api/block.queries";
 import { useGetTerminalsByState } from "api/terminal.queries";
+import Flexbox from "components/Flexbox";
 import SettingsSection from "components/SettingsSection";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
 import { State } from "types/common/state";
 import ApprovalCard from "./ApprovalCard";
@@ -24,10 +25,10 @@ const Approval = () => {
 
   return (
     <SettingsSection title="Approval">
-      <Text variant={"title-medium"} spacing={{ mb: theme.mimirorg.spacing.l }}>
+      <Text variant={"title-medium"} spacing={{ mb: theme.tyle.spacing.l }}>
         Types ready for approval
       </Text>
-      <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.mimirorg.spacing.xxxl}>
+      <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.tyle.spacing.xxxl}>
         {showPlaceholder && <ApprovalPlaceholder text="There is no types ready for approval" />}
         {attributesInReview.data?.map((x) => (
           <ApprovalCard key={x.id} item={x} itemType={"attribute"} disabledButton={false} />

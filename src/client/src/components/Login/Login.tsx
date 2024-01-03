@@ -1,19 +1,16 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  Button,
-  Form,
-  FormErrorBanner,
-  FormField,
-  FormFieldset,
-  Input,
-  MotionFlexbox,
-  MotionText,
-  Text,
-} from "@mimirorg/component-library";
 import { useLogin } from "api/authenticate.queries";
 import AuthContent from "components/AuthContent";
+import Button from "components/Button";
+import { MotionFlexbox } from "components/Flexbox";
+import Form from "components/Form";
+import FormErrorBanner from "components/FormErrorBanner";
+import FormField from "components/FormField";
+import FormFieldset from "components/FormFieldset";
+import Input from "components/Input";
 import { recoverBasePath } from "components/Recover/RecoverRoutes";
 import { registerBasePath } from "components/Register/RegisterRoutes";
+import Text, { MotionText } from "components/Text";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -55,13 +52,13 @@ const Login = () => {
               <Input id="code" type="tel" autoComplete="off" placeholder="123456" {...register("code")} />
             </FormField>
 
-            <MotionText color={theme.mimirorg.color.surface.variant.on} layout={"position"} as={"i"}>
+            <MotionText color={theme.tyle.color.surface.variant.on} layout={"position"} as={"i"}>
               * Indicates a required field.
             </MotionText>
           </FormFieldset>
-          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.mimirorg.spacing.xxl}>
+          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
             <Button type={"submit"}>Login</Button>
-            <Text color={theme.mimirorg.color.surface.variant.on}>
+            <Text color={theme.tyle.color.surface.variant.on}>
               Don&apos;t have an account? <Link to={registerBasePath}>Sign up</Link>
             </Text>
           </MotionFlexbox>

@@ -1,4 +1,4 @@
-import { Text } from "@mimirorg/component-library";
+import Text from "components/Text";
 import ItemDescriptionContainer from "./ItemDescription.styled";
 
 export interface ItemDescriptionProps {

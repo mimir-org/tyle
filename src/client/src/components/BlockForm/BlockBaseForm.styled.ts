@@ -4,7 +4,7 @@ export const BlockBaseFormWrapper = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-areas: "name name name notation" "aspect aspect purpose purpose" "description description description description";
-  gap: ${(props) => props.theme.mimirorg.spacing.xl};
+  gap: ${(props) => props.theme.tyle.spacing.xl};
   max-width: 40rem;
 `;
 

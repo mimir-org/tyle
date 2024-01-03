@@ -1,4 +1,4 @@
-import { Card } from "@mimirorg/component-library";
+import Card from "components/Card";
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
 
@@ -7,7 +7,7 @@ const ApprovalCardContainer = styled(Card).attrs(() => ({
 }))`
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.theme.mimirorg.spacing.xl};
+  gap: ${(props) => props.theme.tyle.spacing.xl};
   max-width: 350px;
   min-width: 300px;
 `;

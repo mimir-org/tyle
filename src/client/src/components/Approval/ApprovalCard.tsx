@@ -1,4 +1,6 @@
-import { Divider, Flexbox, Text } from "@mimirorg/component-library";
+import Divider from "components/Divider";
+import Flexbox from "components/Flexbox";
+import Text from "components/Text";
 import { useRef } from "react";
 import { useTheme } from "styled-components";
 import { AttributeView } from "types/attributes/attributeView";
@@ -25,7 +27,7 @@ const ApprovalCard = ({ item, itemType, selected, disabledButton }: ApprovalCard
       ref={cardRef}
       variant={selected ? "selected" : "filled"}
       layout={"position"}
-      {...theme.mimirorg.animation.selectHover}
+      {...theme.tyle.animation.selectHover}
     >
       <Text variant={"title-medium"}>{itemType}</Text>
       <Divider orientation={"horizontal"} color={"#2e2e2e"} />

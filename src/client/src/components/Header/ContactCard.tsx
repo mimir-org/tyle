@@ -1,5 +1,6 @@
-import { Box, MotionBox, Text } from "@mimirorg/component-library";
 import { User } from "@styled-icons/heroicons-outline";
+import Box, { MotionBox } from "components/Box";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
 
 interface ContactCardProps {
@@ -22,13 +23,13 @@ const ContactCard = ({ name, email }: ContactCardProps) => {
       display={"flex"}
       justifyContent={"center"}
       alignItems={"center"}
-      gap={theme.mimirorg.spacing.base}
-      {...theme.mimirorg.animation.fade}
+      gap={theme.tyle.spacing.base}
+      {...theme.tyle.animation.fade}
     >
-      <User size={34} color={theme.mimirorg.color.primary.base} />
+      <User size={34} color={theme.tyle.color.primary.base} />
       <Box maxWidth={"200px"}>
         <Text variant={"title-medium"}>{name}</Text>
-        <Text color={theme.mimirorg.color.primary.base} as={"a"} href={`mailto:${email}`} variant={"title-small"}>
+        <Text color={theme.tyle.color.primary.base} as={"a"} href={`mailto:${email}`} variant={"title-small"}>
           {email}
         </Text>
       </Box>

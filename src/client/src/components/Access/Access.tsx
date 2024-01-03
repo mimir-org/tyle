@@ -1,4 +1,4 @@
-import { Flexbox } from "@mimirorg/component-library";
+import Flexbox from "components/Flexbox";
 import SettingsSection from "components/SettingsSection";
 import { useGetAllRolesMapped } from "hooks/useGetAllRolesMapped";
 import { useGetAllUsersMapped } from "hooks/useGetAllUsersMapped";
@@ -29,7 +29,7 @@ const Access = () => {
 
   return (
     <SettingsSection title="Grant access to new users">
-      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xxl}>
+      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xxl}>
         {showPlaceholder ? (
           <AccessPlaceholder text="There are no new users in need of role assignment" />
         ) : (

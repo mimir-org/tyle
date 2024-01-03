@@ -1,4 +1,5 @@
-import { MotionFlexbox, Spinner } from "@mimirorg/component-library";
+import { MotionFlexbox } from "components/Flexbox";
+import Spinner from "components/Spinner";
 import { useTheme } from "styled-components";
 
 /**
@@ -10,7 +11,7 @@ const Loader = () => {
   const theme = useTheme();
 
   return (
-    <MotionFlexbox flex={1} justifyContent={"center"} alignItems={"center"} {...theme.mimirorg.animation.fade}>
+    <MotionFlexbox flex={1} justifyContent={"center"} alignItems={"center"} {...theme.tyle.animation.fade}>
       <Spinner disabled={false} />
     </MotionFlexbox>
   );

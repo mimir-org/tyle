@@ -1,5 +1,6 @@
-import { Flexbox, Td } from "@mimirorg/component-library";
 import { ArrowLeft, ArrowRight, ArrowsRightLeft } from "@styled-icons/heroicons-outline";
+import Flexbox from "components/Flexbox";
+import { Td } from "components/Table";
 import { useTheme } from "styled-components";
 import { BlockTerminalItem } from "types/blockTerminalItem";
 import { Direction } from "types/terminals/direction";
@@ -10,15 +11,11 @@ const TerminalTableDirection = ({ direction }: Pick<BlockTerminalItem, "directio
 
   return (
     <Td data-label="Terminal direction">
-      <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
-        {direction === Direction.Input && (
-          <ArrowRight color={theme.mimirorg.color.primary.base} size={directionIconSize} />
-        )}
-        {direction === Direction.Output && (
-          <ArrowLeft color={theme.mimirorg.color.primary.base} size={directionIconSize} />
-        )}
+      <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
+        {direction === Direction.Input && <ArrowRight color={theme.tyle.color.primary.base} size={directionIconSize} />}
+        {direction === Direction.Output && <ArrowLeft color={theme.tyle.color.primary.base} size={directionIconSize} />}
         {direction === Direction.Bidirectional && (
-          <ArrowsRightLeft color={theme.mimirorg.color.primary.base} size={directionIconSize} />
+          <ArrowsRightLeft color={theme.tyle.color.primary.base} size={directionIconSize} />
         )}
         {direction}
       </Flexbox>

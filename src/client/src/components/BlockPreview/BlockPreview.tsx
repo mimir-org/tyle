@@ -1,6 +1,6 @@
-import { Box } from "@mimirorg/component-library";
 import Block from "components/Block";
 import { BlockVariant } from "components/Block/Block.styled";
+import Box from "components/Box";
 import { TerminalButtonVariant } from "components/TerminalButton";
 import { BlockTerminalItem } from "types/blockTerminalItem";
 import { EngineeringSymbol } from "types/blocks/engineeringSymbol";

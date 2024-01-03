@@ -38,7 +38,7 @@ const RoleCard = ({ user, selected, selectedRole, setSelectedRole, ...delegated 
       ref={cardRef}
       variant={selected ? "selected" : "filled"}
       layout={"position"}
-      {...theme.mimirorg.animation.fade}
+      {...theme.tyle.animation.fade}
     >
       <RoleCardHeader>{user.name}</RoleCardHeader>
       <RoleCardDetails descriptors={userDescriptors} />

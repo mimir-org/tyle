@@ -1,5 +1,8 @@
-import { Flexbox, Heading, MotionBox, Text } from "@mimirorg/component-library";
+import { MotionBox } from "components/Box";
+import Flexbox from "components/Flexbox";
+import Heading from "components/Heading";
 import StateBadge from "components/StateBadge";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
 import { State } from "types/common/state";
 
@@ -26,11 +29,11 @@ const UnifiedPanel = ({ name, description, state, children, showName, showDescri
       flex={1}
       display={"flex"}
       flexDirection={"column"}
-      gap={theme.mimirorg.spacing.xxxl}
+      gap={theme.tyle.spacing.xxxl}
       maxHeight={"100%"}
-      {...theme.mimirorg.animation.fade}
+      {...theme.tyle.animation.fade}
     >
-      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xl}>
+      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xl}>
         {children}
         {showName && (
           <Heading as={"h2"} variant={"title-large"} fontWeight={"500"} useEllipsis ellipsisMaxLines={2}>
@@ -43,7 +46,7 @@ const UnifiedPanel = ({ name, description, state, children, showName, showDescri
           </Text>
         )}
       </Flexbox>
-      <Flexbox gap={theme.mimirorg.spacing.xl} flexWrap={"wrap"}>
+      <Flexbox gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
         <StateBadge state={state} />
       </Flexbox>
     </MotionBox>

@@ -1,6 +1,6 @@
-import { toast } from "@mimirorg/component-library";
 import { UseQueryResult } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { toast } from "components/Toaster/toast";
 import { useEffect, useState } from "react";
 
 export const onSubmitForm = <TAm, TCm>(

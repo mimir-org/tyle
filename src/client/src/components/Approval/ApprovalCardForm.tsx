@@ -1,4 +1,7 @@
-import { Button, Flexbox, Text, Tooltip } from "@mimirorg/component-library";
+import Button from "components/Button";
+import Flexbox from "components/Flexbox";
+import Text from "components/Text";
+import Tooltip from "components/Tooltip";
 import { useSubmissionToast } from "helpers/form.helpers";
 import { useTheme } from "styled-components";
 import { AttributeView } from "types/attributes/attributeView";
@@ -23,7 +26,7 @@ const ApprovalCardForm = ({ item, itemType, disabledButton = true }: ApprovalCar
   return (
     <Flexbox flexFlow={"row"} justifyContent={"space-between"} style={{ marginTop: "8px" }}>
       <Text variant={"body-large"}>{`Requesting to be approved.`}</Text>
-      <Flexbox justifyContent={"center"} alignItems={"center"} flexFlow="row" gap={theme.mimirorg.spacing.base}>
+      <Flexbox justifyContent={"center"} alignItems={"center"} flexFlow="row" gap={theme.tyle.spacing.base}>
         <Button
           dangerousAction
           type={"button"}

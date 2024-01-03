@@ -33,8 +33,9 @@ export default defineConfig({
       helpers: path.resolve("src/helpers"),
       hooks: path.resolve("src/hooks"),
       locales: path.resolve("src/locales"),
+      styleConstants: path.resolve("src/styleConstants.ts"),
       types: path.resolve("src/types"),
-      utils: path.resolve("src/utils.js"),
+      utils: path.resolve("src/utils.ts"),
     },
   },
   server: {

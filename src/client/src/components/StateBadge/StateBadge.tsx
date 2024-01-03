@@ -1,4 +1,4 @@
-import { Text } from "@mimirorg/component-library";
+import Text from "components/Text";
 import { State } from "types/common/state";
 import Badge from "./Badge";
 

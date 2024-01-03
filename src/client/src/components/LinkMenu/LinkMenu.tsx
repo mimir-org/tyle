@@ -1,6 +1,8 @@
-import { Box, Button, Popover } from "@mimirorg/component-library";
 import { ArrowSmallRight } from "@styled-icons/heroicons-outline";
+import Box from "components/Box";
+import Button from "components/Button";
 import PlainLink from "components/PlainLink";
+import Popover from "components/Popover";
 import { useTheme } from "styled-components";
 import { Link } from "types/link";
 
@@ -27,9 +29,9 @@ const LinkMenu = ({ name, links, justifyContent, disabled }: LinkMenuProps) => {
     <Popover
       align={"end"}
       placement={"bottom"}
-      bgColor={theme.mimirorg.color.background.base}
+      bgColor={theme.tyle.color.background.base}
       content={
-        <Box display={"flex"} flexDirection={"column"} gap={theme.mimirorg.spacing.base} minWidth={"170px"}>
+        <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.base} minWidth={"170px"}>
           {links.map((link, index) => (
             <PlainLink key={index + link.path} tabIndex={-1} to={link.path}>
               <Button
