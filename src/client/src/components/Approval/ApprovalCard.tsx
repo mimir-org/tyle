@@ -12,10 +12,10 @@ export type ApprovalCardProps = {
   item: AttributeView | TerminalView | BlockView;
   itemType: "attribute" | "terminal" | "block";
   selected?: string;
-  dissabledButton: boolean;
+  disabledButton: boolean;
 };
 
-const ApprovalCard = ({ item, itemType, selected, dissabledButton }: ApprovalCardProps) => {
+const ApprovalCard = ({ item, itemType, selected, disabledButton }: ApprovalCardProps) => {
   const theme = useTheme();
   const cardRef = useRef(null);
 
@@ -35,7 +35,7 @@ const ApprovalCard = ({ item, itemType, selected, dissabledButton }: ApprovalCar
       <Flexbox flexFlow={"column"} justifyContent={"space-between"} style={{ height: "100%" }}>
         <Text variant={"title-small"}>{item.description}</Text>
         <Divider orientation={"horizontal"} color={"#2e2e2e"} />
-        <ApprovalCardForm item={item} itemType={itemType} dissabledButton={dissabledButton} />
+        <ApprovalCardForm item={item} itemType={itemType} disabledButton={disabledButton} />
       </Flexbox>
     </MotionApprovalCardContainer>
   );

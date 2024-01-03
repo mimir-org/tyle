@@ -10,10 +10,10 @@ import { usePatchStateMutation } from "./ApprovalCardForm.helpers";
 export interface ApprovalCardFormProps {
   item: AttributeView | TerminalView | BlockView;
   itemType: "attribute" | "terminal" | "block";
-  dissabledButton: boolean;
+  disabledButton: boolean;
 }
 
-const ApprovalCardForm = ({ item, itemType, dissabledButton = true }: ApprovalCardFormProps) => {
+const ApprovalCardForm = ({ item, itemType, disabledButton = true }: ApprovalCardFormProps) => {
   const theme = useTheme();
 
   const patchStateMutation = usePatchStateMutation(item, itemType);
@@ -31,7 +31,7 @@ const ApprovalCardForm = ({ item, itemType, dissabledButton = true }: ApprovalCa
         >
           Reject
         </Button>
-        {!dissabledButton ? (
+        {!disabledButton ? (
           <Button type={"button"} onClick={() => toast(patchStateMutation.mutateAsync({ state: State.Approved }))}>
             Approve
           </Button>

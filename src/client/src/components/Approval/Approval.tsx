@@ -36,14 +36,14 @@ const Approval = () => {
       <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.mimirorg.spacing.xxxl}>
         {showPlaceholder && <ApprovalPlaceholder text="There is no types ready for approval" />}
         {attributesInReview.data?.map((x) => (
-          <ApprovalCard key={x.id} item={x} itemType={"attribute"} dissabledButton={false} />
+          <ApprovalCard key={x.id} item={x} itemType={"attribute"} disabledButton={false} />
         ))}
         {terminalsInReview.data?.map((x) => (
           <ApprovalCard
             key={x.id}
             item={x}
             itemType={"terminal"}
-            dissabledButton={
+            disabledButton={
               !x.attributes
                 .map((x) => x.attribute.id)
                 .every((item) => attributesNotApproved.map((x) => x.id).includes(item) === false)
@@ -55,7 +55,7 @@ const Approval = () => {
             key={x.id}
             item={x}
             itemType={"block"}
-            dissabledButton={
+            disabledButton={
               !x.attributes
                 .map((x) => x.attribute.id)
                 .every((item) => attributesNotApproved.map((x) => x.id).includes(item) === false) ||
