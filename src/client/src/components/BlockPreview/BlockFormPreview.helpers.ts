@@ -1,9 +1,12 @@
-import { BlockTerminalLibAm } from "@mimirorg/typelibrary-types";
 import { getColorFromAspect } from "helpers/aspect.helper";
 import { BlockTerminalItem } from "types/blockTerminalItem";
+import { TerminalTypeReferenceRequest } from "types/blocks/terminalTypeReferenceRequest";
 import { TerminalView } from "types/terminals/terminalView";
 
-export const getTerminalItemsFromFormData = (formTerminals: BlockTerminalLibAm[], sourceTerminals?: TerminalView[]) => {
+export const getTerminalItemsFromFormData = (
+  formTerminals: TerminalTypeReferenceRequest[],
+  sourceTerminals?: TerminalView[],
+) => {
   if (!sourceTerminals || sourceTerminals.length < 1) {
     return [];
   }
@@ -18,7 +21,7 @@ export const getTerminalItemsFromFormData = (formTerminals: BlockTerminalLibAm[]
         id: sourceTerminal.id,
         name: sourceTerminal.name,
         color: getColorFromAspect(sourceTerminal.aspect ?? null),
-        maxQuantity: formTerminal.maxQuantity,
+        maxQuantity: formTerminal.maxCount ?? undefined,
         direction: sourceTerminal.qualifier,
       });
   });
