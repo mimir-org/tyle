@@ -1,5 +1,6 @@
-import { Button, PlainLink, Table, Tbody, Td, Tr } from "@mimirorg/component-library";
+import { Button, PlainLink } from "@mimirorg/component-library";
 import { UseMutationResult } from "@tanstack/react-query";
+import { Table, Tbody, Td, Tr } from "components/Table";
 import { onSubmitForm, useSubmissionToast } from "helpers/form.helpers";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { AttributeTypeRequest } from "types/attributes/attributeTypeRequest";
