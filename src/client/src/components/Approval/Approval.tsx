@@ -37,7 +37,7 @@ const Approval = () => {
             key={x.id}
             item={x}
             itemType={"terminal"}
-            disabledButton={x.attributes.some((x) => x.attribute.state === (State.Review || State.Draft))}
+            disabledButton={x.attributes.some((x) => x.attribute.state !== State.Approved)}
           />
         ))}
         {blocksInReview.data?.map((x) => (
@@ -46,8 +46,8 @@ const Approval = () => {
             item={x}
             itemType={"block"}
             disabledButton={
-              x.attributes.some((x) => x.attribute.state === (State.Review || State.Draft)) ||
-              x.terminals.some((x) => x.terminal.state === (State.Review || State.Draft))
+              x.attributes.some((x) => x.attribute.state !== State.Approved) ||
+              x.terminals.some((x) => x.terminal.state !== State.Approved)
             }
           />
         ))}
