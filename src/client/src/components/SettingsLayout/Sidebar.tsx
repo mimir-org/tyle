@@ -1,8 +1,9 @@
-import { Divider, Heading } from "@mimirorg/component-library";
+import { Divider } from "@mimirorg/component-library";
 import { useGetAttributesByState } from "api/attribute.queries";
 import { useGetBlocksByState } from "api/block.queries";
 import { useGetTerminalsByState } from "api/terminal.queries";
 import Flexbox from "components/Flexbox";
+import Heading from "components/Heading";
 import { useGetAllUsersMapped } from "hooks/useGetAllUsersMapped";
 import { Fragment } from "react";
 import { useLocation } from "react-router-dom";

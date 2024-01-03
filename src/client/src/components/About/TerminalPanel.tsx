@@ -1,5 +1,6 @@
-import { Heading, MotionBox } from "@mimirorg/component-library";
+import { MotionBox } from "@mimirorg/component-library";
 import Flexbox from "components/Flexbox";
+import Heading from "components/Heading";
 import InfoItemButton from "components/InfoItemButton";
 import StateBadge from "components/StateBadge";
 import TerminalPreview from "components/TerminalPreview";

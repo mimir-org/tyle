@@ -1,5 +1,5 @@
-import { Heading } from "@mimirorg/component-library";
 import Flexbox from "components/Flexbox";
+import Heading from "components/Heading";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
 

@@ -1,5 +1,6 @@
-import { Box, Heading } from "@mimirorg/component-library";
+import { Box } from "@mimirorg/component-library";
 import { MotionFlexbox } from "components/Flexbox";
+import Heading from "components/Heading";
 import { MotionLogo } from "components/Logo/Logo";
 import Text from "components/Text";
 import { useTheme } from "styled-components";
