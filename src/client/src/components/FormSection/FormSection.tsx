@@ -1,4 +1,4 @@
-import { Box, MotionBox } from "@mimirorg/component-library";
+import Box, { MotionBox } from "components/Box";
 import Flexbox from "components/Flexbox";
 import Text, { MotionText } from "components/Text";
 import { ReactNode } from "react";

@@ -1,5 +1,6 @@
-import { Actionable, Box, Button } from "@mimirorg/component-library";
+import { Actionable, Button } from "@mimirorg/component-library";
 import AuthContent from "components/AuthContent";
+import Box from "components/Box";
 import Text from "components/Text";
 import { useTheme } from "styled-components";
 

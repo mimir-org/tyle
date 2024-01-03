@@ -1,5 +1,19 @@
 import { ElementType } from "react";
 
+export interface Borders {
+  border?: string | number;
+  borderTop?: string | number;
+  borderLeft?: string | number;
+  borderRight?: string | number;
+  borderBottom?: string | number;
+  borderColor?: string;
+  borderTopColor?: string;
+  borderRightColor?: string;
+  borderBottomColor?: string;
+  borderLeftColor?: string;
+  borderRadius?: string;
+}
+
 export interface Display {
   display?: string;
   overflow?: string;
@@ -28,6 +42,30 @@ export interface Flex {
   gap?: string;
 }
 
+export interface Grid {
+  gap?: string;
+  columnGap?: string;
+  rowGap?: string;
+  gridColumn?: string;
+  gridRow?: string;
+  gridAutoFlow?: string;
+  gridAutoColumns?: string;
+  gridAutoRows?: string;
+  gridTemplateColumns?: string;
+  gridTemplateRows?: string;
+  gridTemplateAreas?: string;
+  gridArea?: string;
+  justifyItems?: string;
+  alignItems?: string;
+  placeItems?: string;
+  justifyContent?: string;
+  alignContent?: string;
+  placeContent?: string;
+  justifySelf?: string;
+  alignSelf?: string;
+  placeSelf?: string;
+}
+
 export interface Palette {
   color?: string;
   bgColor?: string;
@@ -35,6 +73,19 @@ export interface Palette {
 
 export interface Polymorphic<T extends ElementType> {
   as?: T;
+}
+
+export interface Positions {
+  position?: string;
+  zIndex?: string | number;
+  top?: string | number;
+  right?: string | number;
+  bottom?: string | number;
+  left?: string | number;
+}
+
+export interface Shadows {
+  boxShadow?: string;
 }
 
 export interface Sizing {

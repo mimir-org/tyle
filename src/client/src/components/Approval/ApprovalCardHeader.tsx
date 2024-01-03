@@ -1,6 +1,7 @@
-import { Box, Tooltip } from "@mimirorg/component-library";
+import { Tooltip } from "@mimirorg/component-library";
 import AttributeIcon from "components/AttributeIcon";
 import BlockIcon from "components/BlockIcon";
+import Box from "components/Box";
 import Flexbox from "components/Flexbox";
 import TerminalIcon from "components/TerminalIcon";
 import Text from "components/Text";

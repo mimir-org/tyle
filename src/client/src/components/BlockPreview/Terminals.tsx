@@ -1,4 +1,4 @@
-import { Box } from "@mimirorg/component-library";
+import Box from "components/Box";
 import { TerminalButtonProps } from "components/TerminalButton";
 import { useTheme } from "styled-components";
 import { BlockTerminalItem } from "types/blockTerminalItem";

@@ -1,4 +1,4 @@
-import { Box } from "@mimirorg/component-library";
+import Box from "components/Box";
 import { MotionFlexbox } from "components/Flexbox";
 import Text from "components/Text";
 import { PropsWithChildren } from "react";

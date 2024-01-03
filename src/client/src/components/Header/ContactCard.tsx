@@ -1,5 +1,5 @@
-import { Box, MotionBox } from "@mimirorg/component-library";
 import { User } from "@styled-icons/heroicons-outline";
+import Box, { MotionBox } from "components/Box";
 import Text from "components/Text";
 import { useTheme } from "styled-components";
 

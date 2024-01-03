@@ -1,4 +1,5 @@
-import { Actionable, Box, Button, Divider } from "@mimirorg/component-library";
+import { Actionable, Button, Divider } from "@mimirorg/component-library";
+import Box from "components/Box";
 import Flexbox from "components/Flexbox";
 import Text from "components/Text";
 import { useTheme } from "styled-components";

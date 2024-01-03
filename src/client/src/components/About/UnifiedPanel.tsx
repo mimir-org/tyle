@@ -1,4 +1,4 @@
-import { MotionBox } from "@mimirorg/component-library";
+import { MotionBox } from "components/Box";
 import Flexbox from "components/Flexbox";
 import Heading from "components/Heading";
 import StateBadge from "components/StateBadge";
