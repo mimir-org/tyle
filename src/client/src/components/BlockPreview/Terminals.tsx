@@ -27,13 +27,7 @@ const Terminals = ({ terminals, placement, variant, showCollectionLimit = 5 }: T
   const alignment = placement === "right" ? "start" : "end";
 
   return (
-    <Box
-      display={"flex"}
-      flexDirection={"column"}
-      gap={theme.mimirorg.spacing.xs}
-      minWidth={"30px"}
-      alignItems={alignment}
-    >
+    <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xs} minWidth={"30px"} alignItems={alignment}>
       {!useSummary &&
         terminals.map((terminal, index) => (
           <TerminalSingle variant={variant} {...terminal} key={terminal.id + terminal.direction + index} />

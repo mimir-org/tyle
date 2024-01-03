@@ -5,7 +5,7 @@ import { useMediaQuery } from "usehooks-ts";
 const TerminalTableHeader = () => {
   const theme = useTheme();
   const adjustAmountAlignment = useMediaQuery("screen and (min-width: 1500px)");
-  const textColor = theme.mimirorg.color.primary.base;
+  const textColor = theme.tyle.color.primary.base;
 
   return (
     <Tr>

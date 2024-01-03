@@ -18,8 +18,8 @@ const SettingsSection = ({ title, children }: SettingsSectionProps) => {
   const theme = useTheme();
 
   return (
-    <MotionBox as={"section"} {...theme.mimirorg.animation.fade}>
-      <Heading as={"h2"} variant={"headline-medium"} spacing={{ mb: theme.mimirorg.spacing.xxxl }}>
+    <MotionBox as={"section"} {...theme.tyle.animation.fade}>
+      <Heading as={"h2"} variant={"headline-medium"} spacing={{ mb: theme.tyle.spacing.xxxl }}>
         {title}
       </Heading>
       {children}

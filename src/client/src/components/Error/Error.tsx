@@ -18,7 +18,7 @@ const Error = ({ children }: ErrorProps) => {
   return (
     <FormErrorBanner>
       {children}
-      <Text as={"a"} href="mailto:orgmimir@gmail.com" color={theme.mimirorg.color.error.on}>
+      <Text as={"a"} href="mailto:orgmimir@gmail.com" color={theme.tyle.color.error.on}>
         contact support.
       </Text>
     </FormErrorBanner>

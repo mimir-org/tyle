@@ -22,10 +22,10 @@ const UserMenu = ({ name, children }: UserMenuProps) => {
     <Popover
       align={"end"}
       placement={"bottom"}
-      bgColor={theme.mimirorg.color.background.base}
-      color={theme.mimirorg.color.background.on}
+      bgColor={theme.tyle.color.background.base}
+      color={theme.tyle.color.background.on}
       content={
-        <Box display={"flex"} flexDirection={"column"} gap={theme.mimirorg.spacing.xl} width={"170px"}>
+        <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xl} width={"170px"}>
           {children}
         </Box>
       }
@@ -34,7 +34,7 @@ const UserMenu = ({ name, children }: UserMenuProps) => {
         icon={<UserCircle size={24} />}
         iconPlacement={"left"}
         textVariant={"label-large"}
-        spacing={{ mr: `-${theme.mimirorg.spacing.xl}` }}
+        spacing={{ mr: `-${theme.tyle.spacing.xl}` }}
       >
         {name}
       </Button>

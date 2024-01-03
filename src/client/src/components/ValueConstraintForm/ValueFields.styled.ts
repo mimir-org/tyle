@@ -8,7 +8,7 @@ export const BooleanValueFieldset = styled.fieldset`
 `;
 
 export const BooleanValueLegend = styled.legend`
-  color: ${(props) => props.theme.mimirorg.color.surface.variant.on};
+  color: ${(props) => props.theme.tyle.color.surface.variant.on};
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: ${1 / 24}rem;

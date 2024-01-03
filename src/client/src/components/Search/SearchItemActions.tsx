@@ -92,7 +92,7 @@ const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: S
       {!isAttributeGroup && (
         <>
           <AlertDialog
-            gap={theme.mimirorg.spacing.multiple(6)}
+            gap={theme.tyle.spacing.multiple(6)}
             actions={[approveAction]}
             title="Do you want to send approval request?"
             description="Someone has to accept this scope change."
@@ -117,7 +117,7 @@ const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: S
         </>
       )}
       <AlertDialog
-        gap={theme.mimirorg.spacing.multiple(6)}
+        gap={theme.tyle.spacing.multiple(6)}
         actions={[deleteAction]}
         title="Do you want to delete this item?"
         description="The item will be deleted."

@@ -10,15 +10,11 @@ const TerminalTableDirection = ({ direction }: Pick<BlockTerminalItem, "directio
 
   return (
     <Td data-label="Terminal direction">
-      <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
-        {direction === Direction.Input && (
-          <ArrowRight color={theme.mimirorg.color.primary.base} size={directionIconSize} />
-        )}
-        {direction === Direction.Output && (
-          <ArrowLeft color={theme.mimirorg.color.primary.base} size={directionIconSize} />
-        )}
+      <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
+        {direction === Direction.Input && <ArrowRight color={theme.tyle.color.primary.base} size={directionIconSize} />}
+        {direction === Direction.Output && <ArrowLeft color={theme.tyle.color.primary.base} size={directionIconSize} />}
         {direction === Direction.Bidirectional && (
-          <ArrowsRightLeft color={theme.mimirorg.color.primary.base} size={directionIconSize} />
+          <ArrowsRightLeft color={theme.tyle.color.primary.base} size={directionIconSize} />
         )}
         {direction}
       </Flexbox>

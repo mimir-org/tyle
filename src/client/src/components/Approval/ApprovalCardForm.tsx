@@ -22,7 +22,7 @@ const ApprovalCardForm = ({ item, itemType }: ApprovalCardFormProps) => {
   return (
     <Flexbox flexFlow={"row"} justifyContent={"space-between"} style={{ marginTop: "8px" }}>
       <Text variant={"body-large"}>{`Requesting to be approved.`}</Text>
-      <Flexbox justifyContent={"center"} alignItems={"center"} flexFlow="row" gap={theme.mimirorg.spacing.base}>
+      <Flexbox justifyContent={"center"} alignItems={"center"} flexFlow="row" gap={theme.tyle.spacing.base}>
         <Button
           dangerousAction
           type={"button"}

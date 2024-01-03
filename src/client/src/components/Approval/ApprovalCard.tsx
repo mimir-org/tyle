@@ -32,7 +32,7 @@ const ApprovalCard = ({ item, itemType, selected }: ApprovalCardProps) => {
       ref={cardRef}
       variant={selected ? "selected" : "filled"}
       layout={"position"}
-      {...theme.mimirorg.animation.selectHover}
+      {...theme.tyle.animation.selectHover}
     >
       <Text variant={"title-medium"}>{itemType}</Text>
       <Divider orientation={"horizontal"} color={"#2e2e2e"} />

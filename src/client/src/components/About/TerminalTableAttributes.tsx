@@ -8,7 +8,7 @@ const TerminalTableAttributes = ({ attributes }: Pick<BlockTerminalItem, "attrib
 
   return (
     <Td data-label="Terminal attributes">
-      <Box display={"flex"} flexWrap={"wrap"} minWidth={"200px"} gap={theme.mimirorg.spacing.base}>
+      <Box display={"flex"} flexWrap={"wrap"} minWidth={"200px"} gap={theme.tyle.spacing.base}>
         {attributes?.map((a) => <InfoItemButton key={a.id} {...a} />)}
       </Box>
     </Td>

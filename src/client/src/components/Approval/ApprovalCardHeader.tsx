@@ -25,7 +25,7 @@ const ApprovalCardHeader = ({ children, objectType }: ApprovalCardHeaderProps) =
   const theme = useTheme();
 
   return (
-    <Box display={"flex"} gap={theme.mimirorg.spacing.l} alignItems={"center"} justifyContent={"space-between"}>
+    <Box display={"flex"} gap={theme.tyle.spacing.l} alignItems={"center"} justifyContent={"space-between"}>
       {children}
       <Flexbox flexFlow={"column"} alignItems={"center"}>
         <Tooltip content={<Text variant={"body-small"}>{objectType}</Text>}>

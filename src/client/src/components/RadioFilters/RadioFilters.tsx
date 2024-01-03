@@ -24,7 +24,7 @@ const RadioFilters = ({ title, filters, onChange, value }: RadioFiltersProps) =>
   const inputIsControlled = !!value;
 
   return (
-    <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
+    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
       {title && <Text variant={"title-medium"}>{title}</Text>}
       <TokenRadioGroup onValueChange={onChange}>
         {filters.map((x, i) => {

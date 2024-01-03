@@ -69,7 +69,7 @@ const RecoverVerification = ({ email, setMfaInfo, setVerificationInfo, cancel, c
             We have sent a six-digit code to your email. Please enter the code within 1 hour, or the code will expire
             and you will have to restart the recovery process. Make sure to check your spam/junk folder for the email.
           </Text>
-          <Flexbox gap={theme.mimirorg.spacing.xxl} alignSelf={"center"}>
+          <Flexbox gap={theme.tyle.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>
                 {cancel.actionText}

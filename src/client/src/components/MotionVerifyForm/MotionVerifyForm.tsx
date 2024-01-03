@@ -7,7 +7,7 @@ const VerifyForm = styled.form`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  gap: ${(props) => props.theme.mimirorg.spacing.xxxl};
+  gap: ${(props) => props.theme.tyle.spacing.xxxl};
 `;
 
 const MotionVerifyForm = motion(VerifyForm);

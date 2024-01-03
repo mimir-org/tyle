@@ -14,11 +14,11 @@ const UserListItem = ({ name, role, action }: UserListItemProps) => {
 
   return (
     <MotionBox as={"li"} display={"flex"} flex={1} justifyContent={"space-between"} layout>
-      <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
-        <UserCircle size={18} color={theme.mimirorg.color.primary.base} />
+      <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
+        <UserCircle size={18} color={theme.tyle.color.primary.base} />
         <Text>{name}</Text>
       </Flexbox>
-      <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
+      <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
         <Text variant={"label-large"}>{role}</Text>
         {action}
       </Flexbox>

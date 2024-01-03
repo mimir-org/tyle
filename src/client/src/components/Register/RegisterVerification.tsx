@@ -69,7 +69,7 @@ const RegisterVerification = ({ email, setMfaInfo, cancel, complete }: Verificat
             We have sent a six-digit code to your e-mail. Please enter the code within 1 hour, or the code will expire
             and you will have to restart the registration. Make sure to check your spam/junk folder for the e-mail.
           </Text>
-          <Flexbox gap={theme.mimirorg.spacing.xxl} alignSelf={"center"}>
+          <Flexbox gap={theme.tyle.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>
                 {cancel.actionText}

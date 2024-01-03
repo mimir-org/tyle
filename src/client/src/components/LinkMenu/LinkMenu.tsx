@@ -27,9 +27,9 @@ const LinkMenu = ({ name, links, justifyContent, disabled }: LinkMenuProps) => {
     <Popover
       align={"end"}
       placement={"bottom"}
-      bgColor={theme.mimirorg.color.background.base}
+      bgColor={theme.tyle.color.background.base}
       content={
-        <Box display={"flex"} flexDirection={"column"} gap={theme.mimirorg.spacing.base} minWidth={"170px"}>
+        <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.base} minWidth={"170px"}>
           {links.map((link, index) => (
             <PlainLink key={index + link.path} tabIndex={-1} to={link.path}>
               <Button

@@ -2,7 +2,7 @@ import styled from "styled-components/macro";
 
 export const MediumAndQualifierFormWrapper = styled.form`
   display: flex;
-  gap: ${(props) => props.theme.mimirorg.spacing.xl};
+  gap: ${(props) => props.theme.tyle.spacing.xl};
   max-width: 40rem;
 `;
 

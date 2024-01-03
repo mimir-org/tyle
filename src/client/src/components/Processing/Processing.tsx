@@ -14,7 +14,7 @@ const Processing = ({ children }: RegisterProcessingProps) => {
       flexDirection={"column"}
       justifyContent={"center"}
       alignItems={"center"}
-      gap={theme.mimirorg.spacing.xl}
+      gap={theme.tyle.spacing.xl}
     >
       <Text variant={"title-medium"}>{children}</Text>
       <Spinner disabled={false} />

@@ -22,7 +22,7 @@ const TerminalCollection = ({ terminals, placement }: TerminalCollectionProps) =
 
   return (
     <Popover placement={placement} content={<TerminalCollectionDescription terminals={terminals} />}>
-      <TerminalButton variant={"large"} color={theme.mimirorg.color.reference.primary["40"]}>
+      <TerminalButton variant={"large"} color={theme.tyle.color.reference.primary["40"]}>
         <VisuallyHidden>Open terminal summary</VisuallyHidden>
       </TerminalButton>
     </Popover>
@@ -41,15 +41,9 @@ const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescript
   const shownTerminalAmount = totalTerminalAmount >= MAXIMUM_TERMINAL_QUANTITY_VALUE ? "Infinite" : totalTerminalAmount;
 
   return (
-    <Box display={"flex"} gap={theme.mimirorg.spacing.l} flexDirection={"column"} maxWidth={"250px"}>
+    <Box display={"flex"} gap={theme.tyle.spacing.l} flexDirection={"column"} maxWidth={"250px"}>
       <Text variant={"title-small"}>Summary</Text>
-      <Box
-        display={"flex"}
-        gap={theme.mimirorg.spacing.l}
-        flexDirection={"column"}
-        maxHeight={"250px"}
-        overflow={"auto"}
-      >
+      <Box display={"flex"} gap={theme.tyle.spacing.l} flexDirection={"column"} maxHeight={"250px"} overflow={"auto"}>
         {terminals.map((x) => (
           <TerminalDescription
             key={x.name + x.color + x.direction}
@@ -61,7 +55,7 @@ const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescript
         ))}
       </Box>
       <Divider />
-      <Flexbox gap={theme.mimirorg.spacing.base} justifyContent={"space-between"}>
+      <Flexbox gap={theme.tyle.spacing.base} justifyContent={"space-between"}>
         <Text variant={"body-medium"}>Total terminals:</Text>
         <Text variant={"body-medium"}>{shownTerminalAmount}</Text>
       </Flexbox>

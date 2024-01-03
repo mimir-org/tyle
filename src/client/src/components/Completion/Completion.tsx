@@ -20,7 +20,7 @@ const Completion = ({ title, infoText, complete }: CompletionProps) => {
           flexDirection={"column"}
           alignItems={"center"}
           alignSelf={"center"}
-          gap={theme.mimirorg.spacing.xxxl}
+          gap={theme.tyle.spacing.xxxl}
           maxWidth={"300px"}
         >
           <Text textAlign={"center"}>{infoText}</Text>

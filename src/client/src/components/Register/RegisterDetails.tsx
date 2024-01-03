@@ -100,7 +100,7 @@ const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
                   />
                 </FormField>
 
-                <MotionText color={theme.mimirorg.color.surface.variant.on} layout={"position"} as={"i"}>
+                <MotionText color={theme.tyle.color.surface.variant.on} layout={"position"} as={"i"}>
                   * Indicates a required field.
                 </MotionText>
               </FormFieldset>
@@ -116,11 +116,11 @@ const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
             access :Tyle. If this process is interrupted or you do not complete registration within 1 hour, you will
             have to start the registration process over again.
           </Text>
-          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.mimirorg.spacing.xxl}>
+          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
             <Button type={"submit"} form={"details-form"}>
               {complete?.actionText}
             </Button>
-            <Text color={theme.mimirorg.color.surface.variant.on}>
+            <Text color={theme.tyle.color.surface.variant.on}>
               Have an account? <Link to="/">Log in</Link>
             </Text>
           </MotionFlexbox>

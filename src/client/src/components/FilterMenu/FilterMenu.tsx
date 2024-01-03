@@ -28,9 +28,9 @@ const FilterMenu = ({ name, filterGroups, ...delegated }: FilterMenuProps) => {
     <Popover
       align={"end"}
       placement={"bottom"}
-      bgColor={theme.mimirorg.color.background.base}
+      bgColor={theme.tyle.color.background.base}
       content={
-        <Box display={"flex"} flexDirection={"column"} gap={theme.mimirorg.spacing.xl} width={"260px"}>
+        <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xl} width={"260px"}>
           <SearchField placeholder={"Search"} value={filterQuery} onChange={(e) => setFilterQuery(e.target.value)} />
           <Accordion>
             {filterGroups.map((x, i) => (

@@ -40,7 +40,7 @@ const Roles = () => {
 
   return (
     <SettingsSection title="Roles">
-      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xxl}>
+      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xxl}>
         <RadioFilters
           title=""
           filters={roleFilters}

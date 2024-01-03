@@ -27,7 +27,7 @@ const Block = ({ name, symbol, color, variant = "small" }: BlockProps) => {
       {symbol && (
         <EngineeringSymbolSvg symbol={symbol} width={variantSpecs.icon.size} height={variantSpecs.icon.size} />
       )}
-      <Text variant={"title-medium"} color={theme.mimirorg.color.reference.neutral["0"]} textAlign={"center"}>
+      <Text variant={"title-medium"} color={theme.tyle.color.reference.neutral["0"]} textAlign={"center"}>
         {name}
       </Text>
     </BlockContainer>

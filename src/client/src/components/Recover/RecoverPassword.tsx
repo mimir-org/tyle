@@ -72,7 +72,7 @@ const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverPassword
       secondRow={
         <>
           <Text textAlign={"center"}>Enter the desired password for this account.</Text>
-          <Flexbox gap={theme.mimirorg.spacing.xxl} alignSelf={"center"}>
+          <Flexbox gap={theme.tyle.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>
                 {cancel.actionText}

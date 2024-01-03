@@ -3,10 +3,12 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
+import Toaster from "components/Toaster";
 import { MotionConfig } from "framer-motion";
 import { usePrefersTheme } from "hooks/usePrefersTheme";
 import { PropsWithChildren } from "react";
 import { ThemeProvider } from "styled-components";
+import { GlobalStyle } from "./GlobalStyle";
 import { themeBuilder } from "./theme";
 
 export interface TyleThemeProviderProps {
@@ -21,7 +23,7 @@ export interface TyleThemeProviderProps {
  * @param children
  * @constructor
  */
-export const TyleThemeProvider = ({ theme = "light", children }: PropsWithChildren<TyleThemeProviderProps>) => {
+const TyleThemeProvider = ({ theme = "light", children }: PropsWithChildren<TyleThemeProviderProps>) => {
   const [colorTheme] = usePrefersTheme(theme);
 
   const applicationTheme = {
@@ -38,3 +40,5 @@ export const TyleThemeProvider = ({ theme = "light", children }: PropsWithChildr
     </ThemeProvider>
   );
 };
+
+export default TyleThemeProvider;

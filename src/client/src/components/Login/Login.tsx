@@ -55,13 +55,13 @@ const Login = () => {
               <Input id="code" type="tel" autoComplete="off" placeholder="123456" {...register("code")} />
             </FormField>
 
-            <MotionText color={theme.mimirorg.color.surface.variant.on} layout={"position"} as={"i"}>
+            <MotionText color={theme.tyle.color.surface.variant.on} layout={"position"} as={"i"}>
               * Indicates a required field.
             </MotionText>
           </FormFieldset>
-          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.mimirorg.spacing.xxl}>
+          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
             <Button type={"submit"}>Login</Button>
-            <Text color={theme.mimirorg.color.surface.variant.on}>
+            <Text color={theme.tyle.color.surface.variant.on}>
               Don&apos;t have an account? <Link to={registerBasePath}>Sign up</Link>
             </Text>
           </MotionFlexbox>

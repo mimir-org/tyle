@@ -2,8 +2,8 @@ import styled from "styled-components/macro";
 
 export const AuthenticatedContainer = styled.div`
   height: 100%;
-  background-color: ${(props) => props.theme.mimirorg.color.background.base};
-  color: ${(props) => props.theme.mimirorg.color.background.on};
+  background-color: ${(props) => props.theme.tyle.color.background.base};
+  color: ${(props) => props.theme.tyle.color.background.on};
   --tl-header-height: 56px;
 `;
 

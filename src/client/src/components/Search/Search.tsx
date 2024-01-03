@@ -62,7 +62,7 @@ const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
 
   return (
     <ExploreSection title="Search">
-      <Flexbox gap={theme.mimirorg.spacing.xxxl} alignItems={"center"}>
+      <Flexbox gap={theme.tyle.spacing.xxxl} alignItems={"center"}>
         <SearchField value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search for types" />
         <FilterMenu
           name="Filter"
@@ -81,7 +81,7 @@ const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
       </Flexbox>
 
       {showFilterTokens && (
-        <MotionFlexbox layout={"position"} flexWrap={"wrap"} gap={theme.mimirorg.spacing.base}>
+        <MotionFlexbox layout={"position"} flexWrap={"wrap"} gap={theme.tyle.spacing.base}>
           {activeFilters.map((x) => (
             <Token
               key={`${x.value}`}
@@ -100,8 +100,8 @@ const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
         <MotionText
           layout
           variant={"label-large"}
-          color={theme.mimirorg.color.surface.variant.on}
-          {...theme.mimirorg.animation.fade}
+          color={theme.tyle.color.surface.variant.on}
+          {...theme.tyle.animation.fade}
         >
           {`Showing ${shown} of ${totalHits} results found`}
         </MotionText>

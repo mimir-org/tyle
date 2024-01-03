@@ -29,7 +29,7 @@ const MultiFactorAuthentication = (props: MultiFactorAuthenticationProps) => {
       firstRow={
         <>
           {showQrDialog && (
-            <Flexbox as={"section"} flexDirection={"column"} alignItems={"center"} gap={theme.mimirorg.spacing.base}>
+            <Flexbox as={"section"} flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.base}>
               <Text variant={"headline-small"}>{codeTitle}</Text>
               <Icon size={180} src={mfaInfo.code} alt="" />
               <Popover
@@ -49,7 +49,7 @@ const MultiFactorAuthentication = (props: MultiFactorAuthenticationProps) => {
       secondRow={
         <>
           <Text textAlign={"center"}>{infoText}</Text>
-          <Flexbox gap={theme.mimirorg.spacing.xxl} alignSelf={"center"}>
+          <Flexbox gap={theme.tyle.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>
                 {cancel.actionText}

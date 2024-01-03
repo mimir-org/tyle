@@ -5,14 +5,14 @@ export const Dl = styled.dl`
   display: grid;
   align-items: baseline;
   grid-template-columns: 0.4fr 1fr;
-  row-gap: ${(props) => props.theme.mimirorg.spacing.base};
-  column-gap: ${(props) => props.theme.mimirorg.spacing.xl};
+  row-gap: ${(props) => props.theme.tyle.spacing.base};
+  column-gap: ${(props) => props.theme.tyle.spacing.xl};
 
-  @media screen and ${(props) => props.theme.mimirorg.queries.phoneAndBelow} {
+  @media screen and (${(props) => props.theme.tyle.queries.phoneAndBelow}) {
     && {
       display: flex;
       flex-direction: column;
-      gap: ${(props) => props.theme.mimirorg.spacing.xs};
+      gap: ${(props) => props.theme.tyle.spacing.xs};
     }
   }
 `;
@@ -20,10 +20,10 @@ export const Dl = styled.dl`
 export const Dt = styled.dt`
   ${getTextRole("label-large")};
 
-  @media screen and ${(props) => props.theme.mimirorg.queries.phoneAndBelow} {
+  @media screen and (${(props) => props.theme.tyle.queries.phoneAndBelow}) {
     && {
       :not(:first-of-type) {
-        margin-top: ${(props) => props.theme.mimirorg.spacing.s};
+        margin-top: ${(props) => props.theme.tyle.spacing.s};
       }
     }
   }
