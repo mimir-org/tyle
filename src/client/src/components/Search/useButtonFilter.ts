@@ -1,5 +1,5 @@
-import { State } from "@mimirorg/typelibrary-types";
 import { useEffect, useState } from "react";
+import { State } from "types/common/state";
 import { ItemType } from "types/itemTypes";
 import { StateItem } from "types/stateItem";
 import { UserItem } from "types/userItem";
