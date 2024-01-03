@@ -8,8 +8,7 @@ import BlockPanel from "./BlockPanel";
 import { TerminalPanel } from "./TerminalPanel";
 import { useGetTerminal } from "../../api/terminal.queries";
 import { useGetAttribute } from "../../api/attribute.queries";
-import UnifiedPanel from "./UnifiedPanel";
-import AttributePreview from "../AttributePreview";
+import AttributePanel from "./AttributePanel";
 
 interface AboutProps {
   selected?: SelectedInfo;
@@ -52,17 +51,8 @@ const About = ({ selected }: AboutProps) => {
       {showLoader && <Loader />}
       {showPlaceHolder && <AboutPlaceholder text="Select an item to view its properties" />}
       {showBlockPanel && <BlockPanel key={blockQuery.data.id} {...toBlockItem(blockQuery.data)} />}
-      {showTerminalPanel && (
-        <TerminalPanel
-          key={terminalQuery.data.id + terminalQuery.data.kind}
-          {...toTerminalItem(terminalQuery.data)}
-        />
-      )}
-      {showAttributePanel && (
-        <UnifiedPanel {...toAttributeItem(attributeQuery.data)}>
-          <AttributePreview {...toAttributeItem(attributeQuery.data)} />
-        </UnifiedPanel>
-      )}
+      {showTerminalPanel && <TerminalPanel key={terminalQuery.data.id} {...toTerminalItem(terminalQuery.data)} />}
+      {showAttributePanel && <AttributePanel {...toAttributeItem(attributeQuery.data)} />}
     </ExploreSection>
   );
 };
