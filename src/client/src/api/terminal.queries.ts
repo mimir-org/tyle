@@ -3,8 +3,9 @@ import { State } from "types/common/state";
 import { StateChangeRequest } from "types/common/stateChangeRequest";
 import { TerminalTypeRequest } from "types/terminals/terminalTypeRequest";
 import { terminalApi } from "./terminal.api";
+import { blockKeys } from "./block.queries";
 
-const terminalKeys = {
+export const terminalKeys = {
   all: ["terminals"] as const,
   lists: () => [...terminalKeys.all, "list"] as const,
   list: (filters: string) => [...terminalKeys.lists(), { filters }] as const,
@@ -48,6 +49,7 @@ export const usePatchTerminalState = (id: string) => {
 
   return useMutation((item: StateChangeRequest) => terminalApi.patchTerminalState(id, item), {
     onSuccess: (_, variables) => {
+      queryClient.invalidateQueries(blockKeys.all);
       queryClient.invalidateQueries(terminalKeys.list(""));
       queryClient.invalidateQueries(terminalKeys.list(`state=${State.Review}`));
       queryClient.invalidateQueries(

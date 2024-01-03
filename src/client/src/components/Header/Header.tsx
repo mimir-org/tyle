@@ -1,8 +1,10 @@
-import { Flexbox, Text } from "@mimirorg/component-library";
 import { useGetCurrentUser } from "api/user.queries";
+import Flexbox from "components/Flexbox";
+import Text from "components/Text";
 import config from "config";
 import { useTheme } from "styled-components";
 import ContactButton from "./ContactButton";
+import DocumentationButton from "./Documentation";
 import FeedbackButton from "./FeedbackButton";
 import HeaderContainer from "./Header.styles";
 import HeaderHomeLink from "./HeaderHomeLink";
@@ -11,7 +13,6 @@ import SettingsButton from "./SettingsButton";
 import ThemeButton from "./ThemeButton";
 import UserInfo from "./UserInfo";
 import UserMenu from "./UserMenu";
-import DocumentationButton from "./Documentation";
 
 const Header = () => {
   const theme = useTheme();
@@ -29,7 +30,7 @@ const Header = () => {
       <HeaderHomeLink />
       {!userQuery.isLoading && (
         <UserMenu name={userInitials}>
-          <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.base}>
+          <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.base}>
             <UserInfo name={userFullName} roles={userRoles} />
             <ThemeButton />
             <DocumentationButton />
@@ -37,7 +38,7 @@ const Header = () => {
             <FeedbackButton />
             <SettingsButton />
             <LogoutButton />
-            <Flexbox alignItems={"center"} justifyContent={"center"} gap={theme.mimirorg.spacing.base}>
+            <Flexbox alignItems={"center"} justifyContent={"center"} gap={theme.tyle.spacing.base}>
               <Text style={{ color: "gray" }} variant={"body-small"}>
                 {"Tyle version: " + config.TYLE_VERSION}
               </Text>

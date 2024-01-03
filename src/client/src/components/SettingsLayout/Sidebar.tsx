@@ -1,7 +1,9 @@
-import { Divider, Flexbox, Heading } from "@mimirorg/component-library";
 import { useGetAttributesByState } from "api/attribute.queries";
 import { useGetBlocksByState } from "api/block.queries";
 import { useGetTerminalsByState } from "api/terminal.queries";
+import Divider from "components/Divider";
+import Flexbox from "components/Flexbox";
+import Heading from "components/Heading";
 import { useGetAllUsersMapped } from "hooks/useGetAllUsersMapped";
 import { Fragment } from "react";
 import { useLocation } from "react-router-dom";
@@ -48,7 +50,7 @@ const Sidebar = ({ title, groups }: SidebarProps) => {
   return (
     <SidebarContainer>
       <Heading variant={"headline-large"}>{title}</Heading>
-      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.base}>
+      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.base}>
         {groups.map((group, i) => (
           <Fragment key={i}>
             {group.links.map((link, i) => (
@@ -56,7 +58,7 @@ const Sidebar = ({ title, groups }: SidebarProps) => {
                 {linkText(link.name)}
               </SidebarLink>
             ))}
-            <Divider color={theme.mimirorg.color.outline.base} />
+            <Divider color={theme.tyle.color.outline.base} />
           </Fragment>
         ))}
       </Flexbox>

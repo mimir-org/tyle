@@ -1,6 +1,12 @@
-import { Actionable, Box, Button, Flexbox, Icon, Popover, Text } from "@mimirorg/component-library";
 import AuthContent from "components/AuthContent";
+import Box from "components/Box";
+import Button from "components/Button";
+import Flexbox from "components/Flexbox";
+import Icon from "components/Icon";
+import Popover from "components/Popover";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
+import { Actionable } from "types/actionable";
 import { QrCodeView } from "types/authentication/qrCodeView";
 
 interface MultiFactorAuthenticationProps {
@@ -29,7 +35,7 @@ const MultiFactorAuthentication = (props: MultiFactorAuthenticationProps) => {
       firstRow={
         <>
           {showQrDialog && (
-            <Flexbox as={"section"} flexDirection={"column"} alignItems={"center"} gap={theme.mimirorg.spacing.base}>
+            <Flexbox as={"section"} flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.base}>
               <Text variant={"headline-small"}>{codeTitle}</Text>
               <Icon size={180} src={mfaInfo.code} alt="" />
               <Popover
@@ -49,7 +55,7 @@ const MultiFactorAuthentication = (props: MultiFactorAuthenticationProps) => {
       secondRow={
         <>
           <Text textAlign={"center"}>{infoText}</Text>
-          <Flexbox gap={theme.mimirorg.spacing.xxl} alignSelf={"center"}>
+          <Flexbox gap={theme.tyle.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>
                 {cancel.actionText}

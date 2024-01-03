@@ -5,10 +5,10 @@ const HeaderContainer = styled.header`
   align-items: center;
   justify-content: space-between;
   height: var(--tl-header-height);
-  padding: ${(props) => props.theme.mimirorg.spacing.base} ${(props) => props.theme.mimirorg.spacing.xxxl};
-  background-color: ${(props) => props.theme.mimirorg.color.primary.base};
-  color: ${(props) => props.theme.mimirorg.color.primary.on};
-  box-shadow: ${(props) => props.theme.mimirorg.shadow.small};
+  padding: ${(props) => props.theme.tyle.spacing.base} ${(props) => props.theme.tyle.spacing.xxxl};
+  background-color: ${(props) => props.theme.tyle.color.primary.base};
+  color: ${(props) => props.theme.tyle.color.primary.on};
+  box-shadow: ${(props) => props.theme.tyle.shadow.small};
 `;
 
 export default HeaderContainer;

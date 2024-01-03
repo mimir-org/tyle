@@ -1,4 +1,4 @@
-import { Table, Tbody, Thead, Tr } from "@mimirorg/component-library";
+import { Table, Tbody, Thead, Tr } from "components/Table";
 import { BlockTerminalItem } from "types/blockTerminalItem";
 import TerminalTableAmount from "./TerminalTableAmount";
 import TerminalTableAttributes from "./TerminalTableAttributes";

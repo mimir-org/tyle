@@ -1,4 +1,5 @@
-import { Heading, Flexbox } from "@mimirorg/component-library";
+import Flexbox from "components/Flexbox";
+import Heading from "components/Heading";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
 
@@ -21,10 +22,10 @@ const PanelSection = ({ title, children }: PanelSectionProps) => {
 
   return (
     <>
-      <Heading as={"h3"} variant={"body-large"} color={theme.mimirorg.color.surface.on}>
+      <Heading as={"h3"} variant={"body-large"} color={theme.tyle.color.surface.on}>
         {title}
       </Heading>
-      <Flexbox flexWrap={"wrap"} gap={theme.mimirorg.spacing.xl}>
+      <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
         {children}
       </Flexbox>
     </>

@@ -1,6 +1,6 @@
-import { Select } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import EngineeringSymbolSvg from "components/EngineeringSymbolSvg";
+import Select from "components/Select";
 import React from "react";
 import { ConnectionPoint } from "types/blocks/connectionPoint";
 import { EngineeringSymbol } from "types/blocks/engineeringSymbol";

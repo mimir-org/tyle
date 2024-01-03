@@ -1,4 +1,6 @@
-import { Flexbox, Text, TokenRadioGroup, TokenRadioGroupItem } from "@mimirorg/component-library";
+import Flexbox from "components/Flexbox";
+import Text from "components/Text";
+import { TokenRadioGroup, TokenRadioGroupItem } from "components/Token";
 import { useTheme } from "styled-components";
 import { Option } from "utils";
 
@@ -24,7 +26,7 @@ const RadioFilters = ({ title, filters, onChange, value }: RadioFiltersProps) =>
   const inputIsControlled = !!value;
 
   return (
-    <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
+    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
       {title && <Text variant={"title-medium"}>{title}</Text>}
       <TokenRadioGroup onValueChange={onChange}>
         {filters.map((x, i) => {

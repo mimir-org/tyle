@@ -1,7 +1,10 @@
-import { Box, Flexbox, Text, Tooltip } from "@mimirorg/component-library";
 import AttributeIcon from "components/AttributeIcon";
 import BlockIcon from "components/BlockIcon";
+import Box from "components/Box";
+import Flexbox from "components/Flexbox";
 import TerminalIcon from "components/TerminalIcon";
+import Text from "components/Text";
+import Tooltip from "components/Tooltip";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
 
@@ -13,11 +16,11 @@ interface ApprovalCardHeaderProps {
 const ApprovalCardHeader = ({ children, objectType }: ApprovalCardHeaderProps) => {
   function getIcon(type: string) {
     switch (type) {
-      case "Terminal":
+      case "terminal":
         return <TerminalIcon size={1} />;
-      case "Block":
+      case "block":
         return <BlockIcon size={1} />;
-      case "Attribute":
+      case "attribute":
         return <AttributeIcon size={1} />;
     }
   }
@@ -25,7 +28,7 @@ const ApprovalCardHeader = ({ children, objectType }: ApprovalCardHeaderProps) =
   const theme = useTheme();
 
   return (
-    <Box display={"flex"} gap={theme.mimirorg.spacing.l} alignItems={"center"} justifyContent={"space-between"}>
+    <Box display={"flex"} gap={theme.tyle.spacing.l} alignItems={"center"} justifyContent={"space-between"}>
       {children}
       <Flexbox flexFlow={"column"} alignItems={"center"}>
         <Tooltip content={<Text variant={"body-small"}>{objectType}</Text>}>

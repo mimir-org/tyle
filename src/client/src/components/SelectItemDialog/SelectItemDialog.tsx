@@ -1,6 +1,7 @@
-import { Button, Dialog } from "@mimirorg/component-library";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { PlusSmall } from "@styled-icons/heroicons-outline";
+import Button from "components/Button";
+import Dialog from "components/Dialog";
 import InfoItemCheckbox from "components/InfoItemCheckbox";
 import SearchField from "components/SearchField";
 import { useState } from "react";

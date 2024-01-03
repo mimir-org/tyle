@@ -1,4 +1,6 @@
-import { Box, Dialog, Select } from "@mimirorg/component-library";
+import Box from "components/Box";
+import Dialog from "components/Dialog";
+import Select from "components/Select";
 
 /**
  * Component that displays a button with a dialog for finding contact information about

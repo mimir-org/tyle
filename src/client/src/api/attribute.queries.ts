@@ -3,6 +3,8 @@ import { AttributeTypeRequest } from "types/attributes/attributeTypeRequest";
 import { State } from "types/common/state";
 import { StateChangeRequest } from "types/common/stateChangeRequest";
 import { attributeApi } from "./attribute.api";
+import { terminalKeys } from "./terminal.queries";
+import { blockKeys } from "./block.queries";
 
 const attributeKeys = {
   all: ["attributes"] as const,
@@ -48,6 +50,8 @@ export const usePatchAttributeState = (id: string) => {
 
   return useMutation((item: StateChangeRequest) => attributeApi.patchAttributeState(id, item), {
     onSuccess: (_, variables) => {
+      queryClient.invalidateQueries(terminalKeys.all);
+      queryClient.invalidateQueries(blockKeys.all);
       queryClient.invalidateQueries(attributeKeys.list(""));
       queryClient.invalidateQueries(attributeKeys.list(`state=${State.Review}`));
       queryClient.invalidateQueries(

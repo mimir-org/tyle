@@ -1,5 +1,6 @@
-import { Button, Flexbox } from "@mimirorg/component-library";
 import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight } from "@styled-icons/heroicons-outline";
+import Button from "components/Button";
+import Flexbox from "components/Flexbox";
 import { useSearchParams } from "react-router-dom";
 import { useTheme } from "styled-components";
 
@@ -34,7 +35,7 @@ const SearchNavigation = ({ numPages }: SearchNavigationProps) => {
   const { start, end } = getPaginationRange(pageNum, numPages, 3);
 
   return (
-    <Flexbox gap={theme.mimirorg.spacing.l} alignItems={"center"} justifyContent={"center"}>
+    <Flexbox gap={theme.tyle.spacing.l} alignItems={"center"} justifyContent={"center"}>
       <Flexbox justifyContent={"center"}>
         <Button
           variant="filled"

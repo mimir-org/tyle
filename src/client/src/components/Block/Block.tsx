@@ -1,5 +1,5 @@
-import { Text } from "@mimirorg/component-library";
 import EngineeringSymbolSvg from "components/EngineeringSymbolSvg";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
 import { EngineeringSymbol } from "types/blocks/engineeringSymbol";
 import BlockContainer, { BlockContainerProps } from "./Block.styled";
@@ -27,7 +27,7 @@ const Block = ({ name, symbol, color, variant = "small" }: BlockProps) => {
       {symbol && (
         <EngineeringSymbolSvg symbol={symbol} width={variantSpecs.icon.size} height={variantSpecs.icon.size} />
       )}
-      <Text variant={"title-medium"} color={theme.mimirorg.color.reference.neutral["0"]} textAlign={"center"}>
+      <Text variant={"title-medium"} color={theme.tyle.color.reference.neutral["0"]} textAlign={"center"}>
         {name}
       </Text>
     </BlockContainer>

@@ -1,11 +1,12 @@
-import { Text, Th, Tr } from "@mimirorg/component-library";
+import { Th, Tr } from "components/Table";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
 import { useMediaQuery } from "usehooks-ts";
 
 const TerminalTableHeader = () => {
   const theme = useTheme();
   const adjustAmountAlignment = useMediaQuery("screen and (min-width: 1500px)");
-  const textColor = theme.mimirorg.color.primary.base;
+  const textColor = theme.tyle.color.primary.base;
 
   return (
     <Tr>

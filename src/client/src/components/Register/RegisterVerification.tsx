@@ -1,14 +1,18 @@
 import { DevTool } from "@hookform/devtools";
-import { Actionable, Button, Flexbox, Input, Text } from "@mimirorg/component-library";
 import { useGenerateMfa, useVerification } from "api/user.queries";
 import AuthContent from "components/AuthContent";
+import Button from "components/Button";
 import Digits from "components/Digits";
 import Error from "components/Error";
+import Flexbox from "components/Flexbox";
+import Input from "components/Input";
 import MotionVerifyForm from "components/MotionVerifyForm";
 import Processing from "components/Processing";
+import Text from "components/Text";
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { Controller, useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
+import { Actionable } from "types/actionable";
 import { QrCodeView } from "types/authentication/qrCodeView";
 import { VerifyRequest } from "types/authentication/verifyRequest";
 import { onSubmitForm } from "./RegisterVerification.helpers";
@@ -69,7 +73,7 @@ const RegisterVerification = ({ email, setMfaInfo, cancel, complete }: Verificat
             We have sent a six-digit code to your e-mail. Please enter the code within 1 hour, or the code will expire
             and you will have to restart the registration. Make sure to check your spam/junk folder for the e-mail.
           </Text>
-          <Flexbox gap={theme.mimirorg.spacing.xxl} alignSelf={"center"}>
+          <Flexbox gap={theme.tyle.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>
                 {cancel.actionText}

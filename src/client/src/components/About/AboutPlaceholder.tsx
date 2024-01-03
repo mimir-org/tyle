@@ -1,4 +1,5 @@
-import { MotionFlexbox, Text } from "@mimirorg/component-library";
+import { MotionFlexbox } from "components/Flexbox";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
 
 /**
@@ -11,8 +12,8 @@ const AboutPlaceholder = ({ text }: { text: string }) => {
   const theme = useTheme();
 
   return (
-    <MotionFlexbox flex={1} justifyContent={"center"} alignItems={"center"} {...theme.mimirorg.animation.fade}>
-      <Text variant={"title-large"} color={theme.mimirorg.color.surface.on}>
+    <MotionFlexbox flex={1} justifyContent={"center"} alignItems={"center"} {...theme.tyle.animation.fade}>
+      <Text variant={"title-large"} color={theme.tyle.color.surface.on}>
         {text}
       </Text>
     </MotionFlexbox>

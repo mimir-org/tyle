@@ -1,4 +1,4 @@
-import { MotionBox } from "@mimirorg/component-library";
+import { MotionBox } from "components/Box";
 import { useTheme } from "styled-components";
 import { BlockItem } from "types/blockItem";
 import PreviewPanel from "./PreviewPanel";
@@ -22,10 +22,10 @@ const BlockPanel = ({ name, description, tokens, terminals, attributes, kind }: 
       flex={1}
       display={"flex"}
       flexDirection={"column"}
-      gap={theme.mimirorg.spacing.xxxl}
+      gap={theme.tyle.spacing.xxxl}
       maxHeight={"100%"}
       overflow={"hidden"}
-      {...theme.mimirorg.animation.fade}
+      {...theme.tyle.animation.fade}
     >
       <PreviewPanel
         name={name}

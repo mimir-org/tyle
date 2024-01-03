@@ -1,4 +1,5 @@
-import { Flexbox, Text } from "@mimirorg/component-library";
+import Flexbox from "components/Flexbox";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
 
 interface UserInfoProps {
@@ -11,10 +12,10 @@ const UserInfo = ({ name, roles, permissions }: UserInfoProps) => {
   const theme = useTheme();
 
   return (
-    <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.s}>
+    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.s}>
       <Text variant={"title-medium"}>{name}</Text>
       {roles && roles.length > 0 && (
-        <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xs}>
+        <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
           {roles?.map((x, i) => (
             <Text style={{ color: "gray" }} key={x + i} variant={"label-medium"}>
               {x}
@@ -23,7 +24,7 @@ const UserInfo = ({ name, roles, permissions }: UserInfoProps) => {
         </Flexbox>
       )}
       {permissions && permissions.length > 0 && (
-        <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xs}>
+        <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
           {permissions?.map((x, i) => (
             <Text style={{ color: "gray" }} key={i} variant={"label-small"}>
               {x}

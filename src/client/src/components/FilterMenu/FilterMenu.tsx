@@ -1,5 +1,8 @@
-import { Accordion, Box, Button, Popover } from "@mimirorg/component-library";
 import { AdjustmentsHorizontal } from "@styled-icons/heroicons-outline";
+import Accordion from "components/Accordion";
+import Box from "components/Box";
+import Button from "components/Button";
+import Popover from "components/Popover";
 import SearchField from "components/SearchField";
 import { useState } from "react";
 import { useTheme } from "styled-components";
@@ -28,9 +31,9 @@ const FilterMenu = ({ name, filterGroups, ...delegated }: FilterMenuProps) => {
     <Popover
       align={"end"}
       placement={"bottom"}
-      bgColor={theme.mimirorg.color.background.base}
+      bgColor={theme.tyle.color.background.base}
       content={
-        <Box display={"flex"} flexDirection={"column"} gap={theme.mimirorg.spacing.xl} width={"260px"}>
+        <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xl} width={"260px"}>
           <SearchField placeholder={"Search"} value={filterQuery} onChange={(e) => setFilterQuery(e.target.value)} />
           <Accordion>
             {filterGroups.map((x, i) => (

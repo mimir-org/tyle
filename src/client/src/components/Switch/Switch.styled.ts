@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: ${(props) => props.theme.mimirorg.spacing.l};
+  gap: ${(props) => props.theme.tyle.spacing.l};
 `;
 
 export const SwitchContainer = styled(Switch.Root)`
