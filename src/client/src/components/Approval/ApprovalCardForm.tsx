@@ -6,7 +6,6 @@ import { BlockView } from "types/blocks/blockView";
 import { State } from "types/common/state";
 import { TerminalView } from "types/terminals/terminalView";
 import { usePatchStateMutation } from "./ApprovalCardForm.helpers";
-import React from "react";
 
 export interface ApprovalCardFormProps {
   item: AttributeView | TerminalView | BlockView;
@@ -33,17 +32,19 @@ const ApprovalCardForm = ({ item, itemType, dissabledButton = true }: ApprovalCa
           Reject
         </Button>
         {!dissabledButton ? (
-
-          <Button  type={"button"} onClick={() => toast(patchStateMutation.mutateAsync({ state: State.Approved }))}>
+          <Button type={"button"} onClick={() => toast(patchStateMutation.mutateAsync({ state: State.Approved }))}>
             Approve
           </Button>
         ) : (
           <Tooltip content={<Text>Please review the other types before approvoing this</Text>}>
-          <Button disabled={true} type={"button"} onClick={() => toast(patchStateMutation.mutateAsync({ state: State.Approved }))}>
-            Approve
-          </Button>
+            <Button
+              disabled={true}
+              type={"button"}
+              onClick={() => toast(patchStateMutation.mutateAsync({ state: State.Approved }))}
+            >
+              Approve
+            </Button>
           </Tooltip>
-
         )}
       </Flexbox>
     </Flexbox>
