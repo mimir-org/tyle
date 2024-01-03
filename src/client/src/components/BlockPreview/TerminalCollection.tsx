@@ -1,5 +1,6 @@
-import { Divider, Popover } from "@mimirorg/component-library";
+import { Popover } from "@mimirorg/component-library";
 import Box from "components/Box";
+import Divider from "components/Divider";
 import Flexbox from "components/Flexbox";
 import TerminalButton from "components/TerminalButton";
 import Text from "components/Text";

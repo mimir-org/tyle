@@ -1,7 +1,7 @@
-import { Divider } from "@mimirorg/component-library";
 import { useGetAttributesByState } from "api/attribute.queries";
 import { useGetBlocksByState } from "api/block.queries";
 import { useGetTerminalsByState } from "api/terminal.queries";
+import Divider from "components/Divider";
 import Flexbox from "components/Flexbox";
 import Heading from "components/Heading";
 import { useGetAllUsersMapped } from "hooks/useGetAllUsersMapped";

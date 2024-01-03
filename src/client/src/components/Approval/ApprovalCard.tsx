@@ -1,4 +1,4 @@
-import { Divider } from "@mimirorg/component-library";
+import Divider from "components/Divider";
 import Flexbox from "components/Flexbox";
 import Text from "components/Text";
 import { useRef } from "react";

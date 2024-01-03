@@ -1,6 +1,6 @@
-import { Divider } from "@mimirorg/component-library";
 import Box from "components/Box";
 import Button from "components/Button";
+import Divider from "components/Divider";
 import Flexbox from "components/Flexbox";
 import Text from "components/Text";
 import { useTheme } from "styled-components";
