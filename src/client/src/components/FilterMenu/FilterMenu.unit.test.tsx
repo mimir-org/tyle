@@ -1,6 +1,6 @@
-import { MimirorgThemeProvider } from "@mimirorg/component-library";
 import "@testing-library/jest-dom";
 import { cleanup, render, screen } from "@testing-library/react";
+import TyleThemeProvider from "components/TyleThemeProvider";
 import { afterEach, describe, expect, test } from "vitest";
 import FilterMenu from "./FilterMenu";
 
@@ -62,14 +62,14 @@ const activeFiltersMock = [
 
 const setup = () => {
   const testComponent = render(
-    <MimirorgThemeProvider theme={"tyleLight"}>
+    <TyleThemeProvider theme={"light"}>
       <FilterMenu
         toggleFilter={() => {}}
         name={"Filter"}
         filterGroups={filterGroupsMock}
         activeFilters={activeFiltersMock}
       />
-    </MimirorgThemeProvider>,
+    </TyleThemeProvider>,
   );
   const filterButton = screen.getByRole("button", { name: "Filter" });
 
