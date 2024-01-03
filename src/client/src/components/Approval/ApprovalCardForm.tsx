@@ -1,4 +1,4 @@
-import { Button, Flexbox, Text } from "@mimirorg/component-library";
+import { Button, Flexbox, Text, Tooltip } from "@mimirorg/component-library";
 import { useSubmissionToast } from "helpers/form.helpers";
 import { useTheme } from "styled-components";
 import { AttributeView } from "types/attributes/attributeView";
@@ -6,6 +6,7 @@ import { BlockView } from "types/blocks/blockView";
 import { State } from "types/common/state";
 import { TerminalView } from "types/terminals/terminalView";
 import { usePatchStateMutation } from "./ApprovalCardForm.helpers";
+import React from "react";
 
 export interface ApprovalCardFormProps {
   item: AttributeView | TerminalView | BlockView;
@@ -32,11 +33,17 @@ const ApprovalCardForm = ({ item, itemType, dissabledButton = true }: ApprovalCa
           Reject
         </Button>
         {!dissabledButton ? (
-          <Button type={"button"} onClick={() => toast(patchStateMutation.mutateAsync({ state: State.Approved }))}>
+
+          <Button  type={"button"} onClick={() => toast(patchStateMutation.mutateAsync({ state: State.Approved }))}>
             Approve
           </Button>
         ) : (
-          <div>Please review the other types before approvoing this</div>
+          <Tooltip content={<Text>Please review the other types before approvoing this</Text>}>
+          <Button disabled={true} type={"button"} onClick={() => toast(patchStateMutation.mutateAsync({ state: State.Approved }))}>
+            Approve
+          </Button>
+          </Tooltip>
+
         )}
       </Flexbox>
     </Flexbox>
