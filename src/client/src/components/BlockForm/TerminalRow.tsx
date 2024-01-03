@@ -1,7 +1,7 @@
-import { Select } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import Checkbox from "components/Checkbox";
 import Input from "components/Input";
+import Select from "components/Select";
 import Token from "components/Token";
 import { useState } from "react";
 import { Direction } from "types/terminals/direction";

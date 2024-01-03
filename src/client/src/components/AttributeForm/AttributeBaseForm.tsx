@@ -1,7 +1,8 @@
-import { Select, Textarea } from "@mimirorg/component-library";
+import { Textarea } from "@mimirorg/component-library";
 import { useGetPredicates } from "api/predicate.queries";
 import FormField from "components/FormField";
 import Input from "components/Input";
+import Select from "components/Select";
 import React from "react";
 import { RdlPredicate } from "types/attributes/rdlPredicate";
 import { DESCRIPTION_LENGTH, NAME_LENGTH } from "types/common/stringLengthConstants";
