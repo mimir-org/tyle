@@ -13,11 +13,11 @@ interface ApprovalCardHeaderProps {
 const ApprovalCardHeader = ({ children, objectType }: ApprovalCardHeaderProps) => {
   function getIcon(type: string) {
     switch (type) {
-      case "Terminal":
+      case "terminal":
         return <TerminalIcon size={1} />;
-      case "Block":
+      case "block":
         return <BlockIcon size={1} />;
-      case "Attribute":
+      case "attribute":
         return <AttributeIcon size={1} />;
     }
   }

@@ -4,7 +4,7 @@ import { State } from "types/common/state";
 import { StateChangeRequest } from "types/common/stateChangeRequest";
 import { blockApi } from "./block.api";
 
-const blockKeys = {
+export const blockKeys = {
   all: ["blocks"] as const,
   lists: () => [...blockKeys.all, "list"] as const,
   list: (filters: string) => [...blockKeys.lists(), { filters }] as const,
