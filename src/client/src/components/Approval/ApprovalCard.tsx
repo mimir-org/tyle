@@ -33,7 +33,7 @@ const ApprovalCard = ({ item, itemType, selected, dissabledButton}: ApprovalCard
     >
       <Text variant={"title-medium"}>{itemType}</Text>
       <Divider orientation={"horizontal"} color={"#2e2e2e"} />
-      <ApprovalCardHeader objectType={"Attribute"}>
+      <ApprovalCardHeader objectType={itemType}>
         <Text variant={"title-large"}>{item.name}</Text>
       </ApprovalCardHeader>
       <Flexbox flexFlow={"column"} justifyContent={"space-between"} style={{ height: "100%" }}>
