@@ -8,23 +8,25 @@ const keys = {
   purpose: (id: number) => [...keys.purposeLists(), id] as const,
 };
 
-export const useGetPurposes = () => useQuery(keys.purposeLists(), purposeApi.getPurposes);
+export const useGetPurposes = () => useQuery({ queryKey: keys.purposeLists(), queryFn: purposeApi.getPurposes });
 
 export const useGetPurpose = (id: number) =>
-  useQuery(keys.purpose(id), () => purposeApi.getPurpose(id), { enabled: !!id, retry: false });
+  useQuery({ queryKey: keys.purpose(id), queryFn: () => purposeApi.getPurpose(id), enabled: !!id, retry: false });
 
 export const useCreatePurpose = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: RdlPurposeRequest) => purposeApi.postPurpose(item), {
-    onSuccess: () => queryClient.invalidateQueries(keys.allPurposes),
+  return useMutation({
+    mutationFn: (item: RdlPurposeRequest) => purposeApi.postPurpose(item),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: keys.allPurposes }),
   });
 };
 
 export const useDeletePurpose = (id: number) => {
   const queryClient = useQueryClient();
 
-  return useMutation(() => purposeApi.deletePurpose(id), {
-    onSuccess: () => queryClient.invalidateQueries(keys.purposeLists()),
+  return useMutation({
+    mutationFn: () => purposeApi.deletePurpose(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: keys.purposeLists() }),
   });
 };

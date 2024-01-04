@@ -9,14 +9,15 @@ const keys = {
   list: (filters: string) => [...keys.lists(), { filters }] as const,
 };
 
-export const useGetRoles = () => useQuery(keys.list(""), authorizeApi.getRoles);
+export const useGetRoles = () => useQuery({ queryKey: keys.list(""), queryFn: authorizeApi.getRoles });
 
 export const useAddUserToRole = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: UserRoleRequest) => authorizeApi.postAddUserRole(item), {
+  return useMutation({
+    mutationFn: (item: UserRoleRequest) => authorizeApi.postAddUserRole(item),
     onSuccess: () => {
-      queryClient.invalidateQueries(userKeys.list(""));
+      queryClient.invalidateQueries({ queryKey: userKeys.list("") });
     },
   });
 };
@@ -24,9 +25,10 @@ export const useAddUserToRole = () => {
 export const useRemoveUserFromRole = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: UserRoleRequest) => authorizeApi.postRemoveUserRole(item), {
+  return useMutation({
+    mutationFn: (item: UserRoleRequest) => authorizeApi.postRemoveUserRole(item),
     onSuccess: () => {
-      queryClient.invalidateQueries(userKeys.list(""));
+      queryClient.invalidateQueries({ queryKey: userKeys.list("") });
     },
   });
 };
@@ -34,9 +36,10 @@ export const useRemoveUserFromRole = () => {
 export const useUpdateUserRole = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: UserRoleRequest) => authorizeApi.putUpdateUserRole(item), {
+  return useMutation({
+    mutationFn: (item: UserRoleRequest) => authorizeApi.putUpdateUserRole(item),
     onSuccess: () => {
-      queryClient.invalidateQueries(userKeys.list(""));
+      queryClient.invalidateQueries({ queryKey: userKeys.list("") });
     },
   });
 };

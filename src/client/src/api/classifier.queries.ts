@@ -8,23 +8,31 @@ const keys = {
   classifier: (id: number) => [...keys.classifierLists(), id] as const,
 };
 
-export const useGetClassifiers = () => useQuery(keys.classifierLists(), classifierApi.getClassifiers);
+export const useGetClassifiers = () =>
+  useQuery({ queryKey: keys.classifierLists(), queryFn: classifierApi.getClassifiers });
 
 export const useGetClassifier = (id: number) =>
-  useQuery(keys.classifier(id), () => classifierApi.getClassifier(id), { enabled: !!id, retry: false });
+  useQuery({
+    queryKey: keys.classifier(id),
+    queryFn: () => classifierApi.getClassifier(id),
+    enabled: !!id,
+    retry: false,
+  });
 
 export const useCreateClassifier = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: RdlClassifierRequest) => classifierApi.postClassifier(item), {
-    onSuccess: () => queryClient.invalidateQueries(keys.allClassifiers),
+  return useMutation({
+    mutationFn: (item: RdlClassifierRequest) => classifierApi.postClassifier(item),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: keys.allClassifiers }),
   });
 };
 
 export const useDeleteClassifier = (id: number) => {
   const queryClient = useQueryClient();
 
-  return useMutation(() => classifierApi.deleteClassifier(id), {
-    onSuccess: () => queryClient.invalidateQueries(keys.classifierLists()),
+  return useMutation({
+    mutationFn: () => classifierApi.deleteClassifier(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: keys.classifierLists() }),
   });
 };

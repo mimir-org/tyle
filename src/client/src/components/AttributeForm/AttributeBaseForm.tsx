@@ -33,7 +33,7 @@ const AttributeBaseForm = React.forwardRef<HTMLFormElement, AttributeFormStepPro
       <FormField label="Predicate">
         <Select
           options={predicateOptions}
-          isLoading={predicateQuery.isLoading}
+          isLoading={predicateQuery.isPending}
           onChange={(x) => setPredicate(x?.value)}
           value={predicateOptions?.find((x) => x.value.id === predicate?.id)}
           isClearable={true}

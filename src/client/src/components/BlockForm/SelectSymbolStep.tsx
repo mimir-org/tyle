@@ -13,7 +13,7 @@ const SelectSymbolStep = ({ setSymbol }: SelectSymbolStepProps) => {
 
   return (
     <>
-      {symbolQuery.isLoading && <Loader />}
+      {symbolQuery.isPending && <Loader />}
       {symbolQuery.isSuccess && (
         <SymbolListWrapper>
           {symbolQuery.data.map((symbol) => (

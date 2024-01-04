@@ -30,7 +30,7 @@ const RecoverVerification = ({ email, setMfaInfo, setVerificationInfo, cancel, c
 
   const generateMfaMutation = useGenerateMfa();
 
-  const showProcessing = generateMfaMutation.isLoading;
+  const showProcessing = generateMfaMutation.isPending;
   const showError = generateMfaMutation.isError;
   const showInput = !showProcessing;
 
