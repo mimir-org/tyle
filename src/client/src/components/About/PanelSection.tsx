@@ -22,7 +22,7 @@ const PanelSection = ({ title, children }: PanelSectionProps) => {
 
   return (
     <>
-      <Heading as={"h3"} variant={"body-large"} color={theme.tyle.color.surface.on}>
+      <Heading as={"h6"} color={theme.tyle.color.surface.on}>
         {title}
       </Heading>
       <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>

@@ -2,13 +2,16 @@ import { BlockTerminalItem } from "../../types/blockTerminalItem";
 import { State } from "../../types/common/state";
 import styled from "styled-components/macro";
 import Text from "../Text";
-import Heading from "../Heading"
+import Heading from "../Heading";
 import StateBadge from "../StateBadge";
 import PanelPropertiesContainer from "./PanelPropertiesContainer";
 import PanelSection from "./PanelSection";
 import InfoItemButton from "../InfoItemButton";
 import { InfoItem } from "../../types/infoItem";
 import TerminalTable from "./TerminalTable";
+import Divider from "../Divider";
+import Box from "../Box";
+import { useTheme } from "styled-components";
 
 interface previewPanelProps {
   name: string;
@@ -21,44 +24,47 @@ interface previewPanelProps {
 }
 
 const PreviewPanel = ({ name, description, tokens, terminals, attributes, state, kind }: previewPanelProps) => {
+  const theme = useTheme();
   const showAttributes = kind === "TerminalItem" || "BlockItem" && attributes && attributes.length > 0;
   const showTerminals = kind === "BlockItem" && terminals && terminals.length > 0;
 
   return (
-    <GridContainer>
-      <FlexContainer>
-        <Heading as={"h2"}>{name}</Heading>
-        {kind === "AttributeItem" ? (
-          <StateBadge state={state} />
-        ) : (
-          tokens && tokens.map((token, i) => <StateBadge key={i + token} state={token} />)
-        )}
-      </FlexContainer>
-      <Text useEllipsis ellipsisMaxLines={8}>
-        {description}
-      </Text>
+    <Box display={"grid"} rowGap={theme.tyle.spacing.xxl}>
+      <Box display={"grid"}>
+        <Box gridColumn={"1"}>
+          <Heading as={"h2"}>{name}</Heading>
+        </Box>
+        <Box display={"flex"} gridColumn={"2"} justifyContent={"right"} alignItems={"center"}>
+          {kind === "AttributeItem" ? (
+            <StateBadge state={state} />
+          ) : (
+            tokens && tokens.map((token, i) => <StateBadge key={i + token} state={token} />)
+          )}
+        </Box>
+      </Box>
+      <Divider />
+      <PanelPropertiesContainer>
+        <PanelSection title={"Description"}>
+          <Text>{description}</Text>
+        </PanelSection>
+      </PanelPropertiesContainer>
+
       <PanelPropertiesContainer>
         {showAttributes && (
-          <PanelSection title="Attributes">{attributes?.map((a, i) => <InfoItemButton key={i} {...a} />)}</PanelSection>
+          <PanelSection title="Attributes">{attributes?.map((a, i) => <InfoItemButton
+            key={i} {...a} />)}</PanelSection>
         )}
+      </PanelPropertiesContainer>
+
+      <PanelPropertiesContainer>
         {showTerminals && (
           <PanelSection title="Terminals">
             <TerminalTable terminals={terminals} />
           </PanelSection>
         )}
       </PanelPropertiesContainer>
-    </GridContainer>
+    </Box>
   );
 };
 
 export default PreviewPanel;
-
-const GridContainer = styled.div`
-  display: grid;
-`;
-
-const FlexContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-    align-items: center;
-`;
