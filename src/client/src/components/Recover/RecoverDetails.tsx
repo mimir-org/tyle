@@ -38,8 +38,8 @@ const RecoverDetails = ({ complete, setUserEmail }: RecoverDetailsProps) => {
       title="Account recovery"
       firstRow={
         <>
-          {mutation.isLoading && <Processing>Processing</Processing>}
-          {!mutation.isSuccess && !mutation.isLoading && (
+          {mutation.isPending && <Processing>Processing</Processing>}
+          {!mutation.isSuccess && !mutation.isPending && (
             <Form
               id={"details-form"}
               onSubmit={handleSubmit((data) => {

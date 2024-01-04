@@ -70,7 +70,7 @@ const BlockBaseForm = React.forwardRef<HTMLFormElement, BlockFormStepProps>(({ f
         <FormField label="Purpose">
           <Select
             options={purposeOptions}
-            isLoading={purposeQuery.isLoading}
+            isLoading={purposeQuery.isPending}
             onChange={(x) => {
               setPurpose(x?.value);
             }}

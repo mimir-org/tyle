@@ -9,7 +9,7 @@ const symbolKeys = {
   detail: (id: number) => [...symbolKeys.details(), id] as const,
 };
 
-export const useGetSymbols = () => useQuery(symbolKeys.list(""), symbolApi.getSymbols);
+export const useGetSymbols = () => useQuery({ queryKey: symbolKeys.list(""), queryFn: symbolApi.getSymbols });
 
 export const useGetSymbol = (id: number) =>
-  useQuery(symbolKeys.detail(id), () => symbolApi.getSymbol(id), { retry: false });
+  useQuery({ queryKey: symbolKeys.detail(id), queryFn: () => symbolApi.getSymbol(id), retry: false });

@@ -55,8 +55,8 @@ const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
       subtitle="Create an account to collaborate with your organization!"
       firstRow={
         <>
-          {mutation.isLoading && <Processing>Processing</Processing>}
-          {!mutation.isSuccess && !mutation.isLoading && (
+          {mutation.isPending && <Processing>Processing</Processing>}
+          {!mutation.isSuccess && !mutation.isPending && (
             <Form id={"details-form"} onSubmit={handleSubmit((data) => onSubmit(data))}>
               {mutation.isError && (
                 <Error>
