@@ -45,8 +45,8 @@ const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverPassword
       title="Choose a new password"
       firstRow={
         <>
-          {mutation.isLoading && <Processing>Processing</Processing>}
-          {!mutation.isSuccess && !mutation.isLoading && (
+          {mutation.isPending && <Processing>Processing</Processing>}
+          {!mutation.isSuccess && !mutation.isPending && (
             <Form id={"password-form"} onSubmit={handleSubmit((data) => mutation.mutate(data))}>
               {mutation.isError && (
                 <Error>

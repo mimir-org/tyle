@@ -31,8 +31,8 @@ const RegisterVerification = ({ email, setMfaInfo, cancel, complete }: Verificat
   const verificationMutation = useVerification();
 
   const showError = generateMfaMutation.isError || verificationMutation.isError;
-  const showProcessing = verificationMutation.isLoading || generateMfaMutation.isLoading;
-  const showInput = !verificationMutation.isSuccess && !verificationMutation.isLoading;
+  const showProcessing = verificationMutation.isPending || generateMfaMutation.isPending;
+  const showInput = !verificationMutation.isSuccess && !verificationMutation.isPending;
 
   useExecuteOnCriteria(complete?.onAction, verificationMutation.isSuccess && generateMfaMutation.isSuccess);
 

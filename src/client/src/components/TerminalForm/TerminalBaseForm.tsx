@@ -70,7 +70,7 @@ const TerminalBaseForm = React.forwardRef<HTMLFormElement, TerminalFormStepProps
         <FormField label="Purpose">
           <Select
             options={purposeOptions}
-            isLoading={purposeQuery.isLoading}
+            isLoading={purposeQuery.isPending}
             onChange={(x) => {
               setPurpose(x?.value);
             }}

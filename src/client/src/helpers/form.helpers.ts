@@ -27,7 +27,7 @@ export const usePrefilledForm = <TIn, TOut>(
     }
   }, [query.data, query.isSuccess, populateForm, isPrefilled, mapQueryDataToFormModel]);
 
-  return [isPrefilled, query.isInitialLoading];
+  return [isPrefilled, query.isLoading];
 };
 
 export const useSubmissionToast = (type: string) => {

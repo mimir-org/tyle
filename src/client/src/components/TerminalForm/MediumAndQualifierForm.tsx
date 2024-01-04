@@ -36,7 +36,7 @@ const MediumAndQualifierForm = React.forwardRef<HTMLFormElement, TerminalFormSte
           <FormField label="Medium">
             <Select
               options={mediumOptions}
-              isLoading={mediumQuery.isLoading}
+              isLoading={mediumQuery.isPending}
               onChange={(x) => {
                 setMedium(x?.value);
               }}

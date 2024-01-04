@@ -8,23 +8,26 @@ const keys = {
   predicate: (id: number) => [...keys.predicateLists(), id] as const,
 };
 
-export const useGetPredicates = () => useQuery(keys.predicateLists(), predicateApi.getPredicates);
+export const useGetPredicates = () =>
+  useQuery({ queryKey: keys.predicateLists(), queryFn: predicateApi.getPredicates });
 
 export const useGetPredicate = (id: number) =>
-  useQuery(keys.predicate(id), () => predicateApi.getPredicate(id), { enabled: !!id, retry: false });
+  useQuery({ queryKey: keys.predicate(id), queryFn: () => predicateApi.getPredicate(id), enabled: !!id, retry: false });
 
 export const useCreatePredicate = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: RdlPredicateRequest) => predicateApi.postPredicate(item), {
-    onSuccess: () => queryClient.invalidateQueries(keys.allPredicates),
+  return useMutation({
+    mutationFn: (item: RdlPredicateRequest) => predicateApi.postPredicate(item),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: keys.allPredicates }),
   });
 };
 
 export const useDeletePredicate = (id: number) => {
   const queryClient = useQueryClient();
 
-  return useMutation(() => predicateApi.deletePredicate(id), {
-    onSuccess: () => queryClient.invalidateQueries(keys.predicateLists()),
+  return useMutation({
+    mutationFn: () => predicateApi.deletePredicate(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: keys.predicateLists() }),
   });
 };
