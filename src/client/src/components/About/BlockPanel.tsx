@@ -1,14 +1,7 @@
 import { MotionBox } from "components/Box";
-import Flexbox from "components/Flexbox";
-import Heading from "components/Heading";
-import InfoItemButton from "components/InfoItemButton";
-import StateBadge from "components/StateBadge";
-import Text from "components/Text";
 import { useTheme } from "styled-components";
 import { BlockItem } from "types/blockItem";
-import PanelPropertiesContainer from "./PanelPropertiesContainer";
-import PanelSection from "./PanelSection";
-import TerminalTable from "./TerminalTable";
+import PreviewPanel from "./PreviewPanel";
 
 /**
  * Component that displays information about a given block.
@@ -16,23 +9,13 @@ import TerminalTable from "./TerminalTable";
  * @param name
  * @param description
  * @param img
- * @param color
  * @param tokens
  * @param terminals
  * @param attributes
  * @constructor
  */
-const BlockPanel = ({
-  name,
-  description,
-  // img, color,
-  tokens,
-  terminals,
-  attributes,
-}: BlockItem) => {
+const BlockPanel = ({ name, description, tokens, terminals, attributes, kind }: BlockItem) => {
   const theme = useTheme();
-  const showTerminals = terminals && terminals.length > 0;
-  const showAttributes = attributes && attributes.length > 0;
 
   return (
     <MotionBox
@@ -44,34 +27,15 @@ const BlockPanel = ({
       overflow={"hidden"}
       {...theme.tyle.animation.fade}
     >
-      {/* <BlockPreview variant={"large"} name={name} color={color} img={img} terminals={terminals} /> */}
-
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xl}>
-        <Heading as={"h2"} variant={"title-large"} fontWeight={"500"} useEllipsis ellipsisMaxLines={2}>
-          {name}
-        </Heading>
-        <Text useEllipsis ellipsisMaxLines={8}>
-          {description}
-        </Text>
-      </Flexbox>
-      <Flexbox gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
-        {tokens && tokens.map((token, i) => <StateBadge key={i + token} state={token} />)}
-      </Flexbox>
-
-      <PanelPropertiesContainer>
-        {showAttributes && (
-          <PanelSection title="Attributes">
-            {attributes.map((a) => (
-              <InfoItemButton key={a.id} {...a} />
-            ))}
-          </PanelSection>
-        )}
-        {showTerminals && (
-          <PanelSection title="Terminals">
-            <TerminalTable terminals={terminals} />
-          </PanelSection>
-        )}
-      </PanelPropertiesContainer>
+      <PreviewPanel
+        name={name}
+        description={description}
+        tokens={tokens}
+        terminals={terminals}
+        attributes={attributes}
+        kind={kind}
+        state={""}
+      />
     </MotionBox>
   );
 };

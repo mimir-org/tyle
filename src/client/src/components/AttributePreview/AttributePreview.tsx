@@ -26,6 +26,7 @@ const StyledDiv = styled.div<StyledDivProps>`
   cursor: ${(props) => (props.small ? "pointer" : "auto")};
 `;
 
+//TODO This component is also used in the search list. Clean up and remove aboutSection only code.
 interface AttributePreviewProps {
   name: string;
   description: string;
