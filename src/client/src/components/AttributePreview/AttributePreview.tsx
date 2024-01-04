@@ -30,20 +30,17 @@ const StyledDiv = styled.div<StyledDivProps>`
 interface AttributePreviewProps {
   name: string;
   description: string;
-  //units?: FormUnitHelper[];
-  //defaultUnit?: FormUnitHelper | null;
   small?: boolean;
   state?: State;
 }
 
 const AttributePreview = ({ name, description, small }: AttributePreviewProps) => {
   const theme = useTheme();
-  //units && units.sort((a) => (a.unitId === defaultUnit?.unitId ? -1 : 1));
 
   return (
     <StyledDiv small={small}>
       {small ? (
-        AttributeSmallPreview(/*defaultUnit?.name ?? */ "Attribute")
+        AttributeSmallPreview("Attribute")
       ) : (
         <>
           <Flexbox justifyContent={"space-between"}>
@@ -56,20 +53,6 @@ const AttributePreview = ({ name, description, small }: AttributePreviewProps) =
             </Text>
           </Flexbox>
           {!small && <Text color={theme.tyle.color.pure.base}>{description}</Text>}
-          {/*units &&
-            (small
-              ? units
-                  .filter((unit) => unit.unitId === defaultUnit?.unitId)
-                  .map((unit) => <UnitPreview {...unit} key={unit.unitId} small={small} />)
-              : units.map((unit) => (
-                  <UnitPreview
-                    {...unit}
-                    key={unit.unitId}
-                    isDefault={unit.unitId === defaultUnit?.unitId}
-                    state={unit.state}
-                    stateBadge
-                  />
-              )))*/}
         </>
       )}
     </StyledDiv>

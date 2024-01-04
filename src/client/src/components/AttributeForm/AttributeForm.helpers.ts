@@ -1,4 +1,3 @@
-import { useCreateAttribute, useUpdateAttribute } from "api/attribute.queries";
 import { AttributeTypeRequest } from "types/attributes/attributeTypeRequest";
 import { AttributeView } from "types/attributes/attributeView";
 import { ConstraintType } from "types/attributes/constraintType";
@@ -9,14 +8,6 @@ import { RdlUnit } from "types/attributes/rdlUnit";
 import { RegularityQualifier } from "types/attributes/regularityQualifier";
 import { ScopeQualifier } from "types/attributes/scopeQualifier";
 import { XsdDataType } from "types/attributes/xsdDataType";
-import { FormMode } from "types/formMode";
-import { InfoItem } from "types/infoItem";
-
-export const useAttributeMutation = (id?: string, mode?: FormMode) => {
-  const createMutation = useCreateAttribute();
-  const updateMutation = useUpdateAttribute(id ?? "");
-  return mode === "edit" ? updateMutation : createMutation;
-};
 
 export interface AttributeFormFields {
   name: string;
@@ -143,22 +134,4 @@ const createEmptyValueConstraintFields = (): ValueConstraintFields => ({
   pattern: "",
   minValue: "",
   maxValue: "",
-});
-
-export const predicateInfoItem = (predicate: RdlPredicate): InfoItem => ({
-  id: predicate.id.toString(),
-  name: predicate.name,
-  descriptors: {
-    Description: predicate.description,
-    IRI: predicate.iri,
-  },
-});
-
-export const unitInfoItem = (unit: RdlUnit): InfoItem => ({
-  id: unit.id.toString(),
-  name: unit.name,
-  descriptors: {
-    Description: unit.description,
-    IRI: unit.iri,
-  },
 });

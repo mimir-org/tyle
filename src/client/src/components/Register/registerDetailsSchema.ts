@@ -16,7 +16,7 @@ export const registerDetailsSchema = () => {
       .required("Please re-enter the password you have chosen"),
     firstName: yup.string().required("Please enter your first name"),
     lastName: yup.string().required("Please enter your last name"),
-    purpose: yup.string().nullable().notRequired(),
+    purpose: yup.string().required("Please enter a purpose"),
   });
 
   return schema;
