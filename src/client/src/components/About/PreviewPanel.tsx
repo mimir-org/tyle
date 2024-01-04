@@ -1,6 +1,5 @@
 import { BlockTerminalItem } from "../../types/blockTerminalItem";
 import { State } from "../../types/common/state";
-import styled from "styled-components/macro";
 import Text from "../Text";
 import Heading from "../Heading";
 import StateBadge from "../StateBadge";
@@ -48,21 +47,19 @@ const PreviewPanel = ({ name, description, tokens, terminals, attributes, state,
           <Text>{description}</Text>
         </PanelSection>
       </PanelPropertiesContainer>
-
-      <PanelPropertiesContainer>
-        {showAttributes && (
+      {showAttributes && (
+        <PanelPropertiesContainer>
           <PanelSection title="Attributes">{attributes?.map((a, i) => <InfoItemButton
             key={i} {...a} />)}</PanelSection>
-        )}
-      </PanelPropertiesContainer>
-
-      <PanelPropertiesContainer>
-        {showTerminals && (
+        </PanelPropertiesContainer>
+      )}
+      {showTerminals && (
+        <PanelPropertiesContainer>
           <PanelSection title="Terminals">
             <TerminalTable terminals={terminals} />
           </PanelSection>
-        )}
-      </PanelPropertiesContainer>
+        </PanelPropertiesContainer>
+      )}
     </Box>
   );
 };
