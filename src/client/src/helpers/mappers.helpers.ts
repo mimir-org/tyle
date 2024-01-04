@@ -4,9 +4,8 @@ import { UserView } from "types/authentication/userView";
 import { BlockItem } from "types/blockItem";
 import { BlockTerminalItem } from "types/blockTerminalItem";
 import { BlockView } from "types/blocks/blockView";
-import { EngineeringSymbol } from "types/blocks/engineeringSymbol";
 import { TerminalTypeReferenceView } from "types/blocks/terminalTypeReferenceView";
-import { RdlPurpose } from "types/common/rdlPurpose";
+import { Aspect } from "types/common/aspect";
 import { State } from "types/common/state";
 import { InfoItem } from "types/infoItem";
 import { TerminalItem } from "types/terminalItem";
@@ -15,25 +14,19 @@ import { UserItem } from "types/userItem";
 import { getOptionsFromEnum } from "utils";
 import { RoleView } from "../types/authentication/roleView";
 import { RoleItem } from "../types/role";
-import { getColorFromAspect } from "./aspect.helper";
 
-export const purposeInfoItem = (purpose: RdlPurpose): InfoItem => ({
-  id: purpose.id.toString(),
-  name: purpose.name,
-  descriptors: {
-    Description: purpose.description,
-    IRI: purpose.iri,
-  },
-});
-
-export const symbolInfoItem = (symbol: EngineeringSymbol): InfoItem => ({
-  id: symbol.id.toString(),
-  name: symbol.label,
-  descriptors: {
-    Description: symbol.description,
-    IRI: symbol.iri,
-  },
-});
+const getColorFromAspect = (aspect: Aspect | null) => {
+  switch (aspect) {
+    case Aspect.Function:
+      return "hsl(57,99%,63%)";
+    case Aspect.Product:
+      return "hsl(184,100%,50%)";
+    case Aspect.Location:
+      return "hsl(299,100%,50%)";
+    default:
+      return "hsl(318, 29%, 91%)";
+  }
+};
 
 export const toTerminalItem = (terminal: TerminalView): TerminalItem => {
   const states = getOptionsFromEnum(State);
