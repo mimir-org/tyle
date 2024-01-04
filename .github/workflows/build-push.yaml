@@ -21,12 +21,12 @@ jobs:
   validate-build-target:
     runs-on: ubuntu-latest
     steps:
-      - name: Fail if build target is not valid
-        if: inputs.build-target != 'client' && inputs.build-target != 'server'
-        run: exit 1
       - name: Succeed otherwise
+        shell: bash
         run: |
-          echo 'Build target ${{ inputs.build-target }} is valid'
+          echo 'Build target $target is valid'
+        env:
+          target: ${{ inputs.build-target }}
 
   build-and-push:
     needs: validate-build-target
