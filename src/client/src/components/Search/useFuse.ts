@@ -1,7 +1,7 @@
-import Fuse from "fuse.js";
+import Fuse, { Expression, FuseResult, IFuseOptions } from "fuse.js";
 import { useMemo } from "react";
 
-export type UseFuseOptions<T> = Fuse.IFuseOptions<T> & { matchAllOnEmpty?: boolean };
+export type UseFuseOptions<T> = IFuseOptions<T> & { matchAllOnEmpty?: boolean };
 
 /**
  * Hook for using Fuse in combination with useMemo to reduce performance impact
@@ -13,7 +13,7 @@ export type UseFuseOptions<T> = Fuse.IFuseOptions<T> & { matchAllOnEmpty?: boole
  * @param query that will be searched for
  * @param options that adjust fuse behaviour
  */
-export const useFuse = <T>(items: T[], query?: string | Fuse.Expression, options?: UseFuseOptions<T>) => {
+export const useFuse = <T>(items: T[], query?: string | Expression, options?: UseFuseOptions<T>) => {
   const fuseClient = useMemo(() => new Fuse(items, options), [items, options]);
   const showAllItems = !query && options?.matchAllOnEmpty;
 
@@ -24,4 +24,4 @@ export const useFuse = <T>(items: T[], query?: string | Fuse.Expression, options
 };
 
 const mapSourceItemsToFuseResults = <T>(items: T[]) =>
-  items.map<Fuse.FuseResult<T>>((item, index) => ({ item, refIndex: index, matches: [], score: 1 }));
+  items.map<FuseResult<T>>((item, index) => ({ item, refIndex: index, matches: [], score: 1 }));
