@@ -24,7 +24,7 @@ interface previewPanelProps {
 
 const PreviewPanel = ({ name, description, tokens, terminals, attributes, state, kind }: previewPanelProps) => {
   const theme = useTheme();
-  const showAttributes = kind === "TerminalItem" || "BlockItem" && attributes && attributes.length > 0;
+  const showAttributes = kind === "TerminalItem" || ("BlockItem" && attributes && attributes.length > 0);
   const showTerminals = kind === "BlockItem" && terminals && terminals.length > 0;
 
   return (
@@ -49,8 +49,7 @@ const PreviewPanel = ({ name, description, tokens, terminals, attributes, state,
       </PanelPropertiesContainer>
       {showAttributes && (
         <PanelPropertiesContainer>
-          <PanelSection title="Attributes">{attributes?.map((a, i) => <InfoItemButton
-            key={i} {...a} />)}</PanelSection>
+          <PanelSection title="Attributes">{attributes?.map((a, i) => <InfoItemButton key={i} {...a} />)}</PanelSection>
         </PanelPropertiesContainer>
       )}
       {showTerminals && (
