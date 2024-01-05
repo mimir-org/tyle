@@ -29,9 +29,6 @@ const ReviewAndSubmitForm = ({ blockFormFields, mutation, formRef, mode }: Revie
     onSubmitForm(toBlockTypeRequest(blockFormFields), mutation.mutateAsync, toast);
   };
 
-  console.log(blockFormFields.aspect);
-  console.log(typeof blockFormFields.aspect);
-
   return (
     <ReviewAndSubmitFormWrapper onSubmit={handleSubmit} ref={formRef}>
       <Table>
