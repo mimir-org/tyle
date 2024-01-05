@@ -11,6 +11,7 @@ import { FormMode } from "types/formMode";
 import { Direction } from "types/terminals/direction";
 import { BlockFormFields, toBlockTypeRequest } from "./BlockForm.helpers";
 import { ReviewAndSubmitFormWrapper, SubmitButtonsWrapper } from "./ReviewAndSubmitForm.styled";
+import block from "../Block";
 
 interface ReviewAndSubmitProps {
   blockFormFields: BlockFormFields;
@@ -29,6 +30,9 @@ const ReviewAndSubmitForm = ({ blockFormFields, mutation, formRef, mode }: Revie
     onSubmitForm(toBlockTypeRequest(blockFormFields), mutation.mutateAsync, toast);
   };
 
+  console.log(blockFormFields.aspect);
+  console.log(typeof blockFormFields.aspect);
+
   return (
     <ReviewAndSubmitFormWrapper onSubmit={handleSubmit} ref={formRef}>
       <Table>
@@ -43,7 +47,7 @@ const ReviewAndSubmitForm = ({ blockFormFields, mutation, formRef, mode }: Revie
           </Tr>
           <Tr>
             <Td>Aspect</Td>
-            <Td>{blockFormFields.aspect ? Aspect[blockFormFields.aspect] : "undefined"}</Td>
+            <Td>{blockFormFields.aspect !== null ? Aspect[blockFormFields.aspect] : "undefined"}</Td>
           </Tr>
           <Tr>
             <Td>Purpose</Td>
