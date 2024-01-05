@@ -18,7 +18,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useTheme } from "styled-components";
 import { Actionable } from "types/actionable";
-import { MimirorgUserAmCorrectTypes } from "./mimirorgUserAm";
+import { UserRequest } from "types/authentication/userRequest";
 import { registerDetailsSchema } from "./registerDetailsSchema";
 
 interface RegisterDetailsProps {
@@ -38,11 +38,10 @@ const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
   const { register, control, handleSubmit, setError, formState } = formMethods;
   const { errors } = formState;
 
-  const onSubmit = (data: MimirorgUserAmCorrectTypes) => {
+  const onSubmit = (data: UserRequest) => {
     setUserEmail(data.email);
     mutation.mutate({
       ...data,
-      purpose: data.purpose ?? "",
     });
   };
 

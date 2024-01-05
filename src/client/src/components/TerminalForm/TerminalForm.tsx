@@ -1,21 +1,18 @@
-import { FormMode } from "../../types/formMode";
-import {
-  createEmptyTerminalFormFields,
-  TerminalFormFields,
-  toTerminalFormFields,
-  useTerminalQuery,
-} from "./TerminalForm.helpers";
+import { useGetTerminal } from "api/terminal.queries";
 import React from "react";
-import { TerminalView } from "../../types/terminals/terminalView";
+import { useParams } from "react-router-dom";
 import { usePrefilledForm } from "../../helpers/form.helpers";
+import { FormMode } from "../../types/formMode";
+import { TerminalView } from "../../types/terminals/terminalView";
 import Loader from "../Loader";
 import TypeFormContainer from "../TypeFormContainer";
-import TerminalBaseForm from "./TerminalBaseForm";
-import MediumAndQualifierForm from "./MediumAndQualifierForm";
-import ClassifiersForm from "./ClassifiersForm";
 import AttributesForm from "./AttributesForm";
+import ClassifiersForm from "./ClassifiersForm";
+import MediumAndQualifierForm from "./MediumAndQualifierForm";
 import ReviewAndCreateForm from "./ReviewAndCreateForm";
 import ReviewAndUpdateForm from "./ReviewAndUpdateForm";
+import TerminalBaseForm from "./TerminalBaseForm";
+import { createEmptyTerminalFormFields, TerminalFormFields, toTerminalFormFields } from "./TerminalForm.helpers";
 
 interface TerminalFormProps {
   mode?: FormMode;
@@ -31,7 +28,8 @@ const TerminalForm = ({ mode }: TerminalFormProps) => {
   const [activeStep, setActiveStep] = React.useState(0);
   const currentStepFormRef = React.useRef<HTMLFormElement>(null);
 
-  const query = useTerminalQuery();
+  const { id } = useParams();
+  const query = useGetTerminal(id);
 
   const mapper = (source: TerminalView) => toTerminalFormFields(source);
 

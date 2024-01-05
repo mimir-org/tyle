@@ -37,15 +37,12 @@ export function usePatchMutation(item: ItemType) {
   const patchBlockMutation = usePatchBlockState(item.id);
   const patchAttributeMutation = usePatchAttributeState(item.id);
   const patchTerminalMutation = usePatchTerminalState(item.id);
-  //const patchAttributeGroup = usePatchUnitState();
 
   switch (item.kind) {
     case "BlockItem":
       return patchBlockMutation;
     case "AttributeItem":
       return patchAttributeMutation;
-    //case "AttributeGroupItem":
-    //return patchAttributeGroup;
     case "TerminalItem":
       return patchTerminalMutation;
     default:
@@ -57,15 +54,12 @@ export function useDeleteMutation(item: ItemType) {
   const deleteBlockMutation = useDeleteBlock(item.id);
   const deleteAttributeMutation = useDeleteAttribute(item.id);
   const deleteTerminalMutation = useDeleteTerminal(item.id);
-  //const deleteAttributeGroupMutation = useDeleteAttributeGroup(item.id);
 
   switch (item.kind) {
     case "BlockItem":
       return deleteBlockMutation;
     case "AttributeItem":
       return deleteAttributeMutation;
-    /*case "AttributeGroupItem":
-      return deleteAttributeGroupMutation;*/
     case "TerminalItem":
       return deleteTerminalMutation;
     default:
