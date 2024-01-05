@@ -11,7 +11,6 @@ import { FormMode } from "types/formMode";
 import { Direction } from "types/terminals/direction";
 import { BlockFormFields, toBlockTypeRequest } from "./BlockForm.helpers";
 import { ReviewAndSubmitFormWrapper, SubmitButtonsWrapper } from "./ReviewAndSubmitForm.styled";
-import block from "../Block";
 
 interface ReviewAndSubmitProps {
   blockFormFields: BlockFormFields;
