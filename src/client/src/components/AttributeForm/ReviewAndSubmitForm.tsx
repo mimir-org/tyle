@@ -59,7 +59,7 @@ const ReviewAndSubmitForm = ({ attributeFormFields, mutation, formRef, mode }: R
       case ConstraintType.IsInListOfAllowedValues:
         return `Has${
           valueConstraint.requireValue ? " " : " no value or "
-        }one of the following values: ${valueConstraint.valueList.join(", ")}`;
+        }one of the following values: ${valueConstraint.valueList.map(constraint => constraint.value).join(", ")}`;
       case ConstraintType.HasSpecificDataType:
         return `Has${valueConstraint.requireValue ? " " : " no value or "}datatype ${XsdDataType[
           valueConstraint.dataType
