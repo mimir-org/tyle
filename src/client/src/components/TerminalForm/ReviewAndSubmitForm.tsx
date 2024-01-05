@@ -43,7 +43,7 @@ const ReviewAndSubmitForm = ({ terminalFormFields, mutation, formRef, mode }: Re
           </Tr>
           <Tr>
             <Td>Aspect</Td>
-            <Td>{terminalFormFields.aspect ? Aspect[terminalFormFields.aspect] : "undefined"}</Td>
+            <Td>{terminalFormFields.aspect !== null ? Aspect[terminalFormFields.aspect] : "undefined"}</Td>
           </Tr>
           <Tr>
             <Td>Purpose</Td>
