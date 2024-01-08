@@ -21,7 +21,7 @@ public class CommonLibSyncingService : IHostedService, IDisposable
 {
     private bool _disposedValue;
     private readonly IServiceProvider _serviceProvider;
-    private Timer? _timer = null;
+    private Timer? _timer;
 
     public CommonLibSyncingService(IServiceProvider serviceProvider)
     {

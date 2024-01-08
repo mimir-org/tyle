@@ -11,6 +11,10 @@ public static class ExternalDependencyInjection
         {
             services.AddHostedService<CommonLibSyncingService>();
         }
+        else
+        {
+            services.AddHostedService<PcaSyncingService>();
+        }
 
         return services;
     }
