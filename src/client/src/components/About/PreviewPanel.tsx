@@ -1,18 +1,18 @@
+import { useTheme } from "styled-components";
 import { BlockTerminalItem } from "../../types/blockTerminalItem";
 import { State } from "../../types/common/state";
-import Text from "../Text";
+import { InfoItem } from "../../types/infoItem";
+import Box from "../Box";
+import Divider from "../Divider";
 import Heading from "../Heading";
+import InfoItemButton from "../InfoItemButton";
 import StateBadge from "../StateBadge";
+import Text from "../Text";
 import PanelPropertiesContainer from "./PanelPropertiesContainer";
 import PanelSection from "./PanelSection";
-import InfoItemButton from "../InfoItemButton";
-import { InfoItem } from "../../types/infoItem";
 import TerminalTable from "./TerminalTable";
-import Divider from "../Divider";
-import Box from "../Box";
-import { useTheme } from "styled-components";
 
-interface previewPanelProps {
+interface PreviewPanelProps {
   name: string;
   description: string;
   tokens?: string[];
@@ -22,7 +22,7 @@ interface previewPanelProps {
   kind: string | null;
 }
 
-const PreviewPanel = ({ name, description, tokens, terminals, attributes, state, kind }: previewPanelProps) => {
+const PreviewPanel = ({ name, description, tokens, terminals, attributes, state, kind }: PreviewPanelProps) => {
   const theme = useTheme();
   const showAttributes = kind === "TerminalItem" || ("BlockItem" && attributes && attributes.length > 0);
   const showTerminals = kind === "BlockItem" && terminals && terminals.length > 0;

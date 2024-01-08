@@ -43,7 +43,7 @@ const ReviewAndSubmitForm = ({ blockFormFields, mutation, formRef, mode }: Revie
           </Tr>
           <Tr>
             <Td>Aspect</Td>
-            <Td>{blockFormFields.aspect ? Aspect[blockFormFields.aspect] : "undefined"}</Td>
+            <Td>{blockFormFields.aspect !== null ? Aspect[blockFormFields.aspect] : "undefined"}</Td>
           </Tr>
           <Tr>
             <Td>Purpose</Td>

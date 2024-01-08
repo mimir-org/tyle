@@ -1,4 +1,5 @@
 import { DevTool } from "@hookform/devtools";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useUpdateUser } from "api/user.queries";
 import Button from "components/Button";
 import Form from "components/Form";
@@ -11,6 +12,7 @@ import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
 import { UserRequest } from "types/authentication/userRequest";
 import { UserView } from "types/authentication/userView";
+import { userSchema } from "./userSchema";
 import {
   addDummyPasswordToUserAm,
   mapUserViewToRequest,
@@ -25,7 +27,7 @@ interface UserSettingsFormProps {
 const UserSettingsForm = ({ defaultValues }: UserSettingsFormProps) => {
   const formMethods = useForm<UserRequest>({
     defaultValues: defaultValues,
-    //resolver: yupResolver(userSchema(t)),
+    resolver: yupResolver(userSchema()),
   });
 
   const { register, handleSubmit, control, setError, reset, formState } = formMethods;
@@ -46,10 +48,10 @@ const UserSettingsForm = ({ defaultValues }: UserSettingsFormProps) => {
       {!isLoading && (
         <>
           <FormField label="First name" error={formState.errors.firstName}>
-            <Input style={{ fontSize: "17px" }} placeholder="Enter first name" {...register("firstName")} />
+            <Input placeholder="Enter first name" {...register("firstName")} />
           </FormField>
           <FormField label="Last name" error={formState.errors.lastName}>
-            <Input style={{ fontSize: "17px" }} placeholder="Enter last name" {...register("lastName")} />
+            <Input placeholder="Enter last name" {...register("lastName")} />
           </FormField>
           <Button type={"submit"}>Update user settings</Button>
         </>

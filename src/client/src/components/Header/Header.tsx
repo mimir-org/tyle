@@ -3,7 +3,6 @@ import Flexbox from "components/Flexbox";
 import Text from "components/Text";
 import config from "config";
 import { useTheme } from "styled-components";
-import ContactButton from "./ContactButton";
 import DocumentationButton from "./Documentation";
 import FeedbackButton from "./FeedbackButton";
 import HeaderContainer from "./Header.styles";
@@ -18,9 +17,6 @@ const Header = () => {
   const theme = useTheme();
   const userQuery = useGetCurrentUser();
 
-  //const companies = useGetFilteredCompanies(MimirorgPermission.Read);
-  //const permissions = mapPermissionDescriptions(userQuery.data?.permissions ?? [], companies);
-
   const userInitials = `${userQuery.data?.firstName?.[0]}${userQuery.data?.lastName?.[0]}`;
   const userFullName = `${userQuery.data?.firstName} ${userQuery.data?.lastName}`;
   const userRoles = userQuery.data?.roles;
@@ -34,7 +30,6 @@ const Header = () => {
             <UserInfo name={userFullName} roles={userRoles} />
             <ThemeButton />
             <DocumentationButton />
-            <ContactButton />
             <FeedbackButton />
             <SettingsButton />
             <LogoutButton />
