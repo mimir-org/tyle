@@ -30,6 +30,9 @@ export const TerminalPanel = ({ terminalData }: TerminalPanelProps) => {
   const tokens = [terminalData.version, states[terminalData.state].label];
   const attributesMapped = sortInfoItems(mapAttributeViewsToInfoItems(terminalData.attributes.map((x) => x.attribute)));
   const classifiersMapped = mapRdlClassifiersToInfoItems(terminalData.classifiers);
+  const purposeMapped = mapRdlPurposeToInfoItem(terminalData.purpose);
+  const mediumMapped = mapRdlMediumToInfoItem(terminalData.medium);
+
 
   return (
     <MotionBox
@@ -65,7 +68,7 @@ export const TerminalPanel = ({ terminalData }: TerminalPanelProps) => {
             </Box>
             <Box gridColumn={"3"}>
               <PanelSection title={"Purpose"}>
-                <InfoItemButton key={terminalData.purpose?.id} {...mapRdlPurposeToInfoItem(terminalData.purpose)} />
+                <InfoItemButton key={terminalData.purpose?.id} {...purposeMapped} />
               </PanelSection>
             </Box>
           </Box>
@@ -75,7 +78,7 @@ export const TerminalPanel = ({ terminalData }: TerminalPanelProps) => {
           <Box display={"grid"}>
             <Box gridColumn={"1"}>
               <PanelSection title={"Medium"}>
-                <InfoItemButton key={terminalData.medium?.id} {...mapRdlMediumToInfoItem(terminalData.medium)} />
+                <InfoItemButton key={terminalData.medium?.id} {...mediumMapped} />
               </PanelSection>
             </Box>
             <Box gridColumn={"2"}>
