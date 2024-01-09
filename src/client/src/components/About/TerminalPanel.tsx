@@ -54,23 +54,17 @@ export const TerminalPanel = ({ terminalData }: TerminalPanelProps) => {
         </Box>
         <Divider />
         <PanelPropertiesContainer>
-          <Box display={"grid"}>
-            <Box gridColumn={"1"}>
-              <PanelSection title={"Notation"}>
-                <Text>{terminalData.notation}</Text>
-              </PanelSection>
-            </Box>
-            <Box gridColumn={"2"}>
-              <PanelSection title={"Aspect"}>
-                <Text>{terminalData.aspect !== null ? Aspect[terminalData.aspect] : ""}</Text>
-              </PanelSection>
-            </Box>
-            <Box gridColumn={"3"}>
-              <PanelSection title={"Purpose"}>
-                <InfoItemButton key={terminalData.purpose?.id} {...purposeMapped} />
-              </PanelSection>
-            </Box>
-          </Box>
+          <PanelSection title={"Notation"}>
+            <Text>{terminalData.notation}</Text>
+          </PanelSection>
+
+          <PanelSection title={"Aspect"}>
+            <Text>{terminalData.aspect !== null ? Aspect[terminalData.aspect] : ""}</Text>
+          </PanelSection>
+
+          <PanelSection title={"Purpose"}>
+            <InfoItemButton key={terminalData.purpose?.id} {...purposeMapped} />
+          </PanelSection>
           <PanelSection title={"Description"}>
             <Text>{terminalData.description}</Text>
           </PanelSection>

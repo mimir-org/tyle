@@ -53,23 +53,15 @@ const BlockPanel = ({ blockData }: BlockPanelProps) => {
         </Box>
         <Divider />
         <PanelPropertiesContainer>
-          <Box display={"grid"}>
-            <Box gridColumn={"1"}>
-              <PanelSection title={"Notation"}>
-                <Text>{blockData.notation}</Text>
-              </PanelSection>
-            </Box>
-            <Box gridColumn={"2"}>
-              <PanelSection title={"Aspect"}>
-                <Text>{blockData.aspect !== null ? Aspect[blockData.aspect] : ""}</Text>
-              </PanelSection>
-            </Box>
-            <Box gridColumn={"3"}>
-              <PanelSection title={"Purpose"}>
-                <InfoItemButton key={blockData.purpose?.id} {...purposeMapped} />
-              </PanelSection>
-            </Box>
-          </Box>
+          <PanelSection title={"Notation"}>
+            <Text>{blockData.notation}</Text>
+          </PanelSection>
+          <PanelSection title={"Aspect"}>
+            <Text>{blockData.aspect !== null ? Aspect[blockData.aspect] : ""}</Text>
+          </PanelSection>
+          <PanelSection title={"Purpose"}>
+            <InfoItemButton key={blockData.purpose?.id} {...purposeMapped} />
+          </PanelSection>
           <PanelSection title={"Description"}>
             <Text>{blockData.description}</Text>
           </PanelSection>
