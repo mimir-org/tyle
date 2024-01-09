@@ -15,7 +15,11 @@ import { ConstraintType } from "../../types/attributes/constraintType";
 import { XsdDataType } from "../../types/attributes/xsdDataType";
 import { UnitRequirement } from "../AttributeForm/AttributeForm.helpers";
 import InfoItemButton from "../InfoItemButton";
-import { mapRdlPredicateToInfoItem, mapRdlUnitsToInfoItem } from "../../helpers/mappers.helpers";
+import {
+  isNullUndefinedOrWhitespace,
+  mapRdlPredicateToInfoItem,
+  mapRdlUnitsToInfoItems,
+} from "../../helpers/mappers.helpers";
 
 interface AttributePanelProps {
   attributeData: AttributeView;
@@ -24,7 +28,7 @@ interface AttributePanelProps {
 const AttributePanel = ({ attributeData }: AttributePanelProps) => {
   const theme = useTheme();
   const predicateMapped = mapRdlPredicateToInfoItem(attributeData.predicate);
-  const unitsMapped = mapRdlUnitsToInfoItem(attributeData.units);
+  const unitsMapped = mapRdlUnitsToInfoItems(attributeData.units);
   const getUnitRequirement = () => {
     const { unitMinCount, unitMaxCount } = attributeData;
 
@@ -51,8 +55,6 @@ const AttributePanel = ({ attributeData }: AttributePanelProps) => {
 
   const getValueConstraintText = () => {
     const { valueConstraint } = attributeData;
-    if (!valueConstraint) return "not set";
-
     switch (valueConstraint?.constraintType) {
       case ConstraintType.HasSpecificValue:
         return `Has the value ${valueConstraint.value}`;
@@ -106,22 +108,36 @@ const AttributePanel = ({ attributeData }: AttributePanelProps) => {
         </Box>
         <Divider />
         <PanelPropertiesContainer>
-          <PanelSection title={"Predicate"}>
-            <InfoItemButton key={attributeData.predicate?.id} {...predicateMapped} />
-          </PanelSection>
-          <PanelSection title={"Qualifiers"}>{getQualifiersString()}</PanelSection>
-          <PanelSection title={"Description"}>
-            <Text>{attributeData.description}</Text>
-          </PanelSection>
-          <PanelSection title={"Unit requirement"}>
-            <Text>{getUnitRequirement()}</Text>
-          </PanelSection>
-          <PanelSection title={"Units"}>
-            {unitsMapped.length > 0 ? unitsMapped.map((unit) => <InfoItemButton key={unit.id} {...unit} />) : ""}
-          </PanelSection>
-          <PanelSection title={"Value constraints"}>
-            <Text>{getValueConstraintText()}</Text>
-          </PanelSection>
+          {!isNullUndefinedOrWhitespace(predicateMapped.id) && (
+            <PanelSection title={"Predicate"}>
+              <InfoItemButton key={attributeData.predicate?.id} {...predicateMapped} />
+            </PanelSection>
+          )}
+          {!isNullUndefinedOrWhitespace(getQualifiersString()) && (
+            <PanelSection title={"Qualifiers"}>{getQualifiersString()}</PanelSection>
+          )}
+          {!isNullUndefinedOrWhitespace(attributeData.description) && (
+            <PanelSection title={"Description"}>
+              <Text>{attributeData.description}</Text>
+            </PanelSection>
+          )}
+          {!isNullUndefinedOrWhitespace(getUnitRequirement()) && (
+            <PanelSection title={"Unit requirement"}>
+              <Text>{getUnitRequirement()}</Text>
+            </PanelSection>
+          )}
+          {unitsMapped.length > 0 && (
+            <PanelSection title={"Units"}>
+              {unitsMapped.map((unit) => (
+                <InfoItemButton key={unit.id} {...unit} />
+              ))}
+            </PanelSection>
+          )}
+          {!isNullUndefinedOrWhitespace(getValueConstraintText()) && (
+            <PanelSection title={"Value constraints"}>
+              <Text>{getValueConstraintText()}</Text>
+            </PanelSection>
+          )}
         </PanelPropertiesContainer>
       </Box>
     </MotionBox>

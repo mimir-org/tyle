@@ -9,6 +9,7 @@ import Text from "../Text";
 import InfoItemButton from "../InfoItemButton";
 import { TerminalView } from "../../types/terminals/terminalView";
 import {
+  isNullUndefinedOrWhitespace,
   mapAttributeViewsToInfoItems,
   mapRdlClassifiersToInfoItems,
   mapRdlMediumToInfoItem,
@@ -54,36 +55,50 @@ export const TerminalPanel = ({ terminalData }: TerminalPanelProps) => {
         </Box>
         <Divider />
         <PanelPropertiesContainer>
-          <PanelSection title={"Notation"}>
-            <Text>{terminalData.notation}</Text>
-          </PanelSection>
-
-          <PanelSection title={"Aspect"}>
-            <Text>{terminalData.aspect !== null ? Aspect[terminalData.aspect] : ""}</Text>
-          </PanelSection>
-
-          <PanelSection title={"Purpose"}>
-            <InfoItemButton key={terminalData.purpose?.id} {...purposeMapped} />
-          </PanelSection>
-          <PanelSection title={"Description"}>
-            <Text>{terminalData.description}</Text>
-          </PanelSection>
-          <PanelSection title={"Medium"}>
-            <InfoItemButton key={terminalData.medium?.id} {...mediumMapped} />
-          </PanelSection>
-          <PanelSection title={"Qualifier"}>
-            <Text>{Direction[terminalData.qualifier]}</Text>
-          </PanelSection>
-          <PanelSection title="Classifiers">
-            {classifiersMapped.map((a, i) => (
-              <InfoItemButton key={i} {...a} />
-            ))}
-          </PanelSection>
-          <PanelSection title="Attributes">
-            {attributesMapped.map((a, i) => (
-              <InfoItemButton key={i} {...a} />
-            ))}
-          </PanelSection>
+          {!isNullUndefinedOrWhitespace(terminalData.notation) && (
+            <PanelSection title={"Notation"}>
+              <Text>{terminalData.notation}</Text>
+            </PanelSection>
+          )}
+          {!isNullUndefinedOrWhitespace(terminalData.aspect) && (
+            <PanelSection title={"Aspect"}>
+              <Text>{terminalData.aspect !== null ? Aspect[terminalData.aspect] : ""}</Text>
+            </PanelSection>
+          )}
+          {!isNullUndefinedOrWhitespace(purposeMapped.id) && (
+            <PanelSection title={"Purpose"}>
+              <InfoItemButton key={terminalData.purpose?.id} {...purposeMapped} />
+            </PanelSection>
+          )}
+          {!isNullUndefinedOrWhitespace(terminalData.description) && (
+            <PanelSection title={"Description"}>
+              <Text>{terminalData.description}</Text>
+            </PanelSection>
+          )}
+          {!isNullUndefinedOrWhitespace(mediumMapped.id) && (
+            <PanelSection title={"Medium"}>
+              <InfoItemButton key={terminalData.medium?.id} {...mediumMapped} />
+            </PanelSection>
+          )}
+          {!isNullUndefinedOrWhitespace(terminalData.qualifier) && (
+            <PanelSection title={"Qualifier"}>
+              <Text>{Direction[terminalData.qualifier]}</Text>
+            </PanelSection>
+          )}
+          {classifiersMapped.length > 0 && (
+            <PanelSection title="Classifiers">
+              {classifiersMapped.map((a, i) => (
+                <InfoItemButton key={i} {...a} />
+              ))}
+            </PanelSection>
+          )}
+          {attributesMapped.length > 0 && (
+            <PanelSection title="Attributes">
+              {attributesMapped.map((a, i) => (
+                <InfoItemButton key={i} {...a} />
+              ))}
+            </PanelSection>
+          )}
         </PanelPropertiesContainer>
       </Box>
     </MotionBox>

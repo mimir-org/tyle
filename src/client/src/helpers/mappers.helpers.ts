@@ -61,7 +61,7 @@ export const toBlockItem = (block: BlockView): BlockItem => {
     description: block.description ?? "",
     color: getColorFromAspect(block.aspect),
     tokens: [block.version, currentStateLabel],
-    terminals: sortBlockTerminals(mapBlockTerminalLibCmsToBlockTerminalItems(block.terminals)),
+    terminals: sortBlockTerminals(mapTerminalTypeReferenceViewToBlockTerminalItems(block.terminals)),
     attributes: sortInfoItems(mapAttributeViewsToInfoItems(block.attributes.map((x) => x.attribute))),
     kind: "BlockItem",
     state: block.state,
@@ -69,7 +69,7 @@ export const toBlockItem = (block: BlockView): BlockItem => {
   };
 };
 
-export const mapBlockTerminalLibCmsToBlockTerminalItems = (
+export const mapTerminalTypeReferenceViewToBlockTerminalItems = (
   terminals: TerminalTypeReferenceView[],
 ): BlockTerminalItem[] =>
   terminals.map((x) => ({
@@ -150,17 +150,6 @@ export const toAttributeItem = (attribute: AttributeView): AttributeItem => {
   };
 };
 
-export const mapRdlUnitsToInfoItem = (units: RdlUnit[]): InfoItem[] => {
-  return units.map((unit) => ({
-    id: unit.id.toString(),
-    name: unit.name,
-    descriptors: {
-      description: unit.description,
-      iri: unit.iri,
-    },
-  }));
-};
-
 export const mapRdlPredicateToInfoItem = (predicate: RdlPredicate | null): InfoItem => {
   return {
     id: predicate?.id.toString(),
@@ -183,6 +172,30 @@ export const mapRdlMediumToInfoItem = (medium: RdlMedium | null): InfoItem => {
   };
 };
 
+export const mapRdlPurposeToInfoItem = (purpose: RdlPurpose | null): InfoItem => {
+  return {
+    id: purpose?.id.toString(),
+    name: purpose?.name ? purpose.name : "",
+    descriptors: {
+      description: purpose?.description,
+      iri: purpose?.iri,
+    },
+  };
+};
+
+export const mapRdlUnitsToInfoItems = (units: RdlUnit[]): InfoItem[] => {
+  return (
+    units.map((unit) => ({
+      id: unit.id.toString(),
+      name: unit.name,
+      descriptors: {
+        description: unit.description,
+        iri: unit.iri,
+      },
+    })) ?? []
+  );
+};
+
 export const mapRdlClassifiersToInfoItems = (classifiers: RdlClassifier[]): InfoItem[] => {
   return (
     classifiers.map((classifier) => ({
@@ -196,13 +209,12 @@ export const mapRdlClassifiersToInfoItems = (classifiers: RdlClassifier[]): Info
   );
 };
 
-export const mapRdlPurposeToInfoItem = (purpose: RdlPurpose | null): InfoItem => {
-  return {
-    id: purpose?.id.toString(),
-    name: purpose?.name ? purpose.name : "",
-    descriptors: {
-      description: purpose?.description,
-      iri: purpose?.iri,
-    },
-  };
+export const isNullUndefinedOrWhitespace = <T>(input: T | null): boolean => {
+  if (input === null || input === undefined) {
+    return true;
+  }
+  if (typeof input === "string") {
+    return /^\s*$/.test(input);
+  }
+  return false;
 };
