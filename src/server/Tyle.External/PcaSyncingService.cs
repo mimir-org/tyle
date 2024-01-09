@@ -5,7 +5,6 @@ using Tyle.Application.Attributes.Requests;
 using Tyle.Application.Common.Requests;
 using Tyle.Application.Common;
 using Tyle.Core.Common;
-using Tyle.External.Model;
 using VDS.RDF.Query;
 
 namespace Tyle.External;
@@ -40,7 +39,8 @@ public class PcaSyncingService : IHostedService, IDisposable
     private async void Sync(object? state)
     {
         await SyncPurposes();
-        await SyncUnits();
+        await SyncClassifiers();
+        await SyncPredicates();
     }
 
     private async Task SyncPurposes()
@@ -59,24 +59,21 @@ public class PcaSyncingService : IHostedService, IDisposable
                             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                             PREFIX owl: <http://www.w3.org/2002/07/owl#>
                             PREFIX lis: <http://rds.posccaesar.org/ontology/lis14/rdl/>
-                            PREFIX rdl: <http://rds.posccaesar.org/ontology/plm/rdl/>
+                            PREFIX rdl:   <http://rds.posccaesar.org/ontology/plm/rdl/>
                             PREFIX pca: <http://data.posccaesar.org/rdl/>
                             PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-                            
                             select * {
-                              ?process rdfs:subClassOf+ <http://rds.posccaesar.org/ontology/plm/rdl/PCA_100001001> ;
-                              rdfs:label ?label ;
-                              rdfs:subClassOf ?superclass .
-                                                            
+                              ?process rdfs:subClassOf+ <http://rds.posccaesar.org/ontology/plm/rdl/PCA_100000001> ;
+                                  rdfs:label ?label ;
+                                  rdfs:subClassOf ?superclass .
                               OPTIONAL {
-                                ?process skos:exactMatch | skos:closeMatch | skos:relatedMatch ?rdl .
-                             
-                                SERVICE <https://data.posccaesar.org/rdl/sparql> {
-                                  ?rdl <http://data.posccaesar.org/rdl/hasDefinition> ?def
-                                }
+                               ?process skos:exactMatch | skos:closeMatch | skos:relatedMatch ?rdl .
+                               
+                               SERVICE <https://data.posccaesar.org/rdl/sparql> { 
+                                  ?rdl  <http://data.posccaesar.org/rdl/hasDefinition> ?def 
+                                } 
                               }
                             }
-                            
                             order by ?label
                             """;
 
@@ -126,19 +123,99 @@ public class PcaSyncingService : IHostedService, IDisposable
         await purposeRepository.Create(purposesToCreate, ReferenceSource.Pca);
     }
 
-    private async Task SyncUnits()
+    private async Task SyncClassifiers()
     {
         using IServiceScope scope = _serviceProvider.CreateScope();
 
 
-        var unitRepository = scope.ServiceProvider.GetService<IUnitRepository>();
+        var classifierRepository = scope.ServiceProvider.GetService<IClassifierRepository>();
 
-        if (unitRepository == null)
+        if (classifierRepository == null)
         {
             return;
         }
 
-        var unitsQuery = """
+        var classifiersQuery = """
+                            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                            PREFIX owl: <http://www.w3.org/2002/07/owl#>
+                            PREFIX lis: <http://rds.posccaesar.org/ontology/lis14/rdl/>
+                            PREFIX rdl:   <http://rds.posccaesar.org/ontology/plm/rdl/>
+                            PREFIX pca: <http://data.posccaesar.org/rdl/>
+                            PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+                            select * {
+                              ?process rdfs:subClassOf+ <http://rds.posccaesar.org/ontology/plm/rdl/PCA_100001001> ;
+                                  rdfs:label ?label ;
+                                  rdfs:subClassOf ?superclass .
+                              OPTIONAL {
+                               ?process skos:exactMatch | skos:closeMatch | skos:relatedMatch ?rdl .
+                               
+                               SERVICE <https://data.posccaesar.org/rdl/sparql> { 
+                                  ?rdl  <http://data.posccaesar.org/rdl/hasDefinition> ?def 
+                                } 
+                              }
+                            }
+                            order by ?label
+                            """;
+
+        var classifiers = await _queryClient.QueryWithResultSetAsync(classifiersQuery);
+
+        var classifiersDb = (await classifierRepository.GetAll()).ToList();
+
+        var classifiersToCreate = new List<RdlClassifierRequest>();
+
+        foreach (var classifier in classifiers)
+        {
+            var iriString = classifier["process"].ToString();
+
+            if (iriString == null || !Uri.TryCreate(iriString, UriKind.Absolute, out var iri) || classifiersDb.Any(savedClassifier => savedClassifier.Iri.Equals(iri)))
+            {
+                continue;
+            }
+
+            string? nameString = null;
+
+            if (classifier["label"] != null)
+            {
+                nameString = classifier["label"].ToString().Split('^')[0];
+            }
+
+            if (nameString == null) continue;
+
+            string? descriptionString = null;
+
+            if (classifier["def"] != null)
+            {
+                descriptionString = classifier["def"].ToString().Split('^')[0];
+            }
+
+            var classifierRequest = new RdlClassifierRequest
+            {
+                Name = nameString,
+                Description = descriptionString == null || descriptionString.Length > 0 ? descriptionString : null,
+                Iri = iriString
+            };
+
+            if (classifiersToCreate.Any(x => new Uri(x.Iri).Equals(new Uri(classifierRequest.Iri)))) continue;
+
+            classifiersToCreate.Add(classifierRequest);
+        }
+
+        await classifierRepository.Create(classifiersToCreate, ReferenceSource.Pca);
+    }
+
+    private async Task SyncPredicates()
+    {
+        using IServiceScope scope = _serviceProvider.CreateScope();
+
+
+        var predicatesRepository = scope.ServiceProvider.GetService<IPredicateRepository>();
+
+        if (predicatesRepository == null)
+        {
+            return;
+        }
+
+        var predicatesQuery = """
                             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                             PREFIX owl: <http://www.w3.org/2002/07/owl#>
                             PREFIX lis: <http://rds.posccaesar.org/ontology/lis14/rdl/>
@@ -164,50 +241,50 @@ public class PcaSyncingService : IHostedService, IDisposable
                             order by ?label
                             """;
 
-        var units = await _queryClient.QueryWithResultSetAsync(unitsQuery);
+        var predicates = await _queryClient.QueryWithResultSetAsync(predicatesQuery);
 
-        var unitsDb = (await unitRepository.GetAll()).ToList();
+        var predicatesDb = (await predicatesRepository.GetAll()).ToList();
 
-        var unitsToCreate = new List<RdlUnitRequest>();
+        var predicatesToCreate = new List<RdlPredicateRequest>();
 
-        foreach (var unit in units)
+        foreach (var predicate in predicates)
         {
-            var iriString = unit["process"].ToString();
+            var iriString = predicate["process"].ToString();
 
-            if (iriString == null || !Uri.TryCreate(iriString, UriKind.Absolute, out var iri) || unitsDb.Any(savedUnit => savedUnit.Iri.Equals(iri)))
+            if (iriString == null || !Uri.TryCreate(iriString, UriKind.Absolute, out var iri) || predicatesDb.Any(savedPredicate => savedPredicate.Iri.Equals(iri)))
             {
                 continue;
             }
 
             string? nameString = null;
 
-            if (unit["label"] != null)
+            if (predicate["label"] != null)
             {
-                nameString = unit["label"].ToString().Split('^')[0];
+                nameString = predicate["label"].ToString().Split('^')[0];
             }
 
             if (nameString == null) continue;
 
             string? descriptionString = null;
 
-            if (unit["def"] != null)
+            if (predicate["def"] != null)
             {
-                descriptionString = unit["def"].ToString().Split('^')[0];
+                descriptionString = predicate["def"].ToString().Split('^')[0];
             }
 
-            var unitRequest = new RdlUnitRequest
+            var predicateRequest = new RdlPredicateRequest
             {
                 Name = nameString,
                 Description = descriptionString == null || descriptionString.Length > 0 ? descriptionString : null,
                 Iri = iriString
             };
 
-            if (unitsToCreate.Any(x => new Uri(x.Iri).Equals(new Uri(unitRequest.Iri)))) continue;
+            if (predicatesToCreate.Any(x => new Uri(x.Iri).Equals(new Uri(predicateRequest.Iri)))) continue;
 
-            unitsToCreate.Add(unitRequest);
+            predicatesToCreate.Add(predicateRequest);
         }
 
-        await unitRepository.Create(unitsToCreate, ReferenceSource.Pca);
+        await predicatesRepository.Create(predicatesToCreate, ReferenceSource.Pca);
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
