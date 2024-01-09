@@ -68,18 +68,12 @@ export const TerminalPanel = ({ terminalData }: TerminalPanelProps) => {
           <PanelSection title={"Description"}>
             <Text>{terminalData.description}</Text>
           </PanelSection>
-          <Box display={"grid"}>
-            <Box gridColumn={"1"}>
-              <PanelSection title={"Medium"}>
-                <InfoItemButton key={terminalData.medium?.id} {...mediumMapped} />
-              </PanelSection>
-            </Box>
-            <Box gridColumn={"2"}>
-              <PanelSection title={"Qualifier"}>
-                <Text>{Direction[terminalData.qualifier]}</Text>
-              </PanelSection>
-            </Box>
-          </Box>
+          <PanelSection title={"Medium"}>
+            <InfoItemButton key={terminalData.medium?.id} {...mediumMapped} />
+          </PanelSection>
+          <PanelSection title={"Qualifier"}>
+            <Text>{Direction[terminalData.qualifier]}</Text>
+          </PanelSection>
           <PanelSection title="Classifiers">
             {classifiersMapped.map((a, i) => (
               <InfoItemButton key={i} {...a} />
