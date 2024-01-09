@@ -10,12 +10,12 @@ import Text from "../Text";
 import { Aspect } from "../../types/common/aspect";
 import InfoItemButton from "../InfoItemButton";
 import {
-  mapAttributeViewsToInfoItems, mapBlockTerminalLibCmsToBlockTerminalItems, mapRdlClassifiersToInfoItems,
-  mapRdlMediumToInfoItem,
+  mapAttributeViewsToInfoItems,
+  mapBlockTerminalLibCmsToBlockTerminalItems,
+  mapRdlClassifiersToInfoItems,
   mapRdlPurposeToInfoItem,
-  sortInfoItems
+  sortInfoItems,
 } from "../../helpers/mappers.helpers";
-import { Direction } from "../../types/terminals/direction";
 import { getOptionsFromEnum } from "../../utils";
 import { State } from "../../types/common/state";
 import TerminalTable from "./TerminalTable";
@@ -31,7 +31,6 @@ const BlockPanel = ({ blockData }: BlockPanelProps) => {
   const classifiersMapped = mapRdlClassifiersToInfoItems(blockData.classifiers);
   const terminalsMapped = mapBlockTerminalLibCmsToBlockTerminalItems(blockData.terminals);
   const purposeMapped = mapRdlPurposeToInfoItem(blockData.purpose);
-  console.log(blockData);
 
   return (
     <MotionBox

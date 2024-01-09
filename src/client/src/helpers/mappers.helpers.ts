@@ -69,7 +69,9 @@ export const toBlockItem = (block: BlockView): BlockItem => {
   };
 };
 
-export const mapBlockTerminalLibCmsToBlockTerminalItems = (terminals: TerminalTypeReferenceView[]): BlockTerminalItem[] =>
+export const mapBlockTerminalLibCmsToBlockTerminalItems = (
+  terminals: TerminalTypeReferenceView[],
+): BlockTerminalItem[] =>
   terminals.map((x) => ({
     id: x.terminal.id,
     name: x.terminal.name,
@@ -149,16 +151,14 @@ export const toAttributeItem = (attribute: AttributeView): AttributeItem => {
 };
 
 export const mapRdlUnitsToInfoItem = (units: RdlUnit[]): InfoItem[] => {
-  return (
-    units.map((unit) => ({
-      id: unit.id.toString(),
-      name: unit.name,
-      descriptors: {
-        description: unit.description,
-        iri: unit.iri,
-      },
-    }))
-  );
+  return units.map((unit) => ({
+    id: unit.id.toString(),
+    name: unit.name,
+    descriptors: {
+      description: unit.description,
+      iri: unit.iri,
+    },
+  }));
 };
 
 export const mapRdlPredicateToInfoItem = (predicate: RdlPredicate | null): InfoItem => {

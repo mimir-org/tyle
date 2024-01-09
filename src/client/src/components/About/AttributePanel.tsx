@@ -63,7 +63,7 @@ const AttributePanel = ({ attributeData }: AttributePanelProps) => {
       case ConstraintType.HasSpecificDataType:
         return `Has${valueConstraint.minCount > 0 ? " " : " no value or "}datatype ${XsdDataType[
           valueConstraint.dataType
-          ].toLowerCase()}`;
+        ].toLowerCase()}`;
       case ConstraintType.MatchesRegexPattern:
         return `${valueConstraint.minCount > 0 ? "M" : "Has no value or m"}atches the regex pattern ${
           valueConstraint.pattern
@@ -107,10 +107,7 @@ const AttributePanel = ({ attributeData }: AttributePanelProps) => {
         <Divider />
         <PanelPropertiesContainer>
           <PanelSection title={"Predicate"}>
-            <InfoItemButton
-              key={attributeData.predicate?.id}
-              {...predicateMapped}
-            />
+            <InfoItemButton key={attributeData.predicate?.id} {...predicateMapped} />
           </PanelSection>
           <PanelSection title={"Qualifiers"}>{getQualifiersString()}</PanelSection>
           <PanelSection title={"Description"}>
@@ -120,9 +117,7 @@ const AttributePanel = ({ attributeData }: AttributePanelProps) => {
             <Text>{getUnitRequirement()}</Text>
           </PanelSection>
           <PanelSection title={"Units"}>
-            {unitsMapped.length > 0
-              ? unitsMapped.map((unit) => <InfoItemButton key={unit.id} {...unit} />)
-              : ""}
+            {unitsMapped.length > 0 ? unitsMapped.map((unit) => <InfoItemButton key={unit.id} {...unit} />) : ""}
           </PanelSection>
           <PanelSection title={"Value constraints"}>
             <Text>{getValueConstraintText()}</Text>

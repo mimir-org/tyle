@@ -33,7 +33,6 @@ export const TerminalPanel = ({ terminalData }: TerminalPanelProps) => {
   const purposeMapped = mapRdlPurposeToInfoItem(terminalData.purpose);
   const mediumMapped = mapRdlMediumToInfoItem(terminalData.medium);
 
-
   return (
     <MotionBox
       flex={1}
