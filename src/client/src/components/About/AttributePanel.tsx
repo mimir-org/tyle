@@ -82,7 +82,7 @@ const AttributePanel = ({ attributeData }: AttributePanelProps) => {
         }`;
     }
   };
-  
+
   return (
     <MotionBox
       flex={1}
@@ -104,16 +104,26 @@ const AttributePanel = ({ attributeData }: AttributePanelProps) => {
         </Box>
         <Divider />
         <PanelPropertiesContainer>
-          <PanelSection title={"Predicate"}><InfoItemButton key={attributeData.predicate?.id} {...mapRdlPredicateToInfoItem(attributeData.predicate)} /></PanelSection>
+          <Box display={"grid"} rowGap={theme.tyle.spacing.xxl}>
+            <Box gridColumn={"1"}>
+              <PanelSection title={"Predicate"}>
+                <InfoItemButton key={attributeData.predicate?.id} {...mapRdlPredicateToInfoItem(attributeData.predicate)} />
+              </PanelSection>
+            </Box>
+            <Box gridColumn={"2"}>
+              <PanelSection title={"Qualifiers"}>{getQualifiersString()}</PanelSection>
+            </Box>
+          </Box>
           <PanelSection title={"Description"}>
             <Text>{attributeData.description}</Text>
           </PanelSection>
-          <PanelSection title={"Qualifiers"}>{getQualifiersString()}</PanelSection>
           <PanelSection title={"Unit requirement"}>
             <Text>{getUnitRequirement()}</Text>
           </PanelSection>
           <PanelSection title={"Units"}>
-              {attributeData.units.length > 0 ? attributeData.units.map((unit) => <InfoItemButton key={unit.id} {...mapRdlUnitToInfoItem(unit)}/>) : ""}
+            {attributeData.units.length > 0
+              ? attributeData.units.map((unit) => <InfoItemButton key={unit.id} {...mapRdlUnitToInfoItem(unit)} />)
+              : ""}
           </PanelSection>
           <PanelSection title={"Value constraints"}>
             <Text>{getValueConstraintText()}</Text>

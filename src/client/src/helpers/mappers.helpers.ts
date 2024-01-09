@@ -151,7 +151,7 @@ export const mapRdlUnitToInfoItem = (unit: RdlUnit): InfoItem => {
     name: unit.name,
     descriptors: {
       description: unit.description,
-      iri: unit.iri
+      iri: unit.iri,
     },
   };
 };

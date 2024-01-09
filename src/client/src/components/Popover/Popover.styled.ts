@@ -1,4 +1,3 @@
-import { translucify } from "helpers/theme.helpers";
 import { focus, paletteMixin, sizingMixin } from "styleConstants";
 import styled from "styled-components";
 import { Palette, Sizing } from "types/styleProps";
