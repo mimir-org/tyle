@@ -1,7 +1,7 @@
 import { useGetBlock } from "api/block.queries";
 import ExploreSection from "components/ExploreSection";
 import Loader from "components/Loader";
-import { toBlockItem, toTerminalItem } from "helpers/mappers.helpers";
+import { toBlockItem } from "helpers/mappers.helpers";
 import { SelectedInfo } from "types/selectedInfo";
 import AboutPlaceholder from "./AboutPlaceholder";
 import BlockPanel from "./BlockPanel";
@@ -51,7 +51,7 @@ const About = ({ selected }: AboutProps) => {
       {showLoader && <Loader />}
       {showPlaceHolder && <AboutPlaceholder text="Select an item to view its properties" />}
       {showBlockPanel && <BlockPanel key={blockQuery.data.id} {...toBlockItem(blockQuery.data)} />}
-      {showTerminalPanel && <TerminalPanel key={terminalQuery.data.id} {...toTerminalItem(terminalQuery.data)} />}
+      {showTerminalPanel && <TerminalPanel key={terminalQuery.data.id} terminalData={terminalQuery.data} />}
       {showAttributePanel && <AttributePanel key={attributeQuery.data.id} attributeData={attributeQuery.data} />}
     </ExploreSection>
   );

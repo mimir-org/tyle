@@ -107,7 +107,10 @@ const AttributePanel = ({ attributeData }: AttributePanelProps) => {
           <Box display={"grid"} rowGap={theme.tyle.spacing.xxl}>
             <Box gridColumn={"1"}>
               <PanelSection title={"Predicate"}>
-                <InfoItemButton key={attributeData.predicate?.id} {...mapRdlPredicateToInfoItem(attributeData.predicate)} />
+                <InfoItemButton
+                  key={attributeData.predicate?.id}
+                  {...mapRdlPredicateToInfoItem(attributeData.predicate)}
+                />
               </PanelSection>
             </Box>
             <Box gridColumn={"2"}>

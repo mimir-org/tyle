@@ -16,6 +16,9 @@ import { RoleView } from "../types/authentication/roleView";
 import { RoleItem } from "../types/role";
 import { RdlPredicate } from "../types/attributes/rdlPredicate";
 import { RdlUnit } from "../types/attributes/rdlUnit";
+import { RdlMedium } from "../types/terminals/rdlMedium";
+import { RdlClassifier } from "../types/common/rdlClassifier";
+import { RdlPurpose } from "../types/common/rdlPurpose";
 
 const getColorFromAspect = (aspect: Aspect | null) => {
   switch (aspect) {
@@ -163,6 +166,41 @@ export const mapRdlPredicateToInfoItem = (predicate: RdlPredicate | null): InfoI
     descriptors: {
       description: predicate?.description,
       iri: predicate?.iri,
+    },
+  };
+};
+
+export const mapRdlMediumToInfoItem = (medium: RdlMedium | null): InfoItem => {
+  return {
+    id: medium?.id.toString(),
+    name: medium?.name ? medium.name : "",
+    descriptors: {
+      description: medium?.description,
+      iri: medium?.iri,
+    },
+  };
+};
+
+export const mapRdlClassifiersToInfoItems = (classifiers: RdlClassifier[]): InfoItem[] => {
+  return (
+    classifiers.map((classifier) => ({
+      id: classifier.id.toString(),
+      name: classifier.name,
+      descriptors: {
+        Description: classifier.description,
+        IRI: classifier.iri,
+      },
+    })) ?? []
+  );
+};
+
+export const mapRdlPurposeToInfoItem = (purpose: RdlPurpose | null): InfoItem => {
+  return {
+    id: purpose?.id.toString(),
+    name: purpose?.name ? purpose.name : "",
+    descriptors: {
+      description: purpose?.description,
+      iri: purpose?.iri,
     },
   };
 };
