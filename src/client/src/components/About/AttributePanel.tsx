@@ -8,13 +8,14 @@ import PanelSection from "./PanelSection";
 import Text from "../Text";
 import { AttributeView } from "../../types/attributes/attributeView";
 import { ProvenanceQualifier } from "../../types/attributes/provenanceQualifier";
-import { getOptionsFromEnum } from "../../utils";
 import { RangeQualifier } from "../../types/attributes/rangeQualifier";
 import { RegularityQualifier } from "../../types/attributes/regularityQualifier";
 import { ScopeQualifier } from "../../types/attributes/scopeQualifier";
 import { ConstraintType } from "../../types/attributes/constraintType";
 import { XsdDataType } from "../../types/attributes/xsdDataType";
 import { UnitRequirement } from "../AttributeForm/AttributeForm.helpers";
+import InfoItemButton from "../InfoItemButton";
+import { mapRdlPredicateToInfoItem, mapRdlUnitToInfoItem } from "../../helpers/mappers.helpers";
 
 interface AttributePanelProps {
   attributeData: AttributeView;
@@ -25,7 +26,11 @@ const AttributePanel = ({ attributeData }: AttributePanelProps) => {
   const getUnitRequirement = () => {
     const { unitMinCount, unitMaxCount } = attributeData;
 
-    return unitMinCount === 1 ? UnitRequirement[UnitRequirement.Required] : unitMaxCount === 1 ? UnitRequirement[UnitRequirement.Optional] : UnitRequirement[UnitRequirement.NoUnit];
+    return unitMinCount === 1
+      ? UnitRequirement[UnitRequirement.Required]
+      : unitMaxCount === 1
+        ? UnitRequirement[UnitRequirement.Optional]
+        : UnitRequirement[UnitRequirement.NoUnit];
   };
   const getQualifiersString = () => {
     const qualifierNames: string[] = [];
@@ -56,7 +61,7 @@ const AttributePanel = ({ attributeData }: AttributePanelProps) => {
       case ConstraintType.HasSpecificDataType:
         return `Has${valueConstraint.minCount > 0 ? " " : " no value or "}datatype ${XsdDataType[
           valueConstraint.dataType
-          ].toLowerCase()}`;
+        ].toLowerCase()}`;
       case ConstraintType.MatchesRegexPattern:
         return `${valueConstraint.minCount > 0 ? "M" : "Has no value or m"}atches the regex pattern ${
           valueConstraint.pattern
@@ -77,9 +82,7 @@ const AttributePanel = ({ attributeData }: AttributePanelProps) => {
         }`;
     }
   };
-
-  console.log(attributeData);
-
+  
   return (
     <MotionBox
       flex={1}
@@ -101,20 +104,16 @@ const AttributePanel = ({ attributeData }: AttributePanelProps) => {
         </Box>
         <Divider />
         <PanelPropertiesContainer>
-          <PanelSection title={"Predicate"}>
-            {attributeData.predicate?.name}
-          </PanelSection>
+          <PanelSection title={"Predicate"}><InfoItemButton key={attributeData.predicate?.id} {...mapRdlPredicateToInfoItem(attributeData.predicate)} /></PanelSection>
           <PanelSection title={"Description"}>
             <Text>{attributeData.description}</Text>
           </PanelSection>
-          <PanelSection title={"Qualifiers"}>
-            {getQualifiersString()}
-          </PanelSection>
+          <PanelSection title={"Qualifiers"}>{getQualifiersString()}</PanelSection>
           <PanelSection title={"Unit requirement"}>
             <Text>{getUnitRequirement()}</Text>
           </PanelSection>
           <PanelSection title={"Units"}>
-            <Text>{attributeData.units.length > 0 ? attributeData.units.map((unit) => unit.name).join(", ") : "none"}</Text>
+              {attributeData.units.length > 0 ? attributeData.units.map((unit) => <InfoItemButton key={unit.id} {...mapRdlUnitToInfoItem(unit)}/>) : ""}
           </PanelSection>
           <PanelSection title={"Value constraints"}>
             <Text>{getValueConstraintText()}</Text>

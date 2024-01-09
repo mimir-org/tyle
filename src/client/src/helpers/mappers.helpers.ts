@@ -14,6 +14,8 @@ import { UserItem } from "types/userItem";
 import { getOptionsFromEnum } from "utils";
 import { RoleView } from "../types/authentication/roleView";
 import { RoleItem } from "../types/role";
+import { RdlPredicate } from "../types/attributes/rdlPredicate";
+import { RdlUnit } from "../types/attributes/rdlUnit";
 
 const getColorFromAspect = (aspect: Aspect | null) => {
   switch (aspect) {
@@ -140,5 +142,27 @@ export const toAttributeItem = (attribute: AttributeView): AttributeItem => {
     symbol: "",
     unitId: "",
     isDefault: false,
+  };
+};
+
+export const mapRdlUnitToInfoItem = (unit: RdlUnit): InfoItem => {
+  return {
+    id: unit.id.toString(),
+    name: unit.name,
+    descriptors: {
+      description: unit.description,
+      iri: unit.iri
+    },
+  };
+};
+
+export const mapRdlPredicateToInfoItem = (predicate: RdlPredicate | null): InfoItem => {
+  return {
+    id: predicate?.id.toString(),
+    name: predicate?.name ? predicate.name : "",
+    descriptors: {
+      description: predicate?.description,
+      iri: predicate?.iri,
+    },
   };
 };
