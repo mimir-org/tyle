@@ -1,6 +1,7 @@
-import { sizingMixin, Sizing } from "@mimirorg/component-library";
 import { Link } from "react-router-dom";
+import { sizingMixin } from "styleConstants";
 import styled from "styled-components/macro";
+import { Sizing } from "types/styleProps";
 
 type PlainLinkProps = Sizing;
 

@@ -1,4 +1,4 @@
-import { Button } from "@mimirorg/component-library";
+import Button from "components/Button";
 import React from "react";
 import { StepWrapper } from "./FormStepsNavigation.styled";
 

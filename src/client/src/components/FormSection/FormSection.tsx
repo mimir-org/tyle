@@ -1,4 +1,6 @@
-import { Box, Flexbox, MotionBox, MotionText, Text } from "@mimirorg/component-library";
+import Box, { MotionBox } from "components/Box";
+import Flexbox from "components/Flexbox";
+import Text, { MotionText } from "components/Text";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
 
@@ -28,23 +30,19 @@ const FormSection = ({ title, action, children, error }: FormSectionProps) => {
       display={"flex"}
       flexDirection={"column"}
       justifyContent={"center"}
-      gap={theme.mimirorg.spacing.xxxl}
+      gap={theme.tyle.spacing.xxxl}
       border={0}
       p={"0"}
-      {...theme.mimirorg.animation.fade}
+      {...theme.tyle.animation.fade}
     >
-      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.s}>
-        <Box display={"flex"} gap={theme.mimirorg.spacing.xl} alignItems={"center"}>
+      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.s}>
+        <Box display={"flex"} gap={theme.tyle.spacing.xl} alignItems={"center"}>
           <Text variant={"title-large"}>{title}</Text>
           {action}
         </Box>
 
         {error && error.message && (
-          <MotionText
-            variant={"label-large"}
-            color={theme.mimirorg.color.error.base}
-            {...theme.mimirorg.animation.fade}
-          >
+          <MotionText variant={"label-large"} color={theme.tyle.color.error.base} {...theme.tyle.animation.fade}>
             {error.message}
           </MotionText>
         )}

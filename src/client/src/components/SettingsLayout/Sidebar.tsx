@@ -1,7 +1,10 @@
-import { Divider, Flexbox, Heading } from "@mimirorg/component-library";
 import { useGetAttributesByState } from "api/attribute.queries";
 import { useGetBlocksByState } from "api/block.queries";
 import { useGetTerminalsByState } from "api/terminal.queries";
+import Divider from "components/Divider";
+import Flexbox from "components/Flexbox";
+import Heading from "components/Heading";
+import { useGetAllUsersMapped } from "hooks/useGetAllUsersMapped";
 import { Fragment } from "react";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "styled-components";
@@ -21,7 +24,7 @@ const Sidebar = ({ title, groups }: SidebarProps) => {
   const attributesInReview = useGetAttributesByState(State.Review);
   const terminalsInReview = useGetTerminalsByState(State.Review);
   const blocksInReview = useGetBlocksByState(State.Review);
-
+  const pendingUsers = useGetAllUsersMapped().filter((e) => e.roles.length === 0);
   const reviewData = [attributesInReview, terminalsInReview, blocksInReview];
   let numberOfTypesInReview = 0;
 
@@ -31,15 +34,13 @@ const Sidebar = ({ title, groups }: SidebarProps) => {
     }
   }
 
-  //const pendingUsers = useGetPendingUsers();
-
   const linkText = (name: string) => {
     switch (name) {
       case "Approval": {
         return name + (numberOfTypesInReview ? ` (${numberOfTypesInReview})` : "");
       }
       case "Access": {
-        return name; // + (pendingUsers.data?.length ? ` (${pendingUsers.data.length})` : "");
+        return name + (pendingUsers.length ? ` (${pendingUsers.length})` : "");
       }
       default:
         return name;
@@ -49,7 +50,7 @@ const Sidebar = ({ title, groups }: SidebarProps) => {
   return (
     <SidebarContainer>
       <Heading variant={"headline-large"}>{title}</Heading>
-      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.base}>
+      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.base}>
         {groups.map((group, i) => (
           <Fragment key={i}>
             {group.links.map((link, i) => (
@@ -57,7 +58,7 @@ const Sidebar = ({ title, groups }: SidebarProps) => {
                 {linkText(link.name)}
               </SidebarLink>
             ))}
-            <Divider color={theme.mimirorg.color.outline.base} />
+            <Divider color={theme.tyle.color.outline.base} />
           </Fragment>
         ))}
       </Flexbox>

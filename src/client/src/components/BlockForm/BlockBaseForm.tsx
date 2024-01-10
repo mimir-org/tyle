@@ -1,5 +1,8 @@
-import { FormField, Input, Select, Textarea } from "@mimirorg/component-library";
 import { useGetPurposes } from "api/purpose.queries";
+import FormField from "components/FormField";
+import Input from "components/Input";
+import Select from "components/Select";
+import Textarea from "components/Textarea";
 import React from "react";
 import { Aspect } from "types/common/aspect";
 import { RdlPurpose } from "types/common/rdlPurpose";
@@ -67,7 +70,7 @@ const BlockBaseForm = React.forwardRef<HTMLFormElement, BlockFormStepProps>(({ f
         <FormField label="Purpose">
           <Select
             options={purposeOptions}
-            isLoading={purposeQuery.isLoading}
+            isLoading={purposeQuery.isPending}
             onChange={(x) => {
               setPurpose(x?.value);
             }}

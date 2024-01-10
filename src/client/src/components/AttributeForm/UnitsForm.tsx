@@ -1,8 +1,8 @@
-import { Token } from "@mimirorg/component-library";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useGetUnits } from "api/unit.queries";
 import FormSection from "components/FormSection";
 import SelectItemDialog from "components/SelectItemDialog";
+import Token from "components/Token";
 import React from "react";
 import { RdlUnit } from "types/attributes/rdlUnit";
 import { InfoItem } from "types/infoItem";

@@ -1,14 +1,21 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Actionable, Button, Flexbox, Form, FormField, FormFieldset, Input, Text } from "@mimirorg/component-library";
 import { useChangePassword } from "api/user.queries";
 import AuthContent from "components/AuthContent";
+import Button from "components/Button";
 import Error from "components/Error";
+import Flexbox from "components/Flexbox";
+import Form from "components/Form";
+import FormField from "components/FormField";
+import FormFieldset from "components/FormFieldset";
+import Input from "components/Input";
 import Processing from "components/Processing";
+import Text from "components/Text";
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
+import { Actionable } from "types/actionable";
 import { VerifyRequest } from "types/authentication/verifyRequest";
 import { recoverPasswordSchema } from "./recoverPasswordSchema";
 
@@ -38,8 +45,8 @@ const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverPassword
       title="Choose a new password"
       firstRow={
         <>
-          {mutation.isLoading && <Processing>Processing</Processing>}
-          {!mutation.isSuccess && !mutation.isLoading && (
+          {mutation.isPending && <Processing>Processing</Processing>}
+          {!mutation.isSuccess && !mutation.isPending && (
             <Form id={"password-form"} onSubmit={handleSubmit((data) => mutation.mutate(data))}>
               {mutation.isError && (
                 <Error>
@@ -72,7 +79,7 @@ const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverPassword
       secondRow={
         <>
           <Text textAlign={"center"}>Enter the desired password for this account.</Text>
-          <Flexbox gap={theme.mimirorg.spacing.xxl} alignSelf={"center"}>
+          <Flexbox gap={theme.tyle.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>
                 {cancel.actionText}

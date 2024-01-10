@@ -1,5 +1,5 @@
-import { toast } from "@mimirorg/component-library";
 import { useGetCurrentUser } from "api/user.queries";
+import { toast } from "components/Toaster/toast";
 import { UserRequest } from "types/authentication/userRequest";
 import { UserView } from "types/authentication/userView";
 

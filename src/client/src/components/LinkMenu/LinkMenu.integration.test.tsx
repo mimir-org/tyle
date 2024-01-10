@@ -1,7 +1,7 @@
-import { MimirorgThemeProvider } from "@mimirorg/component-library";
 import "@testing-library/jest-dom";
 import { cleanup, render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
+import TyleThemeProvider from "components/TyleThemeProvider";
 import { MemoryRouter } from "react-router-dom";
 import { Link } from "types/link";
 import { afterEach, describe, expect } from "vitest";
@@ -39,9 +39,9 @@ const setup = () => {
 
   const testComponent = render(
     <MemoryRouter>
-      <MimirorgThemeProvider theme={"tyleLight"}>
+      <TyleThemeProvider theme={"light"}>
         <LinkMenu name={"Create"} links={menuLinksMock} justifyContent={"center"} disabled={false} />
-      </MimirorgThemeProvider>
+      </TyleThemeProvider>
     </MemoryRouter>,
   );
   const createButton = screen.getByRole("button", { name: "Create" });

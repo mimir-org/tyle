@@ -2,7 +2,7 @@ import styled from "styled-components/macro";
 
 export const ConnectTerminalsWrapper = styled.div`
   display: flex;
-  gap: ${(props) => props.theme.mimirorg.spacing.multiple(6)};
+  gap: ${(props) => props.theme.tyle.spacing.multiple(6)};
 `;
 
 export const SymbolPreview = styled.div`
@@ -20,23 +20,23 @@ export const RemoveSymbolIconWrapper = styled.div`
   cursor: pointer;
 
   & > svg {
-    color: ${(props) => props.theme.mimirorg.color.dangerousAction.on};
+    color: ${(props) => props.theme.tyle.color.dangerousAction.on};
   }
 `;
 
 export const ConnectionPointList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.theme.mimirorg.spacing.base};
+  gap: ${(props) => props.theme.tyle.spacing.base};
   margin: 0 auto;
 `;
 
 export const ConnectionPointListItem = styled.div`
   display: flex;
-  gap: ${(props) => props.theme.mimirorg.spacing.xl};
+  gap: ${(props) => props.theme.tyle.spacing.xl};
   align-items: center;
 
   & p {
-    font: ${(props) => props.theme.mimirorg.typography.roles.body.large.font};
+    font: ${(props) => props.theme.tyle.typography.roles.body.large.font};
   }
 `;

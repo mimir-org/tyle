@@ -1,4 +1,7 @@
-import { AccordionContent, AccordionItem, AccordionTrigger, Box, Checkbox, Text } from "@mimirorg/component-library";
+import { AccordionContent, AccordionItem, AccordionTrigger } from "components/Accordion";
+import Box from "components/Box";
+import Checkbox from "components/Checkbox";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
 import { Filter } from "types/filter";
 import FilterMenuGroupLabel from "./FilterMenuGroup.styled";
@@ -29,14 +32,14 @@ const FilterMenuGroup = ({ name, filters, activeFilters, toggleFilter }: FilterM
         <Box
           display={"flex"}
           flexDirection={"column"}
-          gap={theme.mimirorg.spacing.xs}
+          gap={theme.tyle.spacing.xs}
           maxHeight={"300px"}
           overflow={"auto"}
         >
           {filters?.map((f, i) => (
             <FilterMenuGroupLabel key={`${i + f.label + f.key}`}>
               <Checkbox onClick={() => toggleFilter(f)} checked={activeFilters?.some((x) => x.value === f.value)} />
-              <Text as={"span"} color={theme.mimirorg.color.pure.on}>
+              <Text as={"span"} color={theme.tyle.color.pure.on}>
                 {f.label}
               </Text>
             </FilterMenuGroupLabel>

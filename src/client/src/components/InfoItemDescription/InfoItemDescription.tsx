@@ -1,5 +1,10 @@
-import { Actionable, Box, Button, Divider, Flexbox, Text } from "@mimirorg/component-library";
+import Box from "components/Box";
+import Button from "components/Button";
+import Divider from "components/Divider";
+import Flexbox from "components/Flexbox";
+import Text from "components/Text";
 import { useTheme } from "styled-components";
+import { Actionable } from "types/actionable";
 import { InfoItem } from "types/infoItem";
 
 export type InfoItemDescriptionProps = Omit<InfoItem, "id"> & Partial<Actionable>;
@@ -27,14 +32,14 @@ const InfoItemDescription = ({
   const theme = useTheme();
 
   return (
-    <Box as={"section"} display={"flex"} flexDirection={"column"} width={"118px"} gap={theme.mimirorg.spacing.l}>
-      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.base}>
-        <Flexbox gap={theme.mimirorg.spacing.s} justifyContent={"space-between"} alignItems={"center"}>
+    <Box as={"section"} display={"flex"} flexDirection={"column"} width={"118px"} gap={theme.tyle.spacing.l}>
+      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.base}>
+        <Flexbox gap={theme.tyle.spacing.s} justifyContent={"space-between"} alignItems={"center"}>
           <Text variant={"title-small"}>{name}</Text>
           {actionable && onAction && (
             <Button
               variant={"filled"}
-              color={theme.mimirorg.color.surface.on}
+              color={theme.tyle.color.surface.on}
               onClick={onAction}
               icon={actionIcon}
               iconOnly
@@ -50,14 +55,14 @@ const InfoItemDescription = ({
       <Box
         display={"flex"}
         flexDirection={"column"}
-        gap={theme.mimirorg.spacing.base}
+        gap={theme.tyle.spacing.base}
         maxHeight={"250px"}
         overflow={"auto"}
       >
         {descriptors &&
           Object.keys(descriptors).map((k, i) => (
-            <Text key={k + i} variant={"body-small"} color={theme.mimirorg.color.primary.on}>
-              <Text as={"span"} color={theme.mimirorg.color.secondary.base} textTransform={"capitalize"}>
+            <Text key={k + i} variant={"body-small"} color={theme.tyle.color.primary.on}>
+              <Text as={"span"} color={theme.tyle.color.secondary.base} textTransform={"capitalize"}>
                 {k}:{" "}
               </Text>
               {descriptors[k]}

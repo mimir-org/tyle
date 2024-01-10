@@ -1,5 +1,4 @@
 import axios, { AxiosError } from "axios";
-import camelCase from "lodash/camelCase";
 import { useEffect } from "react";
 import { FieldValues, Path, UseFormSetError } from "react-hook-form";
 
@@ -77,4 +76,21 @@ interface ServerValidationError<T> {
   title: string;
   status: number;
   traceId: string;
+}
+
+function camelCase(string = ""): string {
+  return words(string)
+    .map((word, index) =>
+      index === 0 ? word.toLowerCase() : word.toLowerCase().slice(0, 1).toUpperCase() + string.slice(1),
+    )
+    .join("");
+}
+
+const wordPattern = new RegExp(["[A-Z][a-z]+", "[A-Z]+(?=[A-Z][a-z])", "[A-Z]+", "[a-z]+", "[0-9]+"].join("|"), "g");
+
+function words(string = "", pattern?: RegExp | string): string[] {
+  if (pattern === undefined) {
+    return string.match(wordPattern) || [];
+  }
+  return string.match(pattern) || [];
 }

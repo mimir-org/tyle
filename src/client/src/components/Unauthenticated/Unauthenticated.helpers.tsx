@@ -1,4 +1,4 @@
-import { ErrorMessage } from "@mimirorg/component-library";
+import ErrorMessage from "components/ErrorMessage";
 import { loginRoutes } from "components/Login/LoginRoutes";
 import { recoverRoutes } from "components/Recover/RecoverRoutes";
 import { registerRoutes } from "components/Register/RegisterRoutes";

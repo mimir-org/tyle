@@ -4,7 +4,7 @@ import { State } from "types/common/state";
 import { StateChangeRequest } from "types/common/stateChangeRequest";
 import { blockApi } from "./block.api";
 
-const blockKeys = {
+export const blockKeys = {
   all: ["blocks"] as const,
   lists: () => [...blockKeys.all, "list"] as const,
   list: (filters: string) => [...blockKeys.lists(), { filters }] as const,
@@ -12,21 +12,22 @@ const blockKeys = {
   detail: (id?: string) => [...blockKeys.details(), id] as const,
 };
 
-export const useGetBlocks = () => useQuery(blockKeys.list(""), blockApi.getBlocks);
+export const useGetBlocks = () => useQuery({ queryKey: blockKeys.list(""), queryFn: blockApi.getBlocks });
 
 export const useGetBlocksByState = (state: State) =>
-  useQuery(blockKeys.list(`state=${state}`), () => blockApi.getBlocksByState(state));
+  useQuery({ queryKey: blockKeys.list(`state=${state}`), queryFn: () => blockApi.getBlocksByState(state) });
 
 export const useGetBlock = (id?: string) =>
-  useQuery(blockKeys.detail(id), () => blockApi.getBlock(id), { enabled: !!id, retry: false });
+  useQuery({ queryKey: blockKeys.detail(id), queryFn: () => blockApi.getBlock(id), enabled: !!id, retry: false });
 
 export const useCreateBlock = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: BlockTypeRequest) => blockApi.postBlock(item), {
+  return useMutation({
+    mutationFn: (item: BlockTypeRequest) => blockApi.postBlock(item),
     onSuccess: () => {
-      queryClient.invalidateQueries(blockKeys.list(""));
-      queryClient.invalidateQueries(blockKeys.list(`state=${State.Draft}`));
+      queryClient.invalidateQueries({ queryKey: blockKeys.list("") });
+      queryClient.invalidateQueries({ queryKey: blockKeys.list(`state=${State.Draft}`) });
     },
   });
 };
@@ -34,11 +35,12 @@ export const useCreateBlock = () => {
 export const useUpdateBlock = (id: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: BlockTypeRequest) => blockApi.putBlock(id, item), {
+  return useMutation({
+    mutationFn: (item: BlockTypeRequest) => blockApi.putBlock(id, item),
     onSuccess: (data) => {
-      queryClient.invalidateQueries(blockKeys.list(""));
-      queryClient.invalidateQueries(blockKeys.list(`state=${data.state}`));
-      queryClient.invalidateQueries(blockKeys.detail(id));
+      queryClient.invalidateQueries({ queryKey: blockKeys.list("") });
+      queryClient.invalidateQueries({ queryKey: blockKeys.list(`state=${data.state}`) });
+      queryClient.invalidateQueries({ queryKey: blockKeys.detail(id) });
     },
   });
 };
@@ -46,14 +48,15 @@ export const useUpdateBlock = (id: string) => {
 export const usePatchBlockState = (id: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: StateChangeRequest) => blockApi.patchBlockState(id, item), {
+  return useMutation({
+    mutationFn: (item: StateChangeRequest) => blockApi.patchBlockState(id, item),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries(blockKeys.list(""));
-      queryClient.invalidateQueries(blockKeys.list(`state=${State.Review}`));
-      queryClient.invalidateQueries(
-        blockKeys.list(`state=${variables.state === State.Approved ? State.Approved : State.Draft}`),
-      );
-      queryClient.invalidateQueries(blockKeys.detail(id));
+      queryClient.invalidateQueries({ queryKey: blockKeys.list("") });
+      queryClient.invalidateQueries({ queryKey: blockKeys.list(`state=${State.Review}`) });
+      queryClient.invalidateQueries({
+        queryKey: blockKeys.list(`state=${variables.state === State.Approved ? State.Approved : State.Draft}`),
+      });
+      queryClient.invalidateQueries({ queryKey: blockKeys.detail(id) });
     },
   });
 };
@@ -61,8 +64,8 @@ export const usePatchBlockState = (id: string) => {
 export const useDeleteBlock = (id: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation(() => blockApi.deleteBlock(id), {
-    // TODO: Refine this?
-    onSuccess: () => queryClient.invalidateQueries(blockKeys.lists()),
+  return useMutation({
+    mutationFn: () => blockApi.deleteBlock(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: blockKeys.lists() }),
   });
 };

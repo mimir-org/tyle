@@ -1,7 +1,7 @@
-import { Theme } from "@mimirorg/component-library";
+import { Theme } from "components/TyleThemeProvider/theme";
 
 declare module "styled-components" {
   export interface DefaultTheme {
-    mimirorg: Theme;
+    tyle: Theme;
   }
 }

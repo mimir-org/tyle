@@ -1,5 +1,6 @@
-import { FormField, Select } from "@mimirorg/component-library";
 import { AttributeFormStepProps } from "components/AttributeForm";
+import FormField from "components/FormField";
+import Select from "components/Select";
 import Switch from "components/Switch";
 import React from "react";
 import { ConstraintType } from "types/attributes/constraintType";

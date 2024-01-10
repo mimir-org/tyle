@@ -1,6 +1,6 @@
-import { MimirorgThemeProvider } from "@mimirorg/component-library";
 import "@testing-library/jest-dom";
 import { cleanup, render, screen } from "@testing-library/react";
+import TyleThemeProvider from "components/TyleThemeProvider";
 import { Link } from "types/link";
 import { afterEach, describe, expect } from "vitest";
 import LinkMenu from "./LinkMenu";
@@ -34,9 +34,9 @@ const menuLinksMock: Link[] = [
 
 const setup = () => {
   const testComponent = render(
-    <MimirorgThemeProvider theme={"tyleLight"}>
+    <TyleThemeProvider theme={"light"}>
       <LinkMenu name={"Create"} links={menuLinksMock} justifyContent={"center"} disabled={false} />
-    </MimirorgThemeProvider>,
+    </TyleThemeProvider>,
   );
   const createButton = screen.getByRole("button", { name: "Create" });
 

@@ -1,15 +1,16 @@
+import FormField from "components/FormField";
+import Select from "components/Select";
 import React from "react";
-import { TerminalFormStepProps } from "./TerminalForm";
 import { RdlMedium } from "types/terminals/rdlMedium";
-import { Direction } from "../../types/terminals/direction";
 import { useGetMedia } from "../../api/medium.queries";
+import { Direction } from "../../types/terminals/direction";
 import { getOptionsFromEnum } from "../../utils";
-import { FormField, Select } from "@mimirorg/component-library";
 import {
   MediumAndQualifierFormWrapper,
   MediumSelectWrapper,
   QualifierSelectWrapper,
 } from "./MediumAndQualifiersForm.styled";
+import { TerminalFormStepProps } from "./TerminalForm";
 
 const MediumAndQualifierForm = React.forwardRef<HTMLFormElement, TerminalFormStepProps>(
   ({ fields, setFields }, ref) => {
@@ -35,7 +36,7 @@ const MediumAndQualifierForm = React.forwardRef<HTMLFormElement, TerminalFormSte
           <FormField label="Medium">
             <Select
               options={mediumOptions}
-              isLoading={mediumQuery.isLoading}
+              isLoading={mediumQuery.isPending}
               onChange={(x) => {
                 setMedium(x?.value);
               }}

@@ -1,12 +1,20 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Tyle.External;
 
 public static class ExternalDependencyInjection
 {
-    public static IServiceCollection AddSyncingServices(this IServiceCollection services)
+    public static IServiceCollection AddSyncingServices(this IServiceCollection services, IConfiguration config)
     {
-        services.AddHostedService<CommonLibSyncingService>();
+        if (config.GetValue<bool>("UseCommonLib"))
+        {
+            services.AddHostedService<CommonLibSyncingService>();
+        }
+        else
+        {
+            services.AddHostedService<PcaSyncingService>();
+        }
 
         return services;
     }

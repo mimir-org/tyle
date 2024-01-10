@@ -1,5 +1,8 @@
-import { FormField, Input, Select, Textarea } from "@mimirorg/component-library";
 import { useGetPredicates } from "api/predicate.queries";
+import FormField from "components/FormField";
+import Input from "components/Input";
+import Select from "components/Select";
+import Textarea from "components/Textarea";
 import React from "react";
 import { RdlPredicate } from "types/attributes/rdlPredicate";
 import { DESCRIPTION_LENGTH, NAME_LENGTH } from "types/common/stringLengthConstants";
@@ -30,7 +33,7 @@ const AttributeBaseForm = React.forwardRef<HTMLFormElement, AttributeFormStepPro
       <FormField label="Predicate">
         <Select
           options={predicateOptions}
-          isLoading={predicateQuery.isLoading}
+          isLoading={predicateQuery.isPending}
           onChange={(x) => setPredicate(x?.value)}
           value={predicateOptions?.find((x) => x.value.id === predicate?.id)}
           isClearable={true}

@@ -4,36 +4,34 @@ import { UserView } from "types/authentication/userView";
 import { BlockItem } from "types/blockItem";
 import { BlockTerminalItem } from "types/blockTerminalItem";
 import { BlockView } from "types/blocks/blockView";
-import { EngineeringSymbol } from "types/blocks/engineeringSymbol";
 import { TerminalTypeReferenceView } from "types/blocks/terminalTypeReferenceView";
-import { RdlPurpose } from "types/common/rdlPurpose";
+import { Aspect } from "types/common/aspect";
 import { State } from "types/common/state";
 import { InfoItem } from "types/infoItem";
 import { TerminalItem } from "types/terminalItem";
 import { TerminalView } from "types/terminals/terminalView";
 import { UserItem } from "types/userItem";
 import { getOptionsFromEnum } from "utils";
-import { getColorFromAspect } from "./aspect.helper";
 import { RoleView } from "../types/authentication/roleView";
-import { RoleItem } from "../types/Role";
+import { RoleItem } from "../types/role";
+import { RdlPredicate } from "../types/attributes/rdlPredicate";
+import { RdlUnit } from "../types/attributes/rdlUnit";
+import { RdlMedium } from "../types/terminals/rdlMedium";
+import { RdlClassifier } from "../types/common/rdlClassifier";
+import { RdlPurpose } from "../types/common/rdlPurpose";
 
-export const purposeInfoItem = (purpose: RdlPurpose): InfoItem => ({
-  id: purpose.id.toString(),
-  name: purpose.name,
-  descriptors: {
-    Description: purpose.description,
-    IRI: purpose.iri,
-  },
-});
-
-export const symbolInfoItem = (symbol: EngineeringSymbol): InfoItem => ({
-  id: symbol.id.toString(),
-  name: symbol.label,
-  descriptors: {
-    Description: symbol.description,
-    IRI: symbol.iri,
-  },
-});
+const getColorFromAspect = (aspect: Aspect | null) => {
+  switch (aspect) {
+    case Aspect.Function:
+      return "hsl(57,99%,63%)";
+    case Aspect.Product:
+      return "hsl(184,100%,50%)";
+    case Aspect.Location:
+      return "hsl(299,100%,50%)";
+    default:
+      return "hsl(318, 29%, 91%)";
+  }
+};
 
 export const toTerminalItem = (terminal: TerminalView): TerminalItem => {
   const states = getOptionsFromEnum(State);
@@ -63,7 +61,7 @@ export const toBlockItem = (block: BlockView): BlockItem => {
     description: block.description ?? "",
     color: getColorFromAspect(block.aspect),
     tokens: [block.version, currentStateLabel],
-    terminals: sortBlockTerminals(mapBlockTerminalLibCmsToBlockTerminalItems(block.terminals)),
+    terminals: sortBlockTerminals(mapTerminalTypeReferenceViewToBlockTerminalItems(block.terminals)),
     attributes: sortInfoItems(mapAttributeViewsToInfoItems(block.attributes.map((x) => x.attribute))),
     kind: "BlockItem",
     state: block.state,
@@ -71,7 +69,9 @@ export const toBlockItem = (block: BlockView): BlockItem => {
   };
 };
 
-const mapBlockTerminalLibCmsToBlockTerminalItems = (terminals: TerminalTypeReferenceView[]): BlockTerminalItem[] =>
+export const mapTerminalTypeReferenceViewToBlockTerminalItems = (
+  terminals: TerminalTypeReferenceView[],
+): BlockTerminalItem[] =>
   terminals.map((x) => ({
     id: x.terminal.id,
     name: x.terminal.name,
@@ -148,4 +148,73 @@ export const toAttributeItem = (attribute: AttributeView): AttributeItem => {
     unitId: "",
     isDefault: false,
   };
+};
+
+export const mapRdlPredicateToInfoItem = (predicate: RdlPredicate | null): InfoItem => {
+  return {
+    id: predicate?.id.toString(),
+    name: predicate?.name ? predicate.name : "",
+    descriptors: {
+      description: predicate?.description,
+      iri: predicate?.iri,
+    },
+  };
+};
+
+export const mapRdlMediumToInfoItem = (medium: RdlMedium | null): InfoItem => {
+  return {
+    id: medium?.id.toString(),
+    name: medium?.name ? medium.name : "",
+    descriptors: {
+      description: medium?.description,
+      iri: medium?.iri,
+    },
+  };
+};
+
+export const mapRdlPurposeToInfoItem = (purpose: RdlPurpose | null): InfoItem => {
+  return {
+    id: purpose?.id.toString(),
+    name: purpose?.name ? purpose.name : "",
+    descriptors: {
+      description: purpose?.description,
+      iri: purpose?.iri,
+    },
+  };
+};
+
+export const mapRdlUnitsToInfoItems = (units: RdlUnit[]): InfoItem[] => {
+  return (
+    units.map((unit) => ({
+      id: unit.id.toString(),
+      name: unit.name,
+      descriptors: {
+        description: unit.description,
+        iri: unit.iri,
+      },
+    })) ?? []
+  );
+};
+
+export const mapRdlClassifiersToInfoItems = (classifiers: RdlClassifier[]): InfoItem[] => {
+  return (
+    classifiers.map((classifier) => ({
+      id: classifier.id.toString(),
+      name: classifier.name,
+      descriptors: {
+        Description: classifier.description,
+        IRI: classifier.iri,
+      },
+    })) ?? []
+  );
+};
+
+export const isNullUndefinedOrWhitespace = <T>(input: T | null): boolean => {
+  if (input === null || input === undefined) {
+    return true;
+  }
+  if (typeof input === "string") {
+    return /^\s*$/.test(input);
+  }
+  return false;
 };

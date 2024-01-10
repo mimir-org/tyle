@@ -1,4 +1,4 @@
-import { Card } from "@mimirorg/component-library";
+import Card from "components/Card";
 import EngineeringSymbolSvg from "components/EngineeringSymbolSvg";
 import React from "react";
 import { EngineeringSymbol } from "types/blocks/engineeringSymbol";

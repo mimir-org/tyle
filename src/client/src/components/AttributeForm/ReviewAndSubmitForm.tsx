@@ -1,5 +1,7 @@
-import { Button, PlainLink, Table, Tbody, Td, Tr } from "@mimirorg/component-library";
 import { UseMutationResult } from "@tanstack/react-query";
+import Button from "components/Button";
+import PlainLink from "components/PlainLink";
+import { Table, Tbody, Td, Tr } from "components/Table";
 import { onSubmitForm, useSubmissionToast } from "helpers/form.helpers";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { AttributeTypeRequest } from "types/attributes/attributeTypeRequest";
@@ -57,7 +59,7 @@ const ReviewAndSubmitForm = ({ attributeFormFields, mutation, formRef, mode }: R
       case ConstraintType.IsInListOfAllowedValues:
         return `Has${
           valueConstraint.requireValue ? " " : " no value or "
-        }one of the following values: ${valueConstraint.valueList.join(", ")}`;
+        }one of the following values: ${valueConstraint.valueList.map((constraint) => constraint.value).join(", ")}`;
       case ConstraintType.HasSpecificDataType:
         return `Has${valueConstraint.requireValue ? " " : " no value or "}datatype ${XsdDataType[
           valueConstraint.dataType

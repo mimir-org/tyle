@@ -1,7 +1,7 @@
-import { toast } from "@mimirorg/component-library";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { authenticateApi } from "api/authenticate.api";
 import { userKeys } from "api/user.queries";
+import { toast } from "components/Toaster/toast";
 import { useNavigate } from "react-router-dom";
 import { AuthenticateRequest } from "types/authentication/authenticateRequest";
 import { removeToken, setToken } from "./token";
@@ -9,11 +9,12 @@ import { removeToken, setToken } from "./token";
 export const useLogin = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: AuthenticateRequest) => authenticateApi.postLogin(item), {
+  return useMutation({
+    mutationFn: (item: AuthenticateRequest) => authenticateApi.postLogin(item),
     onSuccess: (data) => {
       if (data) {
         setToken(data);
-        queryClient.invalidateQueries(userKeys.all);
+        queryClient.invalidateQueries({ queryKey: userKeys.all });
       }
     },
   });
@@ -23,10 +24,11 @@ export const useLogout = () => {
   const queryClient = useQueryClient();
   const navigation = useNavigate();
 
-  return useMutation(() => authenticateApi.postLogout(), {
+  return useMutation({
+    mutationFn: () => authenticateApi.postLogout(),
     onSuccess: () => {
       removeToken();
-      queryClient.invalidateQueries(userKeys.all);
+      queryClient.invalidateQueries({ queryKey: userKeys.all });
       navigation(0);
     },
     onError: () => {

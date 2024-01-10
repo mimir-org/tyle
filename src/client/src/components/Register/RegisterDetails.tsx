@@ -1,27 +1,24 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  Actionable,
-  Button,
-  Form,
-  FormField,
-  FormFieldset,
-  Input,
-  MotionFlexbox,
-  MotionText,
-  Text,
-  Textarea,
-} from "@mimirorg/component-library";
 import { useCreateUser } from "api/user.queries";
 import AuthContent from "components/AuthContent";
+import Button from "components/Button";
 import Error from "components/Error";
+import { MotionFlexbox } from "components/Flexbox";
+import Form from "components/Form";
+import FormField from "components/FormField";
+import FormFieldset from "components/FormFieldset";
+import Input from "components/Input";
 import Processing from "components/Processing";
+import Text, { MotionText } from "components/Text";
+import Textarea from "components/Textarea";
 import { useExecuteOnCriteria } from "hooks/useExecuteOnCriteria";
 import { useServerValidation } from "hooks/useServerValidation";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useTheme } from "styled-components";
-import { MimirorgUserAmCorrectTypes } from "./mimirorgUserAm";
+import { Actionable } from "types/actionable";
+import { UserRequest } from "types/authentication/userRequest";
 import { registerDetailsSchema } from "./registerDetailsSchema";
 
 interface RegisterDetailsProps {
@@ -41,11 +38,10 @@ const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
   const { register, control, handleSubmit, setError, formState } = formMethods;
   const { errors } = formState;
 
-  const onSubmit = (data: MimirorgUserAmCorrectTypes) => {
+  const onSubmit = (data: UserRequest) => {
     setUserEmail(data.email);
     mutation.mutate({
       ...data,
-      purpose: data.purpose ?? "",
     });
   };
 
@@ -58,8 +54,8 @@ const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
       subtitle="Create an account to collaborate with your organization!"
       firstRow={
         <>
-          {mutation.isLoading && <Processing>Processing</Processing>}
-          {!mutation.isSuccess && !mutation.isLoading && (
+          {mutation.isPending && <Processing>Processing</Processing>}
+          {!mutation.isSuccess && !mutation.isPending && (
             <Form id={"details-form"} onSubmit={handleSubmit((data) => onSubmit(data))}>
               {mutation.isError && (
                 <Error>
@@ -100,7 +96,7 @@ const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
                   />
                 </FormField>
 
-                <MotionText color={theme.mimirorg.color.surface.variant.on} layout={"position"} as={"i"}>
+                <MotionText color={theme.tyle.color.surface.variant.on} layout={"position"} as={"i"}>
                   * Indicates a required field.
                 </MotionText>
               </FormFieldset>
@@ -116,11 +112,11 @@ const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
             access :Tyle. If this process is interrupted or you do not complete registration within 1 hour, you will
             have to start the registration process over again.
           </Text>
-          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.mimirorg.spacing.xxl}>
+          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
             <Button type={"submit"} form={"details-form"}>
               {complete?.actionText}
             </Button>
-            <Text color={theme.mimirorg.color.surface.variant.on}>
+            <Text color={theme.tyle.color.surface.variant.on}>
               Have an account? <Link to="/">Log in</Link>
             </Text>
           </MotionFlexbox>

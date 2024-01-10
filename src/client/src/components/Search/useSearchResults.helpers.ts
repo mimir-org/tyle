@@ -63,17 +63,10 @@ export const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean]
   const blockQuery = useGetBlocks();
   const terminalQuery = useGetTerminals();
   const attributeQuery = useGetAttributes();
-  //const attributeGroupsQuery = useGetAttributeGroups();
 
-  const isLoading = blockQuery.isLoading || terminalQuery.isLoading || attributeQuery.isLoading; // ||
-  //attributeGroupsQuery.isLoading;
+  const isLoading = blockQuery.isPending || terminalQuery.isPending || attributeQuery.isPending;
 
-  const mergedItems = [
-    ...(blockQuery.data ?? []),
-    ...(terminalQuery.data ?? []),
-    ...(attributeQuery.data ?? []),
-    //...(attributeGroupsQuery.data ?? []),
-  ];
+  const mergedItems = [...(blockQuery.data ?? []), ...(terminalQuery.data ?? []), ...(attributeQuery.data ?? [])];
 
   return [mergedItems, isLoading];
 };
@@ -85,7 +78,6 @@ export const mapSearchResults = (items: SearchResultRaw[]) => {
     if (isBlockView(x)) mappedSearchResults.push(toBlockItem(x));
     else if (isTerminalView(x)) mappedSearchResults.push(toTerminalItem(x));
     else if (isAttributeView(x)) mappedSearchResults.push(toAttributeItem(x));
-    //else if (isAttributeGroupLibCm(x)) mappedSearchResults.push(toAttributeGroupItem(x));
   });
 
   return mappedSearchResults;

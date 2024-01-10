@@ -1,8 +1,12 @@
-import { AlertDialog, Button, Text, Tooltip, toast } from "@mimirorg/component-library";
 import { Check, DocumentDuplicate, PencilSquare, Trash } from "@styled-icons/heroicons-outline";
 import { AxiosError } from "axios";
+import AlertDialog from "components/AlertDialog";
+import Button from "components/Button";
 import PlainLink from "components/PlainLink";
 import StateBadge from "components/StateBadge";
+import Text from "components/Text";
+import { toast } from "components/Toaster/toast";
+import Tooltip from "components/Tooltip";
 import { useState } from "react";
 import { useTheme } from "styled-components";
 import { State } from "types/common/state";
@@ -92,7 +96,7 @@ const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: S
       {!isAttributeGroup && (
         <>
           <AlertDialog
-            gap={theme.mimirorg.spacing.multiple(6)}
+            gap={theme.tyle.spacing.multiple(6)}
             actions={[approveAction]}
             title="Do you want to send approval request?"
             description="Someone has to accept this scope change."
@@ -117,7 +121,7 @@ const SearchItemActions = ({ user, item, children, isAttributeGroup = false }: S
         </>
       )}
       <AlertDialog
-        gap={theme.mimirorg.spacing.multiple(6)}
+        gap={theme.tyle.spacing.multiple(6)}
         actions={[deleteAction]}
         title="Do you want to delete this item?"
         description="The item will be deleted."

@@ -1,5 +1,5 @@
-import { Input } from "@mimirorg/component-library";
 import { PlusCircle, XCircle } from "@styled-icons/heroicons-outline";
+import Input from "components/Input";
 import React from "react";
 import { XsdDataType } from "types/attributes/xsdDataType";
 import { VALUE_LENGTH } from "types/common/stringLengthConstants";

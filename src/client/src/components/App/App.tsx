@@ -1,13 +1,13 @@
-import { FullPageSpinner } from "@mimirorg/component-library";
 import { useGetCurrentUser } from "api/user.queries";
 import Authenticated from "components/Authenticated";
+import FullPageSpinner from "components/FullPageSpinner";
 import Unauthenticated from "components/Unauthenticated";
 
 const App = () => {
-  const { data: user, isSuccess, isLoading } = useGetCurrentUser();
+  const { data: user, isSuccess, isPending } = useGetCurrentUser();
   const isLoggedIn = isSuccess && user;
 
-  if (isLoading) {
+  if (isPending) {
     return <FullPageSpinner text="Loading application" />;
   }
 

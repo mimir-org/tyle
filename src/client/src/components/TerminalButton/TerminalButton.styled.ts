@@ -1,5 +1,6 @@
-import { focus, layer, translucify } from "@mimirorg/component-library";
+import { layer, translucify } from "helpers/theme.helpers";
 import { meetsContrastGuidelines } from "polished";
+import { focus } from "styleConstants";
 import styled, { css } from "styled-components/macro";
 import { TerminalButtonProps } from "./TerminalButton";
 
@@ -11,14 +12,14 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
   align-items: center;
   white-space: nowrap;
   text-decoration: none;
-  padding: ${(props) => props.theme.mimirorg.spacing.xs};
+  padding: ${(props) => props.theme.tyle.spacing.xs};
 
-  border: ${(props) => (props.direction ? 0 : `1px solid ${props.theme.mimirorg.color.outline.base}`)};
-  border-radius: ${(props) => props.theme.mimirorg.border.radius.small};
+  border: ${(props) => (props.direction ? 0 : `1px solid ${props.theme.tyle.color.outline.base}`)};
+  border-radius: ${(props) => props.theme.tyle.border.radius.small};
 
-  font: ${(props) => props.theme.mimirorg.typography.roles.label.large.font};
-  line-height: ${(props) => props.theme.mimirorg.typography.roles.label.large.lineHeight};
-  letter-spacing: ${(props) => props.theme.mimirorg.typography.roles.label.large.letterSpacing};
+  font: ${(props) => props.theme.tyle.typography.roles.label.large.font};
+  line-height: ${(props) => props.theme.tyle.typography.roles.label.large.lineHeight};
+  letter-spacing: ${(props) => props.theme.tyle.typography.roles.label.large.letterSpacing};
 
   :hover {
     cursor: default;
@@ -35,7 +36,7 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
   ${focus};
 
   ${({ color, ...props }) => {
-    const { color: colorSystem, elevation } = props.theme.mimirorg;
+    const { color: colorSystem, elevation } = props.theme.tyle;
     const contentColor = meetsContrastGuidelines(colorSystem.background.on, color).AAA
       ? colorSystem.background.on
       : colorSystem.background.inverse.on;
@@ -83,7 +84,7 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
         return css`
           width: 30px;
           height: 30px;
-          padding: ${props.theme.mimirorg.spacing.s};
+          padding: ${props.theme.tyle.spacing.s};
 
           path {
             stroke-width: 2;
@@ -92,9 +93,6 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
       }
     }
   }};
-}
-
-;
 `;
 
 TerminalButtonContainer.defaultProps = {

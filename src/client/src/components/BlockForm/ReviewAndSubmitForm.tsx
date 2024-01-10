@@ -1,5 +1,7 @@
-import { Button, PlainLink, Table, Tbody, Td, Tr } from "@mimirorg/component-library";
 import { UseMutationResult } from "@tanstack/react-query";
+import Button from "components/Button";
+import PlainLink from "components/PlainLink";
+import { Table, Tbody, Td, Tr } from "components/Table";
 import { onSubmitForm, useSubmissionToast } from "helpers/form.helpers";
 import { useNavigateOnCriteria } from "hooks/useNavigateOnCriteria";
 import { BlockTypeRequest } from "types/blocks/blockTypeRequest";
@@ -41,7 +43,7 @@ const ReviewAndSubmitForm = ({ blockFormFields, mutation, formRef, mode }: Revie
           </Tr>
           <Tr>
             <Td>Aspect</Td>
-            <Td>{blockFormFields.aspect ? Aspect[blockFormFields.aspect] : "undefined"}</Td>
+            <Td>{blockFormFields.aspect !== null ? Aspect[blockFormFields.aspect] : "undefined"}</Td>
           </Tr>
           <Tr>
             <Td>Purpose</Td>

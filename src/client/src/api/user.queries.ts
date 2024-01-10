@@ -11,22 +11,21 @@ export const userKeys = {
 };
 
 export const useGetCurrentUser = () =>
-  useQuery(userKeys.all, userApi.getCurrentUser, {
-    retry: 0,
-    refetchOnWindowFocus: false,
-  });
+  useQuery({ queryKey: userKeys.all, queryFn: userApi.getCurrentUser, retry: 0, refetchOnWindowFocus: false });
 
-export const useGetAllUsers = () => useQuery(userKeys.list(""), userApi.getUsers);
+export const useGetAllUsers = () => useQuery({ queryKey: userKeys.list(""), queryFn: userApi.getUsers });
 
-export const useCreateUser = () => useMutation((item: UserRequest) => userApi.postUser(item), {});
+export const useCreateUser = () => useMutation({ mutationFn: (item: UserRequest) => userApi.postUser(item) });
 
-export const useUpdateUser = () => useMutation((item: UserRequest) => userApi.patchUser(item));
+export const useUpdateUser = () => useMutation({ mutationFn: (item: UserRequest) => userApi.patchUser(item) });
 
-export const useVerification = () => useMutation((item: VerifyRequest) => userApi.postVerification(item));
+export const useVerification = () =>
+  useMutation({ mutationFn: (item: VerifyRequest) => userApi.postVerification(item) });
 
-export const useGenerateMfa = () => useMutation((item: VerifyRequest) => userApi.postGenerateMfa(item));
+export const useGenerateMfa = () => useMutation({ mutationFn: (item: VerifyRequest) => userApi.postGenerateMfa(item) });
 
-export const useChangePassword = () => useMutation((item: ChangePasswordRequest) => userApi.postChangePassword(item));
+export const useChangePassword = () =>
+  useMutation({ mutationFn: (item: ChangePasswordRequest) => userApi.postChangePassword(item) });
 
 export const useGenerateChangePasswordSecret = () =>
-  useMutation((email: string) => userApi.postGenerateChangePasswordSecret(email));
+  useMutation({ mutationFn: (email: string) => userApi.postGenerateChangePasswordSecret(email) });

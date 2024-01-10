@@ -1,5 +1,7 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Abstractions;
 using Tyle.Application.Attributes;
 using Tyle.Application.Attributes.Requests;
@@ -14,17 +16,17 @@ public class AttributeRepository : IAttributeRepository
 {
     private readonly TyleDbContext _context;
     private readonly DbSet<AttributeType> _dbSet;
-    private readonly IDownstreamApi _downstreamApi;
-    private readonly IJsonLdConversionService _jsonLdConversionService;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly IConfiguration _configuration;
     private readonly IMapper _mapper;
     private readonly IUserInformationService _userInformationService;
 
-    public AttributeRepository(TyleDbContext context, IDownstreamApi downstreamApi, IJsonLdConversionService jsonLdConversionService, IMapper mapper, IUserInformationService userInformationService)
+    public AttributeRepository(TyleDbContext context, IServiceProvider serviceProvider, IConfiguration configuration, IMapper mapper, IUserInformationService userInformationService)
     {
         _context = context;
         _dbSet = context.Attributes;
-        _downstreamApi = downstreamApi;
-        _jsonLdConversionService = jsonLdConversionService;
+        _serviceProvider = serviceProvider;
+        _configuration = configuration;
         _mapper = mapper;
         _userInformationService = userInformationService;
     }
@@ -189,8 +191,18 @@ public class AttributeRepository : IAttributeRepository
             return false;
         }
 
-        if (state == State.Approved)
+        if (state == State.Approved && _configuration.GetValue<bool>("UseCommonLib"))
         {
+            using var scope = _serviceProvider.CreateScope();
+
+            var jsonLdConversionService = scope.ServiceProvider.GetService<IJsonLdConversionService>();
+            var downstreamApi = scope.ServiceProvider.GetService<IDownstreamApi>();
+
+            if (jsonLdConversionService == null || downstreamApi == null)
+            {
+                throw new InvalidOperationException("Couldn't resolve the services needed to post to Common Library.");
+            }
+
             var completeAttribute = await Get(id);
 
             if (completeAttribute == null)
@@ -198,9 +210,9 @@ public class AttributeRepository : IAttributeRepository
                 return false;
             }
 
-            var attributeAsJsonLd = await _jsonLdConversionService.ConvertToJsonLd(completeAttribute);
+            var attributeAsJsonLd = await jsonLdConversionService.ConvertToJsonLd(completeAttribute);
 
-            var postResponse = await _downstreamApi.CallApiForAppAsync("CommonLib", options =>
+            var postResponse = await downstreamApi.CallApiForAppAsync("CommonLib", options =>
             {
                 options.HttpMethod = "POST";
                 options.RelativePath = "/api/imftype/WriteImfType";

@@ -1,4 +1,5 @@
-import { FormField, Select } from "@mimirorg/component-library";
+import FormField from "components/FormField";
+import Select from "components/Select";
 import React from "react";
 import { ProvenanceQualifier } from "types/attributes/provenanceQualifier";
 import { RangeQualifier } from "types/attributes/rangeQualifier";

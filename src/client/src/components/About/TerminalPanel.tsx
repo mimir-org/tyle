@@ -1,55 +1,108 @@
-import { Flexbox, Heading, MotionBox, Text } from "@mimirorg/component-library";
-import InfoItemButton from "components/InfoItemButton";
-import StateBadge from "components/StateBadge";
-import TerminalPreview from "components/TerminalPreview";
+import Box, { MotionBox } from "components/Box";
 import { useTheme } from "styled-components";
-import { TerminalItem } from "types/terminalItem";
+import Heading from "../Heading";
+import StateBadge from "../StateBadge";
+import Divider from "../Divider";
 import PanelPropertiesContainer from "./PanelPropertiesContainer";
 import PanelSection from "./PanelSection";
+import Text from "../Text";
+import InfoItemButton from "../InfoItemButton";
+import { TerminalView } from "../../types/terminals/terminalView";
+import {
+  isNullUndefinedOrWhitespace,
+  mapAttributeViewsToInfoItems,
+  mapRdlClassifiersToInfoItems,
+  mapRdlMediumToInfoItem,
+  mapRdlPurposeToInfoItem,
+  sortInfoItems,
+} from "../../helpers/mappers.helpers";
+import { getOptionsFromEnum } from "../../utils";
+import { State } from "../../types/common/state";
+import { Aspect } from "../../types/common/aspect";
+import { Direction } from "../../types/terminals/direction";
 
-/**
- * Component that displays information about a given terminal.
- *
- * @param props receives all properties of a TerminalItem
- * @constructor
- */
-export const TerminalPanel = ({ name, description, color, attributes, tokens }: TerminalItem) => {
+interface TerminalPanelProps {
+  terminalData: TerminalView;
+}
+
+export const TerminalPanel = ({ terminalData }: TerminalPanelProps) => {
   const theme = useTheme();
-  const showAttributes = attributes && attributes.length > 0;
+  const states = getOptionsFromEnum(State);
+  const tokens = [terminalData.version, states[terminalData.state].label];
+  const aspect = terminalData.aspect !== null ? Aspect[terminalData.aspect] : "";
+
+  const attributesMapped = sortInfoItems(mapAttributeViewsToInfoItems(terminalData.attributes.map((x) => x.attribute)));
+  const classifiersMapped = mapRdlClassifiersToInfoItems(terminalData.classifiers);
+  const purposeMapped = mapRdlPurposeToInfoItem(terminalData.purpose);
+  const mediumMapped = mapRdlMediumToInfoItem(terminalData.medium);
 
   return (
     <MotionBox
       flex={1}
       display={"flex"}
       flexDirection={"column"}
-      gap={theme.mimirorg.spacing.xxxl}
+      gap={theme.tyle.spacing.xxxl}
       maxHeight={"100%"}
       overflow={"hidden"}
-      {...theme.mimirorg.animation.fade}
+      {...theme.tyle.animation.fade}
     >
-      <TerminalPreview name={name} color={color} variant={"large"} />
-
-      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xl}>
-        <Heading as={"h2"} variant={"title-large"} fontWeight={"500"} useEllipsis ellipsisMaxLines={2}>
-          {name}
-        </Heading>
-        <Text useEllipsis ellipsisMaxLines={8}>
-          {description}
-        </Text>
-      </Flexbox>
-      <Flexbox gap={theme.mimirorg.spacing.xl} flexWrap={"wrap"}>
-        {tokens && tokens.map((token, i) => <StateBadge state={token} key={token + i} />)}
-      </Flexbox>
-
-      <PanelPropertiesContainer>
-        {showAttributes && (
-          <PanelSection title="Attributes">
-            {attributes.map((a, i) => (
-              <InfoItemButton key={i} {...a} />
-            ))}
-          </PanelSection>
-        )}
-      </PanelPropertiesContainer>
+      <Box display={"grid"} rowGap={theme.tyle.spacing.xxl}>
+        <Box display={"grid"}>
+          <Box gridColumn={"1"}>
+            <Heading as={"h2"}>{terminalData.name}</Heading>
+          </Box>
+          <Box display={"flex"} gridColumn={"2"} justifyContent={"right"} alignItems={"center"}>
+            {tokens && tokens.map((token, i) => <StateBadge key={i + token} state={token} />)}
+          </Box>
+        </Box>
+        <Divider />
+        <PanelPropertiesContainer>
+          {!isNullUndefinedOrWhitespace(terminalData.notation) && (
+            <PanelSection title={"Notation"}>
+              <Text>{terminalData.notation}</Text>
+            </PanelSection>
+          )}
+          {!isNullUndefinedOrWhitespace(aspect) && (
+            <PanelSection title={"Aspect"}>
+              <Text>{aspect}</Text>
+            </PanelSection>
+          )}
+          {!isNullUndefinedOrWhitespace(purposeMapped.id) && (
+            <PanelSection title={"Purpose"}>
+              <InfoItemButton key={terminalData.purpose?.id} {...purposeMapped} />
+            </PanelSection>
+          )}
+          {!isNullUndefinedOrWhitespace(terminalData.description) && (
+            <PanelSection title={"Description"}>
+              <Text>{terminalData.description}</Text>
+            </PanelSection>
+          )}
+          {!isNullUndefinedOrWhitespace(mediumMapped.id) && (
+            <PanelSection title={"Medium"}>
+              <InfoItemButton key={terminalData.medium?.id} {...mediumMapped} />
+            </PanelSection>
+          )}
+          {!isNullUndefinedOrWhitespace(terminalData.qualifier) && (
+            <PanelSection title={"Qualifier"}>
+              <Text>{Direction[terminalData.qualifier]}</Text>
+            </PanelSection>
+          )}
+          {classifiersMapped.length > 0 && (
+            <PanelSection title="Classifiers">
+              {classifiersMapped.map((a, i) => (
+                <InfoItemButton key={i} {...a} />
+              ))}
+            </PanelSection>
+          )}
+          {attributesMapped.length > 0 && (
+            <PanelSection title="Attributes">
+              {attributesMapped.map((a, i) => (
+                <InfoItemButton key={i} {...a} />
+              ))}
+            </PanelSection>
+          )}
+        </PanelPropertiesContainer>
+      </Box>
     </MotionBox>
   );
 };
