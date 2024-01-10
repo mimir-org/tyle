@@ -29,6 +29,8 @@ export const TerminalPanel = ({ terminalData }: TerminalPanelProps) => {
   const theme = useTheme();
   const states = getOptionsFromEnum(State);
   const tokens = [terminalData.version, states[terminalData.state].label];
+  const aspect = terminalData.aspect !== null ? Aspect[terminalData.aspect] : "";
+
   const attributesMapped = sortInfoItems(mapAttributeViewsToInfoItems(terminalData.attributes.map((x) => x.attribute)));
   const classifiersMapped = mapRdlClassifiersToInfoItems(terminalData.classifiers);
   const purposeMapped = mapRdlPurposeToInfoItem(terminalData.purpose);
@@ -60,9 +62,9 @@ export const TerminalPanel = ({ terminalData }: TerminalPanelProps) => {
               <Text>{terminalData.notation}</Text>
             </PanelSection>
           )}
-          {!isNullUndefinedOrWhitespace(terminalData.aspect) && (
+          {!isNullUndefinedOrWhitespace(aspect) && (
             <PanelSection title={"Aspect"}>
-              <Text>{terminalData.aspect !== null ? Aspect[terminalData.aspect] : ""}</Text>
+              <Text>{aspect}</Text>
             </PanelSection>
           )}
           {!isNullUndefinedOrWhitespace(purposeMapped.id) && (

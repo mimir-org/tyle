@@ -28,6 +28,8 @@ const BlockPanel = ({ blockData }: BlockPanelProps) => {
   const theme = useTheme();
   const states = getOptionsFromEnum(State);
   const tokens = [blockData.version, states[blockData.state].label];
+  const aspect = blockData.aspect !== null ? Aspect[blockData.aspect] : "";
+
   const attributesMapped = sortInfoItems(mapAttributeViewsToInfoItems(blockData.attributes.map((x) => x.attribute)));
   const classifiersMapped = mapRdlClassifiersToInfoItems(blockData.classifiers);
   const terminalsMapped = mapTerminalTypeReferenceViewToBlockTerminalItems(blockData.terminals);
@@ -59,9 +61,9 @@ const BlockPanel = ({ blockData }: BlockPanelProps) => {
               <Text>{blockData.notation}</Text>
             </PanelSection>
           )}
-          {blockData.aspect !== null && (
+          {!isNullUndefinedOrWhitespace(aspect) && (
             <PanelSection title={"Aspect"}>
-              <Text>{Aspect[blockData.aspect]}</Text>
+              <Text>{aspect}</Text>
             </PanelSection>
           )}
           {!isNullUndefinedOrWhitespace(purposeMapped.id) && (

@@ -27,6 +27,7 @@ interface AttributePanelProps {
 
 const AttributePanel = ({ attributeData }: AttributePanelProps) => {
   const theme = useTheme();
+
   const predicateMapped = mapRdlPredicateToInfoItem(attributeData.predicate);
   const unitsMapped = mapRdlUnitsToInfoItems(attributeData.units);
   const getUnitRequirement = () => {
