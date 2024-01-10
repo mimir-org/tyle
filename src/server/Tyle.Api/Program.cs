@@ -13,11 +13,14 @@ using Tyle.External;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAuthentication("AzureAd")
-    .AddMicrosoftIdentityWebApi(builder.Configuration, jwtBearerScheme: "AzureAd")
-    .EnableTokenAcquisitionToCallDownstreamApi()
-    .AddDownstreamApi("CommonLib", builder.Configuration.GetSection("CommonLibApi"))
-    .AddInMemoryTokenCaches();
+if (builder.Configuration.GetValue<bool>("UseCommonLib"))
+{
+    builder.Services.AddAuthentication("AzureAd")
+        .AddMicrosoftIdentityWebApi(builder.Configuration, jwtBearerScheme: "AzureAd")
+        .EnableTokenAcquisitionToCallDownstreamApi()
+        .AddDownstreamApi("CommonLib", builder.Configuration.GetSection("CommonLibApi"))
+        .AddInMemoryTokenCaches();
+}
 
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
@@ -57,7 +60,7 @@ builder.Services
     .AddDatabaseConfiguration(builder.Configuration)
     .AddRequestToDomainMapping()
     .AddRepositories()
-    .AddSyncingServices()
+    .AddSyncingServices(builder.Configuration)
     .AddDomainToViewMapping()
     .AddApiServices();
 

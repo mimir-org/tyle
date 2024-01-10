@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Abstractions;
 using Tyle.Application.Attributes;
 using Tyle.Application.Blocks;
@@ -15,18 +17,18 @@ public class BlockRepository : IBlockRepository
 {
     private readonly TyleDbContext _context;
     private readonly DbSet<BlockType> _dbSet;
-    private readonly IDownstreamApi _downstreamApi;
-    private readonly IJsonLdConversionService _jsonLdConversionService;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly IConfiguration _configuration;
     private readonly IUserInformationService _userInformationService;
     private readonly IAttributeRepository _attributeRepository;
     private readonly ITerminalRepository _terminalRepository;
 
-    public BlockRepository(TyleDbContext context, IDownstreamApi downstreamApi, IJsonLdConversionService jsonLdConversionService, IUserInformationService userInformationService, IAttributeRepository attributeRepository, ITerminalRepository terminalRepository)
+    public BlockRepository(TyleDbContext context, IServiceProvider serviceProvider, IConfiguration configuration, IUserInformationService userInformationService, IAttributeRepository attributeRepository, ITerminalRepository terminalRepository)
     {
         _context = context;
         _dbSet = context.Blocks;
-        _downstreamApi = downstreamApi;
-        _jsonLdConversionService = jsonLdConversionService;
+        _serviceProvider = serviceProvider;
+        _configuration = configuration;
         _userInformationService = userInformationService;
         _attributeRepository = attributeRepository;
         _terminalRepository = terminalRepository;
@@ -304,23 +306,36 @@ public class BlockRepository : IBlockRepository
                 throw new InvalidOperationException("A block can only be approved if all its terminals are also approved.");
             }
 
-            var blockAsJsonLd = await _jsonLdConversionService.ConvertToJsonLd(completeBlock);
-
-            var postResponse = await _downstreamApi.CallApiForAppAsync("CommonLib", options =>
+            if (_configuration.GetValue<bool>("UseCommonLib"))
             {
-                options.HttpMethod = "POST";
-                options.RelativePath = "/api/imftype/WriteImfType";
-                options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
+                using var scope = _serviceProvider.CreateScope();
 
-                options.CustomizeHttpRequestMessage = message =>
+                var jsonLdConversionService = scope.ServiceProvider.GetService<IJsonLdConversionService>();
+                var downstreamApi = scope.ServiceProvider.GetService<IDownstreamApi>();
+
+                if (jsonLdConversionService == null || downstreamApi == null)
                 {
-                    message.Content = new StringContent(blockAsJsonLd.ToString(), System.Text.Encoding.UTF8, "application/json-patch+json");
-                };
-            });
+                    throw new InvalidOperationException("Couldn't resolve the services needed to post to Common Library.");
+                }
 
-            if (!postResponse.IsSuccessStatusCode)
-            {
-                throw new InvalidOperationException("Post request to Common Library failed.");
+                var blockAsJsonLd = await jsonLdConversionService.ConvertToJsonLd(completeBlock);
+
+                var postResponse = await downstreamApi.CallApiForAppAsync("CommonLib", options =>
+                {
+                    options.HttpMethod = "POST";
+                    options.RelativePath = "/api/imftype/WriteImfType";
+                    options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
+
+                    options.CustomizeHttpRequestMessage = message =>
+                    {
+                        message.Content = new StringContent(blockAsJsonLd.ToString(), System.Text.Encoding.UTF8, "application/json-patch+json");
+                    };
+                });
+
+                if (!postResponse.IsSuccessStatusCode)
+                {
+                    throw new InvalidOperationException("Post request to Common Library failed.");
+                }
             }
         }
 

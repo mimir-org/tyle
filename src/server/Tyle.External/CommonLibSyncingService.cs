@@ -11,7 +11,6 @@ using Tyle.Application.Terminals.Requests;
 using Tyle.Converters.Iris;
 using Tyle.Core.Blocks;
 using Tyle.Core.Common;
-using Tyle.External.Model;
 using VDS.RDF.Parsing;
 using VDS.RDF;
 
@@ -21,7 +20,7 @@ public class CommonLibSyncingService : IHostedService, IDisposable
 {
     private bool _disposedValue;
     private readonly IServiceProvider _serviceProvider;
-    private Timer? _timer = null;
+    private Timer? _timer;
 
     public CommonLibSyncingService(IServiceProvider serviceProvider)
     {
@@ -62,7 +61,7 @@ public class CommonLibSyncingService : IHostedService, IDisposable
             return;
         }
 
-        var purposes = await downstreamApi.GetForAppAsync<IEnumerable<ExternalType>>("CommonLib", options =>
+        var purposes = await downstreamApi.GetForAppAsync<IEnumerable<CommonLibObject>>("CommonLib", options =>
         {
             options.RelativePath = "api/Code/IMFPurpose";
             options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
@@ -112,7 +111,7 @@ public class CommonLibSyncingService : IHostedService, IDisposable
             return;
         }
 
-        var media = await downstreamApi.GetForAppAsync<IEnumerable<ExternalType>>("CommonLib", options =>
+        var media = await downstreamApi.GetForAppAsync<IEnumerable<CommonLibObject>>("CommonLib", options =>
         {
             options.RelativePath = "api/Code/IMFMedium";
             options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
@@ -162,7 +161,7 @@ public class CommonLibSyncingService : IHostedService, IDisposable
             return;
         }
 
-        var classifiers = await downstreamApi.GetForAppAsync<IEnumerable<ExternalType>>("CommonLib", options =>
+        var classifiers = await downstreamApi.GetForAppAsync<IEnumerable<CommonLibObject>>("CommonLib", options =>
         {
             options.RelativePath = "api/Code/IMFClassifier";
             options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
@@ -212,7 +211,7 @@ public class CommonLibSyncingService : IHostedService, IDisposable
             return;
         }
 
-        var predicates = await downstreamApi.GetForAppAsync<IEnumerable<ExternalType>>("CommonLib", options =>
+        var predicates = await downstreamApi.GetForAppAsync<IEnumerable<CommonLibObject>>("CommonLib", options =>
         {
             options.RelativePath = "api/Code/IMFPredicate";
             options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
@@ -262,7 +261,7 @@ public class CommonLibSyncingService : IHostedService, IDisposable
             return;
         }
 
-        var units = await downstreamApi.GetForAppAsync<IEnumerable<ExternalType>>("CommonLib", options =>
+        var units = await downstreamApi.GetForAppAsync<IEnumerable<CommonLibObject>>("CommonLib", options =>
         {
             options.RelativePath = "api/Code/IMFUnitOfMeasure";
             options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
