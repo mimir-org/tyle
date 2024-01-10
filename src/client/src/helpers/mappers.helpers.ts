@@ -14,6 +14,11 @@ import { UserItem } from "types/userItem";
 import { getOptionsFromEnum } from "utils";
 import { RoleView } from "../types/authentication/roleView";
 import { RoleItem } from "../types/role";
+import { RdlPredicate } from "../types/attributes/rdlPredicate";
+import { RdlUnit } from "../types/attributes/rdlUnit";
+import { RdlMedium } from "../types/terminals/rdlMedium";
+import { RdlClassifier } from "../types/common/rdlClassifier";
+import { RdlPurpose } from "../types/common/rdlPurpose";
 
 const getColorFromAspect = (aspect: Aspect | null) => {
   switch (aspect) {
@@ -56,7 +61,7 @@ export const toBlockItem = (block: BlockView): BlockItem => {
     description: block.description ?? "",
     color: getColorFromAspect(block.aspect),
     tokens: [block.version, currentStateLabel],
-    terminals: sortBlockTerminals(mapBlockTerminalLibCmsToBlockTerminalItems(block.terminals)),
+    terminals: sortBlockTerminals(mapTerminalTypeReferenceViewToBlockTerminalItems(block.terminals)),
     attributes: sortInfoItems(mapAttributeViewsToInfoItems(block.attributes.map((x) => x.attribute))),
     kind: "BlockItem",
     state: block.state,
@@ -64,7 +69,9 @@ export const toBlockItem = (block: BlockView): BlockItem => {
   };
 };
 
-const mapBlockTerminalLibCmsToBlockTerminalItems = (terminals: TerminalTypeReferenceView[]): BlockTerminalItem[] =>
+export const mapTerminalTypeReferenceViewToBlockTerminalItems = (
+  terminals: TerminalTypeReferenceView[],
+): BlockTerminalItem[] =>
   terminals.map((x) => ({
     id: x.terminal.id,
     name: x.terminal.name,
@@ -141,4 +148,73 @@ export const toAttributeItem = (attribute: AttributeView): AttributeItem => {
     unitId: "",
     isDefault: false,
   };
+};
+
+export const mapRdlPredicateToInfoItem = (predicate: RdlPredicate | null): InfoItem => {
+  return {
+    id: predicate?.id.toString(),
+    name: predicate?.name ? predicate.name : "",
+    descriptors: {
+      description: predicate?.description,
+      iri: predicate?.iri,
+    },
+  };
+};
+
+export const mapRdlMediumToInfoItem = (medium: RdlMedium | null): InfoItem => {
+  return {
+    id: medium?.id.toString(),
+    name: medium?.name ? medium.name : "",
+    descriptors: {
+      description: medium?.description,
+      iri: medium?.iri,
+    },
+  };
+};
+
+export const mapRdlPurposeToInfoItem = (purpose: RdlPurpose | null): InfoItem => {
+  return {
+    id: purpose?.id.toString(),
+    name: purpose?.name ? purpose.name : "",
+    descriptors: {
+      description: purpose?.description,
+      iri: purpose?.iri,
+    },
+  };
+};
+
+export const mapRdlUnitsToInfoItems = (units: RdlUnit[]): InfoItem[] => {
+  return (
+    units.map((unit) => ({
+      id: unit.id.toString(),
+      name: unit.name,
+      descriptors: {
+        description: unit.description,
+        iri: unit.iri,
+      },
+    })) ?? []
+  );
+};
+
+export const mapRdlClassifiersToInfoItems = (classifiers: RdlClassifier[]): InfoItem[] => {
+  return (
+    classifiers.map((classifier) => ({
+      id: classifier.id.toString(),
+      name: classifier.name,
+      descriptors: {
+        Description: classifier.description,
+        IRI: classifier.iri,
+      },
+    })) ?? []
+  );
+};
+
+export const isNullUndefinedOrWhitespace = <T>(input: T | null): boolean => {
+  if (input === null || input === undefined) {
+    return true;
+  }
+  if (typeof input === "string") {
+    return /^\s*$/.test(input);
+  }
+  return false;
 };
