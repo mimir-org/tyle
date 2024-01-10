@@ -41,6 +41,7 @@ public class PcaSyncingService : IHostedService, IDisposable
         await SyncPurposes();
         await SyncClassifiers();
         await SyncPredicates();
+        await SyncUnits();
     }
 
     private async Task SyncPurposes()
@@ -208,9 +209,9 @@ public class PcaSyncingService : IHostedService, IDisposable
         using IServiceScope scope = _serviceProvider.CreateScope();
 
 
-        var predicatesRepository = scope.ServiceProvider.GetService<IPredicateRepository>();
+        var predicateRepository = scope.ServiceProvider.GetService<IPredicateRepository>();
 
-        if (predicatesRepository == null)
+        if (predicateRepository == null)
         {
             return;
         }
@@ -243,7 +244,7 @@ public class PcaSyncingService : IHostedService, IDisposable
 
         var predicates = await _queryClient.QueryWithResultSetAsync(predicatesQuery);
 
-        var predicatesDb = (await predicatesRepository.GetAll()).ToList();
+        var predicatesDb = (await predicateRepository.GetAll()).ToList();
 
         var predicatesToCreate = new List<RdlPredicateRequest>();
 
@@ -284,7 +285,70 @@ public class PcaSyncingService : IHostedService, IDisposable
             predicatesToCreate.Add(predicateRequest);
         }
 
-        await predicatesRepository.Create(predicatesToCreate, ReferenceSource.Pca);
+        await predicateRepository.Create(predicatesToCreate, ReferenceSource.Pca);
+    }
+
+    private async Task SyncUnits()
+    {
+        using IServiceScope scope = _serviceProvider.CreateScope();
+
+
+        var unitRepository = scope.ServiceProvider.GetService<IUnitRepository>();
+
+        if (unitRepository == null)
+        {
+            return;
+        }
+
+        var unitsQuery = """
+                            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                            PREFIX lis: <http://rds.posccaesar.org/ontology/lis14/rdl/>
+                            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                            
+                            select * {
+                              ?uom rdf:type lis:Scale ;
+                              rdfs:label ?label .
+                            }
+                            
+                            order by ?label
+                            """;
+
+        var units = await _queryClient.QueryWithResultSetAsync(unitsQuery);
+
+        var unitsDb = (await unitRepository.GetAll()).ToList();
+
+        var unitsToCreate = new List<RdlUnitRequest>();
+
+        foreach (var unit in units)
+        {
+            var iriString = unit["uom"].ToString();
+
+            if (iriString == null || !Uri.TryCreate(iriString, UriKind.Absolute, out var iri) || unitsDb.Any(savedUnit => savedUnit.Iri.Equals(iri)))
+            {
+                continue;
+            }
+
+            string? nameString = null;
+
+            if (unit["label"] != null)
+            {
+                nameString = unit["label"].ToString().Split('^')[0];
+            }
+
+            if (nameString == null) continue;
+
+            var unitRequest = new RdlUnitRequest
+            {
+                Name = nameString,
+                Iri = iriString
+            };
+
+            if (unitsToCreate.Any(x => new Uri(x.Iri).Equals(new Uri(unitRequest.Iri)))) continue;
+
+            unitsToCreate.Add(unitRequest);
+        }
+
+        await unitRepository.Create(unitsToCreate, ReferenceSource.Pca);
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
