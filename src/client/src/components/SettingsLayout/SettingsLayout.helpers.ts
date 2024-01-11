@@ -1,3 +1,4 @@
+import { useGetCurrentUser } from "api/user.queries";
 import { accessBasePath } from "components/Access/AccessRoutes";
 import { approvalBasePath } from "components/Approval/ApprovalRoutes";
 import { rolesBasePath } from "components/Roles/RolesRoutes";
@@ -12,22 +13,34 @@ export const useSettingsLinkGroups = (): LinkGroup[] => {
 };
 
 const useAdministerLinks = (): Link[] => {
-  return [
+  const currentUser = useGetCurrentUser();
+
+  const links = [
     {
       name: "User settings",
       path: usersettingsBasePath,
     },
-    {
+  ];
+
+  if (currentUser.data?.roles.includes("Reviewer") || currentUser.data?.roles.includes("Administrator")) {
+    links.push({
       name: "Approval",
       path: approvalBasePath,
-    },
-    {
-      name: "Access",
-      path: accessBasePath,
-    },
-    {
-      name: "Roles",
-      path: rolesBasePath,
-    },
-  ];
+    });
+  }
+
+  if (currentUser.data?.roles.includes("Administrator")) {
+    links.push(
+      {
+        name: "Access",
+        path: accessBasePath,
+      },
+      {
+        name: "Roles",
+        path: rolesBasePath,
+      },
+    );
+  }
+
+  return links;
 };
