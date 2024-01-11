@@ -27,7 +27,7 @@ const TerminalButton = forwardRef<HTMLButtonElement, TerminalButtonProps>(
       {children}
       {(direction === Direction.Input || direction === Direction.Output) && <ArrowSmallRight />}
       {direction === Direction.Bidirectional && <ArrowsRightLeft />}
-      {!direction && <EllipseIcon color={"#FFF"} />}
+      {direction === undefined && <EllipseIcon color={"#FFF"} />}
     </TerminalButtonContainer>
   ),
 );
