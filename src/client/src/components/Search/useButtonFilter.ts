@@ -70,7 +70,7 @@ const allowDelete = (item: ItemType | null, user: UserItem | null): boolean => {
 
   if (item.state === State.Approved) return false;
 
-  if (item.createdBy === user.id) return true;
+  if (item.createdBy === user.id && user.roles.includes("Contributor")) return true;
 
   if (user.roles.filter((x) => x === "Administrator" || x === "Reviewer").length === 0) {
     return false;
