@@ -53,6 +53,7 @@ const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescript
           <TerminalDescription
             key={x.name + x.color + x.direction}
             name={x.name}
+            minQuantity={x.minQuantity}
             maxQuantity={x.maxQuantity}
             color={x.color}
             direction={x.direction}

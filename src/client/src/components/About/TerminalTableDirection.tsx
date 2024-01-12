@@ -17,7 +17,7 @@ const TerminalTableDirection = ({ direction }: Pick<BlockTerminalItem, "directio
         {direction === Direction.Bidirectional && (
           <ArrowsRightLeft color={theme.tyle.color.primary.base} size={directionIconSize} />
         )}
-        {direction}
+        {Direction[direction]}
       </Flexbox>
     </Td>
   );

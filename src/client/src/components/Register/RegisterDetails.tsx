@@ -3,9 +3,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useCreateUser } from "api/user.queries";
 import AuthContent from "components/AuthContent";
 import Button from "components/Button";
-import Error from "components/Error";
 import { MotionFlexbox } from "components/Flexbox";
 import Form from "components/Form";
+import FormErrorBanner from "components/FormErrorBanner";
 import FormField from "components/FormField";
 import FormFieldset from "components/FormFieldset";
 import Input from "components/Input";
@@ -58,10 +58,10 @@ const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
           {!mutation.isSuccess && !mutation.isPending && (
             <Form id={"details-form"} onSubmit={handleSubmit((data) => onSubmit(data))}>
               {mutation.isError && (
-                <Error>
+                <FormErrorBanner>
                   We were not able to create your user at this moment. Please try again in about a minute. If the
-                  problem persists,
-                </Error>
+                  problem persists, contact support.
+                </FormErrorBanner>
               )}
               <FormFieldset>
                 <FormField label="E-mail *" error={formState.errors.email}>

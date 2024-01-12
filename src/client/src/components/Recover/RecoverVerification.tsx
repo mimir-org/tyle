@@ -3,8 +3,8 @@ import { useGenerateMfa } from "api/user.queries";
 import AuthContent from "components/AuthContent";
 import Button from "components/Button";
 import Digits from "components/Digits";
-import Error from "components/Error";
 import Flexbox from "components/Flexbox";
+import FormErrorBanner from "components/FormErrorBanner";
 import Input from "components/Input";
 import MotionVerifyForm from "components/MotionVerifyForm";
 import Processing from "components/Processing";
@@ -43,10 +43,10 @@ const RecoverVerification = ({ email, setMfaInfo, setVerificationInfo, cancel, c
         <>
           {showProcessing && <Processing>Processing</Processing>}
           {showError && (
-            <Error>
+            <FormErrorBanner>
               We were not able verify your ownership of this email. Verify that that you have entered the correct code
-              and please try again in about a minute. If the issue persist,
-            </Error>
+              and please try again in about a minute. If the issue persist, contact support.
+            </FormErrorBanner>
           )}
           {showInput && (
             <MotionVerifyForm

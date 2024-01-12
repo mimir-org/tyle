@@ -12,13 +12,13 @@ import { TerminalItem } from "types/terminalItem";
 import { TerminalView } from "types/terminals/terminalView";
 import { UserItem } from "types/userItem";
 import { getOptionsFromEnum } from "utils";
-import { RoleView } from "../types/authentication/roleView";
-import { RoleItem } from "../types/role";
 import { RdlPredicate } from "../types/attributes/rdlPredicate";
 import { RdlUnit } from "../types/attributes/rdlUnit";
-import { RdlMedium } from "../types/terminals/rdlMedium";
+import { RoleView } from "../types/authentication/roleView";
 import { RdlClassifier } from "../types/common/rdlClassifier";
 import { RdlPurpose } from "../types/common/rdlPurpose";
+import { RoleItem } from "../types/role";
+import { RdlMedium } from "../types/terminals/rdlMedium";
 
 const getColorFromAspect = (aspect: Aspect | null) => {
   switch (aspect) {
@@ -76,6 +76,7 @@ export const mapTerminalTypeReferenceViewToBlockTerminalItems = (
     id: x.terminal.id,
     name: x.terminal.name,
     color: getColorFromAspect(x.terminal.aspect ?? null),
+    minQuantity: x.minCount,
     maxQuantity: x.maxCount ?? undefined,
     direction: x.direction,
     attributes: sortInfoItems(mapAttributeViewsToInfoItems(x.terminal.attributes.map((x) => x.attribute))),
