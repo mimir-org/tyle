@@ -1,25 +1,26 @@
-import { useTheme } from "styled-components";
 import Box, { MotionBox } from "components/Box";
-import Heading from "../Heading";
-import StateBadge from "../StateBadge";
-import Divider from "../Divider";
-import PanelPropertiesContainer from "./PanelPropertiesContainer";
-import PanelSection from "./PanelSection";
-import Text from "../Text";
-import { AttributeView } from "../../types/attributes/attributeView";
-import { ProvenanceQualifier } from "../../types/attributes/provenanceQualifier";
-import { RangeQualifier } from "../../types/attributes/rangeQualifier";
-import { RegularityQualifier } from "../../types/attributes/regularityQualifier";
-import { ScopeQualifier } from "../../types/attributes/scopeQualifier";
-import { ConstraintType } from "../../types/attributes/constraintType";
-import { XsdDataType } from "../../types/attributes/xsdDataType";
-import { UnitRequirement } from "../AttributeForm/AttributeForm.helpers";
-import InfoItemButton from "../InfoItemButton";
+import { useTheme } from "styled-components";
+import { addSpacesToPascalCase } from "utils";
 import {
   isNullUndefinedOrWhitespace,
   mapRdlPredicateToInfoItem,
   mapRdlUnitsToInfoItems,
 } from "../../helpers/mappers.helpers";
+import { AttributeView } from "../../types/attributes/attributeView";
+import { ConstraintType } from "../../types/attributes/constraintType";
+import { ProvenanceQualifier } from "../../types/attributes/provenanceQualifier";
+import { RangeQualifier } from "../../types/attributes/rangeQualifier";
+import { RegularityQualifier } from "../../types/attributes/regularityQualifier";
+import { ScopeQualifier } from "../../types/attributes/scopeQualifier";
+import { XsdDataType } from "../../types/attributes/xsdDataType";
+import { UnitRequirement } from "../AttributeForm/AttributeForm.helpers";
+import Divider from "../Divider";
+import Heading from "../Heading";
+import InfoItemButton from "../InfoItemButton";
+import StateBadge from "../StateBadge";
+import Text from "../Text";
+import PanelPropertiesContainer from "./PanelPropertiesContainer";
+import PanelSection from "./PanelSection";
 
 interface AttributePanelProps {
   attributeData: AttributeView;
@@ -37,7 +38,7 @@ const AttributePanel = ({ attributeData }: AttributePanelProps) => {
       ? UnitRequirement[UnitRequirement.Required]
       : unitMaxCount === 1
         ? UnitRequirement[UnitRequirement.Optional]
-        : UnitRequirement[UnitRequirement.NoUnit];
+        : addSpacesToPascalCase(UnitRequirement[UnitRequirement.NoUnit]);
   };
   const getQualifiersString = () => {
     const qualifierNames: string[] = [];

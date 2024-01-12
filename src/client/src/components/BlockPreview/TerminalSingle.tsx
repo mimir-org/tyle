@@ -15,6 +15,7 @@ import TerminalDescription from "./TerminalDescription";
  */
 const TerminalSingle = ({
   name,
+  minQuantity,
   maxQuantity,
   color,
   direction,
@@ -22,7 +23,15 @@ const TerminalSingle = ({
 }: BlockTerminalItem & Pick<TerminalButtonProps, "variant">) => {
   return (
     <Tooltip
-      content={<TerminalDescription name={name} maxQuantity={maxQuantity} color={color} direction={direction} />}
+      content={
+        <TerminalDescription
+          name={name}
+          minQuantity={minQuantity}
+          maxQuantity={maxQuantity}
+          color={color}
+          direction={direction}
+        />
+      }
     >
       <TerminalButton color={color} direction={direction} variant={variant} />
     </Tooltip>

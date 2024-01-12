@@ -22,6 +22,11 @@ const TerminalTableHeader = () => {
       </Th>
       <Th textAlign={adjustAmountAlignment ? "center" : "left"}>
         <Text as={"span"} color={textColor}>
+          Min amount
+        </Text>
+      </Th>
+      <Th textAlign={adjustAmountAlignment ? "center" : "left"}>
+        <Text as={"span"} color={textColor}>
           Max amount
         </Text>
       </Th>
