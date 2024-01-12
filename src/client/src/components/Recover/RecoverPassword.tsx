@@ -3,9 +3,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useChangePassword } from "api/user.queries";
 import AuthContent from "components/AuthContent";
 import Button from "components/Button";
-import Error from "components/Error";
 import Flexbox from "components/Flexbox";
 import Form from "components/Form";
+import FormErrorBanner from "components/FormErrorBanner";
 import FormField from "components/FormField";
 import FormFieldset from "components/FormFieldset";
 import Input from "components/Input";
@@ -49,10 +49,10 @@ const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverPassword
           {!mutation.isSuccess && !mutation.isPending && (
             <Form id={"password-form"} onSubmit={handleSubmit((data) => mutation.mutate(data))}>
               {mutation.isError && (
-                <Error>
+                <FormErrorBanner>
                   We were not able to change your password at this time. Please try again in about a minute. If the
-                  issue persist,
-                </Error>
+                  issue persist, contact support.
+                </FormErrorBanner>
               )}
               <FormFieldset>
                 <Input type={"hidden"} value={verificationInfo.email} {...register("email")} />

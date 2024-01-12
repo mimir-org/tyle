@@ -3,8 +3,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useGenerateChangePasswordSecret } from "api/user.queries";
 import AuthContent from "components/AuthContent";
 import Button from "components/Button";
-import Error from "components/Error";
 import Form from "components/Form";
+import FormErrorBanner from "components/FormErrorBanner";
 import FormField from "components/FormField";
 import Input from "components/Input";
 import Processing from "components/Processing";
@@ -48,10 +48,10 @@ const RecoverDetails = ({ complete, setUserEmail }: RecoverDetailsProps) => {
               })}
             >
               {mutation.isError && (
-                <Error>
+                <FormErrorBanner>
                   We were not able to start the recovery process. Please try again in about a minute. If the issue
-                  persists,
-                </Error>
+                  persists, contact support.
+                </FormErrorBanner>
               )}
               <FormField label="E-mail *" error={errors.email}>
                 <Input id="email" type="email" placeholder="you@organization.com" {...register("email")} />
