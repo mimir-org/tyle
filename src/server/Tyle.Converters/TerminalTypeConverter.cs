@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Tyle.Application.Common;
 using Tyle.Converters.Iris;
 using Tyle.Core.Terminals;
@@ -7,10 +8,12 @@ namespace Tyle.Converters;
 
 public class TerminalTypeConverter : ITerminalTypeConverter
 {
+    private readonly IConfiguration _configuration;
     private readonly IUserInformationService _userInformationService;
 
-    public TerminalTypeConverter(IUserInformationService userInformationService)
+    public TerminalTypeConverter(IConfiguration configuration, IUserInformationService userInformationService)
     {
+        _configuration = configuration;
         _userInformationService = userInformationService;
     }
 
@@ -18,7 +21,9 @@ public class TerminalTypeConverter : ITerminalTypeConverter
     {
         var g = new Graph();
 
-        var terminalNode = g.CreateUriNode(new Uri($"http://tyle.imftools.com/terminals/{terminal.Id}"));
+        var baseIri = _configuration.GetValue<string>("BaseIri");
+
+        var terminalNode = g.CreateUriNode(new Uri($"{baseIri}/terminals/{terminal.Id}"));
 
         // Add metadata
 
