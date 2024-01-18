@@ -1,8 +1,9 @@
-using Mimirorg.Common.Enums;
-using Mimirorg.Common.Exceptions;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using System.Security.Authentication;
+using System.Security.Claims;
+using Mimirorg.Authentication.Exceptions;
+using Mimirorg.Authentication.Models.Application;
+using Mimirorg.Authentication.Models.Client;
+using Tyle.Core.Common;
 
 namespace Mimirorg.Authentication.Contracts;
 
@@ -17,7 +18,7 @@ public interface IMimirorgAuthService
     /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
     /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="AuthenticationException"></exception>
-    Task<ICollection<MimirorgTokenCm>> Authenticate(MimirorgAuthenticateAm authenticate);
+    Task<ICollection<TokenView>> Authenticate(AuthenticateRequest authenticate);
 
     /// <summary>
     /// Create a token from refresh token
@@ -25,7 +26,7 @@ public interface IMimirorgAuthService
     /// <param name="secret">string</param>
     /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
     /// <exception cref="AuthenticationException"></exception>
-    Task<ICollection<MimirorgTokenCm>> Authenticate(string secret);
+    Task<ICollection<TokenView>> Authenticate(string secret);
 
     /// <summary>
     /// Remove the current user's authentication tokens
@@ -34,6 +35,20 @@ public interface IMimirorgAuthService
     /// <returns></returns>
     Task Logout(string secret);
 
+    /// <summary>
+    /// Checking if user has permission to delete the type
+    /// </summary>
+    /// <param name="user"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public bool CanDelete(ClaimsPrincipal? user, ImfType type);
+    /// <summary>
+    /// Checking if user has permission to update the state
+    /// </summary>
+    /// <param name="user"></param>
+    /// <param name="newState"></param>
+    /// <returns></returns>
+    public bool CanChangeState(ClaimsPrincipal? user, State newState);
     #endregion
 
     #region Authorization
@@ -42,7 +57,7 @@ public interface IMimirorgAuthService
     /// Get all roles
     /// </summary>
     /// <returns>ICollection&lt;MimirorgRoleCm&gt;</returns>
-    Task<ICollection<MimirorgRoleCm>> GetAllRoles();
+    Task<ICollection<RoleView>> GetAllRoles();
 
     /// <summary>
     /// Add an user to a role
@@ -51,7 +66,7 @@ public interface IMimirorgAuthService
     /// <returns>bool</returns>
     /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="MimirorgNotFoundException"></exception>
-    Task<bool> AddUserToRole(MimirorgUserRoleAm userRole);
+    Task<bool> AddUserToRole(UserRoleRequest userRole);
 
     /// <summary>
     /// Remove user from a role
@@ -60,49 +75,13 @@ public interface IMimirorgAuthService
     /// <returns>bool</returns>
     /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="MimirorgNotFoundException"></exception>
-    Task<bool> RemoveUserFromRole(MimirorgUserRoleAm userRole);
+    Task<bool> RemoveUserFromRole(UserRoleRequest userRole);
 
     /// <summary>
-    /// Get all permissions
+    /// Delete all user roles
     /// </summary>
-    /// <returns>ICollection&lt;MimirorgPermissionCm&gt;</returns>
-    Task<ICollection<MimirorgPermissionCm>> GetAllPermissions();
-
-    /// <summary>
-    /// Set user permission for a specific company.
-    /// </summary>
-    /// <param name="userPermission">MimirorgUserPermissionAm</param>
-    /// <returns>Completed task</returns>
-    /// <exception cref="MimirorgBadRequestException"></exception>
-    /// <exception cref="MimirorgNotFoundException"></exception>
-    Task SetPermission(MimirorgUserPermissionAm userPermission);
-
-    /// <summary>
-    /// Remove user permission for a specific company.
-    /// </summary>
-    /// <param name="userPermission">MimirorgUserPermissionAm</param>
-    /// <returns>Completed task</returns>
-    /// <exception cref="MimirorgBadRequestException"></exception>
-    /// <exception cref="MimirorgNotFoundException"></exception>
-    Task RemovePermission(MimirorgUserPermissionAm userPermission);
-
-    /// <summary>
-    /// Check if user has permission to change the state for a given company
-    /// </summary>
-    /// <param name="companyId">The id of the company</param>
-    /// <param name="newState">The state to check for permission</param>
-    /// <returns>True if has access, otherwise it returns false</returns>
-    /// <exception cref="ArgumentOutOfRangeException">If not a valid state</exception>
-    Task<bool> HasAccess(int companyId, State newState);
-
-    /// <summary>
-    /// Check if user has permission to delete an item
-    /// </summary>
-    /// <param name="state">The state of the item</param>
-    /// <param name="createdById">The id of the person who created the item</param>
-    /// <param name="companyId">The id of the item company</param>
-    /// <returns>True if the user can delete the item</returns>
-    Task<bool> CanDelete(State state, string createdById, int companyId);
+    /// <returns>ICollection&lt;MimirorgRoleCm&gt;</returns>
+    Task<bool> DeleteUserRoles(UserRoleRequest userRole);
 
     #endregion
 }

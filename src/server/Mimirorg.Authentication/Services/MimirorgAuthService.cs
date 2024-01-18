@@ -7,15 +7,14 @@ using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models.Domain;
-using Mimirorg.Common.Enums;
-using Mimirorg.Common.Exceptions;
-using Mimirorg.Common.Extensions;
-using Mimirorg.Common.Models;
-using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using System.Security.Authentication;
 using System.Security.Claims;
+using Mimirorg.Authentication.Enums;
+using Mimirorg.Authentication.Exceptions;
+using Mimirorg.Authentication.Models;
+using Mimirorg.Authentication.Models.Application;
+using Mimirorg.Authentication.Models.Client;
+using Tyle.Core.Common;
 
 namespace Mimirorg.Authentication.Services;
 
@@ -25,19 +24,17 @@ public class MimirorgAuthService : IMimirorgAuthService
     private readonly UserManager<MimirorgUser> _userManager;
     private readonly SignInManager<MimirorgUser> _signInManager;
     private readonly IMimirorgTokenRepository _tokenRepository;
-    private readonly IMimirorgCompanyService _mimirorgCompanyService;
     private readonly IActionContextAccessor _actionContextAccessor;
     private readonly MimirorgAuthSettings _authSettings;
     private readonly IMimirorgEmailRepository _emailRepository;
     private readonly IMimirorgTemplateRepository _templateRepository;
     private readonly IHttpContextAccessor _contextAccessor;
 
-    public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IMimirorgCompanyService mimirorgCompanyService, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IHttpContextAccessor contextAccessor)
+    public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IHttpContextAccessor contextAccessor)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _tokenRepository = tokenRepository;
-        _mimirorgCompanyService = mimirorgCompanyService;
         _actionContextAccessor = actionContextAccessor;
         _emailRepository = emailRepository;
         _templateRepository = templateRepository;
@@ -55,7 +52,7 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
     /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="AuthenticationException"></exception>
-    public async Task<ICollection<MimirorgTokenCm>> Authenticate(MimirorgAuthenticateAm authenticate)
+    public async Task<ICollection<TokenView>> Authenticate(AuthenticateRequest authenticate)
     {
         var validation = authenticate.ValidateObject();
         if (!validation.IsValid)
@@ -78,7 +75,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         var now = DateTime.UtcNow;
         var accessToken = await _tokenRepository.CreateAccessToken(user, now);
         var refreshToken = await _tokenRepository.CreateRefreshToken(user, now);
-        return new List<MimirorgTokenCm> { accessToken, refreshToken };
+        return new List<TokenView> { accessToken, refreshToken };
     }
 
     /// <summary>
@@ -87,7 +84,7 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// <param name="secret">string</param>
     /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
     /// <exception cref="AuthenticationException"></exception>
-    public async Task<ICollection<MimirorgTokenCm>> Authenticate(string secret)
+    public async Task<ICollection<TokenView>> Authenticate(string secret)
     {
         var token = await _tokenRepository.FindBy(x => x.Secret == secret).FirstOrDefaultAsync();
 
@@ -115,7 +112,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         var accessToken = await _tokenRepository.CreateAccessToken(user, now);
         var refreshToken = await _tokenRepository.CreateRefreshToken(user, now);
 
-        return new List<MimirorgTokenCm> { accessToken, refreshToken };
+        return new List<TokenView> { accessToken, refreshToken };
     }
 
     /// <summary>
@@ -128,7 +125,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         if (string.IsNullOrWhiteSpace(secret))
             return;
 
-        var refreshToken = await _tokenRepository.FindBy((x) => x.Secret == secret && x.TokenType == MimirorgTokenType.RefreshToken).FirstOrDefaultAsync();
+        var refreshToken = await _tokenRepository.FindBy((x) => x.Secret == secret && x.TokenType == TokenType.RefreshToken).FirstOrDefaultAsync();
 
         if (refreshToken == null)
             return;
@@ -139,6 +136,23 @@ public class MimirorgAuthService : IMimirorgAuthService
         await _signInManager.SignOutAsync();
     }
 
+
+    public bool CanDelete(ClaimsPrincipal? user, ImfType type)
+    {
+        if (user.FindFirstValue(ClaimTypes.NameIdentifier) == type.CreatedBy && (user.IsInRole("Contributor")))
+            return true;
+
+        return (user.IsInRole("Administrator") || user.IsInRole("Reviewer"));
+    }
+
+    public bool CanChangeState(ClaimsPrincipal? user, State newState)
+    {
+        if (newState == State.Review && user.IsInRole("Contributor"))
+            return true;
+
+        return user.IsInRole("Administrator") || user.IsInRole("Reviewer");
+    }
+
     #endregion
 
     #region Authorization
@@ -147,11 +161,28 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// Get all roles
     /// </summary>
     /// <returns>ICollection&lt;MimirorgRoleCm&gt;</returns>
-    public async Task<ICollection<MimirorgRoleCm>> GetAllRoles()
+    public async Task<ICollection<RoleView>> GetAllRoles()
     {
-        var roles = _roleManager.Roles.Select(x => new MimirorgRoleCm { Id = x.Id, Name = x.Name });
+        var roles = _roleManager.Roles.Select(x => new RoleView { Id = x.Id, Name = x.Name });
         return await Task.FromResult(roles.ToList());
     }
+
+    /// <summary>
+    /// Delete all roles on a user
+    /// </summary>
+    /// <returns>ICollection&lt;MimirorgRoleCm&gt;</returns>
+    public async Task<bool> DeleteUserRoles(UserRoleRequest userRole)
+    {
+        var user = await _userManager.FindByIdAsync(userRole.UserId);
+        if (user == null)
+        {
+            throw new MimirorgNotFoundException($"Couldn't find any user with id: {userRole.UserId}");
+        }
+        var userRoles = await _userManager.GetRolesAsync(user);
+        return (await _userManager.RemoveFromRolesAsync(user, userRoles)).Succeeded;
+
+    }
+
 
     /// <summary>
     /// Add an user to a role
@@ -160,15 +191,15 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// <returns>bool</returns>
     /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="MimirorgNotFoundException"></exception>
-    public async Task<bool> AddUserToRole(MimirorgUserRoleAm userRole)
+    public async Task<bool> AddUserToRole(UserRoleRequest userRole)
     {
         var validation = userRole.ValidateObject();
         if (!validation.IsValid)
-            throw new MimirorgBadRequestException($"Couldn't add user to role: {userRole?.UserId} - {userRole?.MimirorgRoleId}", validation);
+            throw new MimirorgBadRequestException($"Couldn't add user to role: {userRole?.UserId} - {userRole?.RoleId}", validation);
 
-        var currentRole = await _roleManager.FindByIdAsync(userRole.MimirorgRoleId);
+        var currentRole = await _roleManager.FindByIdAsync(userRole.RoleId);
         if (currentRole == null)
-            throw new MimirorgNotFoundException($"Couldn't find any role with id: {userRole.MimirorgRoleId}");
+            throw new MimirorgNotFoundException($"Couldn't find any role with id: {userRole.RoleId}");
 
         var user = await _userManager.FindByIdAsync(userRole.UserId);
         if (user == null)
@@ -189,15 +220,15 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// <returns>bool</returns>
     /// <exception cref="MimirorgBadRequestException"></exception>
     /// <exception cref="MimirorgNotFoundException"></exception>
-    public async Task<bool> RemoveUserFromRole(MimirorgUserRoleAm userRole)
+    public async Task<bool> RemoveUserFromRole(UserRoleRequest userRole)
     {
         var validation = userRole.ValidateObject();
         if (!validation.IsValid)
-            throw new MimirorgBadRequestException($"Couldn't remove user from role: {userRole?.UserId} - {userRole?.MimirorgRoleId}", validation);
+            throw new MimirorgBadRequestException($"Couldn't remove user from role: {userRole?.UserId} - {userRole?.RoleId}", validation);
 
-        var currentRole = await _roleManager.FindByIdAsync(userRole.MimirorgRoleId);
+        var currentRole = await _roleManager.FindByIdAsync(userRole.RoleId);
         if (currentRole == null)
-            throw new MimirorgNotFoundException($"Couldn't find any role with id: {userRole.MimirorgRoleId}");
+            throw new MimirorgNotFoundException($"Couldn't find any role with id: {userRole.RoleId}");
 
         var user = await _userManager.FindByIdAsync(userRole.UserId);
         if (user == null)
@@ -209,113 +240,6 @@ public class MimirorgAuthService : IMimirorgAuthService
         }
 
         return true;
-    }
-
-    /// <summary>
-    /// Get all permissions
-    /// </summary>
-    /// <returns>ICollection&lt;MimirorgPermissionCm&gt;</returns>
-    public async Task<ICollection<MimirorgPermissionCm>> GetAllPermissions()
-    {
-        var permissions = MimirorgPermissionCm.FromPermissionEnum().ToList();
-        return await Task.FromResult(permissions);
-    }
-
-    /// <summary>
-    /// Set user permission for a specific company, and send an email to the user
-    /// </summary>
-    /// <param name="userPermission">MimirorgUserPermissionAm</param>
-    /// <returns>Completed task</returns>
-    /// <exception cref="MimirorgBadRequestException"></exception>
-    /// <exception cref="MimirorgNotFoundException"></exception>
-    public async Task SetPermission(MimirorgUserPermissionAm userPermission)
-    {
-        var validation = userPermission.ValidateObject();
-        if (!validation.IsValid)
-            throw new MimirorgBadRequestException($"Set permissions error. Couldn't set permission for user {userPermission?.UserId}", validation);
-
-        var user = await _userManager.FindByIdAsync(userPermission.UserId);
-        if (user == null)
-            throw new MimirorgNotFoundException($"Set permissions error. Couldn't find user with id {userPermission.UserId}");
-
-        var company = await _mimirorgCompanyService.GetCompanyById(userPermission.CompanyId);
-        if (company == null)
-            throw new MimirorgNotFoundException($"Set permissions error. Couldn't find company with id {userPermission.CompanyId}");
-
-        var newClaim = new Claim(company.Id.ToString(), userPermission.Permission.ToString());
-
-        var currentClaimsForUser = await _userManager.GetClaimsAsync(user);
-        currentClaimsForUser = currentClaimsForUser.Where(x => x.Type.Equals(company.Id.ToString())).ToList();
-
-        var status = await _userManager.RemoveClaimsAsync(user, currentClaimsForUser);
-        if (!status.Succeeded)
-            throw new MimirorgNotFoundException("Couldn't remove old permission for user");
-
-        status = await _userManager.AddClaimsAsync(user, new List<Claim> { newClaim });
-        if (!status.Succeeded)
-            throw new MimirorgNotFoundException("Couldn't add new permission for user");
-
-        await SendUserPermissionEmail(user, userPermission.Permission, company.Name, false);
-    }
-
-    /// <summary>
-    /// Remove user permission for a specific company, and send an email to the user
-    /// </summary>
-    /// <param name="userPermission">MimirorgUserPermissionAm</param>
-    /// <returns>Completed task</returns>
-    /// <exception cref="MimirorgBadRequestException"></exception>
-    /// <exception cref="MimirorgNotFoundException"></exception>
-    public async Task RemovePermission(MimirorgUserPermissionAm userPermission)
-    {
-        var validation = userPermission.ValidateObject();
-        if (!validation.IsValid)
-            throw new MimirorgBadRequestException($"Set permissions error. Couldn't set permission for user {userPermission?.UserId}", validation);
-
-        var user = await _userManager.FindByIdAsync(userPermission.UserId);
-        if (user == null)
-            throw new MimirorgNotFoundException($"Set permissions error. Couldn't find user with id {userPermission.UserId}");
-
-        var company = await _mimirorgCompanyService.GetCompanyById(userPermission.CompanyId);
-        if (company == null)
-            throw new MimirorgNotFoundException($"Set permissions error. Couldn't find company with id {userPermission.CompanyId}");
-
-        var currentClaimsForUser = await _userManager.GetClaimsAsync(user);
-        currentClaimsForUser = currentClaimsForUser.Where(x => x.Type.Equals(company.Id.ToString()) && x.Value == userPermission.Permission.ToString()).ToList();
-
-        var status = await _userManager.RemoveClaimsAsync(user, currentClaimsForUser);
-        if (!status.Succeeded)
-            throw new MimirorgNotFoundException("Couldn't remove permission for user");
-
-        await SendUserPermissionEmail(user, userPermission.Permission, company.Name, true);
-    }
-
-    /// <summary>
-    /// Check if user has permission to change the state for a given company
-    /// </summary>
-    /// <param name="companyId">The id of the company, or 0 for non-company objects</param>
-    /// <param name="newState">The state to check for permission</param>
-    /// <returns>True if has access, otherwise it returns false</returns>
-    /// <exception cref="ArgumentOutOfRangeException">If not a valid state</exception>
-    public Task<bool> HasAccess(int companyId, State newState)
-    {
-        var permission = newState switch
-        {
-            State.Draft => MimirorgPermission.Approve,
-            State.Review => MimirorgPermission.Write,
-            State.Approved => MimirorgPermission.Approve,
-            _ => throw new ArgumentOutOfRangeException(nameof(newState), newState, null)
-        };
-
-        var access = _actionContextAccessor.ActionContext?.HttpContext.HasPermission(permission, companyId.ToString());
-        return Task.FromResult(access ?? false);
-    }
-
-    public Task<bool> CanDelete(State state, string createdById, int companyId)
-    {
-        if (state == State.Approved) return Task.FromResult(false);
-
-        var currentUserId = _contextAccessor.GetUserId();
-        return currentUserId == createdById ? Task.FromResult(_actionContextAccessor.ActionContext?.HttpContext.HasPermission(MimirorgPermission.Write, companyId.ToString()) ?? false) : HasAccess(companyId, State.Approved);
     }
 
     #endregion
@@ -352,26 +276,5 @@ public class MimirorgAuthService : IMimirorgAuthService
 
         return validator.Validate(user.SecurityHash, codeInt);
     }
-
-    /// <summary>
-    /// Sends an email to a user about permission
-    /// </summary>
-    /// <param name="toUser"></param>
-    /// <param name="companyName"></param>
-    /// <param name="permission"></param>
-    /// <param name="isPermissionRemoval"></param>
-    /// <returns></returns>
-    private async Task SendUserPermissionEmail(MimirorgUser toUser, MimirorgPermission permission, string companyName, bool isPermissionRemoval)
-    {
-        var from = await _userManager.FindByIdAsync(_contextAccessor.GetUserId());
-
-        if (from == null || toUser == null)
-            throw new MimirorgNotFoundException("User(s) not found 'SendUserPermissionEmail'");
-
-        var email = await _templateRepository.CreateUserPermissionEmail(toUser.ToContentModel(), from.ToContentModel(), permission, companyName, isPermissionRemoval);
-
-        await _emailRepository.SendEmail(email);
-    }
-
     #endregion
 }
