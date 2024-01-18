@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Tyle.Application.Common;
 using Tyle.Converters.Iris;
 using Tyle.Core.Blocks;
@@ -7,10 +8,12 @@ namespace Tyle.Converters;
 
 public class BlockTypeConverter : IBlockTypeConverter
 {
+    private readonly IConfiguration _configuration;
     private readonly IUserInformationService _userInformationService;
 
-    public BlockTypeConverter(IUserInformationService userInformationService)
+    public BlockTypeConverter(IConfiguration configuration, IUserInformationService userInformationService)
     {
+        _configuration = configuration;
         _userInformationService = userInformationService;
     }
 
@@ -18,7 +21,9 @@ public class BlockTypeConverter : IBlockTypeConverter
     {
         var g = new Graph();
 
-        var blockNode = g.CreateUriNode(new Uri($"http://tyle.imftools.com/blocks/{block.Id}"));
+        var baseIri = _configuration.GetValue<string>("BaseIri");
+
+        var blockNode = g.CreateUriNode(new Uri($"{baseIri}/blocks/{block.Id}"));
 
         // Add metadata
 
