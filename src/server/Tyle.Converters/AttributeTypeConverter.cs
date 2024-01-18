@@ -1,4 +1,5 @@
 using System.Globalization;
+using Microsoft.Extensions.Configuration;
 using Tyle.Application.Common;
 using Tyle.Converters.Iris;
 using Tyle.Core.Attributes;
@@ -8,10 +9,12 @@ namespace Tyle.Converters;
 
 public class AttributeTypeConverter : IAttributeTypeConverter
 {
+    private readonly IConfiguration _configuration;
     private readonly IUserInformationService _userInformationService;
 
-    public AttributeTypeConverter(IUserInformationService userInformationService)
+    public AttributeTypeConverter(IConfiguration configuration, IUserInformationService userInformationService)
     {
+        _configuration = configuration;
         _userInformationService = userInformationService;
     }
 
@@ -19,7 +22,9 @@ public class AttributeTypeConverter : IAttributeTypeConverter
     {
         var g = new Graph();
 
-        var attributeNode = g.CreateUriNode(new Uri($"http://tyle.imftools.com/attributes/{attribute.Id}"));
+        var baseIri = _configuration.GetValue<string>("BaseIri");
+
+        var attributeNode = g.CreateUriNode(new Uri($"{baseIri}/attributes/{attribute.Id}"));
 
         // Add metadata
 
