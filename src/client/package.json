@@ -1,6 +1,6 @@
 {
   "name": "tyle",
-  "version": "0.1.0",
+  "version": "0.25.0",
   "private": true,
   "dependencies": {
     "@fontsource/roboto": "^5.0.8",
