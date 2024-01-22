@@ -61,13 +61,24 @@ public class CommonLibSyncingService : IHostedService, IDisposable
             return;
         }
 
-        var purposes = await downstreamApi.GetForAppAsync<IEnumerable<CommonLibObject>>("CommonLib", options =>
-        {
-            options.RelativePath = "api/Code/IMFPurpose";
-            options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
-        });
+        var purposes = new List<CommonLibObject>();
 
-        if (purposes == null)
+        try
+        {
+            var purposesFromApi = await downstreamApi.GetForAppAsync<IEnumerable<CommonLibObject>>("CommonLib", options =>
+            {
+                options.RelativePath = "api/Code/IMFPurpose";
+                options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
+            });
+
+            if (purposesFromApi == null)
+            {
+                return;
+            }
+
+            purposes.AddRange(purposesFromApi);
+        }
+        catch (Exception)
         {
             return;
         }
@@ -111,13 +122,24 @@ public class CommonLibSyncingService : IHostedService, IDisposable
             return;
         }
 
-        var media = await downstreamApi.GetForAppAsync<IEnumerable<CommonLibObject>>("CommonLib", options =>
-        {
-            options.RelativePath = "api/Code/IMFMedium";
-            options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
-        });
+        var media = new List<CommonLibObject>();
 
-        if (media == null)
+        try
+        {
+            var mediaFromApi = await downstreamApi.GetForAppAsync<IEnumerable<CommonLibObject>>("CommonLib", options =>
+            {
+                options.RelativePath = "api/Code/IMFMedium";
+                options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
+            });
+
+            if (mediaFromApi == null)
+            {
+                return;
+            }
+
+            media.AddRange(mediaFromApi);
+        }
+        catch (Exception)
         {
             return;
         }
@@ -161,13 +183,24 @@ public class CommonLibSyncingService : IHostedService, IDisposable
             return;
         }
 
-        var classifiers = await downstreamApi.GetForAppAsync<IEnumerable<CommonLibObject>>("CommonLib", options =>
-        {
-            options.RelativePath = "api/Code/IMFClassifier";
-            options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
-        });
+        var classifiers = new List<CommonLibObject>();
 
-        if (classifiers == null)
+        try
+        {
+            var classifiersFromApi = await downstreamApi.GetForAppAsync<IEnumerable<CommonLibObject>>("CommonLib", options =>
+            {
+                options.RelativePath = "api/Code/IMFClassifier";
+                options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
+            });
+
+            if (classifiersFromApi == null)
+            {
+                return;
+            }
+
+            classifiers.AddRange(classifiersFromApi);
+        }
+        catch (Exception)
         {
             return;
         }
@@ -211,13 +244,24 @@ public class CommonLibSyncingService : IHostedService, IDisposable
             return;
         }
 
-        var predicates = await downstreamApi.GetForAppAsync<IEnumerable<CommonLibObject>>("CommonLib", options =>
-        {
-            options.RelativePath = "api/Code/IMFPredicate";
-            options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
-        });
+        var predicates = new List<CommonLibObject>();
 
-        if (predicates == null)
+        try
+        {
+            var predicatesFromApi = await downstreamApi.GetForAppAsync<IEnumerable<CommonLibObject>>("CommonLib", options =>
+            {
+                options.RelativePath = "api/Code/IMFPredicate";
+                options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
+            });
+
+            if (predicatesFromApi == null)
+            {
+                return;
+            }
+
+            predicates.AddRange(predicatesFromApi);
+        }
+        catch (Exception)
         {
             return;
         }
@@ -261,13 +305,24 @@ public class CommonLibSyncingService : IHostedService, IDisposable
             return;
         }
 
-        var units = await downstreamApi.GetForAppAsync<IEnumerable<CommonLibObject>>("CommonLib", options =>
-        {
-            options.RelativePath = "api/Code/IMFUnitOfMeasure";
-            options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
-        });
+        var units = new List<CommonLibObject>();
 
-        if (units == null)
+        try
+        {
+            var unitsFromApi = await downstreamApi.GetForAppAsync<IEnumerable<CommonLibObject>>("CommonLib", options =>
+            {
+                options.RelativePath = "api/Code/IMFUnitOfMeasure";
+                options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
+            });
+
+            if (unitsFromApi == null)
+            {
+                return;
+            }
+
+            units.AddRange(unitsFromApi);
+        }
+        catch (Exception)
         {
             return;
         }
@@ -311,19 +366,25 @@ public class CommonLibSyncingService : IHostedService, IDisposable
             return;
         }
 
-        var response = await downstreamApi.CallApiForAppAsync("CommonLib", options =>
+        HttpResponseMessage response;
+
+        try
         {
-            options.HttpMethod = "POST";
-            options.RelativePath = "api/symbol/ReadEngineeringSymbol?allVersions=false";
-            options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
-
-            options.CustomizeHttpRequestMessage = message =>
+            response = await downstreamApi.CallApiForAppAsync("CommonLib", options =>
             {
-                message.Content = new StringContent("", System.Text.Encoding.UTF8, "application/json-patch+json");
-            };
-        });
+                options.HttpMethod = "POST";
+                options.RelativePath = "api/symbol/ReadEngineeringSymbol?allVersions=false";
+                options.AcquireTokenOptions.AuthenticationOptionsName = "AzureAd";
 
-        if (!response.IsSuccessStatusCode)
+                options.CustomizeHttpRequestMessage = message => { message.Content = new StringContent("", System.Text.Encoding.UTF8, "application/json-patch+json"); };
+            });
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return;
+            }
+        }
+        catch (Exception)
         {
             return;
         }
