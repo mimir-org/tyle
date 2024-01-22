@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Abstractions;
@@ -379,7 +380,7 @@ public class CommonLibSyncingService : IHostedService, IDisposable
                 options.CustomizeHttpRequestMessage = message => { message.Content = new StringContent("", System.Text.Encoding.UTF8, "application/json-patch+json"); };
             });
 
-            if (!response.IsSuccessStatusCode)
+            if (response.StatusCode != HttpStatusCode.OK)
             {
                 return;
             }
