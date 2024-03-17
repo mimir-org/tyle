@@ -18,7 +18,7 @@ RUN npm test
 FROM base as build
 RUN npm run build
 
-FROM nginx:stable-alpine AS final
+FROM nginx:1.24-alpine3.17 AS final
 COPY --from=build /app/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY start.sh .
